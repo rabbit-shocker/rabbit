@@ -10,6 +10,7 @@ end
 
 match(TitleSlide, "*") do |elems|
   elems.prop_set("size", @large_font_size)
+  elems.prop_set("font_family", "Sans")
 end
 
 match(TitleSlide, Title) do |titles|
@@ -59,6 +60,7 @@ end
 
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
+  heads.prop_set("font_family", "Sans")
   heads.horizontal_centering = true
 
   space = screen_size(1)
@@ -72,6 +74,7 @@ end
 
 match("**", Paragraph) do |texts|
   texts.prop_set("size", @normal_font_size)
+  texts.prop_set("font_family", "Sans")
 
   space = screen_size(2.0)
   texts.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|

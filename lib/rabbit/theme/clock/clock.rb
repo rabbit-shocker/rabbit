@@ -5,7 +5,10 @@ if @clock_auto_update.nil?
   @clock_auto_update = true
 end
 
-@clock_font_size ||= @xx_small_font_size
+@clock_props ||= {
+  "size" => @xx_small_font_size,
+  "font_family" => "Sans",
+}
 
 match(Slide) do |slides|
 
@@ -29,7 +32,7 @@ match(Slide) do |slides|
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       text = Time.now.strftime('%H:%M:%S')
-      text = %Q[<span size="#{@slide_number_font_size}">#{text}</span>]
+      text = %Q[<span #{to_attrs(@clock_props)}>#{text}</span>]
       layout, text_width, text_height = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
       num_y = canvas.height - @bottom_margin - text_height
