@@ -1,0 +1,335 @@
+# -*- rd -*-
+
+= README.ja
+
+$Id: README.ja 400 2004-08-03 06:53:24Z kou $
+
+== 名前
+
+Rabbit
+
+== 作者
+
+=== プログラム
+
+Kouhei Sutou <kou@cozmixng.org>
+
+=== 画像
+
+モモ
+
+== ライセンス
+
+プログラム，画像ともにRuby's
+
+マスコットキャラクタのPSDファイルが欲しい人はプログラム作者
+に連絡してください．画像作者に相談してみます．
+
+== メーリングリスト
+
+((<COZMIXNG RWiki - 連絡先
+|URL:http://www.cozmixng.org/~rwiki/?cmd=view;name=%CF%A2%CD%ED%C0%E8>))
+を御覧下さい．
+
+== バグトラッキングシステム
+
+ご意見ご要望不具合報告等は作者へのメール，上記のメーリングリ
+スト，RWikiへの書き込みをご利用下さい．
+
+== スクリーンショット
+
+((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/>))
+
+== お願い
+
+私にはセンスがないので，素晴らしいテーマを作ってください．
+
+ドキュメントが不足しています．助けてください．
+
+== なにこれ？
+
+RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
+ウェアです．
+
+
+== 依存ライブラリ
+
+  * ((<RAA:rdtool>))
+  * ((<RAA:ruby-gnome2>))の中のRuby/GTK2
+
+=== あればよいもの
+
+  * mimeTeX
+  * gs
+
+== 入手方法
+
+((<URL:http://www.cozmixng.org/~kou/download/rabbit.tar.gz>))
+
+  % svn co http://www.cozmixng.org/repos/ruby/rabbit/trunk rabbit
+
+== インストール
+
+  % ruby setup.rb config
+  % ruby setup.rb setup
+  # ruby setup.rb install
+
+== 使い方
+
+  % rabbit XXX.rd
+
+とか
+
+  % rabbit --type file XXX.rd
+
+とか．．．
+
+例えば，sample/rabbit-implementation.rdを使うには，トップの
+ディレクトリで以下のようにします．
+
+  % rabbit --type file sample/rabbit-implementation.rd
+
+=== オプション
+
+: -t, --theme
+   テーマを指定します．
+
+: --source-infos
+   入力ソースの情報を指定します．
+
+: --type
+   入力ソースの種類を指定します．
+
+: -e, --encoding
+   入力ソースのエンコーディングを指定します．
+
+: -f, --full-screen
+   フルスクリーンモードで起動します．
+
+: -w, --width
+   ウィンドウの幅を指定します．
+   
+: -h, --height
+   ウィンドウの高さを指定します．
+   
+: --size
+   ウィンドウの高さと幅を指定します．
+
+: -s, --save-as-image
+   スライドの各ページを画像として保存します．
+
+: --saved-image-type
+   保存される画像の種類を指定します．
+
+: --saved-image-basename
+   保存される画像のファイルのベース名を指定します．保存され
+   る画像の名前は"#{ベース名}#{ページ番号}.#{拡張子}"となり
+   ます．
+   
+   デフォルトはスライドのタイトルです．
+   
+   もし，ファイルシステムのエンコーディングがUTF-8ではないの
+   に，ファイル名がUTF-8で保存される場合は，環境変数LANGとか
+   G_FILENAME_ENCODINGとかを設定するとよいかもしれません．
+
+== Rabbit用RDの書き方
+
+基本的に((<RAA:rwiki>))のスライド拡張と同じです．具体的な
+サンプルはsample/rabbit.rdを見てください．
+
+=== ページ
+
+一番大きな見出し（=）がページのタイトルになります．そのペー
+ジは次の見出しまで続きます．
+
+  = タイトル
+
+  なにか
+
+  ...
+
+  = 次のページ
+
+  ...
+
+この例だと二ページになります．
+
+=== タイトルページ
+
+最初のページはタイトルページになります．タイトルページには見
+出し付きリスト（:）でスライドのメタ情報を指定できます．
+
+  = 発表のタイトル
+
+  : author
+     須藤功平
+  : institution
+     COZMIXNG
+
+この例では，作者が須藤功平で，所属がCOZMIXNGであるということ
+を示しています．
+
+現在のところ，authorとinstitution以外にsubtitle，
+content_source，themeというメタ情報が指定できます．themeは，
+Rabbitを起動するときにテーマが指定されなかった場合に使用され
+るテーマになります．
+
+=== 画像
+
+verbatim blockとして記述します．詳しくはsample/rabbit.rdを見
+てください．
+
+=== 実体参照
+
+inline verbatimとして記述します．詳しくはsample/rabbit.rdを見
+てください．
+
+=== 上（下）付き文字
+
+inline verbatimとして記述します．詳しくはsample/rabbit.rdを見
+てください．
+
+=== 見出し
+
+一番大きな見出し以外は使用できないので注意してください（スラ
+イドではタイトル以外の見出しは必要ありませんよね？）．
+
+=== 注釈
+
+たぶん，使えませんが，プレゼンテーションでは使うべきではない
+と思います．
+
+== テーマ
+
+スライドの見た目はRDとは別に指定します．それがテーマです．
+
+=== 置き場所
+
+テーマはrubyの$LOAD_PATHから検索されます．新しくテーマを作成
+した場合は((|$LOAD_PATHに含まれているパス/rabbit/theme/テー
+マ名/テーマ名.rb|))に置いてください．
+
+=== 書き方
+
+テーマはRubyスクリプトです．難しいと思われるかもしれませんが，
+凝ったことをしなければそれほど難しいことはありません．
+
+テーマは以下のような記述を列挙していくことになると思います．
+
+  (1) 対象となるスライド中の要素（段落とか，ページタイトルと
+      か）を選択
+
+  (2) 選択した要素に対して属性を変更したり，描画時の動作を加
+      えたりする．
+
+例えば，各ページ（タイトルページは含まない）にあるタイトルの
+文字の色を変更したい場合は以下のように書きます．
+
+  match(Page, HeadLine) do |heads|
+    heads.prop_set("foreground", "red")
+  end
+
+((|heads|))というように複数形になっているのは，((|heads|))は
+タイトル（見出し，head line）が0個以上含んでいるからです．
+
+=== プロパティ
+
+(({prop_set}))では前景色（foreground）以外にも以下のものが指
+定できます．詳しくは((<Pango Text Attribute
+Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>))
+を見てください．
+
+: font_desc
+   フォント情報を指定します．
+
+: font_family
+   フォント名を指定します．
+   
+   フォント名の一覧は(({font_families}))とやればフォント名の
+   配列として取得できます．
+
+: face
+   font_familyと同じです．
+
+: size
+   フォントの大きさを指定します．
+   
+   フォントの大きさを数値で指定する場合は，指定する数値を
+   (({screen_size}))で変換してから(({Pango::SCALE}))を掛けて
+   ください．例えば，フォントの大きさを（Rabbitのテーマの世
+   界の単位で）2にする場合は以下のようにします．
+
+     screen_size(2) * Pango::SCALE
+
+: style
+   フォントのスタイルを指定します．
+
+: weight
+   フォントの重みを指定します．
+
+: variant
+   フォントのvariant（変形方法って感じ？）を指定します．
+
+: stretch
+   フォントの伸び縮みの具合を指定します．
+
+: foreground
+   前景色を指定します．
+
+: background
+   背景色を指定します．
+
+: underline
+   下線の種類をします．
+
+: rise
+   文字の上下の位置を指定します．
+
+: strikethrough
+   取消線を引くかどうかを指定します．
+
+: fallback
+   指定したフォントがなかった場合に似たようなフォントで代用
+   するかどうかを指定します．
+
+: lang
+   言語を指定します．
+
+: b
+   太字にします．
+
+: big
+   フォントのサイズを大きくします．
+
+: i
+   斜体にします．
+
+: s
+   取消線を引きます．
+
+: sub
+   下付き文字にします．
+
+: sup
+   上付き文字にします．
+
+: small
+   フォントのサイズを小さくします．
+
+: tt
+   固定スペースフォントにします．
+
+: u
+   下線を引きます．
+
+=== フック
+
+要素が描画される前，又は後に実行される手続きを指定することが
+できます．それぞれ，(({add_pre_draw_proc}))，
+(({add_post_draw_proc}))で指定できます．これらの手続きを削除
+するときは，それぞれ(({clear_pre_draw_procs}))，
+(({clear_post_draw_procs}))を使います．
+
+詳しくは．．．とりあえず，今のところはdefaultテーマを参考に
+してください．
+

@@ -1,0 +1,161 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require "optparse"
+require "ostruct"
+
+require "rabbit/rabbit"
+require "rabbit/source"
+
+def parse(args)
+  options = OpenStruct.new
+  options.theme = "default"
+  options.theme_specified = false
+  options.source_infos = [ARGF]
+  options.source_infos_changed = false
+  options.source_type = Rabbit::Source::ARGF
+  options.full_screen = false
+  options.width = 800
+  options.height = 600
+  options.save_as_image = false
+  options.saved_image_basename = nil
+  options.saved_image_type = "png"
+  options.encoding = "UTF-8"
+
+  opts = OptionParser.new do |opts|
+    opts.separator ""
+
+    opts.on("-t", "--theme [THEME]",
+            "Use [THEME] as theme.",
+            "(#{options.theme})") do |theme|
+      options.theme = theme
+      options.theme_specified = true
+    end
+    
+    opts.on("--source-infos [SOURCE_INFO],...",
+            Array,
+            "Use [SOURCE_INFO],... by geting source.",
+            "(#{options.source_infos.join(', ')})") do |infos|
+      options.source_infos = infos
+      options.source_infos_changed = true
+    end
+
+    opts.separator ""
+
+    get_last_name = Proc.new do |klass|
+      klass.name.split("::").last
+    end
+    
+    source_type_names = Rabbit::Source.types.collect do |x|
+      get_last_name[x].downcase
+    end
+    source_type_descs = Rabbit::Source.types.collect do |x|
+      ["When select #{get_last_name[x]}",
+       "specify #{x.initial_args_description}",
+       "as source infos.",
+       " "]
+    end.flatten
+    opts.on("--type [TYPE]",
+            source_type_names,
+            "Specify source type as [TYPE].",
+            "Select from [#{source_type_names.join(', ')}].",
+            "Note: case insensitive.",
+            "(#{get_last_name[options.source_type]})",
+            " ",
+            *source_type_descs) do |source_type|
+      options.source_type = Rabbit::Source.types.find do |t|
+        get_last_name[t].downcase == source_type.downcase
+      end
+    end
+
+    opts.on("-e", "--encoding [ENCODING]",
+            "Specify soruce encoding.",
+            "(#{options.encoding})") do |encoding|
+      options.encoding = encoding
+    end
+
+    opts.on("-f", "--full-screen",
+            "Turn on full screen mode.",
+            "(#{options.full_screen})") do
+      options.full_screen = true
+    end
+
+    opts.on("-w", "--width [WIDTH]",
+            Integer,
+            "Set window width to [WIDTH].",
+            "(#{options.width})") do |width|
+      options.width = width
+    end
+
+    opts.on("-h", "--height [HEIGHT]",
+            Integer,
+            "Set window height to [HEIGHT].",
+            "(#{options.height})") do |height|
+      options.height = height
+    end
+
+    opts.on("--size [WIDTH],[HEIGHT]",
+            Array,
+            "Set window width and height to",
+            "[WIDTH] and [HEIGHT].",
+            "(#{options.width},#{options.height})") do |size|
+      width, height = size.collect{|x| Integer(x)}
+      options.width = width
+      options.height = height
+    end
+
+    opts.on("-s", "--save-as-image",
+            "Save as image and exit.") do
+      options.save_as_image = true
+    end
+
+    opts.on("--saved-image-type [TYPE]",
+            "Specify saved image type as [TYPE].",
+            "(#{options.saved_image_type})") do |t|
+      options.saved_image_type = t
+    end
+
+    opts.on("-b", "--saved-image-basename [BASENAME]",
+            "Specify saved image basename as [BASENAME].",
+            "(Title of slide)") do |b|
+      options.saved_image_basename = b
+    end
+
+    opts.on_tail("--help", "Show this message") do
+      puts opts
+      exit
+    end
+  end
+
+  opts.parse!(args)
+
+  if options.source_type == Rabbit::Source::File and
+      not options.source_infos_changed
+    options.source_infos = ARGV
+  end
+
+  options
+end
+
+def make_source(options)
+  options.source_type.new(options.encoding, *options.source_infos)
+end
+
+options = parse(ARGV)
+
+Gtk.init
+
+frame = Rabbit::Frame.new(options.width, options.height, options.full_screen)
+if options.theme_specified
+  frame.apply_theme(options.theme)
+end
+frame.parse_rd(make_source(options))
+frame.saved_image_type = options.saved_image_type
+frame.saved_image_basename = options.saved_image_basename
+
+if options.save_as_image
+  frame.unfullscreen
+  frame.save_as_image
+else
+  Gtk.main
+end

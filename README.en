@@ -1,0 +1,91 @@
+# -*- rd -*-
+
+= README.en
+
+$Id: README.en 400 2004-08-03 06:53:24Z kou $
+
+== Name
+
+Rabbit
+
+== Author
+
+=== Program
+
+Kouhei Sutou <kou@cozmixng.org>
+
+=== Images
+
+MoMo
+
+== Licence
+
+Ruby's
+
+If you want to get PSD file of mascot character, tell
+program author. I'll ask images author.
+
+== Mailing list
+
+Send mail that To field is cozdev@cozmixng.quickml.com , Cc
+field is kou@cozmixng.org and Subject and Body contain
+somthig to
+((<"cozdev@cozmixng.quickml.com"|URL:mailto:cozdev@cozmixng.quickml.com?cc=kou@cozmixng.org&subject=Join!>)).
+
+Note that this mailing list's main language is Japanese. But
+English mail is welcome too.
+
+== Screenshots
+
+((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/>))
+
+== What's this?
+
+This is an application to do presentation with RD document.
+
+== Dependency library
+
+  * ((<RAA:rdtool>))
+  * Ruby/GTK2 in ((<RAA:ruby-gnome2>))
+
+=== Suggested programs
+
+  * mimeTeX
+  * gs
+
+== Download
+
+((<URL:http://www.cozmixng.org/~kou/download/rabbit.tar.gz>))
+
+  % svn co http://www.cozmixng.org/repos/ruby/rabbit/trunk rabbit
+
+== Install
+
+  % ruby setup.rb config
+  % ruby setup.rb setup
+  # ruby setup.rb install
+
+== Usage
+
+  % rabbit XXX.rd
+
+or
+
+  % rabbit --type file XXX.rd
+
+...
+
+Type the following if you need more options.
+
+  % rabbit --help
+
+
+Type the following if you want to run sample/rabbit_en.rd.
+
+  % rabbit --type file sample/rabbit_en.rd
+
+== How to write
+
+See sample/rabbit_en.rd.
+
+Sorry, more better documentation is comming soon.
