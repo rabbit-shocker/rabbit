@@ -1,6 +1,9 @@
 set_foreground("black")
-set_background("#f500f1d0c600")
-#set_background("white") # for print
+if print? and slides_per_page > 1
+  set_background("white")
+else
+  set_background("#f500f1d0c600")
+end
 #set_background_image("lavie.png")
 
 include_theme("default")

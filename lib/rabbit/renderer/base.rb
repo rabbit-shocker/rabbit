@@ -62,11 +62,11 @@ module Rabbit
         Pango::Context.new
       end
       
-      private
       def printable?
         false
       end
 
+      private
       def can_create_pixbuf?
         false
       end

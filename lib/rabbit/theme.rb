@@ -177,6 +177,14 @@ module Rabbit
         @theme.canvas
       end
 
+      def print?
+        canvas.renderer.printable?
+      end
+
+      def slides_per_page
+        canvas.slides_per_page
+      end
+      
       def set_foreground(color)
         canvas.foreground = canvas.make_color(color)
       end

@@ -11,17 +11,7 @@ module Rabbit
       def_delegators(:@canvas, :current_index)
       
       attr_reader :page_width, :page_height
-      attr_accessor :left_margin, :right_margin
-      attr_accessor :top_margin, :bottom_margin
 
-      def initialize(canvas)
-        super
-        @left_margin = nil
-        @right_margin = nil
-        @top_margin = nil
-        @bottom_margin = nil
-      end
-      
       def width
         @layout.slide_width
       end
