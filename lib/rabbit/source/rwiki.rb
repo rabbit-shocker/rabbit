@@ -1,5 +1,5 @@
 require 'rabbit/source/base'
-require 'rwiki/soap-driver'
+require 'rwiki/soap/driver'
 
 module Rabbit
   module Source
