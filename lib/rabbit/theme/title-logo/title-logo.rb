@@ -1,10 +1,18 @@
+proc_name = "title-logo"
+
+if @title_logo_image.nil?
+  raise "must specify @title_logo_image!!"
+end
+
 match(TitlePage, Title) do |titles|
 
   loader = ImageLoader.new(search_file(@title_logo_image))
 
   resized = false
 
-  titles.add_pre_draw_proc do |title, canvas, x, y, w, h, simulation|
+  titles.delete_pre_draw_proc_by_name(proc_name)
+  
+  titles.add_pre_draw_proc(proc_name) do |title, canvas, x, y, w, h, simulation|
     unless simulation
       title_page = title.parent
       unless resized

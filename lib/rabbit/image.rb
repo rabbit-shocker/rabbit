@@ -1,4 +1,3 @@
-
 require "tempfile"
 require 'thread'
 
@@ -46,7 +45,7 @@ module Rabbit
         w ||= width
         h ||= height
       end
-      if [w, h] != [width, height]
+      if w > 0 and h > 0 and [w, h] != [width, height]
         if eps?
           load_image(w, h)
         else

@@ -312,6 +312,10 @@ module Rabbit
       @saved_image_basename || GLib.filename_from_utf8(title)
     end
 
+    def redraw
+      @drawing_area.queue_draw
+    end
+
     private
     def title_page
       @pages.find{|x| x.is_a?(Element::TitlePage)}
@@ -343,89 +347,14 @@ module Rabbit
 
     def set_key_press_event
       @drawing_area.signal_connect("key_press_event") do |widget, event|
-        case event.keyval
-        when Gdk::Keyval::GDK_Escape, Gdk::Keyval::GDK_q
-          quit
-        when Gdk::Keyval::GDK_n,
-        Gdk::Keyval::GDK_f,
-        Gdk::Keyval::GDK_j,
-        Gdk::Keyval::GDK_l,
-        Gdk::Keyval::GDK_Page_Down,
-        Gdk::Keyval::GDK_Tab,
-        Gdk::Keyval::GDK_Return,
-        Gdk::Keyval::GDK_rightarrow,
-        Gdk::Keyval::GDK_downarrow,
-        Gdk::Keyval::GDK_space,
-        Gdk::Keyval::GDK_plus,
-        Gdk::Keyval::GDK_Right,
-        Gdk::Keyval::GDK_Down,
-        Gdk::Keyval::GDK_KP_Add,
-        Gdk::Keyval::GDK_KP_Right,
-        Gdk::Keyval::GDK_KP_Down,
-        Gdk::Keyval::GDK_KP_Page_Down,
-        Gdk::Keyval::GDK_KP_Enter,
-        Gdk::Keyval::GDK_KP_Tab
-          move_to_next_if_can
-        when Gdk::Keyval::GDK_p,
-        Gdk::Keyval::GDK_b,
-        Gdk::Keyval::GDK_h,
-        Gdk::Keyval::GDK_k,
-        Gdk::Keyval::GDK_Page_Up,
-        Gdk::Keyval::GDK_leftarrow,
-        Gdk::Keyval::GDK_uparrow,
-        Gdk::Keyval::GDK_BackSpace,
-        Gdk::Keyval::GDK_Delete,
-        Gdk::Keyval::GDK_minus,
-        Gdk::Keyval::GDK_Up,
-        Gdk::Keyval::GDK_Left,
-        Gdk::Keyval::GDK_KP_Subtract,
-        Gdk::Keyval::GDK_KP_Up,
-        Gdk::Keyval::GDK_KP_Left,
-        Gdk::Keyval::GDK_KP_Page_Up,
-        Gdk::Keyval::GDK_KP_Delete
-          move_to_previous_if_can
-        when Gdk::Keyval::GDK_a,
-        Gdk::Keyval::GDK_Home,
-        Gdk::Keyval::GDK_less
-          move_to_first
-        when Gdk::Keyval::GDK_e,
-        Gdk::Keyval::GDK_End,
-        Gdk::Keyval::GDK_greater
-          move_to_last
-        when Gdk::Keyval::GDK_0,
-        Gdk::Keyval::GDK_1,
-        Gdk::Keyval::GDK_2,
-        Gdk::Keyval::GDK_3,
-        Gdk::Keyval::GDK_4,
-        Gdk::Keyval::GDK_5,
-        Gdk::Keyval::GDK_6,
-        Gdk::Keyval::GDK_7,
-        Gdk::Keyval::GDK_8,
-        Gdk::Keyval::GDK_9
-          move_to_if_can(calc_page_number(event, Gdk::Keyval::GDK_0))
-        when Gdk::Keyval::GDK_KP_0,
-        Gdk::Keyval::GDK_KP_1,
-        Gdk::Keyval::GDK_KP_2,
-        Gdk::Keyval::GDK_KP_3,
-        Gdk::Keyval::GDK_KP_4,
-        Gdk::Keyval::GDK_KP_5,
-        Gdk::Keyval::GDK_KP_6,
-        Gdk::Keyval::GDK_KP_7,
-        Gdk::Keyval::GDK_KP_8,
-        Gdk::Keyval::GDK_KP_9
-          move_to_if_can(calc_page_number(event, Gdk::Keyval::GDK_KP_0))
-        when Gdk::Keyval::GDK_F10
-          @frame.toggle_fullscreen
-          reload_theme
-        when Gdk::Keyval::GDK_t,
-        Gdk::Keyval::GDK_r
-          reload_theme
-        when Gdk::Keyval::GDK_s
-          save_as_image
-        when Gdk::Keyval::GDK_z
-          @frame.iconify
-        when Gdk::Keyval::GDK_i
-          toggle_index_mode
+        handled = false
+        
+        if event.state.control_mask?
+          handled = handle_key_with_control(event)
+        end
+        
+        unless handled
+          handle_key(event)
         end
       end
     end
@@ -571,6 +500,103 @@ module Rabbit
         n += 1
       end
       n
+    end
+
+    def handle_key(key_event)
+      case key_event.keyval
+      when Gdk::Keyval::GDK_Escape, Gdk::Keyval::GDK_q
+        quit
+      when Gdk::Keyval::GDK_n,
+      Gdk::Keyval::GDK_f,
+      Gdk::Keyval::GDK_j,
+      Gdk::Keyval::GDK_l,
+      Gdk::Keyval::GDK_Page_Down,
+      Gdk::Keyval::GDK_Tab,
+      Gdk::Keyval::GDK_Return,
+      Gdk::Keyval::GDK_rightarrow,
+      Gdk::Keyval::GDK_downarrow,
+      Gdk::Keyval::GDK_space,
+      Gdk::Keyval::GDK_plus,
+      Gdk::Keyval::GDK_Right,
+      Gdk::Keyval::GDK_Down,
+      Gdk::Keyval::GDK_KP_Add,
+      Gdk::Keyval::GDK_KP_Right,
+      Gdk::Keyval::GDK_KP_Down,
+      Gdk::Keyval::GDK_KP_Page_Down,
+      Gdk::Keyval::GDK_KP_Enter,
+      Gdk::Keyval::GDK_KP_Tab
+        move_to_next_if_can
+      when Gdk::Keyval::GDK_p,
+      Gdk::Keyval::GDK_b,
+      Gdk::Keyval::GDK_h,
+      Gdk::Keyval::GDK_k,
+      Gdk::Keyval::GDK_Page_Up,
+      Gdk::Keyval::GDK_leftarrow,
+      Gdk::Keyval::GDK_uparrow,
+      Gdk::Keyval::GDK_BackSpace,
+      Gdk::Keyval::GDK_Delete,
+      Gdk::Keyval::GDK_minus,
+      Gdk::Keyval::GDK_Up,
+      Gdk::Keyval::GDK_Left,
+      Gdk::Keyval::GDK_KP_Subtract,
+      Gdk::Keyval::GDK_KP_Up,
+      Gdk::Keyval::GDK_KP_Left,
+      Gdk::Keyval::GDK_KP_Page_Up,
+      Gdk::Keyval::GDK_KP_Delete
+        move_to_previous_if_can
+      when Gdk::Keyval::GDK_a,
+      Gdk::Keyval::GDK_Home,
+      Gdk::Keyval::GDK_less
+        move_to_first
+      when Gdk::Keyval::GDK_e,
+      Gdk::Keyval::GDK_End,
+      Gdk::Keyval::GDK_greater
+        move_to_last
+      when Gdk::Keyval::GDK_0,
+      Gdk::Keyval::GDK_1,
+      Gdk::Keyval::GDK_2,
+      Gdk::Keyval::GDK_3,
+      Gdk::Keyval::GDK_4,
+      Gdk::Keyval::GDK_5,
+      Gdk::Keyval::GDK_6,
+      Gdk::Keyval::GDK_7,
+      Gdk::Keyval::GDK_8,
+      Gdk::Keyval::GDK_9
+        move_to_if_can(calc_page_number(key_event, Gdk::Keyval::GDK_0))
+      when Gdk::Keyval::GDK_KP_0,
+      Gdk::Keyval::GDK_KP_1,
+      Gdk::Keyval::GDK_KP_2,
+      Gdk::Keyval::GDK_KP_3,
+      Gdk::Keyval::GDK_KP_4,
+      Gdk::Keyval::GDK_KP_5,
+      Gdk::Keyval::GDK_KP_6,
+      Gdk::Keyval::GDK_KP_7,
+      Gdk::Keyval::GDK_KP_8,
+      Gdk::Keyval::GDK_KP_9
+        move_to_if_can(calc_page_number(key_event, Gdk::Keyval::GDK_KP_0))
+      when Gdk::Keyval::GDK_F10
+        @frame.toggle_fullscreen
+        reload_theme
+      when Gdk::Keyval::GDK_t,
+      Gdk::Keyval::GDK_r
+        reload_theme
+      when Gdk::Keyval::GDK_s
+        save_as_image
+      when Gdk::Keyval::GDK_z
+        @frame.iconify
+      when Gdk::Keyval::GDK_i
+        toggle_index_mode
+      end
+    end
+
+    def handle_key_with_control(key_event)
+      handled = false
+      case key_event.keyval
+      when Gdk::Keyval::GDK_l
+        redraw
+        handled = true
+      end
+      handled
     end
     
   end
