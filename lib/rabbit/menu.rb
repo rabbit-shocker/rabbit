@@ -27,18 +27,37 @@ module Rabbit
       ifp = Gtk::ItemFactory.new(Gtk::ItemFactory::TYPE_MENU, "<main>", nil)
 
       items = [
-        [_("/_Separator"), "<Tearoff>"],
+        [_("/Separator"), "<Tearoff>"],
+        
+        if @canvas.index_mode?
+          [_("/_Slide"), "<StockItem>", "",
+           Gtk::Stock::DND, method(:toggle_index_mode)]
+        else
+          [_("/_Index"), "<StockItem>", "",
+           Gtk::Stock::INDEX, method(:toggle_index_mode)]
+        end,
+
+        [_("/Separator"), "<Separator>"],
+        
+        [_("/_SaveAsImage"), "<StockItem>", "",
+         Gtk::Stock::SAVE, method(:save_as_image)],
+        
+        [_("/Separator"), "<Separator>"],
+        
         [_("/_Next"), "<StockItem>", "",
-          Gtk::Stock::GO_FORWARD, method(:move_to_next)],
+         Gtk::Stock::GO_FORWARD, method(:move_to_next)],
         [_("/_Previous"), "<StockItem>", "",
-          Gtk::Stock::GO_BACK, method(:move_to_previous)],
+         Gtk::Stock::GO_BACK, method(:move_to_previous)],
         [_("/_First"), "<StockItem>", "",
-          Gtk::Stock::GOTO_FIRST, method(:move_to_first)],
+         Gtk::Stock::GOTO_FIRST, method(:move_to_first)],
         [_("/_Last"), "<StockItem>", "",
-          Gtk::Stock::GOTO_LAST, method(:move_to_last)],
-        [_("/_Separator"), "<Separator>"],
+         Gtk::Stock::GOTO_LAST, method(:move_to_last)],
+        
+        [_("/Separator"), "<Separator>"],
+        
         [_("/_Jump")],
-        [_("/_Jump") + _("/_Separator"), "<Tearoff>"],
+        
+        [_("/_Jump") + _("/Separator"), "<Tearoff>"],
       ]
 
       _move_to = method(:move_to)
@@ -70,6 +89,14 @@ module Rabbit
     
     def move_to(index, *args)
       @canvas.move_to_if_can(index)
+    end
+
+    def toggle_index_mode(*args)
+      @canvas.toggle_index_mode
+    end
+    
+    def save_as_image(*args)
+      @canvas.save_as_image
     end
     
   end

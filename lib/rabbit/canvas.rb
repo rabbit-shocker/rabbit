@@ -242,6 +242,26 @@ module Rabbit
       move_to(page_size - 1)
     end
 
+    def index_mode?
+      @index_mode
+    end
+
+    def toggle_index_mode
+      if @index_mode
+        @drawable.cursor = @current_cursor
+        @index_mode = false
+      else
+        @drawable.cursor = nil
+        @index_mode = true
+        if @index_pages.empty?
+          @index_pages = Index.make_index_pages(self)
+        end
+        move_to(0)
+      end
+      update_menu
+      @drawing_area.queue_draw
+    end
+
     private
     def update_menu
       @menu = Menu.new(self)
@@ -335,9 +355,7 @@ module Rabbit
     def set_button_press_event
       @drawing_area.signal_connect("button_press_event") do |widget, event|
         if BUTTON_PRESS_HANDLER.has_key?(event.event_type)
-          add_button_handler do
-            __send__(BUTTON_PRESS_HANDLER[event.event_type], event)
-          end
+          __send__(BUTTON_PRESS_HANDLER[event.event_type], event)
           start_button_handler
         end
       end
@@ -429,21 +447,6 @@ module Rabbit
       @blank_cursor
     end
 
-    def toggle_index_mode
-      if @index_mode
-        @drawable.cursor = @current_cursor
-        @index_mode = false
-      else
-        @drawable.cursor = nil
-        @index_mode = true
-        if @index_pages.empty?
-          @index_pages = Index.make_index_pages(self)
-        end
-        move_to(0)
-      end
-      @drawing_area.queue_draw
-    end
-
     def number_of_places(num)
       n = 1
       target = num
@@ -515,27 +518,35 @@ module Rabbit
     def handle_button_press(event)
       case event.button
       when 1, 5
-        move_to_next_if_can
+        add_button_handler do
+          move_to_next_if_can
+        end
       when 2, 4
-        move_to_previous_if_can
+        add_button_handler do
+          move_to_previous_if_can
+        end
       when 3
         @menu.popup(event.button, event.time)
       end
     end
     
     def handle_button2_press(event)
-      if @index_mode
-        index = current_page.page_number(self, event.x, event.y)
-        if index
-          toggle_index_mode
-          move_to_if_can(index)
+      add_button_handler do
+        if @index_mode
+          index = current_page.page_number(self, event.x, event.y)
+          if index
+            toggle_index_mode
+            move_to_if_can(index)
+          end
         end
+        clear_button_handler
       end
-      clear_button_handler
     end
     
     def handle_button3_press(event)
-      clear_button_handler
+      add_button_handler do
+        clear_button_handler
+      end
     end
 
     def add_button_handler(handler=Proc.new)

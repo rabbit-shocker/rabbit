@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-08 00:19+0900\n"
-"PO-Revision-Date: 2004-10-08 00:21+0900\n"
+"POT-Creation-Date: 2004-10-08 18:00+0900\n"
+"PO-Revision-Date: 2004-10-08 18:00+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,30 +14,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/rabbit/menu.rb:29 lib/rabbit/menu.rb:38
-msgid "/_Separator"
+#: lib/rabbit/menu.rb:30 lib/rabbit/menu.rb:40 lib/rabbit/menu.rb:45
+#: lib/rabbit/menu.rb:56 lib/rabbit/menu.rb:60
+msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:30
-msgid "/_Next"
-msgstr "/次のページ"
-
-#: lib/rabbit/menu.rb:32
-msgid "/_Previous"
-msgstr "/前のページ"
-
-#: lib/rabbit/menu.rb:34
-msgid "/_First"
-msgstr "/最初のページ"
+#: lib/rabbit/menu.rb:33
+msgid "/_Slide"
+msgstr "/スライドモード(_I)"
 
 #: lib/rabbit/menu.rb:36
+msgid "/_Index"
+msgstr "/一覧モード(_I)"
+
+#: lib/rabbit/menu.rb:42
+msgid "/_SaveAsImage"
+msgstr "/画像として保存(_S)"
+
+#: lib/rabbit/menu.rb:47
+msgid "/_Next"
+msgstr "/次のページ(_N)"
+
+#: lib/rabbit/menu.rb:49
+msgid "/_Previous"
+msgstr "/前のページ(_P)"
+
+#: lib/rabbit/menu.rb:51
+msgid "/_First"
+msgstr "/最初のページ(_F)"
+
+#: lib/rabbit/menu.rb:53
 msgid "/_Last"
-msgstr "/最後のページ"
+msgstr "/最後のページ(_L)"
 
-#: lib/rabbit/menu.rb:39 lib/rabbit/menu.rb:44
+#: lib/rabbit/menu.rb:58 lib/rabbit/menu.rb:60 lib/rabbit/menu.rb:64
 msgid "/_Jump"
-msgstr "/ジャンプ"
-
-#: lib/rabbit/menu.rb:40
-msgid "/_Jump/_Separator"
-msgstr ""
+msgstr "/ジャンプ(_J)"

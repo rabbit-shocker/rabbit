@@ -40,7 +40,11 @@ A presentation tool
   * display image
   * auto reload modified source
   * reload theme
+
+= More available things
+
   * auto generation of index page
+  * right click menu
 
 = Not available
 
@@ -52,7 +56,7 @@ A presentation tool
 
 = ToDo
 
-  * right click menu
+  * PDF output
 
 = Call on
 
