@@ -67,7 +67,7 @@ module Rabbit
     
     def eps_to_png(width=nil, height=nil)
       eps_to(width, height, "pngalpha")
-  end
+    end
 
     def eps_to_pnm(width=nil, height=nil)
       eps_to(width, height, "pnm")
