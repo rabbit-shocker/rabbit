@@ -35,14 +35,12 @@ module Rabbit
       
       attr_writer :foreground, :background, :background_image
       attr_reader :width, :height
-      attr_accessor :filename, :request_width, :request_height
+      attr_accessor :filename
       
       def initialize(canvas)
         super
         @filename = nil
         @background_image = nil
-        @request_width = nil
-        @request_height = nil
         init_job
       end
 
@@ -217,8 +215,8 @@ module Rabbit
 
       def setup_paper
         if size_set?
-          @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = @request_width
-          @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = @request_height
+          @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = @paper_width
+          @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = @paper_height
         else
           paper = Gnome::PrintPaper.get("A4")
           @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = paper.height
@@ -227,7 +225,7 @@ module Rabbit
       end
 
       def size_set?
-        @request_width and @request_height
+        @paper_width and @paper_height
       end
       
       def init_colors

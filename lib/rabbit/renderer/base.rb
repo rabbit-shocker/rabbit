@@ -9,9 +9,13 @@ module Rabbit
     module Base
       include GetText
 
+      attr_accessor :paper_width, :paper_height
+      
       def initialize(canvas)
         @canvas = canvas
-        @font_families
+        @font_families = nil
+        @paper_width = nil
+        @paper_height = nil
       end
       
       def font_families
@@ -90,6 +94,8 @@ module Rabbit
       def make_canvas_with_printable_renderer
         make_canvas_with_renderer(GnomePrint) do |canvas|
           canvas.filename = @canvas.filename
+          canvas.paper_width = @canvas.paper_width
+          canvas.paper_height = @canvas.paper_height
         end
       end
       

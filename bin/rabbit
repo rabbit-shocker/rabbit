@@ -19,9 +19,10 @@ def parse(args, logger)
   options.base = nil
   options.source_type = Rabbit::Source::File
   options.full_screen = false
-  options.size_specified = false
   options.width = 800
   options.height = 600
+  options.paper_width = nil
+  options.paper_height = nil
   options.save_as_image = false
   options.saved_image_basename = nil
   options.saved_image_type = "png"
@@ -99,7 +100,6 @@ def parse(args, logger)
             Integer,
             "Set window width to [WIDTH].",
             "(#{options.width})") do |width|
-      options.size_specified = true
       options.width = width
     end
 
@@ -107,7 +107,6 @@ def parse(args, logger)
             Integer,
             "Set window height to [HEIGHT].",
             "(#{options.height})") do |height|
-      options.size_specified = true
       options.height = height
     end
 
@@ -116,7 +115,6 @@ def parse(args, logger)
             "Set window width and height to",
             "[WIDTH] and [HEIGHT].",
             "(#{options.width},#{options.height})") do |size|
-      options.size_specified = true
       width, height = size.collect{|x| Integer(x)}
       options.width = width
       options.height = height
@@ -153,6 +151,30 @@ def parse(args, logger)
         options.print_out_filename = f
       end
       
+      opts.on("--paper-width [WIDTH]",
+              Integer,
+              "Set paper width to [WIDTH]mm.",
+              "(landscape A4 width)") do |width|
+        options.paper_width = width
+      end
+
+      opts.on("--paper-height [HEIGHT]",
+              Integer,
+              "Set paper height to [HEIGHT]mm.",
+              "(landscape A4 height)") do |height|
+        options.paper_height = height
+      end
+
+      opts.on("--paper-size [WIDTH],[HEIGHT]",
+              Array,
+              "Set paper width and height to",
+              "[WIDTH]mm and [HEIGHT]mm.",
+              "(landscape A4 size") do |size|
+        width, height = size.collect{|x| Integer(x)}
+        options.paper_width = width
+        options.paper_height = height
+      end
+
     end
 
     opts.separator ""
@@ -233,17 +255,15 @@ def setup_size(target, options)
   target.height = options.height
 end
 
-def setup_request_size_if_need(target, options)
-  if options.size_specified
-    target.request_width = options.width
-    target.request_height = options.height
-  end
+def setup_paper_size(target, options)
+  target.paper_width = options.paper_width
+  target.paper_height = options.paper_height
 end
 
 def do_print(options, logger)
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::GnomePrint)
   setup_print_info(canvas, options)
-  setup_request_size_if_need(canvas, options)
+  setup_paper_size(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.print
@@ -254,6 +274,7 @@ def do_save_as_image(options, logger)
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
   setup_image_info(canvas, options)
   setup_size(canvas, options)
+  setup_paper_size(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.save_as_image
@@ -264,6 +285,7 @@ def do_display(options, logger)
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
   frame.init_gui(options.width, options.height, true)
+  setup_paper_size(canvas, options)
   setup_image_info(frame, options)
   setup_print_info(canvas, options)
   apply_theme_if_need(frame, options)
