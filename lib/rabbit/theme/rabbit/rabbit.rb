@@ -21,8 +21,6 @@ include_theme("title-shadow")
 
 include_theme("powered-by")
 
-include_theme("slide-number")
-
 @icon_images = ["lavie_icon.png"]
 
 include_theme("icon")
