@@ -177,14 +177,19 @@ Ahh, I'll set up more better documents.
 : Go to title page
    0, <
 : Go to n page
-   1-9
+   1-9. +Ctrl is +10, +Alt is +20
 : Go to last page
    >
 
-= Key bindings (feature)
+= Key bindings (presentation)
 
 : toggle full screen
    F10
+
+: toggle index mode
+   i
+
+= Key bindings (feature)
 
 : screenshot
    save each page as image
