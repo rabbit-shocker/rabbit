@@ -233,39 +233,33 @@ with the following.
    Invoked with full screen mode.
 
 : -w, --width
-   Specifies the width of window. Specifies the width of
-   paper when -p option is specified. The unit of width of
-   paper is mm.
+   Specifies the width of window.
    
    Default is 800.
    
 : -h, --height
-   Specifies the height of window. Specifies the height of
-   paper when -p option is specified. The unit of height of
-   paper is mm.
+   Specifies the height of window.
 
    Default is 600.
    
 : -S, --size
-   Specifies the width and height of window. Specifies the
-   width and height of paper when -p option is
-   specified. The unit of width and height of paper is mm.
+   Specifies the width and height of window.
 
 : --paper-width
    Specifies the width of paper when printing. The unit of
-   width of paper is mm.
+   width of paper is inch.
    
    Default is the width of landscape A4.
    
 : --paper-height
    Specifies the height of paper when printing. The unit of
-   height of paper is mm.
+   height of paper is inch.
 
    Default is the height of landscape A4.
    
 : --paper-size
    Specifies the width and height of paper when printing.
-   The unit of width and height of paper is mm.
+   The unit of width and height of paper is inch.
    
    Default is the size of landscape A4.
 

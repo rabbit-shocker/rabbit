@@ -153,14 +153,14 @@ def parse(args, logger)
       
       opts.on("--paper-width [WIDTH]",
               Integer,
-              "Set paper width to [WIDTH]mm.",
+              "Set paper width to [WIDTH] inch.",
               "(landscape A4 width)") do |width|
         options.paper_width = width
       end
 
       opts.on("--paper-height [HEIGHT]",
               Integer,
-              "Set paper height to [HEIGHT]mm.",
+              "Set paper height to [HEIGHT] inch.",
               "(landscape A4 height)") do |height|
         options.paper_height = height
       end
@@ -168,7 +168,7 @@ def parse(args, logger)
       opts.on("--paper-size [WIDTH],[HEIGHT]",
               Array,
               "Set paper width and height to",
-              "[WIDTH]mm and [HEIGHT]mm.",
+              "[WIDTH] inch and [HEIGHT] inch.",
               "(landscape A4 size") do |size|
         width, height = size.collect{|x| Integer(x)}
         options.paper_width = width
