@@ -8,7 +8,7 @@ module Test
         first, *others = location
         others.unshift("") unless others.empty?
         others = others.join("\n  ")
-        "Failure:\n#@test_name\n#@message\n#{first}#{others}"
+        "Failure:\n#{@test_name}\n#{first}\n#{@message}#{others}"
       end
     end
 
@@ -16,8 +16,9 @@ module Test
       def long_display
         backtrace = filter_backtrace(@exception.backtrace)
         first, *others = backtrace
+        others.unshift("") unless others.empty?
         others = others.join("\n  ")
-        "Error:\n#@test_name:\n#{message}\n#{first}\n  #{others}"
+        "Error:\n#{@test_name}:\n#{first}\n#{message}#{others}"
       end
     end
     
