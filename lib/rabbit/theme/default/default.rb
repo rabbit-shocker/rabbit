@@ -23,7 +23,7 @@ include_theme("page-number")
 
 
 match(TitlePage) do |pages|
-  pages.holizontal_centering = true
+  pages.horizontal_centering = true
   pages.vertical_centering = true
 
   pages.left_margin = @left_margin
@@ -83,7 +83,7 @@ end
 
 match(Page, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
-  heads.holizontal_centering = true
+  heads.horizontal_centering = true
 
   space = screen_size(1)
   heads.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
@@ -168,7 +168,7 @@ match("**", DescriptionTerm) do |terms|
 end
 
 match("**", PreformattedBlock) do |blocks|
-  blocks.holizontal_centering = true
+  blocks.horizontal_centering = true
 
   border_color = "55003dff0eff"
   fill_color = "fc00fa00e200"
@@ -268,7 +268,7 @@ match("**", Footnote) do |notes|
 end
 
 match("**", Image) do |images|
-  images.holizontal_centering = true
+  images.horizontal_centering = true
 
   space = screen_size(3)
 
@@ -304,8 +304,8 @@ match("**", Image) do |images|
         caption = NormalText.new(image.caption)
         caption.prop_set("size", @normal_font_size)
         caption.compile(canvas, x, y, w, h)
-        if image.holizontal_centering
-          caption.do_holizontal_centering(canvas, x, y, w, h)
+        if image.horizontal_centering
+          caption.do_horizontal_centering(canvas, x, y, w, h)
         end
         layout = caption.layout
         th = caption.height

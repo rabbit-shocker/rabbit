@@ -25,7 +25,8 @@ match(TitlePage, Title) do |titles|
         shadow_title.prop_set("foreground", @title_shadow_color)
         shadow_layout, _, _ = make_layout(canvas, shadow_title.markuped_text)
         shadow_layout.set_width(w * Pango::SCALE)
-        if title.do_holizontal_centering?
+        if title.do_horizontal_centering? or
+            title.parent.do_horizontal_centering?
           shadow_layout.set_alignment(Pango::Layout::ALIGN_CENTER)
         end
       end

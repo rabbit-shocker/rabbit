@@ -15,7 +15,7 @@ module Rabbit
       attr_reader :x, :y, :w, :h
       attr_reader :px, :py, :pw, :ph
 
-      attr_accessor :parent, :holizontal_centering, :vertical_centering
+      attr_accessor :parent, :horizontal_centering, :vertical_centering
 
       attr_accessor :user_property
       
@@ -24,7 +24,7 @@ module Rabbit
         @simulated_width = nil
         @simulated_height = nil
         @parent = nil
-        @holizontal_centering = @vertical_centering = false
+        @horizontal_centering = @vertical_centering = false
         @user_property = {}
         clear_theme
       end
@@ -100,6 +100,12 @@ module Rabbit
           dirty!
         end
       end
+
+      def compile_horizontal(canvas, x, y, w, h)
+        if do_horizontal_centering?
+          do_horizontal_centering(canvas, x, y, w, h)
+        end
+      end
       
       def prop_set(name, *values)
         @prop[name] = make_prop_value(name, *values)
@@ -136,16 +142,16 @@ module Rabbit
         end
       end
 
-      def do_holizontal_centering?
-        @holizontal_centering or
-          (parent and parent.do_holizontal_centering?)
+      def do_horizontal_centering?
+        @horizontal_centering or
+          (parent and parent.do_horizontal_centering?)
       end
 
       def do_vertical_centering?
         @vertical_centering
       end
       
-      def do_holizontal_centering(canvas, x, y, w, h)
+      def do_horizontal_centering(canvas, x, y, w, h)
         removed_width = w - simulated_width
         cx = x + (removed_width / 2.0).ceil
         cw = w - removed_width
@@ -229,7 +235,7 @@ module Rabbit
         end
       end
       
-      def do_holizontal_centering(canvas, x, y, w, h)
+      def do_horizontal_centering(canvas, x, y, w, h)
         @layout.set_alignment(Pango::Layout::ALIGN_CENTER)
       end
      
@@ -308,7 +314,7 @@ module Rabbit
       
       attr_reader :ox, :oy, :ow, :oh # dirty!!!!
 
-      def do_holizontal_centering(canvas, x, y, w, h)
+      def do_horizontal_centering(canvas, x, y, w, h)
         @ox, @oy, @ow, @oh = @x, @y, @w, @h
         adjust_width = ((w / 2.0) - (width / 2.0)).ceil
         cx = @x + adjust_width
@@ -395,13 +401,13 @@ module Rabbit
           element.compile(canvas, x, y, w, h)
           x, y, w, h = element.draw(true)
         end
-        compile_holizontal(canvas, ox, oy, ow, oh)
+        compile_horizontal(canvas, ox, oy, ow, oh)
       end
 
-      def compile_holizontal(canvas, x, y, w, h)
+      def compile_horizontal(canvas, x, y, w, h)
         elements.each do |element|
-          if do_holizontal_centering? or element.do_holizontal_centering?
-            element.do_holizontal_centering(canvas, x, y, w, h)
+          if do_horizontal_centering? or element.do_horizontal_centering?
+            element.do_horizontal_centering(canvas, x, y, w, h)
           end
         end
       end
@@ -456,7 +462,7 @@ module Rabbit
 
       def clear_theme
         @vertical_centering = false
-        @holizontal_centering = false
+        @horizontal_centering = false
         @left_margin = @right_margin = 0
         @top_margin = @bottom_margin = 0
         @elements.each do |element|
@@ -529,7 +535,7 @@ module Rabbit
         end.join("")
       end
 
-      def do_holizontal_centering?
+      def do_horizontal_centering?
         super and not width.nil?
       end
 

@@ -352,7 +352,7 @@ module Rabbit
         Gdk::Keyval::GDK_7,
         Gdk::Keyval::GDK_8,
         Gdk::Keyval::GDK_9
-          move_to_if_can(event.keyval - Gdk::Keyval::GDK_0)
+          move_to_if_can(calc_page_number(event, Gdk::Keyval::GDK_0))
         when Gdk::Keyval::GDK_KP_0,
         Gdk::Keyval::GDK_KP_1,
         Gdk::Keyval::GDK_KP_2,
@@ -363,7 +363,7 @@ module Rabbit
         Gdk::Keyval::GDK_KP_7,
         Gdk::Keyval::GDK_KP_8,
         Gdk::Keyval::GDK_KP_9
-          move_to_if_can(event.keyval - Gdk::Keyval::GDK_KP_0)
+          move_to_if_can(calc_page_number(event, Gdk::Keyval::GDK_KP_0))
         when Gdk::Keyval::GDK_F10
           @frame.toggle_fullscreen
           reload_theme
@@ -441,6 +441,13 @@ module Rabbit
 
     def move_to_last
       move_to(page_size - 1)
+    end
+
+    def calc_page_number(key_event, base)
+      val = key_event.keyval
+      val += 10 if key_event.state.control_mask?
+      val += 20 if key_event.state.mod1_mask?
+      val - base
     end
 
     def clear_theme
