@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-21 11:32+0900\n"
+"POT-Creation-Date: 2004-11-18 23:16+0900\n"
 "PO-Revision-Date: 2004-10-21 11:35+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
@@ -82,19 +82,19 @@ msgstr "/ジャンプ"
 
 #: lib/rabbit/menu.rb:71
 msgid "/Next"
-msgstr "/次のページ"
+msgstr "/次のスライド"
 
 #: lib/rabbit/menu.rb:73
 msgid "/Previous"
-msgstr "/前のページ"
+msgstr "/前のスライド"
 
 #: lib/rabbit/menu.rb:75
 msgid "/First"
-msgstr "/最初のページ"
+msgstr "/最初のスライド"
 
 #: lib/rabbit/menu.rb:77
 msgid "/Last"
-msgstr "/最後のページ"
+msgstr "/最後のスライド"
 
 #: lib/rabbit/menu.rb:82
 msgid "/Iconify"
@@ -108,7 +108,7 @@ msgstr "/テーマの再読み込み"
 msgid "/Quit"
 msgstr "/終了"
 
-#: lib/rabbit/logger/gui.rb:59
+#: lib/rabbit/logger/gui.rb:62
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-21 11:32+0900\n"
+"POT-Creation-Date: 2004-11-18 23:16+0900\n"
 "PO-Revision-Date: 2004-10-21 11:34+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -19,8 +19,11 @@ msgid "no such file %s"
 msgstr "impossible de trouver le fichier %s."
 
 #: lib/rabbit/rabbit.rb:30
-msgid "can't handle %s because the following command can't be run successfully: %s"
-msgstr "Impossible de supporter %s car la commande suivante ne peut pas être lancée avec succès: %s"
+msgid ""
+"can't handle %s because the following command can't be run successfully: %s"
+msgstr ""
+"Impossible de supporter %s car la commande suivante ne peut pas être lancée "
+"avec succès: %s"
 
 #: lib/rabbit/rabbit.rb:39
 msgid "tried gs commands: %s"
@@ -108,7 +111,7 @@ msgstr "/Recharger le thème"
 msgid "/Quit"
 msgstr "/Quitter"
 
-#: lib/rabbit/logger/gui.rb:59
+#: lib/rabbit/logger/gui.rb:62
 msgid "Rabbit Error Dialog"
 msgstr "Boite de dialogue d'erreur de Rabbit"
 

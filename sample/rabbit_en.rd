@@ -204,7 +204,7 @@ Ahh, I'll set up more better documents.
 = Key bindings (presentation)
 
 : Toggle full screen
-   F10
+   F5, F10
 
 : Toggle index mode
    i

@@ -38,7 +38,7 @@ Kouhei Sutou <kou@cozmixng.org>
 
 カッコいい方のうさぎです．
 
-SODE
+袖林 高広 <sodetaka@kono.cis.iwate-u.ac.jp>
 
 === xyzzy用モード
 
@@ -523,9 +523,11 @@ Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>)
 
 == 感謝
 
-  * モモさん: 画像を書いてくれました．
+  * モモさん: かわいいうさぎなどを書いてくれました．
   * みやむこさん: xyzzy用のrabbitモードを書いてくれました．
     Windowsまわりでいろいろ助けてくれます．
   * zundaさん: EPSの扱いを修正してくれました．Rabbitを使って
     プレゼンしてくれます．
-  * Vincentさん: Max OS Xでの動作確認をしてくれます．
+  * Vincentさん: Max OS Xでの動作確認をしてくれます．フラン
+    ス語のメッセージを用意してくれました．
+  * 袖林さん: かっこいい兎を書いてくれました．

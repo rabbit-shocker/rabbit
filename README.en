@@ -37,7 +37,7 @@ USAGI.
 
 (cool rabbit)
 
-SODE
+Takahiro Sodebayashi <sodetaka@kono.cis.iwate-u.ac.jp>
 
 === Mode for xyzzy
 
@@ -494,9 +494,11 @@ The `default' theme has more code. Please see it.
 
 == Thanks
 
-  * MoMo: She wrote some images.
+  * MoMo: She wrote some pretty images.
   * MIYAMUKO: He wrote rabbit mode for xyzzy. He helps
     Rabbit works on Windows.
   * zunda: He fixed EPS handling. He makes a presentation with
     Rabbit.
-  * Vincent: He helps Rabbit works on Max OS X.
+  * Vincent: He helps Rabbit works on Max OS X. He makes
+    french messages. 
+  * Sodebayashi: He wrotes cool rabbit.
