@@ -106,14 +106,14 @@ module Rabbit
     end
 
     def adjust_eps_if_need(x, y)
-      if x and y
-        yield @filename
-      else
+      if x and y and x > 0 and y > 0
         tmp = Tempfile.new("Rabbit")
         tmp.puts "#{x} neg #{y} neg translate"
         tmp.print File.open(@filename) {|f| f.read}
         tmp.close
         yield tmp.path
+      else
+        yield @filename
       end
     end
     
