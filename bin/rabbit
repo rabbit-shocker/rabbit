@@ -6,6 +6,7 @@ require "ostruct"
 
 require "rabbit/frame"
 require "rabbit/source"
+require "rabbit/gettext"
 
 Version = Rabbit::VERSION
 
@@ -22,6 +23,7 @@ def parse(args)
   options.saved_image_basename = nil
   options.saved_image_type = "png"
   options.encoding = "UTF-8"
+  options.locale_dir = nil
 
   opts = OptionParser.new do |opts|
     opts.banner = "#{opts.banner} SOURCE_INFOS"
@@ -129,6 +131,12 @@ def parse(args)
 
     opts.separator ""
     
+    opts.on("--locale-dir [DIR]",
+            "Specify locale dir as [DIR].",
+            "(auto)") do |d|
+      options.locale_dir = d
+    end
+    
     opts.on_tail("--help", "Show this message") do
       puts opts
       exit
@@ -152,6 +160,8 @@ end
 options = parse(ARGV)
 
 Gtk.init
+
+Rabbit::GetText.bindtextdomain(options.locale_dir)
 
 frame = Rabbit::Frame.new(options.width, options.height)
 if options.theme_specified

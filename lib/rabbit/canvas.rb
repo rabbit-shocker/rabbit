@@ -7,6 +7,7 @@ require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/index"
+require "rabbit/menu"
 require "rabbit/keys"
 
 module Rabbit
@@ -43,6 +44,7 @@ module Rabbit
       init_drawing_area
       layout = @drawing_area.create_pango_layout("")
       @font_families = layout.context.list_families
+      update_menu
     end
 
     def title
@@ -138,6 +140,7 @@ module Rabbit
             visitor.visit(tree)
             apply_theme
             @frame.update_title(title)
+            update_menu
           end
         rescue Racc::ParseError
           puts $!.message
@@ -217,7 +220,33 @@ module Rabbit
       @drawing_area.queue_draw
     end
 
+    def move_to_if_can(index)
+      if 0 <= index and index < page_size
+        move_to(index)
+      end
+    end
+
+    def move_to_next_if_can
+      move_to_if_can(current_index + 1)
+    end
+
+    def move_to_previous_if_can
+      move_to_if_can(current_index - 1)
+    end
+
+    def move_to_first
+      move_to(0)
+    end
+
+    def move_to_last
+      move_to(page_size - 1)
+    end
+
     private
+    def update_menu
+      @menu = Menu.new(self)
+    end
+    
     def clear
       clear_pages
       clear_index_pages
@@ -369,32 +398,6 @@ module Rabbit
       @drawing_area.queue_draw
     end
 
-    def move_to_if_can(index)
-      if index < page_size
-        move_to(index)
-      end
-    end
-
-    def move_to_next_if_can
-      if current_index + 1 < page_size
-        move_to(current_index + 1)
-      end
-    end
-
-    def move_to_previous_if_can
-      if current_index > 0
-        move_to(current_index - 1)
-      end
-    end
-
-    def move_to_first
-      move_to(0)
-    end
-
-    def move_to_last
-      move_to(page_size - 1)
-    end
-
     def set_cursor(cursor)
       @current_cursor = @drawable.cursor = cursor
     end
@@ -516,6 +519,7 @@ module Rabbit
       when 2, 4
         move_to_previous_if_can
       when 3
+        @menu.popup(event.button, event.time)
       end
     end
     

@@ -1,0 +1,43 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Rabbit 0.0.4\n"
+"POT-Creation-Date: 2004-10-08 00:19+0900\n"
+"PO-Revision-Date: 2004-10-08 00:22+0900\n"
+"Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
+"Language-Team: English <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: lib/rabbit/menu.rb:29 lib/rabbit/menu.rb:38
+msgid "/_Separator"
+msgstr ""
+
+#: lib/rabbit/menu.rb:30
+msgid "/_Next"
+msgstr "/_Next Page"
+
+#: lib/rabbit/menu.rb:32
+msgid "/_Previous"
+msgstr "/_Previous Page"
+
+#: lib/rabbit/menu.rb:34
+msgid "/_First"
+msgstr "/_First Page"
+
+#: lib/rabbit/menu.rb:36
+msgid "/_Last"
+msgstr "/_Last Page"
+
+#: lib/rabbit/menu.rb:39 lib/rabbit/menu.rb:44
+msgid "/_Jump"
+msgstr "/_Jump To"
+
+#: lib/rabbit/menu.rb:40
+msgid "/_Jump/_Separator"
+msgstr ""

@@ -1,8 +1,4 @@
-ruby setup.rb config
-if not %errorlevel%==0 goto end
-ruby setup.rb setup
-if not %errorlevel%==0 goto end
-ruby setup.rb install
+ruby setup.rb
 if not %errorlevel%==0 goto end
 
 :end
