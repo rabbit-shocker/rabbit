@@ -92,7 +92,7 @@ module Rabbit
       end
       
       def make_canvas_with_printable_renderer
-        make_canvas_with_renderer(GnomePrint) do |canvas|
+        make_canvas_with_renderer(Print) do |canvas|
           canvas.filename = @canvas.filename
           if @canvas.paper_width and @canvas.paper_height
             canvas.paper_width = @canvas.paper_width

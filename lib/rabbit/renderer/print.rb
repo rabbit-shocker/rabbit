@@ -5,7 +5,7 @@ require "rabbit/renderer/base"
 module Rabbit
   module Renderer
 
-    class GnomePrint
+    class Print
 
       include Base
       

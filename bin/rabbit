@@ -263,7 +263,7 @@ def setup_paper_size(target, options)
 end
 
 def do_print(options, logger)
-  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::GnomePrint)
+  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Print)
   setup_print_info(canvas, options)
   setup_paper_size(canvas, options)
   apply_theme_if_need(canvas, options)
