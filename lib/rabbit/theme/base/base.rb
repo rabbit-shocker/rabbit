@@ -13,3 +13,8 @@
 @right_margin = screen_size(3)
 @top_margin = screen_size(3)
 @bottom_margin = screen_size(3)
+
+@preformatted_left_margin = screen_size(5)
+@preformatted_right_margin = screen_size(5)
+@preformatted_top_margin = screen_size(2)
+@preformatted_bottom_margin = screen_size(2)

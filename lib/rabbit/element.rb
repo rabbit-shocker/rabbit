@@ -112,6 +112,11 @@ module Rabbit
       end
       alias __prop_get__ prop_get
       
+      def prop_delete(name)
+        @prop.delete(name)
+      end
+      alias __prop_delete__ prop_delete
+      
       def inline_element?
         true
       end
@@ -167,11 +172,14 @@ module Rabbit
       private
       def make_prop_value(name, *values)
         formatter_name = to_class_name(name)
-        if Format.const_defined?(formatter_name)
-          Format.const_get(formatter_name).new(*values)
-        else
-          raise "Unknown prop: #{name}"
+        begin
+          unless Format.const_defined?(formatter_name)
+            raise NameError
+          end
+        rescue NameError
+          raise UnknownPropertyError.new(name)
         end
+        Format.const_get(formatter_name).new(*values)
       end
       
       def sibling_element(relative_index)
@@ -418,6 +426,12 @@ module Rabbit
         end
       end
 
+      def prop_delete(name)
+        collect do |elem|
+          elem.prop_delete(name)
+        end
+      end
+
       def width
         elements.collect{|elem| elem.width}.compact.max.to_i
       end
@@ -498,8 +512,9 @@ module Rabbit
 
       attr_reader :prop
 
-      alias prop_get __prop_get__
       alias prop_set __prop_set__
+      alias prop_get __prop_get__
+      alias prop_delete __prop_delete__
       
       def markuped_text
         mt = elements.collect do |elem|

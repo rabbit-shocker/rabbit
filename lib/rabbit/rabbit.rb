@@ -8,6 +8,14 @@ module Rabbit
   class ImageLoadError < Error
   end
 
+  class ImageFileDoesNotExistError < ImageLoadError
+    attr_reader :filename
+    def initialize(filename)
+      @filename = filename
+      super("no such file #{filename}.")
+    end
+  end
+
   class ImageLoadWithExternalCommandError < ImageLoadError
     attr_reader :type, :command
     def initialize(type, command, additional_info=nil)
@@ -30,6 +38,14 @@ module Rabbit
   class TeXCanNotHandleError < ImageLoadWithExternalCommandError
     def initialize(command)
       super("TeX", command)
+    end
+  end
+
+  class UnknownPropertyError < Error
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super("Unknown property: #{name}.")
     end
   end
 

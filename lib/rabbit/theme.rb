@@ -28,7 +28,7 @@ module Rabbit
           end
           found_path
         end
-        raise LoadError, "can't find theme: #{theme_name}" if found_path.nil?
+        raise LoadError, "can't find theme: #{theme_name}." if found_path.nil?
         found_path
       end
 
@@ -48,7 +48,7 @@ module Rabbit
         end
         if found_path.nil?
           raise LoadError,
-                "can't find file in themes #{@theme_stack.inspect}: #{name}"
+                "can't find file in themes #{@theme_stack.inspect}: #{name}."
         end
         found_path
       end
@@ -78,7 +78,13 @@ module Rabbit
 
     def apply(name)
       @name = name
-      @applier.apply_theme(name)
+      begin
+        @applier.apply_theme(name)
+      rescue StandardError, LoadError
+        puts "#{$!.message}(#{$!.class})"
+        puts $@
+        puts
+      end
     end
     
     def pages
@@ -173,6 +179,10 @@ module Rabbit
 
       def font_families
         canvas.font_families.collect{|x| x.name}
+      end
+
+      def windows?
+        /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
       end
 
       def match(*paths, &block)

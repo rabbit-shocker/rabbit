@@ -13,6 +13,9 @@ module Rabbit
     attr_reader :pixbuf
     
     def initialize(filename, *args, &block)
+      unless File.exist?(filename)
+        raise ImageFileDoesNotExistError.new(filename)
+      end
       super(*args, &block)
       @filename = filename
       @keep_scale = true

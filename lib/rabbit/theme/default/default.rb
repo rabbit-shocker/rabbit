@@ -172,8 +172,11 @@ match("**", PreformattedBlock) do |blocks|
 
   border_color = "55003dff0eff"
   fill_color = "fc00fa00e200"
-  indent = screen_x(5)
-  margin_y = screen_y(2)
+
+  left = @preformatted_left_margin
+  right = @preformatted_right_margin
+  top = @preformatted_top_margin
+  bottom = @preformatted_bottom_margin
 
   blocks.each do |block|
     orig_x = orig_y = orig_w = orig_h = nil
@@ -190,15 +193,15 @@ match("**", PreformattedBlock) do |blocks|
         draw_rectangle(canvas, true, new_x, new_y, new_w, new_h, fill_color)
         draw_rectangle(canvas, false, new_x, new_y, new_w, new_h, border_color)
       end
-      [x, y + margin_y, w, h - margin_y]
+      [x, y + top, w, h - bottom]
     end
   
     block.add_post_draw_proc do |canvas, x, y, w, h, simulation|
-      new_x = orig_x - indent
+      new_x = orig_x - left
       new_y = orig_y
-      new_w = (block.width || w) + indent * 2
+      new_w = (block.width || w) + left + right
       new_h = orig_h - h
-      [orig_x, y + margin_y, orig_w, h - margin_y]
+      [orig_x, y + top, orig_w, h - bottom]
     end
   end
 end
@@ -240,7 +243,7 @@ match("**", FoottextBlock) do |blocks|
 end
 
 match("**", Foottext) do |texts|
-  texts.prop_set("size", @small_font_size)
+  texts.prop_set("size", @xx_small_font_size)
   texts.each do |text|
     if text.user_property["order_added"]
       order_text = text.elements.first
@@ -528,4 +531,10 @@ end
 
 match(*(page_body + (desc_list_item * 3) + [Paragraph])) do |texts|
   texts.prop_set("size", @xx_small_font_size)
+end
+
+if windows?
+  match("**") do |elems|
+    elems.prop_delete("style")
+  end
 end

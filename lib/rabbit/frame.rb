@@ -182,12 +182,7 @@ module Rabbit
       if @theme_name and not @pages.empty?
         clear_theme
         theme = Theme.new(self)
-        begin
-          theme.apply(@theme_name)
-        rescue StandardError, LoadError
-          print $!
-          puts $@
-        end
+        theme.apply(@theme_name)
         @drawing_area.queue_draw
       end
     end
