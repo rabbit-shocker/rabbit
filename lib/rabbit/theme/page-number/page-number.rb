@@ -1,5 +1,9 @@
+proc_name = "page-number"
+
 match(Page) do |pages|
-  pages.add_post_draw_proc do |page, canvas, x, y, w, h, simulation|
+  pages.delete_post_draw_proc_by_name(proc_name)
+
+  pages.add_post_draw_proc(proc_name) do |page, canvas, x, y, w, h, simulation|
     unless simulation
       text = "#{canvas.current_index}/#{canvas.page_size - 1}"
       text = %Q[<span size="xx-large">#{text}</span>]

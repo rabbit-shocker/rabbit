@@ -1,3 +1,5 @@
+proc_name = "title-shadow"
+
 match(TitlePage, Title) do |titles|
   @title_shadow_color ||= "#6f6f6f"
 
@@ -5,7 +7,9 @@ match(TitlePage, Title) do |titles|
   move_x = nil
   move_y = nil
 
-  titles.add_pre_draw_proc do |title, canvas, x, y, w, h, simulation|
+  titles.delete_pre_draw_proc_by_name(proc_name)
+
+  titles.add_pre_draw_proc(proc_name) do |title, canvas, x, y, w, h, simulation|
     unless simulation
       if shadow_layout.nil?
         font_size = title.prop_get("size")

@@ -1,8 +1,8 @@
+proc_name = "headline-logo"
+
 if @headline_logo_image.nil?
   raise "must specify @headline_logo_image!!"
 end
-
-proc_name = "headline_logo"
 
 match("**", HeadLine) do |heads|
 

@@ -1,4 +1,4 @@
-proc_name = "powered_by"
+proc_name = "powered-by"
 
 loader = nil
 if @powered_by_image
