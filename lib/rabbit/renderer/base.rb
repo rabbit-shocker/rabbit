@@ -27,7 +27,7 @@ module Rabbit
           do_print(&block)
         else
           canvas = make_canvas_with_printable_renderer
-          pre_print
+          pre_print(canvas.page_size)
           canvas.print do |i|
             printing(i)
           end
@@ -67,7 +67,7 @@ module Rabbit
       end
       
       def do_print(&block)
-        pre_print
+        pre_print(@canvas.page_size)
         @canvas.pages.each_with_index do |page, i|
           @canvas.move_to_if_can(i)
           @canvas.current_page.draw(@canvas)

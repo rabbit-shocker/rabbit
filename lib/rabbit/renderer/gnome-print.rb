@@ -44,7 +44,7 @@ module Rabbit
         init_job
       end
 
-      def pre_print
+      def pre_print(page_size)
         update_filename
       end
       
@@ -204,7 +204,7 @@ module Rabbit
       end
 
       def init_printers
-        @printers = Gnome::PrintGPA.printers
+        @printers = Gnome::GPARoot.printers
       end
       
       def init_paper
@@ -254,7 +254,7 @@ module Rabbit
       def update_printer(filename)
         printer = find_printer(filename)
         if printer
-          @config["Printer"] = printer.name
+          @config["Printer"] = printer.id
         else
           @canvas.logger.warn(_("can't find printer for %s") % filename)
         end
@@ -263,17 +263,17 @@ module Rabbit
       def find_printer(filename)
         if filename[0] == ?|
           @printers.find do |printer|
-            /Postscript/i =~ printer.description
+            /Postscript/i =~ printer.value
           end
         else
           case File.extname(filename)
           when /\.ps/i
             @printers.find do |printer|
-              /Postscript/i =~ printer.description
+              /Postscript/i =~ printer.value
             end
           when /\.pdf/i
             @printers.find do |printer|
-              /PDF/i =~ printer.description
+              /PDF/i =~ printer.value
             end
           else
             nil
