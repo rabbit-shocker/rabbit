@@ -224,6 +224,7 @@ module Rabbit
       @theme_name = name || @theme_name || default_theme
       if @theme_name and not @pages.empty?
         clear_theme
+        clear_index_pages
         @index_mode = false
         theme = Theme.new(self)
         theme.apply(@theme_name)
@@ -336,7 +337,7 @@ module Rabbit
         @drawable = widget.window
         @foreground = Gdk::GC.new(@drawable)
         @background = Gdk::GC.new(@drawable)
-        @background.set_foreground(widget.style.bg(0))
+        @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
       end
     end
 
