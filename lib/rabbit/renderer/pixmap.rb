@@ -1,10 +1,12 @@
 require "rabbit/renderer/base"
+require "rabbit/utils"
 
 module Rabbit
   module Renderer
     
     class Pixmap
       include Base
+      include ScreenInfo
 
       @@color_table = {}
   
@@ -151,8 +153,7 @@ module Rabbit
       private
       def depth
         if @@depth.nil?
-          root = Gtk::Window.new.root_window
-          @@depth = root.depth if root
+          @@depth = screen_depth
         end
         @@depth
       end

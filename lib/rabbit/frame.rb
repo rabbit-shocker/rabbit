@@ -3,11 +3,13 @@ require "gtk2"
 require "rexml/text"
 
 require "rabbit/rabbit"
+require "rabbit/utils"
 
 module Rabbit
 
   class Frame
 
+    include ScreenInfo
     extend Forwardable
 
     FALLBACK_LIMIT = 100
@@ -147,9 +149,8 @@ module Rabbit
         unless @fullscreen_toggled
           @prev_width, @prev_height = width, height
           @prev_x, @prev_y = @window.position
-          max_width, max_height = @window.root_window.size
           @window.hide
-          @window.resize(max_width, max_height)
+          @window.resize(screen_width, screen_height)
           @window.decorated = false
           @window.keep_above = true
           @window.show_all

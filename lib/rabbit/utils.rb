@@ -34,15 +34,55 @@ module Rabbit
       end
     end
   end
-
+  
   module SystemRunner
     def run(cmd, *args)
       begin
         system(cmd, *args)
       rescue SystemCallError
-        yield $! if block_given?
+        yield($!) if block_given?
         false
       end
     end
   end
+  
+  module ScreenInfo
+    module_function
+    def default_screen
+      Gdk::Screen.default
+    end
+    
+    def screen_width
+      default_screen.width
+    end
+
+    def screen_width_mm
+      default_screen.width_mm
+    end
+
+    def screen_height
+      default_screen.height
+    end
+
+    def screen_height_mm
+      default_screen.height_mm
+    end
+
+    def screen_x_resolution
+      screen_width / mm_to_inch(screen_width_mm)
+    end
+
+    def screen_y_resolution
+      screen_height / mm_to_inch(screen_height_mm)
+    end
+
+    def screen_depth
+      default_screen.root_window.depth
+    end
+    
+    def mm_to_inch(mm)
+      mm / 25.4
+    end
+  end
+  
 end
