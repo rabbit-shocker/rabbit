@@ -39,7 +39,8 @@ module Rabbit
     def run(cmd, *args)
       begin
         system(cmd, *args)
-      rescue Errno::ENOENT
+      rescue SystemCallError
+        yield $! if block_given?
         false
       end
     end
