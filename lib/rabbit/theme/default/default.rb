@@ -373,8 +373,8 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
   indent_width = screen_x(2)
   props = {
     "size" => @normal_font_size,
+    "font_family" => @font_family,
   }
-  props["font_family"] = @font_family if @font_family
 
   draw_order(items, indent_width) do |item|
     %Q[<span #{to_attrs(props)}>#{item.order}. </span>]
@@ -390,8 +390,8 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
   indent_width = screen_x(1.5)
   props = {
     "size" => @small_font_size,
+    "font_family" => @font_family,
   }
-  props["font_family"] = @font_family if @font_family
 
   draw_order(items, indent_width) do |item|
     %Q[<span #{to_attrs(props)}>#{(?a + item.order - 1).chr}. </span>]
@@ -407,8 +407,8 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
   indent_width = screen_x(1)
   props = {
     "size" => @x_small_font_size,
+    "font_family" => @font_family,
   }
-  props["font_family"] = @font_family if @font_family
 
   draw_order(items, indent_width) do |item|
     %Q[<span #{to_attrs(props)}>#{(?A + item.order - 1).chr}. </span>]

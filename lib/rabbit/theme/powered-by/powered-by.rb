@@ -4,7 +4,6 @@ proc_name = "powered-by"
   "size" => screen_size(1.5 * Pango::SCALE),
   "font_family" => @font_family,
 }
-@powered_by_props.delete("font_family") unless @powered_by_props["font_family"]
 
 loader = nil
 if @powered_by_image

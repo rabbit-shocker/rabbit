@@ -161,8 +161,12 @@ module Rabbit
 
       def to_attrs(hash)
         hash.collect do |key, value|
-        "#{h key}='#{h value}'"
-        end.join(" ")
+          if value
+            "#{h key}='#{h value}'"
+          else
+            nil
+          end
+        end.compact.join(" ")
       end
       
       def name
