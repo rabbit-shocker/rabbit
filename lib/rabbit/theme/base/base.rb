@@ -20,21 +20,24 @@
 @preformatted_bottom_margin = screen_size(2)
 
 @font_family = nil
-sans_families = font_families.grep(/Sans/i)
-unless sans_families.empty?
-  if sans_families.include?("Sans")
-    @font_family = "Sans"
-  else
-    @font_family = sans_families.first
-  end
-end
-
 @monospace_font_family = nil
-monospace_families = font_families.grep(/Monospace/i)
-unless monospace_families.empty?
-  if monospace_families.include?("Monospace")
-    @monospace_font_family = "Monospace"
-  else
-    @monospace_font_family = monospace_families.first
+
+unless windows?
+  sans_families = font_families.grep(/Sans/i)
+  unless sans_families.empty?
+    if sans_families.include?("Sans")
+      @font_family = "Sans"
+    else
+      @font_family = sans_families.first
+    end
+  end
+
+  monospace_families = font_families.grep(/Monospace/i)
+  unless monospace_families.empty?
+    if monospace_families.include?("Monospace")
+      @monospace_font_family = "Monospace"
+    else
+      @monospace_font_family = monospace_families.first
+    end
   end
 end
