@@ -3,12 +3,14 @@ begin
 rescue LoadError
   module GetText
 
+    module_function
     def bindtextdomain(*args)
     end
     
     def gettext(msgid)
       msgid
     end
+    
   end
 end
 

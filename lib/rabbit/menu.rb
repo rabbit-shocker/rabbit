@@ -24,7 +24,8 @@ module Rabbit
     
     private
     def create_menu
-      ifp = Gtk::ItemFactory.new(Gtk::ItemFactory::TYPE_MENU, "<main>")
+      ifp = Gtk::ItemFactory.new(Gtk::ItemFactory::TYPE_MENU, "<main>", nil)
+
       items = [
         [_("/_Separator"), "<Tearoff>"],
         [_("/_Next"), "<StockItem>", "",
