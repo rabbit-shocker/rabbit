@@ -75,3 +75,8 @@ match(*(page_body + enum_list_item + (item_list_item * 2))) do |items|
   draw_image_mark(items, "green_item.png")
 end
 
+if windows?
+  match("**") do |elems|
+    elems.prop_delete("style")
+  end
+end
