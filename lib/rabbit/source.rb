@@ -5,14 +5,14 @@ module Rabbit
 
   module SourceBase
     
-    attr_reader :encoding, :base
+    attr_reader :encoding, :base, :tmp_base
     attr_accessor :force_modified
 
     def initialize(encoding)
       @encoding = encoding
       @source = nil
-      @base = "."
       @force_modified = false
+      init_base
     end
 
     def read
@@ -48,7 +48,29 @@ module Rabbit
       current.nil? or
         (current and __send__(get_latest_method_name) > current)
     end
+  
+    def base=(new_value)
+      if new_value.nil?
+        init_base
+      else
+        set_base(new_value)
+      end
+    end
 
+    private
+    def init_base
+      set_base(".")
+    end
+
+    def set_base(new_value)
+      @base = new_value
+      if URI.parse(@base.to_s).scheme.nil?
+        @tmp_base = @base
+      else
+        @tmp_base = "."
+      end
+    end
+    
   end
 
   module Source
@@ -70,6 +92,10 @@ module Rabbit
         @argf = argf
       end
 
+      def full_path(path)
+        ::File.join(@base, path)
+      end
+
       private
       def _read
         @argf.read
@@ -85,9 +111,8 @@ module Rabbit
       end
 
       def initialize(encoding, name)
-        super(encoding)
         @name = name
-        @base = ::File.dirname(@name)
+        super(encoding)
       end
 
       def _read
@@ -110,6 +135,10 @@ module Rabbit
         ::File.mtime(@name)
       end
 
+      def init_base
+        set_base(::File.dirname(@name))
+      end
+      
     end
 
     class RWiki
@@ -121,17 +150,21 @@ module Rabbit
       end
 
       def initialize(encoding, soap_if_uri, name)
-        super(encoding)
         @soap_if_uri = soap_if_uri
         @name = name
         @uri = URI.parse("#{@soap_if_uri}?cmd=view;name=#{@name}")
-        @base = ::File.dirname(@uri.to_s)
+        super(encoding)
       end
 
+      private
       def _read
         @uri.open do |f|
           f.read
         end
+      end
+
+      def init_base
+        set_base(::File.dirname(@uri.to_s))
       end
     end
 
@@ -144,11 +177,10 @@ module Rabbit
       end
 
       def initialize(encoding, cgi_uri, name)
-        super(encoding)
         @cgi_uri = cgi_uri
         @name = name
         @uri = URI.parse("#{@cgi_uri}?c=s;p=#{@name}")
-        @base = ::File.dirname(@uri.to_s)
+        super(encoding)
       end
 
       private
@@ -156,6 +188,10 @@ module Rabbit
         @uri.open do |f|
           f.read
         end
+      end
+
+      def init_base
+        set_base(::File.dirname(@uri.to_s))
       end
     end
 
@@ -170,16 +206,14 @@ module Rabbit
       end
 
       def initialize(encoding, uri)
-        super(encoding)
         @uri = ::URI.parse(uri)
         @last_modified = nil
-        @base_uri = @uri.dup
-        @base_uri.path = ::File.dirname(@base_uri.path)
         @last_access_time = Time.now
+        super(encoding)
       end
 
       def full_path(path)
-        new_path = @base_uri.dup
+        new_path = @base.dup
         new_path.path = [new_path.path, path].join("/")
         new_path.to_s
       end
@@ -198,6 +232,16 @@ module Rabbit
         end
       end
 
+      def init_base
+        base = @uri.dup
+        base.path = ::File.dirname(base.path)
+        set_base(base.to_s)
+      end
+
+      def set_base(new_value)
+        super(::URI.parse(new_value))
+      end
+      
       def last_modified
         @uri.open do |f|
           f.last_modified

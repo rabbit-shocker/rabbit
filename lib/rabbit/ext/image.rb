@@ -44,8 +44,8 @@ module Rabbit
         end
       end
 
-      def tmp_filename(base, key)
-        dir = File.join(base, TMP_DIR_NAME)
+      def tmp_filename(visitor, key)
+        dir = File.join(visitor.tmp_base, TMP_DIR_NAME)
         FileUtils.mkdir_p(dir)
         File.join(dir, CGI.escape(key))
       end
@@ -57,7 +57,7 @@ module Rabbit
         if URI.parse(image_uri).scheme.nil?
           filename = image_uri
         else
-          filename = tmp_filename(visitor.base, image_uri)
+          filename = tmp_filename(visitor, image_uri)
           content = open(image_uri, "rb") do |in_file|
             in_file.read
           end
@@ -70,7 +70,7 @@ module Rabbit
       end
       
       def other_uri_filename(visitor, uri)
-        filename = tmp_filename(visitor.base, uri.to_s)
+        filename = tmp_filename(visitor, uri.to_s)
         uri.open("rb") do |in_file|
           File.open(filename, "wb") do |out|
             out.print(in_file.read)

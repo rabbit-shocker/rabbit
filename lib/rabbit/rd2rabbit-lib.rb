@@ -60,6 +60,10 @@ module Rabbit
       @canvas.base
     end
 
+    def tmp_base
+      @canvas.tmp_base
+    end
+
     def apply_to_DocumentElement(element, contents)
       target = nil
       contents.each do |content|

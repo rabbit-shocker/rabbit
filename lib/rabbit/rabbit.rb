@@ -50,5 +50,3 @@ module Rabbit
   end
 
 end
-
-require "rabbit/frame"
