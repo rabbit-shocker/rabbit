@@ -141,6 +141,8 @@ module Rabbit
     end
 
     def fallback_fullscreen
+      @prev_width = @prev_height = nil
+      @prev_x = @prev_y = nil
       Gtk.timeout_add(FALLBACK_LIMIT) do
         unless @fullscreen_toggled
           @prev_width, @prev_height = width, height
@@ -159,7 +161,9 @@ module Rabbit
 
     def fallback_unfullscreen
       Gtk.timeout_add(FALLBACK_LIMIT) do
-        unless @fullscreen_toggled
+        if !@fullscreen_toggled and
+            @prev_width and @prev_height and
+            @prev_x and @prev_y
           @window.hide
           @window.resize(@prev_width, @prev_height)
           @window.decorated = true

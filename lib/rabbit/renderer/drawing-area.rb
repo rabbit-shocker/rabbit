@@ -128,6 +128,30 @@ module Rabbit
         @area.create_pango_context
       end
       
+      def pre_print(page_size)
+        start_progress(page_size)
+      end
+
+      def printing(i)
+        update_progress(i)
+      end
+
+      def post_print
+        end_progress
+      end
+
+      def pre_to_pixbuf(page_size)
+        start_progress(page_size)
+      end
+
+      def to_pixbufing(i)
+        update_progress(i)
+      end
+      
+      def post_to_pixbuf
+        end_progress
+      end
+
       private
       def can_create_pixbuf?
         false
@@ -314,7 +338,9 @@ module Rabbit
         when *ICONIFY_KEYS
           @canvas.iconify
         when *TOGGLE_INDEX_MODE_KEYS
-          @canvas.toggle_index_mode
+          Thread.new do
+            @canvas.toggle_index_mode
+          end
         end
       end
       
@@ -405,30 +431,6 @@ module Rabbit
         end
       end
       
-      def pre_print
-        start_progress(@canvas.page_size)
-      end
-
-      def printing(i)
-        update_progress(i)
-      end
-
-      def post_print
-        end_progress
-      end
-
-      def pre_to_pixbuf
-        start_progress(@canvas.page_size)
-      end
-
-      def to_pixbufing(i)
-        update_progress(i)
-      end
-      
-      def post_to_pixbuf
-        end_progress
-      end
-
       def clear_pixmap
         @pixmap.clear_pixmaps
       end

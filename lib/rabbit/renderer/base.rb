@@ -42,7 +42,7 @@ module Rabbit
           canvas = make_canvas_with_offscreen_renderer
         end
         previous_index = canvas.current_index
-        pre_to_pixbuf
+        pre_to_pixbuf(canvas.page_size)
         canvas.pages.each_with_index do |page, i|
           to_pixbufing(i)
           canvas.move_to_if_can(i)

@@ -140,6 +140,15 @@ module Rabbit
         Gtk::Invisible.new.create_pango_context
       end
       
+      def pre_to_pixbuf(page_size)
+      end
+
+      def to_pixbufing(i)
+      end
+      
+      def post_to_pixbuf
+      end
+      
       private
       def can_create_pixbuf?
         true
@@ -182,15 +191,6 @@ module Rabbit
         gc
       end
 
-      def pre_to_pixbuf
-      end
-
-      def to_pixbufing(i)
-      end
-      
-      def post_to_pixbuf
-      end
-      
     end
   end
 end

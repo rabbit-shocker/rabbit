@@ -182,7 +182,7 @@ module Rabbit
     def save_as_image
       file_name_format =
           "#{saved_image_basename}%0#{number_of_places(page_size)}d.#{@saved_image_type}"
-      @renderer.each_page_pixbuf do |pixbuf, page_number|
+      each_page_pixbuf do |pixbuf, page_number|
         file_name = file_name_format % page_number
         pixbuf.save(file_name, normalized_saved_image_type)
       end

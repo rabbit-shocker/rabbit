@@ -25,13 +25,16 @@ module Rabbit
         max_per_page = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
         number_of_pages = 0
+        canvas.renderer.pre_to_pixbuf(maker.page_size)
         maker.each_page_pixbuf do |pixbuf, page_number|
+          canvas.renderer.to_pixbufing(page_number)
           if page_number.remainder(max_per_page).zero?
             thumbnails_set << []
           end
           thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, page_number)
           number_of_pages = page_number
         end
+        canvas.renderer.post_to_pixbuf
         maker.quit
         
         thumbnails_set.collect do |thumbnails|

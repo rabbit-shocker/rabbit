@@ -17,7 +17,7 @@ module Rabbit
     attr_reader :filename
     def initialize(filename)
       @filename = filename
-      super(_("no such file %s.") % filename)
+      super(_("no such file %s") % filename)
     end
   end
 
@@ -27,7 +27,7 @@ module Rabbit
       @type = type
       @command = command
       format =
-        _("%s can't handle, because command can't be run successfully: %s")
+        _("can't handle %s because the following command can't be run successfully: %s")
       msg = format % [@type, @command]
       msg << "\n#{additional_info}" if additional_info
       super(msg)
@@ -52,7 +52,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("Unknown property: %s.") % name)
+      super(_("Unknown property: %s") % name)
     end
   end
 
@@ -60,7 +60,7 @@ module Rabbit
     attr_reader :color
     def initialize(color)
       @color = color
-      super(_("can't allocate color: %s."), color)
+      super(_("can't allocate color: %s"), color)
     end
   end
 
@@ -71,7 +71,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("%s doesn't exist.") % @name)
+      super(_("%s doesn't exist") % @name)
     end
   end
   
@@ -79,7 +79,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("%s isn't file.") % @name)
+      super(_("%s isn't a file") % @name)
     end
   end
   
@@ -87,7 +87,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("%s isn't readable.") % @name)
+      super(_("%s can't be read") % @name)
     end
   end
   

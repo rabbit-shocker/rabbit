@@ -124,7 +124,9 @@ module Rabbit
     end
 
     def toggle_index_mode(*args)
-      @canvas.toggle_index_mode
+      Thread.new do
+        @canvas.toggle_index_mode
+      end
     end
     
     def save_as_image(*args)

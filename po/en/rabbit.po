@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-17 22:09+0900\n"
-"PO-Revision-Date: 2004-10-15 00:16+0900\n"
+"POT-Creation-Date: 2004-10-21 11:32+0900\n"
+"PO-Revision-Date: 2004-10-21 11:36+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: English <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: lib/rabbit/rabbit.rb:20
-msgid "no such file %s."
+msgid "no such file %s"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:30
-msgid "%s can't handle, because command can't be run successfully: %s"
+msgid "can't handle %s because the following command can't be run successfully: %s"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:39
@@ -27,23 +27,23 @@ msgid "tried gs commands: %s"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:55
-msgid "Unknown property: %s."
+msgid "Unknown property: %s"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:63
-msgid "can't allocate color: %s."
+msgid "can't allocate color: %s"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:74
-msgid "%s doesn't exist."
+msgid "%s doesn't exist"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:82
-msgid "%s isn't file."
+msgid "%s isn't a file"
 msgstr ""
 
 #: lib/rabbit/rabbit.rb:90
-msgid "%s isn't readable."
+msgid "%s can't be read"
 msgstr ""
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
@@ -54,23 +54,23 @@ msgstr ""
 
 #: lib/rabbit/menu.rb:35
 msgid "/Slide"
-msgstr "/Slide Mode(_I)"
+msgstr "/Slide mode"
 
 #: lib/rabbit/menu.rb:38
 msgid "/Index"
-msgstr "/_Index Mode"
+msgstr "/Index mode"
 
 #: lib/rabbit/menu.rb:45
 msgid "/UnFullScreen"
-msgstr "/_Unfull-screen"
+msgstr "/Unfull-screen"
 
 #: lib/rabbit/menu.rb:48
 msgid "/FullScreen"
-msgstr "/Full-screen(_U)"
+msgstr "/Full-screen"
 
 #: lib/rabbit/menu.rb:54
 msgid "/SaveAsImage"
-msgstr "/_Save As Image"
+msgstr "/Save as image"
 
 #: lib/rabbit/menu.rb:58
 msgid "/Print"
@@ -78,35 +78,35 @@ msgstr "/Print"
 
 #: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:96
 msgid "/Jump"
-msgstr "/_Jump To"
+msgstr "/Jump to"
 
 #: lib/rabbit/menu.rb:71
 msgid "/Next"
-msgstr "/_Next Page"
+msgstr "/Next page"
 
 #: lib/rabbit/menu.rb:73
 msgid "/Previous"
-msgstr "/_Previous Page"
+msgstr "/Previous page"
 
 #: lib/rabbit/menu.rb:75
 msgid "/First"
-msgstr "/_First Page"
+msgstr "/First page"
 
 #: lib/rabbit/menu.rb:77
 msgid "/Last"
-msgstr "/_Last Page"
+msgstr "/Last page"
 
 #: lib/rabbit/menu.rb:82
 msgid "/Iconify"
-msgstr "/Iconify(_Z)"
+msgstr "/Iconify"
 
 #: lib/rabbit/menu.rb:86
 msgid "/ReloadTheme"
-msgstr "/Reload _Theme"
+msgstr "/Reload theme"
 
 #: lib/rabbit/menu.rb:91
 msgid "/Quit"
-msgstr "/_Quit"
+msgstr "/Quit"
 
 #: lib/rabbit/logger/gui.rb:59
 msgid "Rabbit Error Dialog"
