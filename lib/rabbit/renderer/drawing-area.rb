@@ -44,6 +44,10 @@ module Rabbit
         window.add(@area)
       end
     
+      def detach_from(window)
+        window.remove(@area)
+      end
+    
       def width
         @drawable.size[0]
       end

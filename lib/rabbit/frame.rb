@@ -44,13 +44,33 @@ module Rabbit
     end
 
     def fullscreen
+      @fullscreen_toggled = false
       @fullscreen = true
       @window.fullscreen
+      Gtk.timeout_add(100) do
+        # fallback
+        unless @fullscreen_toggled
+          @prev_width, @prev_height = width, height
+          max_width, max_height = @window.root_window.size
+          reinit_window(max_width, max_height, Gtk::Window::POPUP)
+          @window.show_all
+        end
+        false
+      end
     end
 
     def unfullscreen
+      @fullscreen_toggled = false
       @fullscreen = false
       @window.unfullscreen
+      Gtk.timeout_add(100) do
+        # fallback
+        unless @fullscreen_toggled
+          reinit_window(@prev_width, @prev_height)
+          @window.show_all
+        end
+        false
+      end
     end
     
     def toggle_fullscreen
@@ -79,6 +99,7 @@ module Rabbit
 
     def init_gui(width, height, main_window)
       init_window(width, height)
+      @fullscreen_toggled = false
       @fullscreen = false
       @iconify = false
       @main_window = main_window
@@ -87,14 +108,22 @@ module Rabbit
     end
     
     private
-    def init_window(width, height)
-      @window = Gtk::Window.new
+    def init_window(width, height, window_type=Gtk::Window::TOPLEVEL)
+      @destroy_handler_id = nil
+      @window = Gtk::Window.new(window_type)
       @window.set_default_size(width, height)
       @window.set_app_paintable(true)
       set_window_signal
       @canvas.attach_to(self, @window)
     end
 
+    def reinit_window(width, height, window_type=Gtk::Window::TOPLEVEL)
+      @canvas.detach_from(self, @window)
+      @window.signal_handler_disconnect(@destroy_handler_id)
+      @window.destroy
+      init_window(width, height, window_type)
+    end
+    
     def set_window_signal
       set_window_signal_window_state_event
       set_window_signal_destroy
@@ -103,6 +132,7 @@ module Rabbit
     def set_window_signal_window_state_event
       @window.signal_connect("window_state_event") do |widget, event|
         if event.changed_mask.fullscreen?
+          @fullscreen_toggled = true
           if fullscreen?
             @canvas.fullscreened
           else
@@ -120,7 +150,7 @@ module Rabbit
     end
 
     def set_window_signal_destroy
-      @window.signal_connect("destroy") do
+      @destroy_handler_id = @window.signal_connect("destroy") do
         @canvas.destroy
         if main_window? and Gtk.main_level > 0
           Gtk.main_quit

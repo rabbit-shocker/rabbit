@@ -62,6 +62,11 @@ module Rabbit
       @renderer.attach_to(window)
     end
     
+    def detach_from(frame, window)
+      @frame = NullFrame.new
+      @renderer.detach_from(window)
+    end
+    
     def title
       tp = title_page
       if tp
