@@ -6,10 +6,10 @@ module Rabbit
   module Source
     
     module Base
-      
+
       attr_reader :encoding, :base, :tmp_base
       attr_accessor :force_modified
-      
+
       def initialize(encoding)
         @encoding = encoding
         @source = nil

@@ -168,9 +168,9 @@ Ahh, I'll set up more better documents.
 : Quit
    q, Esc
 : Next page
-   n, f, j, l, Spc, Ret, Tab, +, ↓, →, left click
+   n, f, j, l, Spc, Ret, Tab, +, ↓, →, left click and so on.
 : Previous page
-   p, b, k, h, BS, Del, -, ↑, ←, center click
+   p, b, k, h, BS, Del, -, ↑, ←, center click and so on.
 
 = Key bindings (convenience)
 
@@ -183,26 +183,34 @@ Ahh, I'll set up more better documents.
 
 = Key bindings (presentation)
 
-: toggle full screen
+: Toggle full screen
    F10
 
-: toggle index mode
+: Toggle index mode
    i
+
+: Go to specified page in index mode
+   double click
 
 = Key bindings (feature)
 
-: screenshot
+: Screenshot
    save each page as image
 
    s
 
 = Key binding (draw)
 
-: redraw
+: Redraw
    Ctrl+l
 
-: reload theme
+: Reload theme
    t, r
+
+= Key binding (etc)
+
+: Iconify
+   z
 
 = Finish
 

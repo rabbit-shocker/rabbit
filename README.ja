@@ -101,6 +101,10 @@ RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
 
   % rabbit --type file sample/rabbit-implementation.rd
 
+あるいは，こんな風にしてもよいです．
+
+  % rabbit --base sample  sample/rabbit-implementation.rd
+
 === オプション
 
 : -t, --theme
@@ -110,14 +114,102 @@ RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
    ロードパスを追加します．ロードパスはテーマの検索などにも
    使用されます．
 
-: --source-infos
-   入力ソースの情報を指定します．
+: -B, --base
+   入力ソース中の相対パス（例えば画像へのパス）を解決するた
+   めのURIまたはパスを指定します．省略した場合は入力ソースの
+   種類に応じて自動的に決定されます．
 
-: --type
+: -T, --type
    入力ソースの種類を指定します．
+
+   入力ソースの種類は rwiki, file, argf（デフォルト）, uri 
+   のいずれかを指定します。
+
+   : argf
+
+     デフォルト．つまり--type argfは省略可．
+     
+     入力ソースとしてARGFを利用します．つまり，標準入力から
+     ソースを入力することも出来ます．
+     
+     ソースの自動再読み込み機能は利用できません．
+     
+     例:
+       % rabbit --type argf file1.rd file2.rd ...
+     とか
+       % cat file1.rd file2.rd ... | rabbit --type argf
+     とか
+       % rabbit --type argf
+       = title
+       ...
+       ^D
+     とか
+
+   : file
+
+     指定したファイルからソースを取得します．
+
+     こっちをデフォルトにしたほうがよいかなぁ．
+
+     ソースの自動再読み込み機能を利用できます．
+     
+     例:
+       % rabbit --type file file.rd
+
+   : uri
+
+     指定したURIからソースを取得します．
+
+     ソースの自動再読み込み機能を利用できますが，パフォーマ
+     ンスなどを考慮して，最後にソースを読み込んでから一定時
+     間（現在は60秒）以上たたないとたとえソースが変更されて
+     いてもソースを再読み込みしません．
+
+     例:
+       % rabbit --type uri http://www.cozmixng.org/repos/rabbit/trunk/sample/rabbit-implementation.rd
+     とか
+       % rabbit --type uri ftp://.../XXX.rd
+     とか
+
+     ちなみに，
+       % rabbit --type uri file:///.../XXX.rd
+     とか
+       % rabbit --type uri /.../XXX.rd
+     とかは
+       % rabbit --type file /.../XXX.rd
+     と同じ
+
+   : rwiki
+
+     指定したRWikiのページの内容をソースとします．ただし，
+     RWikiにはSOAPインターフェイスが用意されている必要があり
+     ます．
+
+     ソースの自動再読み込み機能を利用できますが，パフォーマ
+     ンスなどを考慮して，最後にソースを読み込んでから一定時
+     間（現在は60秒）以上たたないとたとえソースが変更されて
+     いてもソースを再読み込みしません．
+
+     例:
+       % rabbit --type rwiki RWikiのSOAPインターフェイスのURI ページ名
+
+     注意点としてはページ名は対象となるRWikiと同じエンコーディ
+     ングである必要があるということです．
+
+     例えば，EUC-JPで以下のようにします（The RWikiにはSOAPイン
+     ターフェイスが導入済み）．
+
+       % rabbit --type rwiki http://pub.cozmixng.org/~the-rwiki/rw-soap.rb スライド::Rabbit
+
+     --baseと組み合わせてこんな風にするとよいかもしれません．
+
+       % rabbit --type rwiki --base #{Rabbitを展開したディレクトリ}/sample \
+          http://pub.cozmixng.org/~the-rwiki/rw-soap.rb スライド::Rabbit
 
 : -e, --encoding
    入力ソースのエンコーディングを指定します．
+   
+   デフォルトはUTF-8です．
 
 : -f, --full-screen
    フルスクリーンモードで起動します．
@@ -125,19 +217,25 @@ RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
 : -w, --width
    ウィンドウの幅を指定します．
    
+   デフォルトは800です．
+   
 : -h, --height
    ウィンドウの高さを指定します．
+
+   デフォルトは600です．
    
-: --size
+: -S, --size
    ウィンドウの高さと幅を指定します．
 
 : -s, --save-as-image
    スライドの各ページを画像として保存します．
 
-: --saved-image-type
+: -i, --saved-image-type
    保存される画像の種類を指定します．
+   
+   例えば，png（デフォルト）とかjpegとか．
 
-: --saved-image-basename
+: -b, --saved-image-basename
    保存される画像のファイルのベース名を指定します．保存され
    る画像の名前は"#{ベース名}#{ページ番号}.#{拡張子}"となり
    ます．

@@ -10,10 +10,22 @@ module Rabbit
       include Base
       include LimitAccessInterval
 
-      def self.initial_args_description
-        "URI"
-      end
+      class << self
+        def new(encoding, uri)
+          parsed_uri = ::URI.parse(uri)
+          case parsed_uri.scheme
+          when nil, /file/i
+            File.new(encoding, parsed_uri.path)
+          else
+            super
+          end
+        end
 
+        def initial_args_description
+          "URI"
+        end
+      end
+      
       def initialize(encoding, uri)
         @uri = ::URI.parse(uri)
         @last_modified = nil

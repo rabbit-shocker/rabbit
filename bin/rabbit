@@ -13,7 +13,7 @@ def parse(args)
   options = OpenStruct.new
   options.theme = "default"
   options.theme_specified = false
-  options.source_base = nil
+  options.base = nil
   options.source_type = Rabbit::Source::ARGF
   options.full_screen = false
   options.width = 800
@@ -55,7 +55,7 @@ def parse(args)
        "as SOURCE_INFOS.",
        " "]
     end.flatten
-    opts.on("--type [TYPE]",
+    opts.on("-T", "--type [TYPE]",
             source_type_names,
             "Specify source type as [TYPE].",
             "Select from [#{source_type_names.join(', ')}].",
@@ -74,10 +74,10 @@ def parse(args)
       options.encoding = encoding
     end
 
-    opts.on("--source-base [SOURCE_BASE]",
-            "Specify base URI of source as [SOURCE_BASE].",
+    opts.on("-B", "--base [BASE]",
+            "Specify base URI or path of source as [BASE].",
             "(auto)") do |base|
-      options.source_base = base
+      options.base = base
     end
 
     opts.on("-f", "--full-screen",
@@ -100,7 +100,7 @@ def parse(args)
       options.height = height
     end
 
-    opts.on("--size [WIDTH],[HEIGHT]",
+    opts.on("-S", "--size [WIDTH],[HEIGHT]",
             Array,
             "Set window width and height to",
             "[WIDTH] and [HEIGHT].",
@@ -115,7 +115,7 @@ def parse(args)
       options.save_as_image = true
     end
 
-    opts.on("--saved-image-type [TYPE]",
+    opts.on("-i", "--saved-image-type [TYPE]",
             "Specify saved image type as [TYPE].",
             "(#{options.saved_image_type})") do |t|
       options.saved_image_type = t
@@ -159,7 +159,7 @@ if options.theme_specified
 end
 
 source = make_source(options, ARGV)
-source.base = options.source_base
+source.base = options.base
 frame.parse_rd(source)
 
 if options.full_screen
