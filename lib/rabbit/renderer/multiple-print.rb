@@ -13,11 +13,11 @@ module Rabbit
       attr_reader :page_width, :page_height
 
       def width
-        @layout.slide_width
+        @slide_width ||= @layout.slide_width
       end
 
       def height
-        @layout.slide_height
+        @slide_height ||= @layout.slide_height
       end
 
       def draw_slide(slide)
@@ -50,6 +50,8 @@ module Rabbit
         else
           @layout = nil
         end
+        @slide_width = nil
+        @slide_height = nil
       end
 
       def draw_background
@@ -136,10 +138,9 @@ module Rabbit
         end
 
         def normalize_y(y)
+          base = @bottom_margin
           if above?
-            base = 2 * @top_margin + @bottom_margin + slide_height
-          else
-            base = @bottom_margin
+            base += @top_margin + @bottom_margin + slide_height
           end
           y - base
         end
@@ -164,15 +165,14 @@ module Rabbit
         end
 
         def slide_height
-          base = (page_height / (slides_per_page / 2.0).ceil)
+          base = page_height / (slides_per_page / 2.0).ceil
           base - @top_margin - @bottom_margin
         end
         
         def normalize_x(x)
-          if left?
-            base = @left_margin
-          else
-            base = 2 * @left_margin + @right_margin + slide_width
+          base = @left_margin
+          unless left?
+            base += @left_margin + @right_margin + slide_width
           end
           x + base
         end
@@ -180,8 +180,8 @@ module Rabbit
         def normalize_y(y)
           negative_index = normalized_slides - normalized_current_index
           nth_col = (negative_index / 2.0).ceil - 1
-          base = 2 * @top_margin * nth_col
-          base += @bottom_margin
+          base = @top_margin * nth_col
+          base += @bottom_margin * (nth_col + 1)
           base += slide_height * nth_col
           y - base
         end

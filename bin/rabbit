@@ -216,14 +216,22 @@ def parse(args, logger)
         options.bottom_margin = margin
       end
 
-      opts.on("--margin [LEFT],[RIGHT],[TOP],[BOTTOM]",
+      margin1 = "[ALL]"
+      margin2 = "[TOP_BOTTOM],[LEFT_RIGHT]"
+      margin3 = "[TOP],[LEFT_RIGHT],[BOTTOM]"
+      margin4 = "[TOP],[RIGHT],[BOTTOM],[LEFT]"
+      opts.on("--margin {#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
               Array,
-              "Set margin for slides per page mode print.") do |margin|
-        left, right, top, bottom = margin.collect{|x| Integer(x)}
-        options.left_margin = left
-        options.right_margin = right
-        options.top_margin = top
-        options.bottom_margin = margin
+              "Set margin for slides per page mode print.") do |margins|
+        begin
+          top, right, bottom, left = parse_margins(margins)
+          options.top_margin = top
+          options.right_margin = right
+          options.bottom_margin = bottom
+          options.left_margin = left
+        rescue ArgumentError
+          raise OptionParser::InvalidArgument.new(margins)
+        end
       end
 
     end
@@ -271,6 +279,25 @@ def parse(args, logger)
   end
 
   [options, logger]
+end
+
+def parse_margins(margins)
+  case margins.size
+  when 1
+    left = right = top = bottom = Integer(margins.first)
+  when 2
+    top, left = margins.collect{|x| Integer(x)}
+    bottom = top
+    right = left
+  when 3
+    top, left, bottom = margins.collect{|x| Integer(x)}
+    right = left
+  when 4
+    top, right, bottom, left = margins.collect{|x| Integer(x)}
+  else
+    raise ArgumentError
+  end
+  [top, right, bottom, left]
 end
 
 def make_source(options, argv, logger)
@@ -351,18 +378,24 @@ def do_display(options, logger)
   Gtk.main
 end
 
-Rabbit::GetText.bindtextdomain
+def main
+  Rabbit::GetText.bindtextdomain
+  
+  logger = Rabbit::Logger::STDERR.new
+  
+  options, logger = parse(ARGV, logger)
+  
+  Rabbit::GetText.bindtextdomain(options.locale_dir)
+  
+  if options.save_as_image
+    do_save_as_image(options, logger)
+  elsif options.print
+    do_print(options, logger)
+  else
+    do_display(options, logger)
+  end
+end
 
-logger = Rabbit::Logger::STDERR.new
-
-options, logger = parse(ARGV, logger)
-
-Rabbit::GetText.bindtextdomain(options.locale_dir)
-
-if options.save_as_image
-  do_save_as_image(options, logger)
-elsif options.print
-  do_print(options, logger)
-else
-  do_display(options, logger)
+if __FILE__ == $0
+  main
 end
