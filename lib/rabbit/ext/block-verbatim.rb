@@ -51,7 +51,7 @@ module Rabbit
         begin
           image_file = make_image_by_mimeTeX(src_file.path)
         rescue ImageLoadError
-          visitor.logger.warn($!)
+          visitor.logger.warn($!.message)
           return nil
         end
         prop['src'] = %Q[file://#{image_file.path}]
@@ -62,7 +62,7 @@ module Rabbit
       def make_image_by_mimeTeX(path)
         image_file = Tempfile.new("rabbit")
         command = ["mimetex.cgi", "-e", image_file.path, "-f", path]
-        if run(*command) {|error| visitor.logger.warn(error)}
+        if run(*command)
           image_file
         else
           raise TeXCanNotHandleError.new(command.join(" "))
