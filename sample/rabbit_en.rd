@@ -27,7 +27,7 @@ A presentation tool
 = Features
 
   * source is RD
-  * align with RWiki (((*plan*)))
+  * align with RWiki
     * edit source on the RWiki
     * when presentation, source is directory from RWiki
   * isolate RD and look and feel
@@ -52,7 +52,7 @@ A presentation tool
 
 = ToDo
 
-  * align with RWiki
+  * right click menu
 
 = Call on
 

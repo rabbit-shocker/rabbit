@@ -33,6 +33,7 @@ module Rabbit
     def initialize(frame)
       @frame = frame
       @theme_name = nil
+      @current_cursor = nil
       @blank_cursor = nil
       @saved_image_basename = nil
       clear
@@ -181,11 +182,11 @@ module Rabbit
     end
     
     def fullscreened
-      @drawable.cursor = blank_cursor
+      set_cursor(blank_cursor)
     end
 
     def unfullscreened
-      @drawable.cursor = nil
+      set_cursor(nil)
     end
 
     def iconified
@@ -281,8 +282,8 @@ module Rabbit
     def set_button_press_event
       @drawing_area.signal_connect("button_press_event") do |widget, event|
         if BUTTON_PRESS_HANDLER.has_key?(event.event_type)
-          add_button_handler do |_return|
-            __send__(BUTTON_PRESS_HANDLER[event.event_type], event, _return)
+          add_button_handler do
+            __send__(BUTTON_PRESS_HANDLER[event.event_type], event)
           end
           start_button_handler_thread
         end
@@ -370,6 +371,10 @@ module Rabbit
       move_to(page_size - 1)
     end
 
+    def set_cursor(cursor)
+      @current_cursor = @drawable.cursor = cursor
+    end
+    
     def calc_page_number(key_event, base)
       val = key_event.keyval
       val += 10 if key_event.state.control_mask?
@@ -399,8 +404,10 @@ module Rabbit
 
     def toggle_index_mode
       if @index_mode
+        @drawable.cursor = @current_cursor
         @index_mode = false
       else
+        @drawable.cursor = nil
         @index_mode = true
         if @index_pages.empty?
           @index_pages = Index.make_index_pages(self)
@@ -517,7 +524,7 @@ module Rabbit
       handled
     end
 
-    def handle_button_press(event, _return)
+    def handle_button_press(event)
       case event.button
       when 1, 5
         move_to_next_if_can
@@ -527,38 +534,27 @@ module Rabbit
       end
     end
     
-    def handle_button2_press(event, _return)
+    def handle_button2_press(event)
       if @index_mode
         index = current_page.page_number(self, event.x, event.y)
         if index
-          @index_mode = false
+          toggle_index_mode
           move_to_if_can(index)
         end
       end
-      _return.call
+      clear_button_handler
     end
     
-    def handle_button3_press(event, _return)
-      _return.call
+    def handle_button3_press(event)
+      clear_button_handler
     end
 
     def add_button_handler(handler=Proc.new)
-      @button_handler.unshift(handler)
+      @button_handler.push(handler)
     end
     
     def call_button_handler
-      begin
-        callcc do |_return|
-          @button_handler.each do |handler|
-            handler.call(_return)
-          end
-        end
-      rescue Exception
-        puts "(#{$!.class}) #{$!.message}"
-        puts $@
-      ensure
-        clear_button_handler
-      end
+      @button_handler.pop.call until @button_handler.empty?
     end
 
     def start_button_handler_thread
