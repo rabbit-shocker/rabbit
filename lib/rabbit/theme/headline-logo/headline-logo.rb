@@ -25,7 +25,7 @@ match("**", HeadLine) do |heads|
           loader.resize(width, header_height) if width > 0
           resized = true
         end
-        draw_pixbuf(canvas, loader.pixbuf, w - loader.width, y)
+        canvas.draw_pixbuf(loader.pixbuf, w - loader.width, y)
       end
       start_y = y
       [x, y, w, h]

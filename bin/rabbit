@@ -7,6 +7,7 @@ require "ostruct"
 require "rabbit/frame"
 require "rabbit/source"
 require "rabbit/logger"
+require "rabbit/renderer"
 require "rabbit/gettext"
 
 Version = Rabbit::VERSION
@@ -25,6 +26,7 @@ def parse(args, logger)
   options.saved_image_type = "png"
   options.encoding = "UTF-8"
   options.locale_dir = nil
+  options.renderer = Rabbit::Renderer::DrawingArea
 
   default_logger = logger
   
@@ -196,7 +198,8 @@ options, logger = parse(ARGV, logger)
 
 Rabbit::GetText.bindtextdomain(options.locale_dir)
 
-frame = Rabbit::Frame.new(options.width, options.height, true, logger)
+args = [options.width, options.height, true, logger, options.renderer]
+frame = Rabbit::Frame.new(*args)
   
 if options.theme_specified
   frame.apply_theme(options.theme)

@@ -23,14 +23,14 @@ match(TitlePage, Title) do |titles|
 
         shadow_title = title.clone
         shadow_title.prop_set("foreground", @title_shadow_color)
-        shadow_layout, _, _ = make_layout(canvas, shadow_title.markuped_text)
+        shadow_layout, _, _ = canvas.make_layout(shadow_title.markuped_text)
         shadow_layout.set_width(w * Pango::SCALE)
         if title.do_horizontal_centering? or
             title.parent.do_horizontal_centering?
           shadow_layout.set_alignment(Pango::Layout::ALIGN_CENTER)
         end
       end
-      draw_layout(canvas, shadow_layout, x + move_x, y + move_y)
+      canvas.draw_layout(shadow_layout, x + move_x, y + move_y)
     end
     [x, y, w, h]
   end

@@ -15,19 +15,21 @@ module Rabbit
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@window, :fullscreen, :unfullscreen)
     def_delegators(:@window, :iconify, :show_all)
+    
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
     def_delegators(:@canvas, :save_as_image)
     
     attr_reader :window, :canvas, :logger
 
-    def initialize(width, height, main_window, logger)
+    def initialize(width, height, main_window, logger, renderer)
       @logger = logger
       init_window(width, height)
-      init_canvas
+      init_canvas(renderer)
       @fullscreen = false
       @iconify = false
       @main_window = main_window
+      @window.keep_above = true unless @main_window
       @window.show_all
     end
 
@@ -115,9 +117,9 @@ module Rabbit
       end
     end
 
-    def init_canvas
-      @canvas = Canvas.new(self)
-      @window.add(@canvas.drawing_area)
+    def init_canvas(renderer)
+      @canvas = Canvas.new(self, renderer)
+      @canvas.attach_to(@window)
     end
 
     def unescape_title(title)

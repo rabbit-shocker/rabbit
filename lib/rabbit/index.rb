@@ -1,4 +1,7 @@
-require 'rabbit/utils'
+require 'gtk2'
+
+require 'rabbit/frame'
+require 'rabbit/renderer/drawing-area'
 
 module Rabbit
 
@@ -12,7 +15,8 @@ module Rabbit
         thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
         thumbnail_height = canvas.height / (ROW_NUMBER + 1)
 
-        frame_args = [thumbnail_width, thumbnail_height, false, canvas.logger]
+        frame_args = [thumbnail_width, thumbnail_height, false]
+        frame_args += [canvas.logger, Rabbit::Renderer::DrawingArea]
         frame = Frame.new(*frame_args)
         frame.apply_theme(canvas.theme_name) if canvas.theme_name
 
@@ -51,8 +55,6 @@ module Rabbit
     
     class Page
 
-      include Utils::Canvas
-      
       def initialize(thumbnails, number_of_pages)
         @thumbnails = thumbnails
         @number_of_pages = number_of_pages
@@ -71,7 +73,6 @@ module Rabbit
       end
       
       def draw(canvas)
-        fg = canvas.foreground
         w = width
         h = height
         x_base = (w / (COLUMN_NUMBER + 1.0)).ceil
@@ -92,14 +93,14 @@ module Rabbit
           if i.remainder(ROW_NUMBER).zero?
             y += y_step
           end
-          draw_pixbuf(canvas, thumbnail.pixbuf, x, y, params)
-          draw_rectangle(canvas, false, x, y, w, h)
+          canvas.draw_pixbuf(thumbnail.pixbuf, x, y, params)
+          canvas.draw_rectangle(false, x, y, w, h)
           text = "#{thumbnail.number}/#{@number_of_pages}"
           text = %Q[<span size="#{text_size}">#{text}</span>]
-          layout, _, _ = make_layout(canvas, text)
+          layout, _, _ = canvas.make_layout(text)
           layout.set_width(text_width)
           layout.set_alignment(Pango::Layout::ALIGN_CENTER)
-          draw_layout(canvas, layout, x, y + h)
+          canvas.draw_layout(layout, x, y + h)
         end
       end
 

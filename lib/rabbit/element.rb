@@ -265,21 +265,16 @@ module Rabbit
      
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
-          draw_layout(canvas, x, y)
+          canvas.draw_layout(@layout, x, y)
         end
         [x + @width, y, w - @width, h]
       end
 
       def draw_elements(canvas, x, y, w, h, simulation)
         unless simulation
-          draw_layout(canvas, x, y)
+          canvas.draw_layout(@layout, x, y)
         end
         [x, y + @height, w, h - @height]
-      end
-
-      def draw_layout(canvas, x, y)
-        fg = canvas.foreground
-        canvas.drawable.draw_layout(fg, x, y, @layout)
       end
 
       def markuped_text
@@ -305,10 +300,7 @@ module Rabbit
 
       private
       def generate_draw_info(str, canvas, w)
-        attrs, text = Pango.parse_markup(str)
-        layout = canvas.drawing_area.create_pango_layout(text)
-        layout.set_attributes(attrs)
-        orig_width, orig_height = layout.size.collect {|x| x / Pango::SCALE}
+        layout, orig_width, orig_height = canvas.make_layout(str)
         if @wrap_mode
           layout.set_width(w * Pango::SCALE)
           layout.set_wrap(@wrap_mode)
@@ -889,9 +881,7 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
-          fg = canvas.foreground
-          args = [0, 0, x, y, width, height, dither_mode, x_dither, y_dither]
-          canvas.drawable.draw_pixbuf(fg, @pixbuf, *args)
+          canvas.draw_pixbuf(@pixbuf, x, y)
         end
         [x, y + height, w, h - height]
       end

@@ -23,7 +23,7 @@ match(TitlePage, Title) do |titles|
       end
       new_x = canvas.width - loader.width - title_page.right_margin
       new_y = title_page.top_margin
-      draw_pixbuf(canvas, loader.pixbuf, new_x, new_y)
+      canvas.draw_pixbuf(loader.pixbuf, new_x, new_y)
     end
     [x, y, w, h]
   end

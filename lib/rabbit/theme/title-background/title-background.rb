@@ -17,7 +17,7 @@ match(TitlePage) do |pages|
           loader.resize(canvas.width, canvas.height)
           resized = true
         end
-        draw_pixbuf(canvas, loader.pixbuf, 0, 0)
+        canvas.draw_pixbuf(loader.pixbuf, 0, 0)
       end
     end
     [x, y, w, h]

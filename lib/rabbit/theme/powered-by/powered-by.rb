@@ -19,20 +19,20 @@ add_powered_by = proc do |page|
       if layout.nil?
         text = "Powered by #{@powered_by_text}"
         text = %Q[<span size="#{@powered_by_font_size}">#{text}</span>]
-        layout, tw, th = make_layout(canvas, text)
+        layout, tw, th = canvas.make_layout(text)
       end
       
       new_x = page.left_margin
       new_y = canvas.height - page.bottom_margin
       
-      draw_layout(canvas, layout, new_x, new_y - th)
+      canvas.draw_layout(layout, new_x, new_y - th)
       
       unless loader.nil?
         page_space = canvas.height - y - page.bottom_margin
         loader.resize(nil, page_space) if loader.height > page_space
         px = new_x + tw + space
         py = new_y - loader.height
-        draw_pixbuf(canvas, loader.pixbuf, px, py)
+        canvas.draw_pixbuf(loader.pixbuf, px, py)
       end
     end
     [x, y, w, h]

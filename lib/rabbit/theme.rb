@@ -33,9 +33,9 @@ module Rabbit
         found_path
       end
 
-      def search_file(target)
+      def search_file(target, themes=@theme_stack)
         found_path = nil
-        @theme_stack.find do |theme_name|
+        themes.find do |theme_name|
           $LOAD_PATH.find do |path|
             base_name = File.join(path, 'rabbit', 'theme', theme_name, target)
             if File.exist?(base_name)
@@ -47,10 +47,11 @@ module Rabbit
         end
         if found_path.nil?
           raise LoadError,
-                "can't find file in themes #{@theme_stack.inspect}: #{name}."
+                "can't find file in themes #{@themes.inspect}: #{name}."
         end
         found_path
       end
+      module_function :search_file
 
       def push_theme(name)
         @theme_stack.push(name)
@@ -126,7 +127,6 @@ module Rabbit
       include Enumerable
       include Element
       include Searcher
-      include Utils::Canvas
 
       NORMALIZED_WIDTH = 120.0
       NORMALIZED_HEIGHT = 90.0
@@ -169,12 +169,17 @@ module Rabbit
         @theme.canvas
       end
 
-      def set_foreground(color, can=canvas)
-        can.set_foreground(make_color(can, color))
+      def set_foreground(color)
+        canvas.foreground = canvas.make_color(color)
       end
 
-      def set_background(color, can=canvas)
-        can.set_background(make_color(can, color))
+      def set_background(color)
+        canvas.background = canvas.make_color(color)
+      end
+
+      def set_background_image(filename)
+        loader = ImageLoader.new(search_file(filename))
+        canvas.background_image = loader.pixbuf
       end
 
       def font_families
@@ -356,7 +361,7 @@ module Rabbit
             
           draw_mark(items, indent_proc, width_proc, height_proc) do
             |item, canvas, start_x, start_y, end_x, end_y|
-            draw_pixbuf(canvas, loader.pixbuf, start_x, start_y)
+            canvas.draw_pixbuf(loader.pixbuf, start_x, start_y)
           end
         end
       end
@@ -364,7 +369,7 @@ module Rabbit
       def draw_order(items, indent_width, &block)
         make_order_layout = Proc.new do |item, canvas, x, y ,w, h|
           str = block.call(item)
-          layout, tw, th = make_layout(canvas, str)
+          layout, tw, th = canvas.make_layout(str)
           [tw + indent_width, tw, th, layout]
         end
 
@@ -376,7 +381,7 @@ module Rabbit
 
           new_x = ox + indent_width
           new_y = oy + adjust_y
-          draw_layout(canvas, layout, new_x, new_y)
+          canvas.draw_layout(layout, new_x, new_y)
         end
 
         indent_with(items, make_order_layout, &draw_order)

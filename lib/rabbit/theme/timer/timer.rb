@@ -40,10 +40,10 @@ match(Page) do |pages|
       rest_time = @timer_limit_time - Time.now
       text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
       text = %Q[<span size="#{@page_number_font_size}">#{text}</span>]
-      layout, text_width, text_height = make_layout(canvas, text)
+      layout, text_width, text_height = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
       num_y = canvas.height - @bottom_margin - text_height
-      draw_layout(canvas, layout, x, num_y)
+      canvas.draw_layout(layout, x, num_y)
     end
     [x, y, w, h]
   end

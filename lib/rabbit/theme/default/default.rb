@@ -67,7 +67,7 @@ match(Page, HeadLine) do |heads|
   space = screen_size(1)
   heads.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
     unless simulation
-      draw_line(canvas, x, y + space, x + w, y + space, "red")
+      canvas.draw_line(x, y + space, x + w, y + space, "red")
     end
     [x, y + space * 3, w, h - space * 3]
   end
@@ -140,7 +140,7 @@ match("**", DescriptionTerm) do |terms|
   space = screen_size(1)
   terms.add_post_draw_proc do |term, canvas, x, y, w, h, simulation|
     unless simulation
-      draw_line(canvas, x, y + space, x + term.width, y + space, color)
+      canvas.draw_line(x, y + space, x + term.width, y + space, color)
     end
     [x, y + space * 3, w, h - space * 3]
   end
@@ -169,8 +169,8 @@ match("**", PreformattedBlock) do |blocks|
       orig_w = w
       orig_h = h
       unless simulation
-        draw_rectangle(canvas, true, new_x, new_y, new_w, new_h, fill_color)
-        draw_rectangle(canvas, false, new_x, new_y, new_w, new_h, border_color)
+        canvas.draw_rectangle(true, new_x, new_y, new_w, new_h, fill_color)
+        canvas.draw_rectangle(false, new_x, new_y, new_w, new_h, border_color)
       end
       [x, y + top, w, h - bottom]
     end
@@ -214,7 +214,7 @@ match("**", FoottextBlock) do |blocks|
       [x, y, w, h]
     else
       unless simulation
-        draw_line(canvas, x, y + space, (x + w / 2.0).ceil, y + space, color)
+        canvas.draw_line(x, y + space, (x + w / 2.0).ceil, y + space, color)
       end
       [x, y + space * 3, w, h - space * 3]
     end
@@ -290,7 +290,7 @@ match("**", Image) do |images|
         th = caption.height
       end
       if !simulation and layout
-        draw_layout(canvas, layout, image.ox, y) # dirty!!!
+        canvas.draw_layout(layout, image.ox, y) # dirty!!!
       end
       [x, y + space + th, w, h - space - th]
     end
@@ -314,7 +314,7 @@ match(*(page_body + (item_list_item * 1))) do |items|
 
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
-    draw_rectangle(canvas, true, start_x, start_y, end_x, end_y, color)
+    canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
   space = screen_y(1.5)
@@ -331,7 +331,7 @@ match(*(page_body + (item_list_item * 2))) do |items|
   
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
-    draw_circle(canvas, true, start_x, start_y, end_x, end_y, color)
+    canvas.draw_circle(true, start_x, start_y, end_x, end_y, color)
   end
 
   space = screen_y(1.0)
@@ -348,7 +348,7 @@ match(*(page_body + (item_list_item * 3))) do |items|
   
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
-    draw_rectangle(canvas, true, start_x, start_y, end_x, end_y, color)
+    canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
   space = screen_y(0.5)
@@ -427,7 +427,7 @@ match(*(page_body + enum_list_item + item_list_item)) do |items|
 
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
-    draw_rectangle(canvas, true, start_x, start_y, end_x, end_y, color)
+    canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
   space = screen_y(1.0)
@@ -444,7 +444,7 @@ match(*(page_body + enum_list_item + (item_list_item * 2))) do |items|
 
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
-    draw_rectangle(canvas, true, start_x, start_y, end_x, end_y, color)
+    canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
   space = screen_y(0.5)

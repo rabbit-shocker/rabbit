@@ -10,7 +10,7 @@ match(TitlePage) do |pages|
   pages.add_pre_draw_proc(proc_name) do |page, canvas, x, y, w, h, simulation|
     unless simulation
       args = [0, 0, canvas.width, canvas.height, @title_background_color]
-      draw_rectangle(canvas, true, *args)
+      canvas.draw_rectangle(true, *args)
     end
     [x, y, w, h]
   end

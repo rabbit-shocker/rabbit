@@ -1,17 +1,19 @@
-require "forwardable"
 require "gtk2"
 
 require "rabbit/gettext"
+require "rabbit/theme"
+require "rabbit/image"
 
 module Rabbit
 
   class Menu
 
-    extend Forwardable
-
     include GetText
-    
-    def_delegators(:@canvas, :pages)
+
+    file = Theme::Searcher.search_file("lavie_icon.png", ["rabbit"])
+    loader = ImageLoader.new(file)
+    loader.resize(16, 16)
+    @@icon = loader.pixbuf
     
     def initialize(canvas)
       @canvas = canvas
@@ -30,39 +32,64 @@ module Rabbit
         [_("/Separator"), "<Tearoff>"],
         
         if @canvas.index_mode?
-          [_("/_Slide"), "<StockItem>", "",
+          [_("/Slide"), "<StockItem>", "",
            Gtk::Stock::DND, method(:toggle_index_mode)]
         else
-          [_("/_Index"), "<StockItem>", "",
+          [_("/Index"), "<StockItem>", "",
            Gtk::Stock::INDEX, method(:toggle_index_mode)]
         end,
 
         [_("/Separator"), "<Separator>"],
         
-        [_("/_SaveAsImage"), "<StockItem>", "",
+        if @canvas.fullscreen?
+          [_("/UnFullScreen"), "<StockItem>", "",
+            Gtk::Stock::ZOOM_OUT, method(:toggle_fullscreen)]
+        else
+          [_("/FullScreen"), "<StockItem>", "",
+            Gtk::Stock::ZOOM_FIT, method(:toggle_fullscreen)]
+        end,
+        
+        [_("/Separator"), "<Separator>"],
+        
+        [_("/SaveAsImage"), "<StockItem>", "",
          Gtk::Stock::SAVE, method(:save_as_image)],
         
         [_("/Separator"), "<Separator>"],
         
-        [_("/_Next"), "<StockItem>", "",
+        # [_("/Jump"), "<StockItem>", "", Gtk::Stock::JUMP_TO],
+        [_("/Jump")],
+        
+        [_("/Jump") + _("/Separator"), "<Tearoff>"],
+
+        [_("/Separator"), "<Separator>"],
+        
+        [_("/Next"), "<StockItem>", "",
          Gtk::Stock::GO_FORWARD, method(:move_to_next)],
-        [_("/_Previous"), "<StockItem>", "",
+        [_("/Previous"), "<StockItem>", "",
          Gtk::Stock::GO_BACK, method(:move_to_previous)],
-        [_("/_First"), "<StockItem>", "",
+        [_("/First"), "<StockItem>", "",
          Gtk::Stock::GOTO_FIRST, method(:move_to_first)],
-        [_("/_Last"), "<StockItem>", "",
+        [_("/Last"), "<StockItem>", "",
          Gtk::Stock::GOTO_LAST, method(:move_to_last)],
         
         [_("/Separator"), "<Separator>"],
         
-        [_("/_Jump")],
+        [_("/Iconify"), "<ImageItem>", "", @@icon, method(:iconify)],
+
+        [_("/Separator"), "<Separator>"],
         
-        [_("/_Jump") + _("/Separator"), "<Tearoff>"],
+        [_("/ReloadTheme"), "<StockItem>", "",
+          Gtk::Stock::REFRESH, method(:reload_theme)],
+
+        [_("/Separator"), "<Separator>"],
+        
+        [_("/Quit"), "<StockItem>", "",
+          Gtk::Stock::QUIT, method(:quit)],
       ]
 
       _move_to = method(:move_to)
-      jump = _("/_Jump") + "/"
-      pages.each_with_index do |page, i|
+      jump = _("/Jump") + "/"
+      @canvas.pages.each_with_index do |page, i|
         items << ["#{jump}#{i}: #{page.title}", "<Item>", nil, nil, _move_to, i]
       end
 
@@ -97,6 +124,22 @@ module Rabbit
     
     def save_as_image(*args)
       @canvas.save_as_image
+    end
+
+    def toggle_fullscreen(*args)
+      @canvas.toggle_fullscreen
+    end
+    
+    def iconify(*args)
+      @canvas.iconify
+    end
+    
+    def reload_theme(*args)
+      @canvas.reload_theme
+    end
+    
+    def quit(*args)
+      @canvas.quit
     end
     
   end
