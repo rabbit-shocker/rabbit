@@ -88,3 +88,8 @@ match(Page, HeadLine) do |heads|
   heads.prop_set("size", @very_huge_font_size)
 end
 
+match("**", Emphasis) do |texts|
+  texts.prop_set("foreground", "red")
+  texts.prop_set("weight", "heavy")
+  texts.prop_set("size", @very_huge_font_size)
+end

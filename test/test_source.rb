@@ -1,22 +1,26 @@
-require "test/unit"
 require 'fileutils'
 
+require "rabbit-test-utils"
+
 require "rabbit/source"
+require "rabbit/logger"
 
 class RabbitSourceTest < Test::Unit::TestCase
 
   def setup
+    logger = Rabbit::Logger::STDERR.new
+    
     @argf_input, @argf_output = IO.pipe
-    @argf = Rabbit::Source::ARGF.new("UTF-8", @argf_input)
+    @argf = Rabbit::Source::ARGF.new("UTF-8", logger, @argf_input)
 
     @file_name = "test/sample.rd"
     @file_dir_name = File.dirname(@file_name)
     FileUtils.touch(@file_name)
-    @file = Rabbit::Source::File.new("UTF-8", @file_name)
+    @file = Rabbit::Source::File.new("UTF-8", logger, @file_name)
 
     @uri_name = "http://example.com/sample/rabbit.rd"
     @uri_base_name = File.dirname(@uri_name)
-    @uri = Rabbit::Source::URI.new("UTF-8", @uri_name)
+    @uri = Rabbit::Source::URI.new("UTF-8", logger, @uri_name)
   end
 
   def teardown
