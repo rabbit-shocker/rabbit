@@ -19,4 +19,11 @@
 @preformatted_top_margin = screen_size(2)
 @preformatted_bottom_margin = screen_size(2)
 
-@default_font_family = "Sans"
+sans_families = font_families.grep(/Sans/i)
+unless sans_families.empty?
+  if sans_families.include?("Sans")
+    @default_font_family = "Sans"
+  else
+    @default_font_family = sans_families.first
+  end
+end
