@@ -162,7 +162,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 : -T, --type
    入力ソースの種類を指定します．
 
-   入力ソースの種類は rwiki, file, argf（デフォルト）, uri 
+   入力ソースの種類は rwiki, file（デフォルト）, argf, uri 
    のいずれかを指定します。
 
    : argf
@@ -453,7 +453,7 @@ inline verbatimとして記述します．詳しくはsample/rabbit.rdを見
   end
 
 ((|heads|))というように複数形になっているのは，((|heads|))は
-タイトル（見出し，head line）が0個以上含んでいるからです．
+タイトル（見出し，head line）を0個以上含んでいるからです．
 
 === プロパティ
 
