@@ -74,6 +74,14 @@ RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>))で確認でき
 
 ドキュメントが不足しています．助けてください．
 
+メッセージを翻訳してください．
+
+  % mkdir po/#{言語名}
+  % ./update-po.rb
+
+とすればpo/#{言語名}/rabbit.poができます．
+
+
 == 依存ライブラリ
 
 Windowsでの依存ライブラリのインストールは

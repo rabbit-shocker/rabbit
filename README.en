@@ -71,6 +71,12 @@ Please make a great theme because I have no sence.
 
 Rabbit lacks documents. Please help me.
 
+Please translate some messages. You can make
+po/#{LANG}/rabbit.po by the following.
+
+  % mkdir po/#{LANG}
+  % ./update-po.rb
+
 == Dependency libraries
 
 See ((<INSTALL.win32.en>)) if you install dependency

@@ -47,6 +47,7 @@ A presentation tool
   * right click menu
   * screenshot on the off screen
   * PS/PDF output (but quality is ...)
+  * Internationalized message
 
 = Not available
 
