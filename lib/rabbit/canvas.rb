@@ -80,7 +80,13 @@ module Rabbit
     end
 
     def current_page
-      pages[current_index]
+      page = pages[current_index]
+      if page
+        page
+      else
+        move_to_first
+        pages.first
+      end
     end
 
     def current_index
@@ -122,12 +128,14 @@ module Rabbit
       @source = source || @source
       if @source.modified?
         begin
-          tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
-          clear
-          visitor = RD2RabbitVisitor.new(self)
-          visitor.visit(tree)
-          apply_theme
-          @frame.update_title(title)
+          keep_index do
+            tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
+            clear
+            visitor = RD2RabbitVisitor.new(self)
+            visitor.visit(tree)
+            apply_theme
+            @frame.update_title(title)
+          end
         rescue Racc::ParseError
           puts $!.message
         end
@@ -235,6 +243,14 @@ module Rabbit
       end
     end
 
+    def keep_index
+      index = @current_index
+      index_index = @index_current_index
+      yield
+      @current_index = index
+      @index_current_index = index_index
+    end
+    
     def title_page
       @pages.find{|x| x.is_a?(Element::TitlePage)}
     end
