@@ -17,6 +17,8 @@ include_theme("title-shadow")
 
 include_theme("powered-by")
 
+include_theme("page-number")
+
 @icon_images = ["rabbit_icon.png"]
 
 include_theme("icon")

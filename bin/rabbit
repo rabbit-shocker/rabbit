@@ -152,11 +152,14 @@ options = parse(ARGV)
 
 Gtk.init
 
-frame = Rabbit::Frame.new(options.width, options.height, options.full_screen)
+frame = Rabbit::Frame.new(options.width, options.height)
 if options.theme_specified
   frame.apply_theme(options.theme)
 end
 frame.parse_rd(make_source(options))
+if options.full_screen
+  frame.fullscreen
+end
 frame.saved_image_type = options.saved_image_type
 frame.saved_image_basename = options.saved_image_basename
 

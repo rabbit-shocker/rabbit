@@ -6,11 +6,13 @@ module Rabbit
   module SourceBase
     
     attr_reader :encoding, :base
+    attr_accessor :force_modified
 
     def initialize(encoding)
       @encoding = encoding
       @source = nil
       @base = "."
+      @force_modified = false
     end
 
     def read
@@ -25,7 +27,7 @@ module Rabbit
     end
 
     def modified?
-      need_read?
+      @force_modified or need_read?
     end
 
     def need_read?

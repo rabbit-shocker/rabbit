@@ -6,6 +6,7 @@ require "rexml/text"
 require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/element"
+require "rabbit/index"
 
 module Rabbit
 
@@ -15,23 +16,25 @@ module Rabbit
     
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
+    def_delegators(:@window, :fullscreen, :unfullscreen)
+    def_delegators(:@window, :iconify)
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
     def_delegators(:@canvas, :save_as_image)
     
     attr_reader :window, :canvas
 
-    def initialize(width, height, full_screen)
+    def initialize(width, height, main_window=true)
       init_window(width, height)
       init_canvas
       @fullscreen = false
+      @iconify = false
+      @main_window = main_window
       @window.show_all
-      fullscreen if full_screen
     end
 
     def quit
       @window.destroy
-      Gtk.main_quit
       true
     end
 
@@ -47,21 +50,14 @@ module Rabbit
       @canvas.parse_rd(source)
     end
 
-    def fullscreen
-      @window.fullscreen
-      @canvas.fullscreened
-      @fullscreen = true
-    end
-
-    def unfullscreen
-      @window.unfullscreen
-      @canvas.unfullscreened
-      @fullscreen = false
-    end
-
-    def iconify
-      @window.iconify
-      @canvas.iconified
+    def toggle_fullscreen
+      if fullscreen?
+        @fullscreen = false
+        unfullscreen
+      else
+        @fullscreen = true
+        fullscreen
+      end
     end
 
     def fullscreen?
@@ -72,14 +68,10 @@ module Rabbit
       end
     end
 
-    def toggle_fullscreen
-      if fullscreen?
-        unfullscreen
-      else
-        fullscreen
-      end
+    def main_window?
+      @main_window
     end
-
+    
     def update_title(new_title)
       @window.title = unescape_title(new_title)
     end
@@ -89,6 +81,38 @@ module Rabbit
       @window = Gtk::Window.new
       @window.set_default_size(width, height)
       @window.set_app_paintable(true)
+      set_window_signal
+    end
+
+    def set_window_signal
+      set_window_signal_window_state_event
+      set_window_signal_destroy
+    end
+
+    def set_window_signal_window_state_event
+      @window.signal_connect("window_state_event") do |widget, event|
+        if event.changed_mask.fullscreen?
+          if fullscreen?
+            @canvas.fullscreened
+          else
+            @canvas.unfullscreened
+          end
+        elsif event.changed_mask.iconified?
+          if @iconify
+            @iconify = false
+          else
+            @canvas.iconified
+            @iconify = true
+          end
+        end
+      end
+    end
+
+    def set_window_signal_destroy
+      @window.signal_connect("destroy") do
+        @canvas.destroy
+        Gtk.main_quit if main_window?
+      end
     end
 
     def init_canvas
@@ -109,9 +133,10 @@ module Rabbit
 
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
+    def_delegators(:@frame, :quit)
     
     attr_reader :drawing_area, :drawable, :foreground, :background
-    attr_reader :current_index, :pages, :theme_name, :font_families
+    attr_reader :theme_name, :font_families
     attr_reader :source
 
     attr_writer :saved_image_basename
@@ -122,6 +147,9 @@ module Rabbit
     def initialize(frame)
       @frame = frame
       @pages = []
+      @index_pages = []
+      @index_mode = false
+      @index_current_index = 0
       @current_index = 0
       @theme_name = nil
       @blank_cursor = nil
@@ -152,35 +180,51 @@ module Rabbit
       @drawable.size[1]
     end
 
+    def pages
+      if @index_mode
+        @index_pages
+      else
+        @pages
+      end
+    end
+    
     def page_size
-      @pages.size
+      pages.size
     end
 
-    def quit
+    def destroy
       @drawing_area.destroy
-      @frame.quit
     end
 
     def current_page
-      @pages[@current_index]
+      pages[current_index]
+    end
+
+    def current_index
+      if @index_mode
+        @index_current_index
+      else
+        @current_index
+      end
     end
 
     def next_page
-      @pages[@current_index + 1]
+      pages[current_index + 1]
     end
 
     def each(&block)
-      @pages.each(&block)
+      pages.each(&block)
     end
 
     def <<(page)
-      @pages << page
+      pages << page
     end
 
     def apply_theme(name=nil)
       @theme_name = name || @theme_name || default_theme
       if @theme_name and not @pages.empty?
         clear_theme
+        @index_mode = false
         theme = Theme.new(self)
         theme.apply(@theme_name)
         @drawing_area.queue_draw
@@ -197,6 +241,7 @@ module Rabbit
         begin
           tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
           @pages.clear
+          clear_index_pages
           visitor = RD2RabbitVisitor.new(self)
           visitor.visit(tree)
           apply_theme
@@ -231,21 +276,25 @@ module Rabbit
     end
 
     def save_as_image
-      cmap = @drawable.colormap
+      file_name_format =
+          "#{saved_image_basename}%0#{number_of_places(page_size)}d.#{@saved_image_type}"
+      each_page_pixbuf do |pixbuf, page_number|
+        file_name = file_name_format % page_number
+        pixbuf.save(file_name, normalized_saved_image_type)
+      end
+    end
+    
+    def each_page_pixbuf
       args = [@drawable, 0, 0, width, height]
-      before_page_index = @current_index
-      number_of_places = (page_size / 10) + 1
-      file_name_format = "#{saved_image_basename}%0#{number_of_places}d.#{@saved_image_type}"
-      @pages.each_with_index do |page, i|
+      before_page_index = current_index
+      pages.each_with_index do |page, i|
         move_to(i)
         @drawable.process_updates(true)
-        pixbuf = Gdk::Pixbuf.from_drawable(@drawable.colormap, *args)
-        file_name = file_name_format % i
-        pixbuf.save(file_name, normalized_saved_image_type)
+        yield(Gdk::Pixbuf.from_drawable(@drawable.colormap, *args), i)
       end
       move_to(before_page_index)
     end
-
+    
     def fullscreened
       @drawable.cursor = blank_cursor
     end
@@ -374,6 +423,8 @@ module Rabbit
           save_as_image
         when Gdk::Keyval::GDK_z
           @frame.iconify
+        when Gdk::Keyval::GDK_i
+          toggle_index_mode
         end
       end
     end
@@ -397,6 +448,7 @@ module Rabbit
         if @drawable
           if prev_width.nil? or prev_height.nil? or
               [prev_width, prev_height] != [width, height]
+            clear_index_pages
             reload_theme
             prev_width, prev_height = width, height
           end
@@ -407,12 +459,28 @@ module Rabbit
 #           if next_page
 #             next_page.draw(self, true)
 #           end
+          @frame.update_title(page_title)
         end
       end
     end
 
+    def set_current_index(new_index)
+      if @index_mode
+        @index_current_index = new_index
+      else
+        @current_index = new_index
+      end
+    end
+
+    def with_index_mode(new_value)
+      current_index_mode = @index_mode
+      @index_mode = new_value
+      yield
+      @index_mode = current_index_mode
+    end
+    
     def move_to(index)
-      @current_index = index
+      set_current_index(index)
       @frame.update_title(page_title)
       @drawing_area.queue_draw
     end
@@ -424,14 +492,14 @@ module Rabbit
     end
 
     def move_to_next_if_can
-      if @current_index + 1 < page_size
-        move_to(@current_index + 1)
+      if current_index + 1 < page_size
+        move_to(current_index + 1)
       end
     end
 
     def move_to_previous_if_can
-      if @current_index > 0
-        move_to(@current_index - 1)
+      if current_index > 0
+        move_to(current_index - 1)
       end
     end
 
@@ -476,6 +544,34 @@ module Rabbit
       @blank_cursor
     end
 
+    def toggle_index_mode
+      if @index_mode
+        @index_mode = false
+      else
+        @index_mode = true
+        @index_current_index = 0
+        if @index_pages.empty?
+          @index_pages = Index.make_index_pages(self)
+        end
+      end
+      @drawing_area.queue_draw
+    end
+
+    def clear_index_pages
+      @index_current_index = 0
+      @index_pages.clear
+    end
+
+    def number_of_places(num)
+      n = 1
+      target = num
+      while target >= 10
+        target /= 10
+        n += 1
+      end
+      n
+    end
+    
   end
 
 end

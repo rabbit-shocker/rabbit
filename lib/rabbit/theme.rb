@@ -125,11 +125,10 @@ module Rabbit
       include Enumerable
       include Element
       include Searcher
+      include Utils::Canvas
 
       NORMALIZED_WIDTH = 120.0
       NORMALIZED_HEIGHT = 90.0
-
-      @@color_table = {}
 
       def initialize(theme)
         super()
@@ -251,85 +250,6 @@ module Rabbit
         end
       end
 
-      def draw_line(canvas, x1, y1, x2, y2, color=nil)
-        gc = make_gc(canvas, color)
-        canvas.drawable.draw_line(gc, x1, y1, x2, y2)
-      end
-
-      def draw_rectangle(canvas, filled, x1, y1, x2, y2, color=nil)
-        gc = make_gc(canvas, color)
-        canvas.drawable.draw_rectangle(gc, filled, x1, y1, x2, y2)
-      end
-
-      def draw_arc(canvas, filled, x, y, w, h, a1, a2, color=nil)
-        gc = make_gc(canvas, color)
-        canvas.drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
-      end
-
-      def draw_circle(canvas, filled, x, y, w, h, color=nil)
-        draw_arc(canvas, filled, x, y, w, h, 0, 360 * 64, color)
-      end
-
-      def draw_layout(canvas, layout, x, y, color=nil)
-        gc = make_gc(canvas, color)
-        canvas.drawable.draw_layout(gc, x, y, layout)
-      end
-
-      def draw_pixbuf(canvas, pixbuf, x, y, params={})
-        %w(color w h dither_mode=nil, xd=nil, yd=nil)
-        gc = make_gc(canvas, params['color'])
-        args = [0, 0, x, y,
-                params['width'] || pixbuf.width,
-                params['height'] || pixbuf.height,
-                params['dither_mode'] || Gdk::RGB::DITHER_NORMAL,
-                params['x_dither'] || 0,
-                params['y_dither'] || 0]
-        canvas.drawable.draw_pixbuf(gc, pixbuf, *args)
-      end
-
-      def make_color(canvas, color, default_is_foreground=true)
-        make_gc(canvas, color, default_is_foreground).foreground
-      end
-
-      def make_gc(canvas, color, default_is_foreground=true)
-        if color.nil?
-          if default_is_foreground
-            canvas.foreground
-          else
-            canvas.background
-          end
-        else
-          make_gc_from_rgb_string(canvas, color)
-        end
-      end
-
-      def make_gc_from_rgb_string(canvas, str)
-        r, g, b = str.scan(/[a-fA-F\d]{4,4}/).collect{|x| x.hex}
-        make_gc_from_rgb(canvas, r, g, b)
-      end
-
-      def make_gc_from_rgb(canvas, r, g, b)
-        gc = Gdk::GC.new(canvas.drawable)
-        if @@color_table.has_key?([r, g, b])
-          color = @@color_table[[r, g, b]]
-        else
-          color = Gdk::Color.new(r, g, b)
-          colormap = Gdk::Colormap.system
-          colormap.alloc_color(color, false, true)
-          @@color_table[[r, g, b]] = color
-        end
-        gc.set_foreground(color)
-        gc
-      end
-
-      def make_layout(canvas, text)
-        attrs, text = Pango.parse_markup(text)
-        layout = canvas.drawing_area.create_pango_layout(text)
-        layout.set_attributes(attrs)
-        w, h = layout.size.collect {|x| x / Pango::SCALE}
-        [layout, w, h]
-      end
-
       def normalized_size(s)
         ((s / canvas.width.to_f) * NORMALIZED_WIDTH).ceil
       end
@@ -390,10 +310,23 @@ module Rabbit
         end
       end
 
-      def draw_mark(items, indent_width, mark_width, mark_height)
+      def draw_mark(items, indent_width, width_or_proc, height_or_proc)
         indent_with(items, indent_width) do
           |item, canvas, ox, oy, ow, oh, x, y, w, h|
+
           text_height = item.elements.first.original_height
+
+          if width_or_proc.respond_to?(:call)
+            mark_width = width_or_proc.call(item, canvas)
+          else
+            mark_width = width_or_proc
+          end
+          if height_or_proc.respond_to?(:call)
+            mark_height = height_or_proc.call(item, canvas)
+          else
+            mark_height = height_or_proc
+          end
+
           adjust_y = ((text_height / 2.0) - (mark_height / 2.0)).ceil
 
           start_x = ox + mark_width
@@ -405,15 +338,24 @@ module Rabbit
       end
 
       def draw_image_mark(items, name)
-        loader = ImageLoader.new(search_file(name))
-        
-        mark_width = loader.width
-        mark_height = loader.height
-        indent_width = mark_width * 2.5
+        unless items.empty?
+          
+          loader = ImageLoader.new(search_file(name))
 
-        draw_mark(items, indent_width, mark_width, mark_height) do
-          |item, canvas, start_x, start_y, end_x, end_y|
-          draw_pixbuf(canvas, loader.pixbuf, start_x, start_y)
+          width_proc = Proc.new {loader.width}
+          height_proc = Proc.new {loader.height}
+          indent_proc = Proc.new do |item, canvas, x, y, w, h|
+            text_height = item.elements.first.original_height
+            if text_height < loader.height
+              loader.resize(nil, (text_height * 2.0 / 3.0).ceil)
+            end
+            loader.width * 2.5
+          end
+            
+          draw_mark(items, indent_proc, width_proc, height_proc) do
+            |item, canvas, start_x, start_y, end_x, end_y|
+            draw_pixbuf(canvas, loader.pixbuf, start_x, start_y)
+          end
         end
       end
       
