@@ -872,7 +872,7 @@ module Rabbit
         end
         %w(keep_scale keep_ratio).each do |name|
           unless prop[name].nil?
-            instance_variable_set("@keep_ratio", prop[name] == "true")
+            self.keep_ratio = (prop[name] == "true")
           end
         end
         %w(width height
@@ -887,7 +887,7 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
-          canvas.draw_pixbuf(@pixbuf, x, y)
+          canvas.draw_pixbuf(pixbuf, x, y)
         end
         [x, y + height, w, h - height]
       end

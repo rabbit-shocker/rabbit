@@ -125,12 +125,17 @@ call mimeTeX
   * set up EPS before presentation
     * but need gs
 
-  * SVG is OK, too?
-
   # image
   # src = equation.eps
   # keep_ratio = true
   # relative_width = 80
+
+= SVG is OK, too
+
+  # image
+  # src = spiral.svg
+  # keep_ratio = true
+  # relative_height = 100
 
 = Wrap word
 

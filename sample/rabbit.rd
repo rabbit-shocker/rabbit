@@ -126,12 +126,17 @@ mimeTeXを呼び出す
 
     * でも，gsがなきゃだめなの．
 
-  * SVGでもよいかも
-
   # image
   # src = equation.eps
   # keep_ratio = true
   # relative_width = 80
+
+= SVGでもOK
+
+  # image
+  # src = spiral.svg
+  # keep_ratio = true
+  # relative_height = 100
 
 = 折り返し
 
