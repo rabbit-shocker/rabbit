@@ -263,6 +263,10 @@ module Rabbit
       @source and @source.modified?
     end
 
+    def full_path(path)
+      @source and @source.full_path(path)
+    end
+
     def base
       @source and @source.base
     end

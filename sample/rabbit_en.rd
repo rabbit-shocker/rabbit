@@ -196,6 +196,11 @@ Ahh, I'll set up more better documents.
 
    s
 
+= Key binding (draw)
+
+: redraw
+   Ctrl+l
+
 : reload theme
    t, r
 

@@ -52,6 +52,10 @@ module Rabbit
       super(tree)
     end
 
+    def full_path(path)
+      @canvas.full_path(path)
+    end
+
     def base
       @canvas.base
     end

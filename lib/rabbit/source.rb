@@ -34,6 +34,21 @@ module Rabbit
       @source.nil?
     end
 
+    def full_path(path)
+      path
+    end
+
+    def open_full_path(path, mode="rb")
+      open(full_path(path), mode) do |f|
+        yield f
+      end
+    end
+
+    def old?(current, get_latest_method_name)
+      current.nil? or
+        (current and __send__(get_latest_method_name) > current)
+    end
+
   end
 
   module Source
@@ -83,7 +98,11 @@ module Rabbit
       end
 
       def need_read?
-        super or @mtime.nil? or (@mtime and mtime > @mtime)
+        super or old?(@mtime, :mtime)
+      end
+
+      def full_path(path)
+        ::File.join(@base, path)
       end
 
       private
@@ -150,14 +169,33 @@ module Rabbit
 
       def initialize(encoding, uri)
         super(encoding)
-        @uri = URI.parse(uri)
-        @base = ::File.dirname(@uri.to_s)
+        @uri = ::URI.parse(uri)
+        @last_modified = nil
+        @base_uri = @uri.dup
+        @base_uri.path = ::File.dirname(@base_uri.path)
+      end
+
+      def full_path(path)
+        new_path = @base_uri.dup
+        new_path.path = [new_path.path, path].join("/")
+        new_path.to_s
+      end
+
+      def need_read?
+        super or old?(@last_modified, :last_modified)
       end
 
       private
       def _read
         @uri.open do |f|
+          @last_modified = f.last_modified
           f.read
+        end
+      end
+
+      def last_modified
+        @uri.open do |f| 
+          f.last_modified
         end
       end
 

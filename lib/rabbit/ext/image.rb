@@ -21,7 +21,7 @@ module Rabbit
           return nil
         end
         begin
-          Element::Image.new(image_filename(visitor.base, uri), prop)
+          Element::Image.new(image_filename(visitor, uri), prop)
         rescue ImageLoadError
           STDERR.puts $!.message
           nil
@@ -29,30 +29,50 @@ module Rabbit
       end
 
       private
-      def image_filename(base, uri)
-        filename = nil
+      def image_filename(visitor, uri)
         case uri.scheme
-        when nil
-          filename = GLib.filename_from_utf8(uri.to_s)
-          new_uri = URI.parse([base, filename].join("/"))
-          filename = new_uri.to_s
         when /file/i
-          filename = GLib.filename_from_utf8(uri.path)
+          GLib.filename_from_utf8(uri.path)
+        when /http|ftp/i
+          other_uri_filename(visitor, uri)
         else
-          filename = generate_tmp_filename(base, uri.to_s)
+          related_path_filename(visitor, uri)
+        end
+      end
+
+      def tmp_filename(base, key)
+        File.join(base, CGI.escape(key))
+      end
+      
+      def related_path_filename(visitor, uri)
+        image_uri = visitor.full_path(GLib.filename_from_utf8(uri.to_s))
+        filename = nil
+
+        if URI.parse(image_uri).scheme.nil?
+          filename = image_uri
+        else
+          filename = tmp_filename(visitor.base, image_uri)
+          content = open(image_uri, "rb") do |in_file|
+            in_file.read
+          end
           File.open(filename, "wb") do |out|
-            uri.open("rb") do |in_file|
-              out.print(in_file.read)
-            end
+            out.print(content)
+          end
+        end
+        
+        filename
+      end
+      
+      def other_uri_filename(visitor, uri)
+        filename = tmp_filename(visitor.base, uri.to_s)
+        uri.open("rb") do |in_file|
+          File.open(filename, "wb") do |out|
+            out.print(in_file.read)
           end
         end
         filename
       end
 
-      def generate_tmp_filename(base, key)
-        File.join(base, CGI.escape(key))
-      end
-      
     end
   end
 end
