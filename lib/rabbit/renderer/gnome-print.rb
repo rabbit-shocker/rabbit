@@ -7,41 +7,50 @@ module Rabbit
 
     class GnomePrint
 
+      include Base
+      
       Color = Struct.new(:red, :green, :blue)
-      COLOR_NORMALIZE = 65536 / 256
 
-      attr_writer :foreground, :background
+      class Color
+
+        COLOR_NORMALIZE = 65536 / 256
+
+        class << self
+          def new_from_gdk_color(color)
+            red = color.red / COLOR_NORMALIZE
+            green = color.green / COLOR_NORMALIZE
+            blue = color.blue / COLOR_NORMALIZE
+            new(red, green, blue)
+          end
+        end
+        
+        def to_s
+          "#%02X%02X%02X" % [red, green, blue]
+        end
+
+        def white?
+          red == 255 and
+            green == 255 and
+            blue == 255
+        end
+      end
+      
+      attr_writer :foreground, :background, :background_image
+      attr_reader :width, :height
+      attr_accessor :filename
       
       def initialize(canvas)
-        @canvas = canvas
-        @font_families = nil
+        super
+        @filename = nil
+        @background_image = nil
         init_job
       end
 
       def print
-        @job.close
         @job.print
       end
       
-      def attach_to(window)
-      end
-    
-      def print_out_filename=(filename)
-        @job.print_to_file(filename)
-        update_printer(filename)
-      end
 
-      def width
-        @config[Gnome::PrintConfig::KEY_PAPER_WIDTH, :double]
-      end
-      
-      def height
-        @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT, :double]
-      end
-
-      def destroy
-      end
-      
       def post_apply_theme
       end
 
@@ -57,12 +66,14 @@ module Rabbit
       def post_iconify
       end
       
-      def redraw
+      def post_toggle_index_mode
       end
-      
       
       def post_parse_rd
+        update_filename
+        @job.close
       end
+
       
       def index_mode_on
       end
@@ -70,28 +81,13 @@ module Rabbit
       def index_mode_off
       end
 
-      def post_toggle_index_mode
-      end
-      
-      def font_families
-        if @font_families.nil? or @font_families.empty?
-          layout = @area.create_pango_layout("")
-          @font_families = layout.context.list_families
-        end
-        @font_families
-      end
 
-      def post_parse_rd
-        update_title
-      end
-      
       def draw_page
-        # @context.begin_page(@canvas.page_title)
-        @context.begin_page
-        draw_background
-        result = yield
-        @context.show_page
-        result
+        # @context.begin_page(@canvas.page_title) do
+        @context.begin_page do
+          draw_background
+          yield
+        end
       end
       
       def draw_line(x1, y1, x2, y2, color=nil)
@@ -100,17 +96,13 @@ module Rabbit
         color = make_color(color)
         @context.save do
           set_color(color)
-          @context.new_path
-          @context.move_to(x1, y1)
-          @context.line_to(x2, y2)
-          @context.stroke
-          # @context.line_stroked(x1, y1, x2, y2)
+          @context.line_stroked(x1, y1, x2, y2)
         end
       end
       
       def draw_rectangle(filled, x1, y1, x2, y2, color=nil)
         x1, y1 = from_screen(x1, y1)
-        # x2, y2 = from_screen(x2, y2)
+        y1 -= y2
         color = make_color(color)
         @context.save do
           set_color(color)
@@ -122,19 +114,24 @@ module Rabbit
         end
       end
       
+      # can't draw ellipse
       def draw_arc(filled, x, y, w, h, a1, a2, color=nil)
         x, y = from_screen(x, y)
         color = make_color(color)
         @context.save do
           set_color(color)
-          @context.arc_to(x, y, w / h, a1, a2, 0)
-          @context.stroke
-          @context.fill if filled
+          radius = w / 2
+          @context.arc_to(x + radius, y - radius, radius, a1, a2, 0)
+          if filled
+            @context.fill
+          else
+            @context.stroke
+          end
         end
       end
       
       def draw_circle(filled, x, y, w, h, color=nil)
-        draw_arc(filled, x, y, w, h, 0, 360 * 64, color)
+        draw_arc(filled, x, y, w, h, 0, 359, color)
       end
       
       def draw_layout(layout, x, y, color=nil)
@@ -150,13 +147,12 @@ module Rabbit
       def draw_pixbuf(pixbuf, x, y, params={})
         x, y = from_screen(x, y)
         color = make_color(params['color'])
-        args = [pixbuf.pixels,
-          params['width'] || pixbuf.width,
-          params['height'] || pixbuf.height,
-          pixbuf.rowstride]
+        width = params['width'] || pixbuf.width
+        height = params['height'] || pixbuf.height
+        args = [pixbuf.pixels, width, height, pixbuf.rowstride]
         @context.save do
-          @context.translate(x, y)
-          @context.scale(144, 144)
+          @context.translate(x, y - height)
+          @context.scale(width, height)
           if pixbuf.has_alpha?
             @context.rgba_image(*args)
           else
@@ -165,6 +161,7 @@ module Rabbit
         end
       end
       
+
       def make_color(color, default_is_foreground=true)
         if color.nil?
           if default_is_foreground
@@ -173,11 +170,7 @@ module Rabbit
             @background
           end
         else
-          color = Gdk::Color.parse(color)
-          red = color.red / COLOR_NORMALIZE
-          green = color.green / COLOR_NORMALIZE
-          blue = color.blue / COLOR_NORMALIZE
-          Color.new(red, green, blue)
+          Color.new_from_gdk_color(Gdk::Color.parse(color))
         end
       end
 
@@ -191,25 +184,7 @@ module Rabbit
         [layout, w, h]
       end
       
-      def set_color(color)
-        @context.set_rgb_color(color.red, color.green, color.blue)
-      end
-
       private
-      def draw_background
-        if @background.red == 255 and
-            @background.green == 255 and
-            @background.blue == 255
-        else
-          color = "#%2d%2d%2d" % [@background.red, @background.green, @background.blue]
-          draw_rectangle(true, 0, height, width, 0, color)
-        end
-      end
-      
-      def from_screen(x, y)
-        [x, height - y]
-      end
-      
       def init_job
         @job = Gnome::PrintJob.new
         @context = @job.context
@@ -227,11 +202,40 @@ module Rabbit
         paper = Gnome::PrintPaper.get_by_name("A4")
         @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = paper.height
         @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = paper.width
+        @width = @config[Gnome::PrintConfig::KEY_PAPER_WIDTH, :double]
+        @height = @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT, :double]
       end
 
       def init_colors
         @foreground = make_color("black")
         @background = make_color("white")
+      end
+      
+
+      def from_screen(x, y)
+        [x, @height - y]
+      end
+      
+      def set_color(color)
+        @context.set_rgb_color(color.red, color.green, color.blue)
+      end
+
+
+      def draw_background
+        unless @background.white?
+          draw_rectangle(true, 0, 0, @width, @height, @background.to_s)
+        end
+        if @background_image
+          draw_pixbuf(@background_image, 0, 0)
+        end
+      end
+      
+
+      def update_filename
+        filename = @filename || "#{GLib.filename_from_utf8(@canvas.title)}.ps"
+        update_printer(filename)
+        @job.print_to_file(filename)
+        init_paper
       end
       
       def update_title
@@ -260,6 +264,10 @@ module Rabbit
         else
           nil
         end
+      end
+
+      def create_dummy_pango_layout
+        @context.create_layout
       end
       
     end

@@ -3,7 +3,6 @@ require "gtk2"
 require "rexml/text"
 
 require "rabbit/rabbit"
-require 'rabbit/canvas'
 
 module Rabbit
 
@@ -13,25 +12,18 @@ module Rabbit
     
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
-    def_delegators(:@window, :fullscreen, :unfullscreen)
-    def_delegators(:@window, :iconify, :show_all)
+    def_delegators(:@window, :fullscreen, :unfullscreen, :iconify)
     
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
-    def_delegators(:@canvas, :save_as_image)
-    def_delegators(:@canvas, :print, :print_out_filename=)
+    def_delegators(:@canvas, :save_as_image, :each_page_pixbuf)
+    def_delegators(:@canvas, :print, :filename=)
     
-    attr_reader :window, :canvas, :logger
+    attr_reader :logger
 
-    def initialize(width, height, main_window, logger, renderer)
+    def initialize(logger, canvas)
       @logger = logger
-      init_window(width, height)
-      init_canvas(renderer)
-      @fullscreen = false
-      @iconify = false
-      @main_window = main_window
-      @window.keep_above = true unless @main_window
-      # @window.show_all
+      @canvas = canvas
     end
 
     def quit
@@ -77,12 +69,22 @@ module Rabbit
       @window.title = unescape_title(new_title)
     end
 
+    def init_gui(width, height, main_window)
+      init_window(width, height)
+      @fullscreen = false
+      @iconify = false
+      @main_window = main_window
+      @window.keep_above = true unless @main_window
+      @window.show_all
+    end
+    
     private
     def init_window(width, height)
       @window = Gtk::Window.new
       @window.set_default_size(width, height)
       @window.set_app_paintable(true)
       set_window_signal
+      @canvas.attach_to(self, @window)
     end
 
     def set_window_signal
@@ -118,15 +120,25 @@ module Rabbit
       end
     end
 
-    def init_canvas(renderer)
-      @canvas = Canvas.new(self, renderer)
-      @canvas.attach_to(@window)
-    end
-
     def unescape_title(title)
       REXML::Text.unnormalize(title).gsub(/\r|\n/, '')
     end
 
   end
 
+  class NullFrame
+    class << self
+      def def_null_methods(*names)
+        names.each do |name|
+          define_method(name) {}
+        end
+      end
+    end
+
+    def_null_methods(:icon, :icon=, :set_icon)
+    def_null_methods(:icon_list, :icon_list=, :set_icon_list)
+
+    def_null_methods(:fullscreen?)
+  end
+  
 end

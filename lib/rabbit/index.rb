@@ -15,9 +15,10 @@ module Rabbit
         thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
         thumbnail_height = canvas.height / (ROW_NUMBER + 1)
 
-        frame_args = [thumbnail_width, thumbnail_height, false]
-        frame_args += [canvas.logger, Rabbit::Renderer::DrawingArea]
-        frame = Frame.new(*frame_args)
+        new_canvas = Canvas.new(canvas.logger, Renderer::DrawingArea)
+        frame = Frame.new(canvas.logger, new_canvas)
+        init_gui_args = [thumbnail_width, thumbnail_height, false]
+        frame.init_gui(*init_gui_args)
         frame.apply_theme(canvas.theme_name) if canvas.theme_name
 
         source = canvas.source
@@ -29,7 +30,7 @@ module Rabbit
         max_per_page = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
         number_of_pages = 0
-        frame.canvas.each_page_pixbuf do |pixbuf, page_number|
+        frame.each_page_pixbuf do |pixbuf, page_number|
           if page_number.remainder(max_per_page).zero?
             thumbnails_set << []
           end

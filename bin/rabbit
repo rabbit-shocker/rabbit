@@ -4,7 +4,7 @@
 require "optparse"
 require "ostruct"
 
-require "rabbit/frame"
+require "rabbit/canvas"
 require "rabbit/source"
 require "rabbit/logger"
 require "rabbit/renderer"
@@ -26,9 +26,8 @@ def parse(args, logger)
   options.saved_image_type = "png"
   options.encoding = "UTF-8"
   options.locale_dir = nil
-  options.renderer = Rabbit::Renderer::DrawingArea
   options.print = false
-  options.print_out_filename = "rabbit.ps"
+  options.print_out_filename = nil
 
   default_logger = logger
   
@@ -142,12 +141,11 @@ def parse(args, logger)
       opts.on("-p", "--print",
               "Print and exit.") do
         options.print = true
-        options.renderer = Rabbit::Renderer::GnomePrint
       end
 
-      opts.on("-o", "--output [FILENAME]",
+      opts.on("-o", "--output-filename [FILENAME]",
               "Specify printed out filename as [FILENAME].",
-              "(#{options.print_out_filename})") do |f|
+              "(\#{Title of slide}.ps)") do |f|
         options.print_out_filename = f
       end
       
@@ -207,7 +205,58 @@ def make_source(options, argv, logger)
   options.source_type.new(options.encoding, logger, *infos)
 end
 
-Gtk.init
+def apply_theme_if_need(target, options)
+  target.apply_theme(options.theme) if options.theme_specified
+end
+
+def parse_rd(target, options, logger)
+  source = make_source(options, ARGV, logger)
+  source.base = options.base
+  target.parse_rd(source)
+end
+
+def setup_image_info(target, options)
+  target.saved_image_type = options.saved_image_type
+  target.saved_image_basename = options.saved_image_basename
+end
+
+def setup_print_info(target, options)
+  target.filename = options.print_out_filename
+end
+
+def setup_size(target, options)
+  target.width = options.width
+  target.height = options.height
+end
+
+def do_print(options, logger)
+  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::GnomePrint)
+  setup_print_info(canvas, options)
+  apply_theme_if_need(canvas, options)
+  parse_rd(canvas, options, logger)
+  canvas.print
+end
+
+def do_save_as_image(options, logger)
+  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
+  setup_image_info(canvas, options)
+  setup_size(canvas, options)
+  apply_theme_if_need(canvas, options)
+  parse_rd(canvas, options, logger)
+  canvas.save_as_image
+end
+
+def do_display(options, logger)
+  Gtk.init
+  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::DrawingArea)
+  frame = Rabbit::Frame.new(logger, canvas)
+  frame.init_gui(options.width, options.height, true)
+  setup_image_info(frame, options)
+  apply_theme_if_need(frame, options)
+  parse_rd(frame, options, logger)
+  frame.fullscreen if options.full_screen
+  Gtk.main
+end
 
 Rabbit::GetText.bindtextdomain
 
@@ -217,35 +266,10 @@ options, logger = parse(ARGV, logger)
 
 Rabbit::GetText.bindtextdomain(options.locale_dir)
 
-args = [options.width, options.height, true, logger, options.renderer]
-frame = Rabbit::Frame.new(*args)
 if options.save_as_image
+  do_save_as_image(options, logger)
 elsif options.print
-  frame.print_out_filename = options.print_out_filename
+  do_print(options, logger)
 else
-  frame.show_all
-end
-  
-if options.theme_specified
-  frame.apply_theme(options.theme)
-end
-
-source = make_source(options, ARGV, logger)
-source.base = options.base
-frame.parse_rd(source)
-  
-if options.full_screen
-  frame.fullscreen
-end
-
-frame.saved_image_type = options.saved_image_type
-frame.saved_image_basename = options.saved_image_basename
-
-if options.save_as_image
-  frame.unfullscreen
-  frame.save_as_image
-elsif options.print
-  frame.print
-else
-  Gtk.main
+  do_display(options, logger)
 end

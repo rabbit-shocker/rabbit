@@ -6,6 +6,7 @@ module Rabbit
   module Renderer
     
     class DrawingArea
+      include Base
       include Keys
 
       BUTTON_PRESS_ACCEPTING_TIME = 0.5 * 1000
@@ -13,10 +14,9 @@ module Rabbit
       @@color_table = {}
   
       def initialize(canvas)
-        @canvas = canvas
+        super
         @current_cursor = nil
         @blank_cursor = nil
-        @font_families = nil
         clear_button_handler
         init_drawing_area
         update_menu
@@ -36,8 +36,18 @@ module Rabbit
       end
       
       def background_image=(pixbuf)
-        # @background.set_foreground(color)
-        @drawable.background_pixbuf = pixbuf
+        w, h = pixbuf.width, pixbuf.height
+        pixmap = Gdk::Pixmap.new(@drawable, w, h, -1)
+        pixmap.draw_rectangle(@background, true, 0, 0, w, h)
+        args = [
+          @foreground, pixbuf,
+          0, 0, 0, 0, w, h,
+          Gdk::RGB::DITHER_NORMAL, 0, 0,
+        ]
+        pixmap.draw_pixbuf(*args)
+        @background.set_tile(pixmap)
+        @background.fill = Gdk::GC::Fill::TILED
+        @drawable.set_back_pixmap(pixmap, false)
       end
       
       def width
@@ -58,6 +68,7 @@ module Rabbit
       end
       
       def post_move(index)
+        update_title
         @area.queue_draw
       end
       
@@ -93,15 +104,16 @@ module Rabbit
       
       def post_parse_rd
         clear_button_handler
+        update_title
         update_menu
       end
       
       def index_mode_on
-        @drawable.cursor = @current_cursor
+        @drawable.cursor = nil
       end
       
       def index_mode_off
-        @drawable.cursor = nil
+        @drawable.cursor = @current_cursor
       end
       
       def post_toggle_index_mode
@@ -109,14 +121,6 @@ module Rabbit
         @area.queue_draw
       end
       
-      def font_families
-        if @font_families.nil? or @font_families.empty?
-          layout = @area.create_pango_layout("")
-          @font_families = layout.context.list_families
-        end
-        @font_families
-      end
-
       def draw_page
         yield
       end
@@ -176,6 +180,10 @@ module Rabbit
     
       def update_menu
         @menu = Menu.new(@canvas)
+      end
+
+      def update_title
+        @canvas.update_title(@canvas.page_title)
       end
       
       def make_gc(color, default_is_foreground=true)
@@ -418,6 +426,9 @@ module Rabbit
         end
       end
       
+      def create_dummy_pango_layout
+        @area.create_pango_layout("")
+      end
     end
     
   end

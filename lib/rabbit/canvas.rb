@@ -2,6 +2,7 @@ require "forwardable"
 require "gtk2"
 require "rd/rdfmt"
 
+require 'rabbit/frame'
 require "rabbit/rabbit"
 require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
@@ -17,14 +18,15 @@ module Rabbit
 
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
-    def_delegators(:@frame, :quit, :logger, :update_title)
+    def_delegators(:@frame, :quit, :update_title)
     def_delegators(:@frame, :toggle_fullscreen, :fullscreen?)
     def_delegators(:@frame, :iconify)
 
     def_delegators(:@renderer, :width, :height)
+    def_delegators(:@renderer, :width=, :height=)
     def_delegators(:@renderer, :font_families)
-    def_delegators(:@renderer, :destroy, :attach_to)
-    def_delegators(:@renderer, :cursor=, :print_out_filename=)
+    def_delegators(:@renderer, :destroy)
+    def_delegators(:@renderer, :cursor=, :filename=)
     def_delegators(:@renderer, :each_page_pixbuf, :redraw)
     def_delegators(:@renderer, :foreground, :background)
     def_delegators(:@renderer, :foreground=, :background=)
@@ -36,21 +38,27 @@ module Rabbit
     def_delegators(:@renderer, :draw_page)
 
     
-    attr_reader :renderer, :theme_name, :source
+    attr_reader :logger, :renderer, :theme_name, :source
 
     attr_writer :saved_image_basename
 
     attr_accessor :saved_image_type
 
 
-    def initialize(frame, renderer)
-      @frame = frame
+    def initialize(logger, renderer)
+      @logger = logger
+      @frame = NullFrame.new
       @theme_name = nil
       @saved_image_basename = nil
       clear
       @renderer = renderer.new(self)
     end
 
+    def attach_to(frame, window)
+      @frame = frame
+      @renderer.attach_to(window)
+    end
+    
     def title
       tp = title_page
       if tp
@@ -137,7 +145,6 @@ module Rabbit
             visitor = RD2RabbitVisitor.new(self)
             visitor.visit(tree)
             apply_theme
-            update_title(title)
             @renderer.post_parse_rd
           end
         rescue Racc::ParseError
@@ -304,7 +311,6 @@ module Rabbit
     
     def move_to(index)
       set_current_index(index)
-      update_title(page_title)
       @renderer.post_move(current_index)
     end
 
