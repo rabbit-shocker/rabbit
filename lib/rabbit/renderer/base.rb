@@ -94,8 +94,13 @@ module Rabbit
       def make_canvas_with_printable_renderer
         make_canvas_with_renderer(GnomePrint) do |canvas|
           canvas.filename = @canvas.filename
-          canvas.paper_width = @canvas.paper_width
-          canvas.paper_height = @canvas.paper_height
+          if @canvas.paper_width and @canvas.paper_height
+            canvas.paper_width = @canvas.paper_width
+            canvas.paper_height = @canvas.paper_height
+          else
+            canvas.paper_width = GnomePrint.pixel_to_inch(@canvas.width)
+            canvas.paper_height = GnomePrint.pixel_to_inch(@canvas.height)
+          end
         end
       end
       

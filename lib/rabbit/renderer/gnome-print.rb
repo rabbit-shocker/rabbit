@@ -33,6 +33,15 @@ module Rabbit
           "#%02X%02X%02X" % rgb
         end
       end
+
+      class << self
+        def pixel_to_inch(pixel)
+          pixel_unit = Gnome::PrintUnit.get_by_abbreviation("px")
+          inch_unit = Gnome::PrintUnit.get_by_abbreviation("in")
+          args = [pixel, inch_unit, 0.0, ScreenInfo.screen_x_resolution]
+          pixel_unit.convert_distance_full(*args)
+        end
+      end
       
       attr_writer :foreground, :background, :background_image
       attr_reader :width, :height
