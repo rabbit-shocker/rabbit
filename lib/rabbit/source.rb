@@ -64,7 +64,7 @@ module Rabbit
 
     def set_base(new_value)
       @base = new_value
-      if URI.parse(@base.to_s).scheme.nil?
+      if URI.parse(@base).scheme.nil?
         @tmp_base = @base
       else
         @tmp_base = "."
@@ -213,7 +213,7 @@ module Rabbit
       end
 
       def full_path(path)
-        new_path = @base.dup
+        new_path = ::URI.parse(@base)
         new_path.path = [new_path.path, path].join("/")
         new_path.to_s
       end
@@ -238,10 +238,6 @@ module Rabbit
         set_base(base.to_s)
       end
 
-      def set_base(new_value)
-        super(::URI.parse(new_value))
-      end
-      
       def last_modified
         @uri.open do |f|
           f.last_modified
