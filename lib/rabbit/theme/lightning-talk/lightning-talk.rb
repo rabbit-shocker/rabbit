@@ -3,7 +3,7 @@ proc_name = "lightning-talk"
 @very_huge_font_size ||= screen_size(15 * Pango::SCALE)
 @lightning_talk_contact_information ||= nil
 @lightning_talk_font_size ||= @x_small_font_size
-
+@lightning_talk_as_large_as_possible ||= false
 
 match(TitleSlide) do |slides|
   slides.horizontal_centering = true
@@ -86,10 +86,23 @@ end
 
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @very_huge_font_size)
+  if @lightning_talk_as_large_as_possible
+    heads.each do |head|
+      size = head.prop_get("size").value
+      loop do
+        new_size = size + screen_size(0.1 * Pango::SCALE)
+        text = %Q[<span size="#{new_size}">#{head.text}</span>]
+        layout, text_width, text_height = canvas.make_layout(text)
+        layout.set_width(canvas.width * Pango::SCALE)
+        break if layout.size[1] / Pango::SCALE > canvas.height * 0.7
+        size = new_size
+      end
+      head.prop_set("size", size)
+    end
+  end
 end
 
 match("**", Emphasis) do |texts|
   texts.prop_set("foreground", "red")
   texts.prop_set("weight", "heavy")
-  texts.prop_set("size", @very_huge_font_size)
 end
