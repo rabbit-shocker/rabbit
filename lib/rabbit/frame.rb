@@ -94,22 +94,14 @@ module Rabbit
     end
     
     private
-    def init_window(width, height, window_type=Gtk::Window::TOPLEVEL)
-      @destroy_handler_id = nil
-      @window = Gtk::Window.new(window_type)
+    def init_window(width, height)
+      @window = Gtk::Window.new
       @window.set_default_size(width, height)
       @window.set_app_paintable(true)
       set_window_signal
       @canvas.attach_to(self, @window)
     end
 
-    def reinit_window(width, height, window_type=Gtk::Window::TOPLEVEL)
-      @canvas.detach_from(self, @window)
-      @window.signal_handler_disconnect(@destroy_handler_id)
-      @window.destroy
-      init_window(width, height, window_type)
-    end
-    
     def set_window_signal
       set_window_signal_window_state_event
       set_window_signal_destroy
@@ -136,7 +128,7 @@ module Rabbit
     end
 
     def set_window_signal_destroy
-      @destroy_handler_id = @window.signal_connect("destroy") do
+      @window.signal_connect("destroy") do
         @canvas.destroy
         if main_window? and Gtk.main_level > 0
           Gtk.main_quit
@@ -149,22 +141,29 @@ module Rabbit
     end
 
     def fallback_fullscreen
-      Gtk.timeout_add(FALLBACK_FULLSCREEN) do
+      Gtk.timeout_add(FALLBACK_LIMIT) do
         unless @fullscreen_toggled
           @prev_width, @prev_height = width, height
+          @prev_x, @prev_y = @window.position
           max_width, max_height = @window.root_window.size
-          reinit_window(max_width, max_height, Gtk::Window::POPUP)
+          @window.hide
+          @window.resize(max_width, max_height)
+          @window.decorated = false
           @window.show_all
+          @window.move(0, 0)
         end
         false
       end
     end
 
     def fallback_unfullscreen
-      Gtk.timeout_add(FALLBACK_UNFULLSCREEN) do
+      Gtk.timeout_add(FALLBACK_LIMIT) do
         unless @fullscreen_toggled
-          reinit_window(@prev_width, @prev_height)
+          @window.hide
+          @window.resize(@prev_width, @prev_height)
+          @window.decorated = true
           @window.show_all
+          @window.move(@prev_x, @prev_y)
         end
         false
       end
