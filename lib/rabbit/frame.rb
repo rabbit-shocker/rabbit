@@ -334,6 +334,7 @@ module Rabbit
       set_key_press_event
       set_button_press_event
       set_expose_event
+      set_scroll_event
     end
 
     def set_realize
@@ -362,9 +363,9 @@ module Rabbit
     def set_button_press_event
       @drawing_area.signal_connect("button_press_event") do |widget, event|
         case event.button
-        when 1
+        when 1, 5
           move_to_next_if_can
-        when 2
+        when 2, 4
           move_to_previous_if_can
         when 3
         end
@@ -390,6 +391,17 @@ module Rabbit
 #             next_page.draw(self, true)
 #           end
           @frame.update_title(page_title)
+        end
+      end
+    end
+
+    def set_scroll_event
+      @drawing_area.signal_connect("scroll_event") do |widget, event|
+        case event.direction
+        when Gdk::EventScroll::Direction::UP
+          move_to_previous_if_can
+        when Gdk::EventScroll::Direction::DOWN
+          move_to_next_if_can
         end
       end
     end
