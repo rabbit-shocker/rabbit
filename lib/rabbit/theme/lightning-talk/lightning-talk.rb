@@ -18,10 +18,12 @@ match(TitleSlide) do |slides|
 end
 
 match(TitleSlide, "*") do |elems|
+  set_font_family(elems)
   elems.prop_set("size", @large_font_size)
 end
 
 match(TitleSlide, Title) do |titles|
+  set_font_family(titles)
   titles.prop_set("size", @huge_font_size)
   titles.prop_set("weight", "heavy")
 
@@ -36,6 +38,7 @@ match(TitleSlide, Title) do |titles|
 end
 
 match(TitleSlide, Subtitle) do |titles|
+  set_font_family(titles)
   titles.prop_set("size", @normal_font_size)
 
   space = screen_size(5)
@@ -49,11 +52,13 @@ match(TitleSlide, Subtitle) do |titles|
 end
 
 match(TitleSlide, ContentSource) do |titles|
+  set_font_family(titles)
   titles.prop_set("size", @small_font_size)
   titles.prop_set("style", "italic")
 end
 
 match(TitleSlide, Institution) do |titles|
+  set_font_family(titles)
   titles.prop_set("size", @normal_font_size)
   titles.prop_set("style", "italic")
 end
@@ -87,6 +92,7 @@ match(Slide) do |slides|
 end
 
 match(Slide, HeadLine) do |heads|
+  set_font_family(heads)
   heads.prop_set("size", @very_huge_font_size)
   if @lightning_talk_as_large_as_possible
     max = (canvas.height - @top_margin - @bottom_margin) * Pango::SCALE
@@ -121,6 +127,7 @@ match(Slide, HeadLine) do |heads|
 end
 
 match("**", Emphasis) do |texts|
+  set_font_family(texts)
   texts.prop_set("foreground", "red")
   texts.prop_set("weight", "heavy")
 end
