@@ -1,2 +1,10 @@
-*.ent excepted rabbit.ent are got from
+*.ent are got from
   http://www.w3.org/TR/MathML2/chapter6.html#chars.entity.tables
+
+--
+
+To generate *.rb from entities run 
+
+  % ruby entities/ent2rb.rb entiteis/*.ent
+
+in the top directory.
