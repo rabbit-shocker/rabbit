@@ -67,7 +67,7 @@ match(Page, HeadLine) do |heads|
   space = screen_size(1)
   heads.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
     unless simulation
-      draw_line(canvas, x, y + space, x + w, y + space, "ffff00000000")
+      draw_line(canvas, x, y + space, x + w, y + space, "red")
     end
     [x, y + space * 3, w, h - space * 3]
   end
@@ -136,7 +136,7 @@ match("**", DescriptionTerm) do |terms|
   terms.prop_set("size", @normal_font_size)
 # terms.prop_set("underline", "double")
 
-  color = "ffff99000000"
+  color = "#ff9900"
   space = screen_size(1)
   terms.add_post_draw_proc do |term, canvas, x, y, w, h, simulation|
     unless simulation
@@ -149,8 +149,8 @@ end
 match("**", PreformattedBlock) do |blocks|
   blocks.horizontal_centering = true
 
-  border_color = "55003dff0eff"
-  fill_color = "fc00fa00e200"
+  border_color = "#55003dff0eff"
+  fill_color = "#fcfae2"
 
   left = @preformatted_left_margin
   right = @preformatted_right_margin
@@ -208,7 +208,7 @@ end
 
 match("**", FoottextBlock) do |blocks|
   space = screen_size(1)
-  color = "3300ff003300"
+  color = "#33ff33"
   blocks.add_pre_draw_proc do |block, canvas, x, y, w, h, simulation|
     if block.elements.empty?
       [x, y, w, h]
@@ -310,7 +310,7 @@ match(*(page_body + (item_list_item * 1))) do |items|
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
-  color = "0000ffff0000"
+  color = "green"
 
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
@@ -327,7 +327,7 @@ match(*(page_body + (item_list_item * 2))) do |items|
   mark_width = screen_x(1.5)
   mark_height = screen_y(1.5)
   indent_width = mark_width * 3
-  color = "00000000ffff"
+  color = "blue"
   
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
@@ -344,7 +344,7 @@ match(*(page_body + (item_list_item * 3))) do |items|
   mark_width = screen_x(1.0)
   mark_height = screen_y(1.0)
   indent_width = mark_width * 3
-  color = "ffff00000000"
+  color = "red"
   
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
@@ -423,7 +423,7 @@ match(*(page_body + enum_list_item + item_list_item)) do |items|
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
-  color = "0000ff00ff00"
+  color = "#00ffff"
 
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|
@@ -440,7 +440,7 @@ match(*(page_body + enum_list_item + (item_list_item * 2))) do |items|
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
-  color = "ff000000ff00"
+  color = "#ff00ff"
 
   draw_mark(items, indent_width, mark_width, mark_height) do
     |item, canvas, start_x, start_y, end_x, end_y|

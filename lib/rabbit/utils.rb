@@ -1,3 +1,7 @@
+require "gtk2"
+
+require "rabbit/rabbit"
+
 module Rabbit
   module Utils
     def to_class_name(name)
@@ -57,24 +61,21 @@ module Rabbit
             canvas.background
           end
         else
-          make_gc_from_rgb_string(canvas, color)
+          make_gc_from_string(canvas, color)
         end
       end
 
-      def make_gc_from_rgb_string(canvas, str)
-        r, g, b = str.scan(/[a-fA-F\d]{4,4}/).collect{|x| x.hex}
-        make_gc_from_rgb(canvas, r, g, b)
-      end
-
-      def make_gc_from_rgb(canvas, r, g, b)
+      def make_gc_from_string(canvas, str)
         gc = Gdk::GC.new(canvas.drawable)
-        if @@color_table.has_key?([r, g, b])
-          color = @@color_table[[r, g, b]]
+        if @@color_table.has_key?(str)
+          color = @@color_table[str]
         else
-          color = Gdk::Color.new(r, g, b)
+          color = Gdk::Color.parse(str)
           colormap = Gdk::Colormap.system
-          colormap.alloc_color(color, false, true)
-          @@color_table[[r, g, b]] = color
+          unless colormap.alloc_color(color, false, true)
+            raise CantAllocateColorError.new(str)
+          end
+          @@color_table[str] = color
         end
         gc.set_foreground(color)
         gc

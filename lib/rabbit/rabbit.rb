@@ -51,4 +51,12 @@ module Rabbit
     end
   end
 
+  class CantAllocateColorError < Error
+    attr_reader :color
+    def initialize(color)
+      @color = color
+      super("can't allocate color: #{color}.")
+    end
+  end
+  
 end
