@@ -32,6 +32,11 @@ def parse(args, logger)
   options.locale_dir = nil
   options.print = false
   options.print_out_filename = nil
+  options.slides_per_page = 1
+  options.left_margin = nil
+  options.right_margin = nil
+  options.top_margin = nil
+  options.bottom_margin = nil
 
   default_logger = logger
   
@@ -177,6 +182,50 @@ def parse(args, logger)
         options.paper_height = height
       end
 
+      opts.on("--slides-per-page [SLIDES]",
+              Integer,
+              "Set slides per page. (1)") do |slides|
+        options.slides_per_page = slides
+      end
+
+      opts.on("--left-margin [MARGIN]",
+              Integer,
+              "Set left margin for slides per page mode print.",
+              "(auto)") do |margin|
+        options.left_margin = margin
+      end
+
+      opts.on("--right-margin [MARGIN]",
+              Integer,
+              "Set right margin for slides per page mode print.",
+              "(auto)") do |margin|
+        options.right_margin = margin
+      end
+
+      opts.on("--top-margin [MARGIN]",
+              Integer,
+              "Set top margin for slides per page mode print.",
+              "(auto)") do |margin|
+        options.top_margin = margin
+      end
+
+      opts.on("--bottom-margin [MARGIN]",
+              Integer,
+              "Set bottom margin for slides per page mode print.",
+              "(auto)") do |margin|
+        options.bottom_margin = margin
+      end
+
+      opts.on("--margin [LEFT],[RIGHT],[TOP],[BOTTOM]",
+              Array,
+              "Set margin for slides per page mode print.") do |margin|
+        left, right, top, bottom = margin.collect{|x| Integer(x)}
+        options.left_margin = left
+        options.right_margin = right
+        options.top_margin = top
+        options.bottom_margin = margin
+      end
+
     end
 
     opts.separator ""
@@ -250,6 +299,7 @@ end
 
 def setup_print_info(target, options)
   target.filename = options.print_out_filename
+  target.slides_per_page = options.slides_per_page
 end
 
 def setup_size(target, options)
@@ -260,12 +310,17 @@ end
 def setup_paper_size(target, options)
   target.paper_width = options.paper_width
   target.paper_height = options.paper_height
+  target.left_margin = options.left_margin
+  target.right_margin = options.right_margin
+  target.top_margin = options.top_margin
+  target.bottom_margin = options.bottom_margin
 end
 
 def do_print(options, logger)
-  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Print)
-  setup_print_info(canvas, options)
+  renderer = Rabbit::Renderer.printable_renderer(options.slides_per_page)
+  canvas = Rabbit::Canvas.new(logger, renderer)
   setup_paper_size(canvas, options)
+  setup_print_info(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.print

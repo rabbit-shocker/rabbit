@@ -17,6 +17,14 @@ module Rabbit
       def printable?
         types.find {|t| /print/i =~ t.name}
       end
+
+      def printable_renderer(slides_per_page)
+        if slides_per_page > 1
+          MultiplePrint
+        else
+          Print
+        end
+      end
     end
   end
 end

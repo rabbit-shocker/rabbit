@@ -9,13 +9,14 @@ module Rabbit
     module Base
       include GetText
 
-      attr_accessor :paper_width, :paper_height
+      attr_accessor :paper_width, :paper_height, :slides_per_page
       
       def initialize(canvas)
         @canvas = canvas
         @font_families = nil
         @paper_width = nil
         @paper_height = nil
+        @slides_per_page = nil
       end
       
       def font_families
@@ -92,8 +93,13 @@ module Rabbit
       end
       
       def make_canvas_with_printable_renderer
-        make_canvas_with_renderer(Print) do |canvas|
+        renderer = Renderer.printable_renderer(@canvas.slides_per_page)
+        make_canvas_with_renderer(renderer) do |canvas|
           canvas.filename = @canvas.filename
+          canvas.left_margin = @canvas.left_margin
+          canvas.right_margin = @canvas.right_margin
+          canvas.top_margin = @canvas.top_margin
+          canvas.bottom_margin = @canvas.bottom_margin
           if @canvas.paper_width and @canvas.paper_height
             canvas.paper_width = @canvas.paper_width
             canvas.paper_height = @canvas.paper_height
@@ -101,6 +107,7 @@ module Rabbit
             canvas.paper_width = @canvas.width
             canvas.paper_height = @canvas.height
           end
+          canvas.slides_per_page = @canvas.slides_per_page
         end
       end
       

@@ -219,22 +219,21 @@ module Rabbit
       
       def init_paper
         setup_paper
-        @width = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_HEIGHT)
-        @height = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_WIDTH)
+        @width = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_WIDTH)
+        @height = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_HEIGHT)
       end
 
       def setup_paper
-        @config[Gnome::PrintConfig::KEY_PAGE_ORIENTATION] = "R90"
         pt = unit("Pt")
         if size_set?
           @config[Gnome::PrintConfig::KEY_PAPER_SIZE] = "Custom"
-          @config.set(Gnome::PrintConfig::KEY_PAPER_WIDTH, @paper_height, pt)
-          @config.set(Gnome::PrintConfig::KEY_PAPER_HEIGHT, @paper_width, pt)
+          @config.set(Gnome::PrintConfig::KEY_PAPER_WIDTH, @paper_width, pt)
+          @config.set(Gnome::PrintConfig::KEY_PAPER_HEIGHT, @paper_height, pt)
         else
           paper = Gnome::PrintPaper.get("A4")
-          @config[Gnome::PrintConfig::KEY_PAPER_SIZE] = "A4"
-          @config.set(Gnome::PrintConfig::KEY_PAPER_WIDTH, paper.width, pt)
-          @config.set(Gnome::PrintConfig::KEY_PAPER_HEIGHT, paper.height, pt)
+          @config[Gnome::PrintConfig::KEY_PAPER_SIZE] = "Custom"
+          @config.set(Gnome::PrintConfig::KEY_PAPER_WIDTH, paper.height, pt)
+          @config.set(Gnome::PrintConfig::KEY_PAPER_HEIGHT, paper.width, pt)
         end
       end
 
@@ -253,13 +252,15 @@ module Rabbit
       end
       
       def init_colors
+        @white = make_color("white")
+        @black = make_color("black")
         @foreground = make_color("black")
         @background = make_color("white")
       end
       
 
       def from_screen(x, y)
-        [x, @height - y]
+        [x, height - y]
       end
       
       def set_color(color)
@@ -268,9 +269,13 @@ module Rabbit
 
 
       def draw_background
-        draw_rectangle(true, 0, 0, @width, @height, @background.to_s)
+        draw_rectangle(true, 0, 0, width, height, @background.to_s)
         if @background_image
-          draw_pixbuf(@background_image, 0, 0)
+          params = {
+            "width" => [@background_image.width, width].min,
+            "height" => [@background_image.height, height].min,
+          }
+          draw_pixbuf(@background_image, 0, 0, params)
         end
       end
       
