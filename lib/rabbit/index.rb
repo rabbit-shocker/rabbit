@@ -102,6 +102,17 @@ module Rabbit
         end
       end
 
+      def page_number(canvas, x, y)
+        column = (COLUMN_NUMBER * (x / canvas.width)).to_i
+        row = (ROW_NUMBER * (y / canvas.height)).to_i
+        thumb = @thumbnails[row * ROW_NUMBER + column]
+        if thumb.nil?
+          nil
+        else
+          thumb.number
+        end
+      end
+      
       private
       def sample_pixbuf
         if @thumbnails.empty?

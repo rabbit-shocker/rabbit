@@ -15,6 +15,8 @@ module Rabbit
     include Enumerable
     extend Forwardable
 
+    BUTTON_PRESS_ACCEPTING_TIME = 0.5
+    
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@frame, :quit)
@@ -30,14 +32,10 @@ module Rabbit
 
     def initialize(frame)
       @frame = frame
-      @pages = []
-      @index_pages = []
-      @index_mode = false
-      @index_current_index = 0
-      @current_index = 0
       @theme_name = nil
       @blank_cursor = nil
-      @saved_image_basename
+      @saved_image_basename = nil
+      clear
       init_drawing_area
       layout = @drawing_area.create_pango_layout("")
       @font_families = layout.context.list_families
@@ -109,7 +107,6 @@ module Rabbit
       if @theme_name and not @pages.empty?
         clear_theme
         clear_index_pages
-        @index_mode = false
         theme = Theme.new(self)
         theme.apply(@theme_name)
         @drawing_area.queue_draw
@@ -125,8 +122,7 @@ module Rabbit
       if @source.modified?
         begin
           tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
-          @pages.clear
-          clear_index_pages
+          clear
           visitor = RD2RabbitVisitor.new(self)
           visitor.visit(tree)
           apply_theme
@@ -205,6 +201,34 @@ module Rabbit
     end
 
     private
+    def clear
+      clear_pages
+      clear_index_pages
+      clear_button_handler
+    end
+    
+    def clear_pages
+      @current_index = 0
+      @pages = []
+    end
+    
+    def clear_index_pages
+      @index_mode = false
+      @index_current_index = 0
+      @index_pages = []
+    end
+
+    def clear_button_handler
+      @button_handler_thread = nil
+      @button_handler = []
+    end
+    
+    def clear_theme
+      @pages.each do |page|
+        page.clear_theme
+      end
+    end
+
     def title_page
       @pages.find{|x| x.is_a?(Element::TitlePage)}
     end
@@ -248,14 +272,19 @@ module Rabbit
       end
     end
 
+    BUTTON_PRESS_HANDLER = {
+      Gdk::Event::Type::BUTTON_PRESS => "handle_button_press",
+      Gdk::Event::Type::BUTTON2_PRESS => "handle_button2_press",
+      Gdk::Event::Type::BUTTON3_PRESS => "handle_button3_press",
+    }
+    
     def set_button_press_event
       @drawing_area.signal_connect("button_press_event") do |widget, event|
-        case event.button
-        when 1, 5
-          move_to_next_if_can
-        when 2, 4
-          move_to_previous_if_can
-        when 3
+        if BUTTON_PRESS_HANDLER.has_key?(event.event_type)
+          add_button_handler do |_return|
+            __send__(BUTTON_PRESS_HANDLER[event.event_type], event, _return)
+          end
+          start_button_handler_thread
         end
       end
     end
@@ -348,12 +377,6 @@ module Rabbit
       val - base
     end
 
-    def clear_theme
-      @pages.each do |page|
-        page.clear_theme
-      end
-    end
-
     def normalized_saved_image_type
       case @saved_image_type
       when /jpg/i
@@ -379,17 +402,12 @@ module Rabbit
         @index_mode = false
       else
         @index_mode = true
-        @index_current_index = 0
         if @index_pages.empty?
           @index_pages = Index.make_index_pages(self)
         end
+        move_to(0)
       end
       @drawing_area.queue_draw
-    end
-
-    def clear_index_pages
-      @index_current_index = 0
-      @index_pages.clear
     end
 
     def number_of_places(num)
@@ -497,6 +515,61 @@ module Rabbit
         handled = true
       end
       handled
+    end
+
+    def handle_button_press(event, _return)
+      case event.button
+      when 1, 5
+        move_to_next_if_can
+      when 2, 4
+        move_to_previous_if_can
+      when 3
+      end
+    end
+    
+    def handle_button2_press(event, _return)
+      if @index_mode
+        index = current_page.page_number(self, event.x, event.y)
+        if index
+          @index_mode = false
+          move_to_if_can(index)
+        end
+      end
+      _return.call
+    end
+    
+    def handle_button3_press(event, _return)
+      _return.call
+    end
+
+    def add_button_handler(handler=Proc.new)
+      @button_handler.unshift(handler)
+    end
+    
+    def call_button_handler
+      begin
+        callcc do |_return|
+          @button_handler.each do |handler|
+            handler.call(_return)
+          end
+        end
+      rescue Exception
+        puts "(#{$!.class}) #{$!.message}"
+        puts $@
+      ensure
+        clear_button_handler
+      end
+    end
+
+    def start_button_handler_thread
+      if @button_handler_thread.nil?
+        thread = @button_handler_thread = Thread.new do
+          sleep(BUTTON_PRESS_ACCEPTING_TIME)
+          call_button_handler unless @button_handler_thread.nil?
+          @button_handler_thread = nil
+        end
+        thread.abort_on_exception = true
+      end
     end
     
   end
