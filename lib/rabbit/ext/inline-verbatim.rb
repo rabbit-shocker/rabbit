@@ -1,21 +1,14 @@
 require 'rabbit/utils'
 require 'rabbit/ext/base'
 require 'rabbit/ext/image'
+require 'rabbit/ext/entity'
 
 module Rabbit
   module Ext
     class InlineVerbatim < Base
       extend Utils
       include Image
-
-      $LOAD_PATH.each do |path|
-        Dir.glob(File.join(path, *%w(rabbit entity *.rb))) do |x|
-          lib_name = x.gsub(/\A#{path}#{File::SEPARATOR}/, '')
-          require lib_name
-          mod_name = to_class_name(File.basename(lib_name, ".rb"))
-          include Entity.const_get(mod_name)
-        end
-      end
+      include Entity
 
 #       def ext_inline_verb_img(label, content, visitor)
 #         img(label, content, visitor)
@@ -52,12 +45,7 @@ module Rabbit
         end
         Superscript.new(sub_text)
       end
-      
-      def ext_inline_verb_br(label, content, visitor)
-        label = label.to_s
-        return nil unless /^br:(.*)$/ =~ label
-        NormalText.new("&#xa;")
-      end
+
     end
   end
 end

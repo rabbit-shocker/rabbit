@@ -36,7 +36,7 @@ A presentation tool
 
   * do (('del:not')) ((*emphasis*))
   * sub(('sub:script')) and super(('sup:script'))
-  * mathematical characters (('Sigma:'))(('sum:'))(('sub:i=0'))
+  * mathematical characters (('&Sigma;'))(('&sum;sub:i=0'))
   * display image
   * auto reload modified source
   * reload theme

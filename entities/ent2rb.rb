@@ -2,10 +2,6 @@
 
 require "rexml/document"
 
-require "rabbit/utils"
-
-include Rabbit::Utils
-
 def expand_ref(str)
   REXML::Text.unnormalize(str)
 end
@@ -21,17 +17,13 @@ def expand_ext_ref(str, table)
   end
 end
 
-ARGV.each do |name|
-  basename = File.basename(name, ".*")
-  File.open(name) do |src|
-    File.open(File.join(*%W(lib rabbit entity #{basename})) + ".rb", "w") do |out|
-
-      out.print <<-HEADER
+File.open(File.join(*%W(lib rabbit ext entity)) + ".rb", "w") do |out|
+  out.print <<-HEADER
 require 'rabbit/element'
 
 module Rabbit
-  module Entity
-    module #{to_class_name(basename)}
+  module Ext
+    module Entity
 
       include Element
 
@@ -43,35 +35,45 @@ module Rabbit
         end
       end
 
+      def ext_inline_verb_entity_reference(label, content, visitor)
+        label = label.to_s
+        return nil unless /^&([^;]+);(.*)$/ =~ label
+        return nil unless TABLE.include?($1)
+
+        key = $1
+        rest = $2
+        if rest.empty?
+          NormalText.new(TABLE[key])
+        else
+          rest = visitor.apply_to_Verb(RD::Verb.new(rest))
+          TextContainer.new([NormalText.new(TABLE[key]), rest])
+        end
+      end
+
+      TABLE = {
 HEADER
 
       ext_param = {}
-      src.each do |line|
+      ARGF.each do |line|
         case line
         when /^<!ENTITY\s+%\s+(\w+)\s+"(\S+)"\s*>/
           # p ["%", $1, $2]
           ext_param[$1] = expand_ref($2)
         when /^<!ENTITY\s+(\w+)\s+"(\S+)"\s*>\s*<!--\s*(.+)\s*-->/
           out.print <<-METHOD
-
-      # #{$3}
-      def ext_inline_verb_#{$1}(label, content, visitor)
-        label = label.to_s
-        return nil unless /^#{$1}:(.*)$/ =~ label
-        NormalText.new(#{expand_ext_ref($2, ext_param).dump})
-      end
+        # #{$3}
+        #{$1.dump} => #{expand_ext_ref($2, ext_param).dump},
 METHOD
           # p [$1, expand_ext_ref($2, ext_param), $3, name]
         end
       end
 
       out.print <<-FOOTER
+      }
 
     end
   end
 end
 FOOTER
 
-    end
-  end
 end

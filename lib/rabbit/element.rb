@@ -688,6 +688,10 @@ module Rabbit
     class NormalText
       include TextElement
     end
+
+    class TextContainer
+      include TextContainerElement
+    end
     
     class PreformattedBlock
       include TextContainerElement
