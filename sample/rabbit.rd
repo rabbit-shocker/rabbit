@@ -89,6 +89,19 @@
 #      # relative_width = 100
 #      # relative_height = 50
 
+= 画像サイズは？
+
+スライドサイズに応じて変更可能
+
+  # image
+  # src = usagi.png
+  # caption = 兎
+  # keep_scale = true
+#  # normalized_width = 50
+#  # normalized_height = 50
+#  # relative_width = 100
+  # relative_height = 50
+
 = ローカルにない画像は？
 
   * 外部URLも大丈夫

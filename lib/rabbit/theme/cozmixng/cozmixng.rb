@@ -9,6 +9,10 @@ include_theme("headline-logo")
 
 include_theme("powered-by")
 
+@title_logo_image = "usagi.png"
+
+include_theme("title-logo")
+
 match(Page, Body) do |bodies|
   bodies.vertical_centering = true
 end

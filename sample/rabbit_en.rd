@@ -89,6 +89,19 @@ A presentation tool
 #      # relative_width = 100
 #      # relative_height = 50
 
+= What about image size?
+
+You can use relative size.
+
+  # image
+  # src = usagi.png
+  # caption = USAGI
+  # keep_scale = true
+#  # normalized_width = 50
+#  # normalized_height = 50
+#  # relative_width = 100
+  # relative_height = 50
+
 = Image not in local?
 
   * external URL is OK
