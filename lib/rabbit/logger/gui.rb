@@ -11,8 +11,8 @@ module Rabbit
       include Keys
 
       def initialize(level=nil, width=450, height=400)
+        Gtk.init
         super(*[level].compact)
-        @have_done_gtk_main = false
         init_dialog(width, height)
       end
 

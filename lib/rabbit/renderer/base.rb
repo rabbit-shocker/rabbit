@@ -28,12 +28,10 @@ module Rabbit
         else
           canvas = make_canvas_with_printable_renderer
           pre_print
-          Thread.new do
-            canvas.print do |i|
-              printing(i)
-            end
-            post_print
+          canvas.print do |i|
+            printing(i)
           end
+          post_print
         end
       end
 
@@ -44,14 +42,12 @@ module Rabbit
           canvas = make_canvas_with_offscreen_renderer
         end
         pre_to_pixbuf
-        Thread.new do
-          canvas.pages.each_with_index do |page, i|
-            to_pixbufing(i)
-            page.draw(canvas)
-            yield(to_pixbuf(page), i)
-          end
-          post_to_pixbuf
+        canvas.pages.each_with_index do |page, i|
+          to_pixbufing(i)
+          page.draw(canvas)
+          yield(to_pixbuf(page), i)
         end
+        post_to_pixbuf
       end
       
       def create_pango_context

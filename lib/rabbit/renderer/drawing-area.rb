@@ -304,7 +304,9 @@ module Rabbit
         when *RELOAD_THEME_KEYS
           @canvas.reload_theme
         when *SAVE_AS_IMAGE_KEYS
-          @canvas.save_as_image
+          Thread.new do
+            @canvas.save_as_image
+          end
         when *ICONIFY_KEYS
           @canvas.iconify
         when *TOGGLE_INDEX_MODE_KEYS
@@ -319,7 +321,9 @@ module Rabbit
           @canvas.redraw
           handled = true
         when *Control::PRINT_KEYS
-          @canvas.print
+          Thread.new do
+            @canvas.print
+          end
           handled = true
         end
         handled

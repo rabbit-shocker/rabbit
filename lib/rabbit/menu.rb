@@ -128,11 +128,15 @@ module Rabbit
     end
     
     def save_as_image(*args)
-      @canvas.save_as_image
+      Thread.new do
+        @canvas.save_as_image
+      end
     end
 
     def print(*args)
-      @canvas.print
+      Thread.new do
+        @canvas.print
+      end
     end
 
     def toggle_fullscreen(*args)
