@@ -44,6 +44,16 @@ module Rabbit
         init_job
       end
 
+      def paper_width=(value)
+        super
+        init_paper
+      end
+      
+      def paper_height=(value)
+        super
+        init_paper
+      end
+      
       def pre_print(slide_size)
         update_filename
       end
@@ -52,7 +62,6 @@ module Rabbit
         @job.close
         @job.print
       end
-      
 
       def post_apply_theme
       end
