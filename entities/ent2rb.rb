@@ -60,11 +60,14 @@ HEADER
           # p ["%", $1, $2]
           ext_param[$1] = expand_ref($2)
         when /^<!ENTITY\s+(\w+)\s+"(\S+)"\s*>\s*<!--\s*(.+)\s*-->/
-          out.print <<-METHOD
-        # #{$3}
-        #{$1.dump} => #{expand_ext_ref($2, ext_param).dump},
-METHOD
-          # p [$1, expand_ext_ref($2, ext_param), $3, name]
+          key = $1
+          comment = $3.strip
+          value = expand_ext_ref($2.gsub(/&#38;/, '&'), ext_param)
+          out.print <<-ITEM
+        # #{comment}
+        #{key.dump} => #{value.dump},
+ITEM
+          # p [key, value, comment, name]
         end
       end
 
