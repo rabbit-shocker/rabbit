@@ -539,6 +539,29 @@ Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>)
 詳しくは．．．とりあえず，今のところはdefaultテーマを参考に
 してください．
 
+== 小技
+
+=== 1ページに複数枚のスライドが入ったPDFを作る
+
+以下のものを用意してください．
+
+  * ps2pdf
+  * acroread
+  * psnup
+
+XXX.rdから1ページに4枚のスライドが入ったPDF（XXX_nup.pdf）を
+作成する手順は以下の通りです．
+
+  % rabbit -p -o XXX.ps XXX.rd
+  % ps2pdf XXX.ps
+  % acroread -toPostScript -size a4 -landscape -pairs XXX.pdf XXX.ps
+  % psnup -l -4 XXX.ps XXX_nup.ps
+  % ps2pdf XXX_nup.ps
+
+一度ps2pdfでPS->PDFにして，acroreadでPDF->PSに戻しているのは，
+Rabbitの吐くPSがおかしいらしく，こうしないとうまく動かないか
+らです．
+
 == 感謝
 
   * モモさん: かわいいうさぎなどを書いてくれました．
