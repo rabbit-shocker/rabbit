@@ -719,7 +719,7 @@ module Rabbit
     end
     
     class FoottextBlock
-      include TextContainerElement
+      include ContainerElement
     end
     
     class Footnote

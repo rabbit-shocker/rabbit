@@ -60,7 +60,9 @@ module Rabbit
 
     def apply_to_DocumentElement(element, contents)
       target = nil
+      display = false
       contents.each do |content|
+        display = false if content.nil?
         case content
         when nil
           # ignore
@@ -68,11 +70,13 @@ module Rabbit
           target = Body.new
           content << target
           @canvas << content
+          display = true
         when TitlePage
           target = content
           @canvas << content
+          display = true
         else
-          target << content
+          target << content if display
         end
       end
       burn_out_foottexts
@@ -92,6 +96,7 @@ module Rabbit
         @pages << @page
         @page
       else
+        @page = nil
         nil
       end
     end
@@ -214,10 +219,14 @@ module Rabbit
     end
 
     def apply_to_Footnote(element, content)
-      num = get_footnote_num(element)
-      raise ArgumentError, "[BUG?] #{element} is not registered." unless num
-      add_foottext(num, content)
-      Footnote.new(num)
+      if @page.nil?
+        NormalText.new("")
+      else
+        num = get_footnote_num(element)
+        raise ArgumentError, "[BUG?] #{element} is not registered." unless num
+        add_foottext(num, content)
+        Footnote.new(num)
+      end
     end
 
     def apply_to_Foottext(element, content)
@@ -360,7 +369,7 @@ module Rabbit
     def add_foottext(num, foottext)
       unless @footnotes[num - 1]
         raise ArgumentError, "[BUG] footnote ##{num} isn't here."
-      end       
+      end
       @foottexts.last << [foottext, num - 1]
     end
     
