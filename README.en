@@ -117,8 +117,10 @@ If you are Windows user, you can drag and drop RD file to
 bin/rabbit.bat.
 
 Or else you can invoke Rabbit by double clicking RD file if
-you correlate *.rd (or *.rbt (an abbreviation of Rabbit)) to
-ruby -S rabbit.
+you associate *.rd (or *.rbt (an abbreviation of Rabbit))
+with the following.
+
+  <ruby install folder>\bin\rubyw -S rabbit
 
 == How to write
 

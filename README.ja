@@ -125,9 +125,12 @@ Windowsの場合はinstall.batを実行してもインストールできます．
 WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 ドロップしてもよいです．
 
-あるいは，*.rd（とか*.rbt（Rabbitの略））をruby -S rabbit に
-関連付けて，RDファイルをダブルクリックすることで起動すること
-もできます．
+あるいは，*.rd（とか*.rbt（Rabbitの略））を
+
+  <rubyをインストールしたフォルダ>\bin\rubyw -S rabbit
+
+に関連付けて，RDファイルをダブルクリックすることで起動するこ
+ともできます．
 
 === オプション
 
