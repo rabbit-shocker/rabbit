@@ -54,9 +54,12 @@ module Rabbit
         iter = @buffer.get_iter_at_offset(-1)
         @buffer.insert_with_tags(iter, text, *tags)
       end
+
+      def title
+        _("Rabbit Error Dialog")
+      end
       
       def init_dialog(width, height)
-        title = _("Rabbit Error Dialog")
         flags = 0
         buttons = [
           [Gtk::Stock::CLEAR, Gtk::Dialog::RESPONSE_CANCEL],
@@ -67,6 +70,7 @@ module Rabbit
         @dialog.set_default_size(width, height)
         set_dialog_delete
         set_dialog_response
+        set_dialog_expose_event
         set_dialog_key_press_event
       end
 
@@ -89,6 +93,13 @@ module Rabbit
         end
       end
 
+      def set_dialog_expose_event
+        @dialog.signal_connect("expose_event") do |widget, event|
+          @dialog.title = title
+          false
+        end
+      end
+      
       def set_dialog_key_press_event
         @dialog.signal_connect("key_press_event") do |widget, event|
           case event.keyval

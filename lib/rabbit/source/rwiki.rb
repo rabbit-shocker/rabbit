@@ -26,12 +26,23 @@ module Rabbit
       
       private
       def _read
-        @last_modified = modified
-        @driver.src(@name)
+        begin
+          @last_modified = modified
+          @driver.src(@name)
+        rescue ::SOAP::Error
+          @logger.error($!.message)
+          @last_modified = Time.now + MINIMUM_ACCESS_TIME
+          ""
+        end
       end
 
       def modified
-        @driver.modified(@name)
+        begin
+          @driver.modified(@name)
+        rescue ::SOAP::Error
+          @logger.error($!.message)
+          Time.now
+        end
       end
 
       def init_base

@@ -15,7 +15,7 @@ module Rabbit
           parsed_uri = ::URI.parse(uri)
           case parsed_uri.scheme
           when nil, /file/i
-            File.new(encoding, parsed_uri.path)
+            File.new(encoding, logger, parsed_uri.path)
           else
             super
           end
@@ -38,9 +38,15 @@ module Rabbit
 
       private
       def _read
-        @uri.open do |f|
-          @last_modified = f.last_modified
-          f.read
+        begin
+          @uri.open do |f|
+            @last_modified = f.last_modified
+            f.read
+          end
+        rescue
+          @logger.error($!.message)
+          @last_modified = Time.now + MINIMUM_ACCESS_TIME
+          ""
         end
       end
 
@@ -51,8 +57,13 @@ module Rabbit
       end
 
       def last_modified
-        @uri.open do |f|
-          f.last_modified
+        begin
+          @uri.open do |f|
+            f.last_modified
+          end
+        rescue
+          @logger.error($!.message)
+          Time.now
         end
       end
 

@@ -6,8 +6,6 @@ module Rabbit
       
       include Base
 
-      RETRY_SPAN = 60 # seconds
-      
       def self.initial_args_description
         "FILENAME"
       end
@@ -27,7 +25,7 @@ module Rabbit
           end
         rescue SourceUnreadableError
           @logger.error($!.message)
-          @mtime = Time.now + RETRY_SPAN
+          @mtime = Time.now + LimitAccessInterval::MINIMUM_ACCESS_TIME
           ""
         end
       end
