@@ -3,11 +3,11 @@ set_background("#f500f1d0c600")
 
 include_theme("default")
 
-@title_logo_image = "rabbit_with_title.png"
+@title_logo_image = "lavie_with_logo.png"
 
 include_theme("title-logo")
 
-@headline_logo_image = "rabbit.png"
+@headline_logo_image = "lavie.png"
 
 include_theme("headline-logo")
 
@@ -22,7 +22,7 @@ include_theme("powered-by")
 
 include_theme("page-number")
 
-@icon_images = ["rabbit_icon.png"]
+@icon_images = ["lavie_icon.png"]
 
 include_theme("icon")
 

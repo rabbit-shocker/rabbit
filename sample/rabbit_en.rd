@@ -1,6 +1,6 @@
 # To run with it without system install.
 #  % ruby -I./lib bin/rabbit -f --type file sample/rabbit_en.rd 
-# $Id: rabbit.rd 386 2004-07-26 17:58:22Z kou $
+# $Id$
 
 = Rabbit(en)
 
@@ -72,8 +72,8 @@ A presentation tool
     resizable
 
       # image
-      # src = rabbit.png
-      # caption = mascot
+      # src = lavie.png
+      # caption = Lavie
       # keep_scale = true
       # width = 100
       # height = 100

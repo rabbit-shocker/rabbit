@@ -120,8 +120,8 @@
     * ビットマップとして扱う
 
  # image
- # src = rabbit.png
- # caption = マスコット
+ # src = lavie.png
+ # caption = Lavie
  # keep_scale = true
 # # width = 100
 # # height = 100

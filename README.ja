@@ -8,6 +8,15 @@ $Id$
 
 Rabbit
 
+== なにこれ？
+
+RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
+ウェアです．
+
+== スクリーンショット
+
+((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/>))
+
 == 作者
 
 === プログラム
@@ -16,7 +25,8 @@ Kouhei Sutou <kou@cozmixng.org>
 
 === 画像
 
-マスコット（うさこ？）とRabbitのロゴ
+マスコットキャラクタLavie（ラヴィ）((-語感はRabbitから，スペ
+ルはフランス語のla vieからとりました．-))とRabbitのロゴ
 
 モモ
 
@@ -58,21 +68,11 @@ RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>))で確認でき
   
   本文に何か
 
-== スクリーンショット
-
-((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/>))
-
 == お願い
 
 私にはセンスがないので，素晴らしいテーマを作ってください．
 
 ドキュメントが不足しています．助けてください．
-
-== なにこれ？
-
-RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
-ウェアです．
-
 
 == 依存ライブラリ
 

@@ -1,6 +1,6 @@
 # To run with it without system install.
 #  % ruby -I./lib bin/rabbit -f --type file sample/rabbit.rd 
-# $Id: rabbit.rd 399 2004-08-03 06:42:19Z kou $
+# $Id$
 
 = Rabbit
 
@@ -72,8 +72,8 @@
     サイズ変更も可能
 
       # image
-      # src = rabbit.png
-      # caption = マスコット
+      # src = lavie.png
+      # caption = Lavie
       # keep_scale = true
       # width = 100
       # height = 100
