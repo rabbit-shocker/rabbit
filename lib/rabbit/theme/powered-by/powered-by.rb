@@ -1,6 +1,9 @@
 proc_name = "powered-by"
 
-@powered_by_font_size ||= screen_size(1.5 * Pango::SCALE)
+@powered_by_props ||= {
+  "size" => screen_size(1.5 * Pango::SCALE),
+  "font_family" => @default_font_family,
+}
 
 loader = nil
 if @powered_by_image
@@ -18,7 +21,7 @@ add_powered_by = proc do |slide|
     unless simulation
       if layout.nil?
         text = "Powered by #{@powered_by_text}"
-        text = %Q[<span size="#{@powered_by_font_size}">#{text}</span>]
+        text = %Q[<span #{to_attrs(@powered_by_props)}>#{text}</span>]
         layout, tw, th = canvas.make_layout(text)
       end
       

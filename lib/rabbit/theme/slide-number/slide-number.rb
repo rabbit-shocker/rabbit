@@ -2,7 +2,7 @@ proc_name = "slide-number"
 
 @slide_number_props ||= {
   "size" => @xx_small_font_size,
-  "font_family" => "Sans",
+  "font_family" => @default_font_family,
 }
 
 match(Slide) do |slides|

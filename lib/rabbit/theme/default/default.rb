@@ -10,7 +10,7 @@ end
 
 match(TitleSlide, "*") do |elems|
   elems.prop_set("size", @large_font_size)
-  elems.prop_set("font_family", "Sans")
+  elems.prop_set("font_family", @default_font_family)
 end
 
 match(TitleSlide, Title) do |titles|
@@ -60,7 +60,7 @@ end
 
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
-  heads.prop_set("font_family", "Sans")
+  heads.prop_set("font_family", @default_font_family)
   heads.horizontal_centering = true
 
   space = screen_size(1)
@@ -74,7 +74,7 @@ end
 
 match("**", Paragraph) do |texts|
   texts.prop_set("size", @normal_font_size)
-  texts.prop_set("font_family", "Sans")
+  texts.prop_set("font_family", @default_font_family)
 
   space = screen_size(2.0)
   texts.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
@@ -186,8 +186,8 @@ match("**", PreformattedBlock) do |blocks|
 end
 
 match("**", MethodTerm) do |texts|
-  texts.prop_set("font_family", "Monospace")
   texts.prop_set("size", @normal_font_size)
+  texts.prop_set("font_family", "Monospace")
 end
 
 match("**", MethodKind) do |texts|
@@ -282,6 +282,7 @@ match("**", Image) do |images|
       if image.caption and layout.nil?
         caption = NormalText.new(image.caption)
         caption.prop_set("size", @normal_font_size)
+        caption.prop_set("font_family", @default_font_family)
         caption.compile(canvas, x, y, w, h)
         if image.horizontal_centering
           caption.do_horizontal_centering(canvas, x, y, w, h)
@@ -370,10 +371,13 @@ enum_list_item = [EnumList, EnumListItem]
 
 match(*(slide_body + (enum_list_item * 1))) do |items|
   indent_width = screen_x(2)
-  size = @normal_font_size
+  props = {
+    "size" => @normal_font_size,
+    "font_family" => @default_font_family,
+  }
 
   draw_order(items, indent_width) do |item|
-    %Q[<span size="#{size}">#{item.order}. </span>]
+    %Q[<span #{to_attrs(props)}>#{item.order}. </span>]
   end
 
   space = screen_y(1.5)
@@ -384,10 +388,13 @@ end
 
 match(*(slide_body + (enum_list_item * 2))) do |items|
   indent_width = screen_x(1.5)
-  size = @small_font_size
+  props = {
+    "size" => @small_font_size,
+    "font_family" => @default_font_family,
+  }
 
   draw_order(items, indent_width) do |item|
-    %Q[<span size="#{size}">#{(?a + item.order - 1).chr}. </span>]
+    %Q[<span #{to_attrs(props)}>#{(?a + item.order - 1).chr}. </span>]
   end
 
   space = screen_y(1.0)
@@ -398,10 +405,13 @@ end
 
 match(*(slide_body + (enum_list_item * 3))) do |items|
   indent_width = screen_x(1)
-  size = @x_small_font_size
+  props = {
+    "size" => @x_small_font_size,
+    "font_family" => @default_font_family,
+  }
 
   draw_order(items, indent_width) do |item|
-    %Q[<span size="#{size}">#{(?A + item.order - 1).chr}. </span>]
+    %Q[<span #{to_attrs(props)}>#{(?A + item.order - 1).chr}. </span>]
   end
 
   space = screen_y(1.0)

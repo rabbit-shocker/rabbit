@@ -18,3 +18,5 @@
 @preformatted_right_margin = screen_size(5)
 @preformatted_top_margin = screen_size(2)
 @preformatted_bottom_margin = screen_size(2)
+
+@default_font_family = "Sans"
