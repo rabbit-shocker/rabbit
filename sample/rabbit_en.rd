@@ -1,5 +1,5 @@
 # To run with it without system install.
-#  % ruby -I./lib bin/rabbit -f --type file sample/rabbit_en.rd 
+#  % ruby -I./lib bin/rabbit -f sample/rabbit_en.rd 
 # $Id$
 
 = Rabbit(en)
@@ -45,18 +45,20 @@ A presentation tool
 
   * auto generation of index page
   * right click menu
+  * screenshot on the off screen
+  * PS/PDF output (but quality is ...)
 
 = Not available
 
   * graffiti on the slide
   * inline image
-  * screenshot on the console
   * organize screenshots
   * jump to the link
 
 = ToDo
 
-  * PDF output
+  * handle sound
+  * handle 3D (I wish there were a library of X3D)
 
 = Call on
 
@@ -179,11 +181,11 @@ Ahh, I'll set up more better documents.
 = Key bindings (convenience)
 
 : Go to title page
-   0, <
+   a, 0, <, Home
 : Go to n page
    1-9. +Ctrl is +10, +Alt is +20
 : Go to last page
-   >
+   e, >, End
 
 = Key bindings (presentation)
 
@@ -202,6 +204,11 @@ Ahh, I'll set up more better documents.
    save each page as image
 
    s
+
+: Print
+   print each page as PS/PDF
+
+   Ctrl+p
 
 = Key binding (draw)
 

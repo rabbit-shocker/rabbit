@@ -41,13 +41,16 @@ module Rabbit
         else
           canvas = make_canvas_with_offscreen_renderer
         end
+        previous_index = canvas.current_index
         pre_to_pixbuf
         canvas.pages.each_with_index do |page, i|
           to_pixbufing(i)
+          canvas.move_to_if_can(i)
           page.draw(canvas)
-          yield(to_pixbuf(page), i)
+          yield(canvas.to_pixbuf(page), i)
         end
         post_to_pixbuf
+        canvas.move_to_if_can(previous_index)
       end
       
       def create_pango_context

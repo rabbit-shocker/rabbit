@@ -149,6 +149,7 @@ module Rabbit
           @window.hide
           @window.resize(max_width, max_height)
           @window.decorated = false
+          @window.keep_above = true
           @window.show_all
           @window.move(0, 0)
         end
@@ -162,6 +163,7 @@ module Rabbit
           @window.hide
           @window.resize(@prev_width, @prev_height)
           @window.decorated = true
+          @window.keep_above = false
           @window.show_all
           @window.move(@prev_x, @prev_y)
         end

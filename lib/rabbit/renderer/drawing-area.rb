@@ -130,7 +130,7 @@ module Rabbit
       
       private
       def can_create_pixbuf?
-        true
+        false
       end
       
       def init_pixmap(w=width, h=height)

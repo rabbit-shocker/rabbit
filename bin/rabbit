@@ -17,7 +17,7 @@ def parse(args, logger)
   options.theme = "default"
   options.theme_specified = false
   options.base = nil
-  options.source_type = Rabbit::Source::ARGF
+  options.source_type = Rabbit::Source::File
   options.full_screen = false
   options.width = 800
   options.height = 600

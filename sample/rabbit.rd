@@ -1,5 +1,5 @@
 # To run with it without system install.
-#  % ruby -I./lib bin/rabbit -f --type file sample/rabbit.rd 
+#  % ruby -I./lib bin/rabbit -f sample/rabbit.rd 
 # $Id$
 
 = Rabbit
@@ -45,18 +45,20 @@
 
   * Indexページの自動生成
   * 右クリックメニュー
+  * オフスクリーンでのスクリーンショット作成
+  * PS/PDF出力（品質は微妙）
 
 = できないこと
 
   * スライドに落書き
   * インラインでの画像挿入
-  * コンソールでのスクリーンショット作成
   * スクリーンショットの整形
   * リンク先へのジャンプ
 
 = ToDo
 
-  * PDF出力
+  * 音を鳴らす
+  * 3Dの絵を書く（X3Dのライブラリがあれば．．．）
 
 = 求めているもの
 
@@ -180,11 +182,11 @@ mimeTeXを呼び出す
 = キーバインド（便利）
 
 : タイトルページへ移動
-   0, <
+   a, 0, <, Home
 : nページ目へ移動
    1-9．+Ctrlで+10，+Altで+20
 : 最後のページへ移動
-   >
+   e, >, End
 
 = キーバインド（本番）
 
@@ -203,6 +205,11 @@ mimeTeXを呼び出す
    各ページを画像として保存
 
    s
+
+: 印刷
+   各ページをPS/PDFとして保存
+
+   Ctrl+p
 
 = キーバインド（描画）
 

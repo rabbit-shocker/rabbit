@@ -110,20 +110,10 @@ Windowsの場合はinstall.batを実行してもインストールできます．
 
   % rabbit XXX.rd
 
-とか
-
-  % rabbit --type file XXX.rd
-
-とか．．．
-
 例えば，sample/rabbit-implementation.rdを使うには，トップの
 ディレクトリで以下のようにします．
 
-  % rabbit --type file sample/rabbit-implementation.rd
-
-あるいは，こんな風にしてもよいです．
-
-  % rabbit --base sample  sample/rabbit-implementation.rd
+  % rabbit sample/rabbit-implementation.rd
 
 WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 ドロップしてもよいです．
@@ -157,8 +147,6 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    : argf
 
-     デフォルト．つまり--type argfは省略可．
-     
      入力ソースとしてARGFを利用します．つまり，標準入力から
      ソースを入力することも出来ます．
      
@@ -177,9 +165,9 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    : file
 
+     デフォルト．つまり--type fileは省略可．
+     
      指定したファイルからソースを取得します．
-
-     こっちをデフォルトにしたほうがよいかなぁ．
 
      ソースの自動再読み込み機能を利用できます．
      
@@ -296,8 +284,8 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
 : --locale-dir
    ロケール用データ（*.mo）を置くためのディレクトリを指定し
-   ます．Rabbitをシステムにインストールせずに使う場合は以下
-   のようにRabbitのトップディレクトリで以下のようにします．
+   ます．Rabbitをシステムにインストールせずに使う場合は
+   Rabbitのトップディレクトリで以下のようにします．
 
      % bin/rabbit --locale-dir data/locale --type file sample/rabbit.rd
    
@@ -379,8 +367,7 @@ inline verbatimとして記述します．詳しくはsample/rabbit.rdを見
 
 === 注釈
 
-たぶん，使えませんが，プレゼンテーションでは使うべきではない
-と思います．
+使えますが，プレゼンテーションでは使うべきではないと思います．
 
 == テーマ
 
@@ -516,3 +503,11 @@ Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>)
 詳しくは．．．とりあえず，今のところはdefaultテーマを参考に
 してください．
 
+== 感謝
+
+  * モモさん: 画像を書いてくれました．
+  * みやむこさん: xyzzy用のrabbitモードを書いてくれました．
+    Windowsまわりでいろいろ助けてくれます．
+  * zundaさん: EPSの扱いを修正してくれました．Rabbitを使って
+    プレゼンしてくれます．
+  * Vincentさん: Max OS Xでの動作確認をしてくれます．

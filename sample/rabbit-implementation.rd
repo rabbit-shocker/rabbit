@@ -1,5 +1,5 @@
 # To run with it without system install.
-#  % ruby -I./lib bin/rabbit -f --type file sample/rabbit-implementation.rd 
+#  % ruby -I./lib bin/rabbit -f sample/rabbit-implementation.rd 
 # $Id$
 
 = Rabbitの実装
