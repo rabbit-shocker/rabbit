@@ -39,7 +39,7 @@ def parse(args)
     
     opts.on("--source-infos [SOURCE_INFO],...",
             Array,
-            "Use [SOURCE_INFO],... by geting source.",
+            "Use [SOURCE_INFO],... by getting source.",
             "(#{options.source_infos.join(', ')})") do |infos|
       options.source_infos = infos
       options.source_infos_changed = true
@@ -74,7 +74,7 @@ def parse(args)
     end
 
     opts.on("-e", "--encoding [ENCODING]",
-            "Specify soruce encoding.",
+            "Specify source encoding.",
             "(#{options.encoding})") do |encoding|
       options.encoding = encoding
     end
