@@ -82,7 +82,6 @@ module Rabbit
       res_y = (height.to_f / h * DEFAULT_DPI).round
 
       adjust_eps_if_need(x, y) do |path|
-        File.open("/tmp/a", "w"){|f|f.print File.open(path){|fin|fin.read}}
         tmp = Tempfile.new("Rabbit")
         args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=#{device}
           -sOutputFile=#{tmp.path} -dEPSFitPage
@@ -125,7 +124,6 @@ module Rabbit
         tmp.print(File.open(@filename) {|f| f.read})
         tmp.close
         tmp.open
-        File.open("/tmp/c.eps", "w"){|x| x.print(tmp.read)}
         tmp.close
         yield tmp.path
       else
