@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-17 22:09+0900\n"
-"PO-Revision-Date: 2004-10-15 00:18+0900\n"
+"POT-Creation-Date: 2004-10-21 11:26+0900\n"
+"PO-Revision-Date: 2004-10-21 11:28+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,11 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: lib/rabbit/rabbit.rb:20
-msgid "no such file %s."
+msgid "no such file %s"
 msgstr "%sというファイルはありません．"
 
 #: lib/rabbit/rabbit.rb:30
-msgid "%s can't handle, because command can't be run successfully: %s"
+msgid ""
+"Can't handle %s because the following command can't be run successfully: %s"
 msgstr "次のコマンドを正常に実行できなかったので%sを扱うことができません．: %s"
 
 #: lib/rabbit/rabbit.rb:39
@@ -27,23 +28,28 @@ msgid "tried gs commands: %s"
 msgstr "実行したgsコマンド名: %s"
 
 #: lib/rabbit/rabbit.rb:55
-msgid "Unknown property: %s."
+#, fuzzy
+msgid "Unknown property: %s"
 msgstr "未知のプロパティ: %s"
 
 #: lib/rabbit/rabbit.rb:63
-msgid "can't allocate color: %s."
+#, fuzzy
+msgid "can't allocate color: %s"
 msgstr "カラーをアロケートできません．: %s"
 
 #: lib/rabbit/rabbit.rb:74
-msgid "%s doesn't exist."
+#, fuzzy
+msgid "%s doesn't exist"
 msgstr "%sは存在しません．"
 
 #: lib/rabbit/rabbit.rb:82
-msgid "%s isn't file."
+#, fuzzy
+msgid "%s isn't a file"
 msgstr "%sはファイルではありません．"
 
 #: lib/rabbit/rabbit.rb:90
-msgid "%s isn't readable."
+#, fuzzy
+msgid "%s can't be read"
 msgstr "%sが読めません．"
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
