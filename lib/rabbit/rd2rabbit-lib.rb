@@ -55,13 +55,9 @@ module Rabbit
     def full_path(path)
       @canvas.full_path(path)
     end
-
-    def base
-      @canvas.base
-    end
-
-    def tmp_base
-      @canvas.tmp_base
+    
+    def tmp_dir_naem
+      @canvas.tmp_dir_name
     end
 
     def apply_to_DocumentElement(element, contents)

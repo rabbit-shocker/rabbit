@@ -10,7 +10,6 @@ module Rabbit
     module Image
       
       ALLOWED_IMG_URL_SCHEME = ['http', 'file', '']
-      TMP_DIR_NAME = ".tmp"
       
       def img(label, content, visitor)
         label = label.to_s
@@ -45,7 +44,7 @@ module Rabbit
       end
 
       def tmp_filename(visitor, key)
-        dir = File.join(visitor.tmp_base, TMP_DIR_NAME)
+        dir = visitor.tmp_dir_name
         FileUtils.mkdir_p(dir)
         File.join(dir, CGI.escape(key))
       end

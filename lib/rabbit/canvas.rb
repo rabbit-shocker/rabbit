@@ -105,7 +105,7 @@ module Rabbit
     end
 
     def apply_theme(name=nil)
-      @theme_name = name || @theme_name || default_theme
+      @theme_name = name || @theme_name || default_theme || "default"
       if @theme_name and not @pages.empty?
         clear_theme
         clear_index_pages
@@ -151,12 +151,8 @@ module Rabbit
       @source and @source.full_path(path)
     end
 
-    def base
-      @source and @source.base
-    end
-
-    def tmp_base
-      @source and @source.tmp_base
+    def tmp_dir_name
+      @source and @source.tmp_dir_name
     end
 
     def set_foreground(color)

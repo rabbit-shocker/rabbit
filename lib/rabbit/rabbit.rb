@@ -2,6 +2,8 @@ module Rabbit
 
   VERSION = "0.0.3"
 
+  TMP_DIR_NAME = ".tmp"
+
   class Error < StandardError
   end
 	
