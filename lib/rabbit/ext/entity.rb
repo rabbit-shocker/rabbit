@@ -4196,8 +4196,6 @@ module Rabbit
         "ZeroWidthSpace" => "&\#x0200B;",
         # 
         "zopf" => "&\#x1D56B;",
-        # break line
-        "br" => "&\#x0000A;",
       }
 
     end
