@@ -25,6 +25,8 @@ module Rabbit
 
     def_delegators(:@renderer, :width, :height)
     def_delegators(:@renderer, :width=, :height=)
+    def_delegators(:@renderer, :request_width, :request_height)
+    def_delegators(:@renderer, :request_width=, :request_height=)
     def_delegators(:@renderer, :font_families)
     def_delegators(:@renderer, :destroy, :redraw)
     def_delegators(:@renderer, :cursor=, :filename, :filename=)

@@ -19,6 +19,7 @@ def parse(args, logger)
   options.base = nil
   options.source_type = Rabbit::Source::File
   options.full_screen = false
+  options.size_specified = false
   options.width = 800
   options.height = 600
   options.save_as_image = false
@@ -98,6 +99,7 @@ def parse(args, logger)
             Integer,
             "Set window width to [WIDTH].",
             "(#{options.width})") do |width|
+      options.size_specified = true
       options.width = width
     end
 
@@ -105,6 +107,7 @@ def parse(args, logger)
             Integer,
             "Set window height to [HEIGHT].",
             "(#{options.height})") do |height|
+      options.size_specified = true
       options.height = height
     end
 
@@ -113,6 +116,7 @@ def parse(args, logger)
             "Set window width and height to",
             "[WIDTH] and [HEIGHT].",
             "(#{options.width},#{options.height})") do |size|
+      options.size_specified = true
       width, height = size.collect{|x| Integer(x)}
       options.width = width
       options.height = height
@@ -229,9 +233,17 @@ def setup_size(target, options)
   target.height = options.height
 end
 
+def setup_request_size_if_need(target, options)
+  if options.size_specified
+    target.request_width = options.width
+    target.request_height = options.height
+  end
+end
+
 def do_print(options, logger)
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::GnomePrint)
   setup_print_info(canvas, options)
+  setup_request_size_if_need(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.print

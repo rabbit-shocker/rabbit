@@ -35,12 +35,14 @@ module Rabbit
       
       attr_writer :foreground, :background, :background_image
       attr_reader :width, :height
-      attr_accessor :filename
+      attr_accessor :filename, :request_width, :request_height
       
       def initialize(canvas)
         super
         @filename = nil
         @background_image = nil
+        @request_width = nil
+        @request_height = nil
         init_job
       end
 
@@ -84,8 +86,8 @@ module Rabbit
 
 
       def draw_slide(slide)
-        # @context.begin_slide(slide.title) do
-        @context.begin_slide do
+        # @context.begin_page(slide.title) do
+        @context.begin_page do
           draw_background
           yield
         end
@@ -208,13 +210,26 @@ module Rabbit
       end
       
       def init_paper
-        paper = Gnome::PrintPaper.get("A4")
-        @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = paper.height
-        @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = paper.width
+        setup_paper
         @width = @config[Gnome::PrintConfig::KEY_PAPER_WIDTH, :double]
         @height = @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT, :double]
       end
 
+      def setup_paper
+        if size_set?
+          @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = @request_width
+          @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = @request_height
+        else
+          paper = Gnome::PrintPaper.get("A4")
+          @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = paper.height
+          @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = paper.width
+        end
+      end
+
+      def size_set?
+        @request_width and @request_height
+      end
+      
       def init_colors
         @foreground = make_color("black")
         @background = make_color("white")
