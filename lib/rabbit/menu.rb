@@ -94,8 +94,8 @@ module Rabbit
 
       _move_to = method(:move_to)
       jump = _("/Jump") + "/"
-      @canvas.pages.each_with_index do |page, i|
-        items << ["#{jump}#{i}: #{page.title}", "<Item>", nil, nil, _move_to, i]
+      @canvas.slides.each_with_index do |slide, i|
+        items << ["#{jump}#{i}: #{slide.title}", "<Item>", nil, nil, _move_to, i]
       end
 
       ifp.create_items(items.compact)

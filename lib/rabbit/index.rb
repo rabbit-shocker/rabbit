@@ -11,7 +11,7 @@ module Rabbit
     COLUMN_NUMBER = 4
     
     class << self
-      def make_index_pages(canvas)
+      def make_index_slides(canvas)
         thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
         thumbnail_height = canvas.height / (ROW_NUMBER + 1)
 
@@ -22,23 +22,23 @@ module Rabbit
           maker.parse_rd(source)
         end
 
-        max_per_page = ROW_NUMBER * COLUMN_NUMBER
+        max_per_slide = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
-        number_of_pages = 0
-        canvas.renderer.pre_to_pixbuf(maker.page_size)
-        maker.each_page_pixbuf do |pixbuf, page_number|
-          canvas.renderer.to_pixbufing(page_number)
-          if page_number.remainder(max_per_page).zero?
+        number_of_slides = 0
+        canvas.renderer.pre_to_pixbuf(maker.slide_size)
+        maker.each_slide_pixbuf do |pixbuf, slide_number|
+          canvas.renderer.to_pixbufing(slide_number)
+          if slide_number.remainder(max_per_slide).zero?
             thumbnails_set << []
           end
-          thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, page_number)
-          number_of_pages = page_number
+          thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, slide_number)
+          number_of_slides = slide_number
         end
         canvas.renderer.post_to_pixbuf
         maker.quit
         
         thumbnails_set.collect do |thumbnails|
-          Page.new(thumbnails, number_of_pages)
+          Slide.new(thumbnails, number_of_slides)
         end
       end
 
@@ -75,11 +75,11 @@ module Rabbit
     end
     
     
-    class Page
+    class Slide
 
-      def initialize(thumbnails, number_of_pages)
+      def initialize(thumbnails, number_of_slides)
         @thumbnails = thumbnails
-        @number_of_pages = number_of_pages
+        @number_of_slides = number_of_slides
       end
 
       def title
@@ -95,7 +95,7 @@ module Rabbit
       end
       
       def draw(canvas)
-        canvas.draw_page(self) do
+        canvas.draw_slide(self) do
           w = width
           h = height
           x_base = (w / (COLUMN_NUMBER + 1.0)).ceil
@@ -118,7 +118,7 @@ module Rabbit
             end
             canvas.draw_pixbuf(thumbnail.pixbuf, x, y, params)
             canvas.draw_rectangle(false, x, y, w, h)
-            text = "#{thumbnail.number}/#{@number_of_pages}"
+            text = "#{thumbnail.number}/#{@number_of_slides}"
             text = %Q[<span size="#{text_size}">#{text}</span>]
             layout, _, _ = canvas.make_layout(text)
             layout.set_width(text_width)
@@ -128,7 +128,7 @@ module Rabbit
         end
       end
 
-      def page_number(canvas, x, y)
+      def slide_number(canvas, x, y)
         column = (COLUMN_NUMBER * (x / canvas.width)).to_i
         row = (ROW_NUMBER * (y / canvas.height)).to_i
         thumb = @thumbnails[row * ROW_NUMBER + column]

@@ -584,7 +584,7 @@ module Rabbit
       end
     end
     
-    class Page
+    class Slide
       include BlockElement
 
       attr_reader :title
@@ -596,7 +596,7 @@ module Rabbit
       end
 
       def draw(canvas, simulation=false)
-        canvas.draw_page(self) do
+        canvas.draw_slide(self) do
           compile(canvas, 0, 0, canvas.width, canvas.height)
           super(simulation)
         end
@@ -604,7 +604,7 @@ module Rabbit
 
     end
     
-    class TitlePage
+    class TitleSlide
       include BlockElement
 
       attr_reader :title
@@ -641,7 +641,7 @@ module Rabbit
       end
 
       def draw(canvas, simulation=false)
-        canvas.draw_page(self) do
+        canvas.draw_slide(self) do
           compile(canvas, 0, 0, canvas.width, canvas.height)
           super(simulation)
         end

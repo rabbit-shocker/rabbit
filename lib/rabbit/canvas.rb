@@ -28,7 +28,7 @@ module Rabbit
     def_delegators(:@renderer, :font_families)
     def_delegators(:@renderer, :destroy, :redraw)
     def_delegators(:@renderer, :cursor=, :filename, :filename=)
-    def_delegators(:@renderer, :each_page_pixbuf, :to_pixbuf)
+    def_delegators(:@renderer, :each_slide_pixbuf, :to_pixbuf)
     def_delegators(:@renderer, :foreground, :background)
     def_delegators(:@renderer, :foreground=, :background=)
     def_delegators(:@renderer, :background_image, :background_image=)
@@ -36,7 +36,7 @@ module Rabbit
     def_delegators(:@renderer, :make_color, :make_layout)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
-    def_delegators(:@renderer, :draw_page, :print)
+    def_delegators(:@renderer, :draw_slide, :print)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
 
@@ -68,43 +68,43 @@ module Rabbit
     end
     
     def title
-      tp = title_page
-      if tp
-        tp.title
+      ts = title_slide
+      if ts
+        ts.title
       else
         "Rabbit"
       end
     end
 
-    def page_title
-      return "" if pages.empty?
-      page = current_page
-      if page.is_a?(Element::TitlePage)
-        page.title
+    def slide_title
+      return "" if slides.empty?
+      slide = current_slide
+      if slide.is_a?(Element::TitleSlide)
+        slide.title
       else
-        "#{title}: #{page.title}"
+        "#{title}: #{slide.title}"
       end
     end
 
-    def pages
+    def slides
       if @index_mode
-        @index_pages
+        @index_slides
       else
-        @pages
+        @slides
       end
     end
     
-    def page_size
-      pages.size
+    def slide_size
+      slides.size
     end
 
-    def current_page
-      page = pages[current_index]
-      if page
-        page
+    def current_slide
+      slide = slides[current_index]
+      if slide
+        slide
       else
         move_to_first
-        pages.first
+        slides.first
       end
     end
 
@@ -116,23 +116,23 @@ module Rabbit
       end
     end
 
-    def next_page
-      pages[current_index + 1]
+    def next_slide
+      slides[current_index + 1]
     end
 
     def each(&block)
-      pages.each(&block)
+      slides.each(&block)
     end
 
-    def <<(page)
-      pages << page
+    def <<(slide)
+      slides << slide
     end
 
     def apply_theme(name=nil)
       @theme_name = name || @theme_name || default_theme || "default"
-      if @theme_name and not @pages.empty?
+      if @theme_name and not @slides.empty?
         clear_theme
-        clear_index_pages
+        clear_index_slides
         theme = Theme.new(self)
         theme.apply(@theme_name)
         @renderer.post_apply_theme
@@ -181,9 +181,9 @@ module Rabbit
 
     def save_as_image
       file_name_format =
-          "#{saved_image_basename}%0#{number_of_places(page_size)}d.#{@saved_image_type}"
-      each_page_pixbuf do |pixbuf, page_number|
-        file_name = file_name_format % page_number
+          "#{saved_image_basename}%0#{number_of_places(slide_size)}d.#{@saved_image_type}"
+      each_slide_pixbuf do |pixbuf, slide_number|
+        file_name = file_name_format % slide_number
         pixbuf.save(file_name, normalized_saved_image_type)
       end
     end
@@ -210,7 +210,7 @@ module Rabbit
     end
 
     def move_to_if_can(index)
-      if 0 <= index and index < page_size
+      if 0 <= index and index < slide_size
         move_to(index)
       end
     end
@@ -228,7 +228,7 @@ module Rabbit
     end
 
     def move_to_last
-      move_to(page_size - 1)
+      move_to(slide_size - 1)
     end
 
     def index_mode?
@@ -241,8 +241,8 @@ module Rabbit
         @renderer.index_mode_off
       else
         @index_mode = true
-        if @index_pages.empty?
-          @index_pages = Index.make_index_pages(self)
+        if @index_slides.empty?
+          @index_slides = Index.make_index_slides(self)
         end
         @renderer.index_mode_on
         move_to(0)
@@ -261,30 +261,30 @@ module Rabbit
       @source.force_modified = prev
     end
 
-    def last_page?
-      page_size.zero? or current_index == (page_size - 1)
+    def last_slide?
+      slide_size.zero? or current_index == (slide_size - 1)
     end
     
     private
     def clear
-      clear_pages
-      clear_index_pages
+      clear_slides
+      clear_index_slides
     end
     
-    def clear_pages
+    def clear_slides
       @current_index = 0
-      @pages = []
+      @slides = []
     end
     
-    def clear_index_pages
+    def clear_index_slides
       @index_mode = false
       @index_current_index = 0
-      @index_pages = []
+      @index_slides = []
     end
 
     def clear_theme
-      @pages.each do |page|
-        page.clear_theme
+      @slides.each do |slide|
+        slide.clear_theme
       end
     end
 
@@ -296,13 +296,13 @@ module Rabbit
       @index_current_index = index_index
     end
     
-    def title_page
-      @pages.find{|x| x.is_a?(Element::TitlePage)}
+    def title_slide
+      @slides.find{|x| x.is_a?(Element::TitleSlide)}
     end
 
     def default_theme
-      tp = title_page
-      tp and tp.theme
+      ts = title_slide
+      ts and ts.theme
     end
 
     def set_current_index(new_index)

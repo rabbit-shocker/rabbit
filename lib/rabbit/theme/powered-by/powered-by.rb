@@ -7,14 +7,14 @@ if @powered_by_image
   loader = ImageLoader.new(search_file(@powered_by_image))
 end
 
-add_powered_by = proc do |page|
+add_powered_by = proc do |slide|
   space = screen_x(1)
   layout = nil
   tw, th = nil
 
-  page.delete_post_draw_proc_by_name(proc_name)
+  slide.delete_post_draw_proc_by_name(proc_name)
 
-  page.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
+  slide.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
     unless simulation
       if layout.nil?
         text = "Powered by #{@powered_by_text}"
@@ -22,14 +22,14 @@ add_powered_by = proc do |page|
         layout, tw, th = canvas.make_layout(text)
       end
       
-      new_x = page.left_margin
-      new_y = canvas.height - page.bottom_margin
+      new_x = slide.left_margin
+      new_y = canvas.height - slide.bottom_margin
       
       canvas.draw_layout(layout, new_x, new_y - th)
       
       unless loader.nil?
-        page_space = canvas.height - y - page.bottom_margin
-        loader.resize(nil, page_space) if loader.height > page_space
+        slide_space = canvas.height - y - slide.bottom_margin
+        loader.resize(nil, slide_space) if loader.height > slide_space
         px = new_x + tw + space
         py = new_y - loader.height
         canvas.draw_pixbuf(loader.pixbuf, px, py)
@@ -39,10 +39,10 @@ add_powered_by = proc do |page|
   end
 end
 
-match(TitlePage) do |pages|
-  add_powered_by.call(pages.first)
+match(TitleSlide) do |slides|
+  add_powered_by.call(slides.first)
 end
 
-match(Page) do |pages|
-  add_powered_by.call(pages.last)
+match(Slide) do |slides|
+  add_powered_by.call(slides.last)
 end

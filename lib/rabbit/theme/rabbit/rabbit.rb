@@ -21,39 +21,39 @@ include_theme("title-shadow")
 
 include_theme("powered-by")
 
-include_theme("page-number")
+include_theme("slide-number")
 
 @icon_images = ["lavie_icon.png"]
 
 include_theme("icon")
 
-match(TitlePage, Title) do |titles|
+match(TitleSlide, Title) do |titles|
   titles.prop_set("foreground", "red")
   titles.prop_set("style", "italic")
 end
 
-page_body = [Page, Body]
+slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]
 
-# match(*page_body) do |bodies|
+# match(*slide_body) do |bodies|
 #   bodies.vertical_centering = true
 # end
 
-match(*(page_body + (item_list_item * 1))) do |items|
+match(*(slide_body + (item_list_item * 1))) do |items|
   items.clear_pre_draw_procs
   items.clear_post_draw_procs
 
   draw_image_mark(items, "red_item.png")
 end
 
-match(*(page_body + (item_list_item * 2))) do |items|
+match(*(slide_body + (item_list_item * 2))) do |items|
   items.clear_pre_draw_procs
   items.clear_post_draw_procs
 
   draw_image_mark(items, "blue_item.png")
 end
 
-match(*(page_body + (item_list_item * 3))) do |items|
+match(*(slide_body + (item_list_item * 3))) do |items|
   items.clear_pre_draw_procs
   items.clear_post_draw_procs
 
@@ -62,14 +62,14 @@ end
 
 enum_list_item = [EnumList, EnumListItem]
 
-match(*(page_body + enum_list_item + item_list_item)) do |items|
+match(*(slide_body + enum_list_item + item_list_item)) do |items|
   items.clear_pre_draw_procs
   items.clear_post_draw_procs
 
   draw_image_mark(items, "red_item2.png")
 end
 
-match(*(page_body + enum_list_item + (item_list_item * 2))) do |items|
+match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   items.clear_pre_draw_procs
   items.clear_post_draw_procs
 

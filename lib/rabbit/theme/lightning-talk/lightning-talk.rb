@@ -5,21 +5,21 @@ proc_name = "lightning-talk"
 @lightning_talk_font_size ||= @x_small_font_size
 
 
-match(TitlePage) do |pages|
-  pages.horizontal_centering = true
-  pages.vertical_centering = true
+match(TitleSlide) do |slides|
+  slides.horizontal_centering = true
+  slides.vertical_centering = true
 
-  pages.left_margin = @left_margin
-  pages.right_margin = @right_margin
-  pages.top_margin = @top_margin
-  pages.bottom_margin = @bottom_margin
+  slides.left_margin = @left_margin
+  slides.right_margin = @right_margin
+  slides.top_margin = @top_margin
+  slides.bottom_margin = @bottom_margin
 end
 
-match(TitlePage, "*") do |elems|
+match(TitleSlide, "*") do |elems|
   elems.prop_set("size", @large_font_size)
 end
 
-match(TitlePage, Title) do |titles|
+match(TitleSlide, Title) do |titles|
   titles.prop_set("size", @huge_font_size)
   titles.prop_set("weight", "heavy")
 
@@ -33,7 +33,7 @@ match(TitlePage, Title) do |titles|
   end
 end
 
-match(TitlePage, Subtitle) do |titles|
+match(TitleSlide, Subtitle) do |titles|
   titles.prop_set("size", @normal_font_size)
 
   space = screen_size(5)
@@ -46,30 +46,30 @@ match(TitlePage, Subtitle) do |titles|
   end
 end
 
-match(TitlePage, ContentSource) do |titles|
+match(TitleSlide, ContentSource) do |titles|
   titles.prop_set("size", @small_font_size)
   titles.prop_set("style", "italic")
 end
 
-match(TitlePage, Institution) do |titles|
+match(TitleSlide, Institution) do |titles|
   titles.prop_set("size", @normal_font_size)
   titles.prop_set("style", "italic")
 end
 
 
-match(Page) do |pages|
-  pages.left_margin = @left_margin
-  pages.right_margin = @right_margin
-  pages.top_margin = @top_margin
-  pages.bottom_margin = @bottom_margin
+match(Slide) do |slides|
+  slides.left_margin = @left_margin
+  slides.right_margin = @right_margin
+  slides.top_margin = @top_margin
+  slides.bottom_margin = @bottom_margin
 
-  pages.vertical_centering = true
-  pages.horizontal_centering = true
+  slides.vertical_centering = true
+  slides.horizontal_centering = true
 
   if @lightning_talk_contact_information
-    pages.delete_post_draw_proc_by_name(proc_name)
+    slides.delete_post_draw_proc_by_name(proc_name)
 
-    pages.add_post_draw_proc(proc_name) do |page, canvas, x, y, w, h, simulation|
+    slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
       unless simulation
         text = @lightning_talk_contact_information
         text = %Q[<span size="#{@lightning_talk_font_size}">#{text}</span>]
@@ -84,7 +84,7 @@ match(Page) do |pages|
   end
 end
 
-match(Page, HeadLine) do |heads|
+match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @very_huge_font_size)
 end
 

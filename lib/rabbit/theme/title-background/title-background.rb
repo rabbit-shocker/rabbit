@@ -4,13 +4,13 @@ if @title_background_image.nil?
   raise "must specify @title_background_image!!"
 end
 
-match(TitlePage) do |pages|
+match(TitleSlide) do |slides|
   loader = ImageLoader.new(search_file(@title_background_image))
   resized = false
 
-  pages.delete_pre_draw_proc_by_name(proc_name)
+  slides.delete_pre_draw_proc_by_name(proc_name)
 
-  pages.add_pre_draw_proc(proc_name) do |page, canvas, x, y, w, h, simulation|
+  slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       unless loader.nil?
         unless resized

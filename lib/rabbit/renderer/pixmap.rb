@@ -21,12 +21,12 @@ module Rabbit
         clear_pixmaps
       end
 
-      def has_key?(page)
-        @pixmaps.has_key?(page)
+      def has_key?(slide)
+        @pixmaps.has_key?(slide)
       end
       
-      def [](page)
-        @pixmaps[page]
+      def [](slide)
+        @pixmaps[slide]
       end
       
       def foreground=(color)
@@ -71,9 +71,9 @@ module Rabbit
       def post_toggle_index_mode
       end
       
-      def draw_page(page)
+      def draw_slide(slide)
         @drawable = Gdk::Pixmap.new(nil, width, height, DEPTH)
-        @pixmaps[page] = @drawable
+        @pixmaps[slide] = @drawable
         @drawable.draw_rectangle(@background, true, 0, 0, width, height)
         yield
       end
@@ -126,8 +126,8 @@ module Rabbit
         [layout, w, h]
       end
 
-      def to_pixbuf(page)
-        drawable = @pixmaps[page]
+      def to_pixbuf(slide)
+        drawable = @pixmaps[slide]
         args = [drawable.colormap, drawable, 0, 0, width, height]
         Gdk::Pixbuf.from_drawable(*args)
       end
@@ -140,7 +140,7 @@ module Rabbit
         Gtk::Invisible.new.create_pango_context
       end
       
-      def pre_to_pixbuf(page_size)
+      def pre_to_pixbuf(slide_size)
       end
 
       def to_pixbufing(i)

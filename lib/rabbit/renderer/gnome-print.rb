@@ -44,7 +44,7 @@ module Rabbit
         init_job
       end
 
-      def pre_print(page_size)
+      def pre_print(slide_size)
         update_filename
       end
       
@@ -83,9 +83,9 @@ module Rabbit
       end
 
 
-      def draw_page(page)
-        # @context.begin_page(page.title) do
-        @context.begin_page do
+      def draw_slide(slide)
+        # @context.begin_slide(slide.title) do
+        @context.begin_slide do
           draw_background
           yield
         end

@@ -19,7 +19,7 @@ module Rabbit
       def_delegators(:@pixmap, :foreground=, :background=)
       def_delegators(:@pixmap, :background_image, :background_image=)
       
-      def_delegators(:@pixmap, :draw_page, :draw_line, :draw_rectangle)
+      def_delegators(:@pixmap, :draw_slide, :draw_line, :draw_rectangle)
       def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
       def_delegators(:@pixmap, :draw_pixbuf)
 
@@ -131,8 +131,8 @@ module Rabbit
         @area.create_pango_context
       end
       
-      def pre_print(page_size)
-        start_progress(page_size)
+      def pre_print(slide_size)
+        start_progress(slide_size)
       end
 
       def printing(i)
@@ -143,8 +143,8 @@ module Rabbit
         end_progress
       end
 
-      def pre_to_pixbuf(page_size)
-        start_progress(page_size)
+      def pre_to_pixbuf(slide_size)
+        start_progress(slide_size)
       end
 
       def to_pixbufing(i)
@@ -174,7 +174,7 @@ module Rabbit
       end
 
       def update_title
-        @canvas.update_title(@canvas.page_title)
+        @canvas.update_title(@canvas.slide_title)
       end
       
       def init_progress
@@ -247,14 +247,14 @@ module Rabbit
               prev_width, prev_height = width, height
             end
           end
-          page = @canvas.current_page
-          if page
-            unless @pixmap.has_key?(page)
+          slide = @canvas.current_slide
+          if slide
+            unless @pixmap.has_key?(slide)
               @pixmap.width = width
               @pixmap.height = height
-              page.draw(@canvas)
+              slide.draw(@canvas)
             end
-            @drawable.draw_drawable(@foreground, @pixmap[page],
+            @drawable.draw_drawable(@foreground, @pixmap[slide],
                                     0, 0, 0, 0, -1, -1)
           end
         end
@@ -286,7 +286,7 @@ module Rabbit
         @blank_cursor
       end
       
-      def calc_page_number(key_event, base)
+      def calc_slide_number(key_event, base)
         val = key_event.keyval
         val += 10 if key_event.state.control_mask?
         val += 20 if key_event.state.mod1_mask?
@@ -315,7 +315,7 @@ module Rabbit
           Gdk::Keyval::GDK_7,
           Gdk::Keyval::GDK_8,
           Gdk::Keyval::GDK_9
-          index = calc_page_number(key_event, Gdk::Keyval::GDK_0)
+          index = calc_slide_number(key_event, Gdk::Keyval::GDK_0)
           @canvas.move_to_if_can(index)
         when Gdk::Keyval::GDK_KP_0,
           Gdk::Keyval::GDK_KP_1,
@@ -327,7 +327,7 @@ module Rabbit
           Gdk::Keyval::GDK_KP_7,
           Gdk::Keyval::GDK_KP_8,
           Gdk::Keyval::GDK_KP_9
-          index = calc_page_number(key_event, Gdk::Keyval::GDK_KP_0)
+          index = calc_slide_number(key_event, Gdk::Keyval::GDK_KP_0)
           @canvas.move_to_if_can(index)
         when *TOGGLE_FULLSCREEN_KEYS
           @canvas.toggle_fullscreen
@@ -380,7 +380,7 @@ module Rabbit
       def handle_button2_press(event)
         add_button_handler do
           if @canvas.index_mode?
-            index = @canvas.current_page.page_number(@canvas, event.x, event.y)
+            index = @canvas.current_slide.slide_number(@canvas, event.x, event.y)
             if index
               @canvas.toggle_index_mode
               @canvas.move_to_if_can(index)

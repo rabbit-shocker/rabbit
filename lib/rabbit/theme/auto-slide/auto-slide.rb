@@ -8,7 +8,7 @@ unless @@auto_slide_timeout_id.nil?
 end
 
 @@auto_slide_timeout_id = Gtk.timeout_add(@auto_slide_span) do
-  if canvas.last_page?
+  if canvas.last_slide?
     if @auto_slide_loop
       canvas.move_to_first
       true

@@ -90,8 +90,8 @@ module Rabbit
       end
     end
     
-    def pages
-      @canvas.pages
+    def slides
+      @canvas.slides
     end
 
     class ElementContainer < DelegateClass(Array)
@@ -137,7 +137,7 @@ module Rabbit
         super()
         @theme = theme
         @match_cache = {}
-        class << pages
+        class << slides
           def elements
             self
           end
@@ -169,8 +169,8 @@ module Rabbit
         @theme.name
       end
 
-      def pages
-        @theme.pages
+      def slides
+        @theme.slides
       end
 
       def canvas
@@ -200,7 +200,7 @@ module Rabbit
       end
 
       def match(*paths, &block)
-        block.call(ElementContainer.new(_match(pages, *paths)))
+        block.call(ElementContainer.new(_match(slides, *paths)))
       end
       
       def _match(current, *paths)
@@ -208,7 +208,7 @@ module Rabbit
         paths.each_with_index do |path, i|
           current = _match_with_cache(current, path, i == last_path_index) do
             if path.nil?
-              pages
+              slides
             elsif path == "**"
               all_sub_elements(current)
             else

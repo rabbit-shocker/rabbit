@@ -12,35 +12,35 @@ end
 @timer_font_size ||= @xx_small_font_size
 @timer_over_color ||= "red"
 
-match(Page) do |pages|
+match(Slide) do |slides|
 
   @timer_limit_time = nil
 
-  pages.add_pre_draw_proc(init_proc_name) do |page, canvas, x, y, w, h, simulation|
+  slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
     if @timer_limit_time.nil?
       @timer_limit_time = Time.now + @timer_limit
       if @timer_auto_update and
-          page.user_property["timer.thread"].nil?
-        page.user_property["timer.thread"] = Thread.new do
+          slide.user_property["timer.thread"].nil?
+        slide.user_property["timer.thread"] = Thread.new do
           loop do
             sleep(1)
-            # break if page.post_draw_proc(proc_name).nil?
+            # break if slide.post_draw_proc(proc_name).nil?
             canvas.redraw
           end
         end
       end
     end
-    page.delete_post_draw_proc_by_name(init_proc_name)
+    slide.delete_post_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
 
-  pages.delete_post_draw_proc_by_name(proc_name)
+  slides.delete_post_draw_proc_by_name(proc_name)
 
-  pages.add_post_draw_proc(proc_name) do |page, canvas, x, y, w, h, simulation|
+  slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       rest_time = @timer_limit_time - Time.now
       text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
-      attrs = {"size" => @page_number_font_size}
+      attrs = {"size" => @slide_number_font_size}
       attrs["color"] = @timer_over_color if rest_time < 0
       text = %Q[<span #{to_attrs(attrs)}>#{text}</span>]
       layout, text_width, text_height = canvas.make_layout(text)

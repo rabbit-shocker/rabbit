@@ -27,7 +27,7 @@ module Rabbit
           do_print(&block)
         else
           canvas = make_canvas_with_printable_renderer
-          pre_print(canvas.page_size)
+          pre_print(canvas.slide_size)
           canvas.print do |i|
             printing(i)
           end
@@ -35,19 +35,19 @@ module Rabbit
         end
       end
 
-      def each_page_pixbuf
+      def each_slide_pixbuf
         if can_create_pixbuf?
           canvas = @canvas
         else
           canvas = make_canvas_with_offscreen_renderer
         end
         previous_index = canvas.current_index
-        pre_to_pixbuf(canvas.page_size)
-        canvas.pages.each_with_index do |page, i|
+        pre_to_pixbuf(canvas.slide_size)
+        canvas.slides.each_with_index do |slide, i|
           to_pixbufing(i)
           canvas.move_to_if_can(i)
-          page.draw(canvas)
-          yield(canvas.to_pixbuf(page), i)
+          slide.draw(canvas)
+          yield(canvas.to_pixbuf(slide), i)
         end
         post_to_pixbuf
         canvas.move_to_if_can(previous_index)
@@ -67,10 +67,10 @@ module Rabbit
       end
       
       def do_print(&block)
-        pre_print(@canvas.page_size)
-        @canvas.pages.each_with_index do |page, i|
+        pre_print(@canvas.slide_size)
+        @canvas.slides.each_with_index do |slide, i|
           @canvas.move_to_if_can(i)
-          @canvas.current_page.draw(@canvas)
+          @canvas.current_slide.draw(@canvas)
           block.call(i) if block
         end
         post_print

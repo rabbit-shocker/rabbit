@@ -1,6 +1,6 @@
 proc_name = "title-shadow"
 
-match(TitlePage, Title) do |titles|
+match(TitleSlide, Title) do |titles|
   @title_shadow_color ||= "#6f6f6f"
 
   shadow_layout = nil

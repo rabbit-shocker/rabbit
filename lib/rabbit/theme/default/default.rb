@@ -1,21 +1,21 @@
-include_theme("page-number")
+include_theme("slide-number")
 
 
-match(TitlePage) do |pages|
-  pages.horizontal_centering = true
-  pages.vertical_centering = true
+match(TitleSlide) do |slides|
+  slides.horizontal_centering = true
+  slides.vertical_centering = true
 
-  pages.left_margin = @left_margin
-  pages.right_margin = @right_margin
-  pages.top_margin = @top_margin
-  pages.bottom_margin = @bottom_margin
+  slides.left_margin = @left_margin
+  slides.right_margin = @right_margin
+  slides.top_margin = @top_margin
+  slides.bottom_margin = @bottom_margin
 end
 
-match(TitlePage, "*") do |elems|
+match(TitleSlide, "*") do |elems|
   elems.prop_set("size", @large_font_size)
 end
 
-match(TitlePage, Title) do |titles|
+match(TitleSlide, Title) do |titles|
   titles.prop_set("size", @huge_font_size)
   titles.prop_set("weight", "heavy")
 
@@ -29,7 +29,7 @@ match(TitlePage, Title) do |titles|
   end
 end
 
-match(TitlePage, Subtitle) do |titles|
+match(TitleSlide, Subtitle) do |titles|
   titles.prop_set("size", @normal_font_size)
 
   space = screen_size(5)
@@ -42,25 +42,25 @@ match(TitlePage, Subtitle) do |titles|
   end
 end
 
-match(TitlePage, ContentSource) do |titles|
+match(TitleSlide, ContentSource) do |titles|
   titles.prop_set("size", @small_font_size)
   titles.prop_set("style", "italic")
 end
 
-match(TitlePage, Institution) do |titles|
+match(TitleSlide, Institution) do |titles|
   titles.prop_set("size", @normal_font_size)
   titles.prop_set("style", "italic")
 end
 
 
-match(Page) do |pages|
-  pages.left_margin = @left_margin
-  pages.right_margin = @right_margin
-  pages.top_margin = @top_margin
-  pages.bottom_margin = @bottom_margin
+match(Slide) do |slides|
+  slides.left_margin = @left_margin
+  slides.right_margin = @right_margin
+  slides.top_margin = @top_margin
+  slides.bottom_margin = @bottom_margin
 end
 
-match(Page, HeadLine) do |heads|
+match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
   heads.horizontal_centering = true
 
@@ -302,11 +302,11 @@ match("**", MethodListItem, Paragraph) do |texts|
   indent(texts, space)
 end
 
-page_body = [Page, Body]
+slide_body = [Slide, Body]
 
 item_list_item = [ItemList, ItemListItem]
 
-match(*(page_body + (item_list_item * 1))) do |items|
+match(*(slide_body + (item_list_item * 1))) do |items|
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
@@ -323,7 +323,7 @@ match(*(page_body + (item_list_item * 1))) do |items|
   end
 end
 
-match(*(page_body + (item_list_item * 2))) do |items|
+match(*(slide_body + (item_list_item * 2))) do |items|
   mark_width = screen_x(1.5)
   mark_height = screen_y(1.5)
   indent_width = mark_width * 3
@@ -340,7 +340,7 @@ match(*(page_body + (item_list_item * 2))) do |items|
   end
 end
 
-match(*(page_body + (item_list_item * 3))) do |items|
+match(*(slide_body + (item_list_item * 3))) do |items|
   mark_width = screen_x(1.0)
   mark_height = screen_y(1.0)
   indent_width = mark_width * 3
@@ -357,18 +357,18 @@ match(*(page_body + (item_list_item * 3))) do |items|
   end
 end
 
-match(*(page_body + (item_list_item * 2) + [Paragraph])) do |texts|
+match(*(slide_body + (item_list_item * 2) + [Paragraph])) do |texts|
   texts.prop_set("size", @small_font_size)
 end
 
-match(*(page_body + (item_list_item * 3) + [Paragraph])) do |texts|
+match(*(slide_body + (item_list_item * 3) + [Paragraph])) do |texts|
   texts.prop_set("size", @x_small_font_size)
 end
 
 
 enum_list_item = [EnumList, EnumListItem]
 
-match(*(page_body + (enum_list_item * 1))) do |items|
+match(*(slide_body + (enum_list_item * 1))) do |items|
   indent_width = screen_x(2)
   size = @normal_font_size
 
@@ -382,7 +382,7 @@ match(*(page_body + (enum_list_item * 1))) do |items|
   end
 end
 
-match(*(page_body + (enum_list_item * 2))) do |items|
+match(*(slide_body + (enum_list_item * 2))) do |items|
   indent_width = screen_x(1.5)
   size = @small_font_size
 
@@ -396,7 +396,7 @@ match(*(page_body + (enum_list_item * 2))) do |items|
   end
 end
 
-match(*(page_body + (enum_list_item * 3))) do |items|
+match(*(slide_body + (enum_list_item * 3))) do |items|
   indent_width = screen_x(1)
   size = @x_small_font_size
 
@@ -410,16 +410,16 @@ match(*(page_body + (enum_list_item * 3))) do |items|
   end
 end
 
-match(*(page_body + (enum_list_item * 2) + [Paragraph])) do |texts|
+match(*(slide_body + (enum_list_item * 2) + [Paragraph])) do |texts|
   texts.prop_set("size", @small_font_size)
 end
 
-match(*(page_body + (enum_list_item * 3) + [Paragraph])) do |texts|
+match(*(slide_body + (enum_list_item * 3) + [Paragraph])) do |texts|
   texts.prop_set("size", @x_small_font_size)
 end
 
 
-match(*(page_body + enum_list_item + item_list_item)) do |items|
+match(*(slide_body + enum_list_item + item_list_item)) do |items|
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
@@ -436,7 +436,7 @@ match(*(page_body + enum_list_item + item_list_item)) do |items|
   end
 end
 
-match(*(page_body + enum_list_item + (item_list_item * 2))) do |items|
+match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
@@ -453,18 +453,18 @@ match(*(page_body + enum_list_item + (item_list_item * 2))) do |items|
   end
 end
 
-match(*(page_body + enum_list_item + item_list_item + [Paragraph])) do |texts|
+match(*(slide_body + enum_list_item + item_list_item + [Paragraph])) do |texts|
   texts.prop_set("size", @small_font_size)
 end
 
-match(*(page_body + enum_list_item + (item_list_item * 2) + [Paragraph])) do |texts|
+match(*(slide_body + enum_list_item + (item_list_item * 2) + [Paragraph])) do |texts|
   texts.prop_set("size", @x_small_font_size)
 end
 
 
 desc_list_item = [DescriptionList, DescriptionListItem]
 
-match(*(page_body + desc_list_item)) do |items|
+match(*(slide_body + desc_list_item)) do |items|
   space = @normal_font_size / Pango::SCALE
   items.each do |item|
     indent(item[1..-1], space)
@@ -476,7 +476,7 @@ match(*(page_body + desc_list_item)) do |items|
   end
 end
 
-match(*(page_body + (desc_list_item * 2))) do |items|
+match(*(slide_body + (desc_list_item * 2))) do |items|
   space = @small_font_size / Pango::SCALE
   items.each do |item|
     indent(item[1..-1], space)
@@ -488,7 +488,7 @@ match(*(page_body + (desc_list_item * 2))) do |items|
   end
 end
 
-match(*(page_body + (desc_list_item * 3))) do |items|
+match(*(slide_body + (desc_list_item * 3))) do |items|
   space = @x_small_font_size / Pango::SCALE
   items.each do |item|
     indent(item[1..-1], space)
@@ -500,15 +500,15 @@ match(*(page_body + (desc_list_item * 3))) do |items|
   end
 end
 
-match(*(page_body + (desc_list_item * 1) + [Paragraph])) do |texts|
+match(*(slide_body + (desc_list_item * 1) + [Paragraph])) do |texts|
   texts.prop_set("size", @small_font_size)
 end
 
-match(*(page_body + (desc_list_item * 2) + [Paragraph])) do |texts|
+match(*(slide_body + (desc_list_item * 2) + [Paragraph])) do |texts|
   texts.prop_set("size", @x_small_font_size)
 end
 
-match(*(page_body + (desc_list_item * 3) + [Paragraph])) do |texts|
+match(*(slide_body + (desc_list_item * 3) + [Paragraph])) do |texts|
   texts.prop_set("size", @xx_small_font_size)
 end
 

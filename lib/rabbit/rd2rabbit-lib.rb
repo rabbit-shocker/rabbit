@@ -40,10 +40,10 @@ module Rabbit
     
     def initialize(canvas)
       @canvas = canvas
-      @title_page = false
+      @title_slide = false
 
-      @pages = []
-      @page = nil
+      @slides = []
+      @slide = nil
       @footnotes = []
       @foottexs = []
       @index = {}
@@ -66,12 +66,12 @@ module Rabbit
         case content
         when nil
           # ignore
-        when Page
+        when Slide
           target = Body.new
           content << target
           @canvas << content
           display = true
-        when TitlePage
+        when TitleSlide
           target = content
           @canvas << content
           display = true
@@ -85,18 +85,18 @@ module Rabbit
     def apply_to_Headline(element, title)
       anchor = get_anchor(element)
       if element.level == 1
-        if @pages.empty?
-          @title_page = true
-          @page = TitlePage.new(Title.new(title))
+        if @slides.empty?
+          @title_slide = true
+          @slide = TitleSlide.new(Title.new(title))
         else
-          @title_page = false
-          @page = Page.new(HeadLine.new(title))
+          @title_slide = false
+          @slide = Slide.new(HeadLine.new(title))
         end
         @foottexts << []
-        @pages << @page
-        @page
+        @slides << @slide
+        @slide
       else
-        @page = nil
+        @slide = nil
         nil
       end
     end
@@ -219,7 +219,7 @@ module Rabbit
     end
 
     def apply_to_Footnote(element, content)
-      if @page.nil?
+      if @slide.nil?
         NormalText.new("")
       else
         num = get_footnote_num(element)
@@ -374,19 +374,19 @@ module Rabbit
     end
     
     def burn_out_foottexts
-      @pages.each do |page|
+      @slides.each do |slide|
         ftb = FoottextBlock.new
         current_foottexts = @foottexts.shift
         while ft_info = current_foottexts.shift
           ft, num = ft_info
           ftb << apply_to_Foottext(@footnotes[num], ft)
         end
-        page << ftb
+        slide << ftb
       end
     end
 
-    def title_page?
-      @title_page
+    def title_slide?
+      @title_slide
     end
 
     def apply_to_extension(ext_type, label, content)

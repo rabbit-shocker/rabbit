@@ -13,6 +13,6 @@ include_theme("powered-by")
 
 include_theme("title-logo")
 
-match(Page, Body) do |bodies|
+match(Slide, Body) do |bodies|
   bodies.vertical_centering = true
 end
