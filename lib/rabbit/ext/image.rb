@@ -1,13 +1,17 @@
 require 'uri'
 require 'cgi'
 require 'open-uri'
+require 'fileutils'
 
 require 'rabbit/element'
 
 module Rabbit
   module Ext
     module Image
+      
       ALLOWED_IMG_URL_SCHEME = ['http', 'file', '']
+      TMP_DIR_NAME = ".tmp"
+      
       def img(label, content, visitor)
         label = label.to_s
         return nil unless /^img:\s*(.+)$/ =~ label
@@ -41,7 +45,9 @@ module Rabbit
       end
 
       def tmp_filename(base, key)
-        File.join(base, CGI.escape(key))
+        dir = File.join(base, TMP_DIR_NAME)
+        FileUtils.mkdir_p(dir)
+        File.join(dir, CGI.escape(key))
       end
       
       def related_path_filename(visitor, uri)

@@ -11,7 +11,7 @@ def parse(args)
   options = OpenStruct.new
   options.theme = "default"
   options.theme_specified = false
-  options.source_infos = [ARGF]
+  options.source_infos = ARGV
   options.source_infos_changed = false
   options.source_type = Rabbit::Source::ARGF
   options.full_screen = false
@@ -40,7 +40,7 @@ def parse(args)
     opts.on("--source-infos [SOURCE_INFO],...",
             Array,
             "Use [SOURCE_INFO],... by getting source.",
-            "(#{options.source_infos.join(', ')})") do |infos|
+            "(rest args or ARGF)") do |infos|
       options.source_infos = infos
       options.source_infos_changed = true
     end
@@ -136,9 +136,9 @@ def parse(args)
 
   opts.parse!(args)
 
-  if options.source_type == Rabbit::Source::File and
+  if options.source_type == Rabbit::Source::ARGF and
       not options.source_infos_changed
-    options.source_infos = ARGV
+    options.source_infos = [ARGF]
   end
 
   options

@@ -163,6 +163,8 @@ module Rabbit
 
       include SourceBase
 
+      MINIMUM_ACCESS_TIME = 60
+      
       def self.initial_args_description
         "URI"
       end
@@ -173,6 +175,7 @@ module Rabbit
         @last_modified = nil
         @base_uri = @uri.dup
         @base_uri.path = ::File.dirname(@base_uri.path)
+        @last_access_time = Time.now
       end
 
       def full_path(path)
@@ -182,11 +185,13 @@ module Rabbit
       end
 
       def need_read?
-        super or old?(@last_modified, :last_modified)
+        super or
+          (can_access? and old?(@last_modified, :last_modified))
       end
 
       private
       def _read
+        @last_access_time = Time.now
         @uri.open do |f|
           @last_modified = f.last_modified
           f.read
@@ -194,11 +199,15 @@ module Rabbit
       end
 
       def last_modified
-        @uri.open do |f| 
+        @uri.open do |f|
           f.last_modified
         end
       end
 
+      def can_access?
+        Time.now - @last_access_time > MINIMUM_ACCESS_TIME
+      end
+      
     end
   end
 end
