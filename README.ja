@@ -2,7 +2,7 @@
 
 = README.ja
 
-$Id: README.ja 400 2004-08-03 06:53:24Z kou $
+$Id$
 
 == 名前
 
@@ -16,7 +16,15 @@ Kouhei Sutou <kou@cozmixng.org>
 
 === 画像
 
+マスコット（うさこ？）とRabbitのロゴ
+
 モモ
+
+=== xyzzy用モード
+
+misc/xyzzy/
+
+みやむこさん
 
 == ライセンス
 
@@ -65,6 +73,10 @@ RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
 == 入手方法
 
 ((<URL:http://www.cozmixng.org/~kou/download/rabbit.tar.gz>))
+
+  % svn co http://www.cozmixng.org/repos/rabbit/trunk rabbit
+
+0.0.3より前のものはこちらです．
 
   % svn co http://www.cozmixng.org/repos/ruby/rabbit/trunk rabbit
 
