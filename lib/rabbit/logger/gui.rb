@@ -13,7 +13,9 @@ module Rabbit
       def initialize(level=nil, width=450, height=400)
         Gtk.init
         super(*[level].compact)
-        init_dialog(width, height)
+        @width = width
+        @height = height
+        init_dialog
       end
 
       def clear_buffer
@@ -29,6 +31,7 @@ module Rabbit
         # ::STDERR.puts(format_severity(severity))
         # ::STDERR.puts(GLib.filename_from_utf8(message))
         @current_severity = severity
+        init_dialog if @dialog.destroyed?
         @dialog.show_all
         log_severity(severity)
         log_message(message)
@@ -59,7 +62,7 @@ module Rabbit
         _("Rabbit Error Dialog")
       end
       
-      def init_dialog(width, height)
+      def init_dialog(width=@width, height=@height)
         flags = 0
         buttons = [
           [Gtk::Stock::CLEAR, Gtk::Dialog::RESPONSE_CANCEL],
