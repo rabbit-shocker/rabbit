@@ -34,7 +34,6 @@ module Rabbit
       end
 
       attr_writer :foreground, :background, :background_image
-      attr_reader :width, :height
       attr_accessor :filename
       
       def initialize(canvas)
@@ -44,6 +43,16 @@ module Rabbit
         init_job
       end
 
+      def page_width
+        @page_width - left_page_margin - right_page_margin
+      end
+      alias width page_width
+      
+      def page_height
+        @page_height - top_page_margin - bottom_page_margin
+      end
+      alias height page_height
+      
       def paper_width=(value)
         super
         init_paper
@@ -219,8 +228,8 @@ module Rabbit
       
       def init_paper
         setup_paper
-        @width = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_WIDTH)
-        @height = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_HEIGHT)
+        @page_width = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_WIDTH)
+        @page_height = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_HEIGHT)
       end
 
       def setup_paper
@@ -260,7 +269,7 @@ module Rabbit
       
 
       def from_screen(x, y)
-        [x, height - y]
+        [x + left_page_margin, height - y + bottom_page_margin]
       end
       
       def set_color(color)

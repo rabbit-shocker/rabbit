@@ -9,8 +9,6 @@ module Rabbit
       extend Forwardable
       
       def_delegators(:@canvas, :current_index)
-      
-      attr_reader :page_width, :page_height
 
       def width
         @slide_width ||= @layout.slide_width

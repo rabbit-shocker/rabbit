@@ -12,6 +12,8 @@ module Rabbit
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :left_margin, :right_margin
       attr_accessor :top_margin, :bottom_margin
+      attr_writer :left_page_margin, :right_page_margin
+      attr_writer :top_page_margin, :bottom_page_margin
       
       def initialize(canvas)
         @canvas = canvas
@@ -23,6 +25,26 @@ module Rabbit
         @right_margin = nil
         @top_margin = nil
         @bottom_margin = nil
+        @left_page_margin = nil
+        @right_page_margin = nil
+        @top_page_margin = nil
+        @bottom_page_margin = nil
+      end
+
+      def left_page_margin
+        @left_page_margin || 0
+      end
+      
+      def right_page_margin
+        @right_page_margin || 0
+      end
+      
+      def top_page_margin
+        @top_page_margin || 0
+      end
+      
+      def bottom_page_margin
+        @bottom_page_margin || 0
       end
       
       def font_families
@@ -104,17 +126,9 @@ module Rabbit
         renderer = Renderer.printable_renderer(@canvas.slides_per_page)
         make_canvas_with_renderer(renderer) do |canvas|
           canvas.filename = @canvas.filename
-          canvas.left_margin = @canvas.left_margin
-          canvas.right_margin = @canvas.right_margin
-          canvas.top_margin = @canvas.top_margin
-          canvas.bottom_margin = @canvas.bottom_margin
-          if @canvas.paper_width and @canvas.paper_height
-            canvas.paper_width = @canvas.paper_width
-            canvas.paper_height = @canvas.paper_height
-          else
-            canvas.paper_width = @canvas.width
-            canvas.paper_height = @canvas.height
-          end
+          setup_margin(canvas)
+          setup_page_margin(canvas)
+          setup_paper_size(canvas)
           canvas.slides_per_page = @canvas.slides_per_page
         end
       end
@@ -126,6 +140,30 @@ module Rabbit
         end
       end
 
+      def setup_margin(canvas)
+        canvas.left_margin = @canvas.left_margin
+        canvas.right_margin = @canvas.right_margin
+        canvas.top_margin = @canvas.top_margin
+        canvas.bottom_page_margin = @canvas.bottom_page_margin
+      end
+
+      def setup_page_margin(canvas)
+        canvas.left_page_margin = @canvas.left_page_margin
+        canvas.right_page_margin = @canvas.right_page_margin
+        canvas.top_page_margin = @canvas.top_page_margin
+        canvas.bottom_page_margin = @canvas.bottom_page_margin
+      end
+
+      def setup_paper_size(canvas)
+        if @canvas.paper_width and @canvas.paper_height
+          canvas.paper_width = @canvas.paper_width
+          canvas.paper_height = @canvas.paper_height
+        else
+          canvas.paper_width = @canvas.width
+          canvas.paper_height = @canvas.height
+        end
+      end
+      
     end
     
   end

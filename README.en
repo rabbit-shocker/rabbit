@@ -300,6 +300,15 @@ with the following.
    
    Default is "#{title of slide}.ps".
 
+: --slides-per-page
+    ((*WRITE ME*))
+
+: --margin, --*-margin
+    ((*WRITE ME*))
+
+: --page-margin, --*-page-margin
+    ((*WRITE ME*))
+
 : --locale-dir
    Specifies the directory which has locale data (*.mo).
    If you want to use Rabbit without installing to system,

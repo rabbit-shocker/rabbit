@@ -318,6 +318,15 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    
    デフォルトは"#{スライドのタイトル}.ps"です．
 
+: --slides-per-page
+    ((*WRITE ME*))
+
+: --margin, --*-margin
+    ((*WRITE ME*))
+
+: --page-margin, --*-page-margin
+    ((*WRITE ME*))
+
 : --locale-dir
    ロケール用データ（*.mo）を置くためのディレクトリを指定し
    ます．Rabbitをシステムにインストールせずに使う場合は
