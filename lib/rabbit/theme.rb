@@ -47,7 +47,7 @@ module Rabbit
         end
         if found_path.nil?
           raise LoadError,
-                "can't find file in themes #{@themes.inspect}: #{name}."
+                "can't find file in themes #{themes.inspect}: #{name}."
         end
         found_path
       end

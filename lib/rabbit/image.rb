@@ -66,6 +66,14 @@ module Rabbit
     end
     
     def eps_to_png(width=nil, height=nil)
+      eps_to(width, height, "pngalpha")
+  end
+
+    def eps_to_pnm(width=nil, height=nil)
+      eps_to(width, height, "pnm")
+    end
+
+    def eps_to(width, height, device, *gs_options)
       x, y, w, h, r = eps_size
       width ||= w
       height ||= h
@@ -74,8 +82,9 @@ module Rabbit
       res_y = (height.to_f / h * DEFAULT_DPI).round
 
       adjust_eps_if_need(x, y) do |path|
+        File.open("/tmp/a", "w"){|f|f.print File.open(path){|fin|fin.read}}
         tmp = Tempfile.new("Rabbit")
-        args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=pngalpha
+        args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=#{device}
           -sOutputFile=#{tmp.path} -dEPSFitPage
           -dGraphicsAlphaBits=4 -dTextAlphaBits=4
           -g#{width}x#{height} -r#{res_x}x#{res_y}
@@ -92,7 +101,7 @@ module Rabbit
         end
       end
     end
-
+    
     def eps_size
       sx, sy, w, h, r = nil
       File.open(@filename) do |f|
@@ -112,8 +121,11 @@ module Rabbit
     def adjust_eps_if_need(x, y)
       if x and y and x > 0 and y > 0
         tmp = Tempfile.new("Rabbit")
-        tmp.puts "#{x} neg #{y} neg translate"
-        tmp.print File.open(@filename) {|f| f.read}
+        tmp.puts("#{x} neg #{y} neg translate")
+        tmp.print(File.open(@filename) {|f| f.read})
+        tmp.close
+        tmp.open
+        File.open("/tmp/c.eps", "w"){|x| x.print(tmp.read)}
         tmp.close
         yield tmp.path
       else
@@ -124,7 +136,11 @@ module Rabbit
     def load_image(width=nil, height=nil)
       image = nil
       if eps?
-        image = eps_to_png(width, height)
+        begin
+          image = eps_to_png(width, height)
+        rescue EPSCanNotHandleError
+          image = eps_to_pnm(width, height)
+        end
       else
         File.open(@filename) do |file|
           file.binmode
