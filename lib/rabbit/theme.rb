@@ -1,5 +1,6 @@
 require 'delegate'
 require "forwardable"
+require "erb"
 
 require 'rabbit/element'
 require 'rabbit/image'
@@ -125,6 +126,7 @@ module Rabbit
     class Applier
 
       include Enumerable
+      include ERB::Util
       include Element
       include Searcher
 
@@ -157,6 +159,12 @@ module Rabbit
         apply_theme(name)
       end
 
+      def to_attrs(hash)
+        hash.collect do |key, value|
+        "#{h key}='#{h value}'"
+        end.join(" ")
+      end
+      
       def name
         @theme.name
       end

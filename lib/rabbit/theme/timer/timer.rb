@@ -10,6 +10,7 @@ if @timer_auto_update.nil?
 end
 
 @timer_font_size ||= @xx_small_font_size
+@timer_over_color ||= "red"
 
 match(Page) do |pages|
 
@@ -39,7 +40,9 @@ match(Page) do |pages|
     unless simulation
       rest_time = @timer_limit_time - Time.now
       text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
-      text = %Q[<span size="#{@page_number_font_size}">#{text}</span>]
+      attrs = {"size" => @page_number_font_size}
+      attrs["color"] = @timer_over_color if rest_time < 0
+      text = %Q[<span #{to_attrs(attrs)}>#{text}</span>]
       layout, text_width, text_height = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
       num_y = canvas.height - @bottom_margin - text_height
