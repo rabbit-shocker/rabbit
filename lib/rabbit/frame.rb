@@ -181,7 +181,7 @@ module Rabbit
     class << self
       def def_null_methods(*names)
         names.each do |name|
-          define_method(name) {}
+          define_method(name) {|*args|}
         end
       end
     end
