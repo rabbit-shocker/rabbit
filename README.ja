@@ -38,7 +38,7 @@ Kouhei Sutou <kou@cozmixng.org>
 
 カッコいい方のうさぎです．
 
-袖林 高広 <sodetaka@kono.cis.iwate-u.ac.jp>
+sode <sodetaka@kono.cis.iwate-u.ac.jp>
 
 === xyzzy用モード
 
@@ -319,13 +319,21 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    デフォルトは"#{スライドのタイトル}.ps"です．
 
 : --slides-per-page
-    ((*WRITE ME*))
+    1ページに何枚のスライドを入れて印刷するかを指定します．
+    
+    デフォルトは1枚です．
 
 : --margin, --*-margin
-    ((*WRITE ME*))
+    1ページに複数枚のスライドを印刷する時のスライドの周りの
+    余白を指定します．
+    
+    デフォルトではスライドの枚数に応じて調節しますが，2枚と8
+    枚以外の時はあまりうまくありません．
 
 : --page-margin, --*-page-margin
-    ((*WRITE ME*))
+    印刷時のページの余白を指定します．
+    
+    デフォルトでは余白はとられません．
 
 : --locale-dir
    ロケール用データ（*.mo）を置くためのディレクトリを指定し
@@ -555,21 +563,12 @@ Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>)
 以下のものを用意してください．
 
   * ps2pdf
-  * acroread
-  * psnup
 
-XXX.rdから1ページに4枚のスライドが入ったPDF（XXX_multi.pdf）を
+XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）を
 作成する手順は以下の通りです．
 
-  % rabbit -p -o XXX.ps XXX.rd
+  % rabbit -p --slides-per-page 8 -o XXX.ps XXX.rd
   % ps2pdf XXX.ps
-  % acroread -toPostScript -size a4 -landscape -pairs XXX.pdf XXX.ps
-  % psnup -l -4 XXX.ps XXX_multi.ps
-  % ps2pdf XXX_multi.ps
-
-一度ps2pdfでPS->PDFにして，acroreadでPDF->PSに戻しているのは，
-Rabbitの吐くPSがおかしいらしく，こうしないとうまく動かないか
-らです．
 
 == 感謝
 
@@ -581,6 +580,6 @@ Rabbitの吐くPSがおかしいらしく，こうしないとうまく動かないか
     プレゼンしてくれます．
   * Vincentさん: Max OS Xでの動作確認をしてくれます．フラン
     ス語のメッセージを用意してくれました．
-  * 袖林さん: かっこいい兎を書いてくれました．
+  * sodeさん: かっこいい兎を書いてくれました．
   * かずひこさん: いろいろバグ報告をしてくれました．Rabbitを
     使ってプレゼンしてくれます．
