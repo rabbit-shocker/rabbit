@@ -383,6 +383,7 @@ module Rabbit
       end
 
       def start_progress(max)
+        return if max.zero?
         @progress_window.show_all
         @progress.fraction = @progress_current = 0
         @progress_max = max.to_f

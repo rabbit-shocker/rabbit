@@ -261,6 +261,10 @@ module Rabbit
       @source.force_modified = prev
     end
 
+    def last_page?
+      page_size.zero? or current_index == (page_size - 1)
+    end
+    
     private
     def clear
       clear_pages

@@ -261,17 +261,23 @@ module Rabbit
       end
       
       def find_printer(filename)
-        case File.extname(filename)
-        when /\.ps/i
+        if filename[0] == ?|
           @printers.find do |printer|
             /Postscript/i =~ printer.description
           end
-        when /\.pdf/i
-          @printers.find do |printer|
-            /PDF/i =~ printer.description
-          end
         else
-          nil
+          case File.extname(filename)
+          when /\.ps/i
+            @printers.find do |printer|
+              /Postscript/i =~ printer.description
+            end
+          when /\.pdf/i
+            @printers.find do |printer|
+              /PDF/i =~ printer.description
+            end
+          else
+            nil
+          end
         end
       end
 

@@ -9,6 +9,8 @@ module Rabbit
   class Frame
 
     extend Forwardable
+
+    FALLBACK_LIMIT = 100
     
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
@@ -47,30 +49,14 @@ module Rabbit
       @fullscreen_toggled = false
       @fullscreen = true
       @window.fullscreen
-      Gtk.timeout_add(100) do
-        # fallback
-        unless @fullscreen_toggled
-          @prev_width, @prev_height = width, height
-          max_width, max_height = @window.root_window.size
-          reinit_window(max_width, max_height, Gtk::Window::POPUP)
-          @window.show_all
-        end
-        false
-      end
+      fallback_fullscreen
     end
 
     def unfullscreen
       @fullscreen_toggled = false
       @fullscreen = false
       @window.unfullscreen
-      Gtk.timeout_add(100) do
-        # fallback
-        unless @fullscreen_toggled
-          reinit_window(@prev_width, @prev_height)
-          @window.show_all
-        end
-        false
-      end
+      fallback_unfullscreen
     end
     
     def toggle_fullscreen
@@ -162,6 +148,27 @@ module Rabbit
       REXML::Text.unnormalize(title).gsub(/\r|\n/, '')
     end
 
+    def fallback_fullscreen
+      Gtk.timeout_add(FALLBACK_FULLSCREEN) do
+        unless @fullscreen_toggled
+          @prev_width, @prev_height = width, height
+          max_width, max_height = @window.root_window.size
+          reinit_window(max_width, max_height, Gtk::Window::POPUP)
+          @window.show_all
+        end
+        false
+      end
+    end
+
+    def fallback_unfullscreen
+      Gtk.timeout_add(FALLBACK_UNFULLSCREEN) do
+        unless @fullscreen_toggled
+          reinit_window(@prev_width, @prev_height)
+          @window.show_all
+        end
+        false
+      end
+    end
   end
 
   class NullFrame
