@@ -4,6 +4,8 @@ set_background("#f500f1d0c600")
 
 include_theme("default")
 
+include_theme("slide-number")
+
 @title_logo_image = "lavie_with_logo.png"
 
 include_theme("title-logo")

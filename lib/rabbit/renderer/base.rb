@@ -98,8 +98,8 @@ module Rabbit
             canvas.paper_width = @canvas.paper_width
             canvas.paper_height = @canvas.paper_height
           else
-            canvas.paper_width = GnomePrint.pixel_to_inch(@canvas.width)
-            canvas.paper_height = GnomePrint.pixel_to_inch(@canvas.height)
+            canvas.paper_width = @canvas.width
+            canvas.paper_height = @canvas.height
           end
         end
       end

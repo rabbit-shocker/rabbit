@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
+Thread.abort_on_exception = true
+
 require "optparse"
 require "ostruct"
 
@@ -153,14 +155,14 @@ def parse(args, logger)
       
       opts.on("--paper-width [WIDTH]",
               Integer,
-              "Set paper width to [WIDTH] inch.",
+              "Set paper width to [WIDTH] Pt.",
               "(landscape A4 width)") do |width|
         options.paper_width = width
       end
 
       opts.on("--paper-height [HEIGHT]",
               Integer,
-              "Set paper height to [HEIGHT] inch.",
+              "Set paper height to [HEIGHT] Pt.",
               "(landscape A4 height)") do |height|
         options.paper_height = height
       end
@@ -168,8 +170,8 @@ def parse(args, logger)
       opts.on("--paper-size [WIDTH],[HEIGHT]",
               Array,
               "Set paper width and height to",
-              "[WIDTH] inch and [HEIGHT] inch.",
-              "(landscape A4 size") do |size|
+              "[WIDTH] inch and [HEIGHT] Pt.",
+              "(landscape A4 size)") do |size|
         width, height = size.collect{|x| Integer(x)}
         options.paper_width = width
         options.paper_height = height

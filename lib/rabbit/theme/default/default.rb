@@ -1,6 +1,3 @@
-include_theme("slide-number")
-
-
 match(TitleSlide) do |slides|
   slides.horizontal_centering = true
   slides.vertical_centering = true

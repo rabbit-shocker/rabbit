@@ -13,7 +13,7 @@ module Rabbit
 
       class Color
 
-        COLOR_NORMALIZE = 65536.0
+        COLOR_NORMALIZE = 65535.0
 
         class << self
           def new_from_gdk_color(color)
@@ -25,24 +25,14 @@ module Rabbit
         end
         
         def to_s
-          rgb = [
-            (red * 256).round,
-            (green * 256).round,
-            (blue * 256).round
-          ]
-          "#%02X%02X%02X" % rgb
+          "#%02X%02X%02X" % to_a.collect{|color| (color * 255).round}
+        end
+
+        def to_a
+          [red, green, blue]
         end
       end
 
-      class << self
-        def pixel_to_inch(pixel)
-          pixel_unit = Gnome::PrintUnit.get_by_abbreviation("px")
-          inch_unit = Gnome::PrintUnit.get_by_abbreviation("in")
-          args = [pixel, inch_unit, 0.0, ScreenInfo.screen_x_resolution]
-          pixel_unit.convert_distance_full(*args)
-        end
-      end
-      
       attr_writer :foreground, :background, :background_image
       attr_reader :width, :height
       attr_accessor :filename
@@ -92,6 +82,7 @@ module Rabbit
       end
       
       def post_parse_rd
+        update_title
       end
 
       
@@ -205,14 +196,14 @@ module Rabbit
       end
       
       def create_pango_context
-        @context.create_context
+        Gnome::PrintPango.create_context(Gnome::PrintPango.default_font_map)
       end
-      
+
       private
       def printable?
         true
       end
-      
+
       def init_job
         @job = Gnome::PrintJob.new
         @context = @job.context
@@ -228,23 +219,37 @@ module Rabbit
       
       def init_paper
         setup_paper
-        @width = @config[Gnome::PrintConfig::KEY_PAPER_WIDTH, :double]
-        @height = @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT, :double]
+        @width = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_HEIGHT)
+        @height = get_length_by_point(Gnome::PrintConfig::KEY_PAPER_WIDTH)
       end
 
       def setup_paper
+        @config[Gnome::PrintConfig::KEY_PAGE_ORIENTATION] = "R90"
+        pt = unit("Pt")
         if size_set?
-          @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = @paper_width
-          @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = @paper_height
+          @config[Gnome::PrintConfig::KEY_PAPER_SIZE] = "Custom"
+          @config.set(Gnome::PrintConfig::KEY_PAPER_WIDTH, @paper_height, pt)
+          @config.set(Gnome::PrintConfig::KEY_PAPER_HEIGHT, @paper_width, pt)
         else
           paper = Gnome::PrintPaper.get("A4")
-          @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = paper.height
-          @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = paper.width
+          @config[Gnome::PrintConfig::KEY_PAPER_SIZE] = "A4"
+          @config.set(Gnome::PrintConfig::KEY_PAPER_WIDTH, paper.width, pt)
+          @config.set(Gnome::PrintConfig::KEY_PAPER_HEIGHT, paper.height, pt)
         end
       end
 
       def size_set?
         @paper_width and @paper_height
+      end
+
+      def get_length_by_point(key, *args)
+        pt = unit("Pt")
+        length, _unit = @config[key, :length]
+        _unit.convert_distance(length, pt, *args)
+      end
+      
+      def unit(abbr_name)
+        Gnome::PrintUnit.get_by_abbreviation(abbr_name)
       end
       
       def init_colors
@@ -310,7 +315,6 @@ module Rabbit
           end
         end
       end
-
     end
     
   end

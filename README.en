@@ -102,6 +102,8 @@ libraries on Windows.
   * libgnomeprint >= 2.8 (for outputting PS/PDF)
   * Ruby/GnomePrint in ((<RAA:ruby-gnome2>)) (for outputting
     PS/PDF)
+  * Ruby/RSVG in ((<RAA:ruby-gnome2>)) (for beautiful scaling
+    SVG)
 
 == Download
 
