@@ -43,6 +43,19 @@ somthig to
 Note that this mailing list's main language is Japanese. But
 English mail is welcome too.
 
+== Development status
+
+You can get information of development from commit mail ML
+or ((<commit
+RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>)). If you
+want to subscribe ML, send the following mail.
+
+  To: rabbit-commit@ml.cozmixng.org
+  Cc: null@cozmixng.org
+  Subject: SOMETHING
+  
+  SOMETHING
+
 == Screenshots
 
 ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/>))
@@ -51,7 +64,7 @@ English mail is welcome too.
 
 This is an application to do presentation with RD document.
 
-== Dependency library
+== Dependency libraries
 
   * ((<RAA:rdtool>))
   * Ruby/GTK2 in ((<RAA:ruby-gnome2>))

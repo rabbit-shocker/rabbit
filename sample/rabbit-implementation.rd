@@ -1,6 +1,6 @@
 # To run with it without system install.
 #  % ruby -I./lib bin/rabbit -f --type file sample/rabbit-implementation.rd 
-# $Id: rabbit-implementation.rd 386 2004-07-26 17:58:22Z kou $
+# $Id$
 
 = Rabbitの実装
 
@@ -47,7 +47,7 @@
 
   * 特殊文字（記号）
     * UTF-8で直接記述
-    * 実体参照（Rabbit独自拡張）
+    * 実体参照
 
 = プレゼンテーション
 

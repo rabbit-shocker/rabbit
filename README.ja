@@ -42,7 +42,21 @@ misc/xyzzy/
 == バグトラッキングシステム
 
 ご意見ご要望不具合報告等は作者へのメール，上記のメーリングリ
-スト，RWikiへの書き込みをご利用下さい．
+スト，RWikiへの書き込みまたは((<影舞
+|URL:http://www.cozmixng.org/~kagemai/?project=rabbit;action=top>))
+をご利用下さい．
+
+== 開発状況の確認
+
+開発状況はコミットメールが流れるMLや((<コミット
+RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>))で確認でき
+ます．MLに参加するには以下のようなメールを送信してください．
+
+  To: rabbit-commit@ml.cozmixng.org
+  Cc: null@cozmixng.org
+  Subject: 何か
+  
+  本文に何か
 
 == スクリーンショット
 

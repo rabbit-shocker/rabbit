@@ -6,6 +6,7 @@ module Rabbit
   module ImageManipulable
 
     GS_COMMANDS = %w(gs gswin32c)
+    DEFAULT_DPI = 72
     
     attr_accessor :keep_scale
     
@@ -60,45 +61,66 @@ module Rabbit
       /\.eps/i =~ File.extname(@filename)
     end
     
-    def eps_to_pnm(width=nil, height=nil)
-      w, h = eps_size
+    def eps_to_png(width=nil, height=nil)
+      x, y, w, h, r = eps_size
       width ||= w
       height ||= h
-      tmp = Tempfile.new("Rabbit")
-      args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=pnmraw
-        -sOutputFile=#{tmp.path} -dEPSFitPage
-        -dGraphicsAlphaBits=4 -dTextAlphaBits=4
-        -g#{width}x#{height} #{@filename})
-      if GS_COMMANDS.any? {|gs| system(gs, *args)}
-        begin
-          tmp.open
-          tmp.read
-        ensure
-          tmp.close
+      resolution = r || DEFAULT_DPI
+      res_x = (width.to_f / w * DEFAULT_DPI).round
+      res_y = (height.to_f / h * DEFAULT_DPI).round
+
+      adjust_eps_if_need(x, y) do |path|
+        tmp = Tempfile.new("Rabbit")
+        args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=pngalpha
+          -sOutputFile=#{tmp.path} -dEPSFitPage
+          -dGraphicsAlphaBits=4 -dTextAlphaBits=4
+          -g#{width}x#{height} -r#{res_x}x#{res_y}
+          #{path})
+        if GS_COMMANDS.any? {|gs| system(gs, *args)}
+          begin
+            tmp.open
+            tmp.read
+          ensure
+            tmp.close
+          end
+        else
+          raise EPSCanNotHandleError.new("gs #{args.join(' ')}", GS_COMMANDS)
         end
-      else
-        raise EPSCanNotHandleError.new("gs #{args.join(' ')}", GS_COMMANDS)
       end
     end
 
     def eps_size
-      w, h = nil
+      sx, sy, w, h, r = nil
       File.open(@filename) do |f|
         f.each do |line|
           if /^%%BoundingBox:\s*/ =~ line
             sx, sy, ex, ey = $POSTMATCH.scan(/\d+/).map{|x| Integer(x)}
             w, h = ex - sx, ey - sy
-            break
+          elsif /^%%Feature:\s*\*Resolution\s*(\d+)dpi/ =~ line
+            r = $1.to_i
           end
+          break if r and sx and sy and w and h
         end
       end
-      [w, h]
+      [sx, sy, w, h, r]
     end
 
+    def adjust_eps_if_need(x, y)
+      if x and y
+        yield @filename
+      else
+        tmp = Tempfile.new("Rabbit")
+        tmp.puts "#{x} neg #{y} neg translate"
+        tmp.print File.open(@filename) {|f| f.read}
+        tmp.close
+        yield tmp.path
+      end
+    end
+    
     def load_image(width=nil, height=nil)
       image = nil
       if eps?
-        image = eps_to_pnm(width, height)
+        image = eps_to_png(width, height)
       else
         File.open(@filename) do |file|
           file.binmode

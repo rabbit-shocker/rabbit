@@ -194,7 +194,12 @@ module Rabbit
     end
 
     def saved_image_basename
-      @saved_image_basename || GLib.filename_from_utf8(title)
+      name = @saved_image_basename || GLib.filename_from_utf8(title)
+      if @index_mode
+        name + "_index"
+      else
+        name
+      end
     end
 
     def redraw
