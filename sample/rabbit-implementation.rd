@@ -122,7 +122,7 @@
  # image
  # src = lavie.png
  # caption = Lavie
- # keep_scale = true
+ # keep_ratio = true
 # # width = 100
 # # height = 100
 # # relative_width = 100

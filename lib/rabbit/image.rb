@@ -12,7 +12,7 @@ module Rabbit
     GS_COMMANDS = %w(gs gswin32c)
     DEFAULT_DPI = 72
     
-    attr_accessor :keep_scale
+    attr_accessor :keep_ratio
     
     attr_reader :pixbuf
     
@@ -22,7 +22,7 @@ module Rabbit
       end
       super(*args, &block)
       @filename = filename
-      @keep_scale = true
+      @keep_ratio = true
       load_image
       @original_pixbuf = @pixbuf
     end
@@ -38,7 +38,7 @@ module Rabbit
     def resize(w, h)
       if w.nil? and h.nil?
         return
-      elsif @keep_scale
+      elsif @keep_ratio
         wid = @original_pixbuf.width
         hei = @original_pixbuf.height
         if w and h.nil?

@@ -81,7 +81,7 @@
       # image
       # src = lavie.png
       # caption = Lavie
-      # keep_scale = true
+      # keep_ratio = true
       # width = 100
       # height = 100
 #      # normalized_width = 50
@@ -96,7 +96,7 @@
   # image
   # src = usagi.png
   # caption = 兎
-  # keep_scale = true
+  # keep_ratio = true
 #  # normalized_width = 50
 #  # normalized_height = 50
 #  # relative_width = 100
@@ -115,7 +115,7 @@
 mimeTeXを呼び出す
 
   # TeX
-  # keep_scale = true
+  # keep_ratio = true
   # relative_width = 80
   
   \Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt
@@ -130,7 +130,7 @@ mimeTeXを呼び出す
 
   # image
   # src = equation.eps
-  # keep_scale = true
+  # keep_ratio = true
   # relative_width = 80
 
 = 折り返し

@@ -870,8 +870,10 @@ module Rabbit
         %w(caption dither_mode).each do |name|
           instance_variable_set("@#{name}", prop[name])
         end
-        %w(keep_scale).each do |name|
-          instance_variable_set("@#{name}", prop[name] == "true")
+        %w(keep_scale keep_ratio).each do |name|
+          unless prop[name].nil?
+            instance_variable_set("@keep_ratio", prop[name] == "true")
+          end
         end
         %w(width height
            x_dither y_dither

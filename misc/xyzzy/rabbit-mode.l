@@ -68,7 +68,7 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
   * 普通のスライド
   * mimeTex
   * image
-    * keep_scale、relative_width などの補完
+    * keep_ratio、relative_width などの補完
   * 最終スライド
   * テンプレートのテキストファイル化
     * テキストファイルで作ってどこかに置くとメニューに出てくる。

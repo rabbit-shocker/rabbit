@@ -19,7 +19,7 @@
 
   # image
   # src = join_cozmixng.png
-  # keep_scale = true
+  # keep_ratio = true
   # relative_height = 90
 
 = WANTED!!!
@@ -32,7 +32,7 @@
 
   # image
   # src = cozmixng_is_field.png
-  # keep_scale = true
+  # keep_ratio = true
   # relative_width = 90
 
 = 活動紹介
@@ -55,7 +55,7 @@ http://pub.cozmixng.org/~XXX/
 
   # image
   # src = html_and_wiki.png
-  # keep_scale = true
+  # keep_ratio = true
   # relative_height = 90
   # relative_height = 80
 
