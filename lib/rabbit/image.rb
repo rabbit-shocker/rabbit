@@ -102,6 +102,7 @@ module Rabbit
         image = eps_to_pnm(width, height)
       else
         File.open(@filename) do |file|
+          file.binmode
           image = file.read
         end
       end
