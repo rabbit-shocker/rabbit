@@ -64,7 +64,12 @@ module Rabbit
 
       def load_by_pixbuf_loader(data, width=nil, height=nil)
         loader = Gdk::PixbufLoader.new
-        loader.last_write(data)
+        begin
+          loader.last_write(data)
+        rescue Gdk::PixbufError
+          loader.close rescue Gdk::PixbufError
+          raise ImageLoadError.new("#{@filename}: #{$!.message}")
+        end
         @pixbuf = loader.pixbuf
         resize(width, height)
       end
