@@ -23,7 +23,7 @@ module Rabbit
    
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
-    def_delegators(:@frame, :quit)
+    def_delegators(:@frame, :quit, :logger)
     
     attr_reader :drawing_area, :drawable, :foreground, :background
     attr_reader :theme_name, :font_families
@@ -48,10 +48,16 @@ module Rabbit
     end
 
     def title
-      title_page.title
+      tp = title_page
+      if tp
+        tp.title
+      else
+        "Rabbit"
+      end
     end
 
     def page_title
+      return "" if pages.empty?
       page = current_page
       if page.is_a?(Element::TitlePage)
         page.title
@@ -143,7 +149,7 @@ module Rabbit
             update_menu
           end
         rescue Racc::ParseError
-          puts $!.message
+          logger.warn($!.message)
         end
       end
     end
@@ -235,7 +241,7 @@ module Rabbit
     end
 
     def move_to_first
-      move_to(0)
+      move_to_if_can(0)
     end
 
     def move_to_last

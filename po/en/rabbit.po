@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-08 18:00+0900\n"
+"POT-Creation-Date: 2004-10-10 14:18+0900\n"
 "PO-Revision-Date: 2004-10-08 18:01+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: English <LL@li.org>\n"
@@ -13,6 +13,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: lib/rabbit/rabbit.rb:19
+msgid "no such file %s."
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:29
+msgid "%s can't handle, because command can't be run successfully: %s"
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:38
+msgid "tried gs commands: %s"
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:54
+msgid "Unknown property: %s."
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:62
+msgid "can't allocate color: %s."
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:73
+msgid "%s doesn't exist."
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:81
+msgid "%s isn't file."
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:89
+msgid "%s isn't readable."
+msgstr ""
 
 #: lib/rabbit/menu.rb:30 lib/rabbit/menu.rb:40 lib/rabbit/menu.rb:45
 #: lib/rabbit/menu.rb:56 lib/rabbit/menu.rb:60
@@ -50,3 +82,7 @@ msgstr "/_Last Page"
 #: lib/rabbit/menu.rb:58 lib/rabbit/menu.rb:60 lib/rabbit/menu.rb:64
 msgid "/_Jump"
 msgstr "/_Jump To"
+
+#: lib/rabbit/logger/gui.rb:58
+msgid "Rabbit Error Dialog"
+msgstr ""

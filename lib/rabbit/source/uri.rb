@@ -11,7 +11,7 @@ module Rabbit
       include LimitAccessInterval
 
       class << self
-        def new(encoding, uri)
+        def new(encoding, logger, uri)
           parsed_uri = ::URI.parse(uri)
           case parsed_uri.scheme
           when nil, /file/i
@@ -26,10 +26,10 @@ module Rabbit
         end
       end
       
-      def initialize(encoding, uri)
+      def initialize(encoding, logger, uri)
         @uri = ::URI.parse(uri)
+        super(encoding, logger)
         @last_modified = nil
-        super(encoding)
       end
 
       def need_read?

@@ -49,7 +49,7 @@ module Rabbit
         begin
           image_file = make_image_by_mimeTeX(src_file.path)
         rescue ImageLoadError
-          STDERR.puts $!.message
+          visitor.logger.warn($!)
           return nil
         end
         prop['src'] = %Q[file://#{image_file.path}]

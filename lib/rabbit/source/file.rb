@@ -5,20 +5,30 @@ module Rabbit
     class File
       
       include Base
+
+      RETRY_SPAN = 60 # seconds
       
       def self.initial_args_description
         "FILENAME"
       end
       
-      def initialize(encoding, name)
+      def initialize(encoding, logger, name)
         @name = name
-        super(encoding)
+        super(encoding, logger)
+        @mtime = nil
       end
       
       def _read
-        ::File.open(@name) do |f|
-          @mtime = f.mtime
-          f.read
+        begin
+          check_file
+          ::File.open(@name) do |f|
+            @mtime = f.mtime
+            f.read
+          end
+        rescue SourceUnreadableError
+          @logger.error($!.message)
+          @mtime = Time.now + RETRY_SPAN
+          ""
         end
       end
       
@@ -27,8 +37,25 @@ module Rabbit
       end
       
       private
+      def check_file
+        unless ::File.exist?(@name)
+          raise NotExistError.new(@name)
+        end
+        unless ::File.file?(@name)
+          raise NotFileError.new(@name)
+        end
+        unless ::File.readable?(@name)
+          raise NotReadableError.new(@name)
+        end
+      end
+      
       def mtime
-        ::File.mtime(@name)
+        begin
+          check_file
+          ::File.mtime(@name)
+        rescue SourceUnreadableError
+          Time.now
+        end
       end
       
       def init_base

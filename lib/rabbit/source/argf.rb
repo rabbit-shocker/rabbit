@@ -10,14 +10,19 @@ module Rabbit
         "none (get from STDIN) or FILE_NAMES"
       end
       
-      def initialize(encoding, argf)
-        super(encoding)
+      def initialize(encoding, logger, argf)
+        super(encoding, logger)
         @argf = argf
       end
       
       private
       def _read
-        @argf.read
+        begin
+          @argf.read
+        rescue
+          @logger.error($!.message)
+          ""
+        end
       end
     end
   end

@@ -6,8 +6,8 @@ gettext = "rgettext"
 msgmerge = "msgmerge"
 
 podir = "po/"
-basename = "rabbit"
-pot = "#{podir}#{basename}.pot"
+appname = "rabbit"
+pot = "#{podir}#{appname}.pot"
 rbs = Dir.glob("lib/**/*.rb")
 
 FileUtils.rm_f(pot)
@@ -17,7 +17,7 @@ end
 
 Dir.glob("#{podir}*") do |dir|
   if File.directory?(dir)
-    po = "#{dir}/#{basename}.po"
+    po = "#{dir}/#{appname}.po"
     if File.exist?(po)
       unless system(msgmerge, "-U", po, pot)
         STDERR.puts("Can't run: #{msgmerge} -U #{po} #{pot}")

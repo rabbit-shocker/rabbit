@@ -1,4 +1,5 @@
 require 'delegate'
+require "forwardable"
 
 require 'rabbit/element'
 require 'rabbit/image'
@@ -67,11 +68,15 @@ module Rabbit
 
     end
 
+    extend Forwardable
+
+    def_delegators(:@canvas, :logger)
+    
     attr_reader :canvas, :name
     def initialize(canvas)
       @canvas = canvas
       @applier = Applier.new(self)
-      @applier.apply_theme("base")
+      apply("base")
     end
 
     def apply(name)
@@ -79,9 +84,7 @@ module Rabbit
       begin
         @applier.apply_theme(name)
       rescue StandardError, LoadError
-        puts "#{$!.message}(#{$!.class})"
-        puts $@
-        puts
+        logger.warn($!)
       end
     end
     

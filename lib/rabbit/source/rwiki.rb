@@ -12,10 +12,10 @@ module Rabbit
         "RWIKI_SOAP_IF_URI and PAGE_NAME"
       end
 
-      def initialize(encoding, soap_if_uri, name)
+      def initialize(encoding, logger, soap_if_uri, name)
         @soap_if_uri = soap_if_uri
         @name = name
-        super(encoding)
+        super(encoding, logger)
         @driver = ::RWiki::SOAP::Driver.new(@soap_if_uri)
         @driver.log_dir = tmp_dir_name
       end

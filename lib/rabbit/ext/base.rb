@@ -38,8 +38,7 @@ module Rabbit
           begin
             result = __send__(entry, label, content, visitor)
           rescue NameError
-            $stderr.puts $!.inspect
-            $stderr.puts $!.backtrace.join("\n")
+            visitor.logger.error($!)
             raise
           end
         end

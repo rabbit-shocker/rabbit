@@ -273,6 +273,27 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    に，ファイル名がUTF-8で保存される場合は，環境変数LANGとか
    G_FILENAME_ENCODINGとかを設定するとよいかもしれません．
 
+: --locale-dir
+   ロケール用データ（*.mo）を置くためのディレクトリを指定し
+   ます．Rabbitをシステムにインストールせずに使う場合は以下
+   のようにRabbitのトップディレクトリで以下のようにします．
+
+     % bin/rabbit --locale-dir data/locale --type file sample/rabbit.rd
+   
+   デフォルトでは/usr/local/share/locale/や
+   /usr/share/locale/あたりが使われます．
+
+: --log-type
+   エラーログをどのように出力するかを指定します．guiを指定す
+   るとエラーログはダイアログボックスに表示されます．rabbit
+   の起動オプションを解析するときにエラーが起こることもある
+   ので，--log-typeはオプションの先頭で指定することをお薦め
+   します．
+
+     % rabbit --log-type gui ...
+   
+   デフォルトはstderrで標準エラー出力に表示されます．
+
 == Rabbit用RDの書き方
 
 基本的に((<RAA:rwiki>))のスライド拡張と同じです．具体的な

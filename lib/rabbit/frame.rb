@@ -14,14 +14,15 @@ module Rabbit
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@window, :fullscreen, :unfullscreen)
-    def_delegators(:@window, :iconify)
+    def_delegators(:@window, :iconify, :show_all)
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
     def_delegators(:@canvas, :save_as_image)
     
-    attr_reader :window, :canvas
+    attr_reader :window, :canvas, :logger
 
-    def initialize(width, height, main_window=true)
+    def initialize(width, height, main_window, logger)
+      @logger = logger
       init_window(width, height)
       init_canvas
       @fullscreen = false
@@ -108,7 +109,9 @@ module Rabbit
     def set_window_signal_destroy
       @window.signal_connect("destroy") do
         @canvas.destroy
-        Gtk.main_quit if main_window?
+        if main_window? and Gtk.main_level > 0
+          Gtk.main_quit
+        end
       end
     end
 

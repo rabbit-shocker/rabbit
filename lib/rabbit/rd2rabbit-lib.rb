@@ -1,3 +1,5 @@
+require "forwardable"
+
 require "rd/rdvisitor"
 require "rd/version"
 
@@ -8,10 +10,11 @@ require "rabbit/ext/block-verbatim"
 
 module Rabbit
   class RD2RabbitVisitor < RD::RDVisitor
+    extend Forwardable
+    
     include RD::MethodParse
     include Element
     
-
     SYSTEM_NAME = "RD2RabbitLVisitor"
     SYSTEM_VERSION = "0.0.1"
     VERSION = RD::Version.new_from_version_string(SYSTEM_NAME, SYSTEM_VERSION)
@@ -32,6 +35,9 @@ module Rabbit
       "block_verbatim" => Ext::BlockVerbatim,
     }
 
+    def_delegators(:@canvas, :logger, :full_path, :tmp_dir_name)
+
+    
     def initialize(canvas)
       @canvas = canvas
       @title_page = false
@@ -50,14 +56,6 @@ module Rabbit
       prepare_labels(tree, "label-")
       prepare_footnotes(tree)
       super(tree)
-    end
-
-    def full_path(path)
-      @canvas.full_path(path)
-    end
-    
-    def tmp_dir_name
-      @canvas.tmp_dir_name
     end
 
     def apply_to_DocumentElement(element, contents)
@@ -392,7 +390,7 @@ module Rabbit
         result = __send__("default_ext_#{ext_type}", label, content)
       end
       if result.nil?
-        $stderr.puts "[BUG] [#{label}] #{ext_type} extension isn't installed."
+        logger.error("[BUG] [#{label}] #{ext_type} extension isn't installed.")
       end
       result
     end

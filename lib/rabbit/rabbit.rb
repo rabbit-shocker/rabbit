@@ -1,3 +1,5 @@
+require "rabbit/gettext"
+
 module Rabbit
 
   VERSION = "0.0.4"
@@ -5,6 +7,7 @@ module Rabbit
   TMP_DIR_NAME = ".tmp"
 
   class Error < StandardError
+    include GetText
   end
 	
   class ImageLoadError < Error
@@ -14,7 +17,7 @@ module Rabbit
     attr_reader :filename
     def initialize(filename)
       @filename = filename
-      super("no such file #{filename}.")
+      super(_("no such file %s.") % filename)
     end
   end
 
@@ -23,8 +26,9 @@ module Rabbit
     def initialize(type, command, additional_info=nil)
       @type = type
       @command = command
-      msg = "#{@type} can't handle, "
-      msg << "because command can't be run successfully: #{@command}"
+      format =
+        _("%s can't handle, because command can't be run successfully: %s")
+      msg = format % [@type, @command]
       msg << "\n#{additional_info}" if additional_info
       super(msg)
     end
@@ -32,7 +36,8 @@ module Rabbit
 
   class EPSCanNotHandleError < ImageLoadWithExternalCommandError
     def initialize(command, tried_commands)
-      additional_info = "tried gs commands: #{tried_commands.inspect}"
+      format = _("tried gs commands: %s")
+      additional_info = format % tried_commands.inspect
       super("EPS", command, additional_info)
     end
   end
@@ -47,7 +52,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super("Unknown property: #{name}.")
+      super(_("Unknown property: %s.") % name)
     end
   end
 
@@ -55,7 +60,34 @@ module Rabbit
     attr_reader :color
     def initialize(color)
       @color = color
-      super("can't allocate color: #{color}.")
+      super(_("can't allocate color: %s."), color)
+    end
+  end
+
+  class SourceUnreadableError < Error
+  end
+    
+  class NotExistError < SourceUnreadableError
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("%s doesn't exist.") % @name)
+    end
+  end
+  
+  class NotFileError < SourceUnreadableError
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("%s isn't file.") % @name)
+    end
+  end
+  
+  class NotReadableError < SourceUnreadableError
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("%s isn't readable.") % @name)
     end
   end
   

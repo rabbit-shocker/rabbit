@@ -1,5 +1,16 @@
 begin
   require "gettext"
+  module GetText
+    alias _gettext gettext
+    module_function :_gettext
+    def gettext(msgid)
+      if @@__textdomain[callersrc]
+        _gettext(msgid)
+      else
+        msgid
+      end
+    end
+  end
 rescue LoadError
   module GetText
 

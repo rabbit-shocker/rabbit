@@ -11,8 +11,9 @@ module Rabbit
       def make_index_pages(canvas)
         thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
         thumbnail_height = canvas.height / (ROW_NUMBER + 1)
-        
-        frame = Frame.new(thumbnail_width, thumbnail_height, false)
+
+        frame_args = [thumbnail_width, thumbnail_height, false, canvas.logger]
+        frame = Frame.new(*frame_args)
         frame.apply_theme(canvas.theme_name) if canvas.theme_name
 
         source = canvas.source

@@ -5,14 +5,46 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-08 18:00+0900\n"
-"PO-Revision-Date: 2004-10-08 18:00+0900\n"
+"POT-Creation-Date: 2004-10-10 14:18+0900\n"
+"PO-Revision-Date: 2004-10-10 14:22+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: lib/rabbit/rabbit.rb:19
+msgid "no such file %s."
+msgstr "%sというファイルはありません．"
+
+#: lib/rabbit/rabbit.rb:29
+msgid "%s can't handle, because command can't be run successfully: %s"
+msgstr "次のコマンドを正常に実行できなかったので%sを扱うことができません．: %s"
+
+#: lib/rabbit/rabbit.rb:38
+msgid "tried gs commands: %s"
+msgstr "実行したgsコマンド名: %s"
+
+#: lib/rabbit/rabbit.rb:54
+msgid "Unknown property: %s."
+msgstr "未知のプロパティ: %s"
+
+#: lib/rabbit/rabbit.rb:62
+msgid "can't allocate color: %s."
+msgstr "カラーをアロケートできません．: %s"
+
+#: lib/rabbit/rabbit.rb:73
+msgid "%s doesn't exist."
+msgstr "%sは存在しません．"
+
+#: lib/rabbit/rabbit.rb:81
+msgid "%s isn't file."
+msgstr "%sはファイルではありません．"
+
+#: lib/rabbit/rabbit.rb:89
+msgid "%s isn't readable."
+msgstr ""
 
 #: lib/rabbit/menu.rb:30 lib/rabbit/menu.rb:40 lib/rabbit/menu.rb:45
 #: lib/rabbit/menu.rb:56 lib/rabbit/menu.rb:60
@@ -50,3 +82,7 @@ msgstr "/最後のページ(_L)"
 #: lib/rabbit/menu.rb:58 lib/rabbit/menu.rb:60 lib/rabbit/menu.rb:64
 msgid "/_Jump"
 msgstr "/ジャンプ(_J)"
+
+#: lib/rabbit/logger/gui.rb:58
+msgid "Rabbit Error Dialog"
+msgstr "Rabbitエラーダイアログ"
