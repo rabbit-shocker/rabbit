@@ -196,6 +196,16 @@ module Rabbit
       attr_reader :width, :height, :layout
       attr_reader :original_width, :original_height
 
+      attr_writer :wrap_mode, :indent, :spacing, :align
+
+      def initialize(*args, &block)
+        super
+        @indent = 0
+        @spacing = 0
+        @wrap_mode = Pango::Layout::WRAP_WORD_CHAR
+        @align = Pango::Layout::ALIGN_LEFT
+      end
+      
       def compile(canvas, x, y, w, h)
         super
         text_compile(canvas, x, y, w, h)
@@ -259,28 +269,22 @@ module Rabbit
       def generate_draw_info(str, canvas, w)
         attrs, text = Pango.parse_markup(str)
         layout = canvas.drawing_area.create_pango_layout(text)
-        # layout.set_font_description(font_desc)
         layout.set_attributes(attrs)
         orig_width, orig_height = layout.size.collect {|x| x / Pango::SCALE}
-        layout.set_width(w * Pango::SCALE)
-        layout.set_alignment(align)
-        layout.set_wrap(Pango::Layout::WRAP_WORD_CHAR)
+        if @wrap_mode
+          layout.set_width(w * Pango::SCALE)
+          layout.set_wrap(@wrap_mode)
+        else
+          layout.set_width(-1)
+        end
+        layout.set_alignment(@align)
+        layout.set_indent(@indent)
+        layout.set_spacing(@spacing)
         layout.context_changed
         width, height = layout.size.collect {|x| x / Pango::SCALE}
         [layout, width, height, orig_width, orig_height]
       end
       
-      def font_desc
-        desc = Pango::FontDescription.new
-        # p desc.methods.sort
-        # desc.family = "mikachan"
-        desc
-      end
-      
-      def align
-        Pango::Layout::ALIGN_LEFT
-      end
-
       def markup(str)
         t = str
         @prop.each do |name, formatter|
@@ -290,7 +294,6 @@ module Rabbit
         end
         t
       end
-      
     end
 
     module BlockHorizontalCentering

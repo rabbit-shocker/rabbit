@@ -179,6 +179,8 @@ match("**", PreformattedBlock) do |blocks|
     orig_x = orig_y = orig_w = orig_h = nil
     new_x = new_y = new_w = new_h = nil
 
+    block.wrap_mode = false
+
     block.add_pre_draw_proc do |canvas, x, y, w, h, simulation|
       orig_x = x
       orig_y = y
