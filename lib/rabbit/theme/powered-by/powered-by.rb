@@ -1,6 +1,6 @@
 proc_name = "powered-by"
 
-@powered_by_font_size ||= screen_size(1.5) * Pango::SCALE
+@powered_by_font_size ||= screen_size(1.5 * Pango::SCALE)
 
 loader = nil
 if @powered_by_image

@@ -1,6 +1,3 @@
-set_foreground("000000000000")
-set_background("f500f1d0c600")
-
 include_theme("page-number")
 
 

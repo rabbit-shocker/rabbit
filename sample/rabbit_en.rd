@@ -32,7 +32,7 @@ A presentation tool
     * when presentation, source is directory from RWiki
   * isolate RD and look and feel
 
-= Available(('sup:up')) thing(('sub:down'))
+= Available(('sup:up')) things(('sub:down'))
 
   * do (('del:not')) ((*emphasis*))
   * sub(('sub:script')) and super(('sup:script'))
@@ -40,6 +40,7 @@ A presentation tool
   * display image
   * auto reload modified source
   * reload theme
+  * auto generation of index page
 
 = Not available
 
@@ -51,7 +52,6 @@ A presentation tool
 
 = ToDo
 
-  * auto generation of index page
   * align with RWiki
 
 = Call on

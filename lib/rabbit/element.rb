@@ -93,6 +93,30 @@ module Rabbit
         @post_draw_procs = []
       end
       
+      def pre_draw_procs(name)
+        @pre_draw_procs.find_all do |_, nm|
+          name === nm
+        end
+      end
+
+      def post_draw_procs(name)
+        @post_draw_procs.find_all do |_, nm|
+          name === nm
+        end
+      end
+
+      def pre_draw_proc(name)
+        @pre_draw_procs.find do |_, nm|
+          name === nm
+        end
+      end
+
+      def post_draw_proc(name)
+        @post_draw_procs.find do |_, nm|
+          name === nm
+        end
+      end
+
       def compile(canvas, x, y, w, h)
         @px, @py, @pw, @ph = @x, @y, @w, @h
         @canvas, @x, @y, @w, @h = canvas, x, y, w, h
