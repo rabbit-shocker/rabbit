@@ -186,10 +186,6 @@ with the following.
 
      You can use the function of auto source reload. But
      Rabbit doesn't reload untill because of performance.
- ソースの自動再読み込み機能を利用できますが，パフォーマ
-     ンスなどを考慮して，最後にソースを読み込んでから一定時
-     間（現在は60秒）以上たたないとたとえソースが変更されて
-     いてもソースを再読み込みしません．
 
      Example:
        % rabbit --type uri http://www.cozmixng.org/repos/rabbit/trunk/sample/rabbit-implementation.rd
@@ -212,10 +208,6 @@ with the following.
 
      You can use the function of auto source reload. But
      Rabbit doesn't reload untill because of performance.
-     ソースの自動再読み込み機能を利用できますが，パフォーマ
-     ンスなどを考慮して，最後にソースを読み込んでから一定時
-     間（現在は60秒）以上たたないとたとえソースが変更されて
-     いてもソースを再読み込みしません．
 
      Example:
        % rabbit --type rwiki #{URI of SOAP interface of RWiki} #{page name}

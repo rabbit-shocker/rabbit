@@ -12,8 +12,8 @@ Windows上でRabbitを実行するのは大変です．以下を参考にして頑
 ruby 1.8.1 のインストール。
 One-Click Ruby Installer for Windows 日本語版を使えば OK。
 
-One-Click Ruby Installer for Windows 日本語版
-  http://www.moonwolf.com/ruby-setup-20041012.exe
+((<One-Click Ruby Installer for Windows 日本語版
+|URL:http://www.moonwolf.com/ruby-setup-20041012.exe>))
 
 == RDTool のインストール
 
@@ -23,12 +23,12 @@ One-Click Ruby Installer for Windows 日本語版
 RDTool をインストールする。
 ただしインストール時に [ruby-list:38913] のパッチが必要です。
 あと make も (うへぇ)。
-* http://raa.ruby-lang.org/project/rdtool/
-* http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/38913
+* ((<URL:http://raa.ruby-lang.org/project/rdtool/>))
+* ((<URL:http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-list/38913>))
 
 面倒な人は以下のバイナリを展開したものを ruby のインストール
 ディレクトリにコピーするだけで OK。(mingw だけど気にしない)
-* http://ftp.ruby-lang.org/pub/ruby/binaries/mingw/1.8/ext/rdtool-0.6.14-i386-mingw32-1.8.tar.gz
+* ((<URL:http://ftp.ruby-lang.org/pub/ruby/binaries/mingw/1.8/ext/rdtool-0.6.14-i386-mingw32-1.8.tar.gz>))
 
 == Ruby/GTK2のインストール
 
@@ -38,14 +38,14 @@ RDTool をインストールする。
 install.rb を実行してインストールする。
 
 : ruby-gtk2-0.10.0-2-i386-msvcrt-1.8.zip
-    * http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.10.0-2-i386-msvcrt-1.8.zip?download
+    * ((<URL:http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.10.0-2-i386-msvcrt-1.8.zip?download>))
 
 == GTK+ 2のインストール
 
 GLADE for Windows の GTK2 パッケージをインストールする。
 
 : gtk+-win32-aio-2.4-rc15
-    * http://gladewin32.sourceforge.net/modules.php?name=Downloads&d_op=getit&lid=43
+    * ((<URL:http://gladewin32.sourceforge.net/modules.php?name=Downloads&d_op=getit&lid=43>))
 
 == Rabbit のインストール
 
