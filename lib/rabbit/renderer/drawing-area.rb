@@ -29,10 +29,13 @@ module Rabbit
       
       BUTTON_PRESS_ACCEPTING_TIME = 0.5 * 1000
 
+      attr_accessor :filename
+      
       def initialize(canvas)
         super
         @current_cursor = nil
         @blank_cursor = nil
+        @filename = nil
         init_progress
         clear_button_handler
         init_drawing_area

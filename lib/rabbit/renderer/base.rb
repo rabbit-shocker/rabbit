@@ -89,6 +89,7 @@ module Rabbit
       
       def make_canvas_with_printable_renderer
         make_canvas_with_renderer(GnomePrint) do |canvas|
+          canvas.filename = @canvas.filename
         end
       end
       

@@ -27,7 +27,7 @@ module Rabbit
     def_delegators(:@renderer, :width=, :height=)
     def_delegators(:@renderer, :font_families)
     def_delegators(:@renderer, :destroy, :redraw)
-    def_delegators(:@renderer, :cursor=, :filename=)
+    def_delegators(:@renderer, :cursor=, :filename, :filename=)
     def_delegators(:@renderer, :each_page_pixbuf, :to_pixbuf)
     def_delegators(:@renderer, :foreground, :background)
     def_delegators(:@renderer, :foreground=, :background=)
