@@ -62,7 +62,7 @@ module Rabbit
       include SourceBase
 
       def self.initial_args_description
-        "ARGF"
+        "none (get from STDIN) or FILE_NAMES"
       end
 
       def initialize(encoding, argf)

@@ -7,12 +7,12 @@ require "ostruct"
 require "rabbit/rabbit"
 require "rabbit/source"
 
+Version = Rabbit::VERSION
+
 def parse(args)
   options = OpenStruct.new
   options.theme = "default"
   options.theme_specified = false
-  options.source_infos = ARGV
-  options.source_infos_changed = false
   options.source_type = Rabbit::Source::ARGF
   options.full_screen = false
   options.width = 800
@@ -23,6 +23,8 @@ def parse(args)
   options.encoding = "UTF-8"
 
   opts = OptionParser.new do |opts|
+    opts.banner = "#{opts.banner} SOURCE_INFOS"
+
     opts.separator ""
 
     opts.on("-I", "--include [PATH]",
@@ -37,14 +39,6 @@ def parse(args)
       options.theme_specified = true
     end
     
-    opts.on("--source-infos [SOURCE_INFO],...",
-            Array,
-            "Use [SOURCE_INFO],... by getting source.",
-            "(rest args or ARGF)") do |infos|
-      options.source_infos = infos
-      options.source_infos_changed = true
-    end
-
     opts.separator ""
 
     get_last_name = Proc.new do |klass|
@@ -57,7 +51,7 @@ def parse(args)
     source_type_descs = Rabbit::Source.types.collect do |x|
       ["When select #{get_last_name[x]}",
        "specify #{x.initial_args_description}",
-       "as source infos.",
+       "as SOURCE_INFOS.",
        " "]
     end.flatten
     opts.on("--type [TYPE]",
@@ -136,16 +130,16 @@ def parse(args)
 
   opts.parse!(args)
 
-  if options.source_type == Rabbit::Source::ARGF and
-      not options.source_infos_changed
-    options.source_infos = [ARGF]
-  end
-
   options
 end
 
-def make_source(options)
-  options.source_type.new(options.encoding, *options.source_infos)
+def make_source(options, argv)
+  if options.source_type == Rabbit::Source::ARGF
+    infos = [ARGF]
+  else
+    infos = argv
+  end
+  options.source_type.new(options.encoding, *infos)
 end
 
 options = parse(ARGV)
@@ -156,7 +150,7 @@ frame = Rabbit::Frame.new(options.width, options.height)
 if options.theme_specified
   frame.apply_theme(options.theme)
 end
-frame.parse_rd(make_source(options))
+frame.parse_rd(make_source(options, ARGV))
 if options.full_screen
   frame.fullscreen
 end
