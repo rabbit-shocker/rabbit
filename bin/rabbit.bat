@@ -1,0 +1,1 @@
+start rubyw -S rabbit %*

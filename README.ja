@@ -119,6 +119,13 @@ RDで書かれた文書をもとにプレゼンテーションを行うためのソフト
 
   % rabbit --base sample  sample/rabbit-implementation.rd
 
+WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
+ドロップしてもよいです．
+
+あるいは，*.rd（とか*.rbt（Rabbitの略））をruby -S rabbit に
+関連付けて，RDファイルをダブルクリックすることで起動すること
+もできます．
+
 === オプション
 
 : -t, --theme

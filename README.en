@@ -109,6 +109,13 @@ Type the following if you want to run sample/rabbit_en.rd.
 
   % rabbit --type file sample/rabbit_en.rd
 
+If you are Windows user, you can drag and drop RD file to
+bin/rabbit.bat.
+
+Or else you can invoke Rabbit by double clicking RD file if
+you correlate *.rd (or *.rbt (an abbreviation of Rabbit)) to
+ruby -S rabbit.
+
 == How to write
 
 See sample/rabbit_en.rd.
