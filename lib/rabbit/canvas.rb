@@ -7,6 +7,7 @@ require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/index"
+require "rabbit/keys"
 
 module Rabbit
 
@@ -14,9 +15,11 @@ module Rabbit
     
     include Enumerable
     extend Forwardable
+    include Keys
 
-    BUTTON_PRESS_ACCEPTING_TIME = 0.5
-    
+    BUTTON_PRESS_ACCEPTING_TIME = 0.5 * 1000
+
+   
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@frame, :quit)
@@ -306,7 +309,7 @@ module Rabbit
           add_button_handler do
             __send__(BUTTON_PRESS_HANDLER[event.event_type], event)
           end
-          start_button_handler_thread
+          start_button_handler
         end
       end
     end
@@ -450,53 +453,15 @@ module Rabbit
 
     def handle_key(key_event)
       case key_event.keyval
-      when Gdk::Keyval::GDK_Escape, Gdk::Keyval::GDK_q
+      when *QUIT_KEYS
         quit
-      when Gdk::Keyval::GDK_n,
-      Gdk::Keyval::GDK_f,
-      Gdk::Keyval::GDK_j,
-      Gdk::Keyval::GDK_l,
-      Gdk::Keyval::GDK_Page_Down,
-      Gdk::Keyval::GDK_Tab,
-      Gdk::Keyval::GDK_Return,
-      Gdk::Keyval::GDK_rightarrow,
-      Gdk::Keyval::GDK_downarrow,
-      Gdk::Keyval::GDK_space,
-      Gdk::Keyval::GDK_plus,
-      Gdk::Keyval::GDK_Right,
-      Gdk::Keyval::GDK_Down,
-      Gdk::Keyval::GDK_KP_Add,
-      Gdk::Keyval::GDK_KP_Right,
-      Gdk::Keyval::GDK_KP_Down,
-      Gdk::Keyval::GDK_KP_Page_Down,
-      Gdk::Keyval::GDK_KP_Enter,
-      Gdk::Keyval::GDK_KP_Tab
+      when *MOVE_TO_NEXT_KEYS
         move_to_next_if_can
-      when Gdk::Keyval::GDK_p,
-      Gdk::Keyval::GDK_b,
-      Gdk::Keyval::GDK_h,
-      Gdk::Keyval::GDK_k,
-      Gdk::Keyval::GDK_Page_Up,
-      Gdk::Keyval::GDK_leftarrow,
-      Gdk::Keyval::GDK_uparrow,
-      Gdk::Keyval::GDK_BackSpace,
-      Gdk::Keyval::GDK_Delete,
-      Gdk::Keyval::GDK_minus,
-      Gdk::Keyval::GDK_Up,
-      Gdk::Keyval::GDK_Left,
-      Gdk::Keyval::GDK_KP_Subtract,
-      Gdk::Keyval::GDK_KP_Up,
-      Gdk::Keyval::GDK_KP_Left,
-      Gdk::Keyval::GDK_KP_Page_Up,
-      Gdk::Keyval::GDK_KP_Delete
+      when *MOVE_TO_PREVIOUS_KEYS
         move_to_previous_if_can
-      when Gdk::Keyval::GDK_a,
-      Gdk::Keyval::GDK_Home,
-      Gdk::Keyval::GDK_less
+      when *MOVE_TO_FIRST_KEYS
         move_to_first
-      when Gdk::Keyval::GDK_e,
-      Gdk::Keyval::GDK_End,
-      Gdk::Keyval::GDK_greater
+      when *MOVE_TO_LAST_KEYS
         move_to_last
       when Gdk::Keyval::GDK_0,
       Gdk::Keyval::GDK_1,
@@ -520,17 +485,16 @@ module Rabbit
       Gdk::Keyval::GDK_KP_8,
       Gdk::Keyval::GDK_KP_9
         move_to_if_can(calc_page_number(key_event, Gdk::Keyval::GDK_KP_0))
-      when Gdk::Keyval::GDK_F10
+      when *TOGGLE_FULLSCREEN_KEYS
         @frame.toggle_fullscreen
         reload_theme
-      when Gdk::Keyval::GDK_t,
-      Gdk::Keyval::GDK_r
+      when *RELOAD_THEME_KEYS
         reload_theme
-      when Gdk::Keyval::GDK_s
+      when *SAVE_AS_IMAGE_KEYS
         save_as_image
-      when Gdk::Keyval::GDK_z
+      when *ICONIFY_KEYS
         @frame.iconify
-      when Gdk::Keyval::GDK_i
+      when *TOGGLE_INDEX_MODE_KEYS
         toggle_index_mode
       end
     end
@@ -538,7 +502,7 @@ module Rabbit
     def handle_key_with_control(key_event)
       handled = false
       case key_event.keyval
-      when Gdk::Keyval::GDK_l
+      when *Control::REDRAW_KEYS
         redraw
         handled = true
       end
@@ -578,14 +542,10 @@ module Rabbit
       @button_handler.pop.call until @button_handler.empty?
     end
 
-    def start_button_handler_thread
-      if @button_handler_thread.nil?
-        thread = @button_handler_thread = Thread.new do
-          sleep(BUTTON_PRESS_ACCEPTING_TIME)
-          call_button_handler unless @button_handler_thread.nil?
-          @button_handler_thread = nil
-        end
-        thread.abort_on_exception = true
+    def start_button_handler
+      Gtk.timeout_add(BUTTON_PRESS_ACCEPTING_TIME) do
+        call_button_handler
+        false
       end
     end
     

@@ -20,7 +20,7 @@ match(Page) do |pages|
         end
       end
     end
-    page.delete_post_draw_proc_by_name(init_proc_name)
+    page.delete_pre_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
 

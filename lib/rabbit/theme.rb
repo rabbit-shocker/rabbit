@@ -179,6 +179,7 @@ module Rabbit
       end
 
       def windows?
+        # Gdk.windowing_win32? # what about this?
         /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
       end
 
