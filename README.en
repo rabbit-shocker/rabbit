@@ -67,6 +67,9 @@ want to subscribe ML, send the following mail.
 
 == Dependency libraries
 
+See ((<INSTALL.win32.en>)) if you install dependency
+libraries on Windows.
+
   * ((<RAA:rdtool>))
   * Ruby/GTK2 in ((<RAA:ruby-gnome2>))
 
@@ -87,9 +90,9 @@ The old repository is here.
 
 == Install
 
-  % ruby setup.rb config
-  % ruby setup.rb setup
-  # ruby setup.rb install
+  # ruby setup.rb
+
+Execute install.bat if you are on Windows.
 
 == Usage
 

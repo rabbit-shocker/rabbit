@@ -76,6 +76,9 @@ RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>))で確認でき
 
 == 依存ライブラリ
 
+Windowsでの依存ライブラリのインストールは
+((<INSTALL.win32.ja>))を参考にしてください．
+
   * ((<RAA:rdtool>))
   * ((<RAA:ruby-gnome2>))の中のRuby/GTK2
 
@@ -96,9 +99,9 @@ RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>))で確認でき
 
 == インストール
 
-  % ruby setup.rb config
-  % ruby setup.rb setup
-  # ruby setup.rb install
+  # ruby setup.rb
+
+Windowsの場合はinstall.batを実行してもインストールできます．
 
 == 使い方
 
