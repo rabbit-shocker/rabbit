@@ -1206,6 +1206,9 @@ class Installer
 
     *.org *.in .*
   )
+  if /cygwin|mingw|mswin32|bccwin32/ !~ RUBY_PLATFORM
+    reject_patterns << "*.bat"
+  end
   mapping = {
     '.' => '\.',
     '$' => '\$',

@@ -70,11 +70,13 @@ module Rabbit
       
       def post_fullscreen
         set_cursor(blank_cursor)
+        clear_pixmap
         update_menu
       end
       
       def post_unfullscreen
         set_cursor(nil)
+        clear_pixmap
         update_menu
       end
       
@@ -127,8 +129,8 @@ module Rabbit
         true
       end
       
-      def init_pixmap(width, height)
-        @pixmap = Renderer::Pixmap.new(@canvas, width, height)
+      def init_pixmap(w=width, h=height)
+        @pixmap = Renderer::Pixmap.new(@canvas, w, h)
       end
       
       def clear_button_handler
@@ -170,7 +172,7 @@ module Rabbit
           @foreground = Gdk::GC.new(@drawable)
           @background = Gdk::GC.new(@drawable)
           @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
-          init_pixmap(*@drawable.size)
+          init_pixmap
         end
       end
       
@@ -217,6 +219,8 @@ module Rabbit
           page = @canvas.current_page
           if page
             unless @pixmap.has_key?(page)
+              @pixmap.width = width
+              @pixmap.height = height
               page.draw(@canvas)
             end
             @drawable.draw_drawable(@foreground, @pixmap[page],

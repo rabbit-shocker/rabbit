@@ -12,7 +12,7 @@ module Rabbit
     
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
-    def_delegators(:@window, :fullscreen, :unfullscreen, :iconify)
+    def_delegators(:@window, :iconify)
     
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
@@ -43,12 +43,20 @@ module Rabbit
       @canvas.parse_rd(source)
     end
 
+    def fullscreen
+      @fullscreen = true
+      @window.fullscreen
+    end
+
+    def unfullscreen
+      @fullscreen = false
+      @window.unfullscreen
+    end
+    
     def toggle_fullscreen
       if fullscreen?
-        @fullscreen = false
         unfullscreen
       else
-        @fullscreen = true
         fullscreen
       end
     end

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-15 00:09+0900\n"
+"POT-Creation-Date: 2004-10-17 22:09+0900\n"
 "PO-Revision-Date: 2004-10-15 00:18+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr "%sはファイルではありません．"
 
 #: lib/rabbit/rabbit.rb:90
 msgid "%s isn't readable."
-msgstr ""
+msgstr "%sが読めません．"
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
 #: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
@@ -112,6 +112,6 @@ msgstr "/終了(_Q)"
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/gnome-print.rb:250
+#: lib/rabbit/renderer/gnome-print.rb:259
 msgid "can't find printer for %s"
-msgstr ""
+msgstr "%sのためのプリンタが見付かりません．"
