@@ -1,3 +1,5 @@
+theme_exit if print?
+
 proc_name = "clock"
 init_proc_name = "clock_init"
 

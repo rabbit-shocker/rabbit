@@ -85,6 +85,8 @@ module Rabbit
       @name = name
       begin
         @applier.apply_theme(name)
+      rescue ThemeExit
+        # ignore
       rescue StandardError, LoadError
         logger.warn($!)
       end
@@ -185,6 +187,10 @@ module Rabbit
         canvas.renderer.printable?
       end
 
+      def theme_exit
+        raise ThemeExit
+      end
+      
       def slides_per_page
         canvas.slides_per_page
       end

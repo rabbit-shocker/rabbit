@@ -91,4 +91,7 @@ module Rabbit
     end
   end
   
+  class ThemeExit < Error
+  end
+
 end

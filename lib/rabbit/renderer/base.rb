@@ -27,8 +27,7 @@ module Rabbit
       
       def font_families
         if @font_families.nil? or @font_families.empty?
-          layout = Pango::Layout.new(create_pango_context)
-          @font_families = layout.context.list_families
+          @font_families = create_pango_context.list_families
         end
         @font_families
       end
@@ -46,6 +45,9 @@ module Rabbit
         end
       end
 
+      def redraw
+      end
+      
       def each_slide_pixbuf
         if can_create_pixbuf?
           canvas = @canvas

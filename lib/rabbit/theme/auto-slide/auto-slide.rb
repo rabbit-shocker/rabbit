@@ -1,3 +1,5 @@
+theme_exit if print?
+
 @auto_slide_span ||= 1000 * 60 # a minute
 @auto_slide_loop ||= false
 
