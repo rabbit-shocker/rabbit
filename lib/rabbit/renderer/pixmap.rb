@@ -6,8 +6,6 @@ module Rabbit
     class Pixmap
       include Base
 
-      DEPTH = 24
-      
       @@color_table = {}
   
       attr_accessor :width, :height, :pango_context
@@ -39,7 +37,7 @@ module Rabbit
       
       def background_image=(pixbuf)
         w, h = pixbuf.width, pixbuf.height
-        pixmap = Gdk::Pixmap.new(nil, w, h, DEPTH)
+        pixmap = Gdk::Pixmap.new(nil, w, h, depth)
         pixmap.draw_rectangle(@background, true, 0, 0, w, h)
         args = [
           @foreground, pixbuf,
@@ -72,7 +70,7 @@ module Rabbit
       end
       
       def draw_slide(slide)
-        @drawable = Gdk::Pixmap.new(nil, width, height, DEPTH)
+        @drawable = Gdk::Pixmap.new(nil, width, height, depth)
         @pixmaps[slide] = @drawable
         @drawable.draw_rectangle(@background, true, 0, 0, width, height)
         yield
@@ -148,14 +146,23 @@ module Rabbit
       
       def post_to_pixbuf
       end
-      
+
+      @@depth = nil
       private
+      def depth
+        if @@depth.nil?
+          root = Gtk::Window.new.root_window
+          @@depth = root.depth if root
+        end
+        @@depth
+      end
+      
       def can_create_pixbuf?
         true
       end
       
       def init_drawable
-        @drawable = Gdk::Pixmap.new(nil, 1, 1, DEPTH)
+        @drawable = Gdk::Pixmap.new(nil, 1, 1, depth)
         @foreground = Gdk::GC.new(@drawable)
         @background = Gdk::GC.new(@drawable)
         @background.set_foreground(make_color("white"))
