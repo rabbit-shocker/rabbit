@@ -1,10 +1,14 @@
 require "tempfile"
 require 'thread'
 
+require "rabbit/utils"
+
 module Rabbit
   
   module ImageManipulable
 
+    include SystemRunner
+    
     GS_COMMANDS = %w(gs gswin32c)
     DEFAULT_DPI = 72
     
@@ -76,7 +80,7 @@ module Rabbit
           -dGraphicsAlphaBits=4 -dTextAlphaBits=4
           -g#{width}x#{height} -r#{res_x}x#{res_y}
           #{path})
-        if GS_COMMANDS.any? {|gs| system(gs, *args)}
+        if GS_COMMANDS.any? {|gs| run(gs, *args)}
           begin
             tmp.open
             tmp.read

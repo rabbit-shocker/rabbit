@@ -34,4 +34,14 @@ module Rabbit
       end
     end
   end
+
+  module SystemRunner
+    def run(cmd, *args)
+      begin
+        system(cmd, *args)
+      rescue Errno::ENOENT
+        false
+      end
+    end
+  end
 end
