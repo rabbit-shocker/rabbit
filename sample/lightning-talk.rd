@@ -38,3 +38,13 @@
 = その他
 
 = 字をでかくする
+
+= おまけ
+
+= 画像を入れる
+
+= ((' '))
+
+  # image
+  # src = lavie.png
+  # relative_height = 100

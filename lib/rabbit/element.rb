@@ -390,8 +390,10 @@ module Rabbit
         args = [x, y, w, h]
         if do_vertical_centering?
           adjust_height = ((h - simulated_height) / 2.0).ceil
-          @vertical_centered_y = y + adjust_height
-          args = [x, y + adjust_height, w, h - adjust_height]
+          if y + adjust_height > 0
+            @vertical_centered_y = y + adjust_height
+            args = [x, y + adjust_height, w, h - adjust_height]
+          end
         end
         compile_elements(canvas, *args)
         elements.each do |element|

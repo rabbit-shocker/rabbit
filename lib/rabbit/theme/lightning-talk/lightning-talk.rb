@@ -1,3 +1,5 @@
+include_theme("image")
+
 proc_name = "lightning-talk"
 
 @very_huge_font_size ||= screen_size(15 * Pango::SCALE)
@@ -87,17 +89,33 @@ end
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @very_huge_font_size)
   if @lightning_talk_as_large_as_possible
+    max = (canvas.height - @top_margin - @bottom_margin) * Pango::SCALE
+    width = (canvas.width - @left_margin - @right_margin) * Pango::SCALE
+    max *= 0.9
     heads.each do |head|
       size = head.prop_get("size").value
       loop do
-        new_size = size + screen_size(0.1 * Pango::SCALE)
+        new_size = size + screen_size(0.3 * Pango::SCALE)
         text = %Q[<span size="#{new_size}">#{head.text}</span>]
         layout, text_width, text_height = canvas.make_layout(text)
-        layout.set_width(canvas.width * Pango::SCALE)
-        break if layout.size[1] / Pango::SCALE > canvas.height * 0.7
+        layout.set_width(width)
+        break if layout.size[1] > max
         size = new_size
       end
       head.prop_set("size", size)
+    end
+  end
+  
+  orig_x = orig_y = orig_w = orig_h = nil
+  heads.add_pre_draw_proc(proc_name) do |head, canvas, x, y, w, h, simulation|
+    orig_x, orig_y, orig_w, orig_h = x, y, w, h
+    [x, y, w, h]
+  end
+  heads.add_post_draw_proc(proc_name) do |head, canvas, x, y, w, h, simulation|
+    if /\A\s*\z/ =~ head.text
+      [orig_x, orig_y, orig_w, orig_h]
+    else
+      [x, y, w, h]
     end
   end
 end
