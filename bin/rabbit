@@ -25,6 +25,11 @@ def parse(args)
   opts = OptionParser.new do |opts|
     opts.separator ""
 
+    opts.on("-I", "--include [PATH]",
+            "Add [PATH] to load path") do |path|
+      $LOAD_PATH.unshift(path)
+    end
+    
     opts.on("-t", "--theme [THEME]",
             "Use [THEME] as theme.",
             "(#{options.theme})") do |theme|
@@ -121,6 +126,8 @@ def parse(args)
       options.saved_image_basename = b
     end
 
+    opts.separator ""
+    
     opts.on_tail("--help", "Show this message") do
       puts opts
       exit
