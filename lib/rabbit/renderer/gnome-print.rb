@@ -13,7 +13,7 @@ module Rabbit
 
       class Color
 
-        COLOR_NORMALIZE = 65536 / 256
+        COLOR_NORMALIZE = 65536.0
 
         class << self
           def new_from_gdk_color(color)
@@ -25,11 +25,12 @@ module Rabbit
         end
         
         def to_s
-          "#%02X%02X%02X" % [red, green, blue]
-        end
-
-        def white?
-          red == 255 and green == 255 and blue == 255
+          rgb = [
+            (red * 256).round,
+            (green * 256).round,
+            (blue * 256).round
+          ]
+          "#%02X%02X%02X" % rgb
         end
       end
       
@@ -253,9 +254,7 @@ module Rabbit
 
 
       def draw_background
-        unless @background.white?
-          draw_rectangle(true, 0, 0, @width, @height, @background.to_s)
-        end
+        draw_rectangle(true, 0, 0, @width, @height, @background.to_s)
         if @background_image
           draw_pixbuf(@background_image, 0, 0)
         end
