@@ -15,30 +15,51 @@ module Rabbit
         thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
         thumbnail_height = canvas.height / (ROW_NUMBER + 1)
 
-        new_canvas = Canvas.new(canvas.logger, Renderer::Pixmap)
-        new_canvas.width = thumbnail_width
-        new_canvas.height = thumbnail_height
-        new_canvas.pango_context = canvas.create_pango_context
-        new_canvas.apply_theme(canvas.theme_name) if canvas.theme_name
+        maker = make_thumbnail_maker(canvas, thumbnail_width, thumbnail_height)
+        maker.apply_theme(canvas.theme_name) if canvas.theme_name
 
         canvas.source_force_modified(true) do |source|
-          new_canvas.parse_rd(source)
+          maker.parse_rd(source)
         end
 
         max_per_page = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
         number_of_pages = 0
-        new_canvas.each_page_pixbuf do |pixbuf, page_number|
+        maker.each_page_pixbuf do |pixbuf, page_number|
           if page_number.remainder(max_per_page).zero?
             thumbnails_set << []
           end
           thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, page_number)
           number_of_pages = page_number
         end
+        maker.quit
         
         thumbnails_set.collect do |thumbnails|
           Page.new(thumbnails, number_of_pages)
         end
+      end
+
+      private
+      def make_thumbnail_maker(canvas, width, height)
+        make_thumbnail_maker_without_frame(canvas, width, height)
+      end
+      
+      def make_thumbnail_maker_without_frame(canvas, width, height)
+        new_canvas = Canvas.new(canvas.logger, Renderer::Pixmap)
+        new_canvas.width = width
+        new_canvas.height = height
+        new_canvas.pango_context = canvas.create_pango_context
+        def new_canvas.quit
+          nil
+        end
+        new_canvas
+      end
+
+      def make_thumbnail_maker_with_frame(canvas, width, height)
+        new_canvas = Canvas.new(canvas.logger, Renderer::DrawingArea)
+        frame = Frame.new(canvas.logger, new_canvas)
+        frame.init_gui(width, height, false)
+        frame
       end
     end
 
