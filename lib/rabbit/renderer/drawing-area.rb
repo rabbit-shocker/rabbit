@@ -116,6 +116,10 @@ module Rabbit
         end
         @font_families
       end
+
+      def draw_page
+        yield
+      end
       
       def draw_line(x1, y1, x2, y2, color=nil)
         gc = make_gc(color)

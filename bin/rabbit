@@ -27,6 +27,8 @@ def parse(args, logger)
   options.encoding = "UTF-8"
   options.locale_dir = nil
   options.renderer = Rabbit::Renderer::DrawingArea
+  options.print = false
+  options.print_out_filename = "rabbit.ps"
 
   default_logger = logger
   
@@ -134,6 +136,23 @@ def parse(args, logger)
       options.saved_image_basename = b
     end
 
+    if Rabbit::Renderer.types.find {|t| /print/i =~ t.name}
+      opts.separator ""
+
+      opts.on("-p", "--print",
+              "Print and exit.") do
+        options.print = true
+        options.renderer = Rabbit::Renderer::GnomePrint
+      end
+
+      opts.on("-o", "--output [FILENAME]",
+              "Specify printed out filename as [FILENAME].",
+              "(#{options.print_out_filename})") do |f|
+        options.print_out_filename = f
+      end
+      
+    end
+
     opts.separator ""
     
     opts.on("--locale-dir [DIR]",
@@ -200,6 +219,12 @@ Rabbit::GetText.bindtextdomain(options.locale_dir)
 
 args = [options.width, options.height, true, logger, options.renderer]
 frame = Rabbit::Frame.new(*args)
+if options.save_as_image
+elsif options.print
+  frame.print_out_filename = options.print_out_filename
+else
+  frame.show_all
+end
   
 if options.theme_specified
   frame.apply_theme(options.theme)
@@ -219,6 +244,8 @@ frame.saved_image_basename = options.saved_image_basename
 if options.save_as_image
   frame.unfullscreen
   frame.save_as_image
+elsif options.print
+  frame.print
 else
   Gtk.main
 end

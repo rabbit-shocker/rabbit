@@ -596,8 +596,10 @@ module Rabbit
       end
 
       def draw(canvas, simulation=false)
-        compile(canvas, 0, 0, canvas.width, canvas.height)
-        super(simulation)
+        canvas.draw_page do
+          compile(canvas, 0, 0, canvas.width, canvas.height)
+          super(simulation)
+        end
       end
 
     end
@@ -639,8 +641,10 @@ module Rabbit
       end
 
       def draw(canvas, simulation=false)
-        compile(canvas, 0, 0, canvas.width, canvas.height)
-        super(simulation)
+        canvas.draw_page do
+          compile(canvas, 0, 0, canvas.width, canvas.height)
+          super(simulation)
+        end
       end
       
       def theme

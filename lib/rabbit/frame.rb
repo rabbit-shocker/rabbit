@@ -19,6 +19,7 @@ module Rabbit
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
     def_delegators(:@canvas, :save_as_image)
+    def_delegators(:@canvas, :print, :print_out_filename=)
     
     attr_reader :window, :canvas, :logger
 
@@ -30,7 +31,7 @@ module Rabbit
       @iconify = false
       @main_window = main_window
       @window.keep_above = true unless @main_window
-      @window.show_all
+      # @window.show_all
     end
 
     def quit

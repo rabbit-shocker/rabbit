@@ -24,7 +24,7 @@ module Rabbit
     def_delegators(:@renderer, :width, :height)
     def_delegators(:@renderer, :font_families)
     def_delegators(:@renderer, :destroy, :attach_to)
-    def_delegators(:@renderer, :cursor=)
+    def_delegators(:@renderer, :cursor=, :print_out_filename=)
     def_delegators(:@renderer, :each_page_pixbuf, :redraw)
     def_delegators(:@renderer, :foreground, :background)
     def_delegators(:@renderer, :foreground=, :background=)
@@ -33,6 +33,7 @@ module Rabbit
     def_delegators(:@renderer, :make_color, :make_layout)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
+    def_delegators(:@renderer, :draw_page)
 
     
     attr_reader :renderer, :theme_name, :source
@@ -170,6 +171,14 @@ module Rabbit
         file_name = file_name_format % page_number
         pixbuf.save(file_name, normalized_saved_image_type)
       end
+    end
+
+    def print
+      @pages.each_with_index do |page, i|
+        move_to(i)
+        current_page.draw(self)
+      end
+      @renderer.print
     end
     
     def fullscreened

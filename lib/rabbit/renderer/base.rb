@@ -7,5 +7,6 @@ module Rabbit
 
     module Base
     end
+    
   end
 end
