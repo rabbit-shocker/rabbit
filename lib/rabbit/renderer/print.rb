@@ -36,17 +36,11 @@ module Rabbit
       attr_writer :foreground, :background, :background_image
       attr_reader :width, :height
       attr_accessor :filename
-      attr_accessor :left_margin, :right_margin
-      attr_accessor :top_margin, :bottom_margin
       
       def initialize(canvas)
         super
         @filename = nil
         @background_image = nil
-        @left_margin = nil
-        @right_margin = nil
-        @top_margin = nil
-        @bottom_margin = nil
         init_job
       end
 

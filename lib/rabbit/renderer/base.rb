@@ -10,6 +10,8 @@ module Rabbit
       include GetText
 
       attr_accessor :paper_width, :paper_height, :slides_per_page
+      attr_accessor :left_margin, :right_margin
+      attr_accessor :top_margin, :bottom_margin
       
       def initialize(canvas)
         @canvas = canvas
@@ -17,6 +19,10 @@ module Rabbit
         @paper_width = nil
         @paper_height = nil
         @slides_per_page = nil
+        @left_margin = nil
+        @right_margin = nil
+        @top_margin = nil
+        @bottom_margin = nil
       end
       
       def font_families
