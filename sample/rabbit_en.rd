@@ -57,13 +57,13 @@ A presentation tool
 = Call on
 
   * cool themes
-  * great docments
+  * great documents
 
 = Save slides
 
   * can save slides as image
     * organizing screenshots is work of other tools
-    * ((<RAA:gallery>)), zphotok and so on
+    * ((<RAA:gallery>)), zphoto and so on
 
 = What about image?
 
