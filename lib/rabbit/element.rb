@@ -596,7 +596,7 @@ module Rabbit
       end
 
       def draw(canvas, simulation=false)
-        canvas.draw_page do
+        canvas.draw_page(self) do
           compile(canvas, 0, 0, canvas.width, canvas.height)
           super(simulation)
         end
@@ -641,7 +641,7 @@ module Rabbit
       end
 
       def draw(canvas, simulation=false)
-        canvas.draw_page do
+        canvas.draw_page(self) do
           compile(canvas, 0, 0, canvas.width, canvas.height)
           super(simulation)
         end

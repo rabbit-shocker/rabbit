@@ -19,7 +19,7 @@ module Rabbit
     def_delegators(:@canvas, :save_as_image, :each_page_pixbuf)
     def_delegators(:@canvas, :print, :filename=)
     
-    attr_reader :logger
+    attr_reader :window, :logger
 
     def initialize(logger, canvas)
       @logger = logger

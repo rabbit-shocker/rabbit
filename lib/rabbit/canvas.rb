@@ -21,7 +21,7 @@ module Rabbit
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@frame, :quit, :update_title)
     def_delegators(:@frame, :toggle_fullscreen, :fullscreen?)
-    def_delegators(:@frame, :iconify)
+    def_delegators(:@frame, :iconify, :window)
 
     def_delegators(:@renderer, :width, :height)
     def_delegators(:@renderer, :width=, :height=)
@@ -36,7 +36,9 @@ module Rabbit
     def_delegators(:@renderer, :make_color, :make_layout)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
-    def_delegators(:@renderer, :draw_page)
+    def_delegators(:@renderer, :draw_page, :print)
+    
+    def_delegators(:@renderer, :create_pango_context, :pango_context=)
 
     
     attr_reader :logger, :renderer, :theme_name, :source
@@ -181,23 +183,6 @@ module Rabbit
       end
     end
 
-    def print
-      if @renderer.is_a?(Renderer::GnomePrint)
-        @pages.each_with_index do |page, i|
-          move_to(i)
-          current_page.draw(self)
-        end
-        @renderer.print
-      else
-        canvas = Canvas.new(@logger, Renderer::GnomePrint)
-        canvas.apply_theme(@theme_name)
-        source_force_modified(true) do |source|
-          canvas.parse_rd(source)
-        end
-        canvas.print
-      end
-    end
-    
     def fullscreened
       @renderer.post_fullscreen
     end
@@ -264,6 +249,13 @@ module Rabbit
       @index_mode
     end
     
+    def source_force_modified(force_modified)
+      prev = @source.force_modified
+      @source.force_modified = force_modified
+      yield @source
+      @source.force_modified = prev
+    end
+
     private
     def clear
       clear_pages
@@ -343,13 +335,6 @@ module Rabbit
       n
     end
 
-    def source_force_modified(force_modified)
-      prev = @source.force_modified
-      @source.force_modified = force_modified
-      yield @source
-      @source.force_modified = prev
-    end
-    
   end
 
 end

@@ -238,6 +238,7 @@ def do_print(options, logger)
 end
 
 def do_save_as_image(options, logger)
+  Gtk.init
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
   setup_image_info(canvas, options)
   setup_size(canvas, options)

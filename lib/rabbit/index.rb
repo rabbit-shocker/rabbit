@@ -15,29 +15,26 @@ module Rabbit
         thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
         thumbnail_height = canvas.height / (ROW_NUMBER + 1)
 
-        new_canvas = Canvas.new(canvas.logger, Renderer::DrawingArea)
-        frame = Frame.new(canvas.logger, new_canvas)
-        init_gui_args = [thumbnail_width, thumbnail_height, false]
-        frame.init_gui(*init_gui_args)
-        frame.apply_theme(canvas.theme_name) if canvas.theme_name
+        new_canvas = Canvas.new(canvas.logger, Renderer::Pixmap)
+        new_canvas.width = thumbnail_width
+        new_canvas.height = thumbnail_height
+        new_canvas.pango_context = canvas.create_pango_context
+        new_canvas.apply_theme(canvas.theme_name) if canvas.theme_name
 
-        source = canvas.source
-        mod = source.force_modified
-        source.force_modified = true
-        frame.parse_rd(source)
-        source.force_modified = mod
+        canvas.source_force_modified(true) do |source|
+          new_canvas.parse_rd(source)
+        end
 
         max_per_page = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
         number_of_pages = 0
-        frame.each_page_pixbuf do |pixbuf, page_number|
+        new_canvas.each_page_pixbuf do |pixbuf, page_number|
           if page_number.remainder(max_per_page).zero?
             thumbnails_set << []
           end
           thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, page_number)
           number_of_pages = page_number
         end
-        frame.quit
         
         thumbnails_set.collect do |thumbnails|
           Page.new(thumbnails, number_of_pages)
@@ -74,34 +71,36 @@ module Rabbit
       end
       
       def draw(canvas)
-        w = width
-        h = height
-        x_base = (w / (COLUMN_NUMBER + 1.0)).ceil
-        x_step = w + x_base
-        y_base = (h / (ROW_NUMBER + 1.0)).ceil
-        y_step = h + y_base
-        x = 0
-        y = -h
-        text_width = w * Pango::SCALE
-        text_size = (y_base * 0.5 * Pango::SCALE).ceil
-        params = {'width' => w, 'height' => h}
-        @thumbnails.each_with_index do |thumbnail, i|
-          if i.remainder(COLUMN_NUMBER).zero?
-            x = x_base
-          else
-            x += x_step
+        canvas.draw_page(self) do
+          w = width
+          h = height
+          x_base = (w / (COLUMN_NUMBER + 1.0)).ceil
+          x_step = w + x_base
+          y_base = (h / (ROW_NUMBER + 1.0)).ceil
+          y_step = h + y_base
+          x = 0
+          y = -h
+          text_width = w * Pango::SCALE
+          text_size = (y_base * 0.5 * Pango::SCALE).ceil
+          params = {'width' => w, 'height' => h}
+          @thumbnails.each_with_index do |thumbnail, i|
+            if i.remainder(COLUMN_NUMBER).zero?
+              x = x_base
+            else
+              x += x_step
+            end
+            if i.remainder(ROW_NUMBER).zero?
+              y += y_step
+            end
+            canvas.draw_pixbuf(thumbnail.pixbuf, x, y, params)
+            canvas.draw_rectangle(false, x, y, w, h)
+            text = "#{thumbnail.number}/#{@number_of_pages}"
+            text = %Q[<span size="#{text_size}">#{text}</span>]
+            layout, _, _ = canvas.make_layout(text)
+            layout.set_width(text_width)
+            layout.set_alignment(Pango::Layout::ALIGN_CENTER)
+            canvas.draw_layout(layout, x, y + h)
           end
-          if i.remainder(ROW_NUMBER).zero?
-            y += y_step
-          end
-          canvas.draw_pixbuf(thumbnail.pixbuf, x, y, params)
-          canvas.draw_rectangle(false, x, y, w, h)
-          text = "#{thumbnail.number}/#{@number_of_pages}"
-          text = %Q[<span size="#{text_size}">#{text}</span>]
-          layout, _, _ = canvas.make_layout(text)
-          layout.set_width(text_width)
-          layout.set_alignment(Pango::Layout::ALIGN_CENTER)
-          canvas.draw_layout(layout, x, y + h)
         end
       end
 

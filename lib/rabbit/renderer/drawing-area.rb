@@ -1,6 +1,8 @@
+require "forwardable"
+
 require "rabbit/menu"
 require "rabbit/keys"
-require "rabbit/renderer/base"
+require "rabbit/renderer/pixmap"
 
 module Rabbit
   module Renderer
@@ -9,16 +11,32 @@ module Rabbit
       include Base
       include Keys
 
+      extend Forwardable
+    
+      @@color_table = {}
+      
+      def_delegators(:@pixmap, :foreground, :background)
+      def_delegators(:@pixmap, :foreground=, :background=)
+      def_delegators(:@pixmap, :background_image, :background_image=)
+      
+      def_delegators(:@pixmap, :draw_page, :draw_line, :draw_rectangle)
+      def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
+      def_delegators(:@pixmap, :draw_pixbuf)
+
+      def_delegators(:@pixmap, :make_color)
+
+      def_delegators(:@pixmap, :to_pixbuf)
+      
       BUTTON_PRESS_ACCEPTING_TIME = 0.5 * 1000
 
-      @@color_table = {}
-  
       def initialize(canvas)
         super
         @current_cursor = nil
         @blank_cursor = nil
+        init_progress
         clear_button_handler
         init_drawing_area
+        init_pixmap(1, 1)
         update_menu
       end
       
@@ -26,30 +44,6 @@ module Rabbit
         window.add(@area)
       end
     
-      def foreground=(color)
-        @foreground.set_foreground(color)
-      end
-      
-      def background=(color)
-        @background.set_foreground(color)
-        @drawable.background = color
-      end
-      
-      def background_image=(pixbuf)
-        w, h = pixbuf.width, pixbuf.height
-        pixmap = Gdk::Pixmap.new(@drawable, w, h, -1)
-        pixmap.draw_rectangle(@background, true, 0, 0, w, h)
-        args = [
-          @foreground, pixbuf,
-          0, 0, 0, 0, w, h,
-          Gdk::RGB::DITHER_NORMAL, 0, 0,
-        ]
-        pixmap.draw_pixbuf(*args)
-        @background.set_tile(pixmap)
-        @background.fill = Gdk::GC::Fill::TILED
-        @drawable.set_back_pixmap(pixmap, false)
-      end
-      
       def width
         @drawable.size[0]
       end
@@ -63,24 +57,15 @@ module Rabbit
       end
       
       def post_apply_theme
+        @pixmap.post_apply_theme
         update_menu
         @area.queue_draw
       end
       
       def post_move(index)
+        @pixmap.post_move(index)
         update_title
         @area.queue_draw
-      end
-      
-      def each_page_pixbuf
-        args = [@drawable, 0, 0, width, height]
-        before_page_index = @canvas.current_index
-        @canvas.pages.each_with_index do |page, i|
-          @canvas.move_to_if_can(i)
-          @drawable.process_updates(true)
-          yield(Gdk::Pixbuf.from_drawable(@drawable.colormap, *args), i)
-        end
-        @canvas.move_to_if_can(before_page_index)
       end
       
       def post_fullscreen
@@ -98,7 +83,8 @@ module Rabbit
       end
       
       def redraw
-        @drawing_area.queue_draw
+        clear_pixmap
+        @area.queue_draw
       end
       
       
@@ -121,49 +107,6 @@ module Rabbit
         @area.queue_draw
       end
       
-      def draw_page
-        yield
-      end
-      
-      def draw_line(x1, y1, x2, y2, color=nil)
-        gc = make_gc(color)
-        @drawable.draw_line(gc, x1, y1, x2, y2)
-      end
-      
-      def draw_rectangle(filled, x1, y1, x2, y2, color=nil)
-        gc = make_gc(color)
-        @drawable.draw_rectangle(gc, filled, x1, y1, x2, y2)
-      end
-      
-      def draw_arc(filled, x, y, w, h, a1, a2, color=nil)
-        gc = make_gc(color)
-        @drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
-      end
-      
-      def draw_circle(filled, x, y, w, h, color=nil)
-        draw_arc(filled, x, y, w, h, 0, 360 * 64, color)
-      end
-      
-      def draw_layout(layout, x, y, color=nil)
-        gc = make_gc(color)
-        @drawable.draw_layout(gc, x, y, layout)
-      end
-      
-      def draw_pixbuf(pixbuf, x, y, params={})
-        gc = make_gc(params['color'])
-        args = [0, 0, x, y,
-          params['width'] || pixbuf.width,
-          params['height'] || pixbuf.height,
-          params['dither_mode'] || Gdk::RGB::DITHER_NORMAL,
-          params['x_dither'] || 0,
-          params['y_dither'] || 0]
-        @drawable.draw_pixbuf(gc, pixbuf, *args)
-      end
-      
-      def make_color(color, default_is_foreground=true)
-        make_gc(color, default_is_foreground).foreground
-      end
-
       def make_layout(text)
         attrs, text = Pango.parse_markup(text)
         layout = @area.create_pango_layout(text)
@@ -172,12 +115,27 @@ module Rabbit
         [layout, w, h]
       end
 
+      def pango_context
+      end
+      
+      def create_pango_context
+        @area.create_pango_context
+      end
+      
       private
+      def can_create_pixbuf?
+        true
+      end
+      
+      def init_pixmap(width, height)
+        @pixmap = Renderer::Pixmap.new(@canvas, width, height)
+      end
+      
       def clear_button_handler
         @button_handler_thread = nil
         @button_handler = []
       end
-    
+
       def update_menu
         @menu = Menu.new(@canvas)
       end
@@ -186,34 +144,15 @@ module Rabbit
         @canvas.update_title(@canvas.page_title)
       end
       
-      def make_gc(color, default_is_foreground=true)
-        if color.nil?
-          if default_is_foreground
-            @foreground
-          else
-            @background
-          end
-        else
-          make_gc_from_string(color)
-        end
+      def init_progress
+        @progress_window = Gtk::Window.new(Gtk::Window::POPUP)
+        @progress_window.window_position = Gtk::Window::POS_CENTER_ALWAYS
+        @progress_window.app_paintable = true
+        @progress = Gtk::ProgressBar.new
+        @progress.show_text = true
+        @progress_window.add(@progress)
       end
-
-      def make_gc_from_string(str)
-        gc = Gdk::GC.new(@drawable)
-        if @@color_table.has_key?(str)
-          color = @@color_table[str]
-        else
-          color = Gdk::Color.parse(str)
-          colormap = Gdk::Colormap.system
-          unless colormap.alloc_color(color, false, true)
-            raise CantAllocateColorError.new(str)
-          end
-          @@color_table[str] = color
-        end
-        gc.set_foreground(color)
-        gc
-      end
-
+      
       def init_drawing_area
         @area = Gtk::DrawingArea.new
         @area.set_can_focus(true)
@@ -231,6 +170,7 @@ module Rabbit
           @foreground = Gdk::GC.new(@drawable)
           @background = Gdk::GC.new(@drawable)
           @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
+          init_pixmap(*@drawable.size)
         end
       end
       
@@ -276,10 +216,11 @@ module Rabbit
           end
           page = @canvas.current_page
           if page
-            page.draw(@canvas)
-#             if next_page
-#               next_page.draw(self, true)
-#             end
+            unless @pixmap.has_key?(page)
+              page.draw(@canvas)
+            end
+            @drawable.draw_drawable(@foreground, @pixmap[page],
+                                    0, 0, 0, 0, -1, -1)
           end
         end
       end
@@ -428,10 +369,57 @@ module Rabbit
           false
         end
       end
-      
-      def create_dummy_pango_layout
-        @area.create_pango_layout("")
+
+      def start_progress(max)
+        @progress_window.show_all
+        @progress.fraction = @progress_current = 0
+        @progress_max = max.to_f
+        Gtk.timeout_add(100) do
+          @progress.fraction = @progress_current / @progress_max
+          @progress_current < @progress_max
+        end
       end
+
+      def update_progress(i)
+        @progress_current = i
+      end
+
+      def end_progress
+        @progress_current = @progress_max
+        Gtk.timeout_add(100) do
+          @progress_window.hide
+          false
+        end
+      end
+      
+      def pre_print
+        start_progress(@canvas.page_size)
+      end
+
+      def printing(i)
+        update_progress(i)
+      end
+
+      def post_print
+        end_progress
+      end
+
+      def pre_to_pixbuf
+        start_progress(@canvas.page_size)
+      end
+
+      def to_pixbufing(i)
+        update_progress(i)
+      end
+      
+      def post_to_pixbuf
+        end_progress
+      end
+
+      def clear_pixmap
+        @pixmap.clear_pixmaps
+      end
+
     end
     
   end

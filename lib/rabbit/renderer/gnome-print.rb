@@ -44,7 +44,12 @@ module Rabbit
         init_job
       end
 
-      def print
+      def pre_print
+        update_filename
+      end
+      
+      def post_print
+        @job.close
         @job.print
       end
       
@@ -68,8 +73,6 @@ module Rabbit
       end
       
       def post_parse_rd
-        update_filename
-        @job.close
       end
 
       
@@ -80,8 +83,8 @@ module Rabbit
       end
 
 
-      def draw_page
-        # @context.begin_page(@canvas.page_title) do
+      def draw_page(page)
+        # @context.begin_page(page.title) do
         @context.begin_page do
           draw_background
           yield
@@ -182,7 +185,15 @@ module Rabbit
         [layout, w, h]
       end
       
+      def create_pango_context
+        @context.create_context
+      end
+      
       private
+      def printable?
+        true
+      end
+      
       def init_job
         @job = Gnome::PrintJob.new
         @context = @job.context
@@ -197,7 +208,7 @@ module Rabbit
       end
       
       def init_paper
-        paper = Gnome::PrintPaper.get_by_name("A4")
+        paper = Gnome::PrintPaper.get("A4")
         @config[Gnome::PrintConfig::KEY_PAPER_WIDTH] = paper.height
         @config[Gnome::PrintConfig::KEY_PAPER_HEIGHT] = paper.width
         @width = @config[Gnome::PrintConfig::KEY_PAPER_WIDTH, :double]
@@ -264,10 +275,6 @@ module Rabbit
         end
       end
 
-      def create_dummy_pango_layout
-        @context.create_layout
-      end
-      
     end
     
   end
