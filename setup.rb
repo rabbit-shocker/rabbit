@@ -8,69 +8,19 @@
 # the GNU LGPL, Lesser General Public License version 2.1.
 #
 
-#
-# For backward compatibility
-#
-
-unless Enumerable.method_defined?(:map)
+unless Enumerable.method_defined?(:map)   # Ruby 1.4.6
   module Enumerable
     alias map collect
   end
 end
 
-unless Enumerable.method_defined?(:detect)
-  module Enumerable
-    alias detect find
-  end
-end
-
-unless Enumerable.method_defined?(:select)
-  module Enumerable
-    alias select find_all
-  end
-end
-
-unless Enumerable.method_defined?(:reject)
-  module Enumerable
-    def reject
-      select {|i| not yield(i) }
-    end
-  end
-end
-
-unless Enumerable.method_defined?(:inject)
-  module Enumerable
-    def inject(result)
-      each do |i|
-        result = yield(result, i)
-      end
-      result
-    end
-  end
-end
-
-unless Enumerable.method_defined?(:any?)
-  module Enumerable
-    def any?
-      each do |i|
-        return true if yield(i)
-      end
-      false
-    end
-  end
-end
-
-unless File.respond_to?(:read)
+unless File.respond_to?(:read)   # Ruby 1.6
   def File.read(fname)
     open(fname) {|f|
       return f.read
     }
   end
 end
-
-#
-# Application independent utilities
-#
 
 def File.binread(fname)
   open(fname, 'rb') {|f|
@@ -81,6 +31,13 @@ end
 # for corrupted windows stat(2)
 def File.dir?(path)
   File.directory?((path[-1,1] == '/') ? path : path + '/')
+end
+
+
+class SetupError < StandardError; end
+
+def setup_rb_error(msg)
+  raise SetupError, msg
 end
 
 #
@@ -100,219 +57,325 @@ def multipackage_install?
 end
 
 
-class ConfigTable
-
-  c = ::Config::CONFIG
-
-  rubypath = c['bindir'] + '/' + c['ruby_install_name']
-
-  major = c['MAJOR'].to_i
-  minor = c['MINOR'].to_i
-  teeny = c['TEENY'].to_i
-  version = "#{major}.#{minor}"
-
-  # ruby ver. >= 1.4.4?
-  newpath_p = ((major >= 2) or
-               ((major == 1) and
-                ((minor >= 5) or
-                 ((minor == 4) and (teeny >= 4)))))
-  
-  subprefix = lambda {|path|
-    path.sub(/\A#{Regexp.quote(c['prefix'])}/o, '$prefix')
-  }
-
-  if c['rubylibdir']
-    # V < 1.6.3
-    stdruby    = subprefix.call(c['rubylibdir'])
-    siteruby   = subprefix.call(c['sitedir'])
-    versite    = subprefix.call(c['sitelibdir'])
-    sodir      = subprefix.call(c['sitearchdir'])
-  elsif newpath_p
-    # 1.4.4 <= V <= 1.6.3
-    stdruby    = "$prefix/lib/ruby/#{version}"
-    siteruby   = subprefix.call(c['sitedir'])
-    versite    = siteruby + '/' + version
-    sodir      = "$site-ruby/#{c['arch']}"
-  else
-    # V < 1.4.4
-    stdruby    = "$prefix/lib/ruby/#{version}"
-    siteruby   = "$prefix/lib/ruby/#{version}/site_ruby"
-    versite    = siteruby
-    sodir      = "$site-ruby/#{c['arch']}"
+class ConfigItem
+  def initialize(name, template, default, desc)
+    @name = name.freeze
+    @template = template
+    @value = default
+    @default = default.dup.freeze
+    @description = desc
   end
 
-  if arg = c['configure_args'].split.detect {|arg| /--with-make-prog=/ =~ arg }
-    makeprog = arg.sub(/'/, '').split(/=/, 2)[1]
-  else
-    makeprog = 'make'
+  attr_reader :name
+  attr_reader :description
+
+  attr_accessor :default
+  alias help_default default
+
+  def help_opt
+    "--#{@name}=#{@template}"
   end
 
-  common_descripters = [
-    [ 'prefix',    [ c['prefix'],
-                     'path',
-                     'path prefix of target environment' ] ],
-    [ 'std-ruby',  [ stdruby,
-                     'path',
-                     'the directory for standard ruby libraries' ] ],
-    [ 'site-ruby-common', [ siteruby,
-                     'path',
-                     'the directory for version-independent non-standard ruby libraries' ] ],
-    [ 'site-ruby', [ versite,
-                     'path',
-                     'the directory for non-standard ruby libraries' ] ],
-    [ 'bin-dir',   [ '$prefix/bin',
-                     'path',
-                     'the directory for commands' ] ],
-    [ 'rb-dir',    [ '$site-ruby',
-                     'path',
-                     'the directory for ruby scripts' ] ],
-    [ 'so-dir',    [ sodir,
-                     'path',
-                     'the directory for ruby extentions' ] ],
-    [ 'data-dir',  [ '$prefix/share',
-                     'path',
-                     'the directory for shared data' ] ],
-    [ 'ruby-path', [ rubypath,
-                     'path',
-                     'path to set to #! line' ] ],
-    [ 'ruby-prog', [ rubypath,
-                     'name',
-                     'the ruby program using for installation' ] ],
-    [ 'make-prog', [ makeprog,
-                     'name',
-                     'the make program to compile ruby extentions' ] ],
-    [ 'without-ext', [ 'no',
-                       'yes/no',
-                       'does not compile/install ruby extentions' ] ]
-  ]
-  multipackage_descripters = [
-    [ 'with',      [ '',
-                     'name,name...',
-                     'package names that you want to install',
-                     'ALL' ] ],
-    [ 'without',   [ '',
-                     'name,name...',
-                     'package names that you do not want to install',
-                     'NONE' ] ]
-  ]
-  if multipackage_install?
-    DESCRIPTER = common_descripters + multipackage_descripters
-  else
-    DESCRIPTER = common_descripters
+  def value
+    @value
   end
 
-  SAVE_FILE = '.config'
-
-  def ConfigTable.each_name(&block)
-    keys().each(&block)
+  def eval(table)
+    @value.gsub(%r<\$([^/]+)>) { table[$1] }
   end
 
-  def ConfigTable.keys
-    DESCRIPTER.map {|name, *dummy| name }
+  def set(val)
+    @value = check(val)
   end
 
-  def ConfigTable.each_definition(&block)
-    DESCRIPTER.each(&block)
+  private
+
+  def check(val)
+    setup_rb_error "config: --#{name} requires argument" unless val
+    val
+  end
+end
+
+class BoolItem < ConfigItem
+  def config_type
+    'bool'
   end
 
-  def ConfigTable.get_entry(name)
-    name, ent = DESCRIPTER.assoc(name)
-    ent
+  def help_opt
+    "--#{@name}"
   end
 
-  def ConfigTable.get_entry!(name)
-    get_entry(name) or raise ArgumentError, "no such config: #{name}"
+  private
+
+  def check(val)
+    return 'yes' unless val
+    unless /\A(y(es)?|n(o)?|t(rue)?|f(alse))\z/i =~ val
+      setup_rb_error "config: --#{@name} accepts only yes/no for argument"
+    end
+    (/\Ay(es)?|\At(rue)/i =~ value) ? 'yes' : 'no'
+  end
+end
+
+class PathItem < ConfigItem
+  def config_type
+    'path'
   end
 
-  def ConfigTable.add_entry(name, vals)
-    ConfigTable::DESCRIPTER.push [name,vals]
+  private
+
+  def check(path)
+    setup_rb_error "config: --#{@name} requires argument"  unless path
+    path[0,1] == '$' ? path : File.expand_path(path)
+  end
+end
+
+class ProgramItem < ConfigItem
+  def config_type
+    'program'
+  end
+end
+
+class SelectItem < ConfigItem
+  def initialize(name, template, default, desc)
+    super
+    @ok = template.split('/')
   end
 
-  def ConfigTable.remove_entry(name)
-    get_entry(name) or raise ArgumentError, "no such config: #{name}"
-    DESCRIPTER.delete_if {|n, arr| n == name }
+  def config_type
+    'select'
   end
 
-  def ConfigTable.config_key?(name)
-    get_entry(name) ? true : false
+  private
+
+  def check(val)
+    unless @ok.include?(val.strip)
+      setup_rb_error "config: use --#{@name}=#{@template} (#{val})"
+    end
+    val.strip
+  end
+end
+
+class PackageSelectionItem < ConfigItem
+  def initialize(name, template, default, help_default, desc)
+    super name, template, default, desc
+    @help_default = help_default
   end
 
-  def ConfigTable.bool_config?(name)
-    ent = get_entry(name) or return false
-    ent[1] == 'yes/no'
+  attr_reader :help_default
+
+  def config_type
+    'package'
   end
 
-  def ConfigTable.value_config?(name)
-    ent = get_entry(name) or return false
-    ent[1] != 'yes/no'
+  private
+
+  def check(val)
+    unless File.dir?("packages/#{val}")
+      setup_rb_error "config: no such package: #{val}"
+    end
+    val
   end
+end
 
-  def ConfigTable.path_config?(name)
-    ent = get_entry(name) or return false
-    ent[1] == 'path'
-  end
+class ConfigTable_class
 
-
-  class << self
-    alias newobj new
-  end
-
-  def ConfigTable.new
-    c = newobj()
-    c.initialize_from_table
-    c
-  end
-
-  def ConfigTable.load
-    c = newobj()
-    c.initialize_from_file
-    c
-  end
-
-  def initialize_from_table
+  def initialize(items)
+    @items = items
     @table = {}
-    DESCRIPTER.each do |k, (default, vname, desc, default2)|
-      @table[k] = default
+    items.each do |i|
+      @table[i.name] = i
+    end
+    ALIASES.each do |ali, name|
+      @table[ali] = @table[name]
     end
   end
 
-  def initialize_from_file
-    raise InstallError, "#{File.basename $0} config first"\
-        unless File.file?(SAVE_FILE)
-    @table = {}
-    File.foreach(SAVE_FILE) do |line|
-      k, v = line.split(/=/, 2)
-      @table[k] = v.strip
+  include Enumerable
+
+  def each(&block)
+    @items.each(&block)
+  end
+
+  def key?(name)
+    @table.key?(name)
+  end
+
+  def lookup(name)
+    @table[name] or raise ArgumentError, "no such config item: #{name}"
+  end
+
+  def add(item)
+    @items.push item
+    @table[item.name] = item
+  end
+
+  def remove(name)
+    item = lookup(name)
+    @items.delete_if {|i| i.name == name }
+    @table.delete_if {|name, i| i.name == name }
+    item
+  end
+
+  def new
+    dup()
+  end
+
+  def savefile
+    '.config'
+  end
+
+  def load
+    begin
+      t = dup()
+      File.foreach(savefile()) do |line|
+        k, v = *line.split(/=/, 2)
+        t[k] = v.strip
+      end
+      t
+    rescue Errno::ENOENT
+      setup_rb_error $!.message + "#{File.basename($0)} config first"
     end
   end
 
   def save
-    File.open(SAVE_FILE, 'w') {|f|
-      @table.each do |k, v|
-        f.printf "%s=%s\n", k, v if v
+    @items.each {|i| i.value }
+    File.open(savefile(), 'w') {|f|
+      @items.each do |i|
+        f.printf "%s=%s\n", i.name, i.value if i.value
       end
     }
   end
 
-  def []=(k, v)
-    raise InstallError, "unknown config option #{k}"\
-        unless ConfigTable.config_key?(k)
-    @table[k] = v
-  end
-    
   def [](key)
-    return nil unless @table[key]
-    @table[key].gsub(%r<\$([^/]+)>) { self[$1] }
+    lookup(key).eval(self)
   end
 
-  def set_raw(key, val)
-    @table[key] = val
+  def []=(key, val)
+    lookup(key).set val
   end
 
-  def get_raw(key)
-    @table[key]
-  end
+end
 
+c = ::Config::CONFIG
+
+rubypath = c['bindir'] + '/' + c['ruby_install_name']
+
+major = c['MAJOR'].to_i
+minor = c['MINOR'].to_i
+teeny = c['TEENY'].to_i
+version = "#{major}.#{minor}"
+
+# ruby ver. >= 1.4.4?
+newpath_p = ((major >= 2) or
+             ((major == 1) and
+              ((minor >= 5) or
+               ((minor == 4) and (teeny >= 4)))))
+
+if c['rubylibdir']
+  # V < 1.6.3
+  _stdruby         = c['rubylibdir']
+  _siteruby        = c['sitedir']
+  _siterubyver     = c['sitelibdir']
+  _siterubyverarch = c['sitearchdir']
+elsif newpath_p
+  # 1.4.4 <= V <= 1.6.3
+  _stdruby         = "$prefix/lib/ruby/#{version}"
+  _siteruby        = c['sitedir']
+  _siterubyver     = "$siteruby/#{version}"
+  _siterubyverarch = "$siterubyver/#{c['arch']}"
+else
+  # V < 1.4.4
+  _stdruby         = "$prefix/lib/ruby/#{version}"
+  _siteruby        = "$prefix/lib/ruby/#{version}/site_ruby"
+  _siterubyver     = _siteruby
+  _siterubyverarch = "$siterubyver/#{c['arch']}"
+end
+libdir = '-* dummy libdir *-'
+stdruby = '-* dummy rubylibdir *-'
+siteruby = '-* dummy site_ruby *-'
+siterubyver = '-* dummy site_ruby version *-'
+parameterize = lambda {|path|
+  path.sub(/\A#{Regexp.quote(c['prefix'])}/, '$prefix')\
+      .sub(/\A#{Regexp.quote(libdir)}/,      '$libdir')\
+      .sub(/\A#{Regexp.quote(stdruby)}/,     '$stdruby')\
+      .sub(/\A#{Regexp.quote(siteruby)}/,    '$siteruby')\
+      .sub(/\A#{Regexp.quote(siterubyver)}/, '$siterubyver')
+}
+libdir          = parameterize.call(c['libdir'])
+stdruby         = parameterize.call(_stdruby)
+siteruby        = parameterize.call(_siteruby)
+siterubyver     = parameterize.call(_siterubyver)
+siterubyverarch = parameterize.call(_siterubyverarch)
+
+if arg = c['configure_args'].split.detect {|arg| /--with-make-prog=/ =~ arg }
+  makeprog = arg.sub(/'/, '').split(/=/, 2)[1]
+else
+  makeprog = 'make'
+end
+
+common_conf = [
+  PathItem.new('prefix', 'path', c['prefix'],
+               'path prefix of target environment'),
+  PathItem.new('bindir', 'path', parameterize.call(c['bindir']),
+               'the directory for commands'),
+  PathItem.new('libdir', 'path', libdir,
+               'the directory for libraries'),
+  PathItem.new('datadir', 'path', parameterize.call(c['datadir']),
+               'the directory for shared data'),
+  PathItem.new('mandir', 'path', parameterize.call(c['mandir']),
+               'the directory for man pages'),
+  PathItem.new('sysconfdir', 'path', parameterize.call(c['sysconfdir']),
+               'the directory for man pages'),
+  PathItem.new('stdruby', 'path', stdruby,
+               'the directory for standard ruby libraries'),
+  PathItem.new('siteruby', 'path', siteruby,
+      'the directory for version-independent aux ruby libraries'),
+  PathItem.new('siterubyver', 'path', siterubyver,
+               'the directory for aux ruby libraries'),
+  PathItem.new('siterubyverarch', 'path', siterubyverarch,
+               'the directory for aux ruby binaries'),
+  PathItem.new('rbdir', 'path', '$siterubyver',
+               'the directory for ruby scripts'),
+  PathItem.new('sodir', 'path', '$siterubyverarch',
+               'the directory for ruby extentions'),
+  PathItem.new('rubypath', 'path', rubypath,
+               'the path to set to #! line'),
+  ProgramItem.new('rubyprog', 'name', rubypath,
+                  'the ruby program using for installation'),
+  ProgramItem.new('makeprog', 'name', makeprog,
+                  'the make program to compile ruby extentions'),
+  SelectItem.new('shebang', 'all/ruby/never', 'ruby',
+                 'shebang line (#!) editing mode'),
+  BoolItem.new('without-ext', 'yes/no', 'no',
+               'does not compile/install ruby extentions')
+]
+class ConfigTable_class   # open again
+  ALIASES = {
+    'std-ruby'         => 'stdruby',
+    'site-ruby-common' => 'siteruby',     # For backward compatibility
+    'site-ruby'        => 'siterubyver',  # For backward compatibility
+    'bin-dir'          => 'bindir',
+    'bin-dir'          => 'bindir',
+    'rb-dir'           => 'rbdir',
+    'so-dir'           => 'sodir',
+    'data-dir'         => 'datadir',
+    'ruby-path'        => 'rubypath',
+    'ruby-prog'        => 'rubyprog',
+    'ruby'             => 'rubyprog',
+    'make-prog'        => 'makeprog',
+    'make'             => 'makeprog'
+  }
+end
+multipackage_conf = [
+  PackageSelectionItem.new('with', 'name,name...', '', 'ALL',
+                           'package names that you want to install'),
+  PackageSelectionItem.new('without', 'name,name...', '', 'NONE',
+                           'package names that you do not want to install')
+]
+if multipackage_install?
+  ConfigTable = ConfigTable_class.new(common_conf + multipackage_conf)
+else
+  ConfigTable = ConfigTable_class.new(common_conf)
 end
 
 
@@ -323,52 +386,52 @@ module MetaConfigAPI
   end
 
   def config_names
-    ConfigTable.keys
+    ConfigTable.map {|i| i.name }
   end
 
   def config?(name)
-    ConfigTable.config_key?(name)
+    ConfigTable.key?(name)
   end
 
   def bool_config?(name)
-    ConfigTable.bool_config?(name)
-  end
-
-  def value_config?(name)
-    ConfigTable.value_config?(name)
+    ConfigTable.lookup(name).config_type == 'bool'
   end
 
   def path_config?(name)
-    ConfigTable.path_config?(name)
+    ConfigTable.lookup(name).config_type == 'path'
   end
 
-  def add_config(name, argname, default, desc)
-    ConfigTable.add_entry name,[default,argname,desc]
-  end
-
-  def add_path_config(name, default, desc)
-    add_config name, 'path', default, desc
-  end
-
-  def add_bool_config(name, default, desc)
-    add_config name, 'yes/no', default ? 'yes' : 'no', desc
-  end
-
-  def set_config_default(name, default)
-    if bool_config?(name)
-      ConfigTable.get_entry!(name)[0] = (default ? 'yes' : 'no')
+  def value_config?(name)
+    case ConfigTable.lookup(name).config_type
+    when 'bool', 'path'
+      true
     else
-      ConfigTable.get_entry!(name)[0] = default
+      false
     end
   end
 
+  def add_config(item)
+    ConfigTable.add item
+  end
+
+  def add_bool_config(name, default, desc)
+    ConfigTable.add BoolItem.new(name, 'yes/no', default ? 'yes' : 'no', desc)
+  end
+
+  def add_path_config(name, default, desc)
+    ConfigTable.add PathItem.new(name, 'path', default, desc)
+  end
+
+  def set_config_default(name, default)
+    ConfigTable.lookup(name).default = default
+  end
+
   def remove_config(name)
-    ent = ConfigTable.get_entry(name)
-    ConfigTable.remove_entry name
-    ent
+    ConfigTable.remove(name)
   end
 
 end
+
 
 #
 # File Operations
@@ -377,12 +440,12 @@ end
 module FileOperations
 
   def mkdir_p(dirname, prefix = nil)
-    dirname = prefix + dirname if prefix
+    dirname = prefix + File.expand_path(dirname) if prefix
     $stderr.puts "mkdir -p #{dirname}" if verbose?
     return if no_harm?
 
     # does not check '/'... it's too abnormal case
-    dirs = dirname.split(%r<(?=/)>)
+    dirs = File.expand_path(dirname).split(%r<(?=/)>)
     if /\A[a-z]:\z/i =~ dirs[0]
       disk = dirs.shift
       dirs[0] = disk + dirs[0]
@@ -440,7 +503,7 @@ module FileOperations
     $stderr.puts "install #{from} #{dest}" if verbose?
     return if no_harm?
 
-    realdest = prefix ? prefix + dest : dest
+    realdest = prefix ? prefix + File.expand_path(dest) : dest
     realdest = File.join(realdest, File.basename(from)) if File.dir?(realdest)
     str = File.binread(from)
     if diff?(str, realdest)
@@ -473,11 +536,11 @@ module FileOperations
   end
 
   def ruby(str)
-    command config('ruby-prog') + ' ' + str
+    command config('rubyprog') + ' ' + str
   end
   
   def make(task = '')
-    command config('make-prog') + ' ' + task
+    command config('makeprog') + ' ' + task
   end
 
   def extdir?(dir)
@@ -502,12 +565,10 @@ module FileOperations
 
 end
 
+
 #
 # Main Installer
 #
-
-class InstallError < StandardError; end
-
 
 module HookUtils
 
@@ -521,7 +582,7 @@ module HookUtils
     begin
       instance_eval File.read(fname), fname, 1
     rescue
-      raise InstallError, "hook #{fname} failed:\n" + $!.message
+      setup_rb_error "hook #{fname} failed:\n" + $!.message
     end
     true
   end
@@ -596,7 +657,7 @@ end
 
 class ToplevelInstaller
 
-  Version   = '3.3.0'
+  Version   = '3.3.1'
   Copyright = 'Copyright (c) 2000-2004 Minero Aoki'
 
   TASKS = [
@@ -659,7 +720,7 @@ class ToplevelInstaller
     when 'config'
       ConfigTable.new
     when 'clean', 'distclean'
-      if File.exist?(ConfigTable::SAVE_FILE)
+      if File.exist?(ConfigTable.savefile)
       then ConfigTable.load
       else ConfigTable.new
       end
@@ -698,7 +759,7 @@ class ToplevelInstaller
     while arg = ARGV.shift
       case arg
       when /\A\w+\z/
-        raise InstallError, "invalid task: #{arg}" unless valid_task =~ arg
+        setup_rb_error "invalid task: #{arg}" unless valid_task =~ arg
         return arg
 
       when '-q', '--quiet'
@@ -720,7 +781,7 @@ class ToplevelInstaller
         exit 0
 
       else
-        raise InstallError, "unknown global option '#{arg}'"
+        setup_rb_error "unknown global option '#{arg}'"
       end
     end
 
@@ -729,8 +790,9 @@ class ToplevelInstaller
 
 
   def parsearg_no_options
-    raise InstallError, "#{task}:  unknown options: #{ARGV.join ' '}"\
-        unless ARGV.empty?
+    unless ARGV.empty?
+      setup_rb_error "#{task}:  unknown options: #{ARGV.join ' '}"
+    end
   end
 
   alias parsearg_show       parsearg_no_options
@@ -739,7 +801,7 @@ class ToplevelInstaller
   alias parsearg_distclean  parsearg_no_options
 
   def parsearg_config
-    re = /\A--(#{ConfigTable.keys.join '|'})(?:=(.*))?\z/
+    re = /\A--(#{ConfigTable.map {|i| i.name }.join('|')})(?:=(.*))?\z/
     @options['config-opt'] = []
 
     while i = ARGV.shift
@@ -747,19 +809,8 @@ class ToplevelInstaller
         @options['config-opt'] = ARGV.dup
         break
       end
-      m = re.match(i) or raise InstallError, "config: unknown option #{i}"
-      name, value = m.to_a[1,2]
-      if value
-        if ConfigTable.bool_config?(name)
-          raise InstallError, "config: --#{name} allows only yes/no for argument"\
-              unless /\A(y(es)?|n(o)?|t(rue)?|f(alse))\z/i =~ value
-          value = (/\Ay(es)?|\At(rue)/i =~ value) ? 'yes' : 'no'
-        end
-      else
-        raise InstallError, "config: --#{name} requires argument"\
-            unless ConfigTable.bool_config?(name)
-        value = 'yes'
-      end
+      m = re.match(i)  or setup_rb_error "config: unknown option #{i}"
+      name, value = *m.to_a[1,2]
       @config[name] = value
     end
   end
@@ -776,7 +827,7 @@ class ToplevelInstaller
         path = File.expand_path(path) unless path[0,1] == '/'
         @options['install-prefix'] = path
       else
-        raise InstallError, "install: unknown option #{a}"
+        setup_rb_error "install: unknown option #{a}"
       end
     end
   end
@@ -791,7 +842,7 @@ class ToplevelInstaller
     out.puts "  ruby #{File.basename $0} <global option>"
     out.puts "  ruby #{File.basename $0} [<global options>] <task> [<task options>]"
 
-    fmt = "  %-20s %s\n"
+    fmt = "  %-24s %s\n"
     out.puts
     out.puts 'Global options:'
     out.printf fmt, '-q,--quiet',   'suppress message outputs'
@@ -799,31 +850,23 @@ class ToplevelInstaller
     out.printf fmt, '-h,--help',    'print this message'
     out.printf fmt, '-v,--version', 'print version and quit'
     out.printf fmt, '   --copyright',  'print copyright and quit'
-
     out.puts
     out.puts 'Tasks:'
     TASKS.each do |name, desc|
-      out.printf "  %-10s  %s\n", name, desc
+      out.printf fmt, name, desc
     end
 
+    fmt = "  %-24s %s [%s]\n"
     out.puts
     out.puts 'Options for CONFIG or ALL:'
-    ConfigTable.each_definition do |name, (default, arg, desc, default2)|
-      out.printf "  %-20s %s [%s]\n",
-                 '--'+ name + (ConfigTable.bool_config?(name) ? '' : '='+arg),
-                 desc,
-                 default2 || default
+    ConfigTable.each do |item|
+      out.printf fmt, item.help_opt, item.description, item.help_default
     end
-    out.printf "  %-20s %s [%s]\n",
-        '--rbconfig=path', 'your rbconfig.rb to load', "running ruby's"
-
+    out.printf fmt, '--rbconfig=path', 'rbconfig.rb to load',"running ruby's"
     out.puts
     out.puts 'Options for INSTALL:'
-    out.printf "  %-20s %s [%s]\n",
-        '--no-harm', 'only display what to do if given', 'off'
-    out.printf "  %-20s %s [%s]\n",
-        '--prefix',  'install path prefix', '$prefix'
-
+    out.printf fmt, '--no-harm', 'only display what to do if given', 'off'
+    out.printf fmt, '--prefix=path',  'install path prefix', '$prefix'
     out.puts
   end
 
@@ -845,12 +888,8 @@ class ToplevelInstaller
   end
 
   def exec_show
-    ConfigTable.each_name do |k|
-      v = @config.get_raw(k)
-      if not v or v.empty?
-        v = '(not specified)'
-      end
-      printf "%-10s %s\n", k, v
+    ConfigTable.each do |i|
+      printf "%-20s %s\n", i.name, i.value
     end
   end
 
@@ -903,8 +942,7 @@ class ToplevelInstallerMulti < ToplevelInstaller
   def extract_selection(list)
     a = list.split(/,/)
     a.each do |name|
-      raise InstallError, "no such package: #{name}" \
-              unless @installers.key?(name)
+      setup_rb_error "no such package: #{name}"  unless @installers.key?(name)
     end
     a
   end
@@ -955,14 +993,14 @@ class ToplevelInstallerMulti < ToplevelInstaller
   end
 
   def exec_clean
-    rm_f ConfigTable::SAVE_FILE
+    rm_f ConfigTable.savefile
     run_hook 'pre-clean'
     each_selected_installers {|inst| inst.exec_clean }
     run_hook 'post-clean'
   end
 
   def exec_distclean
-    rm_f ConfigTable::SAVE_FILE
+    rm_f ConfigTable.savefile
     run_hook 'pre-distclean'
     each_selected_installers {|inst| inst.exec_distclean }
     run_hook 'post-distclean'
@@ -1015,7 +1053,7 @@ class Installer
   end
 
   #
-  # Hook Script API bases
+  # Hook Script API base methods
   #
 
   def srcdir_root
@@ -1071,7 +1109,7 @@ class Installer
 
   def extconf
     opt = @options['config-opt'].join(' ')
-    command "#{config('ruby-prog')} #{curr_srcdir()}/extconf.rb #{opt}"
+    command "#{config('rubyprog')} #{curr_srcdir()}/extconf.rb #{opt}"
   end
 
   def config_dir_data(rel)
@@ -1096,28 +1134,19 @@ class Installer
     tmpfile = File.basename(path) + '.tmp'
     begin
       File.open(path, 'rb') {|r|
+        first = r.gets
+        return unless File.basename(config('rubypath')) == 'ruby'
+        return unless File.basename(first.sub(/\A\#!/, '').split[0]) == 'ruby'
+        $stderr.puts "adjusting shebang: #{File.basename(path)}" if verbose?
         File.open(tmpfile, 'wb') {|w|
-          first = r.gets
-          return unless should_modify_shebang?(first)
-          $stderr.puts "adjusting shebang: #{File.basename(path)}" if verbose?
-          w.print first.sub(SHEBANG_RE, '#!' + config('ruby-path'))
+          w.print first.sub(/\A\#!\s*\S+/, '#! ' + config('rubypath'))
           w.write r.read
         }
+        move_file tmpfile, File.basename(path)
       }
-      move_file tmpfile, File.basename(path)
     ensure
       File.unlink tmpfile if File.exist?(tmpfile)
     end
-  end
-
-  def should_modify_shebang?(line)
-    File.basename(config('ruby-path')) == 'ruby' or
-        shebang_command(line) == 'ruby'
-  end
-
-  def shebang_command(line)
-    cmd, arg = *line.sub(/\A\#!/, '').strip.split(/\s+/, 2)
-    cmd
   end
 
   def setup_dir_lib(rel)
@@ -1135,26 +1164,27 @@ class Installer
   #
 
   def exec_install
+    rm_f 'InstalledFiles'
     exec_task_traverse 'install'
   end
 
   def install_dir_bin(rel)
-    install_files collect_filenames_auto(), "#{config('bin-dir')}/#{rel}", 0755
+    install_files collect_filenames_auto(), "#{config('bindir')}/#{rel}", 0755
   end
 
   def install_dir_lib(rel)
-    install_files ruby_scripts(), "#{config('rb-dir')}/#{rel}", 0644
+    install_files ruby_scripts(), "#{config('rbdir')}/#{rel}", 0644
   end
 
   def install_dir_ext(rel)
     return unless extdir?(curr_srcdir())
     install_files ruby_extentions('.'),
-                  "#{config('so-dir')}/#{File.dirname(rel)}",
+                  "#{config('sodir')}/#{File.dirname(rel)}",
                   0555
   end
 
   def install_dir_data(rel)
-    install_files collect_filenames_auto(), "#{config('data-dir')}/#{rel}", 0644
+    install_files collect_filenames_auto(), "#{config('datadir')}/#{rel}", 0644
   end
 
   def install_files(list, dest, mode)
@@ -1215,15 +1245,12 @@ class Installer
   end
 
   def ruby_extentions(dir)
-    _ruby_extentions(dir) or
-        raise InstallError, "no ruby extention exists: 'ruby #{$0} setup' first"
-  end
-
-  DLEXT = /\.#{ ::Config::CONFIG['DLEXT'] }\z/
-
-  def _ruby_extentions(dir)
     Dir.open(dir) {|d|
-      return d.select {|fname| DLEXT =~ fname }
+      ents = d.select {|fname| /\.#{::Config::CONFIG['DLEXT']}\z/ =~ fname }
+      if ents.empty?
+        setup_rb_error "no ruby extention exists: 'ruby #{$0} setup' first"
+      end
+      return ents
     }
   end
 
@@ -1233,7 +1260,7 @@ class Installer
 
   def exec_clean
     exec_task_traverse 'clean'
-    rm_f ConfigTable::SAVE_FILE
+    rm_f ConfigTable.savefile
     rm_f 'InstalledFiles'
   end
 
@@ -1257,7 +1284,7 @@ class Installer
 
   def exec_distclean
     exec_task_traverse 'distclean'
-    rm_f ConfigTable::SAVE_FILE
+    rm_f ConfigTable.savefile
     rm_f 'InstalledFiles'
   end
 
@@ -1324,7 +1351,7 @@ if $0 == __FILE__
     else
       ToplevelInstaller.invoke
     end
-  rescue
+  rescue SetupError
     raise if $DEBUG
     $stderr.puts $!.message
     $stderr.puts "Try 'ruby #{$0} --help' for detailed usage."
