@@ -56,7 +56,7 @@ module Rabbit
       @canvas.full_path(path)
     end
     
-    def tmp_dir_naem
+    def tmp_dir_name
       @canvas.tmp_dir_name
     end
 
