@@ -83,6 +83,7 @@ module Rabbit
         @canvas.source_force_modified(true) do |source|
           canvas.parse_rd(source)
         end
+        canvas.toggle_index_mode if @canvas.index_mode?
         canvas
       end
       
