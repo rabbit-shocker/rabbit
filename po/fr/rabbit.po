@@ -85,19 +85,19 @@ msgstr "/Aller à"
 
 #: lib/rabbit/menu.rb:71
 msgid "/Next"
-msgstr "/Page suivante"
+msgstr "/Transparent suivant"
 
 #: lib/rabbit/menu.rb:73
 msgid "/Previous"
-msgstr "/Page précédente"
+msgstr "/Transparent précédent"
 
 #: lib/rabbit/menu.rb:75
 msgid "/First"
-msgstr "/Première page"
+msgstr "/Premier transparent"
 
 #: lib/rabbit/menu.rb:77
 msgid "/Last"
-msgstr "/Dernière page"
+msgstr "/Dernier transparent"
 
 #: lib/rabbit/menu.rb:82
 msgid "/Iconify"
