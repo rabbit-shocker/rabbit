@@ -37,11 +37,9 @@ module Rabbit
         @theme_stack.find do |theme_name|
           $LOAD_PATH.find do |path|
             base_name = File.join(path, 'rabbit', 'theme', theme_name, target)
-            Dir.glob(base_name) do |x|
-              if File.exist?(x)
-                found_path = x
-                break
-              end
+            if File.exist?(x)
+              found_path = x
+              break
             end
             found_path
           end
