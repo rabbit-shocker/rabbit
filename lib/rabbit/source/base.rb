@@ -37,7 +37,13 @@ module Rabbit
       end
       
       def full_path(path)
-        path
+        uri = parse_uri(@base)
+        if uri.nil? or uri.relative?
+          ::File.join(@base, path)
+        else
+          uri.path = uri.path + "/" unless /\/$/ =~ uri.path
+          (uri + path).to_s
+        end
       end
       
       def open_full_path(path, mode="rb")
@@ -72,10 +78,19 @@ module Rabbit
       
       def set_base(new_value)
         @base = new_value
-        if ::URI.parse(@base).scheme.nil?
+        uri = parse_uri(@base)
+        if uri.nil? or uri.scheme.nil?
           @tmp_base = @base
         else
           @tmp_base = "."
+        end
+      end
+
+      def parse_uri(str)
+        begin
+          ::URI.parse(str)
+        rescue ::URI::InvalidURIError
+          nil
         end
       end
       

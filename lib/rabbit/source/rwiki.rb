@@ -16,7 +16,8 @@ module Rabbit
         @soap_if_uri = soap_if_uri
         @name = name
         super(encoding)
-        @driver = ::RWiki::SOAP::Driver.new(tmp_dir_name, @soap_if_uri)
+        @driver = ::RWiki::SOAP::Driver.new(@soap_if_uri)
+        @driver.log_dir = tmp_dir_name
       end
 
       def need_read?

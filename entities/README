@@ -5,6 +5,6 @@
 
 To generate *.rb from entities run 
 
-  % ruby entities/ent2rb.rb entiteis/*.ent
+  % ruby entities/ent2rb.rb entities/*.ent
 
 in the top directory.

@@ -26,10 +26,6 @@ module Rabbit
         super or old?(@mtime, :mtime)
       end
       
-      def full_path(path)
-        ::File.join(@base, path)
-      end
-      
       private
       def mtime
         ::File.mtime(@name)

@@ -15,10 +15,6 @@ module Rabbit
         @argf = argf
       end
       
-      def full_path(path)
-        ::File.join(@base, path)
-      end
-      
       private
       def _read
         @argf.read
