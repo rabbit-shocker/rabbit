@@ -19,11 +19,22 @@
 @preformatted_top_margin = screen_size(2)
 @preformatted_bottom_margin = screen_size(2)
 
+@font_family = nil
 sans_families = font_families.grep(/Sans/i)
 unless sans_families.empty?
   if sans_families.include?("Sans")
-    @default_font_family = "Sans"
+    @font_family = "Sans"
   else
-    @default_font_family = sans_families.first
+    @font_family = sans_families.first
+  end
+end
+
+@monospace_font_family = nil
+monospace_families = font_families.grep(/Monospace/i)
+unless monospace_families.empty?
+  if monospace_families.include?("Monospace")
+    @monospace_font_family = "Monospace"
+  else
+    @monospace_font_family = monospace_families.first
   end
 end

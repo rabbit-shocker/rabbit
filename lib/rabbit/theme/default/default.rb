@@ -10,7 +10,7 @@ end
 
 match(TitleSlide, "*") do |elems|
   elems.prop_set("size", @large_font_size)
-  elems.prop_set("font_family", @default_font_family)
+  set_font_family(elems)
 end
 
 match(TitleSlide, Title) do |titles|
@@ -60,7 +60,7 @@ end
 
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
-  heads.prop_set("font_family", @default_font_family)
+  set_font_family(heads)
   heads.horizontal_centering = true
 
   space = screen_size(1)
@@ -74,7 +74,7 @@ end
 
 match("**", Paragraph) do |texts|
   texts.prop_set("size", @normal_font_size)
-  texts.prop_set("font_family", @default_font_family)
+  set_font_family(texts)
 
   space = screen_size(2.0)
   texts.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
@@ -128,8 +128,8 @@ end
 
 match("**", PreformattedText) do |texts|
   texts.prop_set("size", @normal_font_size)
-  texts.prop_set("font_family", "Monospace")
   texts.prop_set("weight", "bold")
+  set_font_family(texts, @monospace_font_family)
 end
 
 match("**", DescriptionTerm) do |terms|
@@ -187,7 +187,7 @@ end
 
 match("**", MethodTerm) do |texts|
   texts.prop_set("size", @normal_font_size)
-  texts.prop_set("font_family", "Monospace")
+  set_font_family(texts, @monospace_font_family)
 end
 
 match("**", MethodKind) do |texts|
@@ -203,7 +203,7 @@ match("**", MethodName) do |texts|
 end
 
 match("**", Code) do |texts|
-  texts.prop_set("font_family", "Monospace")
+  set_font_family(texts, @monospace_font_family)
 end
 
 match("**", FoottextBlock) do |blocks|
@@ -282,7 +282,7 @@ match("**", Image) do |images|
       if image.caption and layout.nil?
         caption = NormalText.new(image.caption)
         caption.prop_set("size", @normal_font_size)
-        caption.prop_set("font_family", @default_font_family)
+        set_font_family(caption)
         caption.compile(canvas, x, y, w, h)
         if image.horizontal_centering
           caption.do_horizontal_centering(canvas, x, y, w, h)
@@ -373,8 +373,8 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
   indent_width = screen_x(2)
   props = {
     "size" => @normal_font_size,
-    "font_family" => @default_font_family,
   }
+  props["font_family"] = @font_family if @font_family
 
   draw_order(items, indent_width) do |item|
     %Q[<span #{to_attrs(props)}>#{item.order}. </span>]
@@ -390,8 +390,8 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
   indent_width = screen_x(1.5)
   props = {
     "size" => @small_font_size,
-    "font_family" => @default_font_family,
   }
+  props["font_family"] = @font_family if @font_family
 
   draw_order(items, indent_width) do |item|
     %Q[<span #{to_attrs(props)}>#{(?a + item.order - 1).chr}. </span>]
@@ -407,8 +407,8 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
   indent_width = screen_x(1)
   props = {
     "size" => @x_small_font_size,
-    "font_family" => @default_font_family,
   }
+  props["font_family"] = @font_family if @font_family
 
   draw_order(items, indent_width) do |item|
     %Q[<span #{to_attrs(props)}>#{(?A + item.order - 1).chr}. </span>]

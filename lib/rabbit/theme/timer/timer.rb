@@ -11,8 +11,10 @@ end
 
 @timer_props ||= {
   "size" => @xx_small_font_size,
-  "font_family" => @default_font_family,
+  "font_family" => @font_family,
 }
+@timer_props.delete("font_family") unless @timer_props["font_family"]
+
 @timer_over_color ||= "red"
 
 match(Slide) do |slides|

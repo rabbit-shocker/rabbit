@@ -7,8 +7,9 @@ end
 
 @clock_props ||= {
   "size" => @xx_small_font_size,
-  "font_family" => @default_font_family,
+  "font_family" => @font_family,
 }
+@clock_props.delete("font_family") unless @clock_props["font_family"]
 
 match(Slide) do |slides|
 

@@ -2,8 +2,11 @@ proc_name = "slide-number"
 
 @slide_number_props ||= {
   "size" => @xx_small_font_size,
-  "font_family" => @default_font_family,
+  "font_family" => @font_family,
 }
+unless @slide_number_props["font_family"]
+  @slide_number_props.delete("font_family")
+end
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
