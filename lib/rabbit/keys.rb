@@ -90,6 +90,10 @@ module Rabbit
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,
       ]
+      
+      PRINT_KEYS = [
+        Gdk::Keyval::GDK_p,
+      ]
     end
     
   end

@@ -29,9 +29,7 @@ module Rabbit
         end
 
         def white?
-          red == 255 and
-            green == 255 and
-            blue == 255
+          red == 255 and green == 255 and blue == 255
         end
       end
       

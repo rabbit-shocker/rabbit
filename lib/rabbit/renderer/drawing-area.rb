@@ -373,6 +373,9 @@ module Rabbit
         when *Control::REDRAW_KEYS
           @canvas.redraw
           handled = true
+        when *Control::PRINT_KEYS
+          @canvas.print
+          handled = true
         end
         handled
       end

@@ -9,9 +9,14 @@ module Rabbit
     dir = ::File.join("rabbit", "renderer")
     require_files_under_directory_in_load_path(dir)
 
-    def self.types
-      collect_classes_under_module(self)
-    end
+    class << self
+      def types
+        collect_classes_under_module(self)
+      end
 
+      def printable?
+        types.find {|t| /print/i =~ t.name}
+      end
+    end
   end
 end

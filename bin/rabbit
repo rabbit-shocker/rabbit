@@ -135,7 +135,7 @@ def parse(args, logger)
       options.saved_image_basename = b
     end
 
-    if Rabbit::Renderer.types.find {|t| /print/i =~ t.name}
+    if Rabbit::Renderer.printable?
       opts.separator ""
 
       opts.on("-p", "--print",

@@ -2,8 +2,9 @@ require "forwardable"
 require "gtk2"
 require "rd/rdfmt"
 
-require 'rabbit/frame'
 require "rabbit/rabbit"
+require 'rabbit/frame'
+require 'rabbit/renderer'
 require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
@@ -181,11 +182,20 @@ module Rabbit
     end
 
     def print
-      @pages.each_with_index do |page, i|
-        move_to(i)
-        current_page.draw(self)
+      if @renderer.is_a?(Renderer::GnomePrint)
+        @pages.each_with_index do |page, i|
+          move_to(i)
+          current_page.draw(self)
+        end
+        @renderer.print
+      else
+        canvas = Canvas.new(@logger, Renderer::GnomePrint)
+        canvas.apply_theme(@theme_name)
+        source_force_modified(true) do |source|
+          canvas.parse_rd(source)
+        end
+        canvas.print
       end
-      @renderer.print
     end
     
     def fullscreened
@@ -333,6 +343,13 @@ module Rabbit
       n
     end
 
+    def source_force_modified(force_modified)
+      prev = @source.force_modified
+      @source.force_modified = force_modified
+      yield @source
+      @source.force_modified = prev
+    end
+    
   end
 
 end

@@ -13,7 +13,7 @@ ruby 1.8.1 のインストール。
 One-Click Ruby Installer for Windows 日本語版を使えば OK。
 
 One-Click Ruby Installer for Windows 日本語版
-  http://www.moonwolf.com/~moonwolf/setup-20040929.exe
+  http://www.moonwolf.com/ruby-setup-20041012.exe
 
 == RDTool のインストール
 
@@ -31,6 +31,9 @@ RDTool をインストールする。
 * http://ftp.ruby-lang.org/pub/ruby/binaries/mingw/1.8/ext/rdtool-0.6.14-i386-mingw32-1.8.tar.gz
 
 == Ruby/GTK2のインストール
+
+※ One-Click Ruby Installer for Windows 日本語版で ruby をイ
+ンストールした場合は別途インストールする必要はありません。
 
 install.rb を実行してインストールする。
 

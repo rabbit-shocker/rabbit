@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-10-13 18:40+0900\n"
-"PO-Revision-Date: 2004-10-13 18:40+0900\n"
+"POT-Creation-Date: 2004-10-15 00:09+0900\n"
+"PO-Revision-Date: 2004-10-15 00:18+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,8 +47,8 @@ msgid "%s isn't readable."
 msgstr ""
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
-#: lib/rabbit/menu.rb:57 lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:64
-#: lib/rabbit/menu.rb:75 lib/rabbit/menu.rb:79 lib/rabbit/menu.rb:84
+#: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
+#: lib/rabbit/menu.rb:80 lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:89
 msgid "/Separator"
 msgstr ""
 
@@ -72,38 +72,46 @@ msgstr "/フルスクリーン(_U)"
 msgid "/SaveAsImage"
 msgstr "/画像として保存(_S)"
 
-#: lib/rabbit/menu.rb:60 lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:91
+#: lib/rabbit/menu.rb:58
+msgid "/Print"
+msgstr "/印刷"
+
+#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:96
 msgid "/Jump"
 msgstr "/ジャンプ(_J)"
 
-#: lib/rabbit/menu.rb:66
+#: lib/rabbit/menu.rb:71
 msgid "/Next"
 msgstr "/次のページ(_N)"
 
-#: lib/rabbit/menu.rb:68
+#: lib/rabbit/menu.rb:73
 msgid "/Previous"
 msgstr "/前のページ(_P)"
 
-#: lib/rabbit/menu.rb:70
+#: lib/rabbit/menu.rb:75
 msgid "/First"
 msgstr "/最初のページ(_F)"
 
-#: lib/rabbit/menu.rb:72
+#: lib/rabbit/menu.rb:77
 msgid "/Last"
 msgstr "/最後のページ(_L)"
 
-#: lib/rabbit/menu.rb:77
+#: lib/rabbit/menu.rb:82
 msgid "/Iconify"
 msgstr "/最小化(_Z)"
 
-#: lib/rabbit/menu.rb:81
+#: lib/rabbit/menu.rb:86
 msgid "/ReloadTheme"
 msgstr "/テーマの再読み込み(_R)"
 
-#: lib/rabbit/menu.rb:86
+#: lib/rabbit/menu.rb:91
 msgid "/Quit"
 msgstr "/終了(_Q)"
 
 #: lib/rabbit/logger/gui.rb:59
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
+
+#: lib/rabbit/renderer/gnome-print.rb:250
+msgid "can't find printer for %s"
+msgstr ""

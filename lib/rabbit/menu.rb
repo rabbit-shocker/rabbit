@@ -53,6 +53,11 @@ module Rabbit
         
         [_("/SaveAsImage"), "<StockItem>", "",
          Gtk::Stock::SAVE, method(:save_as_image)],
+
+        if Renderer.printable?
+          [_("/Print"), "<StockItem>", "",
+            Gtk::Stock::PRINT, method(:print)]
+        end,
         
         [_("/Separator"), "<Separator>"],
         
@@ -93,7 +98,7 @@ module Rabbit
         items << ["#{jump}#{i}: #{page.title}", "<Item>", nil, nil, _move_to, i]
       end
 
-      ifp.create_items(items)
+      ifp.create_items(items.compact)
 
       @menu = ifp.get_widget("<main>")
     end
@@ -126,6 +131,10 @@ module Rabbit
       @canvas.save_as_image
     end
 
+    def print(*args)
+      @canvas.print
+    end
+
     def toggle_fullscreen(*args)
       @canvas.toggle_fullscreen
     end
@@ -141,7 +150,7 @@ module Rabbit
     def quit(*args)
       @canvas.quit
     end
-    
+
   end
   
 end
