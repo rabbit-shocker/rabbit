@@ -91,11 +91,11 @@ match(Slide, HeadLine) do |heads|
   if @lightning_talk_as_large_as_possible
     max = (canvas.height - @top_margin - @bottom_margin) * Pango::SCALE
     width = (canvas.width - @left_margin - @right_margin) * Pango::SCALE
-    max *= 0.9
+    max *= 0.8
     heads.each do |head|
       size = head.prop_get("size").value
       loop do
-        new_size = size + screen_size(0.3 * Pango::SCALE)
+        new_size = (size * 1.05).ceil
         text = %Q[<span size="#{new_size}">#{head.text}</span>]
         layout, text_width, text_height = canvas.make_layout(text)
         layout.set_width(width)
