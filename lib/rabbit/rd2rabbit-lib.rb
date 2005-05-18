@@ -197,7 +197,7 @@ module Rabbit
     end
   
     def apply_to_Var(element, content)
-      create_have_text_element(Veriable, content)
+      create_have_text_element(Variable, content)
     end
   
     def apply_to_Keyboard(element, content)
