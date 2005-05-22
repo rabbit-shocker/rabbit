@@ -41,6 +41,9 @@ def parse(args, logger)
   options.right_page_margin = nil
   options.top_page_margin = nil
   options.bottom_page_margin = nil
+  options.use_druby = true
+  options.druby_uri = "druby://:10101"
+  options.output_druby_uri = false
 
   default_logger = logger
   
@@ -312,6 +315,26 @@ def parse(args, logger)
     
     opts.separator ""
     
+    opts.on("--use-druby [BOOL]",
+            "Specify use dRuby or not.",
+            "(#{options.use_druby})") do |bool|
+      options.use_druby = bool
+    end
+    
+    opts.on("--druby-uri [URI]",
+            "Specify dRuby URI.",
+            "(#{options.druby_uri})") do |uri|
+      options.druby_uri = uri if uri
+    end
+    
+    opts.on("--output-druby-uri [BOOL]",
+            "Specify output dRuby URI or not.",
+            "(#{options.output_druby_uri})") do |bool|
+      options.output_druby_uri = bool
+    end
+    
+    opts.separator ""
+    
     opts.on_tail("--help", "Show this message") do
       logger.info(opts.to_s)
       exit
@@ -425,6 +448,11 @@ def do_display(options, logger)
   apply_theme_if_need(frame, options)
   parse_rd(frame, options, logger)
   frame.fullscreen if options.full_screen
+  if options.use_druby
+    require "drb/drb"
+    DRb.start_service(options.druby_uri, canvas.front)
+    logger.info(DRb.uri) if options.output_druby_uri
+  end
   Gtk.main
 end
 

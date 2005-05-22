@@ -9,6 +9,7 @@ require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/index"
+require "rabbit/front"
 
 module Rabbit
 
@@ -52,7 +53,7 @@ module Rabbit
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
 
     
-    attr_reader :logger, :renderer, :theme_name, :source
+    attr_reader :logger, :renderer, :theme_name, :source, :last_modified
 
     attr_writer :saved_image_basename
 
@@ -66,6 +67,10 @@ module Rabbit
       @saved_image_basename = nil
       clear
       @renderer = renderer.new(self)
+    end
+
+    def front
+      Front.new(self)
     end
 
     def attach_to(frame, window)
@@ -258,6 +263,7 @@ module Rabbit
         @renderer.index_mode_on
         move_to(0)
       end
+      modified
       @renderer.post_toggle_index_mode
     end
 
@@ -277,9 +283,14 @@ module Rabbit
     end
     
     private
+    def modified
+      @last_modified = Time.now
+    end
+    
     def clear
       clear_slides
       clear_index_slides
+      modified
     end
     
     def clear_slides
@@ -297,6 +308,7 @@ module Rabbit
       @slides.each do |slide|
         slide.clear_theme
       end
+      modified
     end
 
     def keep_index

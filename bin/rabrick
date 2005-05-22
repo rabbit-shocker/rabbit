@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require "optparse"
+require "ostruct"
+
+require "webrick"
+
+require 'tofu/tofulet'
+require 'drb/drb'
+
+require "rabbit/rabbit"
+require "rabbit/div/tofu"
+
+Version = Rabbit::VERSION
+
+def parse(args)
+  options = OpenStruct.new
+  options.druby_uri = "druby://localhost:10101"
+  options.port = 10102
+
+  opts = OptionParser.new do |opts|
+    opts.separator ""
+
+    opts.on("--druby-uri [URI]",
+            "Specify Rabbit's dRuby URI as [URI].",
+            "(#{options.druby_uri})") do |uri|
+      options.druby_uri = uri
+    end
+
+    opts.on("--port [PORT]",
+            Integer,
+            "Specify WEBrick port as [PORT].",
+            "(#{options.port})") do |port|
+      options.port = port
+    end
+
+    opts.separator ""
+    
+    opts.on_tail("--help", "Show this message") do
+      puts opts.to_s
+      exit
+    end
+  end
+
+  opts.parse!(args)
+
+  options
+end
+
+def main(monolithic=true)
+  options = parse(ARGV)
+  
+  DRb.start_service
+
+  logger = WEBrick::Log::new(STDERR, WEBrick::Log::INFO)
+
+  server = WEBrick::HTTPServer.new(:Port => options.port,
+                                   :AddressFamily => Socket::AF_INET,
+                                   :Logger => logger)
+
+  rabbit = DRbObject.new_with_uri(options.druby_uri)
+  Rabbit::Div::TofuSession.rabbit = rabbit
+  bartender = Tofu::Bartender.new(Rabbit::Div::TofuSession)
+  server.mount("/", WEBrick::Tofulet, bartender)
+
+  trap("INT") {server.shutdown}
+  server.start
+end
+
+if __FILE__ == $0
+  main
+end
