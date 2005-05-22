@@ -38,7 +38,7 @@ module Rabbit
           context.res_header('Content-Type', 'image/#{@rabbit.image_type}')
           context.res_body(@rabbit.current_page_image)
         else
-          context.res_header('Content-Type', 'text/html')
+          context.res_header('Content-Type', 'text/html; charset=UTF-8')
           context.res_body(@main.to_html(context))
         end
       end
