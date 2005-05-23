@@ -917,5 +917,39 @@ module Rabbit
       end
     end
 
+    class Table
+      include ContainerElement
+      include BlockHorizontalCentering
+
+      attr_reader :caption
+      def initialize(prop)
+        super()
+        %w(caption).each do |name|
+          instance_variable_set("@#{name}", prop[name])
+        end
+      end
+    end
+
+    class TableHeaders
+      include TextContainerElement
+      include BlockHorizontalCentering
+    end
+
+    class TableHeader
+      include TextElement
+    end
+
+    class TableBody
+      include ContainerElement
+    end
+    
+    class TableRow
+      include TextContainerElement
+    end
+
+    class TableCell
+      include TextElement
+    end
+    
   end
 end

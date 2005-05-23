@@ -48,6 +48,7 @@ A presentation tool
   * screenshot on the off screen
   * PS/PDF output (but quality is ...)
   * Internationalized message
+  * Table
 
 = Not available
 
@@ -180,6 +181,16 @@ What about?
 
 : USAGI
    Rabbit
+
+= Table
+
+  # RT
+  caption = Sample of table
+
+  Heading 1, Heading 2
+
+  content 1, content 2
+  very long content 3, veeeery loooooooooooooooooooooooooooong content 4
 
 = How to write theme
 
