@@ -71,7 +71,7 @@ module Rabbit
       case align
       when :center
         pango_align = Pango::Layout::ALIGN_CENTER
-      when :RIGHT
+      when :right
         pango_align = Pango::Layout::ALIGN_RIGHT
       else
         pango_align = Pango::Layout::ALIGN_LEFT
