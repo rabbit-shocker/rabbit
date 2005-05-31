@@ -450,8 +450,12 @@ def do_display(options, logger)
   frame.fullscreen if options.full_screen
   if options.use_druby
     require "drb/drb"
-    DRb.start_service(options.druby_uri, canvas.front)
-    logger.info(DRb.uri) if options.output_druby_uri
+    begin
+      DRb.start_service(options.druby_uri, canvas.front)
+      logger.info(DRb.uri) if options.output_druby_uri
+    rescue Errno::EADDRINUSE
+      logger.error("#{options.druby_uri} is in use")
+    end
   end
   Gtk.main
 end
