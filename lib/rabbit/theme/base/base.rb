@@ -14,10 +14,13 @@
 @top_margin = screen_size(3)
 @bottom_margin = screen_size(3)
 
-@preformatted_left_margin = screen_size(5)
-@preformatted_right_margin = screen_size(5)
-@preformatted_top_margin = screen_size(2)
-@preformatted_bottom_margin = screen_size(2)
+@preformatted_border_color = "#55003dff0eff"
+@preformatted_fill_color = "#fcfae2"
+
+@preformatted_left_padding = screen_size(5)
+@preformatted_right_padding = screen_size(5)
+@preformatted_top_padding = screen_size(2)
+@preformatted_bottom_padding = screen_size(2)
 
 @font_family = nil
 @monospace_font_family = nil

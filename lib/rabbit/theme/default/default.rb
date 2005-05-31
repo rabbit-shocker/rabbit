@@ -151,13 +151,13 @@ end
 match("**", PreformattedBlock) do |blocks|
   blocks.horizontal_centering = true
 
-  border_color = "#55003dff0eff"
-  fill_color = "#fcfae2"
+  border_color = @preformatted_border_color
+  fill_color = @preformatted_fill_color
 
-  left = @preformatted_left_margin
-  right = @preformatted_right_margin
-  top = @preformatted_top_margin
-  bottom = @preformatted_bottom_margin
+  blocks.left_padding = @preformatted_left_padding
+  blocks.right_padding = @preformatted_right_padding
+  blocks.top_padding = @preformatted_top_padding
+  blocks.bottom_padding = @preformatted_bottom_padding
 
   blocks.each do |block|
     orig_x = orig_y = orig_w = orig_h = nil
@@ -174,15 +174,16 @@ match("**", PreformattedBlock) do |blocks|
         canvas.draw_rectangle(true, new_x, new_y, new_w, new_h, fill_color)
         canvas.draw_rectangle(false, new_x, new_y, new_w, new_h, border_color)
       end
-      [x, y + top, w, h - bottom]
+      [x, y, w, h]
     end
   
     block.add_post_draw_proc do |canvas, x, y, w, h, simulation|
-      new_x = orig_x - left
-      new_y = orig_y
-      new_w = (block.width || w) + left + right
-      new_h = orig_h - h
-      [orig_x, y + top, orig_w, h - bottom]
+      new_x = block.base_x
+      new_y = block.base_y
+      new_w = block.width + block.left_padding + block.right_padding
+      new_h = block.height + block.bottom_padding
+      # new_h = block.layout.pixel_extents.first.height + block.bottom_padding
+      [x, y, w, h]
     end
   end
 end

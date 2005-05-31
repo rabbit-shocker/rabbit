@@ -333,8 +333,9 @@ module Rabbit
       def do_horizontal_centering(canvas, x, y, w, h)
         @ox, @oy, @ow, @oh = @x, @y, @w, @h
         adjust_width = ((w / 2.0) - (width / 2.0)).ceil
-        cx = @x + adjust_width
-        compile(canvas, cx, @y, @w, @h)
+        x, w = restore_x_padding(x, w)
+        cx = x + adjust_width
+        compile(canvas, cx, @y, w, h)
         draw(true)
       end
     end
@@ -346,6 +347,11 @@ module Rabbit
 
       attr_accessor :left_margin, :right_margin
       attr_accessor :top_margin, :bottom_margin
+      
+      attr_accessor :left_padding, :right_padding
+      attr_accessor :top_padding, :bottom_padding
+
+      attr_reader :base_x, :base_y, :base_w, :base_h
       
       attr_reader :elements
       
@@ -371,11 +377,11 @@ module Rabbit
       end
 
       def draw(simulation=false)
-        x, y, w, h = @x, @y, @w, @h
+        x, y, w, h = setup_padding(@x, @y, @w, @h)
         (@pre_draw_procs + [method(:draw_elements)]).each do |pro,|
           x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
         end
-        x, y, w, h = @x, y, @w, h
+        # x, y, w, h = @x, y, @w, h
         @post_draw_procs.each do |pro,|
           x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
         end
@@ -383,6 +389,7 @@ module Rabbit
           @simulated_width = x - @x + width
           @simulated_height = (@vertical_centered_y || y) - @y
         end
+        x, w = restore_x_padding(x, w)
         [x, y, w, h]
       end
       
@@ -407,6 +414,7 @@ module Rabbit
         y += @top_margin
         w -= @left_margin + @right_margin
         h -= @top_margin + @bottom_margin
+        @base_x, @base_y, @base_w, @base_h = x, y, w, h
         super(canvas, x, y, w, h)
         if_dirty do
           compile_elements(canvas, @x, @y, @w, @h)
@@ -483,6 +491,8 @@ module Rabbit
         @horizontal_centering = false
         @left_margin = @right_margin = 0
         @top_margin = @bottom_margin = 0
+        @left_padding = @right_padding = 0
+        @top_padding = @bottom_padding = 0
         @elements.each do |element|
           element.clear_theme
         end
@@ -497,13 +507,27 @@ module Rabbit
         super or @elements.any?{|x| x.dirty?}
       end
 
+      private
+      def setup_padding(x, y, w, h)
+        x += @left_padding
+        y += @top_padding
+        w -= @left_padding + @right_padding
+        h -= @top_padding
+        [x, y, w, h]
+      end
+
+      def restore_x_padding(x, w)
+        x -= @left_padding
+        w += @left_padding
+        [x, w]
+      end      
     end
     
     module ContainerElement
       
       include BlockElement
       
-      def draw(simulation=false)
+      def __draw(simulation=false)
         x, y, w, h = _draw(@x, @y, @w, @h, simulation)
         if simulation
           @simulated_width = x - @x + width
@@ -914,6 +938,10 @@ module Rabbit
 
       def inline_element?
         false
+      end
+
+      def restore_x_padding(x, w)
+        [x, w]
       end
     end
 
