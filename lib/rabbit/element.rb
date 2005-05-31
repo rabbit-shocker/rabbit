@@ -32,8 +32,8 @@ module Rabbit
       def draw(simulation=false)
         x, y, w, h = @x, @y, @w, @h
         (@pre_draw_procs +
-                          [method(:draw_element)] +
-                          @post_draw_procs).each do |pro,|
+           [method(:draw_element)] +
+           @post_draw_procs).each do |pro,|
           x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
         end
         if simulation
@@ -263,20 +263,6 @@ module Rabbit
         @layout.set_alignment(Pango::Layout::ALIGN_CENTER)
       end
      
-      def draw_element(canvas, x, y, w, h, simulation)
-        unless simulation
-          canvas.draw_layout(@layout, x, y)
-        end
-        [x + @width, y, w - @width, h]
-      end
-
-      def draw_elements(canvas, x, y, w, h, simulation)
-        unless simulation
-          canvas.draw_layout(@layout, x, y)
-        end
-        [x, y + @height, w, h - @height]
-      end
-
       def markuped_text
         markup(text)
       end
@@ -338,12 +324,16 @@ module Rabbit
         compile(canvas, cx, @y, w, h)
         draw(true)
       end
+
+      def clear_theme
+        @ox = @oy = @ow = @oh = nil
+        super
+      end
     end
     
     module BlockElement
       
       include Base
-      include Enumerable
 
       attr_accessor :left_margin, :right_margin
       attr_accessor :top_margin, :bottom_margin
@@ -352,6 +342,72 @@ module Rabbit
       attr_accessor :top_padding, :bottom_padding
 
       attr_reader :base_x, :base_y, :base_w, :base_h
+      
+      def draw(simulation=false)
+        x, y, w, h = setup_padding(@x, @y, @w, @h)
+        x, y, w, h = draw_element(@canvas, x, y, w, h, simulation)
+        if simulation
+          @simulated_width = x - @x + width
+          @simulated_height = (@vertical_centered_y || y) - @y
+        end
+        x, w = restore_x_padding(x, w)
+        [x, y, w, h]
+      end
+      
+      def compile(canvas, x, y, w, h)
+        x, y, w, h = setup_margin(x, y, w, h)
+        @base_x, @base_y, @base_w, @base_h = x, y, w, h
+        super(canvas, x, y, w, h)
+      end
+
+      def clear_theme
+        clear_margin
+        clear_padding
+        super
+      end
+
+      def inline_element?
+        false
+      end
+
+      private
+      def setup_padding(x, y, w, h)
+        x += @left_padding
+        y += @top_padding
+        w -= @left_padding + @right_padding
+        h -= @top_padding
+        [x, y, w, h]
+      end
+
+      def restore_x_padding(x, w)
+        x -= @left_padding
+        w += @left_padding + @right_padding
+        [x, w]
+      end
+
+      def setup_margin(x, y, w, h)
+        x += @left_margin
+        y += @top_margin
+        w -= @left_margin + @right_margin
+        h -= @top_margin + @bottom_margin
+        [x, y, w, h]
+      end
+
+      def clear_padding
+        @left_padding = @right_padding = 0
+        @top_padding = @bottom_padding = 0
+      end
+
+      def clear_margin
+        @left_margin = @right_margin = 0
+        @top_margin = @bottom_margin = 0
+      end
+    end
+    
+    module ContainerElement
+      
+      include BlockElement
+      include Enumerable
       
       attr_reader :elements
       
@@ -376,23 +432,15 @@ module Rabbit
         dirty!
       end
 
-      def draw(simulation=false)
-        x, y, w, h = setup_padding(@x, @y, @w, @h)
-        (@pre_draw_procs + [method(:draw_elements)]).each do |pro,|
+      def draw_element(canvas, x, y, w, h, simulation)
+        (@pre_draw_procs +
+           [method(:draw_elements)] +
+           @post_draw_procs).each do |pro,|
           x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
         end
-        # x, y, w, h = @x, y, @w, h
-        @post_draw_procs.each do |pro,|
-          x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
-        end
-        if simulation
-          @simulated_width = x - @x + width
-          @simulated_height = (@vertical_centered_y || y) - @y
-        end
-        x, w = restore_x_padding(x, w)
         [x, y, w, h]
       end
-      
+
       def draw_elements(canvas, x, y, w, h, simulation)
         args = [x, y, w, h]
         if do_vertical_centering?
@@ -408,14 +456,9 @@ module Rabbit
         end
         [x, y, w, h]
       end
-      
+
       def compile(canvas, x, y, w, h)
-        x += @left_margin
-        y += @top_margin
-        w -= @left_margin + @right_margin
-        h -= @top_margin + @bottom_margin
-        @base_x, @base_y, @base_w, @base_h = x, y, w, h
-        super(canvas, x, y, w, h)
+        super
         if_dirty do
           compile_elements(canvas, @x, @y, @w, @h)
         end
@@ -487,67 +530,14 @@ module Rabbit
       end
 
       def clear_theme
-        @vertical_centering = false
-        @horizontal_centering = false
-        @left_margin = @right_margin = 0
-        @top_margin = @bottom_margin = 0
-        @left_padding = @right_padding = 0
-        @top_padding = @bottom_padding = 0
         @elements.each do |element|
           element.clear_theme
         end
         super
       end
 
-      def inline_element?
-        false
-      end
-
       def dirty?
         super or @elements.any?{|x| x.dirty?}
-      end
-
-      private
-      def setup_padding(x, y, w, h)
-        x += @left_padding
-        y += @top_padding
-        w -= @left_padding + @right_padding
-        h -= @top_padding
-        [x, y, w, h]
-      end
-
-      def restore_x_padding(x, w)
-        x -= @left_padding
-        w += @left_padding
-        [x, w]
-      end      
-    end
-    
-    module ContainerElement
-      
-      include BlockElement
-      
-      def __draw(simulation=false)
-        x, y, w, h = _draw(@x, @y, @w, @h, simulation)
-        if simulation
-          @simulated_width = x - @x + width
-          @simulated_height = y - @y
-        end
-        [x, y, w, h]
-      end
-
-      def _draw(x, y, w, h, simulation)
-        (@pre_draw_procs +
-                          [method(:draw_elements)] +
-                          @post_draw_procs).each do |pro,|
-          x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
-        end
-        [x, y, w, h]
-      end
-
-      def draw_elements(canvas, x, y, w, h, simulation)
-        _, y, _, h = super
-        [x, y, w, h]
       end
     end
 
@@ -564,6 +554,14 @@ module Rabbit
       alias prop_get __prop_get__
       alias prop_delete __prop_delete__
       
+
+      def draw_elements(canvas, x, y, w, h, simulation)
+        unless simulation
+          canvas.draw_layout(@layout, x, y)
+        end
+        [x, y + @height, w, h - @height]
+      end
+
       def markuped_text
         mt = elements.collect do |elem|
           elem.markuped_text
@@ -608,10 +606,17 @@ module Rabbit
         super()
         @text = text
       end
+
+      def draw_element(canvas, x, y, w, h, simulation)
+        unless simulation
+          canvas.draw_layout(@layout, x, y)
+        end
+        [x + @width, y, w - @width, h]
+      end
     end
     
     class Slide
-      include BlockElement
+      include ContainerElement
 
       attr_reader :title
 
@@ -631,7 +636,7 @@ module Rabbit
     end
     
     class TitleSlide
-      include BlockElement
+      include ContainerElement
 
       attr_reader :title
       
@@ -882,7 +887,7 @@ module Rabbit
 
     class Image
       
-      include Base
+      include BlockElement
       include BlockHorizontalCentering
 
       include ImageManipulable
@@ -912,10 +917,12 @@ module Rabbit
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
-        unless simulation
-          canvas.draw_pixbuf(pixbuf, x, y)
+        (@pre_draw_procs +
+           [method(:draw_image)] +
+           @post_draw_procs).each do |pro,|
+          x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
         end
-        [x, y + height, w, h - height]
+        [x, y, w, h]
       end
 
       def dither_mode
@@ -936,12 +943,12 @@ module Rabbit
         @y_dither || 0
       end
 
-      def inline_element?
-        false
-      end
-
-      def restore_x_padding(x, w)
-        [x, w]
+      private
+      def draw_image(canvas, x, y, w, h, simulation)
+        unless simulation
+          canvas.draw_pixbuf(pixbuf, x, y)
+        end
+        [@ox || x, y + height, @ow || w, h - height]
       end
     end
 

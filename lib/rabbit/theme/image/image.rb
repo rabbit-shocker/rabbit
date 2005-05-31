@@ -40,7 +40,7 @@ match("**", Image) do |images|
         th = caption.height
       end
       if !simulation and layout
-        canvas.draw_layout(layout, image.ox, y) # dirty!!!
+        canvas.draw_layout(layout, image.ox || x, y) # dirty!!!
       end
       [x, y + space + th, w, h - space - th]
     end
