@@ -11,12 +11,6 @@ module Rabbit
       include SystemRunner
       include Image
 
-      begin
-        require 'rabbit/ext/rt'
-        include RTBlock
-      rescue LoadError
-      end
-      
       def ext_block_verb_quote(label, content, visitor)
         return nil unless /^_$/i =~ label
         content.sub!(/\A[^\n]*\n/, '')
@@ -79,3 +73,5 @@ module Rabbit
     end
   end
 end
+
+require 'rabbit/ext/rt'
