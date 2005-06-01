@@ -104,6 +104,7 @@ libraries on Windows.
     PS/PDF)
   * Ruby/RSVG in ((<RAA:ruby-gnome2>)) (for beautiful scaling
     SVG)
+  * ((<RAA:ruby-gettext>)) (for displaying localized messages)
 
 == Download
 
@@ -556,3 +557,4 @@ page from XXX.rd.
   * sode: He wrote cool rabbit.
   * Kazuhiko: He sent me many bug reports. He makes a
     presentation with Rabbit.
+  * noritada: He sent me a bug report for document.
