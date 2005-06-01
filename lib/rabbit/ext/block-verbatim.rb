@@ -1,6 +1,7 @@
 require "tempfile"
 
 require 'rabbit/utils'
+require 'rabbit/rt/rt2rabbit-lib'
 require 'rabbit/ext/base'
 require 'rabbit/ext/image'
 
@@ -59,6 +60,12 @@ module Rabbit
         make_image(visitor, prop['src'], prop)
       end
 
+      def ext_block_verb_rt(label, content, visitor)
+        return nil unless /^rt$/i =~ label
+        @rt_visitor = RT2RabbitVisitor.new(visitor)
+        @rt_visitor.visit(RT::RTParser.parse(content))
+      end
+      
       private
       def make_image_by_mimeTeX(path)
         image_file = Tempfile.new("rabbit")
@@ -73,5 +80,3 @@ module Rabbit
     end
   end
 end
-
-require 'rabbit/ext/rt'
