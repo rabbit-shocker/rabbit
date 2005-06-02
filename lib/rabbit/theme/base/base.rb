@@ -22,6 +22,19 @@
 @preformatted_top_padding = screen_size(2)
 @preformatted_bottom_padding = screen_size(2)
 
+@table_border_color = "#55003dff0eff"
+@table_fill_color = "#fcfae2"
+
+@table_left_padding = screen_size(5) * 0
+@table_right_padding = screen_size(5) * 0
+@table_top_padding = screen_size(2) * 0
+@table_bottom_padding = screen_size(2) * 0
+
+@table_head_border_color = "#55003dff0eff"
+@table_body_border_color = "#55003dff0eff"
+@table_head_fill_color = "#eeedcd"
+@table_body_fill_color = nil
+
 @font_family = nil
 @monospace_font_family = nil
 

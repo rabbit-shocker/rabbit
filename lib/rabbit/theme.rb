@@ -417,8 +417,32 @@ module Rabbit
         indent_with(items, make_order_layout, &draw_order)
       end
 
+      def draw_border(targets, border_color, fill_color=nil)
+        unless targets.is_a?(ElementContainer)
+          targets = ElementContainer.new([targets])
+        end
+
+        targets.add_pre_draw_proc do |target, canvas, x, y, w, h, simulation|
+          unless simulation
+            if block_given?
+              new_x, new_y, new_w, new_h = yield(target, canvas, x, y, w, h)
+            end
+            new_x ||= target.base_x
+            new_y ||= target.base_y
+            new_w ||= target.width + target.left_padding + target.right_padding
+            new_h ||= target.height + target.top_padding + target.bottom_padding
+            size = [new_x, new_y, new_w, new_h]
+            if fill_color
+              args = size + [fill_color]
+              canvas.draw_rectangle(true, *args)
+            end
+            args = size + [border_color]
+            canvas.draw_rectangle(false, *args)
+          end
+          [x, y, w, h]
+        end
+      end
+      
     end
-
   end
-
 end

@@ -415,7 +415,7 @@ module Rabbit
     end
 
     def default_ext_block_verbatim(label, content)
-      content = apply_to_String(content)
+      content = apply_to_String(content.rstrip)
       PreformattedBlock.new([PreformattedText.new(content)])
     end
 

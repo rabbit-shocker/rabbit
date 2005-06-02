@@ -15,6 +15,14 @@ module Rabbit
       attr_reader :x, :y, :w, :h
       attr_reader :px, :py, :pw, :ph
 
+      attr_reader :base_x, :base_y, :base_w, :base_h
+      
+      attr_accessor :left_margin, :right_margin
+      attr_accessor :top_margin, :bottom_margin
+      
+      attr_accessor :left_padding, :right_padding
+      attr_accessor :top_padding, :bottom_padding
+
       attr_accessor :parent, :horizontal_centering, :vertical_centering
 
       attr_accessor :user_property
@@ -30,19 +38,16 @@ module Rabbit
       end
       
       def draw(simulation=false)
-        x, y, w, h = @x, @y, @w, @h
-        (@pre_draw_procs +
-           [method(:draw_element)] +
-           @post_draw_procs).each do |pro,|
-          x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
-        end
+        x, y, w, h = setup_padding(@x, @y, @w, @h)
+        x, y, w, h = _draw(@canvas, x, y, w, h, simulation)
         if simulation
-          @simulated_width = x - @x + width
-          @simulated_height = y - @y
+          @simulated_width, @simulated_height = sync_simulated_size(x, y, w, h)
         end
+        x, w = restore_x_padding(x, w)
+        y, h = adjust_y_padding(y, h)
         [x, y, w, h]
       end
-      
+
       def dirty!
         @dirty = true
       end
@@ -118,7 +123,9 @@ module Rabbit
       end
 
       def compile(canvas, x, y, w, h)
+        @base_x, @base_y, @base_w, @base_h = x, y, w, h
         @px, @py, @pw, @ph = @x, @y, @w, @h
+        x, y, w, h = setup_margin(x, y, w, h)
         @canvas, @x, @y, @w, @h = canvas, x, y, w, h
         if [@px, @py, @pw, @ph] != [@x, @y, @w, @h]
           dirty!
@@ -156,9 +163,55 @@ module Rabbit
         @post_draw_procs = []
         @width = @height = nil
         @prop = {}
+        clear_margin
+        clear_padding
         dirty!
       end
 
+      def setup_padding(x, y, w, h)
+        x += @left_padding
+        y += @top_padding
+        w -= @left_padding + @right_padding
+        h -= @top_padding
+        [x, y, w, h]
+      end
+
+      def restore_x_padding(x, w)
+        x -= @left_padding
+        w += @left_padding + @right_padding
+        [x, w]
+      end
+
+      def adjust_y_padding(y, h)
+        y += @bottom_padding
+        h -= @bottom_padding
+        [y, h]
+      end
+
+      def setup_margin(x, y, w, h)
+        x += @left_margin
+        y += @top_margin
+        w -= @left_margin + @right_margin
+        h -= @top_margin + @bottom_margin
+        [x, y, w, h]
+      end
+
+      def adjust_y_margin(y, h)
+        y += @bottom_margin
+        h -= @bottom_margin
+        [y, h]
+      end
+
+      def clear_padding
+        @left_padding = @right_padding = 0
+        @top_padding = @bottom_padding = 0
+      end
+
+      def clear_margin
+        @left_margin = @right_margin = 0
+        @top_margin = @bottom_margin = 0
+      end
+      
       def if_dirty
         if dirty?
           yield
@@ -199,6 +252,19 @@ module Rabbit
         @simulated_height || height
       end
 
+      def available_w
+        @w - @left_padding - @right_padding
+      end
+      
+      def inspect(verbose=false)
+        if verbose
+          self_info = super()
+        else
+          self_info = "<#{self.class.name}>"
+        end
+        self_info
+      end
+
       private
       def make_prop_value(name, *values)
         formatter_name = to_class_name(name)
@@ -225,16 +291,37 @@ module Rabbit
         end
       end
 
+      def sync_simulated_size(x, y, w, h)
+        sync_w = x - @x + width
+        sync_h = y - @y
+        [sync_w, sync_h]
+      end
+
+      def _draw(canvas, x, y, w, h, simulation)
+        (@pre_draw_procs +
+           [method(:draw_element)] +
+           @post_draw_procs).each do |pro,|
+          x, y, w, h = pro.call(canvas, x, y, w, h, simulation)
+        end
+        [x, y, w, h]
+      end
+      
+      def indent(str, width="  ")
+        str.collect do |x|
+          width + x
+        end.join("")
+      end
+
     end
 
     module TextRenderer
 
       include Base
 
-      attr_reader :width, :height, :layout
+      attr_reader :layout
       attr_reader :original_width, :original_height
 
-      attr_writer :wrap_mode, :indent, :spacing, :align
+      attr_writer :wrap_mode, :indent, :spacing
 
       def initialize(*args, &block)
         super
@@ -242,6 +329,25 @@ module Rabbit
         @spacing = 0
         @wrap_mode = Pango::Layout::WRAP_WORD_CHAR
         @align = Pango::Layout::ALIGN_LEFT
+      end
+
+      def align=(new_value)
+        dirty! if @align != new_value
+        @align = new_value
+      end
+
+      def width
+        if !@layout.nil? and @layout.width != -1 and
+            (@layout.alignment == Pango::Layout::ALIGN_CENTER or
+               @layout.alignment == Pango::Layout::ALIGN_RIGHT)
+          @layout.width / Pango::SCALE
+        else
+          @width
+        end
+      end
+
+      def height
+        @layout.pixel_size[1]
       end
       
       def compile(canvas, x, y, w, h)
@@ -254,13 +360,13 @@ module Rabbit
           dirty!
         end
         if_dirty do
-          info = generate_draw_info(markuped_text, canvas, @w)
+          info = generate_draw_info(markuped_text, canvas, w)
           @layout, @width, @height, @original_width, @original_height = info
         end
       end
       
       def do_horizontal_centering(canvas, x, y, w, h)
-        @layout.set_alignment(Pango::Layout::ALIGN_CENTER)
+        self.align = Pango::Layout::ALIGN_CENTER
       end
      
       def markuped_text
@@ -297,7 +403,7 @@ module Rabbit
         layout.set_indent(@indent)
         layout.set_spacing(@spacing)
         layout.context_changed
-        width, height = layout.size.collect {|x| x / Pango::SCALE}
+        width, height = layout.pixel_size
         [layout, width, height, orig_width, orig_height]
       end
       
@@ -318,10 +424,10 @@ module Rabbit
 
       def do_horizontal_centering(canvas, x, y, w, h)
         @ox, @oy, @ow, @oh = @x, @y, @w, @h
-        adjust_width = ((w / 2.0) - (width / 2.0)).ceil
-        x, w = restore_x_padding(x, w)
-        cx = x + adjust_width
-        compile(canvas, cx, @y, w, h)
+        adjust_width = ((w / 2.0) - (width / 2.0)).ceil - @left_padding
+        x += adjust_width
+        w -= adjust_width
+        compile(canvas, x, @y, w, h)
         draw(true)
       end
 
@@ -335,72 +441,19 @@ module Rabbit
       
       include Base
 
-      attr_accessor :left_margin, :right_margin
-      attr_accessor :top_margin, :bottom_margin
-      
-      attr_accessor :left_padding, :right_padding
-      attr_accessor :top_padding, :bottom_padding
-
-      attr_reader :base_x, :base_y, :base_w, :base_h
-      
-      def draw(simulation=false)
-        x, y, w, h = setup_padding(@x, @y, @w, @h)
-        x, y, w, h = draw_element(@canvas, x, y, w, h, simulation)
-        if simulation
-          @simulated_width = x - @x + width
-          @simulated_height = (@vertical_centered_y || y) - @y
-        end
-        x, w = restore_x_padding(x, w)
-        [x, y, w, h]
-      end
-      
-      def compile(canvas, x, y, w, h)
-        x, y, w, h = setup_margin(x, y, w, h)
-        @base_x, @base_y, @base_w, @base_h = x, y, w, h
-        super(canvas, x, y, w, h)
-      end
-
-      def clear_theme
-        clear_margin
-        clear_padding
-        super
-      end
-
       def inline_element?
         false
       end
 
       private
-      def setup_padding(x, y, w, h)
-        x += @left_padding
-        y += @top_padding
-        w -= @left_padding + @right_padding
-        h -= @top_padding
-        [x, y, w, h]
+      def _draw(canvas, x, y, w, h, simulation)
+        draw_element(canvas, x, y, w, h, simulation)
       end
-
-      def restore_x_padding(x, w)
-        x -= @left_padding
-        w += @left_padding + @right_padding
-        [x, w]
-      end
-
-      def setup_margin(x, y, w, h)
-        x += @left_margin
-        y += @top_margin
-        w -= @left_margin + @right_margin
-        h -= @top_margin + @bottom_margin
-        [x, y, w, h]
-      end
-
-      def clear_padding
-        @left_padding = @right_padding = 0
-        @top_padding = @bottom_padding = 0
-      end
-
-      def clear_margin
-        @left_margin = @right_margin = 0
-        @top_margin = @bottom_margin = 0
+      
+      def sync_simulated_size(x, y, w, h)
+        sync_w = x - @x + width
+        sync_h = (@vertical_centered_y || y) - @y
+        [sync_w, sync_h]
       end
     end
     
@@ -443,16 +496,23 @@ module Rabbit
 
       def draw_elements(canvas, x, y, w, h, simulation)
         args = [x, y, w, h]
-        if do_vertical_centering?
-          adjust_height = ((h - simulated_height) / 2.0).ceil
+        if do_vertical_centering? and !simulation
+          adjust_height = ((h - simulated_height - @bottom_padding) / 2.0).ceil
           if y + adjust_height > 0
             @vertical_centered_y = y + adjust_height
             args = [x, y + adjust_height, w, h - adjust_height]
           end
         end
         compile_elements(canvas, *args)
+        base_x, base_w = x, w
         elements.each do |element|
           x, y, w, h = element.draw(simulation)
+        end
+        if elements.last and elements.last.inline_element?
+          x = base_x
+          y += elements.last.height
+          w = base_w
+          h -= elements.last.height
         end
         [x, y, w, h]
       end
@@ -466,6 +526,7 @@ module Rabbit
 
       def compile_elements(canvas, x, y, w, h)
         ox, oy, ow, oh = x, y, w, h
+        prev_is_inline = false
         elements.each do |element|
           element.compile(canvas, x, y, w, h)
           x, y, w, h = element.draw(true)
@@ -508,7 +569,20 @@ module Rabbit
       end
 
       def width
-        elements.collect{|elem| elem.width}.compact.max.to_i
+        block_widths = []
+        block_widths << inject(0) do |result, elem|
+          if elem.width
+            if elem.inline_element?
+              result + elem.width
+            else
+              block_widths << elem.width
+              elem.width
+            end
+          else
+            result
+          end
+        end
+        block_widths.max.to_i
       end
 
       def height
@@ -539,14 +613,22 @@ module Rabbit
       def dirty?
         super or @elements.any?{|x| x.dirty?}
       end
+
+      def inspect(verbose=false)
+        elem_info = @elements.collect{|x| indent(x.inspect(verbose))}.join("\n")
+        if verbose
+          self_info = super(verbose)
+        else
+          self_info = "<#{self.class.name}>"
+        end
+        self_info + (elem_info.empty? ? "" : "\n") + elem_info
+      end
     end
 
     module TextContainerElement
 
       include ContainerElement
       include TextRenderer
-
-      attr_reader :width, :height
 
       attr_reader :prop
 
@@ -592,7 +674,6 @@ module Rabbit
         super
         text_clear_theme
       end
-
     end
     
     module TextElement
@@ -611,7 +692,7 @@ module Rabbit
         unless simulation
           canvas.draw_layout(@layout, x, y)
         end
-        [x + @width, y, w - @width, h]
+        [x + width, y, w - width, h]
       end
     end
     
@@ -954,7 +1035,6 @@ module Rabbit
 
     class Table
       include ContainerElement
-      include BlockHorizontalCentering
 
       attr_reader :caption
       def initialize(prop)
@@ -965,13 +1045,8 @@ module Rabbit
       end
     end
 
-    class TableHeaders
-      include TextContainerElement
-      include BlockHorizontalCentering
-    end
-
-    class TableHeader
-      include TextElement
+    class TableHead
+      include ContainerElement
     end
 
     class TableBody
@@ -979,7 +1054,11 @@ module Rabbit
     end
     
     class TableRow
-      include TextContainerElement
+      include ContainerElement
+    end
+
+    class TableHeader
+      include TextElement
     end
 
     class TableCell

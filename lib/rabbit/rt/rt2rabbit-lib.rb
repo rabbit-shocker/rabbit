@@ -30,32 +30,27 @@ module Rabbit
       table
     end
 
-    def process_header(table)
-      return if @header.empty?
-      headers = Element::TableHeaders.new
-      @header.each do |head|
-        each_cell(head) do |cell|
-          header = Element::TableHeader.new(cell.value)
-          setup_text_align(header, cell.align)
-          headers << header
-        end
-      end
-      table << headers
-    end
-
-    def process_body(table)
-      return if @body.empty?
-      body = Element::TableBody.new
-      @body.each do |r|
+    def process_block(table, targets, block_class, cell_class)
+      return if targets.empty?
+      block = block_class.new
+      targets.each do |r|
         row = Element::TableRow.new
         each_cell(r) do |c|
-          cell = Element::TableCell.new(c.value)
+          cell = cell_class.new(c.value)
           setup_text_align(cell, c.align)
           row << cell
         end
-        body << row
+        block << row
       end
-      table << body
+      table << block
+    end
+    
+    def process_header(table)
+      process_block(table, @header, Element::TableHead, Element::TableHeader)
+    end
+
+    def process_body(table)
+      process_block(table, @body, Element::TableBody, Element::TableCell)
     end
 
     def each_cell(ary)

@@ -1,4 +1,5 @@
 include_theme("image")
+include_theme("table")
 
 match(TitleSlide) do |slides|
   slides.horizontal_centering = true
@@ -159,33 +160,9 @@ match("**", PreformattedBlock) do |blocks|
   blocks.top_padding = @preformatted_top_padding
   blocks.bottom_padding = @preformatted_bottom_padding
 
-  blocks.each do |block|
-    orig_x = orig_y = orig_w = orig_h = nil
-    new_x = new_y = new_w = new_h = nil
+  blocks.wrap_mode = false
 
-    block.wrap_mode = false
-
-    block.add_pre_draw_proc do |canvas, x, y, w, h, simulation|
-      orig_x = x
-      orig_y = y
-      orig_w = w
-      orig_h = h
-      unless simulation
-        canvas.draw_rectangle(true, new_x, new_y, new_w, new_h, fill_color)
-        canvas.draw_rectangle(false, new_x, new_y, new_w, new_h, border_color)
-      end
-      [x, y, w, h]
-    end
-  
-    block.add_post_draw_proc do |canvas, x, y, w, h, simulation|
-      new_x = block.base_x
-      new_y = block.base_y
-      new_w = block.width + block.left_padding + block.right_padding
-      new_h = block.height + block.bottom_padding
-      # new_h = block.layout.pixel_extents.first.height + block.bottom_padding
-      [x, y, w, h]
-    end
-  end
+  draw_border(blocks, border_color, fill_color)
 end
 
 match("**", MethodTerm) do |texts|
@@ -471,52 +448,6 @@ end
 
 match(*(slide_body + (desc_list_item * 3) + [Paragraph])) do |texts|
   texts.prop_set("size", @xx_small_font_size)
-end
-
-
-body_table = slide_body + [Table]
-
-match(*body_table) do |tables|
-  # tables.horizontal_centering = true
-
-  border_color = "#55003dff0eff"
-
-  left = @preformatted_left_margin
-  right = @preformatted_right_margin
-  top = @preformatted_top_margin
-  bottom = @preformatted_bottom_margin
-
-  tables.each do |table|
-    orig_x = orig_y = orig_w = orig_h = nil
-    new_x = new_y = new_w = new_h = nil
-
-    table.add_pre_draw_proc do |canvas, x, y, w, h, simulation|
-      orig_x = x
-      orig_y = y
-      orig_w = w
-      orig_h = h
-      unless simulation
-        canvas.draw_rectangle(false, new_x, new_y, new_w, new_h, border_color)
-      end
-      [x, y + top, w, h - bottom]
-    end
-  
-    table.add_post_draw_proc do |canvas, x, y, w, h, simulation|
-      new_x = orig_x - left
-      new_y = orig_y
-      new_w = (table.width || w) + left + right
-      new_h = orig_h - h
-      [orig_x, y + top, orig_w, h - bottom]
-    end
-  end
-end
-
-match(*(body_table + [TableHeaders, TableHeader])) do |headers|
-  headers.prop_set("size", @normal_font_size)
-end
-
-match(*(body_table + [TableBody, TableRow, TableCell])) do |cells|
-  cells.prop_set("size", @normal_font_size)
 end
 
 if windows?

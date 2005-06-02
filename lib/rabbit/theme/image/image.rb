@@ -28,14 +28,14 @@ match("**", Image) do |images|
     layout = nil
     th = 0
     image.add_post_draw_proc do |canvas, x, y, w, h, simulation|
-      if image.caption and layout.nil?
+      if image.caption and simulation
         caption = NormalText.new(image.caption)
         caption.prop_set("size", @normal_font_size)
         set_font_family(caption)
-        caption.compile(canvas, x, y, w, h)
         if image.horizontal_centering
           caption.do_horizontal_centering(canvas, x, y, w, h)
         end
+        caption.compile(canvas, x, y, w, h)
         layout = caption.layout
         th = caption.height
       end
