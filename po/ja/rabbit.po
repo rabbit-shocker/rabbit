@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-11-18 23:16+0900\n"
-"PO-Revision-Date: 2004-10-21 11:35+0900\n"
+"POT-Creation-Date: 2005-06-03 13:32+0900\n"
+"PO-Revision-Date: 2005-06-03 13:32+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,8 @@ msgid "no such file %s"
 msgstr "%sというファイルはありません．"
 
 #: lib/rabbit/rabbit.rb:30
-msgid "can't handle %s because the following command can't be run successfully: %s"
+msgid ""
+"can't handle %s because the following command can't be run successfully: %s"
 msgstr "次のコマンドを正常に実行できなかったので%sを扱うことができません: %s"
 
 #: lib/rabbit/rabbit.rb:39
@@ -45,6 +46,10 @@ msgstr "%sはファイルではありません．"
 #: lib/rabbit/rabbit.rb:90
 msgid "%s can't be read"
 msgstr "%sが読めません．"
+
+#: lib/rabbit/canvas.rb:298
+msgid "processing..."
+msgstr "処理中です．．．"
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
 #: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
@@ -112,6 +117,6 @@ msgstr "/終了"
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/gnome-print.rb:259
+#: lib/rabbit/renderer/print.rb:308
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"

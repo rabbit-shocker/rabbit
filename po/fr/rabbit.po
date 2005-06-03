@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2004-11-18 23:16+0900\n"
+"POT-Creation-Date: 2005-06-03 13:32+0900\n"
 "PO-Revision-Date: 2004-10-21 11:34+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -48,6 +48,10 @@ msgstr "%s n'est pas un fichier."
 #: lib/rabbit/rabbit.rb:90
 msgid "%s can't be read"
 msgstr "%s n'est pas lisible."
+
+#: lib/rabbit/canvas.rb:298
+msgid "processing..."
+msgstr ""
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
 #: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
@@ -115,6 +119,6 @@ msgstr "/Quitter"
 msgid "Rabbit Error Dialog"
 msgstr "Boite de dialogue d'erreur de Rabbit"
 
-#: lib/rabbit/renderer/gnome-print.rb:259
+#: lib/rabbit/renderer/print.rb:308
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"

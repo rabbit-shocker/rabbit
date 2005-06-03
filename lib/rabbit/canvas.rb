@@ -10,6 +10,7 @@ require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/index"
 require "rabbit/front"
+require "rabbit/gettext"
 
 module Rabbit
 
@@ -18,6 +19,8 @@ module Rabbit
     include Enumerable
     extend Forwardable
 
+    include GetText
+    
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@frame, :quit, :update_title)
@@ -48,7 +51,7 @@ module Rabbit
     def_delegators(:@renderer, :make_color, :make_layout)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
-    def_delegators(:@renderer, :draw_slide, :print)
+    def_delegators(:@renderer, :draw_slide)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
 
@@ -65,6 +68,7 @@ module Rabbit
       @frame = NullFrame.new
       @theme_name = nil
       @saved_image_basename = nil
+      @processing = false
       clear
       @renderer = renderer.new(self)
     end
@@ -184,7 +188,7 @@ module Rabbit
     end
 
     def need_reload_source?
-      @source and @source.modified?
+      !@processing and @source and @source.modified?
     end
 
     def full_path(path)
@@ -196,14 +200,22 @@ module Rabbit
     end
 
     def save_as_image
-      file_name_format =
+      process do
+        file_name_format =
           "#{saved_image_basename}%0#{number_of_places(slide_size)}d.#{@saved_image_type}"
-      each_slide_pixbuf do |pixbuf, slide_number|
-        file_name = file_name_format % slide_number
-        pixbuf.save(file_name, normalized_saved_image_type)
+        each_slide_pixbuf do |pixbuf, slide_number|
+          file_name = file_name_format % slide_number
+          pixbuf.save(file_name, normalized_saved_image_type)
+        end
       end
     end
 
+    def print
+      process do
+        @renderer.print
+      end
+    end
+    
     def fullscreened
       @renderer.post_fullscreen
     end
@@ -252,19 +264,21 @@ module Rabbit
     end
 
     def toggle_index_mode
-      if @index_mode
-        @index_mode = false
-        @renderer.index_mode_off
-      else
-        @index_mode = true
-        if @index_slides.empty?
-          @index_slides = Index.make_index_slides(self)
+      process do
+        if @index_mode
+          @index_mode = false
+          @renderer.index_mode_off
+        else
+          if @index_slides.empty?
+            @index_slides = Index.make_index_slides(self)
+          end
+          @index_mode = true
+          @renderer.index_mode_on
+          move_to(0)
         end
-        @renderer.index_mode_on
-        move_to(0)
+        modified
+        @renderer.post_toggle_index_mode
       end
-      modified
-      @renderer.post_toggle_index_mode
     end
 
     def index_mode?
@@ -283,6 +297,19 @@ module Rabbit
     end
     
     private
+    def process
+      if @processing
+        @logger.info(_("processing..."))
+        return
+      end
+      begin
+        @processing = true
+        yield
+      ensure
+        @processing = false
+      end
+    end
+    
     def modified
       @last_modified = Time.now
     end

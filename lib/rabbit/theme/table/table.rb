@@ -44,6 +44,7 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
   fill_color = @table_head_fill_color
 
   headers.prop_set("size", @normal_font_size)
+  set_font_family(headers)
   draw_border(headers, border_color, fill_color)
 
   headers.add_pre_draw_proc do |header, canvas, x, y, w, h, simulation|
@@ -62,6 +63,7 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
   fill_color = @table_body_fill_color
 
   cells.prop_set("size", @normal_font_size)
+  set_font_family(cells)
 
   cells.each do |cell|
     orig_x = nil
