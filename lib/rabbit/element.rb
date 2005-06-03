@@ -306,7 +306,7 @@ module Rabbit
         [x, y, w, h]
       end
       
-      def indent(str, width="  ")
+      def _indent(str, width="  ")
         str.collect do |x|
           width + x
         end.join("")
@@ -569,8 +569,13 @@ module Rabbit
       end
 
       def width
+        @elements.collect{|elem| elem.width}.compact.max.to_i
+      end
+
+      # SLOW!!
+      def _width
         block_widths = []
-        block_widths << inject(0) do |result, elem|
+        block_widths << @elements.inject(0) do |result, elem|
           if elem.width
             if elem.inline_element?
               result + elem.width
@@ -585,9 +590,10 @@ module Rabbit
         block_widths.max.to_i
       end
 
+      # perhaps SLOW!!
       def height
         inline_heights = []
-        inject(0) do |result, elem|
+        @elements.inject(0) do |result, elem|
           if elem.height
             if elem.inline_element?
               inline_heights << elem.height
@@ -615,7 +621,9 @@ module Rabbit
       end
 
       def inspect(verbose=false)
-        elem_info = @elements.collect{|x| indent(x.inspect(verbose))}.join("\n")
+        elem_info = @elements.collect do |x|
+          _indent(x.inspect(verbose))
+        end.join("\n")
         if verbose
           self_info = super(verbose)
         else
