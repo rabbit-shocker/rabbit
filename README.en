@@ -95,7 +95,7 @@ libraries on Windows.
   * ((<RAA:rdtool>))
   * Ruby/GTK2 in ((<RAA:ruby-gnome2>))
 
-=== Suggested programs
+=== Suggested programs/libraries
 
   * mimeTeX (for writing TeX in RD)
   * gs (for reading EPS)
@@ -105,6 +105,11 @@ libraries on Windows.
   * Ruby/RSVG in ((<RAA:ruby-gnome2>)) (for beautiful scaling
     SVG)
   * ((<RAA:ruby-gettext>)) (for displaying localized messages)
+
+=== Included libraries
+
+  * ((<RAA:rttool>)) altered: same as including ((<RAA:rwiki>)).
+  * SOAP interface of ((<RAA:rwiki>)).
 
 == Download
 

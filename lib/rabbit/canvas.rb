@@ -10,7 +10,6 @@ require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/index"
 require "rabbit/front"
-require "rabbit/gettext"
 
 module Rabbit
 
