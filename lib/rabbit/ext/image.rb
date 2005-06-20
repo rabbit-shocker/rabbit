@@ -57,12 +57,7 @@ module Rabbit
           filename = image_uri
         else
           filename = tmp_filename(visitor, image_uri)
-          content = open(image_uri, "rb") do |in_file|
-            in_file.read
-          end
-          File.open(filename, "wb") do |out|
-            out.print(content)
-          end
+          setup_image_file(visitor, image_uri, filename)
         end
         
         filename
@@ -70,14 +65,21 @@ module Rabbit
       
       def other_uri_filename(visitor, uri)
         filename = tmp_filename(visitor, uri.to_s)
-        uri.open("rb") do |in_file|
-          File.open(filename, "wb") do |out|
-            out.print(in_file.read)
-          end
-        end
+        setup_image_file(visitor, uri, filename)
         filename
       end
 
+      def setup_image_file(visitor, uri, filename)
+        begin
+          open(uri, "rb") do |in_file|
+            File.open(filename, "wb") do |out|
+              out.print(in_file.read)
+            end
+          end
+        rescue OpenURI::HTTPError
+          visitor.logger.warn("#{$!.message}: #{uri}")
+        end
+      end
     end
   end
 end
