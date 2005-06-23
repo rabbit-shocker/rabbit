@@ -318,7 +318,7 @@ def parse(args, logger)
     opts.on("--use-druby [BOOL]",
             "Specify use dRuby or not.",
             "(#{options.use_druby})") do |bool|
-      options.use_druby = bool
+      options.use_druby = bool != "false"
     end
     
     opts.on("--druby-uri [URI]",
@@ -330,7 +330,7 @@ def parse(args, logger)
     opts.on("--output-druby-uri [BOOL]",
             "Specify output dRuby URI or not.",
             "(#{options.output_druby_uri})") do |bool|
-      options.output_druby_uri = bool
+      options.output_druby_uri = bool != "false"
     end
     
     opts.separator ""
