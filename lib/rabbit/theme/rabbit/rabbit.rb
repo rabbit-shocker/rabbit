@@ -8,27 +8,25 @@ end
 
 include_theme("default")
 
-include_theme("slide-number")
+# @slide_number_uninstall = true
+# include_theme("slide-number")
 
+# include_theme("image-slide-number")
+  
 @title_logo_image = "lavie_with_logo.png"
-
 include_theme("title-logo")
 
 @headline_logo_image = "lavie.png"
-
 include_theme("headline-logo")
 
 @title_shadow_color = "#c09090"
-
 include_theme("title-shadow")
 
 @powered_by_image = "rabbit_banner.png"
 @powered_by_text = "Rabbit and COZMIXNG"
-
 include_theme("powered-by")
 
 @icon_images = ["lavie_icon.png"]
-
 include_theme("icon")
 
 match(TitleSlide, Title) do |titles|

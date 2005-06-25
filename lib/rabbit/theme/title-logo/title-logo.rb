@@ -1,17 +1,19 @@
 proc_name = "title-logo"
 
-if @title_logo_image.nil?
+unless @title_logo_image
   raise "must specify @title_logo_image!!"
 end
 
 match(TitleSlide, Title) do |titles|
 
+  titles.delete_pre_draw_proc_by_name(proc_name)
+
+  break if @title_log_image_uninstall
+  
   loader = ImageLoader.new(search_file(@title_logo_image))
 
   resized = false
 
-  titles.delete_pre_draw_proc_by_name(proc_name)
-  
   titles.add_pre_draw_proc(proc_name) do |title, canvas, x, y, w, h, simulation|
     unless simulation
       title_slide = title.parent

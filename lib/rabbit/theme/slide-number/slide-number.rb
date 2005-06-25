@@ -8,6 +8,8 @@ proc_name = "slide-number"
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
 
+  break if @slide_number_uninstall
+  
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       text = "#{canvas.current_index}/#{canvas.slide_size - 1}"

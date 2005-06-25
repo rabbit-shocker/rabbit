@@ -1,5 +1,6 @@
 include_theme("image")
 include_theme("table")
+include_theme("slide-number")
 
 match(TitleSlide) do |slides|
   slides.horizontal_centering = true
