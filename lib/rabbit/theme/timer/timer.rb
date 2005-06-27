@@ -2,6 +2,8 @@ theme_exit if print?
 
 proc_name = "timer"
 init_proc_name = "timer_init"
+thread_property_name = "timer.thread"
+thread_stop_property_name = "stop"
 
 if @timer_limit.nil?
   raise "must specify @timer_limit!! (sec)"
@@ -23,25 +25,37 @@ match(Slide) do |slides|
 
   @timer_limit_time = nil
 
+  slides.delete_post_draw_proc_by_name(init_proc_name)
+  slides.delete_post_draw_proc_by_name(proc_name)
+  slides.each do |slide|
+    thread = slide.user_property[thread_property_name]
+    if thread
+      thread[thread_stop_property_name] = true
+      slide.user_property[thread_property_name] = nil
+    end
+  end
+  
+  break if @timer_uninstall
+  
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
     if @timer_limit_time.nil?
       @timer_limit_time = Time.now + @timer_limit
       if @timer_auto_update and
-          slide.user_property["timer.thread"].nil?
-        slide.user_property["timer.thread"] = Thread.new do
+          slide.user_property[thread_property_name].nil?
+        thread = Thread.new do
           loop do
             sleep(1)
-            # break if slide.post_draw_proc(proc_name).nil?
+            p 111
+            break if thread[thread_stop_property_name]
             canvas.redraw
           end
         end
+        slide.user_property[thread_property_name] = thread
       end
     end
     slide.delete_post_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
-
-  slides.delete_post_draw_proc_by_name(proc_name)
 
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
