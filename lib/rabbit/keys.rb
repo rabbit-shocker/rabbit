@@ -86,7 +86,10 @@ module Rabbit
       Gdk::Keyval::GDK_i,
     ]
 
-
+    CACHE_ALL_SLIDES_KEYS = [
+      Gdk::Keyval::GDK_c,
+    ]
+    
     module Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,

@@ -36,6 +36,8 @@ module Rabbit
         @current_cursor = nil
         @blank_cursor = nil
         @filename = nil
+        @caching = nil
+        @cache_current_slide = nil
         init_progress
         clear_button_handler
         init_drawing_area
@@ -155,6 +157,22 @@ module Rabbit
         end_progress
       end
 
+      def pre_cache_all_slides(slide_size)
+        @cache_current_slide = @canvas.current_slide
+        @caching = true
+        start_progress(slide_size)
+      end
+
+      def caching_all_slides(i)
+        update_progress(i)
+      end
+      
+      def post_cache_all_slides
+        end_progress
+        @caching = false
+        @cache_current_slide = nil
+      end
+      
       private
       def can_create_pixbuf?
         false
@@ -239,15 +257,19 @@ module Rabbit
       def set_expose_event
         prev_width = prev_height = nil
         @area.signal_connect("expose_event") do |widget, event|
-          @canvas.reload_source
-          if @drawable
-            if prev_width.nil? or prev_height.nil? or
-                [prev_width, prev_height] != [width, height]
-              @canvas.reload_theme
-              prev_width, prev_height = width, height
+          if @caching
+            slide = @cache_current_slide
+          else
+            @canvas.reload_source
+            if @drawable
+              if prev_width.nil? or prev_height.nil? or
+                  [prev_width, prev_height] != [width, height]
+                @canvas.reload_theme
+                prev_width, prev_height = width, height
+              end
             end
+            slide = @canvas.current_slide
           end
-          slide = @canvas.current_slide
           if slide
             unless @pixmap.has_key?(slide)
               @pixmap.width = width
@@ -343,6 +365,10 @@ module Rabbit
         when *TOGGLE_INDEX_MODE_KEYS
           Thread.new do
             @canvas.toggle_index_mode
+          end
+        when *CACHE_ALL_SLIDES_KEYS
+          Thread.new do
+            @canvas.cache_all_slides
           end
         end
       end

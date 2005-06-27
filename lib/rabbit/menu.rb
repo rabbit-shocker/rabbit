@@ -86,6 +86,8 @@ module Rabbit
         [_("/ReloadTheme"), "<StockItem>", "",
           Gtk::Stock::REFRESH, method(:reload_theme)],
 
+        [_("/CacheAllSlides"), "<Item>", nil, nil, method(:cache_all_slides)],
+
         [_("/Separator"), "<Separator>"],
         
         [_("/Quit"), "<StockItem>", "",
@@ -157,6 +159,12 @@ module Rabbit
       @canvas.quit
     end
 
+    def cache_all_slides(*args)
+      Thread.new do
+        @canvas.cache_all_slides
+      end
+    end
+    
   end
   
 end

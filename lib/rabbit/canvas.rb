@@ -273,7 +273,7 @@ module Rabbit
           end
           @index_mode = true
           @renderer.index_mode_on
-          move_to(0)
+          move_to_first
         end
         modified
         @renderer.post_toggle_index_mode
@@ -293,6 +293,20 @@ module Rabbit
 
     def last_slide?
       slide_size.zero? or current_index == (slide_size - 1)
+    end
+    
+    def cache_all_slides
+      process do
+        index = current_index
+        @renderer.pre_cache_all_slides(slide_size)
+        slides.each_with_index do |slide, i|
+          set_current_index(i)
+          slide.draw(self)
+          @renderer.caching_all_slides(i)
+        end
+        set_current_index(index)
+        @renderer.post_cache_all_slides
+      end
     end
     
     private

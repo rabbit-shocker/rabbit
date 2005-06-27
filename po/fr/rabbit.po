@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2005-06-03 13:32+0900\n"
+"POT-Creation-Date: 2005-06-27 12:16+0900\n"
 "PO-Revision-Date: 2004-10-21 11:34+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -49,13 +49,13 @@ msgstr "%s n'est pas un fichier."
 msgid "%s can't be read"
 msgstr "%s n'est pas lisible."
 
-#: lib/rabbit/canvas.rb:298
+#: lib/rabbit/canvas.rb:315
 msgid "processing..."
 msgstr ""
 
 #: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
 #: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
-#: lib/rabbit/menu.rb:80 lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:89
+#: lib/rabbit/menu.rb:80 lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:91
 msgid "/Separator"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgstr "/Sauver en tant qu'image"
 msgid "/Print"
 msgstr "/Imprimer"
 
-#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:96
+#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:98
 msgid "/Jump"
 msgstr "/Aller à"
 
@@ -111,7 +111,11 @@ msgstr "/Minimiser la fenêtre"
 msgid "/ReloadTheme"
 msgstr "/Recharger le thème"
 
-#: lib/rabbit/menu.rb:91
+#: lib/rabbit/menu.rb:89
+msgid "/CacheAllSlides"
+msgstr ""
+
+#: lib/rabbit/menu.rb:93
 msgid "/Quit"
 msgstr "/Quitter"
 
