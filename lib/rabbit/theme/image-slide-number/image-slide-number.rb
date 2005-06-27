@@ -22,7 +22,7 @@ match(Slide) do |slides|
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       unless initialized
-        image_height = slide.height / 8
+        image_height = slide.height / 10
         loader.resize(nil, image_height)
         start_loader.resize(nil, image_height)
         goal_loader.resize(nil, image_height)

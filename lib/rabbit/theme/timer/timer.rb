@@ -20,7 +20,7 @@ end
 @timer_props.delete("font_family") unless @timer_props["font_family"]
 
 @timer_over_color ||= "red"
-@timer_interval ||= 1
+@timer_interval ||= 3
 
 match(Slide) do |slides|
 

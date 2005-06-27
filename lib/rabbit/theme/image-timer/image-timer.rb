@@ -14,7 +14,7 @@ if @image_timer_auto_update.nil?
 end
 
 @image_timer_image ||= "kame.png"
-@image_timer_interval ||= 1
+@image_timer_interval ||= 3
 
 match(Slide) do |slides|
 
