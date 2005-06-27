@@ -13,7 +13,7 @@ if @image_timer_auto_update.nil?
   @image_timer_auto_update = true
 end
 
-@image_timer_image ||= "turtle.png"
+@image_timer_image ||= "kame.png"
 
 match(Slide) do |slides|
 
@@ -62,7 +62,7 @@ match(Slide) do |slides|
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       unless initialized
-        image_height = slide.height / 8
+        image_height = slide.height / 10
         loader.resize(nil, image_height)
         max_width = canvas.width - @left_margin - @right_margin
         base_y = canvas.height - @bottom_margin - loader.height
