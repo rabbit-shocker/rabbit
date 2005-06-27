@@ -14,6 +14,7 @@ if @image_timer_auto_update.nil?
 end
 
 @image_timer_image ||= "kame.png"
+@image_timer_interval ||= 1
 
 match(Slide) do |slides|
 
@@ -39,7 +40,7 @@ match(Slide) do |slides|
         @image_timer_stop = false
         thread = Thread.new do
           loop do
-            sleep(1)
+            sleep(@image_timer_interval)
             break if thread[thread_stop_property_name]
             canvas.redraw
           end

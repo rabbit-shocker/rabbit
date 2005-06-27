@@ -13,6 +13,11 @@ include_theme("powered-by")
 
 include_theme("title-logo")
 
+@slide_number_uninstall = true
+include_theme("slide-number")
+
+include_theme("image-slide-number")
+
 match(Slide, Body) do |bodies|
   bodies.vertical_centering = true
 end

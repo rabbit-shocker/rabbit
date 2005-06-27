@@ -20,6 +20,7 @@ end
 @timer_props.delete("font_family") unless @timer_props["font_family"]
 
 @timer_over_color ||= "red"
+@timer_interval ||= 1
 
 match(Slide) do |slides|
 
@@ -44,8 +45,7 @@ match(Slide) do |slides|
           slide.user_property[thread_property_name].nil?
         thread = Thread.new do
           loop do
-            sleep(1)
-            p 111
+            sleep(@timer_interval)
             break if thread[thread_stop_property_name]
             canvas.redraw
           end
