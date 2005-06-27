@@ -6,7 +6,7 @@ thread_property_name = "image-timer.thread"
 thread_stop_property_name = "stop"
 
 if @image_timer_limit.nil?
-  raise "must specify @timer_limit!! (sec)"
+  raise "must specify @image_timer_limit!! (sec)"
 end
 
 if @image_timer_auto_update.nil?
