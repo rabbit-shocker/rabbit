@@ -8,11 +8,6 @@ end
 
 include_theme("default")
 
-# @slide_number_uninstall = true
-# include_theme("slide-number")
-
-# include_theme("image-slide-number")
-  
 @title_logo_image = "lavie_with_logo.png"
 include_theme("title-logo")
 
