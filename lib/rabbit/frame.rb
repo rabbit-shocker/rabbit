@@ -118,6 +118,7 @@ module Rabbit
           else
             @canvas.unfullscreened
           end
+          @window.present
         elsif event.changed_mask.iconified?
           if @iconify
             @iconify = false
