@@ -156,6 +156,7 @@ module Rabbit
           @window.keep_above = true
           @window.show_all
           @window.move(0, 0)
+          @window.present
         end
         false
       end
@@ -172,6 +173,7 @@ module Rabbit
           @window.keep_above = false
           @window.show_all
           @window.move(@prev_x, @prev_y)
+          @window.present
         end
         false
       end
