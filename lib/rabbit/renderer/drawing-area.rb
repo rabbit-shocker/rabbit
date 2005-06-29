@@ -172,6 +172,14 @@ module Rabbit
         @caching = false
         @cache_current_slide = nil
       end
+
+      def confirm_quit
+        case confirm_dialog
+        when Gtk::MessageDialog::RESPONSE_OK
+          @canvas.quit
+        when Gtk::MessageDialog::RESPONSE_CANCEL
+        end
+      end
       
       private
       def can_create_pixbuf?
@@ -234,7 +242,11 @@ module Rabbit
           end
           
           unless handled
-            handle_key(event)
+            if @canvas.processing?
+              handle_key_when_processing(event)
+            else
+              handle_key(event)
+            end
           end
         end
       end
@@ -373,6 +385,15 @@ module Rabbit
         end
       end
       
+      def handle_key_when_processing(key_event)
+        case key_event.keyval
+        when *QUIT_KEYS
+          confirm_quit
+        else
+          @canvas.logger.info(_("processing..."))
+        end
+      end
+      
       def handle_key_with_control(key_event)
         handled = false
         case key_event.keyval
@@ -439,6 +460,7 @@ module Rabbit
 
       def start_progress(max)
         return if max.zero?
+        update_menu
         @progress_window.show_all
         @progress.fraction = @progress_current = 0
         @progress_max = max.to_f
@@ -456,6 +478,7 @@ module Rabbit
         @progress_current = @progress_max
         Gtk.timeout_add(100) do
           @progress_window.hide
+          update_menu
           false
         end
       end
@@ -464,6 +487,18 @@ module Rabbit
         @pixmap.clear_pixmaps
       end
 
+      def confirm_dialog
+        flags = Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT
+        dialog_type = Gtk::MessageDialog::INFO
+        buttons = Gtk::MessageDialog::BUTTONS_OK_CANCEL
+        message = _("Now processing... Do you really quit?")
+        dialog = Gtk::MessageDialog.new(nil, flags, dialog_type,
+                                        buttons, message)
+        result = dialog.run
+        dialog.destroy
+        result
+      end
+      
     end
     
   end

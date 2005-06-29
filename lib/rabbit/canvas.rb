@@ -53,7 +53,7 @@ module Rabbit
     def_delegators(:@renderer, :draw_slide)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
-
+    def_delegators(:@renderer, :confirm_quit)
     
     attr_reader :logger, :renderer, :theme_name, :source, :last_modified
 
@@ -307,6 +307,10 @@ module Rabbit
         set_current_index(index)
         @renderer.post_cache_all_slides
       end
+    end
+
+    def processing?
+      @processing
     end
     
     private

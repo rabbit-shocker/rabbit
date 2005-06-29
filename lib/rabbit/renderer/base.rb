@@ -96,6 +96,10 @@ module Rabbit
         false
       end
 
+      def quit_confirm
+        @canvas.quit
+      end
+      
       private
       def can_create_pixbuf?
         false

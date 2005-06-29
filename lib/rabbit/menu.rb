@@ -17,7 +17,11 @@ module Rabbit
     
     def initialize(canvas)
       @canvas = canvas
-      create_menu
+      if @canvas.processing?
+        @menu = create_menu_when_processing
+      else
+        @menu = create_menu
+      end
     end
 
     def popup(button, time)
@@ -102,7 +106,22 @@ module Rabbit
 
       ifp.create_items(items.compact)
 
-      @menu = ifp.get_widget("<main>")
+      ifp.get_widget("<main>")
+    end
+
+    def create_menu_when_processing
+      ifp = Gtk::ItemFactory.new(Gtk::ItemFactory::TYPE_MENU, "<main>", nil)
+
+      items = [
+        [_("/Separator"), "<Tearoff>"],
+        
+        [_("/Quit"), "<StockItem>", "",
+          Gtk::Stock::QUIT, method(:confirm_quit)],
+      ]
+
+      ifp.create_items(items.compact)
+
+      ifp.get_widget("<main>")
     end
 
     def move_to_next(*args)
@@ -157,6 +176,10 @@ module Rabbit
     
     def quit(*args)
       @canvas.quit
+    end
+
+    def confirm_quit(*args)
+      @canvas.confirm_quit
     end
 
     def cache_all_slides(*args)
