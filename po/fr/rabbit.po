@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2005-06-27 12:16+0900\n"
+"POT-Creation-Date: 2005-06-29 16:14+0900\n"
 "PO-Revision-Date: 2004-10-21 11:34+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: French <LL@li.org>\n"
@@ -49,79 +49,84 @@ msgstr "%s n'est pas un fichier."
 msgid "%s can't be read"
 msgstr "%s n'est pas lisible."
 
-#: lib/rabbit/canvas.rb:315
+#: lib/rabbit/canvas.rb:319 lib/rabbit/renderer/drawing-area.rb:393
 msgid "processing..."
 msgstr ""
 
-#: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
-#: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
-#: lib/rabbit/menu.rb:80 lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:91
+#: lib/rabbit/menu.rb:36 lib/rabbit/menu.rb:46 lib/rabbit/menu.rb:56
+#: lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:71 lib/rabbit/menu.rb:73
+#: lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:88 lib/rabbit/menu.rb:95
+#: lib/rabbit/menu.rb:116
 msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:35
+#: lib/rabbit/menu.rb:39
 msgid "/Slide"
 msgstr "/Mode transparents"
 
-#: lib/rabbit/menu.rb:38
+#: lib/rabbit/menu.rb:42
 msgid "/Index"
 msgstr "/Mode index"
 
-#: lib/rabbit/menu.rb:45
+#: lib/rabbit/menu.rb:49
 msgid "/UnFullScreen"
 msgstr "/Sortir du plein écran"
 
-#: lib/rabbit/menu.rb:48
+#: lib/rabbit/menu.rb:52
 msgid "/FullScreen"
 msgstr "/Plein écran"
 
-#: lib/rabbit/menu.rb:54
+#: lib/rabbit/menu.rb:58
 msgid "/SaveAsImage"
 msgstr "/Sauver en tant qu'image"
 
-#: lib/rabbit/menu.rb:58
+#: lib/rabbit/menu.rb:62
 msgid "/Print"
 msgstr "/Imprimer"
 
-#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:98
+#: lib/rabbit/menu.rb:69 lib/rabbit/menu.rb:71 lib/rabbit/menu.rb:102
 msgid "/Jump"
 msgstr "/Aller à"
 
-#: lib/rabbit/menu.rb:71
+#: lib/rabbit/menu.rb:75
 msgid "/Next"
 msgstr "/Transparent suivant"
 
-#: lib/rabbit/menu.rb:73
+#: lib/rabbit/menu.rb:77
 msgid "/Previous"
 msgstr "/Transparent précédent"
 
-#: lib/rabbit/menu.rb:75
+#: lib/rabbit/menu.rb:79
 msgid "/First"
 msgstr "/Premier transparent"
 
-#: lib/rabbit/menu.rb:77
+#: lib/rabbit/menu.rb:81
 msgid "/Last"
 msgstr "/Dernier transparent"
 
-#: lib/rabbit/menu.rb:82
+#: lib/rabbit/menu.rb:86
 msgid "/Iconify"
 msgstr "/Minimiser la fenêtre"
 
-#: lib/rabbit/menu.rb:86
+#: lib/rabbit/menu.rb:90
 msgid "/ReloadTheme"
 msgstr "/Recharger le thème"
 
-#: lib/rabbit/menu.rb:89
+#: lib/rabbit/menu.rb:93
 msgid "/CacheAllSlides"
 msgstr ""
 
-#: lib/rabbit/menu.rb:93
+#: lib/rabbit/menu.rb:97 lib/rabbit/menu.rb:118
 msgid "/Quit"
 msgstr "/Quitter"
 
 #: lib/rabbit/logger/gui.rb:62
 msgid "Rabbit Error Dialog"
 msgstr "Boite de dialogue d'erreur de Rabbit"
+
+#: lib/rabbit/renderer/drawing-area.rb:494
+msgid "Now processing... Do you really quit?"
+msgstr ""
 
 #: lib/rabbit/renderer/print.rb:308
 msgid "can't find printer for %s"

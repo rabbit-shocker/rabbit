@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2005-06-27 12:16+0900\n"
-"PO-Revision-Date: 2005-06-27 12:17+0900\n"
+"POT-Creation-Date: 2005-06-29 16:14+0900\n"
+"PO-Revision-Date: 2005-06-29 16:15+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,79 +47,84 @@ msgstr "%sはファイルではありません．"
 msgid "%s can't be read"
 msgstr "%sが読めません．"
 
-#: lib/rabbit/canvas.rb:315
+#: lib/rabbit/canvas.rb:319 lib/rabbit/renderer/drawing-area.rb:393
 msgid "processing..."
 msgstr "処理中です．．．"
 
-#: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
-#: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:69
-#: lib/rabbit/menu.rb:80 lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:91
+#: lib/rabbit/menu.rb:36 lib/rabbit/menu.rb:46 lib/rabbit/menu.rb:56
+#: lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:71 lib/rabbit/menu.rb:73
+#: lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:88 lib/rabbit/menu.rb:95
+#: lib/rabbit/menu.rb:116
 msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:35
+#: lib/rabbit/menu.rb:39
 msgid "/Slide"
 msgstr "/スライドモード"
 
-#: lib/rabbit/menu.rb:38
+#: lib/rabbit/menu.rb:42
 msgid "/Index"
 msgstr "/一覧モード"
 
-#: lib/rabbit/menu.rb:45
+#: lib/rabbit/menu.rb:49
 msgid "/UnFullScreen"
 msgstr "/フルスクリーン解除"
 
-#: lib/rabbit/menu.rb:48
+#: lib/rabbit/menu.rb:52
 msgid "/FullScreen"
 msgstr "/フルスクリーン"
 
-#: lib/rabbit/menu.rb:54
+#: lib/rabbit/menu.rb:58
 msgid "/SaveAsImage"
 msgstr "/画像として保存"
 
-#: lib/rabbit/menu.rb:58
+#: lib/rabbit/menu.rb:62
 msgid "/Print"
 msgstr "/印刷"
 
-#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:98
+#: lib/rabbit/menu.rb:69 lib/rabbit/menu.rb:71 lib/rabbit/menu.rb:102
 msgid "/Jump"
 msgstr "/ジャンプ"
 
-#: lib/rabbit/menu.rb:71
+#: lib/rabbit/menu.rb:75
 msgid "/Next"
 msgstr "/次のスライド"
 
-#: lib/rabbit/menu.rb:73
+#: lib/rabbit/menu.rb:77
 msgid "/Previous"
 msgstr "/前のスライド"
 
-#: lib/rabbit/menu.rb:75
+#: lib/rabbit/menu.rb:79
 msgid "/First"
 msgstr "/最初のスライド"
 
-#: lib/rabbit/menu.rb:77
+#: lib/rabbit/menu.rb:81
 msgid "/Last"
 msgstr "/最後のスライド"
 
-#: lib/rabbit/menu.rb:82
+#: lib/rabbit/menu.rb:86
 msgid "/Iconify"
 msgstr "/最小化"
 
-#: lib/rabbit/menu.rb:86
+#: lib/rabbit/menu.rb:90
 msgid "/ReloadTheme"
 msgstr "/テーマの再読み込み"
 
-#: lib/rabbit/menu.rb:89
+#: lib/rabbit/menu.rb:93
 msgid "/CacheAllSlides"
 msgstr "/スライドをキャッシュ"
 
-#: lib/rabbit/menu.rb:93
+#: lib/rabbit/menu.rb:97 lib/rabbit/menu.rb:118
 msgid "/Quit"
 msgstr "/終了"
 
 #: lib/rabbit/logger/gui.rb:62
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
+
+#: lib/rabbit/renderer/drawing-area.rb:494
+msgid "Now processing... Do you really quit?"
+msgstr "処理中です．．．本当に終了しますか？"
 
 #: lib/rabbit/renderer/print.rb:308
 msgid "can't find printer for %s"
