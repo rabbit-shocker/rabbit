@@ -253,6 +253,9 @@ Ahh, I'll set up more better documents.
 : Iconify
    z
 
+: Cache all slides
+   c
+
 = Finish
 
 What about this?
