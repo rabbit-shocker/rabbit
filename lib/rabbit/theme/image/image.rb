@@ -4,11 +4,14 @@ if @image_with_frame.nil?
 #  @image_with_frame = true
 end
 
+@image_caption_space ||= 5
+
 @image_frame_color ||= "black"
 @image_frame_shadow_color ||= "gray"
 @image_frame_padding ||= 3
-@image_frame_shadow_width ||= 3
+@image_frame_shadow_width ||= 4
 @image_frame_shadow_offset ||= 2
+@image_frame_width = 1
 
 match("**", Image) do |images|
 
@@ -47,13 +50,13 @@ match("**", Image) do |images|
 
         # Under Shadow
         us_sx = f_sx + @image_frame_shadow_offset
-        us_sy = f_sy + f_ey + 1
+        us_sy = f_sy + f_ey + @image_frame_width
         us_ex = f_ex + @image_frame_shadow_width - @image_frame_shadow_offset
         us_ey = @image_frame_shadow_width
         canvas.draw_rectangle(true, us_sx, us_sy, us_ex, us_ey, "gray")
         
         # Right Shadow
-        rs_sx = f_sx + f_ex + 1
+        rs_sx = f_sx + f_ex + @image_frame_width
         rs_sy = f_sy + @image_frame_shadow_offset
         rs_ex = @image_frame_shadow_width
         rs_ey = f_ey + @image_frame_shadow_width - @image_frame_shadow_offset
@@ -80,9 +83,10 @@ match("**", Image) do |images|
         th = caption.height
       end
       if !simulation and layout
-        base_y = y
+        base_y = y + @image_caption_space
         if @image_with_frame
-          base_y += @image_frame_shadow_offset + @image_frame_shadow_width
+          base_y += @image_frame_width
+          base_y += @image_frame_shadow_width + @image_frame_padding
         end
         canvas.draw_layout(layout, image.ox || x, base_y) # dirty!!!
       end
