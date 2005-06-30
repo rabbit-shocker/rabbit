@@ -1032,12 +1032,35 @@ module Rabbit
         @y_dither || 0
       end
 
+      def compile(canvas, x, y, w, h)
+        super
+        adjust_size(canvas, x, y, w, h)
+      end
+      
       private
       def draw_image(canvas, x, y, w, h, simulation)
         unless simulation
           canvas.draw_pixbuf(pixbuf, x, y)
         end
         [@ox || x, y + height, @ow || w, h - height]
+      end
+
+      def adjust_size(canvas, x, y, w, h)
+        nw = make_normalized_size(@normalized_width)
+        nh = make_normalized_size(@normalized_height)
+        rw = make_relative_size(@relative_width, @ow || w)
+        rh = make_relative_size(@relative_height, @oh || h)
+        iw = nw || rw
+        ih = nh || rh
+        resize(iw, ih)
+      end
+
+      def make_normalized_size(size)
+        size && screen_size(size)
+      end
+
+      def make_relative_size(size, parent_size)
+        size && parent_size && ((size / 100.0) * parent_size).ceil
       end
     end
 
