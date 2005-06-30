@@ -126,7 +126,7 @@
 # # width = 100
 # # height = 100
 # # relative_width = 100
- # relative_height = 30
+ # relative_height = 70
 
 = 描画
 
