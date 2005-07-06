@@ -73,14 +73,14 @@ def lightning_talk_headline(heads, proc_name)
   if @lightning_talk_as_large_as_possible
     max = (canvas.height - @top_margin - @bottom_margin) * Pango::SCALE
     width = (canvas.width - @left_margin - @right_margin) * Pango::SCALE
-    max *= 0.8
     heads.each do |head|
       size = head.prop_get("size").value
       loop do
         new_size = (size * 1.05).ceil
-        text = %Q[<span size="#{new_size}">#{head.text}</span>]
-        layout, text_width, text_height = canvas.make_layout(text)
-        layout.set_width(width)
+        head.prop_set("size", new_size)
+        layout, text_width, text_height = canvas.make_layout(head.markuped_text)
+        layout.width = width
+        layout.wrap = Pango::Layout::WRAP_WORD_CHAR
         break if layout.size[1] > max
         size = new_size
       end
