@@ -37,7 +37,6 @@ module Rabbit
         @blank_cursor = nil
         @filename = nil
         @caching = nil
-        @cache_current_slide = nil
         init_progress
         clear_button_handler
         init_drawing_area
@@ -158,19 +157,20 @@ module Rabbit
       end
 
       def pre_cache_all_slides(slide_size)
-        @cache_current_slide = @canvas.current_slide
         @caching = true
         start_progress(slide_size)
       end
 
-      def caching_all_slides(i)
+      def caching_all_slides(i, canvas)
         update_progress(i)
+        unless @pixmap.has_key?(@canvas.slides[i])
+          @pixmap[@canvas.slides[i]] = canvas.renderer[canvas.slides[i]]
+        end
       end
       
       def post_cache_all_slides(canvas)
         end_progress
         @caching = false
-        @cache_current_slide = nil
         @pixmap.clear_pixmaps
         @canvas.slides.each_with_index do |slide, i|
           @pixmap[slide] = canvas.renderer[canvas.slides[i]]
@@ -274,9 +274,7 @@ module Rabbit
       def set_expose_event
         prev_width = prev_height = nil
         @area.signal_connect("expose_event") do |widget, event|
-          if @caching
-            slide = @cache_current_slide
-          else
+          unless @caching
             @canvas.reload_source
             if @drawable
               if prev_width.nil? or prev_height.nil? or
@@ -285,8 +283,9 @@ module Rabbit
                 prev_width, prev_height = width, height
               end
             end
-            slide = @canvas.current_slide
           end
+          
+          slide = @canvas.current_slide
           if slide
             unless @pixmap.has_key?(slide)
               @pixmap.width = width

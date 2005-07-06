@@ -75,7 +75,7 @@ module Rabbit
         canvas.slides.each_with_index do |slide, i|
           canvas.move_to_if_can(i)
           slide.draw(canvas)
-          caching_all_slides(i)
+          caching_all_slides(i, canvas)
         end
         post_cache_all_slides(canvas)
       end
