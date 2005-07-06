@@ -17,12 +17,19 @@ include_theme("headline-logo")
 @title_shadow_color = "#c09090"
 include_theme("title-shadow")
 
+@slide_number_uninstall = true
+include_theme("slide-number")
+
+@image_slide_number_show_text = true
+include_theme("image-slide-number")
+
 @powered_by_image = "rabbit_banner.png"
 @powered_by_text = "Rabbit and COZMIXNG"
 include_theme("powered-by")
 
 @icon_images = ["lavie_icon.png"]
 include_theme("icon")
+
 
 match(TitleSlide, Title) do |titles|
   titles.prop_set("foreground", "red")

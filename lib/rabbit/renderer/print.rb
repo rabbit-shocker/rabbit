@@ -153,6 +153,24 @@ module Rabbit
       def draw_circle(filled, x, y, w, h, color=nil)
         draw_arc(filled, x, y, w, h, 0, 359, color)
       end
+
+      def draw_polygon(filled, points, color=nil)
+        return if points.empty?
+        color = make_color(color)
+        @context.save do
+          set_color(color)
+          @context.move_to(*from_screen(*points.first))
+          points[1..-1].each do |x, y|
+            @context.line_to(*from_screen(x, y))
+          end
+          @context.line_to(*from_screen(*points.first))
+          if filled
+            @context.fill
+          else
+            @context.stroke
+          end
+        end
+      end
       
       def draw_layout(layout, x, y, color=nil)
         x, y = from_screen(x, y)

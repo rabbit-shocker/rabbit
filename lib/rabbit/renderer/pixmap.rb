@@ -97,6 +97,11 @@ module Rabbit
         draw_arc(filled, x, y, w, h, 0, 360 * 64, color)
       end
       
+      def draw_polygon(filled, points, color=nil)
+        gc = make_gc(color)
+        @drawable.draw_polygon(gc, filled, points)
+      end
+      
       def draw_layout(layout, x, y, color=nil)
         gc = make_gc(color)
         @drawable.draw_layout(gc, x, y, layout)

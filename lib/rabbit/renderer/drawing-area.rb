@@ -21,7 +21,7 @@ module Rabbit
       
       def_delegators(:@pixmap, :draw_slide, :draw_line, :draw_rectangle)
       def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
-      def_delegators(:@pixmap, :draw_pixbuf)
+      def_delegators(:@pixmap, :draw_pixbuf, :draw_polygon)
 
       def_delegators(:@pixmap, :make_color)
 

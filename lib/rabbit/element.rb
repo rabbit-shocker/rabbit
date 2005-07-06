@@ -620,6 +620,10 @@ module Rabbit
         super or @elements.any?{|x| x.dirty?}
       end
 
+      def empty?
+        @elements.empty?
+      end
+      
       def inspect(verbose=false)
         elem_info = @elements.collect do |x|
           _indent(x.inspect(verbose))
@@ -653,14 +657,14 @@ module Rabbit
       end
 
       def markuped_text
-        mt = elements.collect do |elem|
+        mt = @elements.collect do |elem|
           elem.markuped_text
         end.join("")
         markup(mt)
       end
 
       def text
-        elements.collect do |elem|
+        @elements.collect do |elem|
           elem.text
         end.join("")
       end
@@ -676,6 +680,10 @@ module Rabbit
 
       def dirty?
         super or text_dirty?
+      end
+
+      def empty?
+        /\A\s*\z/ =~ text
       end
 
       def clear_theme
@@ -702,6 +710,10 @@ module Rabbit
         end
         [x + width, y, w - width, h]
       end
+
+      def empty?
+        /\A\s*\z/ =~ @text
+      end
     end
     
     class Slide
@@ -722,6 +734,13 @@ module Rabbit
         end
       end
 
+      def headline
+        @elements[0]
+      end
+
+      def body
+        @elements[1]
+      end
     end
     
     class TitleSlide

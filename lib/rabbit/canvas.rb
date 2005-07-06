@@ -50,7 +50,9 @@ module Rabbit
     def_delegators(:@renderer, :make_color, :make_layout)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
-    def_delegators(:@renderer, :draw_slide)
+    def_delegators(:@renderer, :draw_slide, :draw_polygon, :draw_flag)
+
+    def_delegators(:@renderer, :to_attrs, :flag_size)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
     def_delegators(:@renderer, :confirm_quit)
@@ -276,8 +278,8 @@ module Rabbit
           move_to_first
         end
         modified
-        @renderer.post_toggle_index_mode
       end
+      @renderer.post_toggle_index_mode
     end
 
     def index_mode?

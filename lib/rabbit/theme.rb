@@ -1,6 +1,5 @@
 require 'delegate'
 require "forwardable"
-require "erb"
 
 require 'rabbit/element'
 require 'rabbit/image'
@@ -128,7 +127,6 @@ module Rabbit
     class Applier
 
       include Enumerable
-      include ERB::Util
       include Element
       include Searcher
 
@@ -162,13 +160,15 @@ module Rabbit
       end
 
       def to_attrs(hash)
-        hash.collect do |key, value|
-          if value
-            "#{h key}='#{h value}'"
-          else
-            nil
-          end
-        end.compact.join(" ")
+        canvas.to_attrs(hash)
+      end
+
+      def to_element_container(obj)
+        if obj.is_a?(ElementContainer)
+          obj
+        else
+          ElementContainer.new([obj])
+        end
       end
       
       def name
