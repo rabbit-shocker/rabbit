@@ -205,7 +205,6 @@ module Rabbit
       
       def init_progress
         @progress_window = Gtk::Window.new(Gtk::Window::POPUP)
-        @progress_window.window_position = Gtk::Window::POS_CENTER_ALWAYS
         @progress_window.app_paintable = true
         @progress = Gtk::ProgressBar.new
         @progress.show_text = true
@@ -461,7 +460,9 @@ module Rabbit
       def start_progress(max)
         return if max.zero?
         update_menu
+        @progress_window.transient_for = @canvas.window
         @progress_window.show_all
+        adjust_progress_window
         @progress.fraction = @progress_current = 0
         @progress_max = max.to_f
         Gtk.timeout_add(100) do
@@ -471,16 +472,22 @@ module Rabbit
       end
 
       def update_progress(i)
+        adjust_progress_window
         @progress_current = i
       end
 
       def end_progress
+        adjust_progress_window
         @progress_current = @progress_max
         Gtk.timeout_add(100) do
           @progress_window.hide
           update_menu
           false
         end
+      end
+
+      def adjust_progress_window
+        @progress_window.move(*@canvas.window.position)
       end
       
       def clear_pixmap

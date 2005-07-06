@@ -58,7 +58,7 @@ module Rabbit
     def_delegators(:@renderer, :confirm_quit)
     
     attr_reader :logger, :renderer, :theme_name, :source, :last_modified
-
+    
     attr_writer :saved_image_basename
 
     attr_accessor :saved_image_type
