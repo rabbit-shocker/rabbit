@@ -2,8 +2,6 @@ theme_exit if print?
 
 proc_name = "image-timer"
 init_proc_name = "image-timer-init"
-thread_property_name = "image-timer.thread"
-thread_stop_property_name = "stop"
 
 if @image_timer_limit.nil?
   raise "must specify @image_timer_limit!! (sec)"
@@ -16,19 +14,12 @@ end
 @image_timer_image ||= "kame.png"
 @image_timer_interval ||= 3
 
+@image_timer_limit_time = nil
+@@image_timer_auto_update_thread = nil
+
 match(Slide) do |slides|
-
-  @image_timer_limit_time = nil
-
   slides.delete_post_draw_proc_by_name(init_proc_name)
   slides.delete_post_draw_proc_by_name(proc_name)
-  slides.each do |slide|
-    thread = slide.user_property[thread_property_name]
-    if thread
-      thread[thread_stop_property_name] = true
-      slide.user_property[thread_property_name] = nil
-    end
-  end
 
   break if @image_timer_uninstall
   
@@ -36,16 +27,16 @@ match(Slide) do |slides|
     if @image_timer_limit_time.nil?
       @image_timer_limit_time = Time.now + @image_timer_limit
       if @image_timer_auto_update and
-          slide.user_property[thread_property_name].nil?
+          @@image_timer_auto_update_thread.nil?
         @image_timer_stop = false
         thread = Thread.new do
           loop do
             sleep(@image_timer_interval)
-            break if thread[thread_stop_property_name]
+            break if @@image_timer_auto_update_thread != thread
             canvas.redraw
           end
         end
-        slide.user_property[thread_property_name] = thread
+        @@image_timer_auto_update_thread = thread
       end
     end
     slide.delete_post_draw_proc_by_name(init_proc_name)

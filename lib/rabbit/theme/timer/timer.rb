@@ -2,8 +2,6 @@ theme_exit if print?
 
 proc_name = "timer"
 init_proc_name = "timer_init"
-thread_property_name = "timer.thread"
-thread_stop_property_name = "stop"
 
 if @timer_limit.nil?
   raise "must specify @timer_limit!! (sec)"
@@ -20,21 +18,14 @@ end
 @timer_props.delete("font_family") unless @timer_props["font_family"]
 
 @timer_over_color ||= "red"
-@timer_interval ||= 3
+@timer_interval ||= 1
+
+@timer_limit_time = nil
+@@timer_auto_update_thread = nil
 
 match(Slide) do |slides|
-
-  @timer_limit_time = nil
-
   slides.delete_post_draw_proc_by_name(init_proc_name)
   slides.delete_post_draw_proc_by_name(proc_name)
-  slides.each do |slide|
-    thread = slide.user_property[thread_property_name]
-    if thread
-      thread[thread_stop_property_name] = true
-      slide.user_property[thread_property_name] = nil
-    end
-  end
   
   break if @timer_uninstall
   
@@ -42,15 +33,15 @@ match(Slide) do |slides|
     if @timer_limit_time.nil?
       @timer_limit_time = Time.now + @timer_limit
       if @timer_auto_update and
-          slide.user_property[thread_property_name].nil?
+          @timer_auto_update_thread.nil?
         thread = Thread.new do
           loop do
             sleep(@timer_interval)
-            break if thread[thread_stop_property_name]
+            break if @@timer_auto_update_thread != thread
             canvas.redraw
           end
         end
-        slide.user_property[thread_property_name] = thread
+        @@timer_auto_update_thread = thread
       end
     end
     slide.delete_post_draw_proc_by_name(init_proc_name)
