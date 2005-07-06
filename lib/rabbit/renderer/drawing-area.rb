@@ -167,10 +167,15 @@ module Rabbit
         update_progress(i)
       end
       
-      def post_cache_all_slides
+      def post_cache_all_slides(canvas)
         end_progress
         @caching = false
         @cache_current_slide = nil
+        @pixmap.clear_pixmaps
+        @canvas.slides.each_with_index do |slide, i|
+          @pixmap[slide] = canvas.renderer[canvas.slides[i]]
+        end
+        @area.queue_draw
       end
 
       def confirm_quit
@@ -241,11 +246,12 @@ module Rabbit
           end
           
           unless handled
-            if @canvas.processing?
-              handle_key_when_processing(event)
-            else
-              handle_key(event)
-            end
+            handle_key(event)
+#             if @canvas.processing?
+#               handle_key_when_processing(event)
+#             else
+#               handle_key(event)
+#             end
           end
         end
       end
@@ -329,7 +335,11 @@ module Rabbit
       def handle_key(key_event)
         case key_event.keyval
         when *QUIT_KEYS
-          @canvas.quit
+          if @canvas.processing?
+            confirm_quit
+          else
+            @canvas.quit
+          end
         when *MOVE_TO_NEXT_KEYS
           @canvas.move_to_next_if_can
         when *MOVE_TO_PREVIOUS_KEYS
@@ -368,17 +378,17 @@ module Rabbit
         when *RELOAD_THEME_KEYS
           @canvas.reload_theme
         when *SAVE_AS_IMAGE_KEYS
-          Thread.new do
+          thread do
             @canvas.save_as_image
           end
         when *ICONIFY_KEYS
           @canvas.iconify
         when *TOGGLE_INDEX_MODE_KEYS
-          Thread.new do
+          thread do
             @canvas.toggle_index_mode
           end
         when *CACHE_ALL_SLIDES_KEYS
-          Thread.new do
+          thread do
             @canvas.cache_all_slides
           end
         end
@@ -400,7 +410,7 @@ module Rabbit
           @canvas.redraw
           handled = true
         when *Control::PRINT_KEYS
-          Thread.new do
+          thread do
             @canvas.print
           end
           handled = true
@@ -504,6 +514,11 @@ module Rabbit
         result = dialog.run
         dialog.destroy
         result
+      end
+
+      def thread(&block)
+        thread = Thread.new(&block)
+        thread.priority = -10
       end
       
     end

@@ -299,15 +299,7 @@ module Rabbit
     
     def cache_all_slides
       process do
-        index = current_index
-        @renderer.pre_cache_all_slides(slide_size)
-        slides.each_with_index do |slide, i|
-          set_current_index(i)
-          slide.draw(self)
-          @renderer.caching_all_slides(i)
-        end
-        set_current_index(index)
-        @renderer.post_cache_all_slides
+        @renderer.cache_all_slides
       end
     end
 

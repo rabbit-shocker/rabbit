@@ -69,6 +69,17 @@ module Rabbit
         end
       end
 
+      def cache_all_slides
+        canvas = make_canvas_with_offscreen_renderer
+        pre_cache_all_slides(canvas.slide_size)
+        canvas.slides.each_with_index do |slide, i|
+          canvas.move_to_if_can(i)
+          slide.draw(canvas)
+          caching_all_slides(i)
+        end
+        post_cache_all_slides(canvas)
+      end
+      
       def redraw
       end
       

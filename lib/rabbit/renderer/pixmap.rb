@@ -28,6 +28,10 @@ module Rabbit
       def [](slide)
         @pixmaps[slide]
       end
+
+      def []=(slide, pixmap)
+        @pixmaps[slide] = pixmap
+      end
       
       def foreground=(color)
         @foreground.set_foreground(color)
