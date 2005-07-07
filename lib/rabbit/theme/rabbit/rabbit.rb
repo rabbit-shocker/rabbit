@@ -8,8 +8,15 @@ end
 
 include_theme("default")
 
-set_progress_foreground("#ff00da00d200")
+## pink base
+# set_progress_foreground("#ff00da00d200")
+set_progress_foreground("#fffff3f3f711")
 set_progress_background("#ff00cc00ff00")
+# set_progress_background("#fd05f3f3fa0b")
+
+## green base
+# set_progress_foreground("#eb29f6f6df41")
+# set_progress_background("#eb29f6f6e535")
 
 @title_logo_image = "lavie_with_logo.png"
 include_theme("title-logo")
