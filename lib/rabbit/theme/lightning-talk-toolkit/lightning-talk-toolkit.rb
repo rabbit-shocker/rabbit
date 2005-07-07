@@ -3,6 +3,7 @@
 @lightning_talk_contact_information ||= nil
 @lightning_talk_font_size ||= @x_small_font_size
 @lightning_talk_as_large_as_possible ||= false
+@lightning_talk_wrap_mode ||= Pango::Layout::WRAP_WORD
 @lightning_talk_uninstall ||= false
 
 def lightning_talk_slide(slides, proc_name)
@@ -69,6 +70,8 @@ def lightning_talk_headline(heads, proc_name)
   heads.clear_post_draw_procs
   
   set_font_family(heads)
+  heads.wrap_mode = @lightning_talk_wrap_mode
+  
   heads.prop_set("size", @very_huge_font_size)
   if @lightning_talk_as_large_as_possible
     max = (canvas.height - @top_margin - @bottom_margin) * Pango::SCALE
@@ -80,8 +83,10 @@ def lightning_talk_headline(heads, proc_name)
         head.prop_set("size", new_size)
         layout, text_width, text_height = canvas.make_layout(head.markuped_text)
         layout.width = width
-        layout.wrap = Pango::Layout::WRAP_WORD_CHAR
-        break if layout.size[1] > max
+        layout.wrap = @lightning_talk_wrap_mode
+        if layout.size[1] > max or layout.size[0] > width
+          break
+        end
         size = new_size
       end
       head.prop_set("size", size)
