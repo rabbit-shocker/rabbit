@@ -126,6 +126,12 @@ module Rabbit
         make_gc(color, default_is_foreground).foreground
       end
 
+      def to_rgb(color)
+        color = make_color(color) unless color.is_a?(Gdk::Color)
+        color = Gdk::Colormap.system.query_color(color.pixel)
+        [color.red, color.green, color.blue]
+      end
+      
       def make_layout(text)
         attrs, text = Pango.parse_markup(text)
         layout = Pango::Layout.new(@pango_context)

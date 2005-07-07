@@ -23,7 +23,7 @@ module Rabbit
       def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
       def_delegators(:@pixmap, :draw_pixbuf, :draw_polygon)
 
-      def_delegators(:@pixmap, :make_color)
+      def_delegators(:@pixmap, :make_color, :to_rgb)
 
       def_delegators(:@pixmap, :to_pixbuf)
       
@@ -186,6 +186,16 @@ module Rabbit
         end
       end
       
+      def progress_foreground=(color)
+        super
+        setup_progress_color
+      end
+      
+      def progress_background=(color)
+        super
+        setup_progress_color
+      end
+      
       private
       def can_create_pixbuf?
         false
@@ -207,13 +217,24 @@ module Rabbit
       def update_title
         @canvas.update_title(@canvas.slide_title)
       end
-      
+
       def init_progress
         @progress_window = Gtk::Window.new(Gtk::Window::POPUP)
         @progress_window.app_paintable = true
         @progress = Gtk::ProgressBar.new
         @progress.show_text = true
         @progress_window.add(@progress)
+      end
+
+      def setup_progress_color
+        style = @progress.style.copy
+        if @progress_foreground
+          style.set_bg(Gtk::STATE_NORMAL, *to_rgb(@progress_foreground))
+        end
+        if @progress_background
+          style.set_bg(Gtk::STATE_PRELIGHT, *to_rgb(@progress_background))
+        end
+        @progress.style = style
       end
       
       def init_drawing_area

@@ -46,8 +46,12 @@ module Rabbit
     def_delegators(:@renderer, :foreground, :background)
     def_delegators(:@renderer, :foreground=, :background=)
     def_delegators(:@renderer, :background_image, :background_image=)
+    def_delegators(:@renderer, :progress_foreground)
+    def_delegators(:@renderer, :progress_foreground=)
+    def_delegators(:@renderer, :progress_background)
+    def_delegators(:@renderer, :progress_background=)
 
-    def_delegators(:@renderer, :make_color, :make_layout)
+    def_delegators(:@renderer, :make_color, :make_layout, :to_rgb)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
     def_delegators(:@renderer, :draw_slide, :draw_polygon, :draw_flag)

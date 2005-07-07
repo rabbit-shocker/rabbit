@@ -14,6 +14,8 @@ module Rabbit
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :left_margin, :right_margin
       attr_accessor :top_margin, :bottom_margin
+      attr_accessor :progress_foreground
+      attr_accessor :progress_background
       attr_writer :left_page_margin, :right_page_margin
       attr_writer :top_page_margin, :bottom_page_margin
       
@@ -31,6 +33,8 @@ module Rabbit
         @right_page_margin = nil
         @top_page_margin = nil
         @bottom_page_margin = nil
+        @progress_foreground = nil
+        @progress_background = nil
       end
 
       def left_page_margin
