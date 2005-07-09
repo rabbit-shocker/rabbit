@@ -18,6 +18,9 @@ set_progress_background("#ff00cc00ff00")
 # set_progress_foreground("#eb29f6f6df41")
 # set_progress_background("#eb29f6f6e535")
 
+@image_with_frame = true
+include_theme("image")
+
 @title_logo_image = "lavie_with_logo.png"
 include_theme("title-logo")
 

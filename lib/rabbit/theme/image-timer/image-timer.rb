@@ -54,7 +54,7 @@ match(Slide) do |slides|
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       unless initialized
-        image_height = slide.height / 10
+        image_height = canvas.height / 12
         loader.resize(nil, image_height)
         max_width = canvas.width - @left_margin - @right_margin
         base_y = canvas.height - @bottom_margin - loader.height
