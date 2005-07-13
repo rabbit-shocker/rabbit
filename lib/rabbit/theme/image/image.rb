@@ -20,16 +20,22 @@ match("**", Image) do |images|
   
   images.horizontal_centering = true
 
+  images.left_margin = @image_frame_padding + @image_frame_shadow_width
+  images.right_margin = @image_frame_padding + @image_frame_shadow_width
+  images.top_margin = @image_frame_padding
+  images.bottom_margin = @image_frame_padding + @image_frame_shadow_width
+  
   space = screen_size(3)
 
   images.each do |image|
     image.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if @image_with_frame and !simulation
         # Frame
-        f_sx = x - @image_frame_padding
-        f_sy = y - @image_frame_padding
-        f_ex = image.width + 2 * @image_frame_padding
-        f_ey = image.height + 2 * @image_frame_padding
+        f_sx = x - image.left_margin - @image_frame_padding
+        f_sy = y - image.top_margin - @image_frame_padding
+        f_ex = image.width + image.left_margin + image.right_margin
+        f_ex += 2 * @image_frame_padding
+        f_ey = image.height + image.bottom_margin + 2 * @image_frame_padding
         canvas.draw_rectangle(false, f_sx, f_sy, f_ex, f_ey, @image_frame_color)
 
         # Under Shadow
@@ -61,20 +67,22 @@ match("**", Image) do |images|
         caption = NormalText.new(image.caption)
         caption.prop_set("size", @normal_font_size)
         set_font_family(caption)
+        new_w = w + image.left_margin + image.right_margin
         if image.horizontal_centering
-          caption.do_horizontal_centering(canvas, x, y, w, h)
+          caption.do_horizontal_centering(canvas, x, y, new_w, h)
         end
-        caption.compile(canvas, x, y, w, h)
+        caption.compile(canvas, x, y, new_w, h)
         layout = caption.layout
         th = caption.height
       end
       if !simulation and layout
+        base_x = (image.ox || x) + image.left_margin
         base_y = y + @image_caption_space
         if @image_with_frame
           base_y += @image_frame_width
           base_y += @image_frame_shadow_width + @image_frame_padding
         end
-        canvas.draw_layout(layout, image.ox || x, base_y) # dirty!!!
+        canvas.draw_layout(layout, base_x, base_y) # dirty!!!
       end
       new_y = y + space + th
       new_h = h - space - th

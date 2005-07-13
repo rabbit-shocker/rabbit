@@ -1061,7 +1061,9 @@ module Rabbit
         unless simulation
           canvas.draw_pixbuf(pixbuf, x, y)
         end
-        [@ox || x, y + height, @ow || w, h - height]
+        new_x = (@ox || x) - @left_margin
+        new_w = (@ow || w) - @left_margin - @right_margin
+        [new_x, y + height, new_w, h - height]
       end
 
       def adjust_size(canvas, x, y, w, h)
