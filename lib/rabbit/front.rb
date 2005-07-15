@@ -11,7 +11,8 @@ module Rabbit
     attr_reader :image_type
     
     def initialize(canvas)
-      @canvas = canvas
+      @original_canvas = canvas
+      @canvas = canvas.offline_screen_canvas
       @last_modified = Time.at(0)
       @images = []
       @image_type = "png"
@@ -20,27 +21,25 @@ module Rabbit
 
     def current_page_image
       update_images_if_need
-      @images[@canvas.current_index]
+      @images[@original_canvas.current_index]
     end
 
     def total_page_number
-      update_images_if_need
-      @images.size
+      @original_canvas.slide_size
     end
 
     def current_page_number
-      update_images_if_need
-      @canvas.current_index + 1
+      @original_canvas.current_index + 1
     end
 
     private
     def update_images_if_need
       @mutex.synchronize do
-        if dirty?
-          @images = []
-          @canvas.each_slide_pixbuf do |pixbuf, slide_number|
-            @images << pixbuf.save_to_buffer(@image_type)
-          end
+        @images = [] if dirty?
+        index = @original_canvas.current_index
+        if @images[index].nil?
+          pixbuf = @canvas.to_pixbuf(index)
+          @images[index] = pixbuf.save_to_buffer(@image_type)
           synchronized
         end
       end

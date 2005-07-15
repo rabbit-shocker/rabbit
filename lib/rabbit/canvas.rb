@@ -42,7 +42,8 @@ module Rabbit
     def_delegators(:@renderer, :font_families)
     def_delegators(:@renderer, :destroy, :redraw)
     def_delegators(:@renderer, :cursor=, :filename, :filename=)
-    def_delegators(:@renderer, :each_slide_pixbuf, :to_pixbuf)
+    def_delegators(:@renderer, :each_slide_pixbuf)
+    def_delegators(:@renderer, :offline_screen_canvas)
     def_delegators(:@renderer, :foreground, :background)
     def_delegators(:@renderer, :foreground=, :background=)
     def_delegators(:@renderer, :background_image, :background_image=)
@@ -204,6 +205,13 @@ module Rabbit
       @source and @source.tmp_dir_name
     end
 
+    def to_pixbuf(i)
+      move_to_if_can(i)
+      slide = current_slide
+      slide.draw(self)
+      @renderer.to_pixbuf(slide)
+    end
+    
     def save_as_image
       process do
         file_name_format =

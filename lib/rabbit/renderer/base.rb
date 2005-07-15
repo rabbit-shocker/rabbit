@@ -88,23 +88,25 @@ module Rabbit
       end
       
       def each_slide_pixbuf
-        if can_create_pixbuf?
-          canvas = @canvas
-        else
-          canvas = make_canvas_with_offscreen_renderer
-        end
+        canvas = offline_screen_canvas
         previous_index = canvas.current_index
         pre_to_pixbuf(canvas.slide_size)
         canvas.slides.each_with_index do |slide, i|
           to_pixbufing(i)
-          canvas.move_to_if_can(i)
-          slide.draw(canvas)
-          yield(canvas.to_pixbuf(slide), i)
+          yield(canvas.to_pixbuf(i), i)
         end
         post_to_pixbuf
         canvas.move_to_if_can(previous_index)
       end
-      
+
+      def offline_screen_canvas
+        if can_create_pixbuf?
+          @canvas
+        else
+          make_canvas_with_offscreen_renderer
+        end
+      end
+
       def create_pango_context
         Pango::Context.new
       end
