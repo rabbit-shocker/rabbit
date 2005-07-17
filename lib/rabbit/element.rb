@@ -230,8 +230,9 @@ module Rabbit
       
       def do_horizontal_centering(canvas, x, y, w, h)
         removed_width = w - simulated_width
-        cx = x + (removed_width / 2.0).ceil
-        cw = w - removed_width
+        adjust_width = (removed_width / 2.0).ceil
+        cx = x + adjust_width
+        cw = w - adjust_width
         compile(canvas, cx, y, cw, h)
         draw(true)
       end
@@ -1053,7 +1054,7 @@ module Rabbit
 
       def compile(canvas, x, y, w, h)
         super
-        adjust_size(canvas, x, y, w, h)
+        adjust_size(canvas, @x, @y, @w, @h)
       end
       
       private
@@ -1069,7 +1070,7 @@ module Rabbit
       def adjust_size(canvas, x, y, w, h)
         nw = make_normalized_size(@normalized_width)
         nh = make_normalized_size(@normalized_height)
-        rw = make_relative_size(@relative_width, @ow || w)
+        rw = make_relative_size(@relative_width, w)
         rh = make_relative_size(@relative_height, @oh || h)
         iw = nw || rw
         ih = nh || rh

@@ -332,16 +332,16 @@ EPS形式以外は，ファイルの内容から画像形式を自動認識す�
 
 = 書式
 
-  # _
-  # image
-  # src = 画像のURI
-  # パラメタ名 = 値
-  # ...
+   # _
+   # image
+   # src = 画像のURI
+   # パラメタ名 = 値
+   # ...
 
- # image
- # src = usagi.png
- # keep_ratio = true
- # relative_height = 50
+  # image
+  # src = usagi.png
+  # keep_ratio = true
+  # relative_height = 100
 
 === 書式
 

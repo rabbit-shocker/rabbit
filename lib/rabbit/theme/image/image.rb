@@ -6,9 +6,12 @@ end
 
 @image_caption_space ||= 5
 
+@image_top_margin ||= screen_size(0)
+@image_bottom_margin ||= screen_size(0)
+
 @image_frame_color ||= "black"
 @image_frame_shadow_color ||= "gray"
-@image_frame_padding ||= 3
+@image_frame_padding ||= screen_size(1)
 @image_frame_shadow_width ||= 4
 @image_frame_shadow_offset ||= 2
 @image_frame_width = 1
@@ -20,10 +23,23 @@ match("**", Image) do |images|
   
   images.horizontal_centering = true
 
-  images.left_margin = @image_frame_padding + @image_frame_shadow_width
-  images.right_margin = @image_frame_padding + @image_frame_shadow_width
-  images.top_margin = @image_frame_padding
-  images.bottom_margin = @image_frame_padding + @image_frame_shadow_width
+  left_margin = 0
+  right_margin = 0
+  top_margin = @image_top_margin
+  bottom_margin = @image_bottom_margin
+  
+  if @image_with_frame
+    left_margin += @image_frame_padding + @image_frame_shadow_width
+    right_margin += @image_frame_padding + @image_frame_shadow_width
+    top_margin += @image_frame_padding + @image_frame_width
+    bottom_margin += @image_frame_padding + @image_frame_width
+    bottom_margin += @image_frame_shadow_width
+  end
+
+  images.left_margin = left_margin
+  images.right_margin = right_margin
+  images.top_margin = top_margin
+  images.bottom_margin = bottom_margin
   
   space = screen_size(3)
 
@@ -31,11 +47,11 @@ match("**", Image) do |images|
     image.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if @image_with_frame and !simulation
         # Frame
-        f_sx = x - image.left_margin - @image_frame_padding
-        f_sy = y - image.top_margin - @image_frame_padding
-        f_ex = image.width + image.left_margin + image.right_margin
-        f_ex += 2 * @image_frame_padding
-        f_ey = image.height + image.bottom_margin + 2 * @image_frame_padding
+        f_sx = x - @image_frame_padding - @image_frame_width
+        f_sy = y - @image_frame_padding - @image_frame_width
+        f_ex = image.width
+        f_ex += 2 * (@image_frame_padding + @image_frame_width)
+        f_ey = image.height + 2 * (@image_frame_padding + @image_frame_width)
         canvas.draw_rectangle(false, f_sx, f_sy, f_ex, f_ey, @image_frame_color)
 
         # Under Shadow
@@ -54,7 +70,7 @@ match("**", Image) do |images|
         canvas.draw_rectangle(true, rs_sx, rs_sy, rs_ex, rs_ey,
                               @image_frame_shadow_color)
       end
-      
+
       [x, y, w, h]
     end
   end

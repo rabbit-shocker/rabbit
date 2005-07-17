@@ -14,10 +14,8 @@ def lightning_talk_slide(slides, proc_name)
   slides.top_margin = @top_margin
   slides.bottom_margin = @bottom_margin
 
-  if @lightning_talk_uninstall
-    slides.delete_post_draw_proc_by_name(proc_name)
-    return
-  end
+  slides.delete_post_draw_proc_by_name(proc_name)
+  return if @lightning_talk_uninstall
 
   slides.clear_pre_draw_procs
   slides.clear_post_draw_procs
@@ -41,8 +39,6 @@ def lightning_talk_slide(slides, proc_name)
   end
   
   if @lightning_talk_contact_information
-    slides.delete_post_draw_proc_by_name(proc_name)
-
     slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
       unless simulation
         text = @lightning_talk_contact_information
