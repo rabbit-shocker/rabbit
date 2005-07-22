@@ -450,7 +450,6 @@ module Rabbit
           [x, y, w, h]
         end
       end
-      
     end
   end
 end

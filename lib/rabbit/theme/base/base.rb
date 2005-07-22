@@ -9,26 +9,28 @@
 @large_script_font_size = @large_font_size / 2
 @script_font_size = @normal_font_size / 2
 
-@left_margin = screen_size(3)
-@right_margin = screen_size(3)
-@top_margin = screen_size(3)
-@bottom_margin = screen_size(3)
+@space = screen_y(2)
+
+@left_margin = screen_x(3)
+@right_margin = screen_x(3)
+@top_margin = screen_y(3)
+@bottom_margin = screen_y(3)
 
 @preformatted_border_color = "#55003dff0eff"
 @preformatted_fill_color = "#fcfae2"
 
-@preformatted_left_padding = screen_size(5)
-@preformatted_right_padding = screen_size(5)
-@preformatted_top_padding = screen_size(2)
-@preformatted_bottom_padding = screen_size(2)
+@preformatted_left_padding = screen_x(5)
+@preformatted_right_padding = screen_x(5)
+@preformatted_top_padding = screen_y(2)
+@preformatted_bottom_padding = screen_y(2)
 
 @table_border_color = "#55003dff0eff"
 @table_fill_color = "#fcfae2"
 
-@table_left_padding = screen_size(5) * 0
-@table_right_padding = screen_size(5) * 0
-@table_top_padding = screen_size(2) * 0
-@table_bottom_padding = screen_size(2) * 0
+@table_left_padding = screen_x(5) * 0
+@table_right_padding = screen_x(5) * 0
+@table_top_padding = screen_y(2) * 0
+@table_bottom_padding = screen_y(2) * 0
 
 @table_head_border_color = "#55003dff0eff"
 @table_body_border_color = "#55003dff0eff"

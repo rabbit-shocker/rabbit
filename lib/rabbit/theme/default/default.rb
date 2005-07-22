@@ -21,7 +21,7 @@ match(TitleSlide, Title) do |titles|
   titles.prop_set("size", @huge_font_size)
   titles.prop_set("weight", "heavy")
 
-  space = screen_size(5)
+  space = @space * 2
   titles.add_post_draw_proc do |title, canvas, x, y, w, h, simulation|
     if title.next_element.is_a?(Subtitle)
       [x, y, w, h]
@@ -34,7 +34,7 @@ end
 match(TitleSlide, Subtitle) do |titles|
   titles.prop_set("size", @normal_font_size)
 
-  space = screen_size(5)
+  space = @space * 2
   titles.add_post_draw_proc do |title, canvas, x, y, w, h, simulation|
     if title.next_element.is_a?(Subtitle)
       [x, y, w, h]
@@ -44,14 +44,28 @@ match(TitleSlide, Subtitle) do |titles|
   end
 end
 
-match(TitleSlide, ContentSource) do |titles|
-  titles.prop_set("size", @small_font_size)
-  titles.prop_set("style", "italic")
+match(TitleSlide, Author) do |authors|
+  authors.add_post_draw_proc do |authors, canvas, x, y, w, h, simulation|
+    [x, y + @space, w, h - @space]
+  end
 end
 
-match(TitleSlide, Institution) do |titles|
-  titles.prop_set("size", @normal_font_size)
-  titles.prop_set("style", "italic")
+match(TitleSlide, ContentSource) do |sources|
+  sources.prop_set("size", @small_font_size)
+  sources.prop_set("style", "italic")
+
+  sources.add_post_draw_proc do |source, canvas, x, y, w, h, simulation|
+    [x, y + @space, w, h - @space]
+  end
+end
+
+match(TitleSlide, Institution) do |institutions|
+  institutions.prop_set("size", @normal_font_size)
+  institutions.prop_set("style", "italic")
+
+  institutions.add_post_draw_proc do |institution, canvas, x, y, w, h, simulation|
+    [x, y + @space, w, h - @space]
+  end
 end
 
 
@@ -67,7 +81,7 @@ match(Slide, HeadLine) do |heads|
   set_font_family(heads)
   heads.horizontal_centering = true
 
-  space = screen_size(1)
+  space = @space / 2
   heads.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
     unless simulation
       canvas.draw_line(x, y + space, x + w, y + space, "red")
@@ -80,9 +94,8 @@ match("**", Paragraph) do |texts|
   texts.prop_set("size", @normal_font_size)
   set_font_family(texts)
 
-  space = screen_size(2.0)
   texts.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
+    [x, y + @space, w, h - @space]
   end
 end
 
@@ -141,7 +154,7 @@ match("**", DescriptionTerm) do |terms|
 # terms.prop_set("underline", "double")
 
   color = "#ff9900"
-  space = screen_size(1)
+  space = @space / 2
   terms.add_post_draw_proc do |term, canvas, x, y, w, h, simulation|
     unless simulation
       canvas.draw_line(x, y + space, x + term.width, y + space, color)
@@ -164,6 +177,10 @@ match("**", PreformattedBlock) do |blocks|
   blocks.wrap_mode = false
 
   draw_border(blocks, border_color, fill_color)
+
+  blocks.add_post_draw_proc do |block, canvas, x, y, w, h, simulation|
+    [x, y + @space, w, h - @space]
+  end
 end
 
 match("**", MethodTerm) do |texts|
@@ -188,7 +205,7 @@ match("**", Code) do |texts|
 end
 
 match("**", FoottextBlock) do |blocks|
-  space = screen_size(1)
+  space = @space / 2
   color = "#33ff33"
   blocks.add_pre_draw_proc do |block, canvas, x, y, w, h, simulation|
     if block.elements.empty?
@@ -247,7 +264,7 @@ match(*(slide_body + (item_list_item * 1))) do |items|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = screen_y(1.5)
+  space = @space * (3 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -264,7 +281,7 @@ match(*(slide_body + (item_list_item * 2))) do |items|
     canvas.draw_circle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = screen_y(1.0)
+  space = @space * (2 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -281,7 +298,7 @@ match(*(slide_body + (item_list_item * 3))) do |items|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = screen_y(0.5)
+  space = @space * (1 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -309,7 +326,7 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
     %Q[<span #{to_attrs(props)}>#{item.order}. </span>]
   end
 
-  space = screen_y(1.5)
+  space = @space * (3 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -326,7 +343,7 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
     %Q[<span #{to_attrs(props)}>#{(?a + item.order - 1).chr}. </span>]
   end
 
-  space = screen_y(1.0)
+  space = @space * (2 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -343,7 +360,7 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
     %Q[<span #{to_attrs(props)}>#{(?A + item.order - 1).chr}. </span>]
   end
 
-  space = screen_y(1.0)
+  space = @space * (1 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -369,7 +386,7 @@ match(*(slide_body + enum_list_item + item_list_item)) do |items|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = screen_y(1.0)
+  space = @space * (2 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -386,7 +403,7 @@ match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = screen_y(0.5)
+  space = @space * (1 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -409,7 +426,7 @@ match(*(slide_body + desc_list_item)) do |items|
     indent(item[1..-1], space)
   end
 
-  space = screen_y(1.5)
+  space = @space * (3 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -421,7 +438,7 @@ match(*(slide_body + (desc_list_item * 2))) do |items|
     indent(item[1..-1], space)
   end
 
-  space = screen_y(1.0)
+  space = @space * (2 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
@@ -433,7 +450,7 @@ match(*(slide_body + (desc_list_item * 3))) do |items|
     indent(item[1..-1], space)
   end
 
-  space = screen_y(0.5)
+  space = @space * (1 / 4)
   items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
     [x, y + space, w, h - space]
   end
