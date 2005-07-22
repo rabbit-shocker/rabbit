@@ -166,8 +166,10 @@ end
 match("**", PreformattedBlock) do |blocks|
   blocks.horizontal_centering = true
 
-  border_color = @preformatted_border_color
-  fill_color = @preformatted_fill_color
+  params = {
+    :frame_color => @preformatted_frame_color,
+    :fill_color => @preformatted_fill_color,
+  }
 
   blocks.left_padding = @preformatted_left_padding
   blocks.right_padding = @preformatted_right_padding
@@ -176,7 +178,7 @@ match("**", PreformattedBlock) do |blocks|
 
   blocks.wrap_mode = false
 
-  draw_border(blocks, border_color, fill_color)
+  draw_frame(blocks, params)
 
   blocks.add_post_draw_proc do |block, canvas, x, y, w, h, simulation|
     [x, y + @space, w, h - @space]

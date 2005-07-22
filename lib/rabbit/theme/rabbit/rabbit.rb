@@ -37,7 +37,7 @@ include_theme("slide-number")
 include_theme("image-slide-number")
 
 @powered_by_image = "rabbit_banner.png"
-@powered_by_text = "Rabbit and COZMIXNG"
+@powered_by_text = "Rabbit #{VERSION} and COZMIXNG"
 include_theme("powered-by")
 
 @icon_images = ["lavie_icon.png"]

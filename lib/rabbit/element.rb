@@ -1056,7 +1056,7 @@ module Rabbit
         super
         adjust_size(canvas, @x, @y, @w, @h)
       end
-      
+
       private
       def draw_image(canvas, x, y, w, h, simulation)
         unless simulation
@@ -1068,10 +1068,12 @@ module Rabbit
       end
 
       def adjust_size(canvas, x, y, w, h)
+        base_w = w
+        base_h = (@oh || h) - @top_padding - @bottom_padding
         nw = make_normalized_size(@normalized_width)
         nh = make_normalized_size(@normalized_height)
-        rw = make_relative_size(@relative_width, w)
-        rh = make_relative_size(@relative_height, @oh || h)
+        rw = make_relative_size(@relative_width, base_w)
+        rh = make_relative_size(@relative_height, base_h)
         iw = nw || rw
         ih = nh || rh
         resize(iw, ih)

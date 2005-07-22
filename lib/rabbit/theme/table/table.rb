@@ -3,8 +3,10 @@ all_table = ["**", Table]
 match(*all_table) do |tables|
   space = screen_size(1)
 
-  border_color = @table_border_color
-  fill_color = @table_fill_color
+  params = {
+    :frame_color => @table_frame_color,
+    :fill_color => @table_fill_color,
+  }
   
   tables.left_padding = @table_left_padding
   tables.right_padding = @table_right_padding
@@ -33,19 +35,21 @@ match(*all_table) do |tables|
       [x, y + adjust_y, w, h - adjust_y]
     end
     
-    draw_border(table, border_color, fill_color) do |_, canvas, x, y, w, h|
+    draw_frame(table, params) do |_, canvas, x, y, w, h|
       [nil, table.base_y + adjust_y, table.w, nil]
     end
   end
 end
 
 match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
-  border_color = @table_head_border_color
-  fill_color = @table_head_fill_color
+  params = {
+    :frame_color => @table_head_frame_color,
+    :fill_color => @table_head_fill_color,
+  }
 
   headers.prop_set("size", @normal_font_size)
   set_font_family(headers)
-  draw_border(headers, border_color, fill_color)
+  draw_frame(headers, params)
 
   headers.add_pre_draw_proc do |header, canvas, x, y, w, h, simulation|
     if simulation
@@ -59,8 +63,10 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
 end
 
 match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
-  border_color = @table_body_border_color
-  fill_color = @table_body_fill_color
+  params = {
+    :frame_color => @table_body_frame_color,
+    :fill_color => @table_body_fill_color,
+  }
 
   cells.prop_set("size", @normal_font_size)
   set_font_family(cells)
@@ -86,7 +92,7 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
       [orig_x + cell_w, y, w - cell_w, h]
     end
 
-    draw_border(cell, border_color, fill_color) do |_, canvas, x, y, w, h|
+    draw_frame(cell, params) do |_, canvas, x, y, w, h|
       new_x = cell.base_x
       new_y = cell.base_y
       new_w = cell_w

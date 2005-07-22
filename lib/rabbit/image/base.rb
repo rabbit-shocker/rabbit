@@ -41,13 +41,19 @@ module Rabbit
       def height
         @pixbuf.height
       end
+
+      def original_width
+        @original_pixbuf.width
+      end
+    
+      def original_height
+        @original_pixbuf.height
+      end
     
       def resize(w, h)
         if w.nil? and h.nil?
           return
         elsif @keep_ratio
-          wid = @original_pixbuf.width
-          hei = @original_pixbuf.height
           if w and h.nil?
             h = (height * w.to_f / width).ceil
           elsif w.nil? and h

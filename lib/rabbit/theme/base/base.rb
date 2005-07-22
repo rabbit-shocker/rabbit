@@ -16,7 +16,7 @@
 @top_margin = screen_y(3)
 @bottom_margin = screen_y(3)
 
-@preformatted_border_color = "#55003dff0eff"
+@preformatted_frame_color = "#55003dff0eff"
 @preformatted_fill_color = "#fcfae2"
 
 @preformatted_left_padding = screen_x(5)
@@ -24,7 +24,7 @@
 @preformatted_top_padding = screen_y(2)
 @preformatted_bottom_padding = screen_y(2)
 
-@table_border_color = "#55003dff0eff"
+@table_frame_color = "#55003dff0eff"
 @table_fill_color = "#fcfae2"
 
 @table_left_padding = screen_x(5) * 0
@@ -32,10 +32,20 @@
 @table_top_padding = screen_y(2) * 0
 @table_bottom_padding = screen_y(2) * 0
 
-@table_head_border_color = "#55003dff0eff"
-@table_body_border_color = "#55003dff0eff"
+@table_head_frame_color = "#55003dff0eff"
+@table_body_frame_color = "#55003dff0eff"
 @table_head_fill_color = "#eeedcd"
 @table_body_fill_color = nil
+
+
+@image_with_frame = nil
+@image_caption_space = screen_y(1)
+@image_frame_color = "black"
+@image_frame_shadow_color = "gray"
+@image_frame_padding = screen_size(1)
+@image_frame_shadow_width = 4
+@image_frame_shadow_offset = 2
+
 
 @font_family = nil
 @monospace_font_family = nil
