@@ -445,8 +445,8 @@ module Rabbit
             end
             fx ||= target.base_x
             fy ||= target.base_y
-            fw ||= target.width + target.left_padding + target.right_padding
-            fh ||= target.height + target.top_padding + target.bottom_padding
+            fw ||= target.width
+            fh ||= target.height
             if shadow_color
               fh -= shadow_width
             end

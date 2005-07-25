@@ -37,6 +37,15 @@
 @table_head_fill_color = "#eeedcd"
 @table_body_fill_color = nil
 
+@table_cell_left_padding = screen_x(2)
+@table_cell_right_padding = screen_x(2)
+@table_cell_top_padding = screen_y(0.5)
+@table_cell_bottom_padding = screen_y(0.5)
+
+@table_header_left_padding = screen_x(2) * 0
+@table_header_right_padding = screen_x(2) * 0
+@table_header_top_padding = screen_y(0.5)
+@table_header_bottom_padding = screen_y(0.5)
 
 @image_with_frame = nil
 @image_caption_space = screen_y(1)

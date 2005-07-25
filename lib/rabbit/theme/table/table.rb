@@ -1,8 +1,6 @@
 all_table = ["**", Table]
 
 match(*all_table) do |tables|
-  space = screen_size(1)
-
   params = {
     :frame_color => @table_frame_color,
     :fill_color => @table_fill_color,
@@ -29,14 +27,18 @@ match(*all_table) do |tables|
         th = caption.height
       end
       if !simulation and layout
-        canvas.draw_layout(layout, x, y - table.top_padding)
+        canvas.draw_layout(layout, x, y)
       end
-      adjust_y = th + space
+      adjust_y = th + @space
       [x, y + adjust_y, w, h - adjust_y]
     end
     
     draw_frame(table, params) do |_, canvas, x, y, w, h|
-      [nil, table.base_y + adjust_y, table.w, nil]
+      new_x = x
+      new_y = y
+      new_w = w
+      new_h = nil
+      [new_x, new_y, new_w, new_h]
     end
   end
 end
@@ -47,6 +49,11 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
     :fill_color => @table_head_fill_color,
   }
 
+  headers.left_padding = @table_header_left_padding
+  headers.right_padding = @table_header_right_padding
+  headers.top_padding = @table_header_top_padding
+  headers.bottom_padding = @table_header_bottom_padding
+
   headers.prop_set("size", @normal_font_size)
   set_font_family(headers)
   draw_frame(headers, params)
@@ -56,7 +63,9 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
       row = header.parent
       table = row.parent.parent
       header_w = table.available_w / row.elements.size
-      header.layout.set_width(header_w * Pango::SCALE)
+      header_w -= header.left_padding + header.right_padding
+      header.dirty!
+      header.text_compile(canvas, x, y, header_w, h)
     end
     [x, y, w, h]
   end
@@ -71,6 +80,11 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
   cells.prop_set("size", @normal_font_size)
   set_font_family(cells)
 
+  cells.left_padding = @table_cell_left_padding
+  cells.right_padding = @table_cell_right_padding
+  cells.top_padding = @table_cell_top_padding
+  cells.bottom_padding = @table_cell_bottom_padding
+
   cells.each do |cell|
     orig_x = nil
     cell_w = nil
@@ -82,8 +96,10 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
         row = cell.parent
         table = row.parent.parent
         cell_w = table.available_w / row.elements.size
-        cell.dirty!      
-        cell.text_compile(canvas, x, y, cell_w, h)
+        cell.dirty!
+        base_y = y + cell.top_padding
+        text_width = cell_w - cell.left_padding - cell.right_padding
+        cell.text_compile(canvas, x, base_y, text_width, h)
       end
       [x, y, w, h]
     end
@@ -93,8 +109,8 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
     end
 
     draw_frame(cell, params) do |_, canvas, x, y, w, h|
-      new_x = cell.base_x
-      new_y = cell.base_y
+      new_x = nil
+      new_y = nil
       new_w = cell_w
       new_h = cell.parent.height
       [new_x, new_y, new_w, new_h]

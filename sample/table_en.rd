@@ -24,8 +24,8 @@
   Heading1, Heading2
 
   Content1, Content2
-  Content1, Content Content Content Content 2
-  Loooooooooooong Content3, Looooooooooooooooooooooooooooooooooooooooong Content4
+  Content1, Content Content 2
+  Loooooooooooooooooong Content3, Loooooooooooong Content4
 
 = tab3
 

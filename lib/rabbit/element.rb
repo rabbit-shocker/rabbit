@@ -5,12 +5,10 @@ require 'rabbit/image'
 module Rabbit
   
   module Element
-    
+
     module Base
 
       include Utils
-      
-      attr_reader :width, :height
 
       attr_reader :x, :y, :w, :h
       attr_reader :px, :py, :pw, :ph
@@ -172,7 +170,7 @@ module Rabbit
         x += @left_padding
         y += @top_padding
         w -= @left_padding + @right_padding
-        h -= @top_padding
+        h -= @top_padding + @bottom_padding
         [x, y, w, h]
       end
 
@@ -183,8 +181,8 @@ module Rabbit
       end
 
       def adjust_y_padding(y, h)
-        y += @bottom_padding
-        h -= @bottom_padding
+        y -= @top_padding
+        h += @top_padding + @bottom_padding
         [y, h]
       end
 
@@ -255,6 +253,14 @@ module Rabbit
 
       def available_w
         @w - @left_padding - @right_padding
+      end
+
+      def width
+        @width + @left_padding + @right_padding
+      end
+
+      def height
+        @height + @top_padding + @bottom_padding
       end
       
       def inspect(verbose=false)
@@ -338,17 +344,15 @@ module Rabbit
       end
 
       def width
-        if !@layout.nil? and @layout.width != -1 and
-            (@layout.alignment == Pango::Layout::ALIGN_CENTER or
-               @layout.alignment == Pango::Layout::ALIGN_RIGHT)
-          @layout.width / Pango::SCALE
+        if @width
+          @width + @left_padding + @right_padding
         else
-          @width
+          nil
         end
       end
 
       def height
-        @layout.pixel_size[1]
+        @height + @top_padding + @bottom_padding
       end
       
       def compile(canvas, x, y, w, h)
@@ -405,6 +409,11 @@ module Rabbit
         layout.set_spacing(@spacing)
         layout.context_changed
         width, height = layout.pixel_size
+        if layout.width != -1 and
+            (layout.alignment == Pango::Layout::ALIGN_CENTER or
+               layout.alignment == Pango::Layout::ALIGN_RIGHT)
+          width = layout.width / Pango::SCALE
+        end
         [layout, width, height, orig_width, orig_height]
       end
       
@@ -425,7 +434,7 @@ module Rabbit
 
       def do_horizontal_centering(canvas, x, y, w, h)
         @ox, @oy, @ow, @oh = @x, @y, @w, @h
-        adjust_width = ((w / 2.0) - (width / 2.0)).ceil - @left_padding
+        adjust_width = ((w / 2.0) - (width / 2.0)).ceil
         x += adjust_width
         w -= adjust_width
         compile(canvas, x, @y, w, h)
@@ -446,11 +455,13 @@ module Rabbit
         false
       end
 
-      private
-      def _draw(canvas, x, y, w, h, simulation)
-        draw_element(canvas, x, y, w, h, simulation)
+      def adjust_y_padding(y, h)
+        y += @bottom_padding
+        h -= @bottom_padding
+        [y, h]
       end
-      
+
+      private
       def sync_simulated_size(x, y, w, h)
         sync_w = x - @x + width
         sync_h = (@vertical_centered_y || y) - @y
@@ -487,12 +498,7 @@ module Rabbit
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
-        (@pre_draw_procs +
-           [method(:draw_elements)] +
-           @post_draw_procs).each do |pro,|
-          x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
-        end
-        [x, y, w, h]
+        draw_elements(canvas, x, y, w, h, simulation)
       end
 
       def draw_elements(canvas, x, y, w, h, simulation)
@@ -648,7 +654,6 @@ module Rabbit
       alias prop_set __prop_set__
       alias prop_get __prop_get__
       alias prop_delete __prop_delete__
-      
 
       def draw_elements(canvas, x, y, w, h, simulation)
         unless simulation
@@ -716,16 +721,15 @@ module Rabbit
         /\A\s*\z/ =~ @text
       end
     end
-    
-    class Slide
+
+    module SlideElement
       include ContainerElement
 
       attr_reader :title
-
-      def initialize(head_line)
+      def initialize(first_element)
         super()
-        @title = head_line.text
-        add_element(head_line)
+        @title = first_element.text
+        add_element(first_element)
       end
 
       def draw(canvas, simulation=false)
@@ -734,7 +738,11 @@ module Rabbit
           super(simulation)
         end
       end
-
+    end
+    
+    class Slide
+      include SlideElement
+      
       def headline
         @elements[0]
       end
@@ -745,15 +753,11 @@ module Rabbit
     end
     
     class TitleSlide
-      include ContainerElement
+      include SlideElement
 
-      attr_reader :title
-      
       def initialize(title)
-        super()
+        super(title)
         @local_prop = {}
-        @title = title.text
-        add_element(title)
       end
       
       def <<(element)
@@ -780,13 +784,6 @@ module Rabbit
         end
       end
 
-      def draw(canvas, simulation=false)
-        canvas.draw_slide(self) do
-          compile(canvas, 0, 0, canvas.width, canvas.height)
-          super(simulation)
-        end
-      end
-      
       def theme
         @local_prop["theme"]
       end
@@ -1026,12 +1023,7 @@ module Rabbit
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
-        (@pre_draw_procs +
-           [method(:draw_image)] +
-           @post_draw_procs).each do |pro,|
-          x, y, w, h = pro.call(@canvas, x, y, w, h, simulation)
-        end
-        [x, y, w, h]
+        draw_image(canvas, x, y, w, h, simulation)
       end
 
       def dither_mode
@@ -1057,6 +1049,14 @@ module Rabbit
         adjust_size(canvas, @x, @y, @w, @h)
       end
 
+      def width
+        super + @left_padding + @right_padding
+      end
+      
+      def height
+        super + @top_padding + @bottom_padding
+      end
+      
       private
       def draw_image(canvas, x, y, w, h, simulation)
         unless simulation
@@ -1097,6 +1097,14 @@ module Rabbit
         %w(caption).each do |name|
           instance_variable_set("@#{name}", prop[name])
         end
+      end
+
+      def head
+        elements.find {|e| e.is_a?(TableHead)}
+      end
+
+      def body
+        elements.find {|e| e.is_a?(TableBody)}
       end
     end
 
