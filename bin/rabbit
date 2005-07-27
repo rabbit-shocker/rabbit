@@ -6,11 +6,11 @@ Thread.abort_on_exception = true
 require "optparse"
 require "ostruct"
 
+require "rabbit/rabbit"
 require "rabbit/canvas"
 require "rabbit/source"
 require "rabbit/logger"
 require "rabbit/renderer"
-require "rabbit/gettext"
 
 Version = Rabbit::VERSION
 
@@ -44,6 +44,8 @@ def parse(args, logger)
   options.use_druby = true
   options.druby_uri = "druby://:10101"
   options.output_druby_uri = false
+  options.use_soap = true
+  options.soap_port = 10103
 
   default_logger = logger
   
@@ -335,6 +337,24 @@ def parse(args, logger)
     
     opts.separator ""
     
+    opts.on("--use-soap [BOOL]",
+            "Specify use SOAP or not.",
+            "(#{options.use_soap})") do |bool|
+      options.use_soap = bool != "false"
+    end
+    
+    opts.on("--soap-port [PORT]",
+            "Specify SOAP PORT.",
+            "(#{options.soap_port})") do |port|
+      begin
+        options.soap_port = Integer(port) if port
+      rescue ArgumentError
+        raise OptionParser::InvalidArgument.new(port)
+      end
+    end
+    
+    opts.separator ""
+    
     opts.on_tail("--help", "Show this message") do
       logger.info(opts.to_s)
       exit
@@ -455,6 +475,22 @@ def do_display(options, logger)
       logger.info(DRb.uri) if options.output_druby_uri
     rescue Errno::EADDRINUSE
       logger.error("#{options.druby_uri} is in use")
+    end
+  end
+  if options.use_soap
+    require "soap/rpc/httpserver"
+    begin
+      config = {
+        :Port => options.soap_port,
+        :AddressFamily => Socket::AF_INET,
+        :Logger => logger,
+        :SOAPDefaultNamespace => Rabbit::SOAP::NS,
+      }
+      server = SOAP::RPC::HTTPServer.new(config)
+      server.add_rpc_servant(canvas.front)
+      Thread.new {server.start}
+    rescue Errno::EADDRINUSE
+      logger.error("#{options.soap_port} is in use")
     end
   end
   Gtk.main

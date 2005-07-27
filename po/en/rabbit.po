@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2005-06-29 16:14+0900\n"
+"POT-Creation-Date: 2005-07-27 20:02+0900\n"
 "PO-Revision-Date: 2005-06-27 12:17+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: English <LL@li.org>\n"
@@ -14,118 +14,122 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/rabbit/rabbit.rb:20
+#: lib/rabbit/rabbit.rb:21
 msgid "no such file %s"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:30
+#: lib/rabbit/rabbit.rb:31
 msgid ""
 "can't handle %s because the following command can't be run successfully: %s"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:39
+#: lib/rabbit/rabbit.rb:40
 msgid "tried gs commands: %s"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:55
+#: lib/rabbit/rabbit.rb:56
 msgid "Unknown property: %s"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:63
+#: lib/rabbit/rabbit.rb:64
 msgid "can't allocate color: %s"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:74
+#: lib/rabbit/rabbit.rb:75
 msgid "%s doesn't exist"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:82
+#: lib/rabbit/rabbit.rb:83
 msgid "%s isn't a file"
 msgstr ""
 
-#: lib/rabbit/rabbit.rb:90
+#: lib/rabbit/rabbit.rb:91
 msgid "%s can't be read"
 msgstr ""
 
-#: lib/rabbit/canvas.rb:319 lib/rabbit/renderer/drawing-area.rb:393
-msgid "processing..."
-msgstr "Processing..."
-
-#: lib/rabbit/menu.rb:36 lib/rabbit/menu.rb:46 lib/rabbit/menu.rb:56
-#: lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:71 lib/rabbit/menu.rb:73
-#: lib/rabbit/menu.rb:84 lib/rabbit/menu.rb:88 lib/rabbit/menu.rb:95
-#: lib/rabbit/menu.rb:116
+#: lib/rabbit/menu.rb:37 lib/rabbit/menu.rb:47 lib/rabbit/menu.rb:57
+#: lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:72 lib/rabbit/menu.rb:74
+#: lib/rabbit/menu.rb:85 lib/rabbit/menu.rb:89 lib/rabbit/menu.rb:96
+#: lib/rabbit/menu.rb:117
 msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:39
+#: lib/rabbit/menu.rb:40
 msgid "/Slide"
 msgstr "/Slide mode"
 
-#: lib/rabbit/menu.rb:42
+#: lib/rabbit/menu.rb:43
 msgid "/Index"
 msgstr "/Index mode"
 
-#: lib/rabbit/menu.rb:49
+#: lib/rabbit/menu.rb:50
 msgid "/UnFullScreen"
 msgstr "/Unfull-screen"
 
-#: lib/rabbit/menu.rb:52
+#: lib/rabbit/menu.rb:53
 msgid "/FullScreen"
 msgstr "/Full-screen"
 
-#: lib/rabbit/menu.rb:58
+#: lib/rabbit/menu.rb:59
 msgid "/SaveAsImage"
 msgstr "/Save as image"
 
-#: lib/rabbit/menu.rb:62
+#: lib/rabbit/menu.rb:63
 msgid "/Print"
 msgstr "/Print"
 
-#: lib/rabbit/menu.rb:69 lib/rabbit/menu.rb:71 lib/rabbit/menu.rb:102
+#: lib/rabbit/menu.rb:70 lib/rabbit/menu.rb:72 lib/rabbit/menu.rb:103
 msgid "/Jump"
 msgstr "/Jump to"
 
-#: lib/rabbit/menu.rb:75
+#: lib/rabbit/menu.rb:76
 msgid "/Next"
 msgstr "/Next slide"
 
-#: lib/rabbit/menu.rb:77
+#: lib/rabbit/menu.rb:78
 msgid "/Previous"
 msgstr "/Previous slide"
 
-#: lib/rabbit/menu.rb:79
+#: lib/rabbit/menu.rb:80
 msgid "/First"
 msgstr "/First slide"
 
-#: lib/rabbit/menu.rb:81
+#: lib/rabbit/menu.rb:82
 msgid "/Last"
 msgstr "/Last slide"
 
-#: lib/rabbit/menu.rb:86
+#: lib/rabbit/menu.rb:87
 msgid "/Iconify"
 msgstr "/Iconify"
 
-#: lib/rabbit/menu.rb:90
+#: lib/rabbit/menu.rb:91
 msgid "/ReloadTheme"
 msgstr "/Reload theme"
 
-#: lib/rabbit/menu.rb:93
+#: lib/rabbit/menu.rb:94
 msgid "/CacheAllSlides"
 msgstr "/Cache all slides"
 
-#: lib/rabbit/menu.rb:97 lib/rabbit/menu.rb:118
+#: lib/rabbit/menu.rb:98 lib/rabbit/menu.rb:119
 msgid "/Quit"
 msgstr "/Quit"
+
+#: lib/rabbit/canvas.rb:325 lib/rabbit/renderer/drawing-area.rb:422
+msgid "processing..."
+msgstr "Processing..."
+
+#: lib/rabbit/logger/stderr.rb:14
+msgid "can't convert to current locale from UTF-8: %s"
+msgstr ""
 
 #: lib/rabbit/logger/gui.rb:62
 msgid "Rabbit Error Dialog"
 msgstr ""
 
-#: lib/rabbit/renderer/drawing-area.rb:494
+#: lib/rabbit/renderer/drawing-area.rb:531
 msgid "Now processing... Do you really quit?"
 msgstr ""
 
-#: lib/rabbit/renderer/print.rb:308
+#: lib/rabbit/renderer/print.rb:326
 msgid "can't find printer for %s"
 msgstr ""

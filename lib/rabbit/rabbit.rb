@@ -1,4 +1,5 @@
 require "rabbit/gettext"
+require "rabbit/soap/base"
 
 module Rabbit
 

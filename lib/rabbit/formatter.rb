@@ -45,8 +45,9 @@ module Rabbit
     end
     
     %w(font_desc font_family face size style weight variant
-        stretch foreground background underline rise
-        strikethrough fallback lang).each do |name|
+        stretch foreground background underline
+        underline_color rise strikethrough
+        strikethrough_color fallback lang).each do |name|
       module_eval(<<-EOC)
         class #{to_class_name(name)}
           include SpanTextFormatter

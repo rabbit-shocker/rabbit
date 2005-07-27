@@ -8,7 +8,12 @@ module Rabbit
 
       private
       def do_log(severity, message)
-        message = GLib.filename_from_utf8(message)
+        begin
+          message = GLib.locale_from_utf8(message)
+        rescue GLib::ConvertError
+          format = _("can't convert to current locale from UTF-8: %s")
+          ::STDERR.puts(format % message)
+        end
         ::STDERR.puts(format_severity(severity), message)
         exit if severity >= FATAL
       end

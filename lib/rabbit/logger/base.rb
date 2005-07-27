@@ -16,38 +16,47 @@ module Rabbit
       include Severity
       include GetText
       
-      def initialize(level=DEBUG)
+      def initialize(level=INFO)
         @level = level
       end
       
-      def debug(message_or_error)
-        log(DEBUG, make_message(message_or_error))
+      def debug(message_or_error=nil, &block)
+        log(DEBUG, message_or_error, &block)
       end
       
-      def info(message_or_error)
-        log(INFO, make_message(message_or_error))
+      def info(message_or_error=nil, &block)
+        log(INFO, message_or_error, &block)
       end
       
-      def warn(message_or_error)
-        log(WARN, make_message(message_or_error))
+      def warn(message_or_error=nil, &block)
+        log(WARN, message_or_error, &block)
       end
       
-      def error(message_or_error)
-        log(ERROR, make_message(message_or_error))
+      def error(message_or_error=nil, &block)
+        log(ERROR, message_or_error, &block)
       end
 
-      def fatal(message_or_error)
-        log(FATAL, make_message(message_or_error))
+      def fatal(message_or_error=nil, &block)
+        log(FATAL, message_or_error, &block)
       end
       
-      def unknon(message_or_error)
-        log(UNKNOWN, make_message(message_or_error))
+      def unknown(message_or_error=nil, &block)
+        log(UNKNOWN, message_or_error, &block)
+      end
+
+      def <<(message_or_error)
+        info(message_or_error)
       end
       
       private
-      def log(severity, message)
+      def log(severity, message_or_error, &block)
         if severity >= @level
-          do_log(severity, message)
+          if message_or_error.nil? and block_given?
+            message_or_error = yield
+          end
+          if message_or_error
+            do_log(severity, make_message(message_or_error))
+          end
         end
       end
 
