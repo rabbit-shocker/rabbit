@@ -10,6 +10,7 @@ match("**", Image) do |images|
   images.horizontal_centering = true
 
   params = {
+    :proc_name => proc_name,
     :frame_color => @image_frame_color,
     :shadow_color => @image_frame_shadow_color,
     :shadow_width => @image_frame_shadow_width,

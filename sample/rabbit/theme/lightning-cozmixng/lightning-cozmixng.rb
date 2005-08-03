@@ -1,6 +1,14 @@
 include_theme("cozmixng")
 
-@lightning_talk_contact_information = "kou@cozmixng.org"
+@image_timer_limit = 15 * 60
+include_theme("image-timer")
+
+include_theme("image-slide-number")
+
+@image_with_frame = false
+include_theme("image")
+
+@lightning_talk_contact_information = "http://cozmixng.org/"
 @lightning_talk_as_large_as_possible = true
 include_theme("lightning-talk-toolkit")
 
