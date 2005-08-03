@@ -30,7 +30,6 @@ module Rabbit
         @simulated_width = nil
         @simulated_height = nil
         @parent = nil
-        @horizontal_centering = @vertical_centering = false
         @user_property = {}
         clear_theme
       end
@@ -160,6 +159,7 @@ module Rabbit
         @pre_draw_procs = []
         @post_draw_procs = []
         @width = @height = nil
+        @horizontal_centering = @vertical_centering = false
         @prop = {}
         clear_margin
         clear_padding

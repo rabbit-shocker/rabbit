@@ -18,6 +18,10 @@ include_theme("slide-number")
 
 include_theme("image-slide-number")
 
+@icon_images = ["cozmixchu.png"]
+include_theme("icon")
+
+
 match(Slide, Body) do |bodies|
-  bodies.vertical_centering = true
+#  bodies.vertical_centering = true
 end
