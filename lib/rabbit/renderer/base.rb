@@ -74,7 +74,7 @@ module Rabbit
       end
 
       def cache_all_slides
-        canvas = make_canvas_with_offscreen_renderer
+        canvas = make_canvas_with_off_screen_renderer
         pre_cache_all_slides(canvas.slide_size)
         canvas.slides.each_with_index do |slide, i|
           canvas.move_to_if_can(i)
@@ -88,7 +88,7 @@ module Rabbit
       end
       
       def each_slide_pixbuf
-        canvas = offline_screen_canvas
+        canvas = off_screen_canvas
         previous_index = canvas.current_index
         pre_to_pixbuf(canvas.slide_size)
         canvas.slides.each_with_index do |slide, i|
@@ -99,11 +99,11 @@ module Rabbit
         canvas.move_to_if_can(previous_index)
       end
 
-      def offline_screen_canvas
+      def off_screen_canvas
         if can_create_pixbuf?
           @canvas
         else
-          make_canvas_with_offscreen_renderer
+          make_canvas_with_off_screen_renderer
         end
       end
 
@@ -277,7 +277,7 @@ module Rabbit
         end
       end
       
-      def make_canvas_with_offscreen_renderer
+      def make_canvas_with_off_screen_renderer
         make_canvas_with_renderer(Pixmap) do |canvas|
           canvas.width = @canvas.width
           canvas.height = @canvas.height

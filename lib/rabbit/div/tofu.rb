@@ -35,7 +35,7 @@ module Rabbit
       def do_GET(context)
         update_div(context)
         if context.req_path_info == image_path
-          context.res_header('Content-Type', 'image/#{@rabbit.image_type}')
+          context.res_header('Content-Type', "image/#{@rabbit.image_type}")
           context.res_body(@rabbit.current_page_image)
         else
           context.res_header('Content-Type', 'text/html; charset=UTF-8')

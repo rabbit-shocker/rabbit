@@ -12,7 +12,6 @@ module Rabbit
     
     def initialize(canvas)
       @canvas = canvas
-      @last_modified = Time.at(0)
       @image_type = "png"
       @mutex = Mutex.new
       reset
@@ -37,9 +36,9 @@ module Rabbit
         reset if dirty?
         index = @canvas.current_index
         if @images[index].nil?
-          pixbuf = @offline_screen_canvas.to_pixbuf(index)
+          pixbuf = @off_screen_canvas.to_pixbuf(index)
           @images[index] = pixbuf.save_to_buffer(@image_type)
-          synchronized
+          synchronize
         end
       end
     end
@@ -48,13 +47,14 @@ module Rabbit
       @last_modified < @canvas.last_modified
     end
 
-    def synchronized
+    def synchronize
       @last_modified = @canvas.last_modified
     end
 
     def reset
-      @offline_screen_canvas = @canvas.offline_screen_canvas
-      @images = [] 
+      @off_screen_canvas = @canvas.off_screen_canvas
+      @images = []
+      @last_modified = @canvas.last_modified
     end
   end
 end

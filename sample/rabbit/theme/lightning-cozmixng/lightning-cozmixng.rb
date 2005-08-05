@@ -12,7 +12,7 @@ include_theme("image")
 @lightning_talk_as_large_as_possible = true
 include_theme("lightning-talk-toolkit")
 
-proc_name = "lightning-rabbit"
+proc_name = "lightning-cozmixng"
 
 match(Slide, HeadLine) do |heads|
   heads.each do |head|

@@ -130,8 +130,8 @@ module Rabbit
       include Element
       include Searcher
 
-      NORMALIZED_WIDTH = 120.0
-      NORMALIZED_HEIGHT = 90.0
+       NORMALIZED_WIDTH = 120.0
+       NORMALIZED_HEIGHT = 90.0
 
       def initialize(theme)
         super()
@@ -156,7 +156,11 @@ module Rabbit
 
       private
       def include_theme(name)
-        apply_theme(name)
+        begin
+          apply_theme(name)
+        rescue ThemeExit
+          # ignore
+        end
       end
 
       def to_attrs(hash)
