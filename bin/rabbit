@@ -488,6 +488,7 @@ def do_display(options, logger)
       }
       server = SOAP::RPC::HTTPServer.new(config)
       server.add_rpc_servant(canvas.front)
+      prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
       Thread.new {server.start}
     rescue Errno::EADDRINUSE
       logger.error("#{options.soap_port} is in use")

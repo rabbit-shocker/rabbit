@@ -16,10 +16,18 @@ module Rabbit
       include Severity
       include GetText
       
-      def initialize(level=INFO)
+      def initialize(level=INFO, prog_name=nil)
         @level = level
+        @prog_name = prog_name
       end
       
+      def debug?; @level <= DEBUG; end
+      def info?; @level <= INFO; end
+      def warn?; @level <= WARN; end
+      def error?; @level <= ERROR; end
+      def fatal?; @level <= FATAL; end
+      def unknown?; @level <= UNKNOWN; end
+    
       def debug(message_or_error=nil, &block)
         log(DEBUG, message_or_error, &block)
       end
@@ -48,18 +56,21 @@ module Rabbit
         info(message_or_error)
       end
       
-      private
-      def log(severity, message_or_error, &block)
+      def log(severity, message_or_error, prog_name=nil, &block)
+        severity ||= UNKNOWN
+        prog_name ||= @prog_name
         if severity >= @level
           if message_or_error.nil? and block_given?
             message_or_error = yield
           end
           if message_or_error
-            do_log(severity, make_message(message_or_error))
+            do_log(severity, prog_name, make_message(message_or_error))
           end
         end
       end
+      alias add log
 
+      private
       def severity_name(severity)
         name = Severity.constants.find do |name|
           Severity.const_get(name) == severity

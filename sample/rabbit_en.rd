@@ -113,7 +113,7 @@ You can use relative size.
 
 = Mathematical expressions?
 
-call mimeTeX
+call Tgif or mimeTeX
 
   # TeX
   # keep_ratio = true

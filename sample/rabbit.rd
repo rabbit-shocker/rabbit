@@ -113,13 +113,14 @@
 
 = 数式は？
 
-mimeTeXを呼び出す
+Tgif又はmimeTeXを呼び出す
 
   # TeX
   # keep_ratio = true
   # relative_width = 80
   
   \Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt
+
 
 = 汚いじゃん
 

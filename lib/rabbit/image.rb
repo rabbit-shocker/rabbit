@@ -26,7 +26,16 @@ module Rabbit
         raise ImageFileDoesNotExistError.new(filename)
       end
       super(*args, &block)
+      @props = {}
       @loader = Base.find_loader(filename).new(filename, true)
+    end
+
+    def [](name)
+      @props[name]
+    end
+
+    def []=(name, value)
+      @props[name] = value
     end
   end
   

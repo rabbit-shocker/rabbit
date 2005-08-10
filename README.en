@@ -61,7 +61,11 @@ Mr. MIYAMUKO
 
 == Licence
 
-Ruby's
+Ruby's (expected files under lib/rabbit/tgif.rb)
+
+The files under lib/rabbit/tgif.rb is the
+same licence of
+((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)).
 
 If you want to get PSD file of mascot character, tell
 program author. I'll ask images author.

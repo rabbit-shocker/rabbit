@@ -62,7 +62,11 @@ misc/xyzzy/
 
 == ライセンス
 
-プログラム，画像ともにRuby's
+プログラム，画像ともにRuby's （lib/rabbit/tgif.rbを除く）
+
+ただし，lib/rabbit/tgif.rbは
+((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)) 
+と同じライセンスになります．
 
 マスコットキャラクタのPSDファイルが欲しい人はプログラム作者
 に連絡してください．画像作者に相談してみます．

@@ -36,7 +36,7 @@ module Rabbit
         reset if dirty?
         index = @canvas.current_index
         if @images[index].nil?
-          pixbuf = @off_screen_canvas.to_pixbuf(index)
+          pixbuf = off_screen_canvas.to_pixbuf(index)
           @images[index] = pixbuf.save_to_buffer(@image_type)
           synchronize
         end
@@ -52,9 +52,13 @@ module Rabbit
     end
 
     def reset
-      @off_screen_canvas = @canvas.off_screen_canvas
+      @off_screen_canvas = nil
       @images = []
       @last_modified = @canvas.last_modified
+    end
+
+    def off_screen_canvas
+      @off_screen_canvas ||= @canvas.off_screen_canvas
     end
   end
 end

@@ -27,13 +27,14 @@ module Rabbit
       end
       
       private
-      def do_log(severity, message)
+      def do_log(severity, prog_name, message)
         # ::STDERR.puts(format_severity(severity))
         # ::STDERR.puts(GLib.filename_from_utf8(message))
         @current_severity = severity
         init_dialog if @dialog.destroyed?
         @dialog.show_all
         log_severity(severity)
+        log_prog_name(prog_name)
         log_message(message)
         Gtk.main if severity >= FATAL and Gtk.main_level.zero?
       end
@@ -45,6 +46,12 @@ module Rabbit
         append("]\n")
       end
 
+      def log_prog_name(prog_name)
+        if prog_name
+          append("#{prog_name}: ", "prog_name")
+        end
+      end
+      
       def log_message(message)
         unless GLib.utf8_validate(message)
           message = GLib.filename_to_utf8(message)
@@ -143,6 +150,10 @@ module Rabbit
                            "background" => "black")
         @buffer.create_tag("ANY",
                            "weight" => Pango::FontDescription::WEIGHT_BOLD)
+        @buffer.create_tag("prog_name",
+                           "weight" => Pango::FontDescription::WEIGHT_BOLD,
+                           "foreground" => "blue",
+                           "left_margin" => 10)
         @buffer.create_tag("message",
                            "weight" => Pango::FontDescription::WEIGHT_BOLD,
                            "left_margin" => 10,
