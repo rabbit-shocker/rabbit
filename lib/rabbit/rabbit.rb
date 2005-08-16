@@ -88,7 +88,15 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("%s can't be read") % @name)
+      super(_("can not be read: %s") % @name)
+    end
+  end
+
+  class ImmutableSourceTypeError < Error
+    attr_reader :source_type
+    def initialize(source_type)
+      @source_type = source_type
+      super(_("immutable source type: %s") % @source_type)
     end
   end
   

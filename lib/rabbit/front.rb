@@ -12,7 +12,10 @@ module Rabbit
       READ_SIZE = 2
       CHANGE_SIZE = 4
       SIZE = READ_SIZE | CHANGE_SIZE
-      ALL = MOVE | SIZE
+      READ_SOURCE = 8
+      CHANGE_SOURCE = 16
+      SOURCE = READ_SOURCE | CHANGE_SOURCE
+      ALL = MOVE | SIZE | SOURCE
     end
 
     AVAILABLE_INTERFACES = []
@@ -28,6 +31,14 @@ module Rabbit
 
     %w(width= height= paper_width= paper_height=).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SIZE, true]
+    end
+
+    %w(source).each do |name|
+      AVAILABLE_INTERFACES << [name, PublicLevel::READ_SOURCE, false]
+    end
+
+    %w(source=).each do |name|
+      AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SOURCE, true]
     end
 
     extend Forwardable
@@ -82,8 +93,14 @@ module Rabbit
         reset if dirty?
         index = @canvas.current_index
         if @images[index].nil?
-          if [@previous_width, @previous_height] != [@canvas.width, @canvas.height]
-            off_screen_canvas.reload_theme
+          if off_screen_canvas.need_reload_source?
+            off_screen_canvas.reload_source
+          else
+            prev_size = [@previous_width, @previous_height]
+            current_size = [@canvas.width, @canvas.height]
+            if prev_size != current_size
+              off_screen_canvas.reload_theme
+            end
           end
           pixbuf = off_screen_canvas.to_pixbuf(index)
           @images[index] = pixbuf.save_to_buffer(@image_type)
@@ -93,7 +110,9 @@ module Rabbit
     end
 
     def dirty?
-      @dirty or @last_modified < @canvas.last_modified
+      @dirty or
+        @last_modified < @canvas.last_modified or
+        off_screen_canvas.need_reload_source?
     end
 
     def synchronize

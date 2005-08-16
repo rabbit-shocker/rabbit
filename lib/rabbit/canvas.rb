@@ -61,6 +61,8 @@ module Rabbit
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
     def_delegators(:@renderer, :confirm_quit)
+
+    def_delegators(:@source, :source=)
     
     attr_reader :logger, :renderer, :theme_name, :source, :last_modified
     
@@ -155,14 +157,18 @@ module Rabbit
     end
 
     def apply_theme(name=nil)
-      @theme_name = name || @theme_name || default_theme || "default"
-      if @theme_name and not @slides.empty?
+      _theme_name = name || theme_name
+      if _theme_name and not @slides.empty?
         clear_theme
         clear_index_slides
         theme = Theme.new(self)
-        theme.apply(@theme_name)
+        theme.apply(_theme_name)
         @renderer.post_apply_theme
       end
+    end
+
+    def theme_name
+      @theme_name || default_theme || "default"
     end
 
     def reload_theme
@@ -303,6 +309,10 @@ module Rabbit
       @source.force_modified = force_modified
       yield @source
       @source.force_modified = prev
+    end
+
+    def source
+      @source.read
     end
 
     def last_slide?

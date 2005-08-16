@@ -17,6 +17,11 @@ module Rabbit
         @force_modified = false
         init_base
       end
+
+      def source=(new_source)
+        source_type = self.class.name.split("::").last.downcase
+        raise ImmutableSourceTypeError.new(source_type)
+      end
       
       def read
         if need_read?
