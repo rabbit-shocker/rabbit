@@ -18,7 +18,7 @@ module Rabbit
     attr_reader :filename
     def initialize(filename)
       @filename = filename
-      super(_("no such file %s") % filename)
+      super(_("no such file: %s") % filename)
     end
   end
 
@@ -72,7 +72,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("%s doesn't exist") % @name)
+      super(_("not exist: %s") % @name)
     end
   end
   
@@ -80,7 +80,7 @@ module Rabbit
     attr_reader :name
     def initialize(name)
       @name = name
-      super(_("%s isn't a file") % @name)
+      super(_("not a file: %s") % @name)
     end
   end
   
@@ -93,6 +93,14 @@ module Rabbit
   end
   
   class ThemeExit < Error
+  end
+
+  class NotAvailableInterfaceError < Error
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("not available interface: %s") % @name)
+    end
   end
 
 end

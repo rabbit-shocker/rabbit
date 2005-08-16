@@ -12,10 +12,13 @@ module Rabbit
   
       attr_accessor :width, :height, :pango_context
       
+      attr_accessor :filename
+      
       def initialize(canvas, width=nil, height=nil)
         super(canvas)
         @width = width
         @height = height
+        @filename = nil
         @pango_context = create_pango_context
         init_drawable
         clear_pixmaps

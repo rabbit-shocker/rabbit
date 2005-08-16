@@ -26,16 +26,15 @@ module Rabbit
       def_delegators(:@pixmap, :make_color, :to_rgb)
 
       def_delegators(:@pixmap, :to_pixbuf)
+
+      def_delegators(:@pixmap, :filename, :filename=)
       
       BUTTON_PRESS_ACCEPTING_TIME = 0.5 * 1000
 
-      attr_accessor :filename
-      
       def initialize(canvas)
         super
         @current_cursor = nil
         @blank_cursor = nil
-        @filename = nil
         @caching = nil
         init_progress
         clear_button_handler
@@ -298,8 +297,7 @@ module Rabbit
           unless @caching
             @canvas.reload_source
             if @drawable
-              if prev_width.nil? or prev_height.nil? or
-                  [prev_width, prev_height] != [width, height]
+              if [prev_width, prev_height] != [width, height]
                 @canvas.reload_theme
                 prev_width, prev_height = width, height
               end

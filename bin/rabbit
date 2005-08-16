@@ -46,6 +46,8 @@ def parse(args, logger)
   options.output_druby_uri = false
   options.use_soap = true
   options.soap_port = 10103
+  options.server = false
+  options.public_level = Rabbit::Front::PublicLevel::STRICT
 
   default_logger = logger
   
@@ -355,6 +357,17 @@ def parse(args, logger)
     
     opts.separator ""
     
+    opts.on("--server [BOOL]",
+            "Specify run as server or not.",
+            "(#{options.server})") do |bool|
+      options.server = bool != "false"
+      if options.server
+        options.public_level = Rabbit::Front::PublicLevel::ALL
+      end
+    end
+    
+    opts.separator ""
+    
     opts.on_tail("--help", "Show this message") do
       logger.info(opts.to_s)
       exit
@@ -398,6 +411,10 @@ def make_source(options, argv, logger)
   options.source_type.new(options.encoding, logger, *infos)
 end
 
+def make_front(canvas, options)
+  canvas.front(options.public_level)
+end
+
 def apply_theme_if_need(target, options)
   target.apply_theme(options.theme) if options.theme_specified
 end
@@ -436,6 +453,38 @@ def setup_paper_size(target, options)
   target.bottom_margin = options.bottom_margin
 end
 
+def setup_druby(front, options, logger)
+  require "drb/drb"
+  begin
+    DRb.start_service(options.druby_uri, front)
+    logger.info(DRb.uri) if options.output_druby_uri
+  rescue Errno::EADDRINUSE
+    logger.error("#{options.druby_uri} is in use")
+  end
+end
+
+def setup_soap(front, options, logger)
+  require "soap/rpc/httpserver"
+  thread = nil
+  
+  begin
+    config = {
+      :Port => options.soap_port,
+      :AddressFamily => Socket::AF_INET,
+      :Logger => logger,
+      :SOAPDefaultNamespace => Rabbit::SOAP::NS,
+    }
+    server = SOAP::RPC::HTTPServer.new(config)
+    server.add_rpc_servant(front)
+    prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
+    thread = Thread.new {server.start}
+  rescue Errno::EADDRINUSE
+    logger.error("#{options.soap_port} is in use")
+  end
+
+  thread
+end
+
 def do_print(options, logger)
   renderer = Rabbit::Renderer.printable_renderer(options.slides_per_page)
   canvas = Rabbit::Canvas.new(logger, renderer)
@@ -447,7 +496,6 @@ def do_print(options, logger)
 end
 
 def do_save_as_image(options, logger)
-  Gtk.init
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
   setup_image_info(canvas, options)
   setup_size(canvas, options)
@@ -459,6 +507,7 @@ end
 
 def do_display(options, logger)
   Gtk.init
+  
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
   frame.init_gui(options.width, options.height, true)
@@ -468,33 +517,35 @@ def do_display(options, logger)
   apply_theme_if_need(frame, options)
   parse_rd(frame, options, logger)
   frame.fullscreen if options.full_screen
-  if options.use_druby
-    require "drb/drb"
-    begin
-      DRb.start_service(options.druby_uri, canvas.front)
-      logger.info(DRb.uri) if options.output_druby_uri
-    rescue Errno::EADDRINUSE
-      logger.error("#{options.druby_uri} is in use")
-    end
-  end
-  if options.use_soap
-    require "soap/rpc/httpserver"
-    begin
-      config = {
-        :Port => options.soap_port,
-        :AddressFamily => Socket::AF_INET,
-        :Logger => logger,
-        :SOAPDefaultNamespace => Rabbit::SOAP::NS,
-      }
-      server = SOAP::RPC::HTTPServer.new(config)
-      server.add_rpc_servant(canvas.front)
-      prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
-      Thread.new {server.start}
-    rescue Errno::EADDRINUSE
-      logger.error("#{options.soap_port} is in use")
-    end
-  end
+
+  front = make_front(canvas, options)
+  setup_druby(front, options, logger) if options.use_druby
+  setup_soap(front, options, logger) if options.use_soap
+  
   Gtk.main
+end
+
+def do_server(options, logger)
+  Gtk.init
+  
+  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
+  setup_size(canvas, options)
+  setup_paper_size(canvas, options)
+  setup_image_info(canvas, options)
+  setup_print_info(canvas, options)
+  apply_theme_if_need(canvas, options)
+  parse_rd(canvas, options, logger)
+
+  soap_server_thread = nil
+  
+  front = make_front(canvas, options)
+  setup_druby(front, options, logger) if options.use_druby
+  if options.use_soap
+    soap_server_thread = setup_soap(front, options, logger)
+  end
+
+  DRb.thread.join if options.use_druby
+  soap_server_thread.join if soap_server_thread
 end
 
 def main
@@ -510,6 +561,8 @@ def main
     do_save_as_image(options, logger)
   elsif options.print
     do_print(options, logger)
+  elsif options.server
+    do_server(options, logger)
   else
     do_display(options, logger)
   end

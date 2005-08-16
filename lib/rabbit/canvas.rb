@@ -79,8 +79,8 @@ module Rabbit
       @renderer = renderer.new(self)
     end
 
-    def front
-      Front.new(self)
+    def front(public_level=nil)
+      Front.new(self, public_level)
     end
 
     def attach_to(frame, window)

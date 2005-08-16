@@ -67,6 +67,7 @@ module Rabbit
     TOGGLE_FULLSCREEN_KEYS = [
       Gdk::Keyval::GDK_F5,
       Gdk::Keyval::GDK_F10,
+      Gdk::Keyval::GDK_F11,
     ]
 
     RELOAD_THEME_KEYS = [
