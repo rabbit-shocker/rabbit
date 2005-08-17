@@ -1,3 +1,13 @@
+require "rabbit/rabbit"
+
+begin
+  require "gtkglext"
+  Rabbit.add_gui_init_proc do
+    Gtk::GL.init
+  end
+rescue LoadError
+end
+
 require "rabbit/renderer/base"
 require "rabbit/utils"
 

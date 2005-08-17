@@ -554,6 +554,8 @@ def do_print(options, logger)
 end
 
 def do_save_as_image(options, logger)
+  Rabbit.gui_init
+  
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
   setup_image_info(canvas, options)
   setup_size(canvas, options)
@@ -564,7 +566,7 @@ def do_save_as_image(options, logger)
 end
 
 def do_display(options, logger)
-  Gtk.init
+  Rabbit.gui_init
   
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
@@ -585,7 +587,7 @@ def do_display(options, logger)
 end
 
 def do_server(options, logger)
-  Gtk.init
+  Rabbit.gui_init
   
   canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)

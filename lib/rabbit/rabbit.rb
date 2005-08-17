@@ -1,5 +1,4 @@
 require "rabbit/gettext"
-require "rabbit/soap/base"
 
 module Rabbit
 
@@ -7,6 +6,23 @@ module Rabbit
 
   TMP_DIR_NAME = ".tmp"
 
+  @@gui_init_procs = []
+
+  module_function
+  def add_gui_init_proc(proc=Proc.new)
+    @@gui_init_procs << proc
+  end
+
+  def gui_init
+    @@gui_init_procs.each do |proc|
+      proc.call
+    end
+  end
+
+  add_gui_init_proc do
+    Gtk.init
+  end
+  
   class Error < StandardError
     include GetText
   end
