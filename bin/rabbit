@@ -607,6 +607,8 @@ def do_server(options, logger)
     xmlrpc_server_thread = setup_xmlrpc(front, options, logger)
   end
 
+  soap_server_thread.join if soap_server_thread
+  xmlrpc_server_thread.join if xmlrpc_server_thread
   if options.use_druby
     prev = trap(:INT) do
       logger.info("going to shutdown ...")
@@ -616,8 +618,6 @@ def do_server(options, logger)
     end
     DRb.thread.join
   end
-  soap_server_thread.join if soap_server_thread
-  xmlrpc_server_thread.join if xmlrpc_server_thread
 end
 
 def main
