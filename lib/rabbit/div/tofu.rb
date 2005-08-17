@@ -57,19 +57,19 @@ module Rabbit
       end
       
       def first_link(context)
-        a_link(context, 'first', h("<<"), rabbit.first_slide?)
+        a_link(context, "first", h("<<"), rabbit.first_slide?)
       end
 
       def previous_link(context)
-        a_link(context, 'previous', h("<"), !rabbit.have_previous_slide?)
+        a_link(context, "previous", h("<"), !rabbit.have_previous_slide?)
       end
 
       def next_link(context)
-        a_link(context, 'next', h(">"), !rabbit.have_next_slide?)
+        a_link(context, "next", h(">"), !rabbit.have_next_slide?)
       end
 
       def last_link(context)
-        a_link(context, 'last', h(">>"), rabbit.last_slide?)
+        a_link(context, "last", h(">>"), rabbit.last_slide?)
       end
     end
     
@@ -91,17 +91,25 @@ module Rabbit
 
       def do_GET(context)
         update_div(context)
-        if context.req_path_info == image_path
-          context.res_header('Content-Type', "image/#{@rabbit.image_type}")
-          context.res_body(@rabbit.current_page_image)
+        if image_path?(context)
+          context.res_header("Content-Type", "image/#{@rabbit.image_type}")
+          context.res_body(@rabbit.current_slide_image)
         else
-          context.res_header('Content-Type', 'text/html; charset=UTF-8')
+          context.res_header("Content-Type", "text/html; charset=UTF-8")
           context.res_body(@main.to_html(context))
         end
       end
 
       def image_path
-        "/image/current/"
+        if accept_move?
+          "/image/#{@rabbit.current_slide_number}/"
+        else
+          "/image/current/"
+        end
+      end
+      
+      def image_path?(context)
+        %r!/image/(?:current|[0-9]+)/! =~ context.req_path_info
       end
 
       def accept_move?

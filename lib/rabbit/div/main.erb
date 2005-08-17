@@ -23,7 +23,7 @@ div.navi
 <%= @navi.to_div(context) %>
 <% end %>
 <h1><%=h rabbit.slide_title %>
-(<%= rabbit.current_page_number %>/<%= rabbit.total_page_number %>)</h1>
+(<%= rabbit.current_slide_number %>/<%= rabbit.total_slide_number %>)</h1>
 <div class="slide">
 <a href="./"><img src="<%= image_path(context) %>" /></a>
 </div>

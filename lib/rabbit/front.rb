@@ -1,6 +1,7 @@
-require "forwardable"
+require "monitor"
 
 require "rabbit/rabbit"
+require "rabbit/utils"
 
 module Rabbit
 
@@ -41,16 +42,14 @@ module Rabbit
       AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SOURCE, true]
     end
 
-    extend Forwardable
-  
-    def_delegators(:@canvas, :title, :slide_title)
-
+    include MonitorMixin
+    
     attr_reader :image_type, :public_level, :last_modified
     
     def initialize(canvas, public_level=nil)
+      super()
       @canvas = canvas
       @image_type = "png"
-      @mutex = Mutex.new
       @public_level = public_level || PublicLevel::STRICT
       @previous_width = @canvas.width
       @previous_height = @canvas.height
@@ -58,49 +57,79 @@ module Rabbit
       reset
     end
 
-    def current_page_image
+    def current_slide_image
       update_images_if_need
       @images[@canvas.current_index]
     end
 
-    def total_page_number
+    def title
+      check_dirty
+      @canvas.title
+    end
+
+    def slide_title
+      check_dirty
+      @canvas.slide_title
+    end
+    
+    def total_slide_number
+      check_dirty
       @canvas.slide_size
     end
 
-    def current_page_number
+    def current_slide_number
+      check_dirty
       @canvas.current_index + 1
     end
 
     def first_slide?
-      current_page_number == 1
+      current_slide_number == 1
     end
 
     def have_next_slide?
-      total_page_number > current_page_number
+      total_slide_number > current_slide_number
     end
 
     def have_previous_slide?
-      1 < current_page_number
+      1 < current_slide_number
     end
 
     def last_slide?
-      total_page_number == current_page_number
+      total_slide_number == current_slide_number
     end
 
+    def available_interfaces
+      AVAILABLE_INTERFACES.collect do |name, level, need_clear_cache|
+        [name, level, @canvas.method(name).arity]
+      end
+    end
+    
     private
+    def check_dirty
+      mon_synchronize do
+        _check_dirty
+      end
+    end
+
+    def _check_dirty
+      if dirty?
+        reset 
+        if off_screen_canvas.need_reload_source?
+          off_screen_canvas.reload_source
+          synchronize
+        end
+      end
+    end
+    
     def update_images_if_need
-      @mutex.synchronize do
-        reset if dirty?
+      mon_synchronize do
+        _check_dirty
         index = @canvas.current_index
         if @images[index].nil?
-          if off_screen_canvas.need_reload_source?
-            off_screen_canvas.reload_source
-          else
-            prev_size = [@previous_width, @previous_height]
-            current_size = [@canvas.width, @canvas.height]
-            if prev_size != current_size
-              off_screen_canvas.reload_theme
-            end
+          prev_size = [@previous_width, @previous_height]
+          current_size = [@canvas.width, @canvas.height]
+          if prev_size != current_size
+            off_screen_canvas.reload_theme
           end
           pixbuf = off_screen_canvas.to_pixbuf(index)
           @images[index] = pixbuf.save_to_buffer(@image_type)
@@ -124,14 +153,7 @@ module Rabbit
     def setup_public_interface
       AVAILABLE_INTERFACES.each do |name, level, need_clear_cache|
         arg_list = []
-        arity = @canvas.method(name).arity
-        if arity == -1
-          arg_list << "*args"
-        else
-          arity.times do |i|
-            arg_list << "arg#{i}"
-          end
-        end
+        arg_list.concat(Utils.arg_list(@canvas.method(name).arity))
         arg_str = arg_list.join(", ")
         
         if (@public_level & level).zero?

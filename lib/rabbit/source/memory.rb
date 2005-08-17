@@ -15,7 +15,7 @@ module Rabbit
         if name
           file_source = File.new(encoding, logger, name)
           @original_source = file_source.read
-          self.base = file_source.base
+          set_base(file_source.base)
         else
           @original_source = ""
         end

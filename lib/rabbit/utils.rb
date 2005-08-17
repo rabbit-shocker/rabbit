@@ -1,7 +1,5 @@
 require "gtk2"
 
-require "rabbit/rabbit"
-
 module Rabbit
   module Utils
     def to_class_name(name)
@@ -32,6 +30,19 @@ module Rabbit
       end.find_all do |x|
         x.is_a?(Class)
       end
+    end
+
+    module_function
+    def arg_list(arity)
+      args = []
+      if arity == -1
+        args << "*args"
+      else
+        arity.times do |i|
+          args << "arg#{i}"
+        end
+      end
+      args
     end
   end
   

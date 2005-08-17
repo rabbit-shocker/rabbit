@@ -421,7 +421,7 @@ end
 
 def parse_rd(target, options, logger)
   source = make_source(options, ARGV, logger)
-  source.base = options.base
+  source.base = options.base if options.base
   target.parse_rd(source)
 end
 
@@ -464,7 +464,7 @@ def setup_druby(front, options, logger)
 end
 
 def setup_soap(front, options, logger)
-  require "soap/rpc/httpserver"
+  require "rabbit/soap/server"
   thread = nil
   
   begin
@@ -472,10 +472,8 @@ def setup_soap(front, options, logger)
       :Port => options.soap_port,
       :AddressFamily => Socket::AF_INET,
       :Logger => logger,
-      :SOAPDefaultNamespace => Rabbit::SOAP::NS,
     }
-    server = SOAP::RPC::HTTPServer.new(config)
-    server.add_rpc_servant(front)
+    server = Rabbit::SOAP::Server.new(front, config)
     prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
     thread = Thread.new {server.start}
   rescue Errno::EADDRINUSE

@@ -43,11 +43,11 @@ module Rabbit
       end
       
       def full_path(path)
-        uri = parse_uri(@base)
-        if uri.nil? or uri.relative?
+        if @base_uri.nil? or @base_uri.relative?
           ::File.join(@base, path)
         else
-          uri.path = uri.path + "/" unless /\/$/ =~ uri.path
+          uri = @base_uri.dup
+          uri.path = @base_uri.path + "/" unless /\/$/ =~ @base_uri.path
           (uri + path).to_s
         end
       end
@@ -84,8 +84,8 @@ module Rabbit
       
       def set_base(new_value)
         @base = new_value
-        uri = parse_uri(@base)
-        if uri.nil? or uri.scheme.nil?
+        @base_uri = parse_uri(@base)
+        if @base_uri.nil? or @base_uri.scheme.nil?
           @tmp_base = @base
         else
           @tmp_base = "."
