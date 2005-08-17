@@ -4,48 +4,56 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2005-07-27 20:02+0900\n"
-"PO-Revision-Date: 2005-07-27 20:02+0900\n"
+"Project-Id-Version: Rabbit 0.1.0\n"
+"POT-Creation-Date: 2005-08-18 08:19+0900\n"
+"PO-Revision-Date: 2005-08-18 08:27+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
-"Language-Team: Japanese <LL@li.org>\n"
+"Language-Team: Japanese <kou@cozmixng.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/rabbit/rabbit.rb:21
-msgid "no such file %s"
-msgstr "%sというファイルはありません．"
+#: lib/rabbit/rabbit.rb:37
+msgid "no such file: %s"
+msgstr "そのようなというファイルはありません: %s"
 
-#: lib/rabbit/rabbit.rb:31
+#: lib/rabbit/rabbit.rb:47
 msgid ""
 "can't handle %s because the following command can't be run successfully: %s"
 msgstr "次のコマンドを正常に実行できなかったので%sを扱うことができません: %s"
 
-#: lib/rabbit/rabbit.rb:40
+#: lib/rabbit/rabbit.rb:56
 msgid "tried gs commands: %s"
 msgstr "実行したgsコマンド名: %s"
 
-#: lib/rabbit/rabbit.rb:56
+#: lib/rabbit/rabbit.rb:72
 msgid "Unknown property: %s"
 msgstr "未知のプロパティ: %s"
 
-#: lib/rabbit/rabbit.rb:64
+#: lib/rabbit/rabbit.rb:80
 msgid "can't allocate color: %s"
 msgstr "色を割り当てることができません: %s"
 
-#: lib/rabbit/rabbit.rb:75
-msgid "%s doesn't exist"
-msgstr "%sは存在しません．"
-
-#: lib/rabbit/rabbit.rb:83
-msgid "%s isn't a file"
-msgstr "%sはファイルではありません．"
-
 #: lib/rabbit/rabbit.rb:91
-msgid "%s can't be read"
-msgstr "%sが読めません．"
+msgid "not exist: %s"
+msgstr "存在しません: %s"
+
+#: lib/rabbit/rabbit.rb:99
+msgid "not a file: %s"
+msgstr "ファイルではありません: %s"
+
+#: lib/rabbit/rabbit.rb:107
+msgid "can not be read: %s"
+msgstr "読み込むことができません: %s"
+
+#: lib/rabbit/rabbit.rb:115
+msgid "immutable source type: %s"
+msgstr "変更不能なソースタイプです: %s"
+
+#: lib/rabbit/rabbit.rb:126
+msgid "not available interface: %s"
+msgstr "利用可能なインターフェイスではありません: %s"
 
 #: lib/rabbit/menu.rb:37 lib/rabbit/menu.rb:47 lib/rabbit/menu.rb:57
 #: lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:72 lib/rabbit/menu.rb:74
@@ -114,22 +122,32 @@ msgstr "/スライドをキャッシュ"
 msgid "/Quit"
 msgstr "/終了"
 
-#: lib/rabbit/canvas.rb:325 lib/rabbit/renderer/drawing-area.rb:422
+#: lib/rabbit/canvas.rb:335 lib/rabbit/renderer/drawing-area.rb:420
 msgid "processing..."
 msgstr "処理中です．．．"
+
+#: lib/rabbit/ext/block-verbatim.rb:137
+msgid "invalid source: %s"
+msgstr "不正なソースです: %s"
 
 #: lib/rabbit/logger/stderr.rb:14
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr "UTF-8から現在のロケールに変換できません: %s"
 
-#: lib/rabbit/logger/gui.rb:62
+#: lib/rabbit/logger/gui.rb:69
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/drawing-area.rb:531
+#: lib/rabbit/renderer/drawing-area.rb:529
 msgid "Now processing... Do you really quit?"
 msgstr "処理中です．．．本当に終了しますか？"
 
 #: lib/rabbit/renderer/print.rb:326
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
+
+#~ msgid "%s doesn't exist"
+#~ msgstr "%sは存在しません．"
+
+#~ msgid "%s isn't a file"
+#~ msgstr "%sはファイルではありません．"

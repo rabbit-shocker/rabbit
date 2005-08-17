@@ -4,50 +4,61 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Rabbit 0.0.4\n"
-"POT-Creation-Date: 2005-07-27 20:02+0900\n"
-"PO-Revision-Date: 2004-10-21 11:34+0900\n"
+"Project-Id-Version: Rabbit 0.1.0\n"
+"POT-Creation-Date: 2005-08-18 08:19+0900\n"
+"PO-Revision-Date: 2005-08-18 08:28+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
-"Language-Team: French <LL@li.org>\n"
+"Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: lib/rabbit/rabbit.rb:21
-msgid "no such file %s"
+#: lib/rabbit/rabbit.rb:37
+#, fuzzy
+msgid "no such file: %s"
 msgstr "impossible de trouver le fichier %s."
 
-#: lib/rabbit/rabbit.rb:31
+#: lib/rabbit/rabbit.rb:47
 msgid ""
 "can't handle %s because the following command can't be run successfully: %s"
 msgstr ""
 "Impossible de supporter %s car la commande suivante ne peut pas être lancée "
 "avec succès: %s"
 
-#: lib/rabbit/rabbit.rb:40
+#: lib/rabbit/rabbit.rb:56
 msgid "tried gs commands: %s"
 msgstr "commandes gs essayées : %s"
 
-#: lib/rabbit/rabbit.rb:56
+#: lib/rabbit/rabbit.rb:72
 msgid "Unknown property: %s"
 msgstr "Propriété inconnue : %s"
 
-#: lib/rabbit/rabbit.rb:64
+#: lib/rabbit/rabbit.rb:80
 msgid "can't allocate color: %s"
 msgstr "impossible d'allouer les couleurs : %s."
 
-#: lib/rabbit/rabbit.rb:75
-msgid "%s doesn't exist"
-msgstr "%s n'existe pas."
-
-#: lib/rabbit/rabbit.rb:83
-msgid "%s isn't a file"
-msgstr "%s n'est pas un fichier."
-
 #: lib/rabbit/rabbit.rb:91
-msgid "%s can't be read"
+msgid "not exist: %s"
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:99
+#, fuzzy
+msgid "not a file: %s"
+msgstr "impossible de trouver le fichier %s."
+
+#: lib/rabbit/rabbit.rb:107
+#, fuzzy
+msgid "can not be read: %s"
 msgstr "%s n'est pas lisible."
+
+#: lib/rabbit/rabbit.rb:115
+msgid "immutable source type: %s"
+msgstr ""
+
+#: lib/rabbit/rabbit.rb:126
+msgid "not available interface: %s"
+msgstr ""
 
 #: lib/rabbit/menu.rb:37 lib/rabbit/menu.rb:47 lib/rabbit/menu.rb:57
 #: lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:72 lib/rabbit/menu.rb:74
@@ -116,22 +127,32 @@ msgstr ""
 msgid "/Quit"
 msgstr "/Quitter"
 
-#: lib/rabbit/canvas.rb:325 lib/rabbit/renderer/drawing-area.rb:422
+#: lib/rabbit/canvas.rb:335 lib/rabbit/renderer/drawing-area.rb:420
 msgid "processing..."
+msgstr ""
+
+#: lib/rabbit/ext/block-verbatim.rb:137
+msgid "invalid source: %s"
 msgstr ""
 
 #: lib/rabbit/logger/stderr.rb:14
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr ""
 
-#: lib/rabbit/logger/gui.rb:62
+#: lib/rabbit/logger/gui.rb:69
 msgid "Rabbit Error Dialog"
 msgstr "Boite de dialogue d'erreur de Rabbit"
 
-#: lib/rabbit/renderer/drawing-area.rb:531
+#: lib/rabbit/renderer/drawing-area.rb:529
 msgid "Now processing... Do you really quit?"
 msgstr ""
 
 #: lib/rabbit/renderer/print.rb:326
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
+
+#~ msgid "%s doesn't exist"
+#~ msgstr "%s n'existe pas."
+
+#~ msgid "%s isn't a file"
+#~ msgstr "%s n'est pas un fichier."
