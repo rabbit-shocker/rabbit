@@ -45,7 +45,11 @@ def parse(args, logger)
   options.druby_uri = "druby://:10101"
   options.output_druby_uri = false
   options.use_soap = true
+  options.soap_host = "0.0.0.0"
   options.soap_port = 10103
+  options.use_xmlrpc = true
+  options.xmlrpc_host = "0.0.0.0"
+  options.xmlrpc_port = 10104
   options.server = false
   options.public_level = Rabbit::Front::PublicLevel::STRICT
 
@@ -345,11 +349,45 @@ def parse(args, logger)
       options.use_soap = bool != "false"
     end
     
+    opts.on("--soap-host [HOST]",
+            "Specify SOAP HOST.",
+            "(#{options.soap_host})") do |port|
+      begin
+        options.soap_host = host
+      end
+    end
+    
     opts.on("--soap-port [PORT]",
             "Specify SOAP PORT.",
             "(#{options.soap_port})") do |port|
       begin
         options.soap_port = Integer(port) if port
+      rescue ArgumentError
+        raise OptionParser::InvalidArgument.new(port)
+      end
+    end
+    
+    opts.separator ""
+    
+    opts.on("--use-xmlrpc [BOOL]",
+            "Specify use XML-RPC or not.",
+            "(#{options.use_xmlrpc})") do |bool|
+      options.use_xmlrpc = bool != "false"
+    end
+    
+    opts.on("--xmlrpc-host [HOST]",
+            "Specify XML-RPC HOST.",
+            "(#{options.xmlrpc_host})") do |port|
+      begin
+        options.xmlrpc_host = host
+      end
+    end
+    
+    opts.on("--xmlrpc-port [PORT]",
+            "Specify XML-RPC PORT.",
+            "(#{options.xmlrpc_port})") do |port|
+      begin
+        options.xmlrpc_port = Integer(port) if port
       rescue ArgumentError
         raise OptionParser::InvalidArgument.new(port)
       end
@@ -469,6 +507,7 @@ def setup_soap(front, options, logger)
   
   begin
     config = {
+      :BindAddress => options.soap_host,
       :Port => options.soap_port,
       :AddressFamily => Socket::AF_INET,
       :Logger => logger,
@@ -478,6 +517,27 @@ def setup_soap(front, options, logger)
     thread = Thread.new {server.start}
   rescue Errno::EADDRINUSE
     logger.error("#{options.soap_port} is in use")
+  end
+
+  thread
+end
+
+def setup_xmlrpc(front, options, logger)
+  require "rabbit/xmlrpc/server"
+  thread = nil
+  
+  begin
+    config = {
+      :BindAddress => options.xmlrpc_host,
+      :Port => options.xmlrpc_port,
+      :AddressFamily => Socket::AF_INET,
+      :Logger => logger,
+    }
+    server = Rabbit::XMLRPC::Server.new(front, config)
+    prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
+    thread = Thread.new {server.start}
+  rescue Errno::EADDRINUSE
+    logger.error("#{options.xmlrpc_port} is in use")
   end
 
   thread
@@ -519,6 +579,7 @@ def do_display(options, logger)
   front = make_front(canvas, options)
   setup_druby(front, options, logger) if options.use_druby
   setup_soap(front, options, logger) if options.use_soap
+  setup_xmlrpc(front, options, logger) if options.use_xmlrpc
   
   Gtk.main
 end
@@ -535,15 +596,20 @@ def do_server(options, logger)
   parse_rd(canvas, options, logger)
 
   soap_server_thread = nil
+  xmlrpc_server_thread = nil
   
   front = make_front(canvas, options)
   setup_druby(front, options, logger) if options.use_druby
   if options.use_soap
     soap_server_thread = setup_soap(front, options, logger)
   end
+  if options.use_xmlrpc
+    xmlrpc_server_thread = setup_xmlrpc(front, options, logger)
+  end
 
   DRb.thread.join if options.use_druby
   soap_server_thread.join if soap_server_thread
+  xmlrpc_server_thread.join if xmlrpc_server_thread
 end
 
 def main
