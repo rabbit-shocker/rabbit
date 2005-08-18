@@ -1,3 +1,5 @@
+raise LoadError
+
 require "gtkglext"
 
 require "rabbit/rabbit"
