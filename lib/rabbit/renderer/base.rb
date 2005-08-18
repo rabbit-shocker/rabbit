@@ -230,6 +230,43 @@ module Rabbit
         [params["pole_width"] + params["flag_width"], pole_height]
       end
       
+      def draw_cube(filled, x, y, z, size, color=nil)
+        not_support_method("draw_cube")
+      end
+      
+      def draw_sphere(filled, x, y, z, radius, slices, stacks, color=nil)
+        not_support_method("draw_sphere")
+      end
+      
+      def draw_cone(filled, x, y, z, base, height, slices, stacks, color=nil)
+        not_support_method("draw_cone")
+      end
+      
+      def draw_torus(filled, x, y, z, inner_radius, outer_radius,
+                     n_sides, rings, color=nil)
+        not_support_method("draw_torus")
+      end
+      
+      def draw_tetrahedron(filled, x, y, z, color=nil)
+        not_support_method("draw_tetrahedron")
+      end
+      
+      def draw_octahedron(filled, x, y, z, color=nil)
+        not_support_method("draw_octahedron")
+      end
+      
+      def draw_dodecahedron(filled, x, y, z, color=nil)
+        not_support_method("draw_dodecahedron")
+      end
+      
+      def draw_icosahedron(filled, x, y, z, color=nil)
+        not_support_method("draw_icosahedron")
+      end
+      
+      def draw_teapot(filled, x, y, z, scale, color=nil)
+        not_support_method("draw_teapot")
+      end
+
       def to_attrs(hash)
         hash.collect do |key, value|
           if value
@@ -342,7 +379,12 @@ module Rabbit
 
         params
       end
-      
+
+      def not_support_method(name)
+        format = _("%s does not support: %s")
+        msg = format % [self.class.name, name]
+        @canvas.logger.warn(msg)
+      end
     end
     
   end

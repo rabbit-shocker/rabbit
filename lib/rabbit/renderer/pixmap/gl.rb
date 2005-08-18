@@ -1,5 +1,3 @@
-raise LoadError
-
 require "gtkglext"
 
 require "rabbit/rabbit"
@@ -16,18 +14,74 @@ module Rabbit
       def draw_slide(slide)
         super(slide) do
           yield
-          drawable.wait_gdk
-          
-          qobj = GLU.NewQuadric
-          GLU.Sphere(qobj, 1.0, 20, 20)
-          GL.Viewport(0, 0, width, height)
-          
-          GL.Flush
-          drawable.wait_gl
-          drawable.gl_end
         end
+        drawable.gl_end
+        @gl_context.destroy
+        @gl_context = nil
       end
 
+      # because GtkGLDrawable is not implement
+      def draw_layout(layout, x, y, color=nil)
+        gc = make_gc(color)
+        @pixmap.draw_layout(gc, x, y, layout)
+      end
+
+      def draw_cube(filled, x, y, z, size, color=nil)
+        draw_gl do
+          Gdk::GL.draw_cube(filled, size)
+        end
+      end
+      
+      def draw_sphere(filled, x, y, z, radius, slices, stacks, color=nil)
+        draw_gl do
+          Gdk::GL.draw_sphere(filled, radius, slices, stacks)
+        end
+      end
+      
+      def draw_cone(filled, x, y, z, base, height, slices, stacks, color=nil)
+        draw_gl do
+          Gdk::GL.draw_cone(filled, base, height, slices, stacks)
+        end
+      end
+      
+      def draw_torus(filled, x, y, z, inner_radius, outer_radius,
+                     n_sides, rings, color=nil)
+        draw_gl do
+          Gdk::GL.draw_torus(filled, inner_radius,
+                             outer_radius, n_sides, rings)
+        end
+      end
+      
+      def draw_tetrahedron(filled, x, y, z, color=nil)
+        draw_gl do
+          Gdk::GL.draw_tetrahedron(filled)
+        end
+      end
+      
+      def draw_octahedron(filled, x, y, z, color=nil)
+        draw_gl do
+          Gdk::GL.draw_octahedron(filled)
+        end
+      end
+      
+      def draw_dodecahedron(filled, x, y, z, color=nil)
+        draw_gl do
+          Gdk::GL.draw_dodecahedron(filled)
+        end
+      end
+      
+      def draw_icosahedron(filled, x, y, z, color=nil)
+        draw_gl do
+          Gdk::GL.draw_icosahedron(filled)
+        end
+      end
+      
+      def draw_teapot(filled, x, y, z, scale, color=nil)
+        draw_gl do
+          Gdk::GL.draw_teapot(filled, scale)
+        end
+      end
+      
       private
       def drawable
         @pixmap.gl_pixmap
@@ -43,7 +97,8 @@ module Rabbit
         else
           @pixmap.set_gl_capability(@gl_config)
         end
-        drawable.gl_begin(Gdk::GLContext.new(drawable, nil, false, 0))
+        @gl_context = Gdk::GLContext.new(drawable, nil, false, 0)
+        drawable.gl_begin(@gl_context)
         init_gl
       end
 
@@ -51,6 +106,8 @@ module Rabbit
         GL.ClearDepth(1.0)
         GL.Clear(GL::DEPTH_BUFFER_BIT)
     
+        GL.Viewport(0, 0, width, height)
+        
         GL.Light(GL::LIGHT0, GL::DIFFUSE, [1.0, 0.0, 0.0, 1.0])
         GL.Light(GL::LIGHT0, GL::POSITION, [1.0, 1.0, 1.0, 0.0])
         GL.Enable(GL::LIGHTING)
@@ -67,6 +124,13 @@ module Rabbit
                    0.0, 0.0, 0.0,
                    0.0, 1.0, 0.0)
         GL.Translate(0.0, 0.0, -3.0)
+        drawable.wait_gl
+      end
+
+      def draw_gl
+        drawable.wait_gdk
+        yield
+        GL.Flush
         drawable.wait_gl
       end
       
