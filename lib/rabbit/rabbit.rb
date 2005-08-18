@@ -126,14 +126,4 @@ module Rabbit
       super(_("not available interface: %s") % @name)
     end
   end
-
-  class RendererNotSupportError < Error
-    attr_reader :renderer, :name
-    def initialize(renderer, name)
-      @renderer = renderer
-      @name = name
-      super(_("%s does not support: %s") % [@renderer.name, @name])
-    end
-  end
-
 end

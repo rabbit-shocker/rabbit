@@ -57,6 +57,11 @@ module Rabbit
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
     def_delegators(:@renderer, :draw_slide, :draw_polygon, :draw_flag)
 
+    def_delegators(:@renderer, :draw_cube, :draw_sphere, :draw_cone)
+    def_delegators(:@renderer, :draw_torus, :draw_tetrahedron)
+    def_delegators(:@renderer, :draw_octahedron, :draw_dodecahedron)
+    def_delegators(:@renderer, :draw_icosahedron, :draw_teapot)
+
     def_delegators(:@renderer, :to_attrs, :flag_size)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
