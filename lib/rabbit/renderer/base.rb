@@ -35,6 +35,7 @@ module Rabbit
         @bottom_page_margin = nil
         @progress_foreground = nil
         @progress_background = nil
+        @list_id = 0
       end
 
       def left_page_margin
@@ -265,6 +266,27 @@ module Rabbit
       
       def draw_teapot(filled, x, y, z, scale, color=nil)
         not_support_method("draw_teapot")
+      end
+
+      def gl_compile(id)
+        not_support_method("gl_compile")
+      end
+
+      def gl_call_list(id, x, y, z)
+        not_support_method("gl_call_list")
+      end
+
+      def z_far
+        10.0
+      end
+
+      def z_view
+        3.0
+      end
+
+      def new_list_id
+        @list_id += 1
+        @list_id
       end
 
       def to_attrs(hash)

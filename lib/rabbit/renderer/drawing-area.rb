@@ -23,6 +23,13 @@ module Rabbit
       def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
       def_delegators(:@pixmap, :draw_pixbuf, :draw_polygon)
 
+      def_delegators(:@pixmap, :draw_cube, :draw_sphere, :draw_cone)
+      def_delegators(:@pixmap, :draw_torus, :draw_tetrahedron)
+      def_delegators(:@pixmap, :draw_octahedron, :draw_dodecahedron)
+      def_delegators(:@pixmap, :draw_icosahedron, :draw_teapot)
+      
+      def_delegators(:@pixmap, :gl_compile, :gl_call_list)
+    
       def_delegators(:@pixmap, :make_color, :to_rgb)
 
       def_delegators(:@pixmap, :to_pixbuf)

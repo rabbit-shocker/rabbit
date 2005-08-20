@@ -62,6 +62,11 @@ module Rabbit
     def_delegators(:@renderer, :draw_octahedron, :draw_dodecahedron)
     def_delegators(:@renderer, :draw_icosahedron, :draw_teapot)
 
+    def_delegators(:@renderer, :gl_compile, :gl_call_list)
+    def_delegators(:@renderer, :new_list_id)
+    
+    def_delegators(:@renderer, :z_far, :z_view)
+    
     def_delegators(:@renderer, :to_attrs, :flag_size)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
@@ -80,6 +85,7 @@ module Rabbit
       @logger = logger
       @frame = NullFrame.new
       @theme_name = nil
+      @previous_theme_name = nil
       @saved_image_basename = nil
       @processing = false
       clear
@@ -162,6 +168,7 @@ module Rabbit
     end
 
     def apply_theme(name=nil)
+      @previous_theme_name = name if name
       _theme_name = name || theme_name
       if _theme_name and not @slides.empty?
         clear_theme
@@ -177,7 +184,7 @@ module Rabbit
     end
 
     def reload_theme
-      apply_theme
+      apply_theme(@previous_theme_name)
     end
 
     def parse_rd(source=nil)
@@ -189,7 +196,7 @@ module Rabbit
             clear
             visitor = RD2RabbitVisitor.new(self)
             visitor.visit(tree)
-            apply_theme
+            reload_theme
             @renderer.post_parse_rd
           end
         rescue Racc::ParseError
