@@ -1,24 +1,29 @@
+include_theme("rabbit")
+
 proc_name = "gl-sample"
 
-match(TitleSlide, Title) do |titles|
+match(Slide) do |slides|
 
-  titles.delete_pre_draw_proc_by_name(proc_name)
-
-  break if @gl_sample_uninstall
+  slides.delete_pre_draw_proc_by_name(proc_name)
   
   list_id = nil
   
-  titles.add_pre_draw_proc(proc_name) do |title, canvas, x, y, w, h, simulation|
-    list_id ||= canvas.new_list_id
-    if simulation
-      qobj = GLU.NewQuadric
-      canvas.gl_compile(list_id) do
-        GLU.Sphere(qobj, 1.0, 50, 20)
+  slides.each do |slide|
+    break if not(slide.body.empty? and slide.headline.text == "GL")
+    
+    qobj = nil
+    slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
+      list_id ||= canvas.new_list_id
+      if simulation
+        canvas.gl_compile(list_id) do
+          qobj = GLU.NewQuadric
+          GLU.Sphere(qobj, 1.0, 50, 20)
+        end
+      else
+        canvas.gl_call_list(list_id, -1.0, 1.0, -3.0)
+        canvas.draw_teapot(true, -1.0, -1.0, -3.0, 0.7)
       end
-    else
-      canvas.gl_call_list(list_id, -1.0, 1.0, -3.0)
-      canvas.draw_teapot(true, -1.0, -1.0, -3.0, 0.7)
+      [x, y, w, h]
     end
-    [x, y, w, h]
   end
 end

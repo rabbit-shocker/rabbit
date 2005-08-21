@@ -741,7 +741,7 @@ module Rabbit
           draw(canvas, true)
           draw(canvas, false)
         else
-          canvas.draw_slide(self) do
+          canvas.draw_slide(self, simulation) do
             compile(canvas, 0, 0, canvas.width, canvas.height)
             super(simulation)
           end

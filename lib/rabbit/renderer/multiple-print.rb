@@ -18,10 +18,10 @@ module Rabbit
         @slide_height ||= @layout.slide_height
       end
 
-      def draw_slide(slide)
+      def draw_slide(slide, simulation)
         # @context.begin_page(slide.title) do
         @context.begin_page(page_title) if need_begin_page?
-        draw_background
+        draw_background unless simulation
         yield
         @context.show_page if need_show_page?
       end

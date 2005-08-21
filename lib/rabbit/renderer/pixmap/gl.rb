@@ -11,8 +11,8 @@ module Rabbit
   module Renderer
     class PixmapGL < PixmapBase
 
-      def draw_slide(slide)
-        super(slide) do
+      def draw_slide(slide, simulation)
+        super(slide, simulation) do
           yield
         end
         drawable.gl_end
@@ -96,19 +96,26 @@ module Rabbit
       def drawable
         @pixmap.gl_pixmap
       end
-      
-      def init_pixmap(slide)
+
+      def init_drawable
         super
-        mode = Gdk::GLConfig::MODE_RGB | Gdk::GLConfig::MODE_DEPTH
-        @gl_config = Gdk::GLConfig.new(mode)
-        if @pixmap.method(:set_gl_capability).arity == 2
-          # bug of Ruby/GtkGLExt <= 0.13.0
-          @pixmap.set_gl_capability(@gl_config, nil)
-        else
-          @pixmap.set_gl_capability(@gl_config)
+        @contexts = {}
+      end
+      
+      def init_pixmap(slide, simulation)
+        super
+        if simulation
+          mode = Gdk::GLConfig::MODE_RGB | Gdk::GLConfig::MODE_DEPTH
+          @gl_config = Gdk::GLConfig.new(mode)
+          if @pixmap.method(:set_gl_capability).arity == 2
+            # bug of Ruby/GtkGLExt <= 0.13.0
+            @pixmap.set_gl_capability(@gl_config, nil)
+          else
+            @pixmap.set_gl_capability(@gl_config)
+          end
+          @contexts[slide] = Gdk::GLContext.new(drawable, nil, false, 0)
         end
-        @gl_context = Gdk::GLContext.new(drawable, nil, false, 0)
-        drawable.gl_begin(@gl_context)
+        drawable.gl_begin(@contexts[slide])
         init_gl
       end
 

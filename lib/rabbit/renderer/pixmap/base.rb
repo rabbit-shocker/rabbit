@@ -81,9 +81,11 @@ module Rabbit
       def post_toggle_index_mode
       end
       
-      def draw_slide(slide)
-        init_pixmap(slide)
-        drawable.draw_rectangle(@background, true, 0, 0, width, height)
+      def draw_slide(slide, simulation)
+        init_pixmap(slide, simulation)
+        unless simulation
+          drawable.draw_rectangle(@background, true, 0, 0, width, height)
+        end
         yield
       end
       
@@ -186,9 +188,11 @@ module Rabbit
         @pixmap
       end
 
-      def init_pixmap(slide)
-        @pixmap = Gdk::Pixmap.new(nil, width, height, depth)
-        @pixmaps[slide] = @pixmap
+      def init_pixmap(slide, simulation)
+        if simulation
+          @pixmap = Gdk::Pixmap.new(nil, width, height, depth)
+          @pixmaps[slide] = @pixmap
+        end
       end
       
       def init_drawable
