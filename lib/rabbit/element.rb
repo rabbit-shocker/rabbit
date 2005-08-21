@@ -129,6 +129,10 @@ module Rabbit
         end
       end
 
+      def compile_for_horizontal_centering(canvas, x, y, w, h)
+        compile(canvas, x, y, w, h)
+      end
+
       def compile_horizontal(canvas, x, y, w, h)
         if do_horizontal_centering?
           do_horizontal_centering(canvas, x, y, w, h)
@@ -231,7 +235,7 @@ module Rabbit
         adjust_width = (removed_width / 2.0).ceil
         cx = x + adjust_width
         cw = w - adjust_width
-        compile(canvas, cx, y, cw, h)
+        compile_for_horizontal_centering(canvas, cx, y, cw, h)
         draw(true)
       end
 
@@ -437,7 +441,7 @@ module Rabbit
         adjust_width = ((w / 2.0) - (width / 2.0)).ceil
         x += adjust_width
         w -= adjust_width
-        compile(canvas, x, @y, w, h)
+        compile_for_horizontal_centering(canvas, x, @y, w, h)
         draw(true)
       end
 
@@ -732,10 +736,15 @@ module Rabbit
         add_element(first_element)
       end
 
-      def draw(canvas, simulation=false)
-        canvas.draw_slide(self) do
-          compile(canvas, 0, 0, canvas.width, canvas.height)
-          super(simulation)
+      def draw(canvas, simulation=nil)
+        if simulation.nil?
+          draw(canvas, true)
+          draw(canvas, false)
+        else
+          canvas.draw_slide(self) do
+            compile(canvas, 0, 0, canvas.width, canvas.height)
+            super(simulation)
+          end
         end
       end
     end
@@ -1042,6 +1051,11 @@ module Rabbit
       
       def y_dither
         @y_dither || 0
+      end
+
+      alias _compile compile
+      def compile_for_horizontal_centering(canvas, x, y, w, h)
+        _compile(canvas, x, y, w, h)
       end
 
       def compile(canvas, x, y, w, h)

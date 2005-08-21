@@ -81,7 +81,11 @@ match(Slide) do |slides|
         canvas.draw_pixbuf(goal_loader.pixbuf, goal_base_x, base_y)
       end
 
-      ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
+      if canvas.slide_size < 3
+        ratio = 1
+      else
+        ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
+      end
       current_base_x = base_x + max_width * ratio
       canvas.draw_pixbuf(loader.pixbuf, current_base_x, base_y)
     end
