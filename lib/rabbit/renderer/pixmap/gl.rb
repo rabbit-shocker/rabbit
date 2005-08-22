@@ -25,57 +25,57 @@ module Rabbit
       end
 
       def draw_cube(filled, x, y, z, size, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_cube(filled, size)
         end
       end
       
       def draw_sphere(filled, x, y, z, radius, slices, stacks, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_sphere(filled, radius, slices, stacks)
         end
       end
       
       def draw_cone(filled, x, y, z, base, height, slices, stacks, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_cone(filled, base, height, slices, stacks)
         end
       end
       
       def draw_torus(filled, x, y, z, inner_radius, outer_radius,
                      n_sides, rings, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_torus(filled, inner_radius,
                              outer_radius, n_sides, rings)
         end
       end
       
       def draw_tetrahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_tetrahedron(filled)
         end
       end
       
       def draw_octahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_octahedron(filled)
         end
       end
       
       def draw_dodecahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_dodecahedron(filled)
         end
       end
       
       def draw_icosahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_icosahedron(filled)
         end
       end
       
       def draw_teapot(filled, x, y, z, scale, color=nil)
-        draw_gl(x, y, z) do
+        draw_gl(x, y, z, color) do
           Gdk::GL.draw_teapot(filled, scale)
         end
       end
@@ -86,8 +86,8 @@ module Rabbit
         GL.EndList
       end
 
-      def gl_call_list(id, x, y, z)
-        draw_gl(x, y, z) do
+      def gl_call_list(id, x, y, z, color=nil)
+        draw_gl(x, y, z, color) do
           GL.CallList(id)
         end
       end
@@ -105,7 +105,7 @@ module Rabbit
       def init_pixmap(slide, simulation)
         super
         if simulation
-          mode = Gdk::GLConfig::MODE_RGB | Gdk::GLConfig::MODE_DEPTH
+          mode = Gdk::GLConfig::MODE_RGBA | Gdk::GLConfig::MODE_DEPTH
           @gl_config = Gdk::GLConfig.new(mode)
           if @pixmap.method(:set_gl_capability).arity == 2
             # bug of Ruby/GtkGLExt <= 0.13.0
@@ -125,7 +125,6 @@ module Rabbit
     
         GL.Viewport(0, 0, width, height)
         
-        GL.Light(GL::LIGHT0, GL::DIFFUSE, [1.0, 0.0, 0.0, 1.0])
         GL.Light(GL::LIGHT0, GL::POSITION, [1.0, 1.0, 1.0, 0.0])
         GL.Enable(GL::LIGHTING)
         GL.Enable(GL::LIGHT0)
@@ -144,14 +143,33 @@ module Rabbit
         drawable.wait_gl
       end
 
-      def draw_gl(x, y, z)
+      def draw_gl(x, y, z, color)
         drawable.wait_gdk
-        GL.LoadIdentity
-        GL.Translate(x, y, z - z_view)
+        GL.PushMatrix
+        setup_geometry(x, y, z)
+        setup_color(color)
         yield
         GL.Flush
-        GL.LoadIdentity
+        GL.PopMatrix
         drawable.wait_gl
+      end
+
+      def setup_color(color)
+        if color.nil?
+          color = @foreground.foreground
+        elsif color.is_a?(String)
+          color = Gdk::Color.parse(color)
+        end
+        p color.to_a
+        color = Color.new_from_gdk_color(color, true)
+        p color
+        GL.Light(GL::LIGHT0, GL::DIFFUSE, color.to_a)
+      end
+
+      def setup_geometry(x, y, z)
+        GL.MatrixMode(GL::MODELVIEW)
+        GL.LoadIdentity
+        GL.Translate(x, y, z - z_view)
       end
       
     end

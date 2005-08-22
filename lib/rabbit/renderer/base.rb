@@ -11,6 +11,37 @@ module Rabbit
       include GetText
       include ERB::Util
 
+      Color = Struct.new(:red, :green, :blue, :alpha, :have_alpha)
+
+      class Color
+
+        COLOR_NORMALIZE = 65535.0
+
+        class << self
+          def new_from_gdk_color(color, have_alpha=false)
+            red = color.red / COLOR_NORMALIZE
+            green = color.green / COLOR_NORMALIZE
+            blue = color.blue / COLOR_NORMALIZE
+            alpha = 1.0
+            new(red, green, blue, alpha, have_alpha)
+          end
+        end
+
+        alias have_alpha? have_alpha
+        
+        def to_s
+          "#%02X%02X%02X" % to_a.collect{|color| (color * 255).round}
+        end
+
+        def to_a
+          if have_alpha?
+            [red, green, blue, alpha]
+          else
+            [red, green, blue]
+          end
+        end
+      end
+
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :left_margin, :right_margin
       attr_accessor :top_margin, :bottom_margin
@@ -272,7 +303,7 @@ module Rabbit
         not_support_method("gl_compile")
       end
 
-      def gl_call_list(id, x, y, z)
+      def gl_call_list(id, x, y, z, color=nil)
         not_support_method("gl_call_list")
       end
 

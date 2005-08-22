@@ -20,8 +20,8 @@ match(Slide) do |slides|
           GLU.Sphere(qobj, 1.0, 50, 20)
         end
       else
-        canvas.gl_call_list(list_id, -1.0, 1.0, -3.0)
-        canvas.draw_teapot(true, -1.0, -1.0, -3.0, 0.7)
+        canvas.gl_call_list(list_id, -1.0, 1.0, -3.0, "blue")
+        canvas.draw_teapot(true, -1.0, -1.0, -3.0, 0.7, "red")
       end
       [x, y, w, h]
     end

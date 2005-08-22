@@ -9,30 +9,6 @@ module Rabbit
 
       include Base
       
-      Color = Struct.new(:red, :green, :blue)
-
-      class Color
-
-        COLOR_NORMALIZE = 65535.0
-
-        class << self
-          def new_from_gdk_color(color)
-            red = color.red / COLOR_NORMALIZE
-            green = color.green / COLOR_NORMALIZE
-            blue = color.blue / COLOR_NORMALIZE
-            new(red, green, blue)
-          end
-        end
-        
-        def to_s
-          "#%02X%02X%02X" % to_a.collect{|color| (color * 255).round}
-        end
-
-        def to_a
-          [red, green, blue]
-        end
-      end
-
       attr_writer :foreground, :background, :background_image
       attr_accessor :filename
       
