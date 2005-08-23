@@ -308,11 +308,11 @@ module Rabbit
       end
 
       def z_far
-        10.0
+        100.0
       end
 
       def z_view
-        3.0
+        5.0
       end
 
       def new_list_id

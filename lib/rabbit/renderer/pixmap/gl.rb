@@ -24,58 +24,60 @@ module Rabbit
         @pixmap.draw_layout(gc, x, y, layout)
       end
 
-      def draw_cube(filled, x, y, z, size, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_cube(filled, x, y, z, size, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_cube(filled, size)
         end
       end
       
-      def draw_sphere(filled, x, y, z, radius, slices, stacks, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_sphere(filled, x, y, z, radius, slices, stacks,
+                      color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_sphere(filled, radius, slices, stacks)
         end
       end
       
-      def draw_cone(filled, x, y, z, base, height, slices, stacks, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_cone(filled, x, y, z, base, height, slices, stacks,
+                    color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_cone(filled, base, height, slices, stacks)
         end
       end
       
       def draw_torus(filled, x, y, z, inner_radius, outer_radius,
-                     n_sides, rings, color=nil)
-        draw_gl(x, y, z, color) do
+                     n_sides, rings, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_torus(filled, inner_radius,
                              outer_radius, n_sides, rings)
         end
       end
       
-      def draw_tetrahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_tetrahedron(filled, x, y, z, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_tetrahedron(filled)
         end
       end
       
-      def draw_octahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_octahedron(filled, x, y, z, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_octahedron(filled)
         end
       end
       
-      def draw_dodecahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_dodecahedron(filled, x, y, z, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_dodecahedron(filled)
         end
       end
       
-      def draw_icosahedron(filled, x, y, z, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_icosahedron(filled, x, y, z, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_icosahedron(filled)
         end
       end
       
-      def draw_teapot(filled, x, y, z, scale, color=nil)
-        draw_gl(x, y, z, color) do
+      def draw_teapot(filled, x, y, z, scale, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           Gdk::GL.draw_teapot(filled, scale)
         end
       end
@@ -86,8 +88,8 @@ module Rabbit
         GL.EndList
       end
 
-      def gl_call_list(id, x, y, z, color=nil)
-        draw_gl(x, y, z, color) do
+      def gl_call_list(id, x, y, z, color=nil, &block)
+        draw_gl(x, y, z, color, block) do
           GL.CallList(id)
         end
       end
@@ -129,26 +131,27 @@ module Rabbit
         GL.Enable(GL::LIGHTING)
         GL.Enable(GL::LIGHT0)
         GL.Enable(GL::DEPTH_TEST)
-          
+        
         GL.MatrixMode(GL::PROJECTION)
         GL.LoadIdentity
-        GLU.Perspective(40.0, width / height, 1.0, z_far)
+        GLU.Perspective(30.0, width / height, 1.0, z_far)
 
         GL.MatrixMode(GL::MODELVIEW)
         GL.LoadIdentity
         GLU.LookAt(0.0, 0.0, z_view,
                    0.0, 0.0, 0.0,
                    0.0, 1.0, 0.0)
-        GL.Translate(0.0, 0.0, -z_view)
         drawable.wait_gl
       end
 
-      def draw_gl(x, y, z, color)
+      def draw_gl(x, y, z, color, block)
         drawable.wait_gdk
         GL.PushMatrix
         setup_geometry(x, y, z)
         setup_color(color)
+        block.call(true) if block
         yield
+        block.call(false) if block
         GL.Flush
         GL.PopMatrix
         drawable.wait_gl
@@ -160,16 +163,26 @@ module Rabbit
         elsif color.is_a?(String)
           color = Gdk::Color.parse(color)
         end
-        p color.to_a
         color = Color.new_from_gdk_color(color, true)
-        p color
         GL.Light(GL::LIGHT0, GL::DIFFUSE, color.to_a)
       end
 
       def setup_geometry(x, y, z)
+        new_x = to_gl_size(x, width)
+        new_y = to_gl_size(height - y, height)
+        new_z = z - z_view
         GL.MatrixMode(GL::MODELVIEW)
         GL.LoadIdentity
-        GL.Translate(x, y, z - z_view)
+        GL.Translate(new_x, new_y, new_z)
+      end
+
+      def to_gl_size(value, max)
+        min = 0.0
+        range = min.abs + max.abs
+        gl_min = -1.0
+        gl_max = 1.0
+        gl_range = gl_min.abs + gl_max.abs
+        (value / range.to_f) * gl_range + gl_min
       end
       
     end

@@ -4,15 +4,15 @@ proc_name = "gl-sample"
 
 match(Slide) do |slides|
 
-  slides.delete_pre_draw_proc_by_name(proc_name)
+  slides.delete_post_draw_proc_by_name(proc_name)
   
   list_id = nil
   
   slides.each do |slide|
     break if not(slide.body.empty? and slide.headline.text == "GL")
-    
-    qobj = nil
-    slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
+
+    head = slide.headline
+    head.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       list_id ||= canvas.new_list_id
       if simulation
         canvas.gl_compile(list_id) do
@@ -20,8 +20,8 @@ match(Slide) do |slides|
           GLU.Sphere(qobj, 1.0, 50, 20)
         end
       else
-        canvas.gl_call_list(list_id, -1.0, 1.0, -3.0, "blue")
-        canvas.draw_teapot(true, -1.0, -1.0, -3.0, 0.7, "red")
+        canvas.gl_call_list(list_id, x, y, -3.0, "blue")
+        canvas.draw_teapot(true, w - x, y, -3.0, 1.0, "red")
       end
       [x, y, w, h]
     end
