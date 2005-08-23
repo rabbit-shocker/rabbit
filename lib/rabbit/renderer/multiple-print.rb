@@ -19,11 +19,15 @@ module Rabbit
       end
 
       def draw_slide(slide, simulation)
-        # @context.begin_page(slide.title) do
-        @context.begin_page(page_title) if need_begin_page?
-        draw_background unless simulation
-        yield
-        @context.show_page if need_show_page?
+        if simulation
+          yield
+        else
+          # @context.begin_page(slide.title) do
+          @context.begin_page(page_title) if need_begin_page?
+          draw_background
+          yield
+          @context.show_page if need_show_page?
+        end
       end
 
       def slides_per_page=(slides)

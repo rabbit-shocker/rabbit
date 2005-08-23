@@ -95,7 +95,8 @@ module Rabbit
       end
       
       def draw(canvas)
-        canvas.draw_slide(self) do
+        canvas.draw_slide(self, true) {}
+        canvas.draw_slide(self, false) do
           w = width
           h = height
           x_base = (w / (COLUMN_NUMBER + 1.0)).ceil

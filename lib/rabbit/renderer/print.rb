@@ -79,10 +79,14 @@ module Rabbit
 
 
       def draw_slide(slide, simulation)
-        # @context.begin_page(slide.title) do
-        @context.begin_page do
-          draw_background unless simulation
+        if simulation
           yield
+        else
+          # @context.begin_page(slide.title) do
+          @context.begin_page do
+            draw_background
+            yield
+          end
         end
       end
       
