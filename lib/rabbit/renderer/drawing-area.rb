@@ -209,6 +209,7 @@ module Rabbit
       
       def init_pixmap(w=width, h=height)
         @pixmap = Renderer::Pixmap.new(@canvas, w, h)
+        @pixmap.setup_event(self)
       end
       
       def clear_button_handler
@@ -246,10 +247,14 @@ module Rabbit
       def init_drawing_area
         @area = Gtk::DrawingArea.new
         @area.set_can_focus(true)
-        @area.add_events(Gdk::Event::BUTTON_PRESS_MASK)
+        event_mask = Gdk::Event::BUTTON_PRESS_MASK
+        event_mask |= Gdk::Event::BUTTON1_MOTION_MASK 
+        event_mask |= Gdk::Event::BUTTON2_MOTION_MASK 
+        @area.add_events(event_mask)
         set_realize
         set_key_press_event
         set_button_press_event
+        set_motion_notify_event
         set_expose_event
         set_scroll_event
       end
@@ -273,13 +278,10 @@ module Rabbit
           end
           
           unless handled
-            handle_key(event)
-#             if @canvas.processing?
-#               handle_key_when_processing(event)
-#             else
-#               handle_key(event)
-#             end
+            handled = handle_key(event)
           end
+          
+          handled
         end
       end
       
@@ -290,11 +292,20 @@ module Rabbit
       }
       
       def set_button_press_event
-        @area.signal_connect("button_press_event") do |widget, event|
+        @area.signal_connect("button_press_event") do |widget, event, *args|
+          call_hook_procs(@button_press_hook_procs[event.event_type], event)
           if BUTTON_PRESS_HANDLER.has_key?(event.event_type)
             __send__(BUTTON_PRESS_HANDLER[event.event_type], event)
             start_button_handler
           end
+          false
+        end
+      end
+
+      def set_motion_notify_event
+        @area.signal_connect("motion_notify_event") do |widget, event|
+          call_hook_procs(@motion_notify_hook_procs[event.state], event)
+          true
         end
       end
       
@@ -358,6 +369,7 @@ module Rabbit
       end
 
       def handle_key(key_event)
+        handled = true
         case key_event.keyval
         when *QUIT_KEYS
           if @canvas.processing?
@@ -416,7 +428,10 @@ module Rabbit
           thread do
             @canvas.cache_all_slides
           end
+        else
+          handled = false
         end
+        handled
       end
       
       def handle_key_when_processing(key_event)
@@ -544,6 +559,12 @@ module Rabbit
       def thread(&block)
         thread = Thread.new(&block)
         thread.priority = -10
+      end
+
+      def call_hook_procs(procs, *args)
+        procs.find do |proc|
+          proc.call(*args)
+        end
       end
       
     end

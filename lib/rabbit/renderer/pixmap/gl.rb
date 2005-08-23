@@ -5,12 +5,22 @@ Rabbit.add_gui_init_proc do
   Gtk::GL.init
 end
 
+require "rabbit/trackball"
 require "rabbit/renderer/pixmap/base"
 
 module Rabbit
   module Renderer
     class PixmapGL < PixmapBase
 
+      def initialize(canvas, width=nil, height=nil)
+        @contexts = {}
+        super
+        @view_quat  = [0.0, 0.0, 0.0, 1.0]
+        @view_scale = 1.0
+        @logo_quat  = [0.0, 0.0, 0.0, 1.0]
+        init_view
+      end
+      
       def draw_slide(slide, simulation)
         super(slide, simulation) do
           yield
@@ -94,21 +104,52 @@ module Rabbit
         end
       end
 
+      def gl_supported?
+        true
+      end
+
+      def setup_event(area)
+        begin_x = nil
+        begin_y = nil
+        area.add_button_press_hook(Gdk::Event::Type::BUTTON_PRESS) do |event|
+          begin_x = event.x
+          begin_y = event.y
+          false
+        end
+        area.add_motion_notify_hook(Gdk::Window::BUTTON1_MASK) do |event|
+          x = event.x.to_f
+          y = event.y.to_f
+          w = width.to_f
+          h = height.to_f
+          d_quat = TrackBall.trackball((2.0 * begin_x - w) / w,
+                                       (h - 2.0 * begin_y) / h,
+                                       (2.0 * x - w) / w,
+                                       (h - 2.0 * y) / h)
+          @view_quat = TrackBall.add_quats(d_quat, @view_quat)
+          area.redraw
+          false
+        end
+      end
+      
+      def clear_pixmaps
+        super
+        @contexts.values.each do |value|
+          p "destroyed"
+          value.destroy
+        end
+        @contexts.clear
+      end
+      
       private
       def drawable
         @pixmap.gl_pixmap
       end
 
-      def init_drawable
-        super
-        @contexts = {}
-      end
-      
       def init_pixmap(slide, simulation)
         super
         if simulation
           mode = Gdk::GLConfig::MODE_RGBA | Gdk::GLConfig::MODE_DEPTH
-          @gl_config = Gdk::GLConfig.new(mode)
+          @gl_config ||= Gdk::GLConfig.new(mode)
           if @pixmap.method(:set_gl_capability).arity == 2
             # bug of Ruby/GtkGLExt <= 0.13.0
             @pixmap.set_gl_capability(@gl_config, nil)
@@ -121,6 +162,22 @@ module Rabbit
         init_gl
       end
 
+      def init_view
+        angle = 0.0 * (Math::PI / 180.0)
+        axis_x = 1.0
+        axis_y = 0.0
+        axis_z = 0.0
+        sine = Math.sin(0.5 * angle)
+        @view_quat  = [
+          axis_x * sine, 
+          axis_y * sine,
+          axis_z * sine,
+          Math.cos(0.5 * angle)
+        ]
+        @view_quat = TrackBall::Vector.new(@view_quat)
+        @view_scale = 1.0
+      end
+      
       def init_gl
         GL.ClearDepth(1.0)
         GL.Clear(GL::DEPTH_BUFFER_BIT)
@@ -131,7 +188,7 @@ module Rabbit
         GL.Enable(GL::LIGHTING)
         GL.Enable(GL::LIGHT0)
         GL.Enable(GL::DEPTH_TEST)
-        
+
         GL.MatrixMode(GL::PROJECTION)
         GL.LoadIdentity
         GLU.Perspective(30.0, width / height, 1.0, z_far)
@@ -141,6 +198,9 @@ module Rabbit
         GLU.LookAt(0.0, 0.0, z_view,
                    0.0, 0.0, 0.0,
                    0.0, 1.0, 0.0)
+        GL.Translate(0.0, 0.0, -z_view)
+        GL.Scale(@view_scale, @view_scale, @view_scale)
+        GL.MultMatrix(@view_quat.build_rotmatrix)
         drawable.wait_gl
       end
 
@@ -170,9 +230,8 @@ module Rabbit
       def setup_geometry(x, y, z)
         new_x = to_gl_size(x, width)
         new_y = to_gl_size(height - y, height)
-        new_z = z - z_view
+        new_z = z
         GL.MatrixMode(GL::MODELVIEW)
-        GL.LoadIdentity
         GL.Translate(new_x, new_y, new_z)
       end
 

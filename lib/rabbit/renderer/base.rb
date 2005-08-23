@@ -67,6 +67,7 @@ module Rabbit
         @progress_foreground = nil
         @progress_background = nil
         @list_id = 0
+        init_hook_procs
       end
 
       def left_page_margin
@@ -307,6 +308,13 @@ module Rabbit
         not_support_method("gl_call_list")
       end
 
+      def gl_supported?
+        false
+      end
+
+      def setup_event
+      end
+      
       def z_far
         100.0
       end
@@ -329,7 +337,27 @@ module Rabbit
           end
         end.compact.join(" ")
       end
-        
+
+      def add_motion_notify_hook(type, hook=Proc.new)
+        @motion_notify_hook_procs[type] << hook
+      end
+      
+      def clear_motion_notify_hook(type)
+        @motion_notify_hook_procs[type].clear
+      end
+      
+      def add_button_press_hook(type, hook=Proc.new)
+        @button_press_hook_procs[type] << hook
+      end
+      
+      def clear_button_press_hook(type)
+        @button_press_hook_procs[type].clear
+      end
+      
+      def clear_hooks
+        init_hook_procs
+      end
+      
       private
       def can_create_pixbuf?
         false
@@ -437,6 +465,19 @@ module Rabbit
         format = _("%s does not support: %s")
         msg = format % [self.class.name, name]
         @canvas.logger.warn(msg)
+      end
+
+      def init_hook_procs
+        @motion_notify_hook_procs = {
+          Gdk::Window::BUTTON1_MASK => [],
+          Gdk::Window::BUTTON2_MASK => [],
+          Gdk::Window::BUTTON3_MASK => [],
+        }
+        @button_press_hook_procs = {
+          Gdk::Event::Type::BUTTON_PRESS => [],
+          Gdk::Event::Type::BUTTON2_PRESS => [],
+          Gdk::Event::Type::BUTTON3_PRESS => [],
+        }
       end
     end
     
