@@ -21,6 +21,7 @@ module Rabbit
         @width = width
         @height = height
         @filename = nil
+        @pixmaps = {}
         @pango_context = create_pango_context
         init_drawable
         init_color

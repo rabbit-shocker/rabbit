@@ -11,7 +11,7 @@ require "rabbit/renderer/pixmap/base"
 module Rabbit
   module Renderer
     class PixmapGL < PixmapBase
-
+      
       def initialize(canvas, width=nil, height=nil)
         super
         @view_quat  = [0.0, 0.0, 0.0, 1.0]
@@ -124,21 +124,22 @@ module Rabbit
         end
         
         area.add_motion_notify_hook do |event|
-          if event.state.button3_mask?
+          state = event.state
+          if state.button3_mask?
             handled = true
             x = event.x.to_f
             y = event.y.to_f
             w = width.to_f
             h = height.to_f
             
-            if event.state.control_mask?
+            if state.control_mask?
               @view_scale = @view_scale * (1.0 + (y - begin_y) / h)
               if @view_scale > view_scale_max
                 @view_scale = view_scale_max
               elsif @view_scale < view_scale_min
                 @view_scale = view_scale_min
               end
-            else
+            elsif state.shift_mask?
               d_quat = TrackBall.trackball((2.0 * begin_x - w) / w,
                                            (h - 2.0 * begin_y) / h,
                                            (2.0 * x - w) / w,
@@ -161,6 +162,9 @@ module Rabbit
       end
       
       def clear_pixmaps
+        @pixmaps.values.each do |pixmap|
+          pixmap.unset_gl_capability
+        end
         super
         @contexts = {}
       end
