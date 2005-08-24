@@ -112,6 +112,9 @@ module Rabbit
         begin_y = nil
         start_time = nil
         handled = false
+        view_scale_max = 2.0
+        view_scale_min = 0.5
+        
         area.add_button_press_hook do |event|
           handled = false
           start_time = event.time
@@ -119,23 +122,38 @@ module Rabbit
           begin_y = event.y
           false
         end
+        
         area.add_motion_notify_hook do |event|
-          handled = true
-          x = event.x.to_f
-          y = event.y.to_f
-          w = width.to_f
-          h = height.to_f
-          d_quat = TrackBall.trackball((2.0 * begin_x - w) / w,
-                                       (h - 2.0 * begin_y) / h,
-                                       (2.0 * x - w) / w,
-                                       (h - 2.0 * y) / h)
-          @view_quat = TrackBall.add_quats(d_quat, @view_quat)
-          if event.time > start_time + 100
-            area.redraw
-            start_time = event.time
+          if event.state.button3_mask?
+            handled = true
+            x = event.x.to_f
+            y = event.y.to_f
+            w = width.to_f
+            h = height.to_f
+            
+            if event.state.control_mask?
+              @view_scale = @view_scale * (1.0 + (y - begin_y) / h)
+              if @view_scale > view_scale_max
+                @view_scale = view_scale_max
+              elsif @view_scale < view_scale_min
+                @view_scale = view_scale_min
+              end
+            else
+              d_quat = TrackBall.trackball((2.0 * begin_x - w) / w,
+                                           (h - 2.0 * begin_y) / h,
+                                           (2.0 * x - w) / w,
+                                           (h - 2.0 * y) / h)
+              @view_quat = TrackBall.add_quats(d_quat, @view_quat)
+            end
+            
+            if event.time > start_time + 100
+              area.redraw
+              start_time = event.time
+            end
           end
           false
         end
+        
         area.add_button_release_hook do |event, last_button_press_event|
           area.redraw if handled
           handled

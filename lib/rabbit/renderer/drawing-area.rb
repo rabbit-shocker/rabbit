@@ -477,6 +477,7 @@ module Rabbit
                    last_button_press_event, event)
           start_button_handler
         end
+        true
       end
 
       def handle_button_press(event, release_event)
