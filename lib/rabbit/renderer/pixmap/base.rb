@@ -101,11 +101,11 @@ module Rabbit
       
       def draw_arc(filled, x, y, w, h, a1, a2, color=nil)
         gc = make_gc(color)
-        drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
+        drawable.draw_arc(gc, filled, x, y, w, h, a1 * 64, a2 * 64)
       end
       
       def draw_circle(filled, x, y, w, h, color=nil)
-        draw_arc(filled, x, y, w, h, 0, 360 * 64, color)
+        draw_arc(filled, x, y, w, h, 0, 360, color)
       end
       
       def draw_polygon(filled, points, color=nil)
