@@ -13,7 +13,6 @@ module Rabbit
     class PixmapGL < PixmapBase
 
       def initialize(canvas, width=nil, height=nil)
-        @contexts = {}
         super
         @view_quat  = [0.0, 0.0, 0.0, 1.0]
         @view_scale = 1.0
@@ -111,12 +110,17 @@ module Rabbit
       def setup_event(area)
         begin_x = nil
         begin_y = nil
-        area.add_button_press_hook(Gdk::Event::Type::BUTTON_PRESS) do |event|
+        start_time = nil
+        handled = false
+        area.add_button_press_hook do |event|
+          handled = false
+          start_time = event.time
           begin_x = event.x
           begin_y = event.y
           false
         end
-        area.add_motion_notify_hook(Gdk::Window::BUTTON1_MASK) do |event|
+        area.add_motion_notify_hook do |event|
+          handled = true
           x = event.x.to_f
           y = event.y.to_f
           w = width.to_f
@@ -126,18 +130,21 @@ module Rabbit
                                        (2.0 * x - w) / w,
                                        (h - 2.0 * y) / h)
           @view_quat = TrackBall.add_quats(d_quat, @view_quat)
-          area.redraw
+          if event.time > start_time + 100
+            area.redraw
+            start_time = event.time
+          end
           false
+        end
+        area.add_button_release_hook do |event, last_button_press_event|
+          area.redraw if handled
+          handled
         end
       end
       
       def clear_pixmaps
         super
-        @contexts.values.each do |value|
-          p "destroyed"
-          value.destroy
-        end
-        @contexts.clear
+        @contexts = {}
       end
       
       private

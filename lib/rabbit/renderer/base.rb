@@ -11,6 +11,8 @@ module Rabbit
       include GetText
       include ERB::Util
 
+      TOO_DIRTY = 5
+    
       Color = Struct.new(:red, :green, :blue, :alpha, :have_alpha)
 
       class Color
@@ -67,6 +69,7 @@ module Rabbit
         @progress_foreground = nil
         @progress_background = nil
         @list_id = 0
+        clean
         init_hook_procs
       end
 
@@ -312,7 +315,7 @@ module Rabbit
         false
       end
 
-      def setup_event
+      def setup_event(area)
       end
       
       def z_far
@@ -338,26 +341,58 @@ module Rabbit
         end.compact.join(" ")
       end
 
-      def add_motion_notify_hook(type, hook=Proc.new)
-        @motion_notify_hook_procs[type] << hook
+      def add_motion_notify_hook(hook=Proc.new)
+        @motion_notify_hook_procs << hook
       end
       
-      def clear_motion_notify_hook(type)
-        @motion_notify_hook_procs[type].clear
+      def clear_motion_notify_hook
+        @motion_notify_hook_procs.clear
       end
       
-      def add_button_press_hook(type, hook=Proc.new)
-        @button_press_hook_procs[type] << hook
+      def add_button_press_hook(hook=Proc.new)
+        @button_press_hook_procs << hook
       end
       
-      def clear_button_press_hook(type)
-        @button_press_hook_procs[type].clear
+      def clear_button_press_hook
+        @button_press_hook_procs.clear
+      end
+      
+      def add_button_release_hook(hook=Proc.new)
+        @button_release_hook_procs << hook
+      end
+      
+      def clear_button_release_hook
+        @button_release_hook_procs.clear
       end
       
       def clear_hooks
         init_hook_procs
       end
+
+      def dirty?
+        @dirty_count >= TOO_DIRTY
+      end
       
+      def dirty
+        @dirty_count += TOO_DIRTY / 10.0
+      end
+      
+      def very_dirty
+        @dirty_count += TOO_DIRTY
+      end
+      
+      def bit_dirty
+        @dirty_count += TOO_DIRTY / 100.0
+      end
+
+      def clean
+        @dirty_count = 0
+      end
+
+      def clean_if_dirty
+        clean if dirty?
+      end
+
       private
       def can_create_pixbuf?
         false
@@ -468,16 +503,9 @@ module Rabbit
       end
 
       def init_hook_procs
-        @motion_notify_hook_procs = {
-          Gdk::Window::BUTTON1_MASK => [],
-          Gdk::Window::BUTTON2_MASK => [],
-          Gdk::Window::BUTTON3_MASK => [],
-        }
-        @button_press_hook_procs = {
-          Gdk::Event::Type::BUTTON_PRESS => [],
-          Gdk::Event::Type::BUTTON2_PRESS => [],
-          Gdk::Event::Type::BUTTON3_PRESS => [],
-        }
+        @motion_notify_hook_procs = []
+        @button_press_hook_procs = []
+        @button_release_hook_procs = []
       end
     end
     

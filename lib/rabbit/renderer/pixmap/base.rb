@@ -154,8 +154,21 @@ module Rabbit
         Gdk::Pixbuf.from_drawable(*args)
       end
 
+      def clear_pixmap(slide=nil)
+        dirty
+        @pixmaps.delete(slide || @canvas.current_slide)
+        clean_if_dirty
+      end
+
       def clear_pixmaps
+        dirty
         @pixmaps = {}
+        clean_if_dirty
+      end
+
+      def clean
+        super
+        GC.start
       end
 
       def create_pango_context

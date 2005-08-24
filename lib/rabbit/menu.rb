@@ -18,11 +18,6 @@ module Rabbit
     def initialize(canvas)
       @canvas = canvas
       @menu = create_menu
-#       if @canvas.processing?
-#         @menu = create_menu_when_processing
-#       else
-#         @menu = create_menu
-#       end
     end
 
     def popup(button, time)

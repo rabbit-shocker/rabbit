@@ -34,15 +34,18 @@ module Rabbit
 
       def_delegators(:@pixmap, :to_pixbuf)
 
+      def_delegators(:@pixmap, :clear_pixmap, :clear_pixmaps)
+
       def_delegators(:@pixmap, :filename, :filename=)
       
-      BUTTON_PRESS_ACCEPTING_TIME = 0.5 * 1000
+      BUTTON_PRESS_ACCEPTING_TIME = 250
 
       def initialize(canvas)
         super
         @current_cursor = nil
         @blank_cursor = nil
         @caching = nil
+        @button_handling = false
         init_progress
         clear_button_handler
         init_drawing_area
@@ -84,13 +87,13 @@ module Rabbit
       
       def post_fullscreen
         set_cursor(blank_cursor)
-        clear_pixmap
+        clear_pixmaps
         update_menu
       end
       
       def post_unfullscreen
         set_cursor(nil)
-        clear_pixmap
+        clear_pixmaps
         update_menu
       end
       
@@ -248,12 +251,14 @@ module Rabbit
         @area = Gtk::DrawingArea.new
         @area.set_can_focus(true)
         event_mask = Gdk::Event::BUTTON_PRESS_MASK
+        event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
         event_mask |= Gdk::Event::BUTTON1_MOTION_MASK 
         event_mask |= Gdk::Event::BUTTON2_MOTION_MASK 
+        event_mask |= Gdk::Event::BUTTON3_MOTION_MASK 
         @area.add_events(event_mask)
         set_realize
         set_key_press_event
-        set_button_press_event
+        set_button_event
         set_motion_notify_event
         set_expose_event
         set_scroll_event
@@ -284,28 +289,29 @@ module Rabbit
           handled
         end
       end
-      
-      BUTTON_PRESS_HANDLER = {
-        Gdk::Event::Type::BUTTON_PRESS => "handle_button_press",
-        Gdk::Event::Type::BUTTON2_PRESS => "handle_button2_press",
-        Gdk::Event::Type::BUTTON3_PRESS => "handle_button3_press",
-      }
-      
-      def set_button_press_event
-        @area.signal_connect("button_press_event") do |widget, event, *args|
-          call_hook_procs(@button_press_hook_procs[event.event_type], event)
-          if BUTTON_PRESS_HANDLER.has_key?(event.event_type)
-            __send__(BUTTON_PRESS_HANDLER[event.event_type], event)
-            start_button_handler
+
+      def set_button_event
+        last_button_press_event = nil
+        @area.signal_connect("button_press_event") do |widget, event|
+          last_button_press_event = event
+          call_hook_procs(@button_press_hook_procs, event)
+        end
+
+        @area.signal_connect("button_release_event") do |widget, event|
+          handled = call_hook_procs(@button_release_hook_procs,
+                                    event, last_button_press_event)
+          if handled
+            clear_button_handler
+          else
+            handled = handle_button_release(event, last_button_press_event)
           end
-          false
+          handled
         end
       end
 
       def set_motion_notify_event
         @area.signal_connect("motion_notify_event") do |widget, event|
-          call_hook_procs(@motion_notify_hook_procs[event.state], event)
-          true
+          call_hook_procs(@motion_notify_hook_procs, event)
         end
       end
       
@@ -458,7 +464,22 @@ module Rabbit
         handled
       end
       
-      def handle_button_press(event)
+      BUTTON_PRESS_HANDLER = {
+        Gdk::Event::Type::BUTTON_PRESS => "handle_button_press",
+        Gdk::Event::Type::BUTTON2_PRESS => "handle_button2_press",
+        Gdk::Event::Type::BUTTON3_PRESS => "handle_button3_press",
+      }
+      
+      def handle_button_release(event, last_button_press_event)
+        press_event_type = last_button_press_event.event_type
+        if BUTTON_PRESS_HANDLER.has_key?(press_event_type)
+          __send__(BUTTON_PRESS_HANDLER[press_event_type],
+                   last_button_press_event, event)
+          start_button_handler
+        end
+      end
+
+      def handle_button_press(event, release_event)
         case event.button
         when 1, 5
           add_button_handler do
@@ -469,11 +490,13 @@ module Rabbit
             @canvas.move_to_previous_if_can
           end
         when 3
-          @menu.popup(event.button, event.time)
+          add_button_handler do
+            @menu.popup(0, Gtk.current_event_time)
+          end
         end
       end
       
-      def handle_button2_press(event)
+      def handle_button2_press(event, release_event)
         add_button_handler do
           if @canvas.index_mode?
             index = @canvas.current_slide.slide_number(@canvas, event.x, event.y)
@@ -486,7 +509,7 @@ module Rabbit
         end
       end
       
-      def handle_button3_press(event)
+      def handle_button3_press(event, release_event)
         add_button_handler do
           clear_button_handler
         end
@@ -501,9 +524,24 @@ module Rabbit
       end
       
       def start_button_handler
-        Gtk.timeout_add(BUTTON_PRESS_ACCEPTING_TIME) do
-          call_button_handler
-          false
+        if @button_handling
+          @coming = true
+        else
+          @button_handling = true
+          @coming = false
+          Gtk.timeout_add(BUTTON_PRESS_ACCEPTING_TIME) do
+            if @coming
+              Gtk.timeout_add(BUTTON_PRESS_ACCEPTING_TIME) do
+                call_button_handler
+                @button_handling = false
+                false
+              end
+            else
+              call_button_handler
+              @button_handling = false
+            end
+            false
+          end
         end
       end
 
@@ -540,10 +578,6 @@ module Rabbit
         @progress_window.move(*@canvas.window.position)
       end
       
-      def clear_pixmap
-        @pixmap.clear_pixmaps
-      end
-
       def confirm_dialog
         flags = Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT
         dialog_type = Gtk::MessageDialog::INFO
