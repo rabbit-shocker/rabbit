@@ -18,13 +18,13 @@ match(TitleSlide, Title) do |titles|
     unless simulation
       title_slide = title.parent
       unless resized
-        title_space = y - title_slide.top_margin
+        title_space = y - title_slide.margin_top
         width = ((title_space / loader.height.to_f) * loader.width).ceil
         loader.resize(width, title_space) if width > 0
         resized = true
       end
-      new_x = canvas.width - loader.width - title_slide.right_margin
-      new_y = title_slide.top_margin
+      new_x = canvas.width - loader.width - title_slide.margin_right
+      new_y = title_slide.margin_top
       canvas.draw_pixbuf(loader.pixbuf, new_x, new_y)
     end
     [x, y, w, h]

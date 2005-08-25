@@ -7,6 +7,8 @@ if @clock_auto_update.nil?
   @clock_auto_update = true
 end
 
+@@clock_auto_update_thread = nil
+
 @clock_props ||= {
   "size" => @xx_small_font_size,
   "font_family" => @font_family,
@@ -14,22 +16,25 @@ end
 
 match(Slide) do |slides|
 
+  slides.delete_post_draw_proc_by_name(proc_name)
+
+  break if @clock_uninstall
+  
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
     if @clock_auto_update and
-        slide.user_property["clock.thread"].nil?
-      slide.user_property["clock.thread"] = Thread.new do
+        @@clock_auto_update_thread.nil?
+      thread = Thread.new do
         loop do
           sleep(1)
-          # break if slide.post_draw_procs(proc_name).nil?
+          break if @@clock_auto_update_thread != thread
           canvas.redraw
         end
       end
+      @@clock_auto_update_thread = thread
     end
     slide.delete_pre_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
-
-  slides.delete_post_draw_proc_by_name(proc_name)
 
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
@@ -37,7 +42,7 @@ match(Slide) do |slides|
       text = %Q[<span #{to_attrs(@clock_props)}>#{text}</span>]
       layout, text_width, text_height = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
-      num_y = canvas.height - @bottom_margin - text_height
+      num_y = canvas.height - @margin_bottom - text_height
       canvas.draw_layout(layout, x, num_y)
     end
     [x, y, w, h]

@@ -329,7 +329,7 @@ with the following.
    
    Default is 1.
 
-: --margin, --*-margin
+: --margin, --margin-*
    Specifies margin of slide when slides per margin is
    greater than 1.
     
@@ -337,7 +337,7 @@ with the following.
    page. But the algorithm is not good when slides per page
    is except 2 or 8.
 
-: --page-margin, --*-page-margin
+: --page-margin, --page-margin-*
    Specifies page margin when printing.
    
    Default is 0.

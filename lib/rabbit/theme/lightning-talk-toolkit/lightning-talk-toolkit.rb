@@ -9,10 +9,10 @@
 def lightning_talk_slide(slides, proc_name)
   slides = to_element_container(slides)
   
-  slides.left_margin = @left_margin
-  slides.right_margin = @right_margin
-  slides.top_margin = @top_margin
-  slides.bottom_margin = @bottom_margin
+  slides.margin_left = @margin_left
+  slides.margin_right = @margin_right
+  slides.margin_top = @margin_top
+  slides.margin_bottom = @margin_bottom
 
   slides.delete_post_draw_proc_by_name(proc_name)
   return if @lightning_talk_uninstall
@@ -27,10 +27,10 @@ def lightning_talk_slide(slides, proc_name)
     unless simulation
       args = [
         true,
-        x - @left_margin,
-        y - @top_margin,
-        w + @left_margin + @right_margin,
-        h + @top_margin + @bottom_margin,
+        x - @margin_left,
+        y - @margin_top,
+        w + @margin_left + @margin_right,
+        h + @margin_top + @margin_bottom,
         @lightning_talk_background_color,
       ]
       canvas.draw_rectangle(*args)
@@ -46,7 +46,7 @@ def lightning_talk_slide(slides, proc_name)
         layout, text_width, text_height = canvas.make_layout(text)
         layout.set_width(w * Pango::SCALE)
         layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
-        num_y = canvas.height - @bottom_margin - text_height
+        num_y = canvas.height - @margin_bottom - text_height
         canvas.draw_layout(layout, x, num_y)
       end
       [x, y, w, h]
@@ -70,8 +70,8 @@ def lightning_talk_headline(heads, proc_name)
   
   heads.prop_set("size", @very_huge_font_size)
   if @lightning_talk_as_large_as_possible
-    max = (canvas.height - @top_margin - @bottom_margin) * Pango::SCALE
-    width = (canvas.width - @left_margin - @right_margin) * Pango::SCALE
+    max = (canvas.height - @margin_top - @margin_bottom) * Pango::SCALE
+    width = (canvas.width - @margin_left - @margin_right) * Pango::SCALE
     heads.each do |head|
       size = head.prop_get("size").value
       loop do

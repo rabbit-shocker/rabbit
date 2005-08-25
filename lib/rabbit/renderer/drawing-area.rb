@@ -35,6 +35,7 @@ module Rabbit
       def_delegators(:@pixmap, :to_pixbuf)
 
       def_delegators(:@pixmap, :clear_pixmap, :clear_pixmaps)
+      def_delegators(:@pixmap, :clear_theme)
 
       def_delegators(:@pixmap, :filename, :filename=)
       
@@ -220,6 +221,11 @@ module Rabbit
         @button_handler = []
       end
 
+      def clear_progress_color
+        super
+        setup_progress_color
+      end
+
       def update_menu
         @menu = Menu.new(@canvas)
       end
@@ -237,6 +243,7 @@ module Rabbit
       end
 
       def setup_progress_color
+        return unless @progress
         style = @progress.style.copy
         if @progress_foreground
           style.set_bg(Gtk::STATE_NORMAL, *to_rgb(@progress_foreground))

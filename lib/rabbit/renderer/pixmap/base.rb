@@ -185,6 +185,12 @@ module Rabbit
       def post_to_pixbuf
       end
 
+      def clear_theme
+        init_drawable
+        init_color
+        clear_pixmaps
+      end
+      
       @@depth = nil
       private
       def depth
@@ -218,7 +224,7 @@ module Rabbit
         @background = Gdk::GC.new(@pixmap)
         @background.set_foreground(make_color("white"))
       end
-      
+
       def make_gc(color, default_is_foreground=true)
         if color.nil?
           if default_is_foreground

@@ -17,31 +17,34 @@ match("**", Image) do |images|
     :shadow_offset => @image_frame_shadow_offset,
   }
   
-  left_padding = 0
-  right_padding = 0
-  top_padding = 0
-  bottom_padding = 0
+  padding_left = 0
+  padding_right = 0
+  padding_top = 0
+  padding_bottom = 0
   
   if @image_with_frame
-    left_padding += @image_frame_padding + @image_frame_shadow_width
-    right_padding += @image_frame_padding + @image_frame_shadow_width
-    top_padding += @image_frame_padding + @image_frame_width
-    bottom_padding += @image_frame_padding + @image_frame_width
-    bottom_padding += @image_frame_shadow_width
+    padding_left += @image_frame_padding + @image_frame_shadow_width
+    padding_right += @image_frame_padding + @image_frame_shadow_width
+    padding_top += @image_frame_padding + @image_frame_width
+    padding_bottom += @image_frame_padding + @image_frame_width
+    padding_bottom += @image_frame_shadow_width
   end
 
-  images.left_padding = left_padding
-  images.right_padding = right_padding
-  images.top_padding = top_padding
-  images.bottom_padding = bottom_padding
+  images.padding_left = padding_left
+  images.padding_right = padding_right
+  images.padding_top = padding_top
+  images.padding_bottom = padding_bottom
 
   draw_frame(images, params) if @image_with_frame
   
   images.each do |image|
+    next unless image.caption
+    
     layout = nil
     th = 0
+
     image.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
-      if image.caption and simulation
+      if simulation
         caption = NormalText.new(image.caption)
         caption.prop_set("size", @normal_font_size)
         set_font_family(caption)
@@ -51,15 +54,16 @@ match("**", Image) do |images|
         caption.compile(canvas, x, y, w, h)
         layout = caption.layout
         th = caption.height
+
+        margin_bottom = @space + th
+        image.margin_bottom = margin_bottom
       end
       if !simulation and layout
         base_x = image.ox || x
-        base_y = y + image.bottom_padding + @image_caption_space
+        base_y = y
         canvas.draw_layout(layout, base_x, base_y)
       end
-      new_y = y + @space + th
-      new_h = h - @space - th
-      [x, new_y, w, new_h]
+      [x, y, w, h]
     end
   end
 end

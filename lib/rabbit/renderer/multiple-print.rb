@@ -110,10 +110,10 @@ module Rabbit
 
         def initialize(renderer)
           @renderer = renderer
-          @left_margin = renderer.left_margin
-          @right_margin = renderer.right_margin
-          @top_margin = renderer.top_margin
-          @bottom_margin = renderer.bottom_margin
+          @margin_left = renderer.margin_left
+          @margin_right = renderer.margin_right
+          @margin_top = renderer.margin_top
+          @margin_bottom = renderer.margin_bottom
         end
       end
       
@@ -121,28 +121,28 @@ module Rabbit
 
         def initialize(renderer)
           super
-          @left_margin ||= 50
-          @right_margin ||= 50
-          @top_margin ||= 30
-          @bottom_margin ||= 30
+          @margin_left ||= 50
+          @margin_right ||= 50
+          @margin_top ||= 30
+          @margin_bottom ||= 30
         end
         
         def slide_width
-          page_width - @left_margin - @right_margin
+          page_width - @margin_left - @margin_right
         end
 
         def slide_height
-          (page_height / 2) - @top_margin - @bottom_margin
+          (page_height / 2) - @margin_top - @margin_bottom
         end
         
         def normalize_x(x)
-          x + @left_margin
+          x + @margin_left
         end
 
         def normalize_y(y)
-          base = @bottom_margin
+          base = @margin_bottom
           if above?
-            base += @top_margin + @bottom_margin + slide_height
+            base += @margin_top + @margin_bottom + slide_height
           end
           y - base
         end
@@ -156,25 +156,25 @@ module Rabbit
       class LayoutMore < LayoutBase
         def initialize(renderer)
           super
-          @left_margin ||= 10
-          @right_margin ||= 10
-          @top_margin ||= 10
-          @bottom_margin ||= 10
+          @margin_left ||= 10
+          @margin_right ||= 10
+          @margin_top ||= 10
+          @margin_bottom ||= 10
         end
         
         def slide_width
-          (page_width / 2) - @left_margin - @right_margin
+          (page_width / 2) - @margin_left - @margin_right
         end
 
         def slide_height
           base = page_height / (slides_per_page / 2.0).ceil
-          base - @top_margin - @bottom_margin
+          base - @margin_top - @margin_bottom
         end
         
         def normalize_x(x)
-          base = @left_margin
+          base = @margin_left
           unless left?
-            base += @left_margin + @right_margin + slide_width
+            base += @margin_left + @margin_right + slide_width
           end
           x + base
         end
@@ -182,8 +182,8 @@ module Rabbit
         def normalize_y(y)
           negative_index = normalized_slides - normalized_current_index
           nth_col = (negative_index / 2.0).ceil - 1
-          base = @top_margin * nth_col
-          base += @bottom_margin * (nth_col + 1)
+          base = @margin_top * nth_col
+          base += @margin_bottom * (nth_col + 1)
           base += slide_height * nth_col
           y - base
         end

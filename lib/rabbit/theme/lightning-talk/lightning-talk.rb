@@ -7,10 +7,10 @@ match(TitleSlide) do |slides|
   slides.horizontal_centering = true
   slides.vertical_centering = true
 
-  slides.left_margin = @left_margin
-  slides.right_margin = @right_margin
-  slides.top_margin = @top_margin
-  slides.bottom_margin = @bottom_margin
+  slides.margin_left = @margin_left
+  slides.margin_right = @margin_right
+  slides.margin_top = @margin_top
+  slides.margin_bottom = @margin_bottom
 end
 
 match(TitleSlide, "*") do |elems|

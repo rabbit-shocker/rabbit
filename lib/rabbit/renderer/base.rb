@@ -45,12 +45,12 @@ module Rabbit
       end
 
       attr_accessor :paper_width, :paper_height, :slides_per_page
-      attr_accessor :left_margin, :right_margin
-      attr_accessor :top_margin, :bottom_margin
+      attr_accessor :margin_left, :margin_right
+      attr_accessor :margin_top, :margin_bottom
       attr_accessor :progress_foreground
       attr_accessor :progress_background
-      attr_writer :left_page_margin, :right_page_margin
-      attr_writer :top_page_margin, :bottom_page_margin
+      attr_writer :margin_page_left, :margin_page_right
+      attr_writer :margin_page_top, :margin_page_bottom
       
       def initialize(canvas)
         @canvas = canvas
@@ -58,35 +58,34 @@ module Rabbit
         @paper_width = nil
         @paper_height = nil
         @slides_per_page = nil
-        @left_margin = nil
-        @right_margin = nil
-        @top_margin = nil
-        @bottom_margin = nil
-        @left_page_margin = nil
-        @right_page_margin = nil
-        @top_page_margin = nil
-        @bottom_page_margin = nil
-        @progress_foreground = nil
-        @progress_background = nil
+        @margin_left = nil
+        @margin_right = nil
+        @margin_top = nil
+        @margin_bottom = nil
+        @margin_page_left = nil
+        @margin_page_right = nil
+        @margin_page_top = nil
+        @margin_page_bottom = nil
         @list_id = 0
         clean
+        clear_progress_color
         init_hook_procs
       end
 
-      def left_page_margin
-        @left_page_margin || 0
+      def margin_page_left
+        @margin_page_left || 0
       end
       
-      def right_page_margin
-        @right_page_margin || 0
+      def margin_page_right
+        @margin_page_right || 0
       end
       
-      def top_page_margin
-        @top_page_margin || 0
+      def margin_page_top
+        @margin_page_top || 0
       end
       
-      def bottom_page_margin
-        @bottom_page_margin || 0
+      def margin_page_bottom
+        @margin_page_bottom || 0
       end
       
       def font_families
@@ -393,6 +392,10 @@ module Rabbit
         clean if dirty?
       end
 
+      def clear_theme
+        clear_progress_color
+      end
+      
       private
       def can_create_pixbuf?
         false
@@ -438,17 +441,17 @@ module Rabbit
       end
 
       def setup_margin(canvas)
-        canvas.left_margin = @canvas.left_margin
-        canvas.right_margin = @canvas.right_margin
-        canvas.top_margin = @canvas.top_margin
-        canvas.bottom_page_margin = @canvas.bottom_page_margin
+        canvas.margin_left = @canvas.margin_left
+        canvas.margin_right = @canvas.margin_right
+        canvas.margin_top = @canvas.margin_top
+        canvas.margin_page_bottom = @canvas.margin_page_bottom
       end
 
       def setup_page_margin(canvas)
-        canvas.left_page_margin = @canvas.left_page_margin
-        canvas.right_page_margin = @canvas.right_page_margin
-        canvas.top_page_margin = @canvas.top_page_margin
-        canvas.bottom_page_margin = @canvas.bottom_page_margin
+        canvas.margin_page_left = @canvas.margin_page_left
+        canvas.margin_page_right = @canvas.margin_page_right
+        canvas.margin_page_top = @canvas.margin_page_top
+        canvas.margin_page_bottom = @canvas.margin_page_bottom
       end
 
       def setup_paper_size(canvas)
@@ -506,6 +509,11 @@ module Rabbit
         @motion_notify_hook_procs = []
         @button_press_hook_procs = []
         @button_release_hook_procs = []
+      end
+
+      def clear_progress_color
+        @progress_foreground = nil
+        @progress_background = nil
       end
     end
     

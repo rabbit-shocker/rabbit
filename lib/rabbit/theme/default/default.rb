@@ -6,10 +6,10 @@ match(TitleSlide) do |slides|
   slides.horizontal_centering = true
   slides.vertical_centering = true
 
-  slides.left_margin = @left_margin
-  slides.right_margin = @right_margin
-  slides.top_margin = @top_margin
-  slides.bottom_margin = @bottom_margin
+  slides.margin_left = @margin_left
+  slides.margin_right = @margin_right
+  slides.margin_top = @margin_top
+  slides.margin_bottom = @margin_bottom
 end
 
 match(TitleSlide, "*") do |elems|
@@ -20,73 +20,52 @@ end
 match(TitleSlide, Title) do |titles|
   titles.prop_set("size", @huge_font_size)
   titles.prop_set("weight", "heavy")
-
-  space = @space * 2
-  titles.add_post_draw_proc do |title, canvas, x, y, w, h, simulation|
-    if title.next_element.is_a?(Subtitle)
-      [x, y, w, h]
-    else
-      [x, y + space, w, h - space]
-    end
-  end
 end
 
 match(TitleSlide, Subtitle) do |titles|
   titles.prop_set("size", @normal_font_size)
-
-  space = @space * 2
-  titles.add_post_draw_proc do |title, canvas, x, y, w, h, simulation|
-    if title.next_element.is_a?(Subtitle)
-      [x, y, w, h]
-    else
-      [x, y + space, w, h - space]
-    end
-  end
 end
 
 match(TitleSlide, Author) do |authors|
-  authors.add_post_draw_proc do |authors, canvas, x, y, w, h, simulation|
-    [x, y + @space, w, h - @space]
-  end
+  authors.margin_top = @space * 2
+  authors.margin_bottom = @space
 end
 
 match(TitleSlide, ContentSource) do |sources|
   sources.prop_set("size", @small_font_size)
   sources.prop_set("style", "italic")
 
-  sources.add_post_draw_proc do |source, canvas, x, y, w, h, simulation|
-    [x, y + @space, w, h - @space]
-  end
+  sources.margin_bottom = @space
 end
 
 match(TitleSlide, Institution) do |institutions|
   institutions.prop_set("size", @normal_font_size)
   institutions.prop_set("style", "italic")
-
-  institutions.add_post_draw_proc do |institution, canvas, x, y, w, h, simulation|
-    [x, y + @space, w, h - @space]
-  end
 end
 
 
 match(Slide) do |slides|
-  slides.left_margin = @left_margin
-  slides.right_margin = @right_margin
-  slides.top_margin = @top_margin
-  slides.bottom_margin = @bottom_margin
+  slides.margin_left = @margin_left
+  slides.margin_right = @margin_right
+  slides.margin_top = @margin_top
+  slides.margin_bottom = @margin_bottom
 end
 
 match(Slide, HeadLine) do |heads|
+  name = "head-line"
+  
   heads.prop_set("size", @large_font_size)
   set_font_family(heads)
-  heads.horizontal_centering = true
 
-  space = @space / 2
-  heads.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
+  heads.delete_post_draw_proc_by_name(name)
+
+  space = @space / 2.0
+  heads.margin_bottom = space * 3
+  heads.add_post_draw_proc(name) do |text, canvas, x, y, w, h, simulation|
     unless simulation
       canvas.draw_line(x, y + space, x + w, y + space, "red")
     end
-    [x, y + space * 3, w, h - space * 3]
+    [x, y, w, h]
   end
 end
 
@@ -94,9 +73,8 @@ match("**", Paragraph) do |texts|
   texts.prop_set("size", @normal_font_size)
   set_font_family(texts)
 
-  texts.add_post_draw_proc do |text, canvas, x, y, w, h, simulation|
-    [x, y + @space, w, h - @space]
-  end
+  texts.margin_top = @space / 2.0
+  texts.margin_bottom = @space / 2.0
 end
 
 match("**", Emphasis) do |texts|
@@ -150,39 +128,45 @@ match("**", PreformattedText) do |texts|
 end
 
 match("**", DescriptionTerm) do |terms|
+  name = "description-term"
+  
   terms.prop_set("size", @normal_font_size)
 # terms.prop_set("underline", "double")
 
   color = "#ff9900"
-  space = @space / 2
-  terms.add_post_draw_proc do |term, canvas, x, y, w, h, simulation|
+  space = @space / 2.0
+
+  terms.margin_bottom = space * 3
+  terms.delete_post_draw_proc_by_name(name)
+  terms.add_post_draw_proc(name) do |term, canvas, x, y, w, h, simulation|
     unless simulation
       canvas.draw_line(x, y + space, x + term.width, y + space, color)
     end
-    [x, y + space * 3, w, h - space * 3]
+    [x, y, w, h]
   end
 end
 
 match("**", PreformattedBlock) do |blocks|
+  name = "preformatted-block"
+  
   blocks.horizontal_centering = true
 
   params = {
+    :proc_name => name,
     :frame_color => @preformatted_frame_color,
     :fill_color => @preformatted_fill_color,
   }
 
-  blocks.left_padding = @preformatted_left_padding
-  blocks.right_padding = @preformatted_right_padding
-  blocks.top_padding = @preformatted_top_padding
-  blocks.bottom_padding = @preformatted_bottom_padding
+  blocks.padding_left = @preformatted_padding_left
+  blocks.padding_right = @preformatted_padding_right
+  blocks.padding_top = @preformatted_padding_top
+  blocks.padding_bottom = @preformatted_padding_bottom
 
   blocks.wrap_mode = false
 
+  blocks.margin_bottom = @space
+    
   draw_frame(blocks, params)
-
-  blocks.add_post_draw_proc do |block, canvas, x, y, w, h, simulation|
-    [x, y + @space, w, h - @space]
-  end
 end
 
 match("**", MethodTerm) do |texts|
@@ -207,16 +191,25 @@ match("**", Code) do |texts|
 end
 
 match("**", FoottextBlock) do |blocks|
-  space = @space / 2
+  name = "foottext-block"
+  space = @space / 2.0
   color = "#33ff33"
-  blocks.add_pre_draw_proc do |block, canvas, x, y, w, h, simulation|
-    if block.elements.empty?
-      [x, y, w, h]
-    else
-      unless simulation
-        canvas.draw_line(x, y + space, (x + w / 2.0).ceil, y + space, color)
+
+  blocks.delete_pre_draw_proc_by_name(name)
+  blocks.each do |block|
+    unless block.elements.empty?
+      block.margin_top = space * 3
+
+      block.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
+        unless simulation
+          args = [
+            x, y - space * 2, (x + w / 2.0).ceil, y - space * 2,
+            color
+          ]
+          canvas.draw_line(*args)
+        end
+        [x, y, w, h]
       end
-      [x, y + space * 3, w, h - space * 3]
     end
   end
 end
@@ -247,8 +240,13 @@ match("**", Footnote) do |notes|
 end
 
 match("**", MethodListItem, Paragraph) do |texts|
+  name = "method-list-item-paragraph"
+
+  texts.delete_pre_draw_proc_by_name(name)
+  texts.delete_post_draw_proc_by_name(name)
+  
   space = @normal_font_size / Pango::SCALE
-  indent(texts, space)
+  indent(texts, space, name)
 end
 
 slide_body = [Slide, Body]
@@ -256,54 +254,63 @@ slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]
 
 match(*(slide_body + (item_list_item * 1))) do |items|
+  name = "item1"
+  
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
   color = "green"
 
-  draw_mark(items, indent_width, mark_width, mark_height) do
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, start_x, start_y, end_x, end_y|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = @space * (3 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (3 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
+  name = "item2"
+  
   mark_width = screen_x(1.5)
   mark_height = screen_y(1.5)
   indent_width = mark_width * 3
   color = "blue"
   
-  draw_mark(items, indent_width, mark_width, mark_height) do
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, start_x, start_y, end_x, end_y|
     canvas.draw_circle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = @space * (2 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (2 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
+  name = "item3"
+  
   mark_width = screen_x(1.0)
   mark_height = screen_y(1.0)
   indent_width = mark_width * 3
   color = "red"
   
-  draw_mark(items, indent_width, mark_width, mark_height) do
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, start_x, start_y, end_x, end_y|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = @space * (1 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (1 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (item_list_item * 2) + [Paragraph])) do |texts|
@@ -318,54 +325,63 @@ end
 enum_list_item = [EnumList, EnumListItem]
 
 match(*(slide_body + (enum_list_item * 1))) do |items|
+  name = "enum-item1"
+  
   indent_width = screen_x(2)
   props = {
     "size" => @normal_font_size,
     "font_family" => @font_family,
   }
 
-  draw_order(items, indent_width) do |item|
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_order(items, indent_width, name) do |item|
     %Q[<span #{to_attrs(props)}>#{item.order}. </span>]
   end
 
-  space = @space * (3 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (3 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (enum_list_item * 2))) do |items|
+  name = "enum-item2"
+  
   indent_width = screen_x(1.5)
   props = {
     "size" => @small_font_size,
     "font_family" => @font_family,
   }
 
-  draw_order(items, indent_width) do |item|
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_order(items, indent_width, name) do |item|
     %Q[<span #{to_attrs(props)}>#{(?a + item.order - 1).chr}. </span>]
   end
 
-  space = @space * (2 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (2 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (enum_list_item * 3))) do |items|
+  name = "enum-item3"
+  
   indent_width = screen_x(1)
   props = {
     "size" => @x_small_font_size,
     "font_family" => @font_family,
   }
 
-  draw_order(items, indent_width) do |item|
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_order(items, indent_width, name) do |item|
     %Q[<span #{to_attrs(props)}>#{(?A + item.order - 1).chr}. </span>]
   end
 
-  space = @space * (1 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (1 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (enum_list_item * 2) + [Paragraph])) do |texts|
@@ -378,37 +394,43 @@ end
 
 
 match(*(slide_body + enum_list_item + item_list_item)) do |items|
+  name = "enum-item"
+  
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
   color = "#00ffff"
 
-  draw_mark(items, indent_width, mark_width, mark_height) do
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, start_x, start_y, end_x, end_y|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = @space * (2 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (2 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
+  name = "enum-item2"
+  
   mark_width = screen_x(2)
   mark_height = screen_y(2)
   indent_width = mark_width * 3
   color = "#ff00ff"
 
-  draw_mark(items, indent_width, mark_width, mark_height) do
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+  
+  draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, start_x, start_y, end_x, end_y|
     canvas.draw_rectangle(true, start_x, start_y, end_x, end_y, color)
   end
 
-  space = @space * (1 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (1 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + enum_list_item + item_list_item + [Paragraph])) do |texts|
@@ -423,39 +445,54 @@ end
 desc_list_item = [DescriptionList, DescriptionListItem]
 
 match(*(slide_body + desc_list_item)) do |items|
+  name = "desc-item1"
+  
+  items.delete_post_draw_proc_by_name(name)
+  
   space = @normal_font_size / Pango::SCALE
   items.each do |item|
-    indent(item[1..-1], space)
+    term_items = ElementContainer.new(item[1..-1])
+    term_items.delete_pre_draw_proc_by_name(name)
+    term_items.delete_post_draw_proc_by_name(name)
+    indent(term_items, space, name)
   end
 
-  space = @space * (3 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (3 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (desc_list_item * 2))) do |items|
+  name = "desc-item2"
+  
+  items.delete_post_draw_proc_by_name(name)
+  
   space = @small_font_size / Pango::SCALE
   items.each do |item|
-    indent(item[1..-1], space)
+    term_items = ElementContainer.new(item[1..-1])
+    term_items.delete_pre_draw_proc_by_name(name)
+    term_items.delete_post_draw_proc_by_name(name)
+    indent(term_items, space, name)
   end
 
-  space = @space * (2 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (2 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (desc_list_item * 3))) do |items|
+  name = "desc-item3"
+  
+  items.delete_post_draw_proc_by_name(name)
+  
   space = @x_small_font_size / Pango::SCALE
   items.each do |item|
-    indent(item[1..-1], space)
+    term_items = ElementContainer.new(item[1..-1])
+    term_items.delete_pre_draw_proc_by_name(name)
+    term_items.delete_post_draw_proc_by_name(name)
+    indent(term_items, space, name)
   end
 
-  space = @space * (1 / 4)
-  items.add_post_draw_proc do |item, canvas, x, y, w, h, simulation|
-    [x, y + space, w, h - space]
-  end
+  space = @space * (1 / 4.0)
+  items.margin_bottom = space
 end
 
 match(*(slide_body + (desc_list_item * 1) + [Paragraph])) do |texts|

@@ -62,16 +62,21 @@ module Rabbit
     end
 
     def setup_text_align(target, align)
-      pango_align = nil
       case align
       when :center
-        pango_align = Pango::Layout::ALIGN_CENTER
+        def target.default_align
+          Pango::Layout::ALIGN_CENTER
+        end
       when :right
-        pango_align = Pango::Layout::ALIGN_RIGHT
+        def target.default_align
+          Pango::Layout::ALIGN_RIGHT
+        end
       else
-        pango_align = Pango::Layout::ALIGN_LEFT
+        def target.default_align
+          Pango::Layout::ALIGN_LEFT
+        end
       end
-      target.align = pango_align
+      target.align = target.default_align
     end
     
   end

@@ -17,15 +17,18 @@ module Rabbit
         @filename = nil
         @background_image = nil
         init_job
+        init_printers
+        init_paper
+        init_color
       end
 
       def page_width
-        @page_width - left_page_margin - right_page_margin
+        @page_width - margin_page_left - margin_page_right
       end
       alias width page_width
       
       def page_height
-        @page_height - top_page_margin - bottom_page_margin
+        @page_height - margin_page_top - margin_page_bottom
       end
       alias height page_height
       
@@ -210,14 +213,17 @@ module Rabbit
         true
       end
 
+      def clear_theme
+        init_job
+        init_color
+        @background_image = nil
+      end
+      
       private
       def init_job
         @job = Gnome::PrintJob.new
         @context = @job.context
         @config = @job.config
-        init_printers
-        init_paper
-        init_colors
       end
 
       def init_printers
@@ -258,7 +264,7 @@ module Rabbit
         Gnome::PrintUnit.get_by_abbreviation(abbr_name)
       end
       
-      def init_colors
+      def init_color
         @white = make_color("white")
         @black = make_color("black")
         @foreground = make_color("black")
@@ -267,7 +273,7 @@ module Rabbit
       
 
       def from_screen(x, y)
-        [x + left_page_margin, height - y + bottom_page_margin]
+        [x + margin_page_left, height - y + margin_page_bottom]
       end
       
       def set_color(color)

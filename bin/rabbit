@@ -33,14 +33,14 @@ def parse(args, logger)
   options.print = false
   options.print_out_filename = nil
   options.slides_per_page = 1
-  options.left_margin = nil
-  options.right_margin = nil
-  options.top_margin = nil
-  options.bottom_margin = nil
-  options.left_page_margin = nil
-  options.right_page_margin = nil
-  options.top_page_margin = nil
-  options.bottom_page_margin = nil
+  options.margin_left = nil
+  options.margin_right = nil
+  options.margin_top = nil
+  options.margin_bottom = nil
+  options.margin_page_left = nil
+  options.margin_page_right = nil
+  options.margin_page_top = nil
+  options.margin_page_bottom = nil
   options.use_druby = true
   options.druby_uri = "druby://:10101"
   options.output_druby_uri = false
@@ -203,32 +203,32 @@ def parse(args, logger)
         options.slides_per_page = slides
       end
 
-      opts.on("--left-margin [MARGIN]",
+      opts.on("--margin-left [MARGIN]",
               Integer,
               "Set left margin for slides per page mode print.",
               "(auto)") do |margin|
-        options.left_margin = margin
+        options.margin_left = margin
       end
 
-      opts.on("--right-margin [MARGIN]",
+      opts.on("--margin-right [MARGIN]",
               Integer,
               "Set right margin for slides per page mode print.",
               "(auto)") do |margin|
-        options.right_margin = margin
+        options.margin_right = margin
       end
 
-      opts.on("--top-margin [MARGIN]",
+      opts.on("--margin-top [MARGIN]",
               Integer,
               "Set top margin for slides per page mode print.",
               "(auto)") do |margin|
-        options.top_margin = margin
+        options.margin_top = margin
       end
 
-      opts.on("--bottom-margin [MARGIN]",
+      opts.on("--margin-bottom [MARGIN]",
               Integer,
               "Set bottom margin for slides per page mode print.",
               "(auto)") do |margin|
-        options.bottom_margin = margin
+        options.margin_bottom = margin
       end
 
       margin1 = "[ALL]"
@@ -240,41 +240,41 @@ def parse(args, logger)
               "Set margin for slides per page mode print.") do |margins|
         begin
           top, right, bottom, left = parse_margins(margins)
-          options.top_margin = top
-          options.right_margin = right
-          options.bottom_margin = bottom
-          options.left_margin = left
+          options.margin_top = top
+          options.margin_right = right
+          options.margin_bottom = bottom
+          options.margin_left = left
         rescue ArgumentError
           raise OptionParser::InvalidArgument.new(margins)
         end
       end
 
-      opts.on("--left-page-margin [MARGIN]",
+      opts.on("--margin-page-left [MARGIN]",
               Integer,
               "Set left page margin.",
               "(auto)") do |margin|
-        options.left_page_margin = margin
+        options.margin_page_left = margin
       end
 
-      opts.on("--right-page-margin [MARGIN]",
+      opts.on("--margin-page-right [MARGIN]",
               Integer,
               "Set right page margin.",
               "(auto)") do |margin|
-        options.right_page_margin = margin
+        options.margin_page_right = margin
       end
 
-      opts.on("--top-page-margin [MARGIN]",
+      opts.on("--margin-page-top [MARGIN]",
               Integer,
               "Set top page margin.",
               "(auto)") do |margin|
-        options.top_page_margin = margin
+        options.margin_page_top = margin
       end
 
-      opts.on("--bottom-page-margin [MARGIN]",
+      opts.on("--margin-page-bottom [MARGIN]",
               Integer,
               "Set bottom page margin.",
               "(auto)") do |margin|
-        options.bottom_page_margin = margin
+        options.margin_page_bottom = margin
       end
 
       opts.on("--page-margin {#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
@@ -282,10 +282,10 @@ def parse(args, logger)
               "Set page margin.") do |margins|
         begin
           top, right, bottom, left = parse_margins(margins)
-          options.top_page_margin = top
-          options.right_page_margin = right
-          options.bottom_page_margin = bottom
-          options.left_page_margin = left
+          options.margin_page_top = top
+          options.margin_page_right = right
+          options.margin_page_bottom = bottom
+          options.margin_page_left = left
         rescue ArgumentError
           raise OptionParser::InvalidArgument.new(margins)
         end
@@ -481,14 +481,14 @@ end
 def setup_paper_size(target, options)
   target.paper_width = options.paper_width
   target.paper_height = options.paper_height
-  target.left_page_margin = options.left_page_margin
-  target.right_page_margin = options.right_page_margin
-  target.top_page_margin = options.top_page_margin
-  target.bottom_page_margin = options.bottom_page_margin
-  target.left_margin = options.left_margin
-  target.right_margin = options.right_margin
-  target.top_margin = options.top_margin
-  target.bottom_margin = options.bottom_margin
+  target.margin_page_left = options.margin_page_left
+  target.margin_page_right = options.margin_page_right
+  target.margin_page_top = options.margin_page_top
+  target.margin_page_bottom = options.margin_page_bottom
+  target.margin_left = options.margin_left
+  target.margin_right = options.margin_right
+  target.margin_top = options.margin_top
+  target.margin_bottom = options.margin_bottom
 end
 
 def setup_druby(front, options, logger)

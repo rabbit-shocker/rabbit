@@ -28,7 +28,6 @@ match(Slide) do |slides|
       @image_timer_limit_time = Time.now + @image_timer_limit
       if @image_timer_auto_update and
           @@image_timer_auto_update_thread.nil?
-        @image_timer_stop = false
         thread = Thread.new do
           loop do
             sleep(@image_timer_interval)
@@ -56,13 +55,13 @@ match(Slide) do |slides|
       unless initialized
         image_height = canvas.height / 12
         loader.resize(nil, image_height)
-        max_width = canvas.width - @left_margin - @right_margin
-        base_y = canvas.height - @bottom_margin - loader.height
+        max_width = canvas.width - @margin_left - @margin_right
+        base_y = canvas.height - @margin_bottom - loader.height
         initialized = true
       end
       rest_time = @image_timer_limit_time - Time.now
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
-      base_x = @left_margin + max_width * ratio
+      base_x = @margin_left + max_width * ratio
       canvas.draw_pixbuf(loader.pixbuf, base_x, base_y)
     end
     [x, y, w, h]

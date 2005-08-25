@@ -63,7 +63,6 @@ module Rabbit
         
         # [_("/Jump"), "<StockItem>", "", Gtk::Stock::JUMP_TO],
         [_("/Jump")],
-        
         [_("/Jump") + _("/Separator"), "<Tearoff>"],
 
         [_("/Separator"), "<Separator>"],
@@ -86,6 +85,12 @@ module Rabbit
         [_("/ReloadTheme"), "<StockItem>", "",
           Gtk::Stock::REFRESH, method(:reload_theme)],
 
+        [_("/ChangeTheme")],
+        [_("/ChangeTheme") + _("/Separator"), "<Tearoff>"],
+
+        [_("/MergeTheme")],
+        [_("/MergeTheme") + _("/Separator"), "<Tearoff>"],
+
         [_("/CacheAllSlides"), "<Item>", nil, nil, method(:cache_all_slides)],
 
         [_("/Separator"), "<Separator>"],
@@ -98,6 +103,20 @@ module Rabbit
       jump = _("/Jump") + "/"
       @canvas.slides.each_with_index do |slide, i|
         items << ["#{jump}#{i}: #{slide.title}", "<Item>", nil, nil, _move_to, i]
+      end
+
+      themes = Theme::Searcher.collect_theme
+      
+      _change_theme = method(:change_theme)
+      change = _("/ChangeTheme") + "/"
+      themes.each do |name|
+        items << ["#{change}#{name}", "<Item>", nil, nil, _change_theme, name]
+      end
+
+      _merge_theme = method(:merge_theme)
+      merge = _("/MergeTheme") + "/"
+      themes.each do |name|
+        items << ["#{merge}#{name}", "<Item>", nil, nil, _merge_theme, name]
       end
 
       ifp.create_items(items.compact)
@@ -164,6 +183,14 @@ module Rabbit
     
     def iconify(*args)
       @canvas.iconify
+    end
+    
+    def change_theme(name, *args)
+      @canvas.apply_theme(name)
+    end
+    
+    def merge_theme(name, *args)
+      @canvas.merge_theme(name)
     end
     
     def reload_theme(*args)

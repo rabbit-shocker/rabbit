@@ -14,21 +14,20 @@ module Rabbit
       attr_reader :px, :py, :pw, :ph
 
       attr_reader :base_x, :base_y, :base_w, :base_h
+      attr_reader :horizontal_centering, :vertical_centering
       
-      attr_accessor :left_margin, :right_margin
-      attr_accessor :top_margin, :bottom_margin
+      attr_accessor :margin_left, :margin_right
+      attr_accessor :margin_top, :margin_bottom
       
-      attr_accessor :left_padding, :right_padding
-      attr_accessor :top_padding, :bottom_padding
+      attr_accessor :padding_left, :padding_right
+      attr_accessor :padding_top, :padding_bottom
 
-      attr_accessor :parent, :horizontal_centering, :vertical_centering
+      attr_accessor :parent
 
       attr_accessor :user_property
       
       def initialize
         @x = @y = @w = @h = nil
-        @simulated_width = nil
-        @simulated_height = nil
         @parent = nil
         @user_property = {}
         clear_theme
@@ -41,7 +40,9 @@ module Rabbit
           @simulated_width, @simulated_height = sync_simulated_size(x, y, w, h)
         end
         x, w = restore_x_padding(x, w)
+        x, w = restore_x_margin(x, w)
         y, h = adjust_y_padding(y, h)
+        y, h = adjust_y_margin(y, h)
         [x, y, w, h]
       end
 
@@ -152,6 +153,7 @@ module Rabbit
       
       def prop_delete(name)
         @prop.delete(name)
+        dirty!
       end
       alias __prop_delete__ prop_delete
       
@@ -163,6 +165,10 @@ module Rabbit
         @pre_draw_procs = []
         @post_draw_procs = []
         @width = @height = nil
+        @simulated_width = nil
+        @simulated_height = nil
+        @centering_adjusted_width = nil
+        @centering_adjusted_height = nil
         @horizontal_centering = @vertical_centering = false
         @prop = {}
         clear_margin
@@ -171,47 +177,53 @@ module Rabbit
       end
 
       def setup_padding(x, y, w, h)
-        x += @left_padding
-        y += @top_padding
-        w -= @left_padding + @right_padding
-        h -= @top_padding + @bottom_padding
+        x += @padding_left
+        y += @padding_top
+        w -= @padding_left + @padding_right
+        h -= @padding_top + @padding_bottom
         [x, y, w, h]
       end
 
       def restore_x_padding(x, w)
-        x -= @left_padding
-        w += @left_padding + @right_padding
+        x -= @padding_left
+        w += @padding_left + @padding_right
+        [x, w]
+      end
+
+      def restore_x_margin(x, w)
+        x -= @margin_left
+        w += @margin_left + @margin_right
         [x, w]
       end
 
       def adjust_y_padding(y, h)
-        y -= @top_padding
-        h += @top_padding + @bottom_padding
+        y -= @padding_top
+        h += @padding_top + @padding_bottom
         [y, h]
       end
 
       def setup_margin(x, y, w, h)
-        x += @left_margin
-        y += @top_margin
-        w -= @left_margin + @right_margin
-        h -= @top_margin + @bottom_margin
+        x += @margin_left
+        y += @margin_top
+        w -= @margin_left + @margin_right
+        h -= @margin_top + @margin_bottom
         [x, y, w, h]
       end
 
       def adjust_y_margin(y, h)
-        y += @bottom_margin
-        h -= @bottom_margin
+        y += @margin_bottom
+        h -= @margin_bottom
         [y, h]
       end
 
       def clear_padding
-        @left_padding = @right_padding = 0
-        @top_padding = @bottom_padding = 0
+        @padding_left = @padding_right = 0
+        @padding_top = @padding_bottom = 0
       end
 
       def clear_margin
-        @left_margin = @right_margin = 0
-        @top_margin = @bottom_margin = 0
+        @margin_left = @margin_right = 0
+        @margin_top = @margin_bottom = 0
       end
       
       def if_dirty
@@ -228,6 +240,16 @@ module Rabbit
 
       def do_vertical_centering?
         @vertical_centering
+      end
+
+      def horizontal_centering=(new_value)
+        dirty! if @horizontal_centering != new_value
+        @horizontal_centering = new_value
+      end
+
+      def vertical_centering=(new_value)
+        dirty! if @vertical_centering != new_value
+        @vertical_centering = new_value
       end
       
       def do_horizontal_centering(canvas, x, y, w, h)
@@ -248,7 +270,7 @@ module Rabbit
       end
 
       def simulated_width
-        @simulated_width || height
+        @simulated_width || width
       end
 
       def simulated_height
@@ -256,15 +278,23 @@ module Rabbit
       end
 
       def available_w
-        @w - @left_padding - @right_padding
+        @w - @padding_left - @padding_right
       end
 
       def width
-        @width + @left_padding + @right_padding
+        @width + @padding_left + @padding_right
       end
 
       def height
-        @height + @top_padding + @bottom_padding
+        @height + @padding_top + @padding_bottom
+      end
+
+      def centering_adjusted_width
+        @centering_adjusted_width || 0
+      end
+      
+      def centering_adjusted_height
+        @centering_adjusted_height || 0
       end
       
       def inspect(verbose=false)
@@ -276,6 +306,22 @@ module Rabbit
         self_info
       end
 
+      def clone
+        obj = super
+        obj.user_property = @user_property.clone
+        obj.prop = @prop.clone
+        obj
+      end
+
+      protected
+      def user_property=(prop)
+        @user_property = prop
+      end
+      
+      def prop=(prop)
+        @prop = prop
+      end
+      
       private
       def make_prop_value(name, *values)
         formatter_name = to_class_name(name)
@@ -336,10 +382,7 @@ module Rabbit
 
       def initialize(*args, &block)
         super
-        @indent = 0
-        @spacing = 0
-        @wrap_mode = Pango::Layout::WRAP_WORD_CHAR
-        @align = Pango::Layout::ALIGN_LEFT
+        text_clear_theme
       end
 
       def align=(new_value)
@@ -349,14 +392,14 @@ module Rabbit
 
       def width
         if @width
-          @width + @left_padding + @right_padding
+          @width + @padding_left + @padding_right
         else
           nil
         end
       end
 
       def height
-        @height + @top_padding + @bottom_padding
+        @height + @padding_top + @padding_bottom
       end
       
       def compile(canvas, x, y, w, h)
@@ -389,8 +432,17 @@ module Rabbit
 
       def text_clear_theme
         @layout = nil
+        @indent = 0
+        @spacing = 0
+        @wrap_mode = default_wrap_mode
+        @align = default_align
       end
 
+      def dirty!
+        super
+        @layout = nil
+      end
+      
       def dirty?
         super or text_dirty?
       end
@@ -430,6 +482,14 @@ module Rabbit
         end
         t
       end
+
+      def default_wrap_mode
+        Pango::Layout::WRAP_WORD_CHAR
+      end
+
+      def default_align
+        Pango::Layout::ALIGN_LEFT
+      end
     end
 
     module BlockHorizontalCentering
@@ -441,6 +501,7 @@ module Rabbit
         adjust_width = ((w / 2.0) - (width / 2.0)).ceil
         x += adjust_width
         w -= adjust_width
+        @centering_adjusted_width = adjust_width
         compile_for_horizontal_centering(canvas, x, @y, w, h)
         draw(true)
       end
@@ -460,15 +521,15 @@ module Rabbit
       end
 
       def adjust_y_padding(y, h)
-        y += @bottom_padding
-        h -= @bottom_padding
+        y += @padding_bottom
+        h -= @padding_bottom
         [y, h]
       end
 
       private
       def sync_simulated_size(x, y, w, h)
         sync_w = x - @x + width
-        sync_h = (@vertical_centered_y || y) - @y
+        sync_h = y - @y
         [sync_w, sync_h]
       end
     end
@@ -507,13 +568,16 @@ module Rabbit
 
       def draw_elements(canvas, x, y, w, h, simulation)
         args = [x, y, w, h]
-        if do_vertical_centering? and !simulation
-          adjust_height = ((h - simulated_height - @bottom_padding) / 2.0).ceil
+        adjust_height = 0
+        if do_vertical_centering?
+          adjust_height = ((h - simulated_height - @padding_bottom) / 2.0).ceil
           if y + adjust_height > 0
-            @vertical_centered_y = y + adjust_height
             args = [x, y + adjust_height, w, h - adjust_height]
+          else
+            adjust_height = 0
           end
         end
+        @centering_adjusted_height = adjust_height
         compile_elements(canvas, *args)
         base_x, base_w = x, w
         elements.each do |element|
@@ -525,7 +589,7 @@ module Rabbit
           w = base_w
           h -= elements.last.height
         end
-        [x, y, w, h]
+        [x, y - adjust_height, w, h + adjust_height]
       end
 
       def compile(canvas, x, y, w, h)
@@ -580,7 +644,13 @@ module Rabbit
       end
 
       def width
-        @elements.collect{|elem| elem.width}.compact.max.to_i
+        @elements.collect do |elem|
+          w = elem.w
+          if w
+            w += elem.margin_left + elem.margin_right
+          end
+          w
+        end.compact.max.to_i + @padding_left + @padding_right
       end
 
       # SLOW!!
@@ -612,12 +682,13 @@ module Rabbit
             else
               prev_inlines_max_height = inline_heights.max.to_i
               inline_heights.clear
-              result + elem.height + prev_inlines_max_height
+              h = elem.height + elem.margin_top + elem.margin_bottom
+              result + h + prev_inlines_max_height
             end
           else
             result
           end
-        end + inline_heights.max.to_i
+        end + inline_heights.max.to_i + @padding_top + @padding_bottom
       end
 
       def clear_theme
@@ -626,6 +697,7 @@ module Rabbit
         end
         super
       end
+      alias container_clear_theme clear_theme
 
       def dirty?
         super or @elements.any?{|x| x.dirty?}
@@ -685,7 +757,7 @@ module Rabbit
 
       def compile(canvas, x, y, w, h)
         super
-        text_compile(canvas, x, y, w, h)
+        text_compile(canvas, @x, @y, @w, @h)
       end
 
       def dirty?
@@ -697,8 +769,8 @@ module Rabbit
       end
 
       def clear_theme
+        container_clear_theme
         super
-        text_clear_theme
       end
     end
     
@@ -1064,11 +1136,11 @@ module Rabbit
       end
 
       def width
-        super + @left_padding + @right_padding
+        super + @padding_left + @padding_right
       end
       
       def height
-        super + @top_padding + @bottom_padding
+        super + @padding_top + @padding_bottom
       end
       
       private
@@ -1076,14 +1148,14 @@ module Rabbit
         unless simulation
           canvas.draw_pixbuf(pixbuf, x, y)
         end
-        new_x = (@ox || x) - @left_margin
-        new_w = (@ow || w) - @left_margin - @right_margin
+        new_x = (@ox || x) - @margin_left
+        new_w = (@ow || w) - @margin_left - @margin_right
         [new_x, y + height, new_w, h - height]
       end
 
       def adjust_size(canvas, x, y, w, h)
         base_w = w
-        base_h = (@oh || h) - @top_padding - @bottom_padding
+        base_h = (@oh || h) - @padding_top - @padding_bottom
         nw = make_normalized_size(@normalized_width)
         nh = make_normalized_size(@normalized_height)
         rw = make_relative_size(@relative_width, base_w)

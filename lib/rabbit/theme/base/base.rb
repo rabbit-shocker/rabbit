@@ -11,41 +11,41 @@
 
 @space = screen_y(2)
 
-@left_margin = screen_x(3)
-@right_margin = screen_x(3)
-@top_margin = screen_y(3)
-@bottom_margin = screen_y(3)
+@margin_left = screen_x(3)
+@margin_right = screen_x(3)
+@margin_top = screen_y(3)
+@margin_bottom = screen_y(3)
 
 @preformatted_frame_color = "#55003dff0eff"
 @preformatted_fill_color = "#fcfae2"
 
-@preformatted_left_padding = screen_x(5)
-@preformatted_right_padding = screen_x(5)
-@preformatted_top_padding = screen_y(2)
-@preformatted_bottom_padding = screen_y(2)
+@preformatted_padding_left = screen_x(5)
+@preformatted_padding_right = screen_x(5)
+@preformatted_padding_top = screen_y(2)
+@preformatted_padding_bottom = screen_y(2)
 
 @table_frame_color = "#55003dff0eff"
 @table_fill_color = "#fcfae2"
 
-@table_left_padding = screen_x(5) * 0
-@table_right_padding = screen_x(5) * 0
-@table_top_padding = screen_y(2) * 0
-@table_bottom_padding = screen_y(2) * 0
+@table_padding_left = screen_x(5) * 0
+@table_padding_right = screen_x(5) * 0
+@table_padding_top = screen_y(2) * 0
+@table_padding_bottom = screen_y(2) * 0
 
 @table_head_frame_color = "#55003dff0eff"
 @table_body_frame_color = "#55003dff0eff"
 @table_head_fill_color = "#eeedcd"
 @table_body_fill_color = nil
 
-@table_cell_left_padding = screen_x(2)
-@table_cell_right_padding = screen_x(2)
-@table_cell_top_padding = screen_y(0.5)
-@table_cell_bottom_padding = screen_y(0.5)
+@table_cell_padding_left = screen_x(2)
+@table_cell_padding_right = screen_x(2)
+@table_cell_padding_top = screen_y(0.5)
+@table_cell_padding_bottom = screen_y(0.5)
 
-@table_header_left_padding = screen_x(2) * 0
-@table_header_right_padding = screen_x(2) * 0
-@table_header_top_padding = screen_y(0.5)
-@table_header_bottom_padding = screen_y(0.5)
+@table_header_padding_left = screen_x(2) * 0
+@table_header_padding_right = screen_x(2) * 0
+@table_header_padding_top = screen_y(0.5)
+@table_header_padding_bottom = screen_y(0.5)
 
 @image_with_frame = nil
 @image_caption_space = screen_y(1)

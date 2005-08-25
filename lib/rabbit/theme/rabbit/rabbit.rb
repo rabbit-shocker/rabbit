@@ -49,6 +49,10 @@ match(TitleSlide, Title) do |titles|
   titles.prop_set("style", "italic")
 end
 
+match(Slide, HeadLine) do |heads|
+  heads.horizontal_centering = true
+end
+
 slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]
 
@@ -57,40 +61,50 @@ item_list_item = [ItemList, ItemListItem]
 # end
 
 match(*(slide_body + (item_list_item * 1))) do |items|
-  items.clear_pre_draw_procs
-  items.clear_post_draw_procs
+  name = "item1"
+  
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "red_item.png")
+  draw_image_mark(items, "red_item.png", name)
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
-  items.clear_pre_draw_procs
-  items.clear_post_draw_procs
+  name = "item2"
 
-  draw_image_mark(items, "blue_item.png")
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+
+  draw_image_mark(items, "blue_item.png", name)
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
-  items.clear_pre_draw_procs
-  items.clear_post_draw_procs
+  name = "item3"
 
-  draw_image_mark(items, "green_item.png")
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
+
+  draw_image_mark(items, "green_item.png", name)
 end
 
 enum_list_item = [EnumList, EnumListItem]
 
 match(*(slide_body + enum_list_item + item_list_item)) do |items|
-  items.clear_pre_draw_procs
-  items.clear_post_draw_procs
+  name = "enum-item1"
+  
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "red_item2.png")
+  draw_image_mark(items, "red_item2.png", name)
 end
 
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
-  items.clear_pre_draw_procs
-  items.clear_post_draw_procs
+  name = "enum-item2"
+  
+  items.delete_pre_draw_proc_by_name(name)
+  items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "green_item.png")
+  draw_image_mark(items, "green_item.png", name)
 end
 
 if windows?

@@ -25,13 +25,13 @@ add_powered_by = proc do |slide|
         layout, tw, th = canvas.make_layout(text)
       end
       
-      new_x = slide.left_margin
-      new_y = canvas.height - slide.bottom_margin
+      new_x = slide.margin_left
+      new_y = canvas.height - slide.margin_bottom
       
       canvas.draw_layout(layout, new_x, new_y - th)
       
       unless loader.nil?
-        slide_space = canvas.height - y - slide.bottom_margin
+        slide_space = canvas.height - y - slide.margin_bottom
         loader.resize(nil, slide_space) if loader.height > slide_space
         px = new_x + tw + space
         py = new_y - loader.height

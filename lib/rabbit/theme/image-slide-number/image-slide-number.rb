@@ -54,12 +54,12 @@ match(Slide) do |slides|
           goal_flag_width = goal_loader.width
         end
         
-        base_x = @left_margin + start_flag_width
-        base_y = height - loader.height - @bottom_margin
-        max_width = canvas.width - @left_margin - @right_margin -
+        base_x = @margin_left + start_flag_width
+        base_y = height - loader.height - @margin_bottom
+        max_width = canvas.width - @margin_left - @margin_right -
           start_flag_width - loader.width
-        start_base_x = @left_margin
-        goal_base_x = canvas.width - @right_margin - goal_flag_width
+        start_base_x = @margin_left
+        goal_base_x = canvas.width - @margin_right - goal_flag_width
         
         initialized = true
       end
@@ -71,7 +71,7 @@ match(Slide) do |slides|
           "text_attributes" => text_attributes,
           "flag_color" => "red",
         }
-        canvas.draw_flag(@left_margin, base_y, loader.height, props)
+        canvas.draw_flag(@margin_left, base_y, loader.height, props)
 
         props["text"] = (canvas.slide_size - 1).to_s
         props["flag_color"] = "blue"

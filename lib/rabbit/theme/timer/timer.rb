@@ -57,7 +57,7 @@ match(Slide) do |slides|
       text = %Q[<span #{to_attrs(props)}>#{text}</span>]
       layout, text_width, text_height = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
-      num_y = canvas.height - @bottom_margin - text_height
+      num_y = canvas.height - @margin_bottom - text_height
       canvas.draw_layout(layout, x, num_y)
     end
     [x, y, w, h]

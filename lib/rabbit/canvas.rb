@@ -30,14 +30,14 @@ module Rabbit
     def_delegators(:@renderer, :width=, :height=)
     def_delegators(:@renderer, :paper_width, :paper_height)
     def_delegators(:@renderer, :paper_width=, :paper_height=)
-    def_delegators(:@renderer, :left_margin, :left_margin=)
-    def_delegators(:@renderer, :right_margin, :right_margin=)
-    def_delegators(:@renderer, :top_margin, :top_margin=)
-    def_delegators(:@renderer, :bottom_margin, :bottom_margin=)
-    def_delegators(:@renderer, :left_page_margin, :left_page_margin=)
-    def_delegators(:@renderer, :right_page_margin, :right_page_margin=)
-    def_delegators(:@renderer, :top_page_margin, :top_page_margin=)
-    def_delegators(:@renderer, :bottom_page_margin, :bottom_page_margin=)
+    def_delegators(:@renderer, :margin_left, :margin_left=)
+    def_delegators(:@renderer, :margin_right, :margin_right=)
+    def_delegators(:@renderer, :margin_top, :margin_top=)
+    def_delegators(:@renderer, :margin_bottom, :margin_bottom=)
+    def_delegators(:@renderer, :margin_page_left, :margin_page_left=)
+    def_delegators(:@renderer, :margin_page_right, :margin_page_right=)
+    def_delegators(:@renderer, :margin_page_top, :margin_page_top=)
+    def_delegators(:@renderer, :margin_page_bottom, :margin_page_bottom=)
     def_delegators(:@renderer, :slides_per_page, :slides_per_page=)
     def_delegators(:@renderer, :font_families)
     def_delegators(:@renderer, :destroy, :redraw)
@@ -85,7 +85,6 @@ module Rabbit
       @logger = logger
       @frame = NullFrame.new
       @theme_name = nil
-      @previous_theme_name = nil
       @saved_image_basename = nil
       @processing = false
       clear
@@ -168,7 +167,7 @@ module Rabbit
     end
 
     def apply_theme(name=nil)
-      @previous_theme_name = name if name
+      @theme_name = name if name
       _theme_name = name || theme_name
       if _theme_name and not @slides.empty?
         clear_theme
@@ -183,8 +182,16 @@ module Rabbit
       @theme_name || default_theme || "default"
     end
 
+    def merge_theme(name)
+      unless @slides.empty?
+        theme = Theme.new(self)
+        theme.apply(name)
+        @renderer.post_apply_theme
+      end
+    end
+
     def reload_theme
-      apply_theme(@previous_theme_name)
+      apply_theme(@theme_name)
     end
 
     def parse_rd(source=nil)
@@ -350,6 +357,11 @@ module Rabbit
       begin
         @processing = true
         yield
+      rescue Exception
+        puts $!.class
+        puts $!
+        puts $@
+        raise
       ensure
         @processing = false
       end
@@ -380,6 +392,7 @@ module Rabbit
       @slides.each do |slide|
         slide.clear_theme
       end
+      @renderer.clear_theme
       modified
     end
 
