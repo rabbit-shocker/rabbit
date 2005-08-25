@@ -89,7 +89,7 @@ module Rabbit
             end
           end
         end
-        themes.sort
+        themes.uniq.sort
       end
     end
 
