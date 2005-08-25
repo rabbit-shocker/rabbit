@@ -103,6 +103,10 @@ module Rabbit
         [name, level, @canvas.method(name).arity]
       end
     end
+
+    def version
+      VERSION
+    end
     
     private
     def check_dirty
