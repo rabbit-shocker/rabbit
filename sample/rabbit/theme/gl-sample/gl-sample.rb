@@ -1,4 +1,4 @@
-include_theme("rabbit")
+include_theme("default")
 
 proc_name = "gl-sample"
 
