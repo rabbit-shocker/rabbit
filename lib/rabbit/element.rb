@@ -570,7 +570,8 @@ module Rabbit
         args = [x, y, w, h]
         adjust_height = 0
         if do_vertical_centering?
-          adjust_height = ((h - simulated_height - @padding_bottom) / 2.0).ceil
+          # adjust_height = ((h - simulated_height - @padding_bottom) / 2.0).ceil
+          adjust_height = ((h - height - @padding_bottom) / 2.0).ceil
           if y + adjust_height > 0
             args = [x, y + adjust_height, w, h - adjust_height]
           else
