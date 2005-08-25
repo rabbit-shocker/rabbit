@@ -19,7 +19,7 @@ div.navi
 <title><%=h rabbit.slide_title %></title>
 </head>
 <body>
-<% if @session.accept_move? %>
+<% if rabbit.accept_move? %>
 <%= @navi.to_div(context) %>
 <% end %>
 <h1><%=h rabbit.slide_title %>
@@ -27,7 +27,7 @@ div.navi
 <div class="slide">
 <a href="./"><img src="<%= image_path(context) %>" /></a>
 </div>
-<% if @session.accept_move? %>
+<% if rabbit.accept_move? %>
 <%= @navi.to_div(context) %>
 <% end %>
 <hr />

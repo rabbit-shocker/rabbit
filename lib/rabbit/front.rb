@@ -107,6 +107,10 @@ module Rabbit
     def version
       VERSION
     end
+
+    def accept_move?
+      not (@public_level & Front::PublicLevel::MOVE).zero?      
+    end
     
     private
     def check_dirty

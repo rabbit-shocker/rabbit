@@ -93,6 +93,7 @@ def parse(args, logger)
             "Select from [#{source_type_names.join(', ')}].",
             "Note: case insensitive.",
             "(#{get_last_name[options.source_type]})",
+            "(ARGV: if no filename is given)",
             " ",
             *source_type_descs) do |source_type|
       options.source_type = Rabbit::Source.types.find do |t|
@@ -441,6 +442,10 @@ def parse_margins(margins)
 end
 
 def make_source(options, argv, logger)
+  if options.source_type == Rabbit::Source::File and
+      argv.empty?
+    options.source_type = Rabbit::Source::ARGF
+  end
   if options.source_type == Rabbit::Source::ARGF
     infos = [ARGF]
   else

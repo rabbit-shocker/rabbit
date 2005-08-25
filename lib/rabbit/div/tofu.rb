@@ -1,8 +1,6 @@
 require "div/div"
 require "div/tofusession"
 
-require "rabbit/front"
-
 module Rabbit
   module Div
     class MainDiv < ::Div::Div
@@ -101,7 +99,7 @@ module Rabbit
       end
 
       def image_path
-        if accept_move?
+        if @rabbit.accept_move?
           "/image/#{@rabbit.current_slide_number}/"
         else
           "/image/current/"
@@ -110,10 +108,6 @@ module Rabbit
       
       def image_path?(context)
         %r!/image/(?:current|[0-9]+)/! =~ context.req_path_info
-      end
-
-      def accept_move?
-        not (@rabbit.public_level & Front::PublicLevel::MOVE).zero?
       end
     end
   end
