@@ -239,7 +239,8 @@ module Rabbit
       end
 
       def do_vertical_centering?
-        @vertical_centering
+        @vertical_centering or
+          (parent and parent.do_horizontal_centering?)
       end
 
       def horizontal_centering=(new_value)
