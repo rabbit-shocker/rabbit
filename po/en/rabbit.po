@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.1.0\n"
-"POT-Creation-Date: 2005-08-18 08:19+0900\n"
-"PO-Revision-Date: 2005-08-18 08:28+0900\n"
+"POT-Creation-Date: 2005-08-25 18:16+0900\n"
+"PO-Revision-Date: 2005-08-25 18:44+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,74 +55,82 @@ msgstr ""
 msgid "not available interface: %s"
 msgstr ""
 
-#: lib/rabbit/menu.rb:37 lib/rabbit/menu.rb:47 lib/rabbit/menu.rb:57
-#: lib/rabbit/menu.rb:67 lib/rabbit/menu.rb:72 lib/rabbit/menu.rb:74
-#: lib/rabbit/menu.rb:85 lib/rabbit/menu.rb:89 lib/rabbit/menu.rb:96
-#: lib/rabbit/menu.rb:117
+#: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
+#: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:68
+#: lib/rabbit/menu.rb:79 lib/rabbit/menu.rb:83 lib/rabbit/menu.rb:89
+#: lib/rabbit/menu.rb:92 lib/rabbit/menu.rb:96 lib/rabbit/menu.rb:131
 msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:40
+#: lib/rabbit/menu.rb:35
 msgid "/Slide"
 msgstr "/Slide mode"
 
-#: lib/rabbit/menu.rb:43
+#: lib/rabbit/menu.rb:38
 msgid "/Index"
 msgstr "/Index mode"
 
-#: lib/rabbit/menu.rb:50
+#: lib/rabbit/menu.rb:45
 msgid "/UnFullScreen"
 msgstr "/Unfull-screen"
 
-#: lib/rabbit/menu.rb:53
+#: lib/rabbit/menu.rb:48
 msgid "/FullScreen"
 msgstr "/Full-screen"
 
-#: lib/rabbit/menu.rb:59
+#: lib/rabbit/menu.rb:54
 msgid "/SaveAsImage"
 msgstr "/Save as image"
 
-#: lib/rabbit/menu.rb:63
+#: lib/rabbit/menu.rb:58
 msgid "/Print"
 msgstr "/Print"
 
-#: lib/rabbit/menu.rb:70 lib/rabbit/menu.rb:72 lib/rabbit/menu.rb:103
+#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:103
 msgid "/Jump"
 msgstr "/Jump to"
 
-#: lib/rabbit/menu.rb:76
+#: lib/rabbit/menu.rb:70
 msgid "/Next"
 msgstr "/Next slide"
 
-#: lib/rabbit/menu.rb:78
+#: lib/rabbit/menu.rb:72
 msgid "/Previous"
 msgstr "/Previous slide"
 
-#: lib/rabbit/menu.rb:80
+#: lib/rabbit/menu.rb:74
 msgid "/First"
 msgstr "/First slide"
 
-#: lib/rabbit/menu.rb:82
+#: lib/rabbit/menu.rb:76
 msgid "/Last"
 msgstr "/Last slide"
 
-#: lib/rabbit/menu.rb:87
+#: lib/rabbit/menu.rb:81
 msgid "/Iconify"
 msgstr "/Iconify"
 
-#: lib/rabbit/menu.rb:91
+#: lib/rabbit/menu.rb:85
 msgid "/ReloadTheme"
 msgstr "/Reload theme"
+
+#: lib/rabbit/menu.rb:88 lib/rabbit/menu.rb:89 lib/rabbit/menu.rb:111
+msgid "/ChangeTheme"
+msgstr "/Change Theme"
+
+#: lib/rabbit/menu.rb:91 lib/rabbit/menu.rb:92 lib/rabbit/menu.rb:117
+msgid "/MergeTheme"
+msgstr "/Merge theme"
 
 #: lib/rabbit/menu.rb:94
 msgid "/CacheAllSlides"
 msgstr "/Cache all slides"
 
-#: lib/rabbit/menu.rb:98 lib/rabbit/menu.rb:119
+#: lib/rabbit/menu.rb:98 lib/rabbit/menu.rb:133
 msgid "/Quit"
 msgstr "/Quit"
 
-#: lib/rabbit/canvas.rb:335 lib/rabbit/renderer/drawing-area.rb:420
+#: lib/rabbit/canvas.rb:354 lib/rabbit/renderer/drawing-area.rb:455
 msgid "processing..."
 msgstr "Processing..."
 
@@ -138,10 +146,14 @@ msgstr ""
 msgid "Rabbit Error Dialog"
 msgstr ""
 
-#: lib/rabbit/renderer/drawing-area.rb:529
+#: lib/rabbit/renderer/drawing-area.rb:593
 msgid "Now processing... Do you really quit?"
 msgstr ""
 
-#: lib/rabbit/renderer/print.rb:326
+#: lib/rabbit/renderer/base.rb:503
+msgid "%s does not support: %s"
+msgstr ""
+
+#: lib/rabbit/renderer/print.rb:312
 msgid "can't find printer for %s"
 msgstr ""
