@@ -99,6 +99,9 @@ def parse(args, logger)
       options.source_type = Rabbit::Source.types.find do |t|
         get_last_name[t].downcase == source_type.downcase
       end
+      if options.source_type == Rabbit::Source::Memory
+        options.public_level = Rabbit::Front::PublicLevel::ALL
+      end
     end
 
     opts.on("-e", "--encoding [ENCODING]",

@@ -279,6 +279,7 @@ module Rabbit
       if 0 <= index and index < slide_size
         move_to(index)
       end
+      current_index
     end
 
     def move_to_next_if_can

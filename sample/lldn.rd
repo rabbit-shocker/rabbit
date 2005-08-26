@@ -31,7 +31,7 @@
 
   * Ruby RSS Parserメンテナ
 
-  * Ruby-GNOME2のメンテナ
+  * Ruby-GNOME2のコミッタ
 
   * Subversionの(partial)コミッタ
 
@@ -43,13 +43,13 @@
 
   * スタッフのOSS開発奨励・支援
 
-  * 風博士
+  * 風博士（ブラウザ）
 
-  * タブブラウザ拡張
+  * タブブラウザ拡張（for Firefox）
 
-  * Sylpheed
+  * Sylpheed（MUA）
 
-  * GImageView
+  * GImageView（画像ビューア）
 
   * 日本語入力環境整備
 
