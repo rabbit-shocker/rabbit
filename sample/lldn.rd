@@ -33,7 +33,7 @@
 
   * Ruby-GNOME2のメンテナ
 
-  * Subversionのpartialコミッタ
+  * Subversionの(partial)コミッタ
 
   * グッデイ入社予定
 
@@ -52,6 +52,8 @@
   * GImageView
 
   * 日本語入力環境整備
+
+= 本題
 
 = 何これ？
 
@@ -123,6 +125,7 @@
   * ...
   * ...
   * ...
+  * メモリ使用量への関心
 
 = 大事なこと
 
@@ -150,10 +153,24 @@
 
 = かっこよさ
 
+= 豊富な入力方法
+
+  # image
+  # src = input.eps
+  # keep_ratio = true
+  # relative_height = 90
+
 = 豊富なインターフェイス
 
   # image
   # src = interface.eps
+  # keep_ratio = true
+  # relative_height = 90
+
+= RabbitとRWiki
+
+  # image
+  # src = rabbit-rwiki.eps
   # keep_ratio = true
   # relative_height = 90
 
@@ -165,10 +182,12 @@
 
 = 確認
 
+= 確認
+
   * 大事なこと
     * かわいらしさ（見た目）
     * かっこよさ（実装）
-    * おもしろさ（作者にとって）
+    * おもしろさ（((*作者にとっての*))）
 
   * 足りないこと
     * ドキュメント（((*だれか書いて！*))）
