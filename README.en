@@ -313,7 +313,7 @@ with the following.
    
    But the quality is not good.
 
-: -o, --ourput-filename
+: -o, --output-filename
    Specifies printed file name. Printed format is decided by
    extension. Printed format is PostScript when extension is
    .ps, is PDF when extension is .pdf and is PostScript when
@@ -583,3 +583,4 @@ page from XXX.rd.
     presentation with Rabbit.
   * noritada: He sent me a bug report for document.
   * gan: He wrote some flags.
+  * KAKUTANI: He sent me a bug report for document.
