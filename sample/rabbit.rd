@@ -178,7 +178,7 @@ Tgif又はmimeTeXを呼び出す
 : Rabbit
    うさぎ
 
-   : Turtle
+   : Tortoise
       かめ
 
 : うさぎ

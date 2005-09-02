@@ -511,6 +511,13 @@ module Rabbit
         @ox = @oy = @ow = @oh = nil
         super
       end
+
+      def draw(simulation=false)
+        x, y, w, h = super
+        x -= centering_adjusted_width
+        w += centering_adjusted_width
+        [x, y, w, h]
+      end
     end
     
     module BlockElement
@@ -582,10 +589,10 @@ module Rabbit
         @centering_adjusted_height = adjust_height
         compile_elements(canvas, *args)
         base_x, base_w = x, w
-        elements.each do |element|
+        @elements.each do |element|
           x, y, w, h = element.draw(simulation)
         end
-        if elements.last and elements.last.inline_element?
+        if @elements.last and @elements.last.inline_element?
           x = base_x
           y += elements.last.height
           w = base_w
@@ -604,15 +611,19 @@ module Rabbit
       def compile_elements(canvas, x, y, w, h)
         ox, oy, ow, oh = x, y, w, h
         prev_is_inline = false
-        elements.each do |element|
+        @elements.each do |element|
           element.compile(canvas, x, y, w, h)
+          if do_horizontal_centering? or element.do_horizontal_centering?
+            element.do_horizontal_centering(canvas, x, y, w, h)
+          end
           x, y, w, h = element.draw(true)
+#           x -= element.centering_adjusted_width
+#           w += element.centering_adjusted_width
         end
-        compile_horizontal(canvas, ox, oy, ow, oh)
       end
 
       def compile_horizontal(canvas, x, y, w, h)
-        elements.each do |element|
+        @elements.each do |element|
           if do_horizontal_centering? or element.do_horizontal_centering?
             element.do_horizontal_centering(canvas, x, y, w, h)
           end
