@@ -40,7 +40,6 @@ module Rabbit
         thumbnails_set.collect do |thumbnails|
           Slide.new(thumbnails, number_of_slides)
         end
-        maker.destroy!
       end
 
       private

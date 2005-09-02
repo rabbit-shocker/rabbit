@@ -22,7 +22,7 @@ module Rabbit
     
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
-    def_delegators(:@frame, :quit, :update_title)
+    def_delegators(:@frame, :update_title)
     def_delegators(:@frame, :toggle_fullscreen, :fullscreen?)
     def_delegators(:@frame, :iconify, :window)
 
@@ -87,20 +87,21 @@ module Rabbit
       @theme_name = nil
       @saved_image_basename = nil
       @processing = false
-      @destroyed = false
+      @quited = false
       @auto_reload_thread = nil
       clear
       @renderer = renderer.new(self)
     end
 
-    def destroyed?
-      @destroyed
+    def quited?
+      @quited
     end
 
-    def destroy!
-      @destroyed = true
+    def quit
+      @quited = true
+      @frame.quit
     end
-
+    
     def front(public_level=nil)
       Front.new(self, public_level)
     end
@@ -364,7 +365,7 @@ module Rabbit
       thread = Thread.new do
         loop do
           sleep(interval)
-          break if destroyed? or thread[:stop]
+          break if quited? or thread[:stop]
           redraw
         end
       end

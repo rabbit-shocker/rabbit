@@ -41,7 +41,7 @@ module Rabbit
         end
         x, w = restore_x_padding(x, w)
         x, w = restore_x_margin(x, w)
-        x, w = adjust_x_centering
+        x, w = adjust_x_centering(x, w)
         y, h = adjust_y_padding(y, h)
         y, h = adjust_y_margin(y, h)
         [x, y, w, h]
