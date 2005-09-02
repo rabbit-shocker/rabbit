@@ -1,7 +1,7 @@
 proc_name = "headline-logo"
 
 if @headline_logo_image.nil?
-  raise "must specify @headline_logo_image!!"
+  theme_exit("must specify @headline_logo_image!!")
 end
 
 match("**", HeadLine) do |heads|

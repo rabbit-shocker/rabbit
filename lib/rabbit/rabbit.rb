@@ -117,6 +117,14 @@ module Rabbit
   end
   
   class ThemeExit < Error
+    def initialize(message=nil)
+      @have_message = !message.nil?
+      super
+    end
+
+    def have_message?
+      @have_message
+    end
   end
 
   class NotAvailableInterfaceError < Error

@@ -1,7 +1,7 @@
 proc_name = "title-logo"
 
-unless @title_logo_image
-  raise "must specify @title_logo_image!!"
+if @title_logo_image.nil?
+  theme_exit("must specify @title_logo_image!!")
 end
 
 match(TitleSlide, Title) do |titles|

@@ -87,8 +87,18 @@ module Rabbit
       @theme_name = nil
       @saved_image_basename = nil
       @processing = false
+      @destroyed = false
+      @auto_reload_thread = nil
       clear
       @renderer = renderer.new(self)
+    end
+
+    def destroyed?
+      @destroyed
+    end
+
+    def destroy!
+      @destroyed = true
     end
 
     def front(public_level=nil)
@@ -348,6 +358,22 @@ module Rabbit
     def processing?
       @processing
     end
+
+    def start_auto_reload_thread(interval)
+      stop_auto_reload_thread
+      thread = Thread.new do
+        loop do
+          sleep(interval)
+          break if destroyed? or thread[:stop]
+          redraw
+        end
+      end
+      @auto_reload_thread = thread
+    end
+
+    def stop_auto_reload_thread
+      @auto_reload_thread[:stop] = true if @auto_reload_thread
+    end
     
     private
     def process
@@ -373,6 +399,7 @@ module Rabbit
     end
     
     def clear
+      stop_auto_reload_thread
       clear_slides
       clear_index_slides
       modified

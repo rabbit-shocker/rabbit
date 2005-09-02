@@ -109,7 +109,7 @@ module Rabbit
       begin
         @applier.apply_theme(name)
       rescue ThemeExit
-        # ignore
+        logger.info($!.message) if $!.have_message?
       rescue StandardError, LoadError
         logger.warn($!)
       end
@@ -215,8 +215,8 @@ module Rabbit
         canvas.renderer.printable?
       end
 
-      def theme_exit
-        raise ThemeExit
+      def theme_exit(message=nil)
+        raise ThemeExit.new(message)
       end
       
       def slides_per_page
@@ -499,6 +499,14 @@ module Rabbit
           end
           [x, y, w, h]
         end
+      end
+
+      def start_auto_reload_thread(interval)
+        canvas.start_auto_reload_thread(interval)
+      end
+
+      def stop_auto_reload_thread
+        canvas.stop_auto_reload_thread
       end
     end
   end

@@ -1,10 +1,10 @@
 theme_exit if print?
 
 proc_name = "timer"
-init_proc_name = "timer_init"
+init_proc_name_prefix = "timer_init"
 
 if @timer_limit.nil?
-  raise "must specify @timer_limit!! (sec)"
+  theme_exit("must specify @timer_limit!! (sec)")
 end
 
 if @timer_auto_update.nil?
@@ -24,27 +24,22 @@ end
 @@timer_auto_update_thread = nil
 
 match(Slide) do |slides|
-  slides.delete_post_draw_proc_by_name(init_proc_name)
   slides.delete_post_draw_proc_by_name(proc_name)
-  
+
+  stop_auto_reload_thread
+
   break if @timer_uninstall
   
+  if @timer_auto_update
+    start_auto_reload_thread(@timer_interval)
+  end
+  
+  init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
     if @timer_limit_time.nil?
       @timer_limit_time = Time.now + @timer_limit
-      if @timer_auto_update and
-          @timer_auto_update_thread.nil?
-        thread = Thread.new do
-          loop do
-            sleep(@timer_interval)
-            break if @@timer_auto_update_thread != thread
-            canvas.redraw
-          end
-        end
-        @@timer_auto_update_thread = thread
-      end
     end
-    slide.delete_post_draw_proc_by_name(init_proc_name)
+    slide.delete_pre_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
 

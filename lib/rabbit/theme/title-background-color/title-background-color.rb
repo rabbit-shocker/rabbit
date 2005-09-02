@@ -1,7 +1,7 @@
 proc_name = "title-background-color"
 
 if @title_background_color.nil?
-  raise "must specify @title_background_color!!"
+  theme_exit("must specify @title_background_color!!")
 end
 
 match(TitleSlide) do |slides|

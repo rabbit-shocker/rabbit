@@ -105,6 +105,7 @@ module Rabbit
             printing(i)
           end
           post_print
+          canvas.destroy!
         end
       end
 
@@ -117,6 +118,7 @@ module Rabbit
           caching_all_slides(i, canvas)
         end
         post_cache_all_slides(canvas)
+        canvas.destroy!
       end
       
       def redraw
@@ -132,6 +134,7 @@ module Rabbit
         end
         post_to_pixbuf
         canvas.move_to_if_can(previous_index)
+        canvas.destroy! if canvas != @canvas
       end
 
       def off_screen_canvas

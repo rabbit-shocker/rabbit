@@ -205,7 +205,7 @@ module Rabbit
         super
         setup_progress_color
       end
-      
+
       private
       def can_create_pixbuf?
         true

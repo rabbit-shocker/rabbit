@@ -1,7 +1,7 @@
 proc_name = "title-background"
 
 if @title_background_image.nil?
-  raise "must specify @title_background_image!!"
+  theme_exit("must specify @title_background_image!!")
 end
 
 match(TitleSlide) do |slides|

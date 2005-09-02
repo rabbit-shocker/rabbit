@@ -47,6 +47,30 @@ bbb
 
 = pre5
 
+    aaa
+
+   bbb
+
+  ccc
+
+ ddd
+
+= pre6
+
+    # image
+    # src = lavie.png
+    # relative_height = 20
+
+   aaa
+
+  bbb
+
+ ccc
+
+ddd
+
+= pre7
+
   あいうえおあいうえおあいうえおあい
       あいうえおあいうえおあいう
            あいうえおあいう

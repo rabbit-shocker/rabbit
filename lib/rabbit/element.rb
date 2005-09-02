@@ -41,6 +41,7 @@ module Rabbit
         end
         x, w = restore_x_padding(x, w)
         x, w = restore_x_margin(x, w)
+        x, w = adjust_x_centering
         y, h = adjust_y_padding(y, h)
         y, h = adjust_y_margin(y, h)
         [x, y, w, h]
@@ -193,6 +194,12 @@ module Rabbit
       def restore_x_margin(x, w)
         x -= @margin_left
         w += @margin_left + @margin_right
+        [x, w]
+      end
+
+      def adjust_x_centering(x, w)
+        x -= centering_adjusted_width
+        w += centering_adjusted_width
         [x, w]
       end
 
@@ -511,13 +518,6 @@ module Rabbit
         @ox = @oy = @ow = @oh = nil
         super
       end
-
-      def draw(simulation=false)
-        x, y, w, h = super
-        x -= centering_adjusted_width
-        w += centering_adjusted_width
-        [x, y, w, h]
-      end
     end
     
     module BlockElement
@@ -617,8 +617,6 @@ module Rabbit
             element.do_horizontal_centering(canvas, x, y, w, h)
           end
           x, y, w, h = element.draw(true)
-#           x -= element.centering_adjusted_width
-#           w += element.centering_adjusted_width
         end
       end
 
@@ -1161,9 +1159,7 @@ module Rabbit
         unless simulation
           canvas.draw_pixbuf(pixbuf, x, y)
         end
-        new_x = (@ox || x) - @margin_left
-        new_w = (@ow || w) - @margin_left - @margin_right
-        [new_x, y + height, new_w, h - height]
+        [x, y + height, w, h - height]
       end
 
       def adjust_size(canvas, x, y, w, h)
