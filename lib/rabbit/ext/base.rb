@@ -32,11 +32,11 @@ module Rabbit
         
       end
       
-      def apply(label, content, visitor)
+      def apply(label, source, content, visitor)
         result = nil
         extensions.find do |entry|
           begin
-            result = __send__(entry, label, content, visitor)
+            result = __send__(entry, label, source, content, visitor)
           rescue NameError
             visitor.logger.error($!)
             raise

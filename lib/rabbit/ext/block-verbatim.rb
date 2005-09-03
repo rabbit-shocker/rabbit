@@ -15,41 +15,29 @@ module Rabbit
       include Image
       include GetText
 
-      def ext_block_verb_quote(label, content, visitor)
-        return nil unless /^_$/i =~ label
-        content.sub!(/\A[^\n]*\n/, '')
-        visitor.__send__(:default_ext_block_verbatim, "", content)
+      def default_ext_block_verbatim(label, source, content, visitor)
+        content = visitor.apply_to_String(content.rstrip)
+        PreformattedBlock.new([PreformattedText.new(content)])
       end
 
-      def ext_block_verb_img(label, content, visitor)
+      def ext_block_verb_quote(label, source, content, visitor)
+        return nil unless /^_$/i =~ label
+        default_ext_block_verbatim("", source, source, visitor)
+      end
+
+      def ext_block_verb_img(label, source, content, visitor)
         return nil unless /^(?:image|img)$/i =~ label
-        prop = {}
-        content.each do |line|
-          if /^(?:#\s*)?(\S+)\s*=\s*(.+)\s*$/ =~ line
-            prop[$1] = $2
-          end
-        end
+        src, prop = parse_source(source)
         return nil if prop['src'].nil?
         make_image(visitor, prop['src'], prop)
       end
 
-      def ext_block_verb_tex(label, content, visitor)
+      def ext_block_verb_tex(label, source, content, visitor)
         return nil unless /^TeX$/i =~ label
-        prop = {}
+        src, prop = parse_source(source)
         src_file = Tempfile.new("rabbit")
-        in_src = false
         src_file.open
-        content.each do |line|
-          if in_src
-            src_file.print(line)
-          else
-            if /^\s*$/ =~ line
-              in_src = true
-            elsif /^(?:#\s*)?(\S+)\s*=\s*(.+)\s*$/ =~ line
-              prop[$1] = $2
-            end
-          end
-        end
+        src_file.print(src)
         src_file.close
         image_file = make_image_by_outer_command(src_file.path, prop, visitor)
         return nil if image_file.nil?
@@ -58,7 +46,7 @@ module Rabbit
         image
       end
 
-      def ext_block_verb_rt(label, content, visitor)
+      def ext_block_verb_rt(label, source, content, visitor)
         return nil unless /^rt$/i =~ label
         @rt_visitor = RT2RabbitVisitor.new(visitor)
         @rt_visitor.visit(RT::RTParser.parse(content))
@@ -137,6 +125,29 @@ module Rabbit
           raise TeXCanNotHandleError.new(_("invalid source: %s") % src)
         end
       end
+
+      def parse_source(source)
+        prop = {}
+        in_src = false
+        src = ""
+        source.each do |line|
+          if in_src
+            src << line
+          else
+            case line
+            when /^\s*$/
+              in_src = true
+            when /^(?:#\s*)?(\S+)\s*=\s*(.+)\s*$/
+              prop[$1] = $2
+            else
+              in_src = true
+              src << line
+            end
+          end
+        end
+        [src, prop]
+      end
+      
     end
   end
 end

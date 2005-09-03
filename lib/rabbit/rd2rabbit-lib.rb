@@ -121,8 +121,8 @@ module Rabbit
         content << line
       end
       content_str = content.join("")
-      /\A#\s*([^\n]+)\s*(?:\n.*)?\z/m =~ content_str
-      apply_to_extension("block_verbatim", $1, content_str)
+      /\A#\s*([^\n]+)\s*(?:\n)?(.*)?\z/m =~ content_str
+      apply_to_extension("block_verbatim", $1, $2.to_s, content_str)
     end
   
     def apply_to_ItemList(element, items)
@@ -209,7 +209,7 @@ module Rabbit
     end
 
     def apply_to_Reference_with_RDLabel(element, content)
-      apply_to_extension("refer", element.label, content)
+      apply_to_extension("refer", element.label, content, content)
     end
 
     def apply_to_Reference_with_URL(element, content)
@@ -236,14 +236,20 @@ module Rabbit
     end
 
     def apply_to_Verb(element)
-      content = apply_to_String(element.content)
-      apply_to_extension("inline_verbatim", element.to_label, content)
+      source = apply_to_String(element.content)
+      content = element.content
+      apply_to_extension("inline_verbatim", element.to_label, source, content)
     end
 
     def apply_to_String(str)
       meta_char_escape(str)
     end
 
+    def create_have_text_element(klass, content)
+      raise "Why???" if content.size > 1
+      klass.new(content.collect{|x| x.text}.join(""))
+    end
+    
     private
     def init_extensions
       @installed_extensions = {}
@@ -389,40 +395,23 @@ module Rabbit
       @title_slide
     end
 
-    def apply_to_extension(ext_type, label, content)
+    def apply_to_extension(ext_type, label, source, content)
       result = nil
-      if @installed_extensions.has_key?(ext_type)
-        result = @installed_extensions[ext_type].apply(label, content, self)
+      unless @installed_extensions.has_key?(ext_type)
+        logger.fatal("[BUG] [#{label}] #{ext_type} extension isn't installed.")
       end
+      args = [label, source, content, self]
+      extension = @installed_extensions[ext_type]
+      result = extension.apply(*args)
+      default_method_name = "default_ext_#{ext_type}"
       if result.nil? and
-          respond_to?("default_ext_#{ext_type}", true)
-        result = __send__("default_ext_#{ext_type}", label, content)
+          extension.respond_to?(default_method_name, true)
+        result = extension.__send__(default_method_name, *args)
       end
       if result.nil?
-        logger.error("[BUG] [#{label}] #{ext_type} extension isn't installed.")
+        logger.fatal("[BUG] [#{label}] #{ext_type} extension isn't available.")
       end
       result
     end
-
-    def default_ext_refer(label, content)
-      ref = create_have_text_element(ReferText, content)
-      ref.to = label.element_label
-      ref
-    end
-
-    def default_ext_inline_verbatim(label, content)
-      Verbatim.new(content)
-    end
-
-    def default_ext_block_verbatim(label, content)
-      content = apply_to_String(content.rstrip)
-      PreformattedBlock.new([PreformattedText.new(content)])
-    end
-
-    def create_have_text_element(klass, content)
-      raise "Why???" if content.size > 1
-      klass.new(content.collect{|x| x.text}.join(""))
-    end
-    
   end
 end

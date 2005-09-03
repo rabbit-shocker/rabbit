@@ -35,7 +35,7 @@ module Rabbit
         end
       end
 
-      def ext_inline_verb_entity_reference(label, content, visitor)
+      def ext_inline_verb_entity_reference(label, source, content, visitor)
         label = label.to_s
         return nil unless /^&([^;]+);(.*)$/ =~ label
         return nil unless TABLE.include?($1)

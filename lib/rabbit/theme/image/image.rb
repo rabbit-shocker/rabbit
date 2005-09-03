@@ -51,7 +51,7 @@ match("**", Image) do |images|
         if image.horizontal_centering
           caption.do_horizontal_centering(canvas, x, y, w, h)
         end
-        caption.compile(canvas, x, y, w, h)
+        caption.compile(canvas, image.ox || x, y, image.ow || w, h)
         layout = caption.layout
         th = caption.height
 
