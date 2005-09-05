@@ -35,12 +35,10 @@ module Rabbit
         make_image(visitor, prop['src'], prop)
       end
 
-      if Enscript.available?
-        def ext_block_verb_enscript(label, source, content, visitor)
-          return nil unless /^enscript (\w+)$/i =~ label
-          lang = $1.downcase.untaint
-          make_enscript_image(label, lang, source, content, visitor)
-        end
+      def ext_block_verb_enscript(label, source, content, visitor)
+        return nil unless /^enscript (\w+)$/i =~ label
+        lang = $1.downcase.untaint
+        enscript_block(label, lang, source, content, visitor)
       end
       
       def ext_block_verb_tex(label, source, content, visitor)

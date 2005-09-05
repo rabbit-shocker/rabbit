@@ -12,7 +12,7 @@ module Rabbit
       @@enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
       @@enscript_highlight.flatten!
 
-      def make_enscript_image(label, lang, source, content, visitor)
+      def enscript_block(label, lang, source, content, visitor)
         src, prop = parse_source(source)
         default_result = default_ext_block_verbatim(label, src, src, visitor)
         unless @@enscript_highlight.include?(lang)
