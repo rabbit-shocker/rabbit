@@ -826,8 +826,12 @@ module Rabbit
 
       def draw(canvas, simulation=nil)
         if simulation.nil?
-          draw(canvas, true)
-          draw(canvas, false)
+          begin
+            draw(canvas, true)
+            draw(canvas, false)
+          rescue StandardError, LoadError
+            canvas.logger.warn($!)
+          end
         else
           canvas.draw_slide(self, simulation) do
             compile(canvas, 0, 0, canvas.width, canvas.height)

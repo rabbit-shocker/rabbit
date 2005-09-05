@@ -110,7 +110,7 @@ module Rabbit
         @applier.apply_theme(name)
       rescue ThemeExit
         logger.info($!.message) if $!.have_message?
-      rescue StandardError, LoadError
+      rescue StandardError, LoadError, SyntaxError
         logger.warn($!)
       end
     end

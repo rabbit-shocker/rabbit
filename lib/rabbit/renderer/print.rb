@@ -120,11 +120,12 @@ module Rabbit
       # can't draw ellipse
       def draw_arc(filled, x, y, w, h, a1, a2, color=nil)
         x, y = from_screen(x, y)
+        a1, a2 = convert_angle(a1, a2)
         color = make_color(color)
         @context.save do
           set_color(color)
           radius = w / 2
-          @context.arc_to(x + radius, y - radius, radius, a1, a2, 0)
+          @context.arc_to(x + radius, y - radius, radius, a1, a2, false)
           if filled
             @context.fill
           else
@@ -274,6 +275,12 @@ module Rabbit
 
       def from_screen(x, y)
         [x + margin_page_left, height - y + margin_page_bottom]
+      end
+
+      def convert_angle(a1, a2)
+        a2 += a1
+        a2 -= 360 if a2 > 360
+        [a1, a2]
       end
       
       def set_color(color)

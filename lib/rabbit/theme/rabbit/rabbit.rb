@@ -4,7 +4,7 @@ if print? and slides_per_page > 1
 else
   set_background("#f500f1d0c600")
 end
-#set_background_image("lavie.png")
+# set_background_image("lavie.png")
 
 include_theme("default")
 
@@ -54,61 +54,10 @@ match(Slide, HeadLine) do |heads|
 end
 
 slide_body = [Slide, Body]
-item_list_item = [ItemList, ItemListItem]
 
 # match(*slide_body) do |bodies|
 #   bodies.vertical_centering = true
 # end
 
-match(*(slide_body + (item_list_item * 1))) do |items|
-  name = "item1"
-  
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-
-  draw_image_mark(items, "red_item.png", name)
-end
-
-match(*(slide_body + (item_list_item * 2))) do |items|
-  name = "item2"
-
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-
-  draw_image_mark(items, "blue_item.png", name)
-end
-
-match(*(slide_body + (item_list_item * 3))) do |items|
-  name = "item3"
-
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-
-  draw_image_mark(items, "green_item.png", name)
-end
-
-enum_list_item = [EnumList, EnumListItem]
-
-match(*(slide_body + enum_list_item + item_list_item)) do |items|
-  name = "enum-item1"
-  
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-
-  draw_image_mark(items, "red_item2.png", name)
-end
-
-match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
-  name = "enum-item2"
-  
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-
-  draw_image_mark(items, "green_item.png", name)
-end
-
-if windows?
-  match("**") do |elems|
-    elems.prop_delete("style")
-  end
-end
+include_theme("rabbit-item-mark")
+include_theme("windows-adjust")
