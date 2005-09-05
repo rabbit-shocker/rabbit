@@ -22,10 +22,10 @@ module Rabbit
         key = $1
         rest = $2
         if rest.empty?
-          NormalText.new(TABLE[key])
+          Text.new(TABLE[key])
         else
           rest = visitor.apply_to_Verb(RD::Verb.new(rest))
-          TextContainer.new([NormalText.new(TABLE[key]), rest])
+          TextContainer.new([Text.new(TABLE[key]), rest])
         end
       end
 

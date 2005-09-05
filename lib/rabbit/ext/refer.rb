@@ -7,7 +7,7 @@ module Rabbit
       include Image
 
       def default_ext_refer(label, source, content, visitor)
-        ref = visitor.create_have_text_element(ReferText, source)
+        ref = ReferText.new(content)
         ref.to = label.element_label
         ref
       end

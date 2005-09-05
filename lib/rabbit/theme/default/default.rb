@@ -123,8 +123,15 @@ end
 
 match("**", PreformattedText) do |texts|
   texts.prop_set("size", @normal_font_size)
-  texts.prop_set("weight", "bold")
   set_font_family(texts, @monospace_font_family)
+end
+
+match("**", Keyword) do |texts|
+  texts.prop_set("weight", "bold")
+end
+
+match("**", Comment) do |texts|
+  texts.prop_set("style", "italic")
 end
 
 match("**", DescriptionTerm) do |terms|
@@ -220,7 +227,7 @@ match("**", Foottext) do |texts|
     if text.user_property["order_added"]
       order_text = text.elements.first
     else
-      order_text = NormalText.new("(*#{text.order})")
+      order_text = Text.new("(*#{text.order})")
       text.unshift(order_text)
       text.user_property["order_added"] = true
     end

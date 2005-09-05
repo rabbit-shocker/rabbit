@@ -69,7 +69,28 @@ bbb
 
 ddd
 
+= pre7
+
+  #include <stdio.h>
+  int
+  main(void)
+  {
+    printf("Hello World!\n");
+    return 0;
+  }
+
 = pre8
+
+  # enscript C
+  #include <stdio.h>
+  int
+  main(void)
+  {
+    printf("Hello World!\n");
+    return 0;
+  }
+
+= pre9
 
   あいうえおあいうえおあいうえおあい
       あいうえおあいうえおあいう

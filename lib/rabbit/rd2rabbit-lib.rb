@@ -185,42 +185,43 @@ module Rabbit
 
     def apply_to_StringElement(element)
       content = element.content.gsub(/\n\s*/, '')
-      NormalText.new(apply_to_String(content))
+      Text.new(apply_to_String(content))
     end
 
     def apply_to_Emphasis(element, content)
-      create_have_text_element(Emphasis, content)
+      Emphasis.new(content)
     end
   
     def apply_to_Code(element, content)
-      create_have_text_element(Code, content)
+      Code.new(content)
     end
   
     def apply_to_Var(element, content)
-      create_have_text_element(Variable, content)
+      Variable.new(content)
     end
   
     def apply_to_Keyboard(element, content)
-      create_have_text_element(Keybord, content)
+      Keybord.new(content)
     end
   
     def apply_to_Index(element, content)
-      create_have_text_element(Index, content)
+      Index.new(content)
     end
 
     def apply_to_Reference_with_RDLabel(element, content)
-      apply_to_extension("refer", element.label, content, content)
+      source = content.collect{|elem| elem.text}
+      apply_to_extension("refer", element.label, source, content)
     end
 
     def apply_to_Reference_with_URL(element, content)
-      ref = create_have_text_element(ReferText, content)
+      ref = ReferText.new(content)
       ref.to = element.label.url
       ref
     end
 
     def apply_to_Footnote(element, content)
       if @slide.nil?
-        NormalText.new("")
+        Text.new("")
       else
         num = get_footnote_num(element)
         raise ArgumentError, "[BUG?] #{element} is not registered." unless num
@@ -259,7 +260,7 @@ module Rabbit
     end
 
     def prepare_footnotes(tree)
-      @footnotes = tree.find_all{|i| i.is_a? RD::Footnote }
+      @footnotes = tree.find_all{|i| i.is_a? RD::Footnote}
       @foottexts = []
     end
 
@@ -291,7 +292,7 @@ module Rabbit
         klass, kind, method, args = RD::MethodParse.analize_method(args)
 
         term = make_pre_inited_method_term(klass, kind)
-        term << MethodName.new("self")
+        term << MethodName.new(Text.new("self"))
         add_args_to_method_term(term, args)
         term
       when "[]"
@@ -299,11 +300,11 @@ module Rabbit
         args.sub!(/^\((.*)\)$/, '\\1')
         args.split(/,/)
         term = make_pre_inited_method_term(klass, kind)
-        term << MethodName.new("[")
+        term << MethodName.new(Text.new("["))
         args.each do |arg|
-          term << Variable.new(arg)
+          term << Variable.new(Text.new(arg))
         end
-        term << MethodName.new("] = ")
+        term << MethodName.new(Text.new("] = "))
         term
       when "[]="
         args.tr!(' ', '')
@@ -316,26 +317,26 @@ module Rabbit
           val = 'val'
         when 2
           args, val = *ary
-          args = [Variable.new(args)]
+          args = [Variable.new(Text.new(args))]
         when 3
           args = ary[0, 2].inject([]) do |result, x|
-            result + [Variable.new(x), Code.new(", ")]
+            result + [Variable.new(Text.new(x)), Code.new(Text.new(", "))]
           end
           args.pop # removed too much ", "
           val = ary[2]
         end
         
         term = make_pre_inited_method_term(klass, kind)
-        term << MethodName.new("[")
+        term << MethodName.new(Text.new("["))
         args.each do |arg|
           term << arg
         end
-        term << MethodName.new("] = ")
-        term << Variable.new(val)
+        term << MethodName.new(Text.new("] = "))
+        term << Variable.new(Text.new(val))
         term
       else
         term = make_pre_inited_method_term(klass, kind)
-        term << MethodName.new(method)
+        term << MethodName.new(Text.new(method))
         term.name = method
         add_args_to_method_term(term, args)
         term
@@ -344,8 +345,8 @@ module Rabbit
 
     def make_pre_inited_method_term(klass, kind)
       term = MethodTerm.new
-      term << ClassName.new(klass) if klass
-      term << MethodKind.new(kind) if kind
+      term << ClassName.new(Text.new(klass)) if klass
+      term << MethodKind.new(Text.new(kind)) if kind
       term
     end
 
@@ -354,15 +355,15 @@ module Rabbit
       prev_index = 0
       args.scan(/(?:&#?)?\w+;?/) do |m|
         code = $PREMATCH[prev_index..-1]
-        term << Code.new(code) unless code.empty?
+        term << Code.new(Text.new(code)) unless code.empty?
         prev_index = $PREMATCH.size + m.size
         if /(?:&#?)\w+;/ =~ m
-          term << Code.new(m)
+          term << Code.new(Text.new(m))
         else
-          term << Variable.new(m)
+          term << Variable.new(Text.new(m))
         end
       end
-      term << Code.new($POSTMATCH) if $POSTMATCH
+      term << Code.new(Text.new($POSTMATCH)) if $POSTMATCH
       term
     end
 

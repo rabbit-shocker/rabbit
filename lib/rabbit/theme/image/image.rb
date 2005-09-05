@@ -45,7 +45,7 @@ match("**", Image) do |images|
 
     image.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if simulation
-        caption = NormalText.new(image.caption)
+        caption = Text.new(image.caption)
         caption.prop_set("size", @normal_font_size)
         set_font_family(caption)
         if image.horizontal_centering

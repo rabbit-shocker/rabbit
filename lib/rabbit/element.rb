@@ -171,7 +171,7 @@ module Rabbit
         @centering_adjusted_width = nil
         @centering_adjusted_height = nil
         @horizontal_centering = @vertical_centering = false
-        @prop = {}
+        @prop = default_prop
         clear_margin
         clear_padding
         dirty!
@@ -319,6 +319,10 @@ module Rabbit
         obj.user_property = @user_property.clone
         obj.prop = @prop.clone
         obj
+      end
+
+      def default_prop
+        {}
       end
 
       protected
@@ -551,6 +555,7 @@ module Rabbit
       
       def initialize(elems=[])
         @elements = []
+        elems = [elems] unless elems.is_a?(Array)
         elems.each do |elem|
           add_element(elem)
         end
@@ -910,7 +915,7 @@ module Rabbit
       include TextContainerElement
     end
     
-    class NormalText
+    class Text
       include TextElement
     end
 
@@ -924,27 +929,51 @@ module Rabbit
     end
     
     class PreformattedText
-      include TextElement
+      include TextContainerElement
+    end
+
+    class Keyword
+      include TextContainerElement
+    end
+
+    class Comment
+      include TextContainerElement
+    end
+
+    class ColoredText
+      include TextContainerElement
+      
+      def initialize(color, *args, &block)
+        super(*args, &block)
+        @color = color
+      end
+
+      def default_prop
+        name = "foreground"
+        {
+          name => make_prop_value(name, @color),
+        }
+      end
     end
     
     class Emphasis
-      include TextElement
+      include TextContainerElement
     end
     
     class Code
-      include TextElement
+      include TextContainerElement
     end
     
     class Variable
-      include TextElement
+      include TextContainerElement
     end
     
     class Keyboard
-      include TextElement
+      include TextContainerElement
     end
     
     class Index
-      include TextElement
+      include TextContainerElement
     end
     
     class FoottextBlock
@@ -974,25 +1003,25 @@ module Rabbit
     end
     
     class Verbatim
-      include TextElement
+      include TextContainerElement
     end
     
     class DeletedText
-      include TextElement
+      include TextContainerElement
     end
     
     class ReferText
-      include TextElement
+      include TextContainerElement
 
       attr_accessor :to
     end
     
     class Subscript
-      include TextElement
+      include TextContainerElement
     end
     
     class Superscript
-      include TextElement
+      include TextContainerElement
     end
     
     class Paragraph
@@ -1072,15 +1101,15 @@ module Rabbit
     end
 
     class MethodName
-      include TextElement
+      include TextContainerElement
     end
 
     class ClassName
-      include TextElement
+      include TextContainerElement
     end
 
     class MethodKind
-      include TextElement
+      include TextContainerElement
     end
 
     class Image

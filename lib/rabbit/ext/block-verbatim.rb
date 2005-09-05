@@ -5,6 +5,7 @@ require 'rabbit/utils'
 require 'rabbit/rt/rt2rabbit-lib'
 require 'rabbit/ext/base'
 require 'rabbit/ext/image'
+require 'rabbit/ext/enscript'
 require 'rabbit/tgif'
 
 module Rabbit
@@ -13,11 +14,13 @@ module Rabbit
 
       include SystemRunner
       include Image
+      include Enscript
       include GetText
 
       def default_ext_block_verbatim(label, source, content, visitor)
         content = visitor.apply_to_String(content.rstrip)
-        PreformattedBlock.new([PreformattedText.new(content)])
+        text = Text.new(content)
+        PreformattedBlock.new(PreformattedText.new(text))
       end
 
       def ext_block_verb_quote(label, source, content, visitor)
@@ -32,6 +35,14 @@ module Rabbit
         make_image(visitor, prop['src'], prop)
       end
 
+      if Enscript.available?
+        def ext_block_verb_enscript(label, source, content, visitor)
+          return nil unless /^enscript (\w+)$/i =~ label
+          lang = $1.downcase.untaint
+          make_enscript_image(label, lang, source, content, visitor)
+        end
+      end
+      
       def ext_block_verb_tex(label, source, content, visitor)
         return nil unless /^TeX$/i =~ label
         src, prop = parse_source(source)
