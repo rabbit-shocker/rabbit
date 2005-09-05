@@ -10,6 +10,7 @@ require "rabbit/rd2rabbit-lib"
 require "rabbit/theme"
 require "rabbit/index"
 require "rabbit/front"
+require "rabbit/html/generator"
 
 module Rabbit
 
@@ -78,7 +79,7 @@ module Rabbit
     
     attr_writer :saved_image_basename
 
-    attr_accessor :saved_image_type
+    attr_accessor :saved_image_type, :output_html
 
 
     def initialize(logger, renderer)
@@ -89,6 +90,7 @@ module Rabbit
       @processing = false
       @quited = false
       @auto_reload_thread = nil
+      @output_html = false
       clear
       @renderer = renderer.new(self)
     end
@@ -250,11 +252,17 @@ module Rabbit
     
     def save_as_image
       process do
+        if @output_html
+          generator = HTML::Generator.new(self)
+        end
         file_name_format =
-          "#{saved_image_basename}%0#{number_of_places(slide_size)}d.#{@saved_image_type}"
+          "#{saved_image_basename}%0#{number_of_places(slide_size)}d.%s"
         each_slide_pixbuf do |pixbuf, slide_number|
-          file_name = file_name_format % slide_number
-          pixbuf.save(file_name, normalized_saved_image_type)
+          image_file_name = file_name_format % [slide_number, @saved_image_type]
+          pixbuf.save(image_file_name, normalized_saved_image_type)
+          if @output_html
+            generator.save(file_name_format, slide_number, @saved_image_type)
+          end
         end
       end
     end
@@ -346,8 +354,20 @@ module Rabbit
       @source.read
     end
 
+    def first_slide?
+      current_index.zero?
+    end
+    
     def last_slide?
       slide_size.zero? or current_index == (slide_size - 1)
+    end
+
+    def have_previous_slide?
+      0 < current_index
+    end
+
+    def have_next_slide?
+      slide_size - 1 > current_index
     end
     
     def cache_all_slides
@@ -375,7 +395,7 @@ module Rabbit
     def stop_auto_reload_thread
       @auto_reload_thread[:stop] = true if @auto_reload_thread
     end
-    
+
     private
     def process
       if @processing

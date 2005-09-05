@@ -9,13 +9,17 @@ module Rabbit
       include Element
       include GetText
       
-      @@enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
-      @@enscript_highlight.flatten!
+      @@enscript_highlight = {}
+      enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
+      enscript_highlight.flatten.each do |name|
+        @@enscript_highlight[name.downcase] = name
+      end
+      
 
       def enscript_block(label, lang, source, content, visitor)
         src, prop = parse_source(source)
         default_result = default_ext_block_verbatim(label, src, src, visitor)
-        unless @@enscript_highlight.include?(lang)
+        unless @@enscript_highlight.has_key?(lang)
           format = _("enscript: unsupported language: %s")
           visitor.logger.warn(format % lang)
           return default_result
@@ -27,7 +31,8 @@ module Rabbit
         html_file = Tempfile.new("rabbit-enscript-html")
         args = [
           "--color", "--language=html",
-          "--highlight=#{lang}", "--output=#{html_file.path}",
+          "--highlight=#{@@enscript_highlight[lang]}",
+          "--output=#{html_file.path}",
           src_file.path,
         ]
         if run("enscript", *args)

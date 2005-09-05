@@ -28,6 +28,7 @@ def parse(args, logger)
   options.save_as_image = false
   options.saved_image_basename = nil
   options.saved_image_type = "png"
+  options.output_html = false
   options.encoding = "UTF-8"
   options.locale_dir = nil
   options.print = false
@@ -161,6 +162,12 @@ def parse(args, logger)
             "Specify saved image basename as [BASENAME].",
             "(Title of slide)") do |b|
       options.saved_image_basename = b
+    end
+
+    opts.on("--output-html [BOOL]",
+            "Output HTML for viewing saved images.",
+            "(#{options.output_html})") do |bool|
+      options.output_html = bool != "false"
     end
 
     if Rabbit::Renderer.printable?
@@ -474,6 +481,7 @@ end
 def setup_image_info(target, options)
   target.saved_image_type = options.saved_image_type
   target.saved_image_basename = options.saved_image_basename
+  target.output_html = options.output_html
 end
 
 def setup_print_info(target, options)

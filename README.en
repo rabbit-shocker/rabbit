@@ -290,7 +290,7 @@ with the following.
    Default is the size of landscape A4.
 
 : -s, --save-as-image
-   Saves each page as image and exit.
+   Saves each slide as image and exit.
 
 : -i, --saved-image-type
    Specifies image type when saves.
@@ -306,6 +306,12 @@ with the following.
    If encoding of your file system isn't UTF-8 and saved
    filename is UTF-8, you may need to setup environment
    variable such as LANG and G_FILENAME_ENCODING.
+
+: --output-html
+   Specifies whether Rabbit generates HTML or not for
+   viewing saved slides.
+   
+   Default is off.
 
 : -p, --print
    Prints slide and exit. You can print to file or directory

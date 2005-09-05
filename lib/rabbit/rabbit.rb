@@ -134,4 +134,7 @@ module Rabbit
       super(_("not available interface: %s") % @name)
     end
   end
+
+  class CantFindHTMLTemplate < Error
+  end
 end

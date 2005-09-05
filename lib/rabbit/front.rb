@@ -79,23 +79,27 @@ module Rabbit
 
     def current_slide_number
       check_dirty
-      @canvas.current_index + 1
+      @canvas.current_index
     end
 
     def first_slide?
-      current_slide_number == 1
+      check_dirty
+      @canvas.first_slide?
     end
 
     def have_next_slide?
-      total_slide_number > current_slide_number
+      check_dirty
+      @canvas.have_next_slide?
     end
 
     def have_previous_slide?
-      1 < current_slide_number
+      check_dirty
+      @canvas.have_previous_slide?
     end
 
     def last_slide?
-      total_slide_number == current_slide_number
+      check_dirty
+      @canvas.last_slide?
     end
 
     def available_interfaces

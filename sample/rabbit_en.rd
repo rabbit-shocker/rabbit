@@ -70,7 +70,9 @@ A presentation tool
 = Save slides
 
   * can save slides as image
-    * organizing screenshots is work of other tools
+  * can save simple HTML for viewing images
+   * but ...
+    * organizing screenshots beautifully is the work of other tools
     * ((<RAA:gallery>)), zphoto and so on
 
 = What about image?

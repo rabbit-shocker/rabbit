@@ -1,6 +1,8 @@
 require "div/div"
 require "div/tofusession"
 
+require 'rabbit/utils'
+
 module Rabbit
   module Div
     class MainDiv < ::Div::Div
@@ -16,6 +18,13 @@ module Rabbit
         @session.rabbit
       end
 
+      def image_title
+        title = h(rabbit.slide_title)
+        title << "(#{rabbit.current_slide_number}/"
+        title << "#{rabbit.total_slide_number - 1})"
+        title
+      end
+      
       def image_path(context)
         "#{context.req_script_name}#{@session.image_path}"
       end
@@ -46,12 +55,7 @@ module Rabbit
       end
       
       def a_link(context, key, label, label_only)
-        result = "["
-        result << a(key, {}, context) unless label_only
-        result << label
-        result << "</a>" unless label_only
-        result << "]"
-        result
+        HTML.a_link(a(key, {}, context), label, label_only)
       end
       
       def first_link(context)

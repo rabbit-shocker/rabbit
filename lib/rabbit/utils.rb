@@ -44,6 +44,17 @@ module Rabbit
       end
       args
     end
+
+    def find_path_in_load_path(*name)
+      found_path = $LOAD_PATH.find do |path|
+        File.readable?(File.join(path, *name))
+      end
+      if found_path
+        File.join(found_path, *name)
+      else
+        nil
+      end
+    end
   end
   
   module SystemRunner
@@ -95,5 +106,16 @@ module Rabbit
       mm / 25.4
     end
   end
-  
+
+  module HTML
+    module_function
+    def a_link(start_a, label, label_only)
+      result = "["
+      result << start_a unless label_only
+      result << label
+      result << "</a>" unless label_only
+      result << "]"
+      result
+    end
+  end
 end
