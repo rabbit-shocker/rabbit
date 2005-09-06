@@ -38,7 +38,10 @@ match("**", Image) do |images|
   draw_frame(images, params) if @image_with_frame
   
   images.each do |image|
-    next unless image.caption
+    unless image.caption
+      image.margin_bottom = @space * 0
+      next
+    end
     
     layout = nil
     th = 0
