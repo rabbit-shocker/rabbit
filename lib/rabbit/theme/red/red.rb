@@ -7,20 +7,22 @@ include_theme("default-method-list")
 include_theme("default-foottext")
 include_theme("default-description")
 include_theme("simple-item-mark")
+include_theme("rabbit-icon")
 
 set_progress_foreground("#ffffeb29ffff")
 set_progress_background("#ffff00000000")
 
 color = "red"
 shadow_color = "#c09090"
-line_width = screen_x(1)
+line_width = screen_size(0.8)
+line_width += 1 if (line_width % 2).zero?
 
 @title_shadow_color = shadow_color
 include_theme("title-shadow")
 
-def draw_rounded_frame(targets, name, color, line_width)
+draw_rounded_frame = Proc.new do |targets, name|
   padding_left = screen_x(5)
-  padding_right = screen_x(2)
+  padding_right = screen_x(5)
   padding_top = screen_y(0)
   padding_bottom = screen_y(0)
   
@@ -37,15 +39,16 @@ def draw_rounded_frame(targets, name, color, line_width)
       ry = y - slide.padding_top
       rw = canvas.width - slide.margin_right - slide.margin_left
       rh = canvas.height - slide.margin_top - slide.margin_bottom
-      radius = screen_x(5)
-      canvas.draw_rounded_rectangle(false, rx, ry, rw, rh, radius, color)
+      radius = screen_x(3)
+      canvas.draw_rounded_rectangle(false, rx, ry, rw, rh, radius, color,
+                                    {:line_width => line_width})
     end
     [x, y, w, h]
   end
 end
 
 match(TitleSlide) do |slides|
-  draw_rounded_frame(slides, "title-slide", color, line_width)
+  draw_rounded_frame.call(slides, "title-slide")
 end
 
 match(TitleSlide, Title) do |titles|
@@ -53,7 +56,7 @@ match(TitleSlide, Title) do |titles|
 end
 
 match(Slide) do |slides|
-  draw_rounded_frame(slides, "slide", color, line_width)
+  draw_rounded_frame.call(slides, "slide")
 end
 
 match(Slide, HeadLine) do |heads|
@@ -73,14 +76,7 @@ match(Slide, HeadLine) do |heads|
       sy = y + space
       ex = x + w + slide.padding_right
       ey = sy
-      use_line_width = false
-      if use_line_width
-        rw = w + slide.padding_left + slide.padding_right
-        rh = line_width
-        canvas.draw_rectangle(true, sx, sy, rw, rh, color)
-      else
-        canvas.draw_line(sx, sy, ex, ey, color)
-      end
+      canvas.draw_line(sx, sy, ex, ey, color, {:line_width => line_width})
     end
     [x, y, w, h]
   end

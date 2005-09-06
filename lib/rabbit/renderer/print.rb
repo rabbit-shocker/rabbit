@@ -93,12 +93,13 @@ module Rabbit
         end
       end
       
-      def draw_line(x1, y1, x2, y2, color=nil)
+      def draw_line(x1, y1, x2, y2, color=nil, params={})
         x1, y1 = from_screen(x1, y1)
         x2, y2 = from_screen(x2, y2)
         color = make_color(color)
         @context.save do
           set_color(color)
+          set_line_width(get_line_width(params))
           @context.line_stroked(x1, y1, x2, y2)
         end
       end
@@ -118,12 +119,13 @@ module Rabbit
       end
       
       # can't draw ellipse
-      def draw_arc(filled, x, y, w, h, a1, a2, color=nil)
+      def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
         x, y = from_screen(x, y)
         a1, a2 = convert_angle(a1, a2)
         color = make_color(color)
         @context.save do
           set_color(color)
+          set_line_width(get_line_width(params))
           radius = w / 2
           @context.arc_to(x + radius, y - radius, radius, a1, a2, false)
           if filled
@@ -287,6 +289,11 @@ module Rabbit
         @context.set_rgb_color(color.red, color.green, color.blue)
       end
 
+      def set_line_width(line_width)
+        if line_width
+          @context.set_line_width(line_width)
+        end
+      end
 
       def draw_background
         draw_rectangle(true, 0, 0, width, height, @background.to_s)

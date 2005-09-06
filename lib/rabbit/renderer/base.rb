@@ -153,6 +153,10 @@ module Rabbit
         false
       end
 
+      def display?
+        false
+      end
+
       def quit_confirm
         @canvas.quit
       end
@@ -274,6 +278,8 @@ module Rabbit
         x_diameter = x_radius * 2
         y_diameter = y_radius * 2
 
+        line_width = params[:line_width]
+        
         inner_x = x + x_radius
         inner_y = y + y_radius
         inner_w = w - x_diameter
@@ -288,7 +294,7 @@ module Rabbit
           left = [x, inner_y, x_radius, inner_h]
           bottom = [inner_x, inner_y + inner_h, inner_w, y_radius]
           right = [inner_x + inner_w, inner_y, x_radius, inner_h]
-          
+
           [top, left, bottom, right].each do |rx, ry, rw, rh|
             draw_rectangle(true, rx, ry, rw, rh, color)
           end
@@ -296,13 +302,13 @@ module Rabbit
           top = [inner_x, y, inner_x + inner_w, y]
           left = [x, inner_y, x, inner_y + inner_h]
           bottom = [inner_x, y + h, inner_x + inner_w, y + h]
-          right = [x + w, inner_y, x + w, inner_y + inner_h]
-          
+          right = [x + w, inner_y, x + w, inner_y + inner_h]          
           [top, left, bottom, right].each do |start_x, start_y, end_x, end_y|
-            draw_line(start_x, start_y, end_x, end_y, color)
+            draw_line(start_x, start_y, end_x, end_y, color,
+                      {:line_width => line_width})
           end
         end
-        
+          
         upper_left = [x, y, 90]
         lower_left = [x, y + inner_h, 180]
         lower_right = [x + inner_w, y + inner_h, 270]
@@ -312,7 +318,7 @@ module Rabbit
           lower_right, upper_right
         ].each do |ax, ay, start_angle|
           draw_arc(filled, ax, ay, x_diameter, y_diameter,
-                   start_angle, 90, color)
+                   start_angle, 90, color, {:line_width => line_width})
         end
       end
 
@@ -565,6 +571,10 @@ module Rabbit
       def clear_progress_color
         @progress_foreground = nil
         @progress_background = nil
+      end
+
+      def get_line_width(params, default=nil)
+        params[:line_width] || default
       end
     end
     

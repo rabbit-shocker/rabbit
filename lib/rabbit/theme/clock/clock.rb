@@ -1,4 +1,4 @@
-theme_exit if print?
+theme_exit unless display?
 
 proc_name = "clock"
 

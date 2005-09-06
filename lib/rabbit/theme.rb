@@ -215,6 +215,10 @@ module Rabbit
         canvas.renderer.printable?
       end
 
+      def display?
+        canvas.renderer.display?
+      end
+
       def theme_exit(message=nil)
         raise ThemeExit.new(message)
       end

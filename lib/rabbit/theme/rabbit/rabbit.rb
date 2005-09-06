@@ -21,11 +21,8 @@ set_progress_background("#ff00cc00ff00")
 @image_with_frame = true
 include_theme("image")
 
-@title_logo_image = "lavie_with_logo.png"
-include_theme("title-logo")
-
-@headline_logo_image = "lavie.png"
-include_theme("headline-logo")
+include_theme("rabbit-title-logo")
+include_theme("rabbit-headline-logo")
 
 @title_shadow_color = "#c09090"
 include_theme("title-shadow")
@@ -36,13 +33,8 @@ include_theme("slide-number")
 @image_slide_number_show_text = true
 include_theme("image-slide-number")
 
-@powered_by_image = "rabbit_banner.png"
-@powered_by_text = "Rabbit #{VERSION} and COZMIXNG"
-include_theme("powered-by")
-
-@icon_images = ["lavie_icon.png"]
-include_theme("icon")
-
+include_theme("rabbit-powered-by")
+include_theme("rabbit-icon")
 
 match(TitleSlide, Title) do |titles|
   titles.prop_set("foreground", "red")
