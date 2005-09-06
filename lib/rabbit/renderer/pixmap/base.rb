@@ -192,8 +192,7 @@ module Rabbit
         layout = Pango::Layout.new(@pango_context)
         layout.text = text
         layout.set_attributes(attrs)
-        w, h = layout.size.collect {|x| x / Pango::SCALE}
-        [layout, w, h]
+        layout
       end
 
       def to_pixbuf(slide)

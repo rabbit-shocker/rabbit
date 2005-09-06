@@ -204,8 +204,7 @@ module Rabbit
         layout.text = text
         layout.set_attributes(attrs)
         layout.context_changed
-        w, h = layout.size.collect {|x| x / Pango::SCALE}
-        [layout, w, h]
+        layout
       end
       
       def create_pango_context

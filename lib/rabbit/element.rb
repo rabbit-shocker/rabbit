@@ -389,6 +389,7 @@ module Rabbit
 
       attr_reader :layout
       attr_reader :original_width, :original_height
+      attr_reader :first_line_width, :first_line_height
 
       attr_writer :wrap_mode, :indent, :spacing
 
@@ -424,8 +425,7 @@ module Rabbit
           dirty!
         end
         if_dirty do
-          info = generate_draw_info(markuped_text, canvas, w)
-          @layout, @width, @height, @original_width, @original_height = info
+          setup_draw_info(markuped_text, canvas, w)
         end
       end
       
@@ -464,8 +464,11 @@ module Rabbit
       end
 
       private
-      def generate_draw_info(str, canvas, w)
-        layout, orig_width, orig_height = canvas.make_layout(str)
+      def setup_draw_info(str, canvas, w)
+        layout = canvas.make_layout(str)
+        @original_width, @original_height = layout.pixel_size
+        @first_line_width = @original_width / layout.line_count
+        @first_line_height = @original_height / layout.line_count
         if @wrap_mode
           layout.set_width(w * Pango::SCALE)
           layout.set_wrap(@wrap_mode)
@@ -482,7 +485,8 @@ module Rabbit
                layout.alignment == Pango::Layout::ALIGN_RIGHT)
           width = layout.width / Pango::SCALE
         end
-        [layout, width, height, orig_width, orig_height]
+        @width, @height = width, height
+        @layout = layout
       end
       
       def markup(str)

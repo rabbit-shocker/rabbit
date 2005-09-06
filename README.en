@@ -250,6 +250,19 @@ with the following.
 
      The encoding of #{page name} is same as RWiki's one.
 
+   : memory
+
+     Manage the source on the memory. In this type, the
+     source can be modified by dRuby/SOAP/... interface.
+     
+     You can set initial source by specify file name.
+
+     Example (without initial source):
+       % rabbit --type memory
+
+     Example (with initial source):
+       % rabbit --type memory file.rd
+
 : -e, --encoding
    Specifies encoding of the input source.
    
@@ -270,24 +283,6 @@ with the following.
    
 : -S, --size
    Specifies the width and height of window.
-
-: --paper-width
-   Specifies the width of paper when printing. The unit of
-   width of paper is inch.
-   
-   Default is the width of landscape A4.
-   
-: --paper-height
-   Specifies the height of paper when printing. The unit of
-   height of paper is inch.
-
-   Default is the height of landscape A4.
-   
-: --paper-size
-   Specifies the width and height of paper when printing.
-   The unit of width and height of paper is inch.
-   
-   Default is the size of landscape A4.
 
 : -s, --save-as-image
    Saves each slide as image and exit.
@@ -330,6 +325,24 @@ with the following.
    
    Default is "#{title of slide}.ps".
 
+: --paper-width
+   Specifies the width of paper when printing. The unit of
+   width of paper is inch.
+   
+   Default is the width of landscape A4.
+   
+: --paper-height
+   Specifies the height of paper when printing. The unit of
+   height of paper is inch.
+
+   Default is the height of landscape A4.
+   
+: --paper-size
+   Specifies the width and height of paper when printing.
+   The unit of width and height of paper is inch.
+   
+   Default is the size of landscape A4.
+
 : --slides-per-page
    Specifies slides per page.
    
@@ -358,17 +371,66 @@ with the following.
    Default is /usr/local/share/locale/, 
    /usr/share/locale/ and so on.
 
-: --log-type
+: --logger-type
    Specifies how display error log. If you specify `gui',
-   error log is displayed. You should be specify --log-type
+   error log is displayed. You should be specify --logger-type
    option because error may be occurred when parsing options
    of rabbit.
 
-     % rabbit --log-type gui ...
+     % rabbit --logger-type gui ...
    
    Default is stderr which output log to standard error
    output.
 
+: --use-druby [BOOL]
+   Specifies whether to use dRuby interface.
+
+   Default is true.
+
+: --druby-uri [URI]
+   Specifies dRuby interface URI.
+
+   Default is druby://:10101.
+
+: --output-druby-uri [BOOL]
+   Specifies whether to output dRuby interface URI.
+
+   Default is false.
+
+: --use-soap [BOOL]
+   Specifies whether to use SOAP interface.
+
+   Default is false.
+
+: --soap-host [HOST]
+   Specifies SOAP interface host.
+
+   Default is 0.0.0.0.
+
+: --soap-port [PORT]
+   Specifies SOAP interface port.
+
+   Default is 10103.
+
+: --use-xmlrpc [BOOL]
+   Specifies whether to use XML-RPC interface.
+
+   Default is false.
+
+: --xmlrpc-host [HOST]
+   Specifies XML-RPC interface host.
+
+   Default is 0.0.0.0.
+
+: --xmlrpc-port [PORT]
+   Specifies XML-RPC interface port.
+
+   Default is 10104.
+
+: --server [BOOL]
+   Specifies whether to run as server.
+   
+   Default is false.
 
 == How to write
 
@@ -586,7 +648,10 @@ page from XXX.rd.
   * sode: He wrote cool rabbit, pretty rabbit and pretty
     turtle.
   * Kazuhiko: He sent me many bug reports. He makes a
-    presentation with Rabbit.
+    presentation with Rabbit. He gives me an idea for theme
+    design.
   * noritada: He sent me a bug report for document.
   * gan: He wrote some flags.
-  * KAKUTANI: He sent me a bug report for document.
+  * KAKUTANI: He sent me a bug report for document. He makes
+    a presentation with Rabbit. He gives me an idea for theme
+    design.

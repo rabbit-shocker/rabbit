@@ -335,7 +335,7 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--use-druby [BOOL]",
-            "Specify use dRuby or not.",
+            "Specify whether to use dRuby.",
             "(#{options.use_druby})") do |bool|
       options.use_druby = bool != "false"
     end
@@ -347,7 +347,7 @@ def parse(args, logger)
     end
     
     opts.on("--output-druby-uri [BOOL]",
-            "Specify output dRuby URI or not.",
+            "Specify whether to output dRuby URI.",
             "(#{options.output_druby_uri})") do |bool|
       options.output_druby_uri = bool != "false"
     end
@@ -355,7 +355,7 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--use-soap [BOOL]",
-            "Specify use SOAP or not.",
+            "Specify whether to use SOAP.",
             "(#{options.use_soap})") do |bool|
       options.use_soap = bool != "false"
     end
@@ -381,7 +381,7 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--use-xmlrpc [BOOL]",
-            "Specify use XML-RPC or not.",
+            "Specify whether to use XML-RPC.",
             "(#{options.use_xmlrpc})") do |bool|
       options.use_xmlrpc = bool != "false"
     end
@@ -407,7 +407,7 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--server [BOOL]",
-            "Specify run as server or not.",
+            "Specify whether to run as server.",
             "(#{options.server})") do |bool|
       options.server = bool != "false"
       if options.server
@@ -418,7 +418,12 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on_tail("--help", "Show this message") do
-      logger.info(opts.to_s)
+      if logger.is_a?(Rabbit::Logger::STDERR) and
+          default_logger == logger
+        print(opts.to_s)
+      else
+        logger.info(opts.to_s)
+      end
       exit
     end
   end

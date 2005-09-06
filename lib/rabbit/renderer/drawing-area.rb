@@ -131,8 +131,7 @@ module Rabbit
         attrs, text = Pango.parse_markup(text)
         layout = @area.create_pango_layout(text)
         layout.set_attributes(attrs)
-        w, h = layout.size.collect {|x| x / Pango::SCALE}
-        [layout, w, h]
+        layout
       end
 
       def pango_context

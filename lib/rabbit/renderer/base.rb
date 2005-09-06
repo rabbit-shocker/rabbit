@@ -528,7 +528,8 @@ module Rabbit
         text_attrs = params["text_attributes"] || {}
         if text
           markupped_text = "<span #{to_attrs(text_attrs)}>#{text}</span>"
-          layout, text_width, text_height = make_layout(markupped_text)
+          layout = make_layout(markupped_text)
+          text_width, text_height = layout.pixel_size
           params["layout"] = layout
           params["text_width"] = text_width
           params["text_height"] = text_height

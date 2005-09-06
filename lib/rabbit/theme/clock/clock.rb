@@ -27,7 +27,8 @@ match(Slide) do |slides|
     unless simulation
       text = Time.now.strftime('%H:%M:%S')
       text = %Q[<span #{to_attrs(@clock_props)}>#{text}</span>]
-      layout, text_width, text_height = canvas.make_layout(text)
+      layout = canvas.make_layout(text)
+      text_width, text_height = layout.pixel_size
       layout.set_width(w * Pango::SCALE)
       num_y = canvas.height - @margin_bottom - text_height
       canvas.draw_layout(layout, x, num_y)

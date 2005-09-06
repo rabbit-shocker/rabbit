@@ -22,7 +22,8 @@ add_powered_by = proc do |slide|
       if layout.nil?
         text = "Powered by #{@powered_by_text}"
         text = %Q[<span #{to_attrs(@powered_by_props)}>#{text}</span>]
-        layout, tw, th = canvas.make_layout(text)
+        layout = canvas.make_layout(text)
+        tw, th = layout.pixel_size
       end
       
       new_x = slide.margin_left

@@ -23,7 +23,7 @@ match(TitleSlide, Title) do |titles|
 
         shadow_title = title.clone
         shadow_title.prop_set("foreground", @title_shadow_color)
-        shadow_layout, _, _ = canvas.make_layout(shadow_title.markuped_text)
+        shadow_layout = canvas.make_layout(shadow_title.markuped_text)
         shadow_layout.set_width(w * Pango::SCALE)
         if title.do_horizontal_centering? or
             title.parent.do_horizontal_centering?

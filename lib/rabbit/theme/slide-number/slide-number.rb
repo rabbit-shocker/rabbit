@@ -14,7 +14,8 @@ match(Slide) do |slides|
     unless simulation
       text = "#{canvas.current_index}/#{canvas.slide_size - 1}"
       text = %Q[<span #{to_attrs(@slide_number_props)}>#{text}</span>]
-      layout, text_width, text_height = canvas.make_layout(text)
+      layout = canvas.make_layout(text)
+      text_width, text_height = layout.pixel_size
       layout.set_width(w * Pango::SCALE)
       layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
       num_y = canvas.height - @margin_bottom - text_height

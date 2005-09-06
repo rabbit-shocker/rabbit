@@ -183,7 +183,7 @@ module Rabbit
         begin
           apply_theme(name)
         rescue ThemeExit
-          # ignore
+          logger.info($!.message) if $!.have_message?
         end
       end
 
@@ -381,7 +381,7 @@ module Rabbit
       def draw_mark(items, indent_width, width_or_proc, height_or_proc, name=nil)
         indent(items, indent_width, name) do |item, canvas, x, y, w, h|
           first_text = item.elements.first
-          text_height = first_text.original_height
+          text_height = first_text.first_line_height
           text_height += first_text.padding_top + first_text.padding_bottom
 
           if width_or_proc.respond_to?(:call)

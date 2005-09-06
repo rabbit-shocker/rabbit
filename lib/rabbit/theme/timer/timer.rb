@@ -50,9 +50,10 @@ match(Slide) do |slides|
       props = @timer_props.dup
       props["color"] = @timer_over_color if rest_time < 0
       text = %Q[<span #{to_attrs(props)}>#{text}</span>]
-      layout, text_width, text_height = canvas.make_layout(text)
+      layout = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
-      num_y = canvas.height - @margin_bottom - text_height
+      width, height = layout.pixel_size
+      num_y = canvas.height - @margin_bottom - height
       canvas.draw_layout(layout, x, num_y)
     end
     [x, y, w, h]
