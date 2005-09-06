@@ -106,4 +106,3 @@ match("**", PreformattedBlock) do |blocks|
 end
 
 include_theme("windows-adjust")
-

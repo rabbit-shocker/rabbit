@@ -43,9 +43,9 @@ add_powered_by = proc do |slide|
 end
 
 match(TitleSlide) do |slides|
-  add_powered_by.call(slides.first)
+  add_powered_by.call(slides.first) unless slides.empty?
 end
 
 match(Slide) do |slides|
-  add_powered_by.call(slides.last)
+  add_powered_by.call(slides.last) unless slides.empty?
 end

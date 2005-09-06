@@ -7,7 +7,7 @@ include_theme("image")
 include_theme("image-timer")
 
 @lightning_talk_as_large_as_possible = true
-@lightning_talk_contact_information = "http://192.168.5.1:10102/"
+@lightning_talk_contact_information = "kou@cozmixng.org"
 include_theme("lightning-talk-toolkit")
 
 proc_name = "lightning-rabbit"

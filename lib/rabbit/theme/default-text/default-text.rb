@@ -1,31 +1,8 @@
-match(TitleSlide, "*") do |elems|
-  elems.prop_set("size", @large_font_size)
-  set_font_family(elems)
-end
-
-match(TitleSlide, Title) do |titles|
-  titles.prop_set("size", @huge_font_size)
-  titles.prop_set("weight", "heavy")
-end
-
-match(TitleSlide, Subtitle) do |titles|
-  titles.prop_set("size", @normal_font_size)
-end
-
-match(TitleSlide, ContentSource) do |sources|
-  sources.prop_set("size", @small_font_size)
-  sources.prop_set("style", "italic")
-
-  sources.margin_bottom = @space
-end
-
-match(TitleSlide, Institution) do |institutions|
-  institutions.prop_set("size", @normal_font_size)
-  institutions.prop_set("style", "italic")
-end
+include_theme("default-title-text")
 
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
+  heads.prop_set("weight", "bold")
   set_font_family(heads)
 end
 
@@ -39,11 +16,20 @@ end
 
 match("**", Emphasis) do |texts|
   texts.prop_set("foreground", "red")
-  texts.prop_set("style", "italic")
+  texts.prop_set("weight", "bold")
 end
 
 match("**", DeletedText) do |texts|
   texts.prop_set("strikethrough", "true")
+end
+
+match(Slide, "**", SmallText) do |texts|
+  texts.prop_set("size", @xx_small_font_size)
+  texts.prop_set("foreground", "#666")
+end
+
+match("**", HeadLine, "**", SmallText) do |texts|
+  texts.prop_set("size", @small_font_size)
 end
 
 match("**", ReferText) do |texts|
@@ -96,6 +82,8 @@ end
 
 match("**", DescriptionTerm) do |terms|
   terms.prop_set("size", @normal_font_size)
+  terms.prop_set("weight", "bold")
+  set_font_family(terms)
 end
 
 match("**", MethodTerm) do |texts|

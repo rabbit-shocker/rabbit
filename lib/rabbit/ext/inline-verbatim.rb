@@ -54,6 +54,11 @@ module Rabbit
         Superscript.new(sup_text)
       end
 
+      def ext_inline_verb_small(label, source, content, visitor)
+        label = label.to_s
+        return nil unless /^small:(.*)$/ =~ label
+        SmallText.new(Text.new(visitor.apply_to_String($1)))
+      end
     end
   end
 end

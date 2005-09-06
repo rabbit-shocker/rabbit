@@ -1,3 +1,5 @@
+include_theme("default-item-mark")
+
 slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]
 

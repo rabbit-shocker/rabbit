@@ -1020,6 +1020,10 @@ module Rabbit
       attr_accessor :to
     end
     
+    class SmallText
+      include TextContainerElement
+    end
+
     class Subscript
       include TextContainerElement
     end

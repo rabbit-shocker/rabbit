@@ -27,7 +27,6 @@ match(*all_table) do |tables|
     
     table.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
       if table.caption and layout.nil?
-        ox, oy = x, y
         caption = Text.new(table.caption)
         caption.align = Pango::Layout::ALIGN_CENTER
         caption.prop_set("size", @normal_font_size)
@@ -39,6 +38,7 @@ match(*all_table) do |tables|
         adjust_y = th + @space / 2.0
       end
       if !simulation and layout
+        layout.width = w * Pango::SCALE
         canvas.draw_layout(layout, x, y - adjust_y)
       end
       [x, y, w, h]
