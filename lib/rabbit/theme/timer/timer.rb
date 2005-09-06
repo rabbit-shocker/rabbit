@@ -1,4 +1,4 @@
-theme_exit if display?
+theme_exit unless display?
 
 proc_name = "timer"
 init_proc_name_prefix = "timer_init"
