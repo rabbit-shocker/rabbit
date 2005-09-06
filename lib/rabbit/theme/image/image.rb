@@ -39,7 +39,7 @@ match("**", Image) do |images|
   
   images.each do |image|
     unless image.caption
-      image.margin_bottom = @space * 0
+      image.margin_bottom = @space
       next
     end
     
