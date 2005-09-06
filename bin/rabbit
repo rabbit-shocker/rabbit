@@ -45,10 +45,10 @@ def parse(args, logger)
   options.use_druby = true
   options.druby_uri = "druby://:10101"
   options.output_druby_uri = false
-  options.use_soap = true
+  options.use_soap = false
   options.soap_host = "0.0.0.0"
   options.soap_port = 10103
-  options.use_xmlrpc = true
+  options.use_xmlrpc = false
   options.xmlrpc_host = "0.0.0.0"
   options.xmlrpc_port = 10104
   options.server = false
