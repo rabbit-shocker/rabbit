@@ -41,7 +41,8 @@ module Rabbit
       end
         
       def a_link(file_name_format, slide_number, label, label_only)
-        href = slide_file_name(file_name_format, slide_number)
+        name = slide_file_name(file_name_format, slide_number)
+        href = File.basename(name)
         HTML.a_link("<a href=\"#{href}\">", label, label_only)
       end
 
@@ -90,7 +91,8 @@ module Rabbit
       end
 
       def image_src(file_name_format, slide_number, image_type)
-        make_file_name(file_name_format, slide_number, image_type)
+        name = make_file_name(file_name_format, slide_number, image_type)
+        File.basename(name)
       end
 
       def slide_title
