@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.1.0\n"
-"POT-Creation-Date: 2005-08-25 18:16+0900\n"
-"PO-Revision-Date: 2005-08-25 18:43+0900\n"
+"POT-Creation-Date: 2005-09-07 14:20+0900\n"
+"PO-Revision-Date: 2005-09-07 14:24+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <kou@cozmixng.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: lib/rabbit/rabbit.rb:37
 msgid "no such file: %s"
-msgstr "そのようなというファイルはありません: %s"
+msgstr "そのようなファイルはありません: %s"
 
 #: lib/rabbit/rabbit.rb:47
 msgid ""
@@ -51,7 +51,7 @@ msgstr "読み込むことができません: %s"
 msgid "immutable source type: %s"
 msgstr "変更不能なソースタイプです: %s"
 
-#: lib/rabbit/rabbit.rb:126
+#: lib/rabbit/rabbit.rb:134
 msgid "not available interface: %s"
 msgstr "利用可能なインターフェイスではありません: %s"
 
@@ -130,13 +130,21 @@ msgstr "/スライドをキャッシュ"
 msgid "/Quit"
 msgstr "/終了"
 
-#: lib/rabbit/canvas.rb:354 lib/rabbit/renderer/drawing-area.rb:455
+#: lib/rabbit/canvas.rb:403 lib/rabbit/renderer/drawing-area.rb:458
 msgid "processing..."
 msgstr "処理中です．．．"
 
-#: lib/rabbit/ext/block-verbatim.rb:137
+#: lib/rabbit/ext/block-verbatim.rb:134
 msgid "invalid source: %s"
 msgstr "不正なソースです: %s"
+
+#: lib/rabbit/ext/enscript.rb:23
+msgid "enscript: unsupported language: %s"
+msgstr "enscript: サポートしていない言語です: %s"
+
+#: lib/rabbit/ext/enscript.rb:95
+msgid "enscript: unsupported element name: %s"
+msgstr "enscript: サポートしていない要素名です: %s"
 
 #: lib/rabbit/logger/stderr.rb:14
 msgid "can't convert to current locale from UTF-8: %s"
@@ -146,15 +154,15 @@ msgstr "UTF-8から現在のロケールに変換できません: %s"
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/drawing-area.rb:593
+#: lib/rabbit/renderer/drawing-area.rb:596
 msgid "Now processing... Do you really quit?"
 msgstr "処理中です．．．本当に終了しますか？"
 
-#: lib/rabbit/renderer/base.rb:503
+#: lib/rabbit/renderer/base.rb:561
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: lib/rabbit/renderer/print.rb:312
+#: lib/rabbit/renderer/print.rb:325
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
