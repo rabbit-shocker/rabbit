@@ -123,6 +123,7 @@ libraries on Windows.
   * Ruby/RSVG in ((<RAA:ruby-gnome2>)) (for beautiful scaling
     SVG)
   * ((<RAA:ruby-gettext>)) (for displaying localized messages)
+  * ((<RAA:htree>))
 
 === Included libraries
 

@@ -1,4 +1,7 @@
-require 'htree'
+begin
+  require 'htree'
+rescue LoadError
+end
 
 require 'rabbit/ext/block-verbatim'
 
@@ -46,6 +49,7 @@ module Rabbit
       
       private
       def enscript_html_to_rabbit(html, visitor)
+        return nil unless defined?(HTree)
         tree = HTree(enscript_extract_newline_around_pre(html))
         pre = enscript_get_element(tree, "pre")
         address = enscript_get_element(tree, "address")
