@@ -430,7 +430,8 @@ module Rabbit
       def draw_order(items, indent_width, name=nil, &block)
         make_order_layout = Proc.new do |item|
           str = block.call(item)
-          layout, tw, th = canvas.make_layout(str)
+          layout = canvas.make_layout(str)
+          tw, th = layout.pixel_size
           [tw + indent_width, tw, th, layout]
         end
 
