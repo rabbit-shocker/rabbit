@@ -172,6 +172,3 @@ msgstr "%s n'existe pas."
 #: lib/rabbit/renderer/print.rb:325
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
-
-#~ msgid "%s isn't a file"
-#~ msgstr "%s n'est pas un fichier."

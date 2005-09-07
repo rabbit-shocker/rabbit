@@ -55,6 +55,10 @@ module Rabbit
         nil
       end
     end
+
+    def unescape_title(title)
+      REXML::Text.unnormalize(title).gsub(/\r|\n/, '')
+    end
   end
   
   module SystemRunner

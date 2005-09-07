@@ -1,6 +1,7 @@
 require "gtk2"
 
 require "rabbit/gettext"
+require "rabbit/utils"
 require "rabbit/theme"
 require "rabbit/image"
 
@@ -102,7 +103,10 @@ module Rabbit
       _move_to = method(:move_to)
       jump = _("/Jump") + "/"
       @canvas.slides.each_with_index do |slide, i|
-        items << ["#{jump}#{i}: #{slide.title}", "<Item>", nil, nil, _move_to, i]
+        items << [
+          "#{jump}#{i}: #{Utils.unescape_title(slide.title)}",
+          "<Item>", nil, nil, _move_to, i
+        ]
       end
 
       themes = Theme::Searcher.collect_theme

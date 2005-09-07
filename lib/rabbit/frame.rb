@@ -82,7 +82,7 @@ module Rabbit
     end
     
     def update_title(new_title)
-      @window.title = unescape_title(new_title)
+      @window.title = Utils.unescape_title(new_title)
     end
 
     def init_gui(width, height, main_window)
@@ -137,10 +137,6 @@ module Rabbit
           Gtk.main_quit
         end
       end
-    end
-
-    def unescape_title(title)
-      REXML::Text.unnormalize(title).gsub(/\r|\n/, '')
     end
 
     def fallback_fullscreen

@@ -30,7 +30,7 @@ module Rabbit
         src_file.close
         html_file = Tempfile.new("rabbit-enscript-html")
         args = [
-          "--color", "--language=html",
+          "--quiet", "--color", "--language=html",
           "--highlight=#{@@enscript_highlight[lang]}",
           "--output=#{html_file.path}",
           src_file.path,

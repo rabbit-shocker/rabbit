@@ -165,6 +165,3 @@ msgstr "%sはサポートしていません: %s"
 #: lib/rabbit/renderer/print.rb:325
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
-
-#~ msgid "%s isn't a file"
-#~ msgstr "%sはファイルではありません．"
