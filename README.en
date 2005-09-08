@@ -61,7 +61,7 @@ Mr. MIYAMUKO
 
 == Licence
 
-Ruby's (expected files under lib/rabbit/tgif.rb)
+Ruby's (except files under lib/rabbit/tgif.rb)
 
 The files under lib/rabbit/tgif.rb is the
 same licence of
@@ -656,3 +656,5 @@ page from XXX.rd.
   * KAKUTANI: He sent me a bug report for document. He makes
     a presentation with Rabbit. He gives me an idea for theme
     design.
+  * atzm: He makes Gentoo package (*.ebuild).
+  * akira yamada: He makes Debian package (*.deb).
