@@ -107,20 +107,33 @@ module Rabbit
           end
         else
           slope = (y2 - y1).to_f / (x2 - x1).to_f
-          theta = Math.atan(slope)
-          x_delta = Math.cos(theta) * line_width
-          0.step(x_delta, 1) do |i|
-            y_delta = slope * i
-            drawable.draw_line(gc, x1 - i, y1 - y_delta, x2 - i, y2 - y_delta)
-            drawable.draw_line(gc, x1 + i, y1 + y_delta, x2 + i, y2 + y_delta)
+          theta = Math.atan(slope.abs)
+          y_delta = Math.sin(theta) * line_width
+          0.step(y_delta, y_delta > 0 ? 1 : -1) do |i|
+            x_delta = slope * i
+            drawable.draw_line(gc, x1 - x_delta, y1 + i, x2 - x_delta, y2 + i)
+            drawable.draw_line(gc, x1 + x_delta, y1 - i, x2 + x_delta, y2 - i)
           end
         end
         drawable.draw_line(gc, x1, y1, x2, y2)
       end
       
-      def draw_rectangle(filled, x1, y1, x2, y2, color=nil)
+      def draw_rectangle(filled, x, y, w, h, color=nil, params={})
         gc = make_gc(color)
-        drawable.draw_rectangle(gc, filled, x1, y1, x2, y2)
+        unless filled
+          line_width = get_line_width(params, 1) / 2
+          line_width.times do |i|
+            delta = i + 1
+            double_delta = delta * 2
+            drawable.draw_rectangle(gc, false,
+                                    x - delta, y - delta,
+                                    w + double_delta, h + double_delta)
+            drawable.draw_rectangle(gc, false,
+                                    x + delta, y + delta,
+                                    w - double_delta, h - double_delta)
+          end
+        end
+        drawable.draw_rectangle(gc, filled, x, y, w, h)
       end
       
       def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
@@ -152,16 +165,16 @@ module Rabbit
         end
       end
       
-      def draw_circle(filled, x, y, w, h, color=nil)
-        draw_arc(filled, x, y, w, h, 0, 360, color)
+      def draw_circle(filled, x, y, w, h, color=nil, params={})
+        draw_arc(filled, x, y, w, h, 0, 360, color, params)
       end
       
-      def draw_polygon(filled, points, color=nil)
+      def draw_polygon(filled, points, color=nil, params={})
         gc = make_gc(color)
         drawable.draw_polygon(gc, filled, points)
       end
       
-      def draw_layout(layout, x, y, color=nil)
+      def draw_layout(layout, x, y, color=nil, params={})
         gc = make_gc(color)
         drawable.draw_layout(gc, x, y, layout)
       end

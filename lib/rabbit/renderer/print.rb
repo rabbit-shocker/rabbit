@@ -104,16 +104,17 @@ module Rabbit
         end
       end
       
-      def draw_rectangle(filled, x1, y1, x2, y2, color=nil)
-        x1, y1 = from_screen(x1, y1)
-        y1 -= y2
+      def draw_rectangle(filled, x, y, w, h, color=nil, params={})
+        x, y = from_screen(x, y)
+        y -= h
         color = make_color(color)
         @context.save do
           set_color(color)
+          set_line_width(get_line_width(params))
           if filled
-            @context.rect_filled(x1, y1, x2, y2)
+            @context.rect_filled(x, y, w, h)
           else
-            @context.rect_stroked(x1, y1, x2, y2)
+            @context.rect_stroked(x, y, w, h)
           end
         end
       end
@@ -136,15 +137,16 @@ module Rabbit
         end
       end
       
-      def draw_circle(filled, x, y, w, h, color=nil)
-        draw_arc(filled, x, y, w, h, 0, 359, color)
+      def draw_circle(filled, x, y, w, h, color=nil, params={})
+        draw_arc(filled, x, y, w, h, 0, 359, color, params)
       end
 
-      def draw_polygon(filled, points, color=nil)
+      def draw_polygon(filled, points, color=nil, params={})
         return if points.empty?
         color = make_color(color)
         @context.save do
           set_color(color)
+          set_line_width(get_line_width(params))
           @context.move_to(*from_screen(*points.first))
           points[1..-1].each do |x, y|
             @context.line_to(*from_screen(x, y))
@@ -158,11 +160,12 @@ module Rabbit
         end
       end
       
-      def draw_layout(layout, x, y, color=nil)
+      def draw_layout(layout, x, y, color=nil, params={})
         x, y = from_screen(x, y)
         color = make_color(color)
         @context.save do
           set_color(color)
+          set_line_width(get_line_width(params))
           @context.move_to(x, y)
           @context.layout(layout)
         end
