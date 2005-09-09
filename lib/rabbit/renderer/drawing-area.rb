@@ -51,7 +51,6 @@ module Rabbit
         clear_button_handler
         init_drawing_area
         init_pixmap(1, 1)
-        update_menu
       end
       
       def attach_to(window)
@@ -209,6 +208,18 @@ module Rabbit
         true
       end
 
+      def toggle_white_out
+        super
+        update_menu
+        @area.queue_draw
+      end
+
+      def toggle_black_out
+        super
+        update_menu
+        @area.queue_draw
+      end
+      
       private
       def can_create_pixbuf?
         true
@@ -280,6 +291,10 @@ module Rabbit
           @foreground = Gdk::GC.new(@drawable)
           @background = Gdk::GC.new(@drawable)
           @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
+          @white = Gdk::GC.new(@drawable)
+          @white.set_foreground(make_color("white"))
+          @black = Gdk::GC.new(@drawable)
+          @black.set_foreground(make_color("black"))
           init_pixmap
         end
       end
@@ -287,7 +302,7 @@ module Rabbit
       def set_key_press_event
         @area.signal_connect("key_press_event") do |widget, event|
           handled = false
-          
+
           if event.state.control_mask?
             handled = handle_key_with_control(event)
           end
@@ -338,15 +353,21 @@ module Rabbit
             end
           end
           
-          slide = @canvas.current_slide
-          if slide
-            unless @pixmap.has_key?(slide)
-              @pixmap.width = width
-              @pixmap.height = height
-              slide.draw(@canvas)
+          if @white_out
+            @drawable.draw_rectangle(@white, true, 0, 0, width, height)
+          elsif @black_out
+            @drawable.draw_rectangle(@black, true, 0, 0, width, height)
+          else
+            slide = @canvas.current_slide
+            if slide
+              unless @pixmap.has_key?(slide)
+                @pixmap.width = width
+                @pixmap.height = height
+                slide.draw(@canvas)
+              end
+              @drawable.draw_drawable(@foreground, @pixmap[slide],
+                                      0, 0, 0, 0, -1, -1)
             end
-            @drawable.draw_drawable(@foreground, @pixmap[slide],
-                                    0, 0, 0, 0, -1, -1)
           end
         end
       end
@@ -444,6 +465,10 @@ module Rabbit
           thread do
             @canvas.cache_all_slides
           end
+        when *WHITE_OUT_KEYS
+          toggle_white_out
+        when *BLACK_OUT_KEYS
+          toggle_black_out
         else
           handled = false
         end
@@ -460,16 +485,16 @@ module Rabbit
       end
       
       def handle_key_with_control(key_event)
-        handled = false
+        handled = true
         case key_event.keyval
         when *Control::REDRAW_KEYS
           @canvas.redraw
-          handled = true
         when *Control::PRINT_KEYS
           thread do
             @canvas.print
           end
-          handled = true
+        else
+          handled = false
         end
         handled
       end

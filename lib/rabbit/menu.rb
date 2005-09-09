@@ -49,15 +49,19 @@ module Rabbit
           [_("/FullScreen"), "<StockItem>", "",
             Gtk::Stock::ZOOM_FIT, method(:toggle_fullscreen)]
         end,
-        
+
         [_("/Separator"), "<Separator>"],
         
-        [_("/SaveAsImage"), "<StockItem>", "",
-         Gtk::Stock::SAVE, method(:save_as_image)],
-
-        if Renderer.printable?
-          [_("/Print"), "<StockItem>", "",
-            Gtk::Stock::PRINT, method(:print)]
+        if @canvas.white_outing?
+          [_("/UnWhiteOut"), "<StockItem>", "", nil, method(:toggle_white_out)]
+        else
+          [_("/WhiteOut"), "<StockItem>", "", nil, method(:toggle_white_out)]
+        end,
+        
+        if @canvas.black_outing?
+          [_("/UnBlackOut"), "<StockItem>", "", nil, method(:toggle_black_out)]
+        else
+          [_("/BlackOut"), "<StockItem>", "", nil, method(:toggle_black_out)]
         end,
         
         [_("/Separator"), "<Separator>"],
@@ -83,6 +87,9 @@ module Rabbit
 
         [_("/Separator"), "<Separator>"],
         
+        [_("/Redraw"), "<StockItem>", "",
+          Gtk::Stock::CLEAR, method(:redraw)],
+
         [_("/ReloadTheme"), "<StockItem>", "",
           Gtk::Stock::REFRESH, method(:reload_theme)],
 
@@ -94,6 +101,16 @@ module Rabbit
 
         [_("/CacheAllSlides"), "<Item>", nil, nil, method(:cache_all_slides)],
 
+        [_("/Separator"), "<Separator>"],
+        
+        [_("/SaveAsImage"), "<StockItem>", "",
+         Gtk::Stock::SAVE, method(:save_as_image)],
+
+        if Renderer.printable?
+          [_("/Print"), "<StockItem>", "",
+            Gtk::Stock::PRINT, method(:print)]
+        end,
+        
         [_("/Separator"), "<Separator>"],
         
         [_("/Quit"), "<StockItem>", "",
@@ -143,6 +160,14 @@ module Rabbit
       ifp.get_widget("<main>")
     end
 
+    def toggle_white_out(*args)
+      @canvas.toggle_white_out
+    end
+    
+    def toggle_black_out(*args)
+      @canvas.toggle_black_out
+    end
+    
     def move_to_next(*args)
       @canvas.move_to_next_if_can
     end
@@ -195,6 +220,10 @@ module Rabbit
     
     def merge_theme(name, *args)
       @canvas.merge_theme(name)
+    end
+    
+    def redraw(*args)
+      @canvas.redraw
     end
     
     def reload_theme(*args)

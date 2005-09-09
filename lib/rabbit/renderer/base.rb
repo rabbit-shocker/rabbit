@@ -66,6 +66,8 @@ module Rabbit
         @margin_page_right = nil
         @margin_page_top = nil
         @margin_page_bottom = nil
+        @white_out = false
+        @black_out = false
         @list_id = 0
         clean
         clear_progress_color
@@ -451,6 +453,24 @@ module Rabbit
 
       def clear_theme
         clear_progress_color
+      end
+
+      def white_outing?
+        @white_out
+      end
+
+      def black_outing?
+        @black_out
+      end
+
+      def toggle_white_out
+        @black_out = false
+        @white_out = !@white_out
+      end
+
+      def toggle_black_out
+        @black_out = !@black_out
+        @white_out = false
       end
       
       private

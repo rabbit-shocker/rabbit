@@ -91,6 +91,14 @@ module Rabbit
       Gdk::Keyval::GDK_c,
     ]
     
+    WHITE_OUT_KEYS = [
+      Gdk::Keyval::GDK_W,
+    ]
+
+    BLACK_OUT_KEYS = [
+      Gdk::Keyval::GDK_B,
+    ]
+    
     module Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,
@@ -100,6 +108,5 @@ module Rabbit
         Gdk::Keyval::GDK_p,
       ]
     end
-    
   end
 end
