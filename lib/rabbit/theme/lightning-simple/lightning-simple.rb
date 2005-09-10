@@ -34,7 +34,7 @@ end
 
 include_theme("rabbit-item-mark")
 
-@powered_by_text = "Rabbit #{VERSION}"
+@powered_by_text = "Powered by Rabbit #{VERSION}"
 include_theme("powered-by")
 
 if print?

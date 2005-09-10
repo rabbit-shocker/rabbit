@@ -5,22 +5,23 @@ proc_name = "powered-by"
   "font_family" => @font_family,
 }
 
-loader = nil
-if @powered_by_image
-  loader = ImageLoader.new(search_file(@powered_by_image))
+@powered_by_images ||= []
+
+loaders = @powered_by_images.collect do |image|
+  ImageLoader.new(search_file(image))
 end
 
 add_powered_by = proc do |slide|
   space = screen_x(1)
   layout = nil
-  tw, th = nil
+  tw, th = 0, 0
 
   slide.delete_post_draw_proc_by_name(proc_name)
 
   slide.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
     unless simulation
-      if layout.nil?
-        text = "Powered by #{@powered_by_text}"
+      if @powered_by_text and layout.nil?
+        text = @powered_by_text
         text = %Q[<span #{to_attrs(@powered_by_props)}>#{text}</span>]
         layout = canvas.make_layout(text)
         tw, th = layout.pixel_size
@@ -29,14 +30,16 @@ add_powered_by = proc do |slide|
       new_x = slide.margin_left
       new_y = canvas.height - slide.margin_bottom
       
-      canvas.draw_layout(layout, new_x, new_y - th)
-      
-      unless loader.nil?
+      canvas.draw_layout(layout, new_x, new_y - th) if layout
+
+      new_x += tw
+      loaders.each do |loader|
         slide_space = canvas.height - y - slide.margin_bottom
         loader.resize(nil, slide_space) if loader.height > slide_space
-        px = new_x + tw + space
+        px = new_x + space
         py = new_y - loader.height
         canvas.draw_pixbuf(loader.pixbuf, px, py)
+        new_x = px + loader.width 
       end
     end
     [x, y, w, h]
