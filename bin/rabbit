@@ -53,6 +53,8 @@ def parse(args, logger)
   options.xmlrpc_port = 10104
   options.server = false
   options.public_level = Rabbit::Front::PublicLevel::STRICT
+  options.comment_source = nil
+  options.comment_encoding = "UTF-8"
 
   default_logger = logger
   
@@ -417,6 +419,20 @@ def parse(args, logger)
     
     opts.separator ""
     
+    opts.on("--comment-source [FILE]",
+            "Specify initial comment source.",
+            "(default source)") do |name|
+      options.comment_source = name
+    end
+    
+    opts.on("--comment-encoding [ENCODING]",
+            "Specify comment source encoding.",
+            "(#{options.comment_encoding})") do |encoding|
+      options.comment_encoding = encoding
+    end
+    
+    opts.separator ""
+    
     opts.on_tail("--help", "Show this message") do
       if logger.is_a?(Rabbit::Logger::STDERR) and
           default_logger == logger
@@ -454,6 +470,14 @@ def parse_margins(margins)
     raise ArgumentError
   end
   [top, right, bottom, left]
+end
+
+def make_canvas(options, logger, renderer)
+  args = [
+    logger, renderer,
+    options.comment_source, options.comment_encoding,
+  ]
+  Rabbit::Canvas.new(*args)
 end
 
 def make_source(options, argv, logger)
@@ -566,7 +590,7 @@ end
 
 def do_print(options, logger)
   renderer = Rabbit::Renderer.printable_renderer(options.slides_per_page)
-  canvas = Rabbit::Canvas.new(logger, renderer)
+  canvas = make_canvas(options, logger, renderer)
   setup_paper_size(canvas, options)
   setup_print_info(canvas, options)
   apply_theme_if_need(canvas, options)
@@ -577,7 +601,7 @@ end
 def do_save_as_image(options, logger)
   Rabbit.gui_init
   
-  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
+  canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_image_info(canvas, options)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
@@ -588,8 +612,8 @@ end
 
 def do_display(options, logger)
   Rabbit.gui_init
-  
-  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::DrawingArea)
+
+  canvas = make_canvas(options, logger, Rabbit::Renderer::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
   frame.init_gui(options.width, options.height, true)
   setup_paper_size(canvas, options)
@@ -610,7 +634,7 @@ end
 def do_server(options, logger)
   Rabbit.gui_init
   
-  canvas = Rabbit::Canvas.new(logger, Rabbit::Renderer::Pixmap)
+  canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
   setup_image_info(canvas, options)

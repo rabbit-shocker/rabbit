@@ -308,7 +308,7 @@ with the following.
    filename is UTF-8, you may need to setup environment
    variable such as LANG and G_FILENAME_ENCODING.
 
-: --output-html
+: --output-html [true|false]
    Specifies whether Rabbit generates HTML or not for
    viewing saved slides.
    
@@ -388,7 +388,7 @@ with the following.
    Default is stderr which output log to standard error
    output.
 
-: --use-druby [BOOL]
+: --use-druby [true|false]
    Specifies whether to use dRuby interface.
 
    Default is true.
@@ -398,12 +398,12 @@ with the following.
 
    Default is druby://:10101.
 
-: --output-druby-uri [BOOL]
+: --output-druby-uri [true|false]
    Specifies whether to output dRuby interface URI.
 
    Default is false.
 
-: --use-soap [BOOL]
+: --use-soap [true|false]
    Specifies whether to use SOAP interface.
 
    Default is false.
@@ -418,7 +418,7 @@ with the following.
 
    Default is 10103.
 
-: --use-xmlrpc [BOOL]
+: --use-xmlrpc [true|false]
    Specifies whether to use XML-RPC interface.
 
    Default is false.
@@ -433,10 +433,20 @@ with the following.
 
    Default is 10104.
 
-: --server [BOOL]
+: --server [true|false]
    Specifies whether to run as server.
    
    Default is false.
+
+: --comment-source [FILE]
+   Specifies initial comment source file name.
+   
+   Default is simple comment source provided by system.
+
+: --comment-encoding [ENCODING]
+   Specifies comment source encoding.
+
+   Default is UTF-8.
 
 == How to write
 
@@ -659,7 +669,7 @@ page from XXX.rd.
   * noritada: He sent me a bug report for document.
   * gan: He wrote some flags.
   * KAKUTANI: He sent me a bug report for document. He makes
-    a presentation with Rabbit. He gives me an idea for theme
-    design.
+    a presentation with Rabbit. He gives me an idea for new
+    features and theme design.
   * atzm: He makes Gentoo package (*.ebuild).
   * akira yamada: He makes Debian package (*.deb).

@@ -76,17 +76,20 @@ module Rabbit
 
     def_delegators(:@renderer, :white_outing?, :black_outing?)
     def_delegators(:@renderer, :toggle_white_out, :toggle_black_out)
+
+    def_delegators(:@renderer, :toggle_comment_window)
     
-    def_delegators(:@source, :source=)
+    def_delegators(:@source, :source=, :reset)
     
     attr_reader :logger, :renderer, :theme_name, :source, :last_modified
+    attr_reader :comment_source
     
     attr_writer :saved_image_basename
 
     attr_accessor :saved_image_type, :output_html
 
 
-    def initialize(logger, renderer)
+    def initialize(logger, renderer, comment_source=nil, comment_encoding=nil)
       @logger = logger
       @frame = NullFrame.new
       @theme_name = nil
@@ -95,6 +98,7 @@ module Rabbit
       @quited = false
       @auto_reload_thread = nil
       @output_html = false
+      init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
     end
@@ -224,7 +228,11 @@ module Rabbit
             @renderer.post_parse_rd
           end
         rescue Racc::ParseError
-          logger.warn($!.message)
+          if block_given?
+            yield($!)
+          else
+            logger.warn($!.message)
+          end
         end
       end
     end
@@ -400,6 +408,30 @@ module Rabbit
       @auto_reload_thread[:stop] = true if @auto_reload_thread
     end
 
+    def append_comment(comment)
+      comment = prepare_comment(comment)
+      comment = "\n= #{comment}" if /\A\s*\z/ !~ comment
+      prev_source = @comment_source.read
+      @comment_source.source = "#{prev_source}#{comment}"
+      @renderer.update_comment(@comment_source) do |error|
+        @comment_source.source = prev_source
+        if block_given?
+          yield(error)
+        else
+          logger.warn(error)
+        end
+        return false
+      end
+      true
+    end
+
+    def comments
+      comments = @comment_source.read.split(/^=\s*(?=[^=]+$)/)[2..-1]
+      comments.collect do |comment|
+        comment.strip
+      end
+    end
+    
     private
     def process
       if @processing
@@ -505,6 +537,27 @@ module Rabbit
       n
     end
 
+    def init_comment(comment_source, comment_encoding)
+      comment_encoding ||= "UTF-8"
+      args = [comment_encoding, logger, comment_source]
+      @comment_source = Source::Memory.new(*args)
+      if /^=\s*[^=]+$/ !~ @comment_source.read
+        @comment_source.source = default_comment_source
+      end
+      @comment_source.encoding = "UTF-8"
+    end
+
+    def default_comment_source
+      source = "= " + _("Comment") + "\n"
+      source << ": theme\n"
+      source << "   comment\n"
+      source
+    end
+
+    def prepare_comment(comment)
+      comment.to_s.gsub(/\r?\n/, '')
+    end
+   
   end
 
 end

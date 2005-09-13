@@ -1,0 +1,15 @@
+<div class="comment">
+<p>
+<%= form("comment", context) %>
+<input type="text" class="comment" name="<%= comment_param_name %>" />
+<input type="submit" name="submit-comment" value="GO!" />
+</form>
+</p>
+<p class="log">
+<ul>
+<% comments.reverse.each do |comment| %>
+<li><%=h comment %></li>
+<% end %>
+</ul>
+</p>
+</div>

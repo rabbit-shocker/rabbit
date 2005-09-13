@@ -11,6 +11,7 @@ module Rabbit
       def initialize(session)
         super
         @navi = NaviDiv.new(session)
+        @comment = CommentDiv.new(session)
       end
       
       private
@@ -75,20 +76,56 @@ module Rabbit
       end
     end
     
+    class CommentDiv < ::Div::Div
+      set_erb(File.join("rabbit", "div", "comment.erb"))
+
+      def initialize(session)
+        super
+        @error_message = nil
+      end
+      
+      def do_comment(context, params)
+        comment = params[comment_param_name]
+        rabbit.append_comment(comment) do |error|
+          @error_message = error.message
+        end
+      end
+      
+      private
+      def rabbit
+        @session.rabbit
+      end
+
+      def comments
+        rabbit.comments
+      end
+
+      def comment_param_name
+        "comment"
+      end
+    end
+    
     class TofuSession < ::Div::TofuSession
 
       @@rabbit = nil
+      @@comment_rabbit = nil
       
       def self.rabbit=(rabbit)
         @@rabbit = rabbit
       end
 
+      def self.comment_rabbit=(rabbit)
+        @@comment_rabbit = rabbit
+      end
+
       attr_reader :rabbit
+      attr_reader :comment_rabbit
       
       def initialize(bartender, hint=nil)
         super
         @main = MainDiv.new(self)
         @rabbit = @@rabbit
+        @comment_rabbit = @@comment_rabbit
       end
 
       def do_GET(context)

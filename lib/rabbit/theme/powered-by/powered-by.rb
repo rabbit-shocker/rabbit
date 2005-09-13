@@ -14,7 +14,7 @@ end
 add_powered_by = proc do |slide|
   space = screen_x(1)
   layout = nil
-  tw, th = 0, 0
+  tw = th = 0
 
   slide.delete_post_draw_proc_by_name(proc_name)
 

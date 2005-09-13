@@ -46,6 +46,7 @@ module Rabbit
         @current_cursor = nil
         @blank_cursor = nil
         @caching = nil
+        @comment_initialized = false
         @button_handling = false
         init_progress
         clear_button_handler
@@ -55,10 +56,12 @@ module Rabbit
       
       def attach_to(window)
         window.add(@area)
+        set_configure_event(window)
       end
     
       def detach_from(window)
         window.remove(@area)
+        window.signal_handler_disconnect(@connect_signal_id)
       end
     
       def width
@@ -219,6 +222,22 @@ module Rabbit
         update_menu
         @area.queue_draw
       end
+
+      def toggle_comment_frame
+        ensure_comment
+        if @comment_frame.window.visible?
+          @comment_frame.window.hide_all
+        else
+          adjust_comment_frame
+          @comment_frame.window.show_all
+        end
+      end
+
+      def update_comment(source, &block)
+        ensure_comment
+        error_occurred = parse_comment(source, &block)
+        @comment_canvas.move_to_last unless error_occurred
+      end
       
       private
       def can_create_pixbuf?
@@ -228,6 +247,43 @@ module Rabbit
       def init_pixmap(w=width, h=height)
         @pixmap = Renderer::Pixmap.new(@canvas, w, h)
         @pixmap.setup_event(self)
+      end
+
+      def parse_comment(source)
+        error_occurred = false
+        @comment_canvas.parse_rd(source) do |error|
+          error_occurred = true
+          if block_given?
+            yield(error)
+          else
+            @comment_canvas.logger.warn(error)
+          end
+        end
+        error_occurred
+      end
+      
+      def ensure_comment
+        unless @comment_initialized
+          init_comment
+          @comment_initialized = true
+        end
+      end
+      
+      def init_comment
+        init_comment_canvas
+        init_comment_frame
+        @comment_frame.init_gui(width / 10, height / 10,
+                                false, Gtk::Window::POPUP)
+        @comment_frame.window.hide_all
+        @comment_canvas.parse_rd(@comment_canvas.comment_source)
+      end
+
+      def init_comment_canvas
+        @comment_canvas = Canvas.new(@canvas.logger, self.class)
+      end
+
+      def init_comment_frame
+        @comment_frame = Frame.new(@comment_canvas.logger, @comment_canvas)
       end
       
       def clear_button_handler
@@ -383,6 +439,15 @@ module Rabbit
         end
       end
       
+      def set_configure_event(window)
+        id = window.signal_connect("configure_event") do |widget, event|
+          adjust_comment_frame
+          adjust_progress_window
+          false
+        end
+        @configure_signal_id = id
+      end
+      
       def set_cursor(cursor)
         @current_cursor = @drawable.cursor = cursor
       end
@@ -469,6 +534,8 @@ module Rabbit
           toggle_white_out
         when *BLACK_OUT_KEYS
           toggle_black_out
+        when *TOGGLE_COMMENT_FRAME_KEYS
+          toggle_comment_frame
         else
           handled = false
         end
@@ -596,12 +663,10 @@ module Rabbit
       end
 
       def update_progress(i)
-        adjust_progress_window
         @progress_current = i
       end
 
       def end_progress
-        adjust_progress_window
         @progress_current = @progress_max
         Gtk.timeout_add(100) do
           @progress_window.hide
@@ -612,6 +677,22 @@ module Rabbit
 
       def adjust_progress_window
         @progress_window.move(*@canvas.window.position)
+      end
+
+      def adjust_comment_frame
+        if @comment_initialized
+          w, h = width / 10, height / 10
+          @comment_frame.window.resize(w, h)
+          if false # @canvas.window.decorated?
+            @canvas.window.decorated = false
+            x, y = @canvas.window.position
+            @canvas.window.decorated = true
+          else
+            x, y = @canvas.window.position
+          end
+          y = y + height - h
+          @comment_frame.window.move(x, y)
+        end
       end
       
       def confirm_dialog

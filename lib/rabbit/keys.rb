@@ -99,6 +99,10 @@ module Rabbit
       Gdk::Keyval::GDK_B,
     ]
     
+    TOGGLE_COMMENT_FRAME_KEYS = [
+      Gdk::Keyval::GDK_C,
+    ]
+    
     module Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,

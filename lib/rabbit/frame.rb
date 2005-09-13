@@ -30,8 +30,13 @@ module Rabbit
       @canvas = canvas
     end
 
+    def destroyed?
+      @window.nil? or @window.destroyed?
+    end
+    
     def quit
-      @window.destroy
+      @window.destroy unless destroyed?
+      @window = nil
       true
     end
 
@@ -85,8 +90,8 @@ module Rabbit
       @window.title = Utils.unescape_title(new_title)
     end
 
-    def init_gui(width, height, main_window)
-      init_window(width, height)
+    def init_gui(width, height, main_window, window_type=nil)
+      init_window(width, height, window_type)
       @fullscreen_toggled = false
       @fullscreen = false
       @iconify = false
@@ -96,8 +101,9 @@ module Rabbit
     end
     
     private
-    def init_window(width, height)
-      @window = Gtk::Window.new
+    def init_window(width, height, window_type=nil)
+      window_type ||= Gtk::Window::TOPLEVEL
+      @window = Gtk::Window.new(window_type)
       @window.set_default_size(width, height)
       @window.set_app_paintable(true)
       set_window_signal

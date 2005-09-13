@@ -19,18 +19,23 @@ module Rabbit
         else
           @original_source = ""
         end
+        reset
       end
 
       def source=(new_source)
-        @original_source = new_source
+        @current_source = new_source
       end
       
       def _read
-        @original_source
+        @current_source
       end
       
       def need_read?
-        super or @original_source != @source
+        super or @current_source != @source
+      end
+
+      def reset
+        @current_source = @original_source.dup
       end
     end
     

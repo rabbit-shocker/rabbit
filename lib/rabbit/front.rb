@@ -38,7 +38,7 @@ module Rabbit
       AVAILABLE_INTERFACES << [name, PublicLevel::READ_SOURCE, false]
     end
 
-    %w(source=).each do |name|
+    %w(source= reset).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SOURCE, true]
     end
 
@@ -54,7 +54,7 @@ module Rabbit
       @previous_width = @canvas.width
       @previous_height = @canvas.height
       setup_public_interface
-      reset
+      clean
     end
 
     def current_slide_image
@@ -115,7 +115,15 @@ module Rabbit
     def accept_move?
       not (@public_level & Front::PublicLevel::MOVE).zero?      
     end
+
+    def append_comment(comment)
+      @canvas.append_comment(comment)
+    end
     
+    def comments
+      @canvas.comments
+    end
+
     private
     def check_dirty
       mon_synchronize do
@@ -125,7 +133,7 @@ module Rabbit
 
     def _check_dirty
       if dirty?
-        reset 
+        clean
         if off_screen_canvas.need_reload_source?
           off_screen_canvas.reload_source
           synchronize
@@ -186,7 +194,7 @@ module Rabbit
       end
     end
     
-    def reset
+    def clean
       @off_screen_canvas = nil
       @dirty = false
       @images = []

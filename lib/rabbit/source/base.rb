@@ -7,8 +7,8 @@ module Rabbit
 
     module Base
 
-      attr_reader :encoding, :base, :tmp_base
-      attr_accessor :force_modified
+      attr_reader :base, :tmp_base
+      attr_accessor :encoding, :force_modified
 
       def initialize(encoding, logger)
         @encoding = encoding
@@ -21,6 +21,9 @@ module Rabbit
       def source=(new_source)
         source_type = self.class.name.split("::").last.downcase
         raise ImmutableSourceTypeError.new(source_type)
+      end
+
+      def reset
       end
       
       def read

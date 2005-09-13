@@ -60,7 +60,9 @@ def main(monolithic=true)
                                    :Logger => logger)
 
   rabbit = DRbObject.new_with_uri(options.druby_uri)
+  comment_rabbit = DRbObject.new_with_uri("druby://localhost:10105")
   Rabbit::Div::TofuSession.rabbit = rabbit
+  Rabbit::Div::TofuSession.comment_rabbit = comment_rabbit
   bartender = Tofu::Bartender.new(Rabbit::Div::TofuSession)
   server.mount("/", WEBrick::Tofulet, bartender)
 

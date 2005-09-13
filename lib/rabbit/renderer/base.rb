@@ -472,6 +472,12 @@ module Rabbit
         @black_out = !@black_out
         @white_out = false
       end
+
+      def toggle_comment_window
+      end
+
+      def update_comment(source)
+      end
       
       private
       def can_create_pixbuf?
