@@ -77,7 +77,9 @@ module Rabbit
     def_delegators(:@renderer, :white_outing?, :black_outing?)
     def_delegators(:@renderer, :toggle_white_out, :toggle_black_out)
 
-    def_delegators(:@renderer, :toggle_comment_window)
+    def_delegators(:@renderer, :toggle_comment_frame, :toggle_comment_view)
+
+    def_delegators(:@renderer, :post_init_gui)
     
     def_delegators(:@source, :source=, :reset)
     
@@ -217,22 +219,20 @@ module Rabbit
 
     def parse_rd(source=nil)
       @source = source || @source
-      if @source.modified?
-        begin
-          keep_index do
-            tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
-            clear
-            visitor = RD2RabbitVisitor.new(self)
-            visitor.visit(tree)
-            reload_theme
-            @renderer.post_parse_rd
-          end
-        rescue Racc::ParseError
-          if block_given?
-            yield($!)
-          else
-            logger.warn($!.message)
-          end
+      begin
+        keep_index do
+          tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
+          clear
+          visitor = RD2RabbitVisitor.new(self)
+          visitor.visit(tree)
+          reload_theme
+          @renderer.post_parse_rd
+        end
+      rescue Racc::ParseError
+        if block_given?
+          yield($!)
+        else
+          logger.warn($!.message)
         end
       end
     end

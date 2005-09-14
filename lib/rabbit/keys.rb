@@ -100,7 +100,11 @@ module Rabbit
     ]
     
     TOGGLE_COMMENT_FRAME_KEYS = [
-      Gdk::Keyval::GDK_C,
+      Gdk::Keyval::GDK_m,
+    ]
+    
+    TOGGLE_COMMENT_VIEW_KEYS = [
+      Gdk::Keyval::GDK_M,
     ]
     
     module Control

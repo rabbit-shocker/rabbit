@@ -12,11 +12,12 @@ module Rabbit
     include ScreenInfo
     extend Forwardable
 
-    FALLBACK_LIMIT = 100
+    FALLBACK_LIMIT = 250
     
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
-    def_delegators(:@window, :iconify)
+    def_delegators(:@window, :iconify, :show, :hide, :visible?)
+    def_delegators(:@window, :set_size_request, :resize)
     
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
@@ -97,7 +98,8 @@ module Rabbit
       @iconify = false
       @main_window = main_window
       @window.keep_above = true unless @main_window
-      @window.show_all
+      @window.show
+      @canvas.post_init_gui
     end
     
     private
@@ -105,6 +107,7 @@ module Rabbit
       window_type ||= Gtk::Window::TOPLEVEL
       @window = Gtk::Window.new(window_type)
       @window.set_default_size(width, height)
+      @window.resize(width, height)
       @window.set_app_paintable(true)
       set_window_signal
       @canvas.attach_to(self, @window)
@@ -153,12 +156,13 @@ module Rabbit
           @prev_width, @prev_height = width, height
           @prev_x, @prev_y = @window.position
           @window.hide
-          @window.resize(screen_width, screen_height)
+          @window.set_size_request(screen_width, screen_height)
           @window.decorated = false
           @window.keep_above = true
-          @window.show_all
+          @window.show
           @window.move(0, 0)
           @window.present
+          @canvas.fullscreened
         end
         false
       end
@@ -170,12 +174,13 @@ module Rabbit
             @prev_width and @prev_height and
             @prev_x and @prev_y
           @window.hide
-          @window.resize(@prev_width, @prev_height)
+          @window.set_size_request(@prev_width, @prev_height)
           @window.decorated = true
           @window.keep_above = false
-          @window.show_all
+          @window.show
           @window.move(@prev_x, @prev_y)
           @window.present
+          @canvas.unfullscreened
         end
         false
       end
@@ -197,4 +202,21 @@ module Rabbit
     def_null_methods(:fullscreen?, :quit)
   end
   
+  class EmbedFrame < Frame
+
+    def update_title(new_title)
+    end
+    
+    def init_gui(width, height, main_window, window_type=nil)
+      @window = Gtk::EventBox.new
+      @window.set_size_request(width, height)
+      @canvas.attach_to(self, @window)
+      @fullscreen_toggled = false
+      @fullscreen = false
+      @iconify = false
+      @main_window = main_window
+      @window.show
+      @canvas.post_init_gui
+    end
+  end
 end

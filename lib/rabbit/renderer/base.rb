@@ -479,6 +479,9 @@ module Rabbit
       def update_comment(source)
       end
       
+      def post_init_gui
+      end
+      
       private
       def can_create_pixbuf?
         false

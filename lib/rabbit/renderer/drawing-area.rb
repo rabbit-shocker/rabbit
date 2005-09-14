@@ -52,26 +52,44 @@ module Rabbit
         clear_button_handler
         init_drawing_area
         init_pixmap(1, 1)
+        init_comment_log_window
       end
       
       def attach_to(window)
-        window.add(@area)
-        set_configure_event(window)
+        @window = window
+        @hbox = Gtk::HBox.new
+        @vbox = Gtk::VBox.new
+        @vbox.pack_start(@area, true, true, 0)
+        @area.show
+        @vbox.pack_end(@comment_log_window, false, false, 0)
+        @hbox.pack_end(@vbox, true, true, 0)
+        init_comment_view_canvas
+        init_comment_view_frame
+        @hbox.pack_start(@comment_view_frame.window, false, false, 0)
+        @window.add(@hbox)
+        @hbox.show
+        @vbox.show
+        set_configure_event
       end
     
       def detach_from(window)
         window.remove(@area)
         window.signal_handler_disconnect(@connect_signal_id)
+        @window = nil
       end
     
       def width
-        @drawable.size[0]
+        if @drawable
+          @drawable.size[0]
+        end
       end
       
       def height
-        @drawable.size[1]
+        if @drawable
+          @drawable.size[1]
+        end
       end
-      
+
       def destroy
         @area.destroy
       end
@@ -131,16 +149,17 @@ module Rabbit
       
       def make_layout(text)
         attrs, text = Pango.parse_markup(text)
-        layout = @area.create_pango_layout(text)
+        layout = create_pango_layout(text)
         layout.set_attributes(attrs)
         layout
       end
 
-      def pango_context
-      end
-      
       def create_pango_context
         @area.create_pango_context
+      end
+
+      def create_pango_layout(text)
+        @area.create_pango_layout(text)
       end
       
       def pre_print(slide_size)
@@ -225,18 +244,45 @@ module Rabbit
 
       def toggle_comment_frame
         ensure_comment
-        if @comment_frame.window.visible?
-          @comment_frame.window.hide_all
+        if @comment_frame.visible?
+          @comment_frame.hide
         else
           adjust_comment_frame
-          @comment_frame.window.show_all
+          @comment_frame.show
         end
+      end
+
+      def toggle_comment_view
+        ensure_comment
+        if @comment_log_window.visible?
+          @comment_log_window.hide_all
+          @comment_view_frame.hide
+        else
+          adjust_comment_view
+          @comment_log_window.show_all
+          @comment_view_frame.show
+          @comment_view_canvas.parse_rd(@canvas.comment_source)
+          @comment_view_canvas.move_to_last
+        end
+        adjust_comment_frame
       end
 
       def update_comment(source, &block)
         ensure_comment
         error_occurred = parse_comment(source, &block)
-        @comment_canvas.move_to_last unless error_occurred
+        unless error_occurred
+          @comment_canvas.move_to_last
+          reset_comment_log
+          if @comment_view_frame.visible?
+            @comment_view_frame.parse_rd(source)
+            @comment_view_canvas.move_to_last
+          end
+        end
+      end
+      
+      def post_init_gui
+        @comment_log_window.hide
+        @comment_view_frame.hide if @comment_view_frame
       end
       
       private
@@ -268,22 +314,33 @@ module Rabbit
           @comment_initialized = true
         end
       end
-      
+
       def init_comment
         init_comment_canvas
         init_comment_frame
-        @comment_frame.init_gui(width / 10, height / 10,
-                                false, Gtk::Window::POPUP)
-        @comment_frame.window.hide_all
-        @comment_canvas.parse_rd(@comment_canvas.comment_source)
+        @comment_canvas.parse_rd(@canvas.comment_source)
+      end
+      
+      def init_comment_frame
+        @comment_frame = Frame.new(@comment_canvas.logger, @comment_canvas)
+        w, h = suggested_comment_frame_size
+        @comment_frame.init_gui(w, h, false, Gtk::Window::POPUP)
+        @comment_frame.hide
       end
 
       def init_comment_canvas
-        @comment_canvas = Canvas.new(@canvas.logger, self.class)
+        @comment_canvas = Canvas.new(@canvas.logger, DrawingArea)
       end
 
-      def init_comment_frame
-        @comment_frame = Frame.new(@comment_canvas.logger, @comment_canvas)
+      def init_comment_view_frame
+        args = [@comment_view_canvas.logger, @comment_view_canvas]
+        @comment_view_frame = EmbedFrame.new(*args)
+        @comment_view_frame.init_gui(-1, -1, false)
+        @comment_view_frame.hide
+      end
+      
+      def init_comment_view_canvas
+        @comment_view_canvas = Canvas.new(@canvas.logger, RotateDrawingArea)
       end
       
       def clear_button_handler
@@ -322,6 +379,43 @@ module Rabbit
           style.set_bg(Gtk::STATE_PRELIGHT, *to_rgb(@progress_background))
         end
         @progress.style = style
+      end
+      
+      COMMENT_LOG_COMMENT_COLUMN = 0
+
+      def reset_comment_log
+        @comment_log_model.clear
+        @comment_canvas.slides[1..-1].each do |slide|
+          iter = @comment_log_model.prepend
+          iter.set_value(COMMENT_LOG_COMMENT_COLUMN, slide.headline.text)
+        end
+      end
+      
+      def init_comment_log_model
+        @comment_log_model = Gtk::ListStore.new(String)
+      end
+
+      def init_comment_log_view
+        init_comment_log_model
+        @comment_log_view = Gtk::TreeView.new(@comment_log_model)
+        @comment_log_view.can_focus = false
+        @comment_log_view.rules_hint = true
+        @comment_log_renderer_comment = Gtk::CellRendererText.new
+        args = [
+          _("comment"),
+          @comment_log_renderer_comment,
+          {"text" => COMMENT_LOG_COMMENT_COLUMN}
+        ]
+        @comment_log_column_comment = Gtk::TreeViewColumn.new(*args)
+        @comment_log_view.append_column(@comment_log_column_comment)
+      end
+      
+      def init_comment_log_window
+        init_comment_log_view
+        @comment_log_window = Gtk::ScrolledWindow.new
+        @comment_log_window.set_policy(Gtk::POLICY_AUTOMATIC,
+                                       Gtk::POLICY_AUTOMATIC)
+        @comment_log_window.add(@comment_log_view)
       end
       
       def init_drawing_area
@@ -386,6 +480,7 @@ module Rabbit
           else
             handled = handle_button_release(event, last_button_press_event)
           end
+          widget.grab_focus
           handled
         end
       end
@@ -439,10 +534,12 @@ module Rabbit
         end
       end
       
-      def set_configure_event(window)
-        id = window.signal_connect("configure_event") do |widget, event|
-          adjust_comment_frame
-          adjust_progress_window
+      def set_configure_event
+        id = @window.signal_connect("configure_event") do |widget, event|
+          args = [event.x, event.y, event.width, event.height]
+          adjust_comment_frame(*args)
+          adjust_comment_view(*args)
+          adjust_progress_window(*args)
           false
         end
         @configure_signal_id = id
@@ -536,6 +633,8 @@ module Rabbit
           toggle_black_out
         when *TOGGLE_COMMENT_FRAME_KEYS
           toggle_comment_frame
+        when *TOGGLE_COMMENT_VIEW_KEYS
+          toggle_comment_view
         else
           handled = false
         end
@@ -675,24 +774,59 @@ module Rabbit
         end
       end
 
-      def adjust_progress_window
-        @progress_window.move(*@canvas.window.position)
+      def adjust_progress_window(x=nil, y=nil, w=nil, h=nil)
+        wx, wy = @canvas.window.position
+        @progress_window.move(x || wx, y || wy)
       end
 
-      def adjust_comment_frame
+      def adjust_comment_frame(x=nil, y=nil, w=nil, h=nil)
         if @comment_initialized
-          w, h = width / 10, height / 10
-          @comment_frame.window.resize(w, h)
-          if false # @canvas.window.decorated?
-            @canvas.window.decorated = false
-            x, y = @canvas.window.position
-            @canvas.window.decorated = true
-          else
-            x, y = @canvas.window.position
+          w, h = suggested_comment_frame_size(w, h)
+          @comment_frame.resize(w, h)
+          wx, wy = @canvas.window.position
+          x ||= wx
+          y ||= wy
+          if @comment_view_frame.visible?
+            x = x + @comment_view_frame.window.size_request[0]
           end
           y = y + height - h
           @comment_frame.window.move(x, y)
         end
+      end
+
+      def adjust_comment_view(x=nil, y=nil, w=nil, h=nil)
+        ww, wh = suggested_comment_log_window_size(w, h)
+        @comment_log_window.set_size_request(ww, wh)
+        begin
+          _, _, _, header_height = @comment_log_column_comment.cell_size
+        rescue TypeError
+          header_height = nil
+        end
+        if header_height
+          text_size = (wh - header_height) * 0.5
+        else
+          text_size = wh * 0.4
+        end
+        @comment_log_renderer_comment.size = text_size * Pango::SCALE
+      
+        fw, fh = suggested_comment_view_frame_size(w, h)
+        @comment_view_frame.set_size_request(fw, fh)
+      end
+      
+      def suggested_comment_frame_size(w=nil, h=nil)
+        w ||= @canvas.width
+        h ||= @canvas.height
+        [w / 10, h / 10]
+      end
+      
+      def suggested_comment_log_window_size(w=nil, h=nil)
+        h ||= @canvas.height
+        [-1, h / 10]
+      end
+      
+      def suggested_comment_view_frame_size(w=nil, h=nil)
+        w ||= @canvas.width
+        [w / 10, -1]
       end
       
       def confirm_dialog
@@ -719,6 +853,50 @@ module Rabbit
       end
       
     end
-    
+
+    class RotateDrawingArea < DrawingArea
+
+      attr_accessor :direction
+
+      def initialize(canvas)
+        super
+        @direction = :right
+      end
+
+      def create_pango_context
+        context = super
+        setup_pango_context(context)
+        context
+      end
+
+      def create_pango_layout(text)
+        layout = super
+        setup_pango_context(layout.context)
+        layout
+      end
+
+      def attach_to(window)
+        @window = window
+        @window.add(@area)
+        @area.show
+      end
+      
+      def draw_layout(layout, x, y, color=nil, params={})
+        super(layout, x, y, color, params)
+      end
+      
+      private
+      def setup_pango_context(context)
+        matrix = Pango::Matrix.new
+        if @direction == :right
+          matrix.rotate!(270)
+        else
+          matrix.rotate!(90)
+        end
+        context.matrix = matrix
+      end
+      
+    end
+
   end
 end
