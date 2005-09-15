@@ -420,7 +420,7 @@ module Rabbit
       
       def init_drawing_area
         @area = Gtk::DrawingArea.new
-        @area.set_can_focus(true)
+        @area.can_focus = true
         event_mask = Gdk::Event::BUTTON_PRESS_MASK
         event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
         event_mask |= Gdk::Event::BUTTON1_MOTION_MASK 
@@ -894,6 +894,11 @@ module Rabbit
           matrix.rotate!(90)
         end
         context.matrix = matrix
+      end
+
+      def init_drawing_area
+        super
+        @area.can_focus = false
       end
       
     end
