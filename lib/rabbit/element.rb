@@ -919,6 +919,22 @@ module Rabbit
       include TextContainerElement
     end
     
+    class Date
+      include TextContainerElement
+    end
+    
+    class Place
+      include TextContainerElement
+    end
+    
+    class When
+      include TextContainerElement
+    end
+    
+    class Where
+      include TextContainerElement
+    end
+    
     class HeadLine
       include TextContainerElement
     end
