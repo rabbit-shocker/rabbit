@@ -77,18 +77,20 @@ module Rabbit
         window.signal_handler_disconnect(@connect_signal_id)
         @window = nil
       end
-    
+
       def width
         if @drawable
           @drawable.size[0]
         end
       end
+      alias original_width width
       
       def height
         if @drawable
           @drawable.size[1]
         end
       end
+      alias original_height height
 
       def destroy
         @area.destroy
@@ -436,7 +438,7 @@ module Rabbit
       end
       
       def set_realize
-        @area.signal_connect("realize") do |widget, event|
+        @area.signal_connect_after("realize") do |widget|
           @drawable = widget.window
           @foreground = Gdk::GC.new(@drawable)
           @background = Gdk::GC.new(@drawable)
@@ -503,11 +505,13 @@ module Rabbit
               end
             end
           end
-          
+
           if @white_out
-            @drawable.draw_rectangle(@white, true, 0, 0, width, height)
+            @drawable.draw_rectangle(@white, true, 0, 0,
+                                     original_width, original_height)
           elsif @black_out
-            @drawable.draw_rectangle(@black, true, 0, 0, width, height)
+            @drawable.draw_rectangle(@black, true, 0, 0,
+                                     original_width, original_height)
           else
             slide = @canvas.current_slide
             if slide
@@ -516,11 +520,15 @@ module Rabbit
                 @pixmap.height = height
                 slide.draw(@canvas)
               end
-              @drawable.draw_drawable(@foreground, @pixmap[slide],
-                                      0, 0, 0, 0, -1, -1)
+              draw_pixmap(slide)
             end
           end
         end
+      end
+
+      def draw_pixmap(slide)
+        @drawable.draw_drawable(@foreground, @pixmap[slide],
+                                0, 0, 0, 0, -1, -1)
       end
       
       def set_scroll_event
@@ -858,21 +866,18 @@ module Rabbit
 
       attr_accessor :direction
 
+      def width
+        original_height
+      end
+
+      def height
+        original_width
+      end
+      
       def initialize(canvas)
         super
         @direction = :right
-      end
-
-      def create_pango_context
-        context = super
-        setup_pango_context(context)
-        context
-      end
-
-      def create_pango_layout(text)
-        layout = super
-        setup_pango_context(layout.context)
-        layout
+        @pixbufs = {}
       end
 
       def attach_to(window)
@@ -881,27 +886,34 @@ module Rabbit
         @area.show
       end
       
-      def draw_layout(layout, x, y, color=nil, params={})
-        super(layout, x, y, color, params)
-      end
-      
-      private
-      def setup_pango_context(context)
-        matrix = Pango::Matrix.new
-        if @direction == :right
-          matrix.rotate!(270)
-        else
-          matrix.rotate!(90)
-        end
-        context.matrix = matrix
+      def clear_pixmap(slide=nil)
+        @pixbufs.delete(slide || @canvas.current_slide)
       end
 
+      def clear_pixmaps
+        @pixbufs = {}
+        super
+      end
+
+      def post_apply_theme
+        @pixbufs = {}
+        super
+      end
+
+      private
       def init_drawing_area
         super
         @area.can_focus = false
       end
-      
-    end
 
+      def draw_pixmap(slide)
+        unless @pixbufs.has_key?(slide)
+          @pixbufs[slide] = Utils.rotate_pixbuf(@pixmap.to_pixbuf(slide))
+        end
+        @drawable.draw_pixbuf(@foreground, @pixbufs[slide],
+                              0, 0, 0, 0, -1, -1,
+                              Gdk::RGB::DITHER_NORMAL, 0, 0)
+      end
+    end
   end
 end

@@ -59,6 +59,29 @@ module Rabbit
     def unescape_title(title)
       REXML::Text.unnormalize(title).gsub(/\r|\n/, '')
     end
+
+    def rotate_pixbuf(pixbuf)
+      w = pixbuf.width
+      h = pixbuf.height
+      n = pixbuf.n_channels
+      pixels = pixbuf.pixels
+      data = "\0" * pixels.size
+      i = 0
+      pixels.each_byte do |rgba|
+        base, rgba_index = i.divmod(n)
+        y, x = base.divmod(w)
+        partition_index = (h * (x + 1)) - y - 1
+        data[partition_index * n + rgba_index] = rgba
+        i += 1
+      end
+      Gdk::Pixbuf.new(data,
+                      pixbuf.colorspace,
+                      pixbuf.has_alpha?,
+                      pixbuf.bits_per_sample,
+                      pixbuf.height,
+                      pixbuf.width,
+                      h * n)
+    end
   end
   
   module SystemRunner

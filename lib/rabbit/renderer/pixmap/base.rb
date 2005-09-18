@@ -85,7 +85,7 @@ module Rabbit
       def draw_slide(slide, simulation)
         init_pixmap(slide, simulation)
         unless simulation
-          drawable.draw_rectangle(@background, true, 0, 0, width, height)
+          draw_rectangle(true, 0, 0, width, height, @background)
         end
         yield
       end
@@ -269,7 +269,7 @@ module Rabbit
 
       def init_pixmap(slide, simulation)
         if simulation
-          @pixmap = Gdk::Pixmap.new(nil, width, height, depth)
+          @pixmap = Gdk::Pixmap.new(nil, @width, @height, depth)
           @pixmaps[slide] = @pixmap
         end
       end
