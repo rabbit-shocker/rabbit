@@ -101,7 +101,15 @@ module Rabbit
       @window.show
       @canvas.post_init_gui
     end
-    
+
+    def fullscreen_available?
+      true
+    end
+
+    def iconify_available?
+      true
+    end
+
     private
     def init_window(width, height, window_type=nil)
       window_type ||= Gtk::Window::TOPLEVEL
@@ -205,6 +213,14 @@ module Rabbit
   class EmbedFrame < Frame
 
     def update_title(new_title)
+    end
+
+    def fullscreen_available?
+      false
+    end
+
+    def iconify_available?
+      false
     end
     
     def init_gui(width, height, main_window, window_type=nil)

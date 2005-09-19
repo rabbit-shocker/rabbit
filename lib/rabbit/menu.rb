@@ -31,26 +31,34 @@ module Rabbit
 
       items = [
         [_("/Separator"), "<Tearoff>"],
-        
+
         if @canvas.index_mode?
           [_("/Slide"), "<StockItem>", "",
-           Gtk::Stock::DND, method(:toggle_index_mode)]
+            nil, method(:toggle_index_mode)]
         else
           [_("/Index"), "<StockItem>", "",
-           Gtk::Stock::INDEX, method(:toggle_index_mode)]
+            Gtk::Stock::INDEX, method(:toggle_index_mode)]
         end,
 
         [_("/Separator"), "<Separator>"],
-        
-        if @canvas.fullscreen?
-          [_("/UnFullScreen"), "<StockItem>", "",
-            Gtk::Stock::ZOOM_OUT, method(:toggle_fullscreen)]
+
+        if @canvas.fullscreen_available?
+          if @canvas.fullscreen?
+            [_("/UnFullScreen"), "<StockItem>", "",
+              Gtk::Stock::ZOOM_OUT, method(:toggle_fullscreen)]
+          else
+            [_("/FullScreen"), "<StockItem>", "",
+              Gtk::Stock::ZOOM_FIT, method(:toggle_fullscreen)]
+          end
         else
-          [_("/FullScreen"), "<StockItem>", "",
-            Gtk::Stock::ZOOM_FIT, method(:toggle_fullscreen)]
+          nil
         end,
 
-        [_("/Separator"), "<Separator>"],
+        if @canvas.fullscreen_available?
+          [_("/Separator"), "<Separator>"]
+        else
+          nil
+        end,
         
         if @canvas.white_outing?
           [_("/UnWhiteOut"), "<StockItem>", "", nil, method(:toggle_white_out)]
@@ -63,9 +71,40 @@ module Rabbit
         else
           [_("/BlackOut"), "<StockItem>", "", nil, method(:toggle_black_out)]
         end,
-        
+
         [_("/Separator"), "<Separator>"],
         
+        if @canvas.comment_frame_available?
+          if @canvas.showing_comment_frame?
+            [_("/HideCommentFrame"), "<StockItem>", "",
+              nil, method(:toggle_comment_frame)]
+          else
+            [_("/ShowCommentFrame"), "<StockItem>", "",
+              Gtk::Stock::DIALOG_INFO, method(:toggle_comment_frame)]
+          end
+        else
+          nil
+        end,
+
+        if @canvas.comment_view_available?
+          if @canvas.showing_comment_view?
+            [_("/HideCommentView"), "<StockItem>", "",
+              nil, method(:toggle_comment_view)]
+          else
+            [_("/ShowCommentView"), "<StockItem>", "",
+              nil, method(:toggle_comment_view)]
+          end
+        else
+          nil
+        end,
+
+        if @canvas.comment_frame_available? or
+            @canvas.comment_view_available?
+          [_("/Separator"), "<Separator>"]
+        else
+          nil
+        end,
+
         # [_("/Jump"), "<StockItem>", "", Gtk::Stock::JUMP_TO],
         [_("/Jump")],
         [_("/Jump") + _("/Separator"), "<Tearoff>"],
@@ -83,9 +122,17 @@ module Rabbit
         
         [_("/Separator"), "<Separator>"],
         
-        [_("/Iconify"), "<ImageItem>", "", @@icon, method(:iconify)],
-
-        [_("/Separator"), "<Separator>"],
+        if @canvas.iconify_available?
+          [_("/Iconify"), "<ImageItem>", "", @@icon, method(:iconify)]
+        else
+          nil
+        end,
+        
+        if @canvas.iconify_available?
+          [_("/Separator"), "<Separator>"]
+        else
+          nil
+        end,
         
         [_("/Redraw"), "<StockItem>", "",
           Gtk::Stock::CLEAR, method(:redraw)],
@@ -113,8 +160,7 @@ module Rabbit
         
         [_("/Separator"), "<Separator>"],
         
-        [_("/Quit"), "<StockItem>", "",
-          Gtk::Stock::QUIT, method(:quit)],
+        [_("/Quit"), "<StockItem>", "", Gtk::Stock::QUIT, method(:quit)],
       ]
 
       _move_to = method(:move_to)
@@ -168,6 +214,14 @@ module Rabbit
       @canvas.toggle_black_out
     end
     
+    def toggle_comment_frame(*args)
+      @canvas.toggle_comment_frame
+    end
+
+    def toggle_comment_view(*args)
+      @canvas.toggle_comment_view
+    end
+
     def move_to_next(*args)
       @canvas.move_to_next_if_can
     end

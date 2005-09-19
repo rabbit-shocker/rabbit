@@ -615,10 +615,10 @@ def do_display(options, logger)
 
   canvas = make_canvas(options, logger, Rabbit::Renderer::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
-  frame.init_gui(options.width, options.height, true)
   setup_paper_size(canvas, options)
   setup_image_info(frame, options)
   setup_print_info(canvas, options)
+  frame.init_gui(options.width, options.height, true)
   apply_theme_if_need(frame, options)
   parse_rd(frame, options, logger)
   frame.fullscreen if options.full_screen

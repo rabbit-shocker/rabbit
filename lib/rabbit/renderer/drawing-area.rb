@@ -74,7 +74,7 @@ module Rabbit
     
       def detach_from(window)
         window.remove(@area)
-        window.signal_handler_disconnect(@connect_signal_id)
+        window.signal_handler_disconnect(@configure_signal_id)
         @window = nil
       end
 
@@ -244,19 +244,36 @@ module Rabbit
         @area.queue_draw
       end
 
+      def showing_comment_frame?
+        @comment_frame and @comment_frame.visible?
+      end
+
+      def showing_comment_view?
+        @comment_log_window and @comment_log_window.visible?
+      end
+
+      def comment_frame_available?
+        true
+      end
+
+      def comment_view_available?
+        true
+      end
+
       def toggle_comment_frame
         ensure_comment
-        if @comment_frame.visible?
+        if showing_comment_frame?
           @comment_frame.hide
         else
           adjust_comment_frame
           @comment_frame.show
         end
+        update_menu
       end
 
       def toggle_comment_view
         ensure_comment
-        if @comment_log_window.visible?
+        if showing_comment_view?
           @comment_log_window.hide_all
           @comment_view_frame.hide
         else
@@ -342,7 +359,11 @@ module Rabbit
       end
       
       def init_comment_view_canvas
-        @comment_view_canvas = Canvas.new(@canvas.logger, RotateDrawingArea)
+        @comment_view_canvas = CommentCanvas.new(@canvas.logger,
+                                                 CommentDrawingArea)
+        @comment_view_canvas.saved_image_basename = @canvas.saved_image_basename
+        @comment_view_canvas.filename = @canvas.filename
+        @comment_view_canvas.slides_per_page = @canvas.slides_per_page
       end
       
       def clear_button_handler
@@ -862,7 +883,7 @@ module Rabbit
       
     end
 
-    class RotateDrawingArea < DrawingArea
+    class CommentDrawingArea < DrawingArea
 
       attr_accessor :direction
 
@@ -900,10 +921,63 @@ module Rabbit
         super
       end
 
+      def toggle_comment_frame
+      end
+
+      def toggle_comment_view
+      end
+
+      def showing_comment_frame?
+        false
+      end
+
+      def showing_comment_view?
+        false
+      end
+
+      def comment_frame_available?
+        false
+      end
+
+      def comment_view_available?
+        false
+      end
+
+      def update_comment(*args, &block)
+      end
+      
+      def post_init_gui
+      end
+
+      def post_toggle_index_mode
+        @pixbufs = {}
+        super
+      end
+      
+      def post_to_pixbuf
+        super
+        @pixbufs = {}
+      end
+      
       private
       def init_drawing_area
         super
         @area.can_focus = false
+      end
+
+      def init_comment_log_window
+      end
+      
+      def init_comment
+      end
+
+      def adjust_comment_frame(*args)
+      end
+
+      def adjust_comment_view(*args)
+      end
+
+      def adjust_progress_window(*args)
       end
 
       def draw_pixmap(slide)

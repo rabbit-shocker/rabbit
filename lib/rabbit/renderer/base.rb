@@ -473,7 +473,26 @@ module Rabbit
         @white_out = false
       end
 
-      def toggle_comment_window
+      def toggle_comment_frame
+      end
+
+      def toggle_comment_view
+      end
+
+      def showing_comment_frame?
+        false
+      end
+
+      def showing_comment_view?
+        false
+      end
+
+      def comment_frame_available?
+        false
+      end
+
+      def comment_view_available?
+        false
       end
 
       def update_comment(source)

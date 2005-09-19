@@ -26,6 +26,8 @@ module Rabbit
     def_delegators(:@frame, :update_title)
     def_delegators(:@frame, :toggle_fullscreen, :fullscreen?)
     def_delegators(:@frame, :iconify, :window)
+    def_delegators(:@frame, :fullscreen_available?)
+    def_delegators(:@frame, :iconify_available?)
 
     def_delegators(:@renderer, :width, :height)
     def_delegators(:@renderer, :width=, :height=)
@@ -77,7 +79,10 @@ module Rabbit
     def_delegators(:@renderer, :white_outing?, :black_outing?)
     def_delegators(:@renderer, :toggle_white_out, :toggle_black_out)
 
+    def_delegators(:@renderer, :showing_comment_frame?, :showing_comment_view?)
     def_delegators(:@renderer, :toggle_comment_frame, :toggle_comment_view)
+    def_delegators(:@renderer, :comment_frame_available?)
+    def_delegators(:@renderer, :comment_view_available?)
 
     def_delegators(:@renderer, :post_init_gui)
     
@@ -96,6 +101,7 @@ module Rabbit
       @frame = NullFrame.new
       @theme_name = nil
       @saved_image_basename = nil
+      @saved_image_type = "png"
       @processing = false
       @quited = false
       @auto_reload_thread = nil
@@ -560,4 +566,21 @@ module Rabbit
    
   end
 
+  class CommentCanvas < Canvas
+    def quit
+      toggle_comment_view
+    end
+
+    def saved_image_basename
+      super + "_comment"
+    end
+
+    def filename=(new_filename)
+      if new_filename.nil?
+        super(new_filename)
+      else
+        super(new_filename + "_comment")
+      end
+    end
+  end
 end
