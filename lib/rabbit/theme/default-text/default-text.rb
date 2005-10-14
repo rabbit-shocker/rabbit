@@ -23,12 +23,12 @@ match("**", DeletedText) do |texts|
   texts.prop_set("strikethrough", "true")
 end
 
-match(Slide, "**", SmallText) do |texts|
+match(Slide, "**", Note) do |texts|
   texts.prop_set("size", @xx_small_font_size)
   texts.prop_set("foreground", "#666")
 end
 
-match("**", HeadLine, "**", SmallText) do |texts|
+match("**", HeadLine, "**", Note) do |texts|
   texts.prop_set("size", @small_font_size)
 end
 

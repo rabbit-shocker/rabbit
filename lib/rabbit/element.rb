@@ -1000,6 +1000,10 @@ module Rabbit
       include TextContainerElement
     end
     
+    class Note
+      include TextContainerElement
+    end
+
     class FoottextBlock
       include ContainerElement
     end
@@ -1040,10 +1044,6 @@ module Rabbit
       attr_accessor :to
     end
     
-    class SmallText
-      include TextContainerElement
-    end
-
     class Subscript
       include TextContainerElement
     end
