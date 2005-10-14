@@ -105,6 +105,8 @@ module Rabbit
       def post_move(index)
         @pixmap.post_move(index)
         update_title
+        @adjust_x = 0
+        @adjust_y = 0
         @area.queue_draw
       end
       
@@ -548,8 +550,12 @@ module Rabbit
       end
 
       def draw_pixmap(slide)
-        @drawable.draw_drawable(@foreground, @pixmap[slide],
-                                0, 0, 0, 0, -1, -1)
+        pixmap = @pixmap[slide]
+        width, height = pixmap.size
+        x = @adjust_x * width
+        y = @adjust_y * height
+        @drawable.draw_drawable(@foreground, pixmap,
+                                x, y, 0, 0, width, height)
       end
       
       def set_scroll_event

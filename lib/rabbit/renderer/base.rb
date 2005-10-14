@@ -49,6 +49,7 @@ module Rabbit
       attr_accessor :margin_top, :margin_bottom
       attr_accessor :progress_foreground
       attr_accessor :progress_background
+      attr_accessor :adjust_x, :adjust_y
       attr_writer :margin_page_left, :margin_page_right
       attr_writer :margin_page_top, :margin_page_bottom
       
@@ -69,6 +70,8 @@ module Rabbit
         @white_out = false
         @black_out = false
         @list_id = 0
+        @adjust_x = 0
+        @adjust_y = 0
         clean
         clear_progress_color
         init_hook_procs

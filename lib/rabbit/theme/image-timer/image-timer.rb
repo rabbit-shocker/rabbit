@@ -11,6 +11,13 @@ if @image_timer_auto_update.nil?
   @image_timer_auto_update = true
 end
 
+if @image_timer_auto_scroll.nil?
+  @image_timer_auto_scroll = false
+end
+
+@image_timer_auto_scroll_direction ||= :left
+@image_timer_auto_scroll_ratio ||= 0.01
+
 @image_timer_image ||= "kame.png"
 @image_timer_interval ||= 3
 
@@ -55,7 +62,33 @@ match(Slide) do |slides|
       rest_time = @image_timer_limit_time - Time.now
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
       base_x = @margin_left + max_width * ratio
+
       canvas.draw_pixbuf(loader.pixbuf, base_x, base_y)
+      
+      if @image_timer_auto_scroll
+        if canvas.slide_size < 3
+          slide_ratio = 1
+        else
+          slide_ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
+        end
+
+        if ratio > slide_ratio
+          case @image_timer_auto_scroll_direction
+          when :top
+            canvas.adjust_y += @image_timer_auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjust_y > 1
+          when :bottom
+            canvas.adjust_y -= @image_timer_auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjust_y < -1
+          when :right
+            canvas.adjust_x -= @image_timer_auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjust_x < -1
+          else
+            canvas.adjust_x += @image_timer_auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjust_x > 1
+          end
+        end
+      end
     end
     [x, y, w, h]
   end
