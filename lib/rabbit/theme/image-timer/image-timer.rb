@@ -12,7 +12,7 @@ if @image_timer_auto_update.nil?
 end
 
 if @image_timer_auto_scroll.nil?
-  @image_timer_auto_scroll = true
+  @image_timer_auto_scroll = false
 end
 
 @image_timer_auto_scroll_direction ||= :left
@@ -79,17 +79,17 @@ match(Slide) do |slides|
           auto_scroll_ratio *= @image_timer_interval
           case @image_timer_auto_scroll_direction
           when :top
-            canvas.adjust_y += auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjust_y > 1
+            canvas.adjustment_y += auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjustment_y > 1
           when :bottom
-            canvas.adjust_y -= auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjust_y < -1
+            canvas.adjustment_y -= auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjustment_y < -1
           when :right
-            canvas.adjust_x -= auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjust_x < -1
+            canvas.adjustment_x -= auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjustment_x < -1
           else
-            canvas.adjust_x += auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjust_x > 1
+            canvas.adjustment_x += auto_scroll_ratio
+            canvas.move_to_next_if_can if canvas.adjustment_x > 1
           end
         end
       end
