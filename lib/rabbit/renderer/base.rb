@@ -4,6 +4,14 @@ require "gtk2"
 require "rabbit/rabbit"
 require "rabbit/gettext"
 
+module Pango
+  class Context
+    unless method_defined?(:families)
+      alias families list_families
+    end
+  end
+end
+
 module Rabbit
   module Renderer
 
@@ -95,7 +103,7 @@ module Rabbit
       
       def font_families
         if @font_families.nil? or @font_families.empty?
-          @font_families = create_pango_context.list_families
+          @font_families = create_pango_context.families
         end
         @font_families
       end
