@@ -574,26 +574,76 @@ module Rabbit
             @drawable.draw_rectangle(@black, true, 0, 0,
                                      original_width, original_height)
           else
-            slide = @canvas.current_slide
-            if slide
-              unless @pixmap.has_key?(slide)
-                @pixmap.width = width
-                @pixmap.height = height
-                slide.draw(@canvas)
-              end
-              draw_pixmap(slide)
-            end
+            draw_current_slide
           end
         end
       end
 
-      def draw_pixmap(slide)
-        pixmap = @pixmap[slide]
+      def draw_current_slide
+        slide = @canvas.current_slide
+        if slide
+          unless @pixmap.has_key?(slide)
+            @pixmap.width = width
+            @pixmap.height = height
+            slide.draw(@canvas)
+          end
+          pixmap = @pixmap[slide]
+          if pixmap
+            if block_given?
+              yield(pixmap)
+            else
+              draw_pixmap(pixmap)
+            end
+          end
+        end
+      end
+      
+      def draw_pixmap(pixmap)
         width, height = pixmap.size
         x = @adjust_x * width
         y = @adjust_y * height
         @drawable.draw_drawable(@foreground, pixmap,
                                 x, y, 0, 0, width, height)
+        if @adjust_x != 0 or @adjust_y != 0
+          draw_next_slide
+        end
+      end
+
+      def draw_next_slide
+        @canvas.change_current_index(@canvas.current_index + 1) do
+          draw_current_slide do |pixmap|
+            draw_next_pixmap(pixmap)
+          end
+        end
+      end
+
+      def draw_next_pixmap(pixmap)
+        width, height = pixmap.size
+        adjust_width = @adjust_x * width
+        adjust_height = @adjust_y * height
+        src_x = src_y = dest_x = dest_y = 0
+        src_width = width
+        src_height = height
+        
+        if adjust_width > 0
+          dest_x = width - adjust_width
+          src_width = adjust_width
+        elsif adjust_width < 0
+          src_x = width + adjust_width
+          src_width = -adjust_width
+        end
+        
+        if adjust_height > 0
+          dest_y = height - adjust_height
+          src_height = adjust_height
+        elsif adjust_height < 0
+          src_y = height + adjust_height
+          src_height = -adjust_height
+        end
+
+        @drawable.draw_drawable(@foreground, pixmap, src_x, src_y,
+                                dest_x, dest_y, src_width, src_height)
+
       end
 
       def set_configure_event_after

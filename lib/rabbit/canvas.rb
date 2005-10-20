@@ -186,6 +186,26 @@ module Rabbit
       end
     end
 
+    def change_current_index(new_index)
+      mode = @index_mode
+      if mode
+        index = @index_current_index
+        @index_current_index = new_index
+      else
+        index = @current_index
+        @current_index = new_index
+      end
+      if 0 <= current_index and current_index < slide_size
+        yield
+      end
+    ensure
+      if mode
+        @index_current_index = index
+      else
+        @current_index = index
+      end
+    end
+
     def next_slide
       slides[current_index + 1]
     end

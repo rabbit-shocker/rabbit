@@ -16,7 +16,6 @@ if @image_timer_auto_scroll.nil?
 end
 
 @image_timer_auto_scroll_direction ||= :left
-@image_timer_auto_scroll_ratio ||= 0.01
 
 @image_timer_image ||= "kame.png"
 @image_timer_interval ||= 3
@@ -70,21 +69,26 @@ match(Slide) do |slides|
           slide_ratio = 1
         else
           slide_ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
+          next_slide_ratio = (canvas.current_index) / (canvas.slide_size - 2.0)
         end
 
-        if ratio > slide_ratio
+        if ratio > slide_ratio and !canvas.last_slide? and
+            (canvas.current_index > 1 or
+               (canvas.current_index == 1 and ratio > next_slide_ratio))
+          auto_scroll_ratio = next_slide_ratio - slide_ratio
+          auto_scroll_ratio *= @image_timer_interval
           case @image_timer_auto_scroll_direction
           when :top
-            canvas.adjust_y += @image_timer_auto_scroll_ratio
+            canvas.adjust_y += auto_scroll_ratio
             canvas.move_to_next_if_can if canvas.adjust_y > 1
           when :bottom
-            canvas.adjust_y -= @image_timer_auto_scroll_ratio
+            canvas.adjust_y -= auto_scroll_ratio
             canvas.move_to_next_if_can if canvas.adjust_y < -1
           when :right
-            canvas.adjust_x -= @image_timer_auto_scroll_ratio
+            canvas.adjust_x -= auto_scroll_ratio
             canvas.move_to_next_if_can if canvas.adjust_x < -1
           else
-            canvas.adjust_x += @image_timer_auto_scroll_ratio
+            canvas.adjust_x += auto_scroll_ratio
             canvas.move_to_next_if_can if canvas.adjust_x > 1
           end
         end
