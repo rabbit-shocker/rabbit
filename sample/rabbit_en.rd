@@ -253,6 +253,14 @@ Ahh, I'll set up more better documents.
 : Reset slide adjustment
    Alt+a
 
+= Key binding (hole)
+
+: Expand hole
+   E
+
+: Narrow hole
+   N
+
 = Key binding (etc)
 
 : Iconify
