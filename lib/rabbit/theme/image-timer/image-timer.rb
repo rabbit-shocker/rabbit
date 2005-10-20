@@ -12,7 +12,7 @@ if @image_timer_auto_update.nil?
 end
 
 if @image_timer_auto_scroll.nil?
-  @image_timer_auto_scroll = false
+  @image_timer_auto_scroll = true
 end
 
 @image_timer_auto_scroll_direction ||= :left

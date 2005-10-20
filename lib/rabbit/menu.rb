@@ -135,7 +135,7 @@ module Rabbit
         end,
         
         [_("/Redraw"), "<StockItem>", "",
-          Gtk::Stock::CLEAR, method(:redraw)],
+          Gtk::Stock::REFRESH, method(:redraw)],
 
         [_("/ReloadTheme"), "<StockItem>", "",
           Gtk::Stock::REFRESH, method(:reload_theme)],
@@ -157,6 +157,11 @@ module Rabbit
           [_("/Print"), "<StockItem>", "",
             Gtk::Stock::PRINT, method(:print)]
         end,
+        
+        [_("/Separator"), "<Separator>"],
+        
+        [_("/ResetAdjustment"), "<StockItem>", "",
+          Gtk::Stock::CLEAR, method(:reset_adjustment)],
         
         [_("/Separator"), "<Separator>"],
         
@@ -298,6 +303,8 @@ module Rabbit
       end
     end
     
+    def reset_adjustment(*args)
+      @canvas.reset_adjustment
+    end
   end
-  
 end

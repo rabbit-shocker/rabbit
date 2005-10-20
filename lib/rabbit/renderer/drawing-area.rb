@@ -108,8 +108,7 @@ module Rabbit
       def post_move(index)
         @pixmap.post_move(index)
         update_title
-        @adjust_x = 0
-        @adjust_y = 0
+        reset_adjustment
         @area.queue_draw
       end
       
@@ -338,6 +337,11 @@ module Rabbit
         end
       end
 
+      def reset_adjustment
+        super
+        @area.queue_draw
+      end
+
       def post_init_gui
         @comment_log_window.hide
         @comment_view_frame.hide if @comment_view_frame
@@ -520,6 +524,10 @@ module Rabbit
             handled = handle_key_with_control(event)
           end
           
+          if event.state.mod1_mask?
+            handled = handle_key_with_alt(event)
+          end
+          
           unless handled
             handled = handle_key(event)
           end
@@ -600,11 +608,11 @@ module Rabbit
       
       def draw_pixmap(pixmap)
         width, height = pixmap.size
-        x = @adjust_x * width
-        y = @adjust_y * height
+        x = @adjustment_x * width
+        y = @adjustment_y * height
         @drawable.draw_drawable(@foreground, pixmap,
                                 x, y, 0, 0, width, height)
-        if @adjust_x != 0 or @adjust_y != 0
+        if @adjustment_x != 0 or @adjustment_y != 0
           draw_next_slide
         end
       end
@@ -619,26 +627,26 @@ module Rabbit
 
       def draw_next_pixmap(pixmap)
         width, height = pixmap.size
-        adjust_width = @adjust_x * width
-        adjust_height = @adjust_y * height
+        adjustment_width = @adjustment_x * width
+        adjustment_height = @adjustment_y * height
         src_x = src_y = dest_x = dest_y = 0
         src_width = width
         src_height = height
         
-        if adjust_width > 0
-          dest_x = width - adjust_width
-          src_width = adjust_width
-        elsif adjust_width < 0
-          src_x = width + adjust_width
-          src_width = -adjust_width
+        if adjustment_width > 0
+          dest_x = width - adjustment_width
+          src_width = adjustment_width
+        elsif adjustment_width < 0
+          src_x = width + adjustment_width
+          src_width = -adjustment_width
         end
         
-        if adjust_height > 0
-          dest_y = height - adjust_height
-          src_height = adjust_height
-        elsif adjust_height < 0
-          src_y = height + adjust_height
-          src_height = -adjust_height
+        if adjustment_height > 0
+          dest_y = height - adjustment_height
+          src_height = adjustment_height
+        elsif adjustment_height < 0
+          src_y = height + adjustment_height
+          src_height = -adjustment_height
         end
 
         @drawable.draw_drawable(@foreground, pixmap, src_x, src_y,
@@ -794,6 +802,17 @@ module Rabbit
           thread do
             @canvas.print
           end
+        else
+          handled = false
+        end
+        handled
+      end
+      
+      def handle_key_with_alt(key_event)
+        handled = true
+        case key_event.keyval
+        when *Alt::RESET_ADJUSTMENT_KEYS
+          reset_adjustment
         else
           handled = false
         end

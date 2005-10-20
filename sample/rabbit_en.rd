@@ -250,6 +250,9 @@ Ahh, I'll set up more better documents.
 : Reload theme
    t, r
 
+: Reset slide adjustment
+   Alt+a
+
 = Key binding (etc)
 
 : Iconify

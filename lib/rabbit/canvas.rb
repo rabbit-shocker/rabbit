@@ -84,8 +84,9 @@ module Rabbit
     def_delegators(:@renderer, :comment_frame_available?)
     def_delegators(:@renderer, :comment_view_available?)
 
-    def_delegators(:@renderer, :adjust_x, :adjust_x=)
-    def_delegators(:@renderer, :adjust_y, :adjust_y=)
+    def_delegators(:@renderer, :adjustment_x, :adjustment_x=)
+    def_delegators(:@renderer, :adjustment_y, :adjustment_y=)
+    def_delegators(:@renderer, :reset_adjustment)
 
     def_delegators(:@renderer, :post_init_gui)
     

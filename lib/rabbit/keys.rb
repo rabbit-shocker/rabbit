@@ -124,5 +124,11 @@ module Rabbit
         Gdk::Keyval::GDK_p,
       ]
     end
+
+    module Alt
+      RESET_ADJUSTMENT_KEYS = [
+        Gdk::Keyval::GDK_a,
+      ]
+    end
   end
 end
