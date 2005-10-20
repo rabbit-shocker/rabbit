@@ -12,7 +12,7 @@ module Rabbit
       include Keys
 
       extend Forwardable
-    
+
       @@color_table = {}
       
       def_delegators(:@pixmap, :foreground, :background)
@@ -40,6 +40,7 @@ module Rabbit
       def_delegators(:@pixmap, :filename, :filename=)
       
       BUTTON_PRESS_ACCEPTING_TIME = 250
+      MASK_SIZE_STEP = 0.05
 
       def initialize(canvas)
         super
@@ -48,6 +49,8 @@ module Rabbit
         @caching = nil
         @comment_initialized = false
         @button_handling = false
+        @mask = nil
+        @mask_size = 0
         init_progress
         clear_button_handler
         init_drawing_area
@@ -301,6 +304,40 @@ module Rabbit
         end
       end
       
+      def expand_hole
+        if @mask_size < 0
+          @mask_size = MASK_SIZE_STEP
+        else
+          @mask_size = [@mask_size + MASK_SIZE_STEP, 1.0].min
+        end
+        set_hole
+      end
+
+      def narrow_hole
+        if @mask_size < 0
+          @mask_size = 0
+        else
+          @mask_size = [@mask_size - MASK_SIZE_STEP, 0.0].max
+        end
+        set_hole
+      end
+
+      def set_hole
+        if @mask_size <= 0
+          @window.shape_combine_mask(nil, 0, 0)
+        else
+          setup_mask if @mask.nil?
+          w, h = width, height
+          @mask.draw_rectangle(@set_gc, true, 0, 0, w, h)
+          mw = w * @mask_size
+          mh = h * @mask_size
+          mx = (w - mw) / 2
+          my = (h - mh) / 2
+          @mask.draw_rectangle(@xor_gc, true, mx, my, mw, mh)
+          @window.shape_combine_mask(@mask, 0, 0)
+        end
+      end
+
       def post_init_gui
         @comment_log_window.hide
         @comment_view_frame.hide if @comment_view_frame
@@ -458,6 +495,7 @@ module Rabbit
         set_motion_notify_event
         set_expose_event
         set_scroll_event
+        set_configure_event_after
       end
       
       def set_realize
@@ -556,6 +594,14 @@ module Rabbit
         y = @adjust_y * height
         @drawable.draw_drawable(@foreground, pixmap,
                                 x, y, 0, 0, width, height)
+      end
+
+      def set_configure_event_after
+        @area.signal_connect_after("configure_event") do |widget, event|
+          @mask = nil
+          set_hole
+          false
+        end
       end
       
       def set_scroll_event
@@ -670,6 +716,10 @@ module Rabbit
           toggle_comment_frame
         when *TOGGLE_COMMENT_VIEW_KEYS
           toggle_comment_view
+        when *EXPAND_HOLE_KEYS
+          expand_hole
+        when *NARROW_HOLE_KEYS
+          narrow_hole
         else
           handled = false
         end
@@ -886,7 +936,16 @@ module Rabbit
           proc.call(*args)
         end
       end
-      
+
+      def setup_mask
+        @mask = Gdk::Pixmap.new(nil, width, height, 1)
+        @xor_gc = Gdk::GC.new(@mask)
+        @xor_gc.set_function(Gdk::GC::INVERT)
+        @set_gc = Gdk::GC.new(@mask)
+        @set_gc.set_function(Gdk::GC::SET)
+        @clear_gc = Gdk::GC.new(@mask)
+        @clear_gc.set_function(Gdk::GC::CLEAR)
+      end
     end
 
     class CommentDrawingArea < DrawingArea
@@ -964,7 +1023,7 @@ module Rabbit
         super
         @pixbufs = {}
       end
-      
+
       private
       def init_drawing_area
         super

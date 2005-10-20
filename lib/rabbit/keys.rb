@@ -106,6 +106,14 @@ module Rabbit
     TOGGLE_COMMENT_VIEW_KEYS = [
       Gdk::Keyval::GDK_M,
     ]
+
+    EXPAND_HOLE_KEYS = [
+      Gdk::Keyval::GDK_E,
+    ]
+    
+    NARROW_HOLE_KEYS = [
+      Gdk::Keyval::GDK_N,
+    ]
     
     module Control
       REDRAW_KEYS = [
