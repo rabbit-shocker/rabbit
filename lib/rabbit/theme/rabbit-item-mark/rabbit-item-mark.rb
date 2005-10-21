@@ -1,5 +1,7 @@
 include_theme("default-item-mark")
 
+include_theme("rabbit-images")
+
 slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]
 
@@ -9,7 +11,7 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "red_item.png", name)
+  draw_image_mark(items, "red-item.png", name)
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
@@ -18,7 +20,7 @@ match(*(slide_body + (item_list_item * 2))) do |items|
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "blue_item.png", name)
+  draw_image_mark(items, "blue-item.png", name)
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
@@ -27,7 +29,7 @@ match(*(slide_body + (item_list_item * 3))) do |items|
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "green_item.png", name)
+  draw_image_mark(items, "green-item.png", name)
 end
 
 enum_list_item = [EnumList, EnumListItem]
@@ -38,7 +40,7 @@ match(*(slide_body + enum_list_item + item_list_item)) do |items|
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "red_item2.png", name)
+  draw_image_mark(items, "red-item2.png", name)
 end
 
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
@@ -47,5 +49,5 @@ match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
 
-  draw_image_mark(items, "green_item.png", name)
+  draw_image_mark(items, "green-item.png", name)
 end

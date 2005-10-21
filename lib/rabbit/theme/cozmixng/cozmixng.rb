@@ -1,5 +1,7 @@
 include_theme("rabbit")
 
+include_theme("cozmixng-images")
+
 @image_with_frame = true
 include_theme("image")
 
@@ -8,7 +10,7 @@ include_theme("headline-logo")
 
 include_theme("cozmixng-powered-by")
 
-@title_logo_image = "usagi.png"
+@title_logo_image = "ruby-pink-logo.png"
 include_theme("title-logo")
 
 @slide_number_uninstall = true

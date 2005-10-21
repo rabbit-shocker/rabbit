@@ -1,3 +1,4 @@
+include_theme("ruby-images")
 include_theme("image")
 include_theme("table")
 include_theme("slide-number")

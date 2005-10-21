@@ -92,7 +92,7 @@ module Rabbit
     
     def_delegators(:@source, :source=, :reset)
     
-    attr_reader :logger, :renderer, :theme_name, :source, :last_modified
+    attr_reader :logger, :renderer, :last_modified
     attr_reader :comment_source
     
     attr_writer :saved_image_basename
@@ -381,10 +381,6 @@ module Rabbit
       @renderer.post_toggle_index_mode
     end
 
-    def index_mode?
-      @index_mode
-    end
-    
     def source_force_modified(force_modified)
       prev = @source.force_modified
       @source.force_modified = force_modified

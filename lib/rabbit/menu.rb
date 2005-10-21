@@ -11,7 +11,7 @@ module Rabbit
 
     include GetText
 
-    file = Theme::Searcher.search_file("lavie_icon.png", ["rabbit-icon"])
+    file = Theme::Searcher.search_file("lavie-icon.png", ["rabbit-images"])
     loader = ImageLoader.new(file)
     loader.resize(16, 16)
     @@icon = loader.pixbuf

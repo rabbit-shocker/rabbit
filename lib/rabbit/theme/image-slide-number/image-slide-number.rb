@@ -1,3 +1,5 @@
+include_theme("rabbit-images")
+
 proc_name = "image-slide-number"
 
 @image_slide_number_image ||= "mini-usagi.png"

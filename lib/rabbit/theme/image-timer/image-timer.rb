@@ -1,5 +1,7 @@
 theme_exit unless display?
 
+include_theme("rabbit-images")
+
 proc_name = "image-timer"
 init_proc_name_prefix = "image-timer-init"
 

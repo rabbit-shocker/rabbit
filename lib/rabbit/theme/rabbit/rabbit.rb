@@ -1,3 +1,7 @@
+include_theme("default")
+
+include_theme("rabbit-images")
+
 set_foreground("black")
 if print? and slides_per_page > 1
   set_background("white")
@@ -5,8 +9,6 @@ else
   set_background("#f500f1d0c600")
 end
 # set_background_image("lavie.png")
-
-include_theme("default")
 
 ## pink base
 # set_progress_foreground("#ff00da00d200")

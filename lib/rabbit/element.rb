@@ -16,6 +16,8 @@ module Rabbit
       attr_reader :base_x, :base_y, :base_w, :base_h
       attr_reader :horizontal_centering, :vertical_centering
       
+      attr_reader :user_property
+      
       attr_accessor :margin_left, :margin_right
       attr_accessor :margin_top, :margin_bottom
       
@@ -24,8 +26,6 @@ module Rabbit
 
       attr_accessor :parent
 
-      attr_accessor :user_property
-      
       def initialize
         @x = @y = @w = @h = nil
         @parent = nil

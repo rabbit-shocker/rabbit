@@ -43,6 +43,7 @@ module Rabbit
       MASK_SIZE_STEP = 0.05
 
       def initialize(canvas)
+        @progress = nil
         super
         @current_cursor = nil
         @blank_cursor = nil
