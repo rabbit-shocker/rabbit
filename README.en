@@ -58,6 +58,16 @@ Flags.
 
 gan <shinsato@kono.cis.iwate-u.ac.jp>
 
+=== Images (4)
+
+* Rabbit pink logo
+
+* Ruby pink logo
+
+* TANUKI
+
+usatti
+
 === Mode for xyzzy
 
 misc/xyzzy
@@ -673,3 +683,4 @@ page from XXX.rd.
     features and theme design.
   * atzm: He makes Gentoo package (*.ebuild).
   * akira yamada: He makes Debian package (*.deb).
+  * usatti: She drow some pretty images.
