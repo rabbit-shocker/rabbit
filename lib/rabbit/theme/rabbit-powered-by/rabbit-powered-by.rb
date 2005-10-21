@@ -1,4 +1,4 @@
-include_theme("rabbit-images")
+add_theme_path("rabbit-images")
 
 @powered_by_images = ["rabbit-banner.png"]
 @powered_by_text = "Powered by Rabbit #{VERSION} and COZMIXNG"

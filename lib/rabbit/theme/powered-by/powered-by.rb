@@ -8,7 +8,7 @@ proc_name = "powered-by"
 @powered_by_images ||= []
 
 loaders = @powered_by_images.collect do |image|
-  ImageLoader.new(search_file(image))
+  ImageLoader.new(find_file(image))
 end
 
 add_powered_by = proc do |slide|

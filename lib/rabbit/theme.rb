@@ -6,45 +6,79 @@ require 'rabbit/image'
 
 module Rabbit
 
-  class Theme
+  module Theme
 
+    class Entry
+
+      include GetText
+      
+      include Enumerable
+      
+      PROPERTY_BASE_NAME = "property"
+
+      attr_reader :base_name, :name, :category, :description
+      
+      def initialize(theme_dir)
+        @theme_dir = theme_dir
+        @base_name = File.basename(@theme_dir)
+        @name = @base_name
+        @category = nil
+        @description = nil
+        parse_property if available?
+      end
+
+      def available?
+        File.exist?(theme_file)
+      end
+      
+      def theme_file
+        File.join(@theme_dir, "#{@base_name}.rb")
+      end
+
+      def <=>(other)
+        @base_name <=> other.base_name
+      end
+
+      def have_file?(target)
+        File.exist?(full_path(target))
+      end
+      
+      def full_path(target)
+        File.join(@theme_dir, target)
+      end
+
+      private
+      def property_file
+         File.join(@theme_dir, "#{PROPERTY_BASE_NAME}.rb")
+      end
+      
+      def parse_property
+        file = property_file
+        if File.exist?(file)
+          instance_eval(File.open(file) {|f| f.read}, file)
+        end
+      end
+    end
+    
     module Searcher
-      SUFFIXES = ["", ".rabbit", ".rab", ".rb"]
-
       def initialize(*args, &blocks)
         @theme_stack = []
+        @theme_paths = []
         super
       end
 
-      def search_theme_file(theme_name=name)
-        found_path = nil
-        SUFFIXES.find do |suffix|
-          theme_file_name = "#{theme_name}#{suffix}"
-          begin
-            in_theme(theme_name) do
-              found_path = search_file(theme_file_name)
-            end
-          rescue LoadError
-            found_path = nil
-          end
-          found_path
-        end
-        raise LoadError, "can't find theme: #{theme_name}." if found_path.nil?
-        found_path
-      end
-
-      
-      def push_theme(name)
-        @theme_stack.push(name)
+      def push_theme(entry)
+        @theme_stack.push(entry)
       end
 
       def pop_theme
         @theme_stack.pop
       end
 
-      def in_theme(name)
-        push_theme(name)
-        yield(name)
+      def in_theme(entry)
+        push_theme(entry)
+        yield(entry)
+      ensure
         pop_theme
       end
 
@@ -53,23 +87,28 @@ module Rabbit
         File.join(base_dir, 'rabbit', 'theme')
       end
       
-      def search_file(target, themes=@theme_stack)
-        found_path = nil
-        themes.find do |theme_name|
-          $LOAD_PATH.find do |path|
-            base_name = File.join(theme_dir(path), theme_name, target)
-            if File.exist?(base_name)
-              found_path = base_name
-              break
-            end
-            found_path
+      def find_theme(theme_name=name)
+        found_entry = nil
+        collect_theme do |entry|
+          if theme_name == entry.base_name
+            found_entry = entry
+            break
           end
         end
-        if found_path.nil?
-          raise LoadError,
-                "can't find file in themes #{themes.inspect}: #{target}."
+        raise LoadError, "can't find theme: #{theme_name}." if found_entry.nil?
+        found_entry
+      end
+
+      def find_file(target, themes=@theme_paths+@theme_stack)
+        found_entry = themes.find do |entry|
+          entry.have_file?(target)
         end
-        found_path
+        if found_entry.nil?
+          names = themes.collect {|entry| entry.base_name}
+          raise LoadError,
+                "can't find file in themes #{names.inspect}: #{target}."
+        end
+        found_entry.full_path(target)
       end
 
       def collect_theme
@@ -79,44 +118,44 @@ module Rabbit
           if File.directory?(base_name)
             Dir.foreach(base_name) do |theme|
               next if /\A..?\z/ =~ theme
-              SUFFIXES.each do |suffix|
-                name = File.join(base_name, theme, "#{theme}#{suffix}")
-                if File.exist?(name)
-                  themes << theme
-                  break
-                end
+              entry = Entry.new(File.join(base_name, theme))
+              if entry.available?
+                yield(entry) if block_given?
+                themes << entry
               end
             end
           end
         end
-        themes.uniq.sort
+        themes.sort
       end
     end
 
-    extend Forwardable
+    class Manager
+      extend Forwardable
 
-    def_delegators(:@canvas, :logger)
-    
-    attr_reader :canvas, :name
-    def initialize(canvas)
-      @canvas = canvas
-      @applier = Applier.new(self)
-      apply("base")
-    end
-
-    def apply(name)
-      @name = name
-      begin
-        @applier.apply_theme(name)
-      rescue ThemeExit
-        logger.info($!.message) if $!.have_message?
-      rescue StandardError, LoadError, SyntaxError
-        logger.warn($!)
+      def_delegators(:@canvas, :logger)
+      
+      attr_reader :canvas, :name
+      def initialize(canvas)
+        @canvas = canvas
+        @applier = Applier.new(self)
+        apply("base")
       end
-    end
+
+      def apply(name)
+        @name = name
+        begin
+          @applier.apply_theme(name)
+        rescue ThemeExit
+          logger.info($!.message) if $!.have_message?
+        rescue StandardError, LoadError, SyntaxError
+          logger.warn($!)
+        end
+      end
     
-    def slides
-      @canvas.slides
+      def slides
+        @canvas.slides
+      end
     end
 
     class ElementContainer < DelegateClass(Array)
@@ -145,11 +184,9 @@ module Rabbit
           end
         end
       end
-
     end
 
     class Applier
-
       include Enumerable
       include Element
       include Searcher
@@ -169,12 +206,12 @@ module Rabbit
       end
 
       def apply_theme(name)
-        theme_path = search_theme_file(name)
-        src = File.open(theme_path) do |f|
+        entry = find_theme(name)
+        src = File.open(entry.theme_file) do |f|
           f.read
         end
-        in_theme(name) do
-          instance_eval(src, theme_path)
+        in_theme(entry) do
+          instance_eval(src, entry.theme_file)
         end
       end
 
@@ -185,6 +222,10 @@ module Rabbit
         rescue ThemeExit
           logger.info($!.message) if $!.have_message?
         end
+      end
+
+      def add_theme_path(name)
+        @theme_paths << find_theme(name)
       end
 
       def to_attrs(hash)
@@ -236,7 +277,7 @@ module Rabbit
       end
 
       def set_background_image(filename)
-        loader = ImageLoader.new(search_file(filename))
+        loader = ImageLoader.new(find_file(filename))
         canvas.background_image = loader.pixbuf
       end
 
@@ -408,7 +449,7 @@ module Rabbit
       def draw_image_mark(items, image_name, name=nil)
         unless items.empty?
           
-          loader = ImageLoader.new(search_file(image_name))
+          loader = ImageLoader.new(find_file(image_name))
 
           width_proc = Proc.new {loader.width}
           height_proc = Proc.new {loader.height}

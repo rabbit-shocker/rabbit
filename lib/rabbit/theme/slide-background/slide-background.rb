@@ -5,7 +5,7 @@ if @slide_background_image.nil?
 end
 
 match(Slide) do |slides|
-  loader = ImageLoader.new(search_file(@slide_background_image))
+  loader = ImageLoader.new(find_file(@slide_background_image))
   resized = false
 
   slides.delete_pre_draw_proc_by_name(proc_name)

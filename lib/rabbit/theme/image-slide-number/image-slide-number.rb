@@ -1,4 +1,4 @@
-include_theme("rabbit-images")
+add_theme_path("rabbit-images")
 
 proc_name = "image-slide-number"
 
@@ -14,10 +14,10 @@ match(Slide) do |slides|
   
   break if @image_slide_number_uninstall
   
-  loader = ImageLoader.new(search_file(@image_slide_number_image))
+  loader = ImageLoader.new(find_file(@image_slide_number_image))
   unless @image_slide_number_show_text
-    start_loader = ImageLoader.new(search_file(@image_slide_number_start_image))
-    goal_loader = ImageLoader.new(search_file(@image_slide_number_goal_image))
+    start_loader = ImageLoader.new(find_file(@image_slide_number_start_image))
+    goal_loader = ImageLoader.new(find_file(@image_slide_number_goal_image))
   end
   
   initialized = false

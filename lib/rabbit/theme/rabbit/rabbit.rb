@@ -1,6 +1,6 @@
 include_theme("default")
 
-include_theme("rabbit-images")
+add_theme_path("rabbit-images")
 
 set_foreground("black")
 if print? and slides_per_page > 1

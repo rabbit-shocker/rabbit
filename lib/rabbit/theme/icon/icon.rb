@@ -4,5 +4,5 @@ if @icon_image
 end
 
 canvas.icon_list = @icon_images.collect do |filename|
-  ImageLoader.new(search_file(filename)).pixbuf
+  ImageLoader.new(find_file(filename)).pixbuf
 end

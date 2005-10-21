@@ -1,6 +1,6 @@
 theme_exit unless display?
 
-include_theme("rabbit-images")
+add_theme_path("rabbit-images")
 
 proc_name = "image-timer"
 init_proc_name_prefix = "image-timer-init"
@@ -43,7 +43,7 @@ match(Slide) do |slides|
     [x, y, w, h]
   end
 
-  loader = ImageLoader.new(search_file(@image_timer_image))
+  loader = ImageLoader.new(find_file(@image_timer_image))
 
   initialized = false
   max_width = nil

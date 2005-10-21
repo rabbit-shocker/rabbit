@@ -11,10 +11,16 @@ module Rabbit
 
     include GetText
 
-    file = Theme::Searcher.search_file("lavie-icon.png", ["rabbit-images"])
-    loader = ImageLoader.new(file)
-    loader.resize(16, 16)
-    @@icon = loader.pixbuf
+    begin
+      rabbit_image_theme = Theme::Searcher.find_theme("rabbit-images")
+      file = Theme::Searcher.find_file("lavie-icon.png", [rabbit_image_theme])
+      loader = ImageLoader.new(file)
+      loader.resize(16, 16)
+      @@icon = loader.pixbuf
+    rescue LoadError
+      @@icon = nil
+      puts $!
+    end
     
     def initialize(canvas)
       @canvas = canvas
@@ -122,7 +128,7 @@ module Rabbit
         
         [_("/Separator"), "<Separator>"],
         
-        if @canvas.iconify_available?
+        if @canvas.iconify_available? and @@icon
           [_("/Iconify"), "<ImageItem>", "", @@icon, method(:iconify)]
         else
           nil
@@ -179,16 +185,49 @@ module Rabbit
 
       themes = Theme::Searcher.collect_theme
       
-      _change_theme = method(:change_theme)
       change = _("/ChangeTheme") + "/"
-      themes.each do |name|
-        items << ["#{change}#{name}", "<Item>", nil, nil, _change_theme, name]
+      merge = _("/MergeTheme") + "/"
+      etc = _("Etc")
+      
+      categories = themes.collect do |entry|
+        if entry.category
+          _(entry.category)
+        else
+          etc
+        end
+      end.uniq.sort do |x, y|
+        if x == etc
+          1
+        elsif y == etc
+          -1
+        else
+          x <=> y
+        end
+      end
+      
+      categories.each do |category|
+        change_category = "#{change}#{_(category)}"
+        items << [change_category]
+        items << [change_category + _("/Separator"), "<Tearoff>"]
+
+        merge_category = "#{merge}#{_(category)}"
+        items << [merge_category]
+        items << [merge_category + _("/Separator"), "<Tearoff>"]
       end
 
+      _change_theme = method(:change_theme)
       _merge_theme = method(:merge_theme)
-      merge = _("/MergeTheme") + "/"
-      themes.each do |name|
-        items << ["#{merge}#{name}", "<Item>", nil, nil, _merge_theme, name]
+      themes.each do |entry|
+        if entry.category
+          entry_path = _(entry.category)
+        else
+          entry_path = etc.dup
+        end
+        entry_path << "/#{_(entry.name)}"
+        path = "#{change}#{entry_path}"
+        items << [path, "<Item>", nil, nil, _change_theme, entry]
+        path = "#{merge}#{entry_path}"
+        items << [path, "<Item>", nil, nil, _merge_theme, entry]
       end
 
       ifp.create_items(items.compact)
@@ -273,12 +312,12 @@ module Rabbit
       @canvas.iconify
     end
     
-    def change_theme(name, *args)
-      @canvas.apply_theme(name)
+    def change_theme(entry, *args)
+      @canvas.apply_theme(entry.base_name)
     end
     
-    def merge_theme(name, *args)
-      @canvas.merge_theme(name)
+    def merge_theme(entry, *args)
+      @canvas.merge_theme(entry.base_name)
     end
     
     def redraw(*args)

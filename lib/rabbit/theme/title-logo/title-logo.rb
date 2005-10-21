@@ -10,7 +10,7 @@ match(TitleSlide, Title) do |titles|
 
   break if @title_log_image_uninstall
   
-  loader = ImageLoader.new(search_file(@title_logo_image))
+  loader = ImageLoader.new(find_file(@title_logo_image))
 
   resized = false
 

@@ -225,8 +225,8 @@ module Rabbit
       if _theme_name and not @slides.empty?
         clear_theme
         clear_index_slides
-        theme = Theme.new(self)
-        theme.apply(_theme_name)
+        manager = Theme::Manager.new(self)
+        manager.apply(_theme_name)
         @renderer.post_apply_theme
       end
     end
@@ -237,8 +237,8 @@ module Rabbit
 
     def merge_theme(name)
       unless @slides.empty?
-        theme = Theme.new(self)
-        theme.apply(name)
+        manager = Theme::Manager.new(self)
+        manager.apply(name)
         @renderer.post_apply_theme
       end
     end

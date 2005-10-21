@@ -6,7 +6,7 @@ end
 
 match("**", HeadLine) do |heads|
 
-  loader = ImageLoader.new(search_file(@headline_logo_image))
+  loader = ImageLoader.new(find_file(@headline_logo_image))
 
   resized = false
 

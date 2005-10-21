@@ -1,6 +1,6 @@
 include_theme("rabbit")
 
-include_theme("cozmixng-images")
+add_theme_path("cozmixng-images")
 
 @image_with_frame = true
 include_theme("image")
