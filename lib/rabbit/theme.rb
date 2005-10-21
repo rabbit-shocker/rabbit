@@ -359,7 +359,7 @@ module Rabbit
           other_infos = []
           element.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
             if size_or_proc.respond_to?(:call)
-              indent_size, *other_infos = size_or_proc.call(element)
+              indent_size, *other_infos = size_or_proc.call(element, simulation)
             else
               indent_size = size_or_proc
             end
@@ -412,7 +412,7 @@ module Rabbit
 
           width_proc = Proc.new {loader.width}
           height_proc = Proc.new {loader.height}
-          indent_proc = Proc.new do |item|
+          indent_proc = Proc.new do |item, simulation|
             text_height = item.elements.first.original_height
             if text_height < loader.height
               loader.resize(nil, (text_height * 2.0 / 3.0).ceil)
@@ -428,9 +428,14 @@ module Rabbit
       end
       
       def draw_order(items, indent_width, name=nil, &block)
-        make_order_layout = Proc.new do |item|
-          str = block.call(item)
-          layout = canvas.make_layout(str)
+        layouts = {}
+        make_order_layout = Proc.new do |item, simulation|
+          layout = layouts[item]
+          if layout.nil?
+            str = block.call(item)
+            layout = canvas.make_layout(str)
+            layouts[item] = layout
+          end
           tw, th = layout.pixel_size
           [tw + indent_width, tw, th, layout]
         end

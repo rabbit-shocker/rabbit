@@ -126,7 +126,7 @@ end
 
 
 match(*(slide_body + enum_list_item + item_list_item)) do |items|
-  name = "enum-item"
+  name = "enum-item1"
   
   mark_width = screen_x(2)
   mark_height = screen_y(2)

@@ -465,6 +465,7 @@ module Rabbit
 
       private
       def setup_draw_info(str, canvas, w)
+        before = Time.now
         layout = canvas.make_layout(str)
         @original_width, @original_height = layout.pixel_size
         @first_line_width = @original_width / layout.line_count

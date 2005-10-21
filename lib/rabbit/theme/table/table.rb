@@ -113,28 +113,32 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
   cells.delete_post_draw_proc_by_name(frame_name)
   cells.delete_pre_draw_proc_by_name(name)
   cells.delete_post_draw_proc_by_name(name)
-  
+
   cells.each do |cell|
     orig_x = nil
+    orig_w = nil
     cell_w = nil
-    cell_h = nil
 
+    row = cell.parent
+    table = row.parent.parent
+    
     cell.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
       orig_x = x
+      orig_w = w
       if simulation
-        row = cell.parent
-        table = row.parent.parent
         cell_w = table.available_w / row.elements.size
-        cell.dirty!
         base_y = y + cell.padding_top
         text_width = cell_w - cell.padding_left - cell.padding_right
-        cell.text_compile(canvas, x, base_y, text_width, h)
+        if cell.layout.nil? or cell.layout.pixel_size[0] > text_width
+          cell.dirty! 
+          cell.text_compile(canvas, x, base_y, text_width, h)
+        end
       end
       [x, y, w, h]
     end
 
     cell.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
-      [orig_x + cell_w, y, w - cell_w, h]
+      [orig_x + cell_w, y, orig_w - cell_w, h]
     end
 
     draw_frame(cell, params) do |_, canvas, x, y, w, h|

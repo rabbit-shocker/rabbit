@@ -32,12 +32,14 @@
   # RT
   caption = Content only
 
-  Content1, Content2
+  Content1, Content2, Content3
+  Content1, Looooooooooooooooooooong Content2, Content3
 
 = tab4
 
   # RT
   # no caption and no headings.
 
-  Content1, Content2
+  Content1, Content2, Content3
+  Content1, Looooooooooooooooooooong Content2, Content3
 
