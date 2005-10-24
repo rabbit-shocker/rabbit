@@ -19,16 +19,33 @@ module Rabbit
 
       private
       def _resize(w, h)
-        @pixbuf = RSVG.pixbuf_from_file_at_size(filename, w, h)
+        @pixbuf = to_pixbuf(w, h)
       end
 
       def load_image(width=nil, height=nil)
-        @pixbuf = RSVG.pixbuf_from_file(filename)
+        @pixbuf = to_pixbuf
         resize(width, height)
       end
 
       def filename
         File.expand_path(@filename)
+      end
+
+      def to_pixbuf(w=nil, h=nil)
+        handle = RSVG::Handle.new
+        if w or h
+          handle.set_size_callback do |width, height|
+            [w || width, h || height]
+          end
+        end
+        if handle.respond_to?(:base_uri=)
+          handle.base_uri = filename
+        end
+        File.open(filename, "rb") do |f|
+          handle.write(f.read)
+        end
+        handle.close
+        handle.pixbuf
       end
     end
     
