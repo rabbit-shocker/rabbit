@@ -57,7 +57,7 @@ module Rabbit
     end
 
     def unescape_title(title)
-      REXML::Text.unnormalize(title).gsub(/\r|\n/, '')
+      REXML::Text.unnormalize(title).gsub(/\r|\n/, ' ')
     end
 
     def rotate_pixbuf(pixbuf)
