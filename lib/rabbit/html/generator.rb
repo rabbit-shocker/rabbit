@@ -96,7 +96,7 @@ module Rabbit
       end
 
       def slide_title
-        @canvas.slide_title
+        Utils.unescape_title(@canvas.slide_title)
       end
       
     end
