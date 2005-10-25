@@ -24,6 +24,15 @@ match(TitleSlide, Institution) do |institutions|
   institutions.prop_set("style", "italic")
 end
 
+match(TitleSlide, Place) do |places|
+  places.prop_set("size", @normal_font_size)
+end
+
+match(TitleSlide, Date) do |dates|
+  dates.prop_set("size", @small_font_size)
+  dates.prop_set("style", "italic")
+end
+
 match(TitleSlide, "**", Note) do |texts|
   texts.prop_set("size", @small_font_size)
 end
