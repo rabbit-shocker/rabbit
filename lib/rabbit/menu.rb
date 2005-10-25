@@ -39,7 +39,7 @@ module Rabbit
         [_("/Separator"), "<Tearoff>"],
 
         if @canvas.index_mode?
-          [_("/Slide"), "<StockItem>", "",
+          [_("/Slide"), "<Item>", "",
             nil, method(:toggle_index_mode)]
         else
           [_("/Index"), "<StockItem>", "",
@@ -67,22 +67,22 @@ module Rabbit
         end,
         
         if @canvas.white_outing?
-          [_("/UnWhiteOut"), "<StockItem>", "", nil, method(:toggle_white_out)]
+          [_("/UnWhiteOut"), "<Item>", "", nil, method(:toggle_white_out)]
         else
-          [_("/WhiteOut"), "<StockItem>", "", nil, method(:toggle_white_out)]
+          [_("/WhiteOut"), "<Item>", "", nil, method(:toggle_white_out)]
         end,
         
         if @canvas.black_outing?
-          [_("/UnBlackOut"), "<StockItem>", "", nil, method(:toggle_black_out)]
+          [_("/UnBlackOut"), "<Item>", "", nil, method(:toggle_black_out)]
         else
-          [_("/BlackOut"), "<StockItem>", "", nil, method(:toggle_black_out)]
+          [_("/BlackOut"), "<Item>", "", nil, method(:toggle_black_out)]
         end,
 
         [_("/Separator"), "<Separator>"],
         
         if @canvas.comment_frame_available?
           if @canvas.showing_comment_frame?
-            [_("/HideCommentFrame"), "<StockItem>", "",
+            [_("/HideCommentFrame"), "<Item>", "",
               nil, method(:toggle_comment_frame)]
           else
             [_("/ShowCommentFrame"), "<StockItem>", "",
@@ -94,10 +94,10 @@ module Rabbit
 
         if @canvas.comment_view_available?
           if @canvas.showing_comment_view?
-            [_("/HideCommentView"), "<StockItem>", "",
+            [_("/HideCommentView"), "<Item>", "",
               nil, method(:toggle_comment_view)]
           else
-            [_("/ShowCommentView"), "<StockItem>", "",
+            [_("/ShowCommentView"), "<Item>", "",
               nil, method(:toggle_comment_view)]
           end
         else
@@ -152,7 +152,7 @@ module Rabbit
         [_("/MergeTheme")],
         [_("/MergeTheme") + _("/Separator"), "<Tearoff>"],
 
-        [_("/CacheAllSlides"), "<Item>", nil, nil, method(:cache_all_slides)],
+        [_("/CacheAllSlides"), "<Item>", "", nil, method(:cache_all_slides)],
 
         [_("/Separator"), "<Separator>"],
         
@@ -179,7 +179,7 @@ module Rabbit
       @canvas.slides.each_with_index do |slide, i|
         items << [
           "#{jump}#{i}: #{Utils.unescape_title(slide.title)}",
-          "<Item>", nil, nil, _move_to, i
+          "<Item>", "", nil, _move_to, i
         ]
       end
 
@@ -225,9 +225,9 @@ module Rabbit
         end
         entry_path << "/#{_(entry.name)}"
         path = "#{change}#{entry_path}"
-        items << [path, "<Item>", nil, nil, _change_theme, entry]
+        items << [path, "<Item>", "", nil, _change_theme, entry]
         path = "#{merge}#{entry_path}"
-        items << [path, "<Item>", nil, nil, _merge_theme, entry]
+        items << [path, "<Item>", "", nil, _merge_theme, entry]
       end
 
       ifp.create_items(items.compact)
