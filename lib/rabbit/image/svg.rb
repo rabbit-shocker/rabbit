@@ -32,6 +32,19 @@ module Rabbit
       end
 
       def to_pixbuf(w=nil, h=nil)
+        dir = File.dirname(filename)
+        name = File.basename(filename)
+        Dir.chdir(dir) do
+          if w or h
+            RSVG.pixbuf_from_file_at_size(name, w || width, h || height)
+          else
+            RSVG.pixbuf_from_file(name)
+          end
+        end
+      end
+      
+      # memory leak?
+      def _to_pixbuf(w=nil, h=nil)
         handle = RSVG::Handle.new
         if w or h
           handle.set_size_callback do |width, height|
