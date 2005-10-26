@@ -465,7 +465,6 @@ module Rabbit
 
       private
       def setup_draw_info(str, canvas, w)
-        before = Time.now
         layout = canvas.make_layout(str)
         @original_width, @original_height = layout.pixel_size
         @first_line_width = @original_width / layout.line_count
@@ -614,12 +613,15 @@ module Rabbit
       def compile(canvas, x, y, w, h)
         super
         if_dirty do
-          compile_elements(canvas, @x, @y, @w, @h)
+          x, y, w, h = setup_padding(@x, @y, @w, @h)
+          compile_elements(canvas, x, y, w, h)
+          x, w = restore_x_padding(x, w)
+          x, w = adjust_x_centering(x, w)
+          y, h = adjust_y_padding(y, h)
         end
       end
 
       def compile_elements(canvas, x, y, w, h)
-        ox, oy, ow, oh = x, y, w, h
         prev_is_inline = false
         @elements.each do |element|
           element.compile(canvas, x, y, w, h)
