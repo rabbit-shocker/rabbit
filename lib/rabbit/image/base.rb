@@ -55,9 +55,9 @@ module Rabbit
           return
         elsif @keep_ratio
           if w and h.nil?
-            h = (height * w.to_f / width).ceil
+            h = (original_height * w.to_f / original_width).ceil
           elsif w.nil? and h
-            w = (width * h.to_f / height).ceil
+            w = (original_width * h.to_f / original_height).ceil
           end
         else
           w ||= width

@@ -18,6 +18,7 @@ module Rabbit
 
     def_delegators(:@loader, :keep_ratio, :keep_ratio=)
     def_delegators(:@loader, :pixbuf, :width, :height)
+    def_delegators(:@loader, :original_width, :original_height)
     def_delegators(:@loader, :resize)
     alias_method :scale, :resize
 
