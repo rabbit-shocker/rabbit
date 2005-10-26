@@ -121,7 +121,7 @@ module Rabbit
         content << line
       end
       content_str = content.join("")
-      /\A#\s*([^\n]+)\s*(?:\n)?(.*)?\z/m =~ content_str
+      /\A#\s*([^\n]+)(?:\n)?(?m:(.*)?)\z/ =~ content_str
       apply_to_extension("block_verbatim", $1, $2.to_s, content_str)
     end
   
