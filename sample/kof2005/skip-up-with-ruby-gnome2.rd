@@ -22,8 +22,9 @@
   * Since LLDN...
 
     * Summer of Code((*成功！*))
+      * スーパーハッカー認定 from AC
     * ((*R*))abbit ((*D*))riven ((*D*))evelopment
-    * cairoのRubyバインディング作成
+      * cairoのRubyバインディング作成
 
 = self.about(('note:(Date.today)'))
 
@@ -101,6 +102,14 @@ GUIの構成要素: ((*重なっている*))
 
 = ハイ(('&NewLine;'))ライト
 
+= ハイライト
+
+選択中のウィジェットを強調表示
+
+ # image
+ # src = high-light.svg
+ # relative_width = 100
+
 = 作戦
 
   * イベント捕捉
@@ -118,7 +127,7 @@ GUIの構成要素: ((*重なっている*))
    任意の場所に子ウィジェットを配置可能
 
  # image
- # src = high-light.svg
+ # src = high-light-architecture.svg
  # relative_width = 100
 
 = 自分で描画
@@ -375,10 +384,9 @@ GUIの構成要素: ((*重なっている*))
     * Gtk::Layout
     * Gtk::EventBox (with NO_WINDOW)
 
-  * cairoのススメ
-    * 半透明でキレイに見える
-
   * ((*R*))abbit ((*D*))riven ((*D*))evelopment
+    * cairoのススメ
+    * 半透明でキレイに見える
 
 = ((' '))
 
