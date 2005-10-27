@@ -7,7 +7,7 @@ Gtk.init
 width = 100
 height = 100
 
-use_area = false
+use_area = ARGV.empty?
 
 window = Gtk::Window.new
 window.set_default_size(width, height)
@@ -35,8 +35,13 @@ end
 layout = Gtk::Layout.new
 
 name = File.join(File.dirname(__FILE__), "ruby-gnome2-logo.png")
-image = Gtk::Image.new(name)
-layout.put(image, 10, 10)
+loader = Gdk::PixbufLoader.new
+File.open(name, "rb") do |f|
+  loader.last_write(f.read)
+end
+pixbuf = loader.pixbuf
+image = Gtk::Image.new(pixbuf.scale(width, height))
+layout.put(image, 0, 0)
 
 area = Gtk::DrawingArea.new
 area.set_size_request(width, height)
@@ -81,7 +86,7 @@ box.signal_connect("expose_event") do |widget, event|
   cr.set_source_rgba(rgba)
 
   cr.rectangle(0, 0, 1, 1)
-  cr.arc_negative(0.5, 0.5, 0.3, 2 * Math::PI, 0)
+  cr.arc_negative(0.5, 0.5, 0.4, 2 * Math::PI, 0)
   cr.close_path
   cr.fill
   false

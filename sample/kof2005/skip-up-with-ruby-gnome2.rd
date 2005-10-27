@@ -430,7 +430,8 @@ GUIの構成要素: ((*重なっている*))
   # enscript ruby
   widget.shape_combine_mask(mask, 0, 0)
 
-まるく穴が開く(('note:はずだったんだけどなぁ．'))
+まるく穴が開く
+#(('note:はずだったんだけどなぁ．'))
 
   # image
   # src = mask-screenshot.png

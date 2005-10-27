@@ -5,7 +5,7 @@ require 'gtk2'
 Gtk.init
 
 class GestureProcessor
-  DEFAULT_THRESHOLD = 32
+  DEFAULT_THRESHOLD = 64
   DEFAULT_SKEW_THRESHOLD_ANGLE = 30
     
   attr_accessor :threshold, :skew_threshold_angle
@@ -356,6 +356,7 @@ class Layout < Gtk::Layout
 end
 
 window = Gtk::Window.new
+window.set_default_size(512, 400)
 
 window.signal_connect("destroy") do
   Gtk.main_quit
@@ -373,7 +374,7 @@ end
 layout = Layout.new
 
 gestured_widget = GesturedWidget.new
-gestured_widget.set_size_request(50, 50)
+gestured_widget.set_size_request(250, 250)
 gestured_widget.signal_connect("expose_event") do |widget, event|
   x, y, w, h = widget.allocation.to_a
   cr = widget.window.create_cairo_context
@@ -385,11 +386,11 @@ gestured_widget.signal_connect("expose_event") do |widget, event|
   false
 end
 
-layout.put(gestured_widget, 75, 75)
+layout.put(gestured_widget, 130, 130)
 
 
 gestured_widget2 = GesturedWidget.new
-gestured_widget2.set_size_request(100, 50)
+gestured_widget2.set_size_request(200, 100)
 gestured_widget2.signal_connect("expose_event") do |widget, event|
   x, y, w, h = widget.allocation.to_a
   cr = widget.window.create_cairo_context
@@ -401,11 +402,11 @@ gestured_widget2.signal_connect("expose_event") do |widget, event|
   false
 end
 
-layout.put(gestured_widget2, 0, 25)
+layout.put(gestured_widget2, 50, 25)
 
 
 # gesture handlers
-expand_size = 20
+expand_size = 50
 
 expand_left = Proc.new do |widget|
   x = layout.child_get_property(widget, :x)

@@ -54,11 +54,25 @@ class Widget < Gtk::EventBox
 end
 
 window = Gtk::Window.new
+window.set_default_size(512, 400)
+
+window.signal_connect("destroy") do
+  Gtk.main_quit
+  true
+end
+window.signal_connect("key_press_event") do |widget, event|
+  if event.state.control_mask? and event.keyval == Gdk::Keyval::GDK_q
+    widget.destroy
+    true
+  else
+    false
+  end
+end
 
 layout = Gtk::Layout.new
 
 rect = Widget.new
-rect.set_size_request(130, 130)
+rect.set_size_request(260, 260)
 rect.signal_connect("expose_event") do |widget, event|
   x, y, w, h = widget.allocation.to_a
   cr = widget.window.create_cairo_context
@@ -76,10 +90,10 @@ rect.signal_connect("expose_event") do |widget, event|
   cr.stroke
   false
 end
-layout.put(rect, 20, 20)
+layout.put(rect, 80, 30)
   
 circ = Widget.new
-circ.set_size_request(100, 100)
+circ.set_size_request(250, 250)
 circ.signal_connect("expose_event") do |widget, event|
   x, y, w, h = widget.allocation.to_a
   cr = widget.window.create_cairo_context
@@ -98,7 +112,7 @@ circ.signal_connect("expose_event") do |widget, event|
   cr.stroke
   false
 end
-layout.put(circ, 80, 80)
+layout.put(circ, 180, 140)
 
 window.add(layout)
 window.show_all
