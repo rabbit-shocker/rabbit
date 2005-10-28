@@ -1,10 +1,10 @@
 = Skip up with(('&NewLine;'))Ruby-GNOME2
 
-# : place
-#    KOF2005ステージ
+: place
+   KOF2005ステージ
 
-# : date
-#    2005/10/28
+: date
+   2005/10/28
 
 : author
    須藤功平
