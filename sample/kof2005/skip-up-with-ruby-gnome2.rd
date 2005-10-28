@@ -22,7 +22,7 @@
   * Since LLDN...
 
     * Summer of Code((*成功！*))
-      * スーパーハッカー認定 from AC
+      * スーパーハッカー認定 by AC
     * ((*R*))abbit ((*D*))riven ((*D*))evelopment
       * cairoのRubyバインディング作成
 
@@ -51,8 +51,6 @@
 そして((*スピード*))
 
 = Road Map
-
-  * GUI
 
   * 基礎はサクッと((*Skip*))
 
@@ -106,9 +104,9 @@ GUIの構成要素: ((*重なっている*))
 
 選択中のウィジェットを強調表示
 
- # image
- # src = high-light.svg
- # relative_width = 100
+  # image
+  # src = high-light.svg
+  # relative_width = 100
 
 = 作戦
 
