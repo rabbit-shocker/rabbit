@@ -76,7 +76,14 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
   
   headers.prop_set("size", @normal_font_size)
   set_font_family(headers)
-  draw_frame(headers, params)
+  
+  draw_frame(headers, params) do |header, canvas, x, y, w, h|
+    new_x = nil
+    new_y = nil
+    new_w = nil
+    new_h = header.parent.height
+    [new_x, new_y, new_w, new_h]
+  end
 
   headers.add_pre_draw_proc(name) do |header, canvas, x, y, w, h, simulation|
     if simulation

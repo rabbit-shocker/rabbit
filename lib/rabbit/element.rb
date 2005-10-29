@@ -602,10 +602,11 @@ module Rabbit
           x, y, w, h = element.draw(simulation)
         end
         if @elements.last and @elements.last.inline_element?
+          container_height = height
           x = base_x
-          y += elements.last.height
+          y += container_height
           w = base_w
-          h -= elements.last.height
+          h -= container_height
         end
         [x, y - adjust_height, w, h + adjust_height]
       end
