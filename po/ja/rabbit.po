@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Rabbit 0.1.0\n"
-"POT-Creation-Date: 2005-09-07 14:20+0900\n"
-"PO-Revision-Date: 2005-09-07 14:24+0900\n"
+"Project-Id-Version: Rabbit 0.2.9\n"
+"POT-Creation-Date: 2005-10-29 15:13+0900\n"
+"PO-Revision-Date: 2005-10-29 15:23+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Japanese <kou@cozmixng.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,96 +55,318 @@ msgstr "変更不能なソースタイプです: %s"
 msgid "not available interface: %s"
 msgstr "利用可能なインターフェイスではありません: %s"
 
-#: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
-#: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:68
-#: lib/rabbit/menu.rb:79 lib/rabbit/menu.rb:83 lib/rabbit/menu.rb:89
-#: lib/rabbit/menu.rb:92 lib/rabbit/menu.rb:96 lib/rabbit/menu.rb:131
+#: lib/rabbit/canvas.rb:464 lib/rabbit/renderer/drawing-area.rb:793
+msgid "processing..."
+msgstr "処理中です．．．"
+
+#: lib/rabbit/canvas.rb:577
+msgid "Comment"
+msgstr "コメント"
+
+#: lib/rabbit/menu.rb:39 lib/rabbit/menu.rb:49 lib/rabbit/menu.rb:64
+#: lib/rabbit/menu.rb:81 lib/rabbit/menu.rb:109 lib/rabbit/menu.rb:116
+#: lib/rabbit/menu.rb:118 lib/rabbit/menu.rb:129 lib/rabbit/menu.rb:138
+#: lib/rabbit/menu.rb:150 lib/rabbit/menu.rb:153 lib/rabbit/menu.rb:157
+#: lib/rabbit/menu.rb:167 lib/rabbit/menu.rb:172 lib/rabbit/menu.rb:211
+#: lib/rabbit/menu.rb:215 lib/rabbit/menu.rb:242
 msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:35
+#: lib/rabbit/menu.rb:42
 msgid "/Slide"
 msgstr "/スライドモード"
 
-#: lib/rabbit/menu.rb:38
+#: lib/rabbit/menu.rb:45
 msgid "/Index"
 msgstr "/一覧モード"
 
-#: lib/rabbit/menu.rb:45
+#: lib/rabbit/menu.rb:53
 msgid "/UnFullScreen"
 msgstr "/フルスクリーン解除"
 
-#: lib/rabbit/menu.rb:48
+#: lib/rabbit/menu.rb:56
 msgid "/FullScreen"
 msgstr "/フルスクリーン"
 
-#: lib/rabbit/menu.rb:54
-msgid "/SaveAsImage"
-msgstr "/画像として保存"
+#: lib/rabbit/menu.rb:70
+msgid "/UnWhiteOut"
+msgstr "/ホワイトアウト解除"
 
-#: lib/rabbit/menu.rb:58
-msgid "/Print"
-msgstr "/印刷"
+#: lib/rabbit/menu.rb:72
+msgid "/WhiteOut"
+msgstr "/ホワイトアウト"
 
-#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:103
+#: lib/rabbit/menu.rb:76
+msgid "/UnBlackOut"
+msgstr "/ブラックアウト解除"
+
+#: lib/rabbit/menu.rb:78
+msgid "/BlackOut"
+msgstr "/ブラックアウト"
+
+#: lib/rabbit/menu.rb:85
+msgid "/HideCommentFrame"
+msgstr "コメントフレームを隠す"
+
+#: lib/rabbit/menu.rb:88
+msgid "/ShowCommentFrame"
+msgstr "/コメントフレームを表示"
+
+#: lib/rabbit/menu.rb:97
+msgid "/HideCommentView"
+msgstr "/コメントビューを隠す"
+
+#: lib/rabbit/menu.rb:100
+msgid "/ShowCommentView"
+msgstr "/コメントビューを表示"
+
+#: lib/rabbit/menu.rb:115 lib/rabbit/menu.rb:116 lib/rabbit/menu.rb:178
 msgid "/Jump"
 msgstr "/ジャンプ"
 
-#: lib/rabbit/menu.rb:70
+#: lib/rabbit/menu.rb:120
 msgid "/Next"
 msgstr "/次のスライド"
 
-#: lib/rabbit/menu.rb:72
+#: lib/rabbit/menu.rb:122
 msgid "/Previous"
 msgstr "/前のスライド"
 
-#: lib/rabbit/menu.rb:74
+#: lib/rabbit/menu.rb:124
 msgid "/First"
 msgstr "/最初のスライド"
 
-#: lib/rabbit/menu.rb:76
+#: lib/rabbit/menu.rb:126
 msgid "/Last"
 msgstr "/最後のスライド"
 
-#: lib/rabbit/menu.rb:81
+#: lib/rabbit/menu.rb:132
 msgid "/Iconify"
 msgstr "/最小化"
 
-#: lib/rabbit/menu.rb:85
+#: lib/rabbit/menu.rb:143
+msgid "/Redraw"
+msgstr "/再表示"
+
+#: lib/rabbit/menu.rb:146
 msgid "/ReloadTheme"
 msgstr "/テーマの再読み込み"
 
-#: lib/rabbit/menu.rb:88 lib/rabbit/menu.rb:89 lib/rabbit/menu.rb:111
+#: lib/rabbit/menu.rb:149 lib/rabbit/menu.rb:150 lib/rabbit/menu.rb:188
 msgid "/ChangeTheme"
 msgstr "/テーマ変更"
 
-#: lib/rabbit/menu.rb:91 lib/rabbit/menu.rb:92 lib/rabbit/menu.rb:117
+#: lib/rabbit/menu.rb:152 lib/rabbit/menu.rb:153 lib/rabbit/menu.rb:189
 msgid "/MergeTheme"
 msgstr "/テーマを混ぜる"
 
-#: lib/rabbit/menu.rb:94
+#: lib/rabbit/menu.rb:155
 msgid "/CacheAllSlides"
 msgstr "/スライドをキャッシュ"
 
-#: lib/rabbit/menu.rb:98 lib/rabbit/menu.rb:133
+#: lib/rabbit/menu.rb:159
+msgid "/SaveAsImage"
+msgstr "/画像として保存"
+
+#: lib/rabbit/menu.rb:163
+msgid "/Print"
+msgstr "/印刷"
+
+#: lib/rabbit/menu.rb:169
+msgid "/ResetAdjustment"
+msgstr "/ずれを直す"
+
+#: lib/rabbit/menu.rb:174 lib/rabbit/menu.rb:244
 msgid "/Quit"
 msgstr "/終了"
 
-#: lib/rabbit/canvas.rb:403 lib/rabbit/renderer/drawing-area.rb:458
-msgid "processing..."
-msgstr "処理中です．．．"
+#: lib/rabbit/menu.rb:190
+msgid "Etc"
+msgstr "その他"
 
 #: lib/rabbit/ext/block-verbatim.rb:134
 msgid "invalid source: %s"
 msgstr "不正なソースです: %s"
 
-#: lib/rabbit/ext/enscript.rb:23
+#: lib/rabbit/ext/enscript.rb:26
 msgid "enscript: unsupported language: %s"
 msgstr "enscript: サポートしていない言語です: %s"
 
-#: lib/rabbit/ext/enscript.rb:95
+#: lib/rabbit/ext/enscript.rb:99
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
+
+#: lib/rabbit/theme/image/property.rb:1 lib/rabbit/theme/table/property.rb:1
+#: lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
+msgid "ToolKit"
+msgstr "ツールキット"
+
+#: lib/rabbit/theme/image/property.rb:2
+#: lib/rabbit/theme/ruby-images/property.rb:1
+#: lib/rabbit/theme/cozmixng-images/property.rb:1
+#: lib/rabbit/theme/rabbit-images/property.rb:1
+#: lib/rabbit/theme/ruby-gnome2-images/property.rb:1
+msgid "Image"
+msgstr "画像"
+
+#: lib/rabbit/theme/image/property.rb:3
+msgid "image rendering"
+msgstr "画像表示"
+
+#: lib/rabbit/theme/rabbit/property.rb:1
+#: lib/rabbit/theme/default/property.rb:1
+#: lib/rabbit/theme/cozmixng/property.rb:1
+#: lib/rabbit/theme/lightning-talk/property.rb:1
+#: lib/rabbit/theme/red/property.rb:1
+#: lib/rabbit/theme/lightning-rabbit/property.rb:1
+#: lib/rabbit/theme/lightning-simple/property.rb:1
+#: lib/rabbit/theme/ruby-gnome2/property.rb:1
+msgid "Theme"
+msgstr "テーマ"
+
+#: lib/rabbit/theme/rabbit/property.rb:2
+#: lib/rabbit/theme/rabbit-images/property.rb:2
+msgid "Rabbit"
+msgstr ""
+
+#: lib/rabbit/theme/rabbit/property.rb:3
+msgid "Rabbit theme"
+msgstr "Rabbitテーマ"
+
+#: lib/rabbit/theme/default/property.rb:2
+msgid "Default"
+msgstr "デフォルト"
+
+#: lib/rabbit/theme/default/property.rb:3
+msgid "default theme"
+msgstr "デフォルトテーマ"
+
+#: lib/rabbit/theme/table/property.rb:2
+msgid "Table"
+msgstr "表"
+
+#: lib/rabbit/theme/table/property.rb:3
+msgid "table rendering"
+msgstr "表の表示"
+
+#: lib/rabbit/theme/cozmixng/property.rb:2
+#: lib/rabbit/theme/cozmixng-images/property.rb:2
+msgid "COZMIXNG"
+msgstr ""
+
+#: lib/rabbit/theme/cozmixng/property.rb:3
+msgid "COZMIXNG theme"
+msgstr "COZMIXNGテーマ"
+
+#: lib/rabbit/theme/timer/property.rb:1 lib/rabbit/theme/clock/property.rb:1
+#: lib/rabbit/theme/image-timer/property.rb:1
+msgid "Time"
+msgstr "時間"
+
+#: lib/rabbit/theme/timer/property.rb:2
+msgid "TextTimer"
+msgstr "テキストタイマー"
+
+#: lib/rabbit/theme/timer/property.rb:3
+msgid "text version timer"
+msgstr "テキストーバージョンのタイマー"
+
+#: lib/rabbit/theme/clock/property.rb:2
+msgid "TextClock"
+msgstr "テキスト時計"
+
+#: lib/rabbit/theme/clock/property.rb:3
+msgid "text version clock"
+msgstr "テキストバージョンの時計"
+
+#: lib/rabbit/theme/lightning-talk/property.rb:2
+msgid "LightningTalk"
+msgstr "ライトニングトーク"
+
+#: lib/rabbit/theme/lightning-talk/property.rb:3
+msgid "Lightning Talk theme"
+msgstr "ライトニングトークテーマ"
+
+#: lib/rabbit/theme/red/property.rb:2
+msgid "Red"
+msgstr "赤"
+
+#: lib/rabbit/theme/red/property.rb:3
+msgid "Red theme"
+msgstr "/赤いテーマ"
+
+#: lib/rabbit/theme/image-timer/property.rb:2
+msgid "ImageTimer"
+msgstr "画像タイマー"
+
+#: lib/rabbit/theme/image-timer/property.rb:3
+msgid "image version timer"
+msgstr "画像バージョンのタイマー"
+
+#: lib/rabbit/theme/lightning-rabbit/property.rb:2
+msgid "LightningRabbit"
+msgstr "ライトニングRabbit"
+
+#: lib/rabbit/theme/lightning-rabbit/property.rb:3
+msgid "Rabbit theme with Lightning Talk theme"
+msgstr "ライトニングトークテーマ付きRabbitテーマ"
+
+#: lib/rabbit/theme/lightning-talk-toolkit/property.rb:2
+msgid "LightningTalk-ToolKit"
+msgstr "ライトニングトーク・ツールキット"
+
+#: lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
+msgid "tool kit for lightning talk slide"
+msgstr "ライトニングトークスライド用ツールキット"
+
+#: lib/rabbit/theme/show-frame/property.rb:1
+msgid "Debug"
+msgstr "デバッグ"
+
+#: lib/rabbit/theme/show-frame/property.rb:2
+msgid "ShowFrame"
+msgstr "枠を表示"
+
+#: lib/rabbit/theme/show-frame/property.rb:3
+msgid "show element frame"
+msgstr "要素の枠を表示"
+
+#: lib/rabbit/theme/lightning-simple/property.rb:2
+msgid "LightningTalk-Simple"
+msgstr "シンプルバージョンのライトニングトーク"
+
+#: lib/rabbit/theme/lightning-simple/property.rb:3
+msgid "Lightning Talk theme simple version"
+msgstr "シンプルバージョンのライトニングトークテーマ"
+
+#: lib/rabbit/theme/ruby-images/property.rb:2
+msgid "Ruby"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-images/property.rb:3
+msgid "images related Ruby"
+msgstr "Ruby関係の画像"
+
+#: lib/rabbit/theme/cozmixng-images/property.rb:3
+msgid "images related COZMIXNG"
+msgstr "COZMIXNG関係の画像"
+
+#: lib/rabbit/theme/rabbit-images/property.rb:3
+msgid "images related Rabbit"
+msgstr "Rabbit関係の画像"
+
+#: lib/rabbit/theme/ruby-gnome2/property.rb:2
+#: lib/rabbit/theme/ruby-gnome2-images/property.rb:2
+msgid "Ruby-GNOME2"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-gnome2/property.rb:3
+msgid "Ruby-GNOME2 theme"
+msgstr "Ruby-GNOME2テーマ"
+
+#: lib/rabbit/theme/ruby-gnome2-images/property.rb:3
+msgid "images related Ruby-GNOME2"
+msgstr "Ruby-GNOME2関係の画像"
 
 #: lib/rabbit/logger/stderr.rb:14
 msgid "can't convert to current locale from UTF-8: %s"
@@ -154,14 +376,18 @@ msgstr "UTF-8から現在のロケールに変換できません: %s"
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/drawing-area.rb:596
+#: lib/rabbit/renderer/drawing-area.rb:472
+msgid "comment"
+msgstr "コメント"
+
+#: lib/rabbit/renderer/drawing-area.rb:991
 msgid "Now processing... Do you really quit?"
 msgstr "処理中です．．．本当に終了しますか？"
 
-#: lib/rabbit/renderer/base.rb:561
+#: lib/rabbit/renderer/base.rb:625
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: lib/rabbit/renderer/print.rb:325
+#: lib/rabbit/renderer/print.rb:328
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"

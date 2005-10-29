@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.1.0\n"
-"POT-Creation-Date: 2005-09-07 14:20+0900\n"
+"POT-Creation-Date: 2005-10-29 15:13+0900\n"
 "PO-Revision-Date: 2005-08-18 08:28+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
@@ -60,96 +60,320 @@ msgstr ""
 msgid "not available interface: %s"
 msgstr ""
 
-#: lib/rabbit/menu.rb:32 lib/rabbit/menu.rb:42 lib/rabbit/menu.rb:52
-#: lib/rabbit/menu.rb:62 lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:68
-#: lib/rabbit/menu.rb:79 lib/rabbit/menu.rb:83 lib/rabbit/menu.rb:89
-#: lib/rabbit/menu.rb:92 lib/rabbit/menu.rb:96 lib/rabbit/menu.rb:131
+#: lib/rabbit/canvas.rb:464 lib/rabbit/renderer/drawing-area.rb:793
+msgid "processing..."
+msgstr ""
+
+#: lib/rabbit/canvas.rb:577
+msgid "Comment"
+msgstr ""
+
+#: lib/rabbit/menu.rb:39 lib/rabbit/menu.rb:49 lib/rabbit/menu.rb:64
+#: lib/rabbit/menu.rb:81 lib/rabbit/menu.rb:109 lib/rabbit/menu.rb:116
+#: lib/rabbit/menu.rb:118 lib/rabbit/menu.rb:129 lib/rabbit/menu.rb:138
+#: lib/rabbit/menu.rb:150 lib/rabbit/menu.rb:153 lib/rabbit/menu.rb:157
+#: lib/rabbit/menu.rb:167 lib/rabbit/menu.rb:172 lib/rabbit/menu.rb:211
+#: lib/rabbit/menu.rb:215 lib/rabbit/menu.rb:242
 msgid "/Separator"
 msgstr ""
 
-#: lib/rabbit/menu.rb:35
+#: lib/rabbit/menu.rb:42
 msgid "/Slide"
 msgstr "/Mode transparents"
 
-#: lib/rabbit/menu.rb:38
+#: lib/rabbit/menu.rb:45
 msgid "/Index"
 msgstr "/Mode index"
 
-#: lib/rabbit/menu.rb:45
+#: lib/rabbit/menu.rb:53
 msgid "/UnFullScreen"
 msgstr "/Sortir du plein écran"
 
-#: lib/rabbit/menu.rb:48
+#: lib/rabbit/menu.rb:56
 msgid "/FullScreen"
 msgstr "/Plein écran"
 
-#: lib/rabbit/menu.rb:54
-msgid "/SaveAsImage"
-msgstr "/Sauver en tant qu'image"
+#: lib/rabbit/menu.rb:70
+msgid "/UnWhiteOut"
+msgstr ""
 
-#: lib/rabbit/menu.rb:58
-msgid "/Print"
-msgstr "/Imprimer"
+#: lib/rabbit/menu.rb:72
+msgid "/WhiteOut"
+msgstr ""
 
-#: lib/rabbit/menu.rb:65 lib/rabbit/menu.rb:66 lib/rabbit/menu.rb:103
+#: lib/rabbit/menu.rb:76
+msgid "/UnBlackOut"
+msgstr ""
+
+#: lib/rabbit/menu.rb:78
+msgid "/BlackOut"
+msgstr ""
+
+#: lib/rabbit/menu.rb:85
+msgid "/HideCommentFrame"
+msgstr ""
+
+#: lib/rabbit/menu.rb:88
+msgid "/ShowCommentFrame"
+msgstr ""
+
+#: lib/rabbit/menu.rb:97
+msgid "/HideCommentView"
+msgstr ""
+
+#: lib/rabbit/menu.rb:100
+msgid "/ShowCommentView"
+msgstr ""
+
+#: lib/rabbit/menu.rb:115 lib/rabbit/menu.rb:116 lib/rabbit/menu.rb:178
 msgid "/Jump"
 msgstr "/Aller à"
 
-#: lib/rabbit/menu.rb:70
+#: lib/rabbit/menu.rb:120
 msgid "/Next"
 msgstr "/Transparent suivant"
 
-#: lib/rabbit/menu.rb:72
+#: lib/rabbit/menu.rb:122
 msgid "/Previous"
 msgstr "/Transparent précédent"
 
-#: lib/rabbit/menu.rb:74
+#: lib/rabbit/menu.rb:124
 msgid "/First"
 msgstr "/Premier transparent"
 
-#: lib/rabbit/menu.rb:76
+#: lib/rabbit/menu.rb:126
 msgid "/Last"
 msgstr "/Dernier transparent"
 
-#: lib/rabbit/menu.rb:81
+#: lib/rabbit/menu.rb:132
 msgid "/Iconify"
 msgstr "/Minimiser la fenêtre"
 
-#: lib/rabbit/menu.rb:85
+#: lib/rabbit/menu.rb:143
+msgid "/Redraw"
+msgstr ""
+
+#: lib/rabbit/menu.rb:146
 msgid "/ReloadTheme"
 msgstr "/Recharger le thème"
 
-#: lib/rabbit/menu.rb:88 lib/rabbit/menu.rb:89 lib/rabbit/menu.rb:111
+#: lib/rabbit/menu.rb:149 lib/rabbit/menu.rb:150 lib/rabbit/menu.rb:188
 msgid "/ChangeTheme"
 msgstr ""
 
-#: lib/rabbit/menu.rb:91 lib/rabbit/menu.rb:92 lib/rabbit/menu.rb:117
+#: lib/rabbit/menu.rb:152 lib/rabbit/menu.rb:153 lib/rabbit/menu.rb:189
 #, fuzzy
 msgid "/MergeTheme"
 msgstr "/Recharger le thème"
 
-#: lib/rabbit/menu.rb:94
+#: lib/rabbit/menu.rb:155
 msgid "/CacheAllSlides"
 msgstr ""
 
-#: lib/rabbit/menu.rb:98 lib/rabbit/menu.rb:133
+#: lib/rabbit/menu.rb:159
+msgid "/SaveAsImage"
+msgstr "/Sauver en tant qu'image"
+
+#: lib/rabbit/menu.rb:163
+msgid "/Print"
+msgstr "/Imprimer"
+
+#: lib/rabbit/menu.rb:169
+msgid "/ResetAdjustment"
+msgstr ""
+
+#: lib/rabbit/menu.rb:174 lib/rabbit/menu.rb:244
 msgid "/Quit"
 msgstr "/Quitter"
 
-#: lib/rabbit/canvas.rb:403 lib/rabbit/renderer/drawing-area.rb:458
-msgid "processing..."
+#: lib/rabbit/menu.rb:190
+msgid "Etc"
 msgstr ""
 
 #: lib/rabbit/ext/block-verbatim.rb:134
 msgid "invalid source: %s"
 msgstr ""
 
-#: lib/rabbit/ext/enscript.rb:23
+#: lib/rabbit/ext/enscript.rb:26
 msgid "enscript: unsupported language: %s"
 msgstr ""
 
-#: lib/rabbit/ext/enscript.rb:95
+#: lib/rabbit/ext/enscript.rb:99
 msgid "enscript: unsupported element name: %s"
+msgstr ""
+
+#: lib/rabbit/theme/image/property.rb:1 lib/rabbit/theme/table/property.rb:1
+#: lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
+msgid "ToolKit"
+msgstr ""
+
+#: lib/rabbit/theme/image/property.rb:2
+#: lib/rabbit/theme/ruby-images/property.rb:1
+#: lib/rabbit/theme/cozmixng-images/property.rb:1
+#: lib/rabbit/theme/rabbit-images/property.rb:1
+#: lib/rabbit/theme/ruby-gnome2-images/property.rb:1
+msgid "Image"
+msgstr ""
+
+#: lib/rabbit/theme/image/property.rb:3
+msgid "image rendering"
+msgstr ""
+
+#: lib/rabbit/theme/rabbit/property.rb:1
+#: lib/rabbit/theme/default/property.rb:1
+#: lib/rabbit/theme/cozmixng/property.rb:1
+#: lib/rabbit/theme/lightning-talk/property.rb:1
+#: lib/rabbit/theme/red/property.rb:1
+#: lib/rabbit/theme/lightning-rabbit/property.rb:1
+#: lib/rabbit/theme/lightning-simple/property.rb:1
+#: lib/rabbit/theme/ruby-gnome2/property.rb:1
+#, fuzzy
+msgid "Theme"
+msgstr "/Recharger le thème"
+
+#: lib/rabbit/theme/rabbit/property.rb:2
+#: lib/rabbit/theme/rabbit-images/property.rb:2
+msgid "Rabbit"
+msgstr ""
+
+#: lib/rabbit/theme/rabbit/property.rb:3
+msgid "Rabbit theme"
+msgstr ""
+
+#: lib/rabbit/theme/default/property.rb:2
+msgid "Default"
+msgstr ""
+
+#: lib/rabbit/theme/default/property.rb:3
+msgid "default theme"
+msgstr ""
+
+#: lib/rabbit/theme/table/property.rb:2
+msgid "Table"
+msgstr ""
+
+#: lib/rabbit/theme/table/property.rb:3
+msgid "table rendering"
+msgstr ""
+
+#: lib/rabbit/theme/cozmixng/property.rb:2
+#: lib/rabbit/theme/cozmixng-images/property.rb:2
+msgid "COZMIXNG"
+msgstr ""
+
+#: lib/rabbit/theme/cozmixng/property.rb:3
+msgid "COZMIXNG theme"
+msgstr ""
+
+#: lib/rabbit/theme/timer/property.rb:1 lib/rabbit/theme/clock/property.rb:1
+#: lib/rabbit/theme/image-timer/property.rb:1
+msgid "Time"
+msgstr ""
+
+#: lib/rabbit/theme/timer/property.rb:2
+msgid "TextTimer"
+msgstr ""
+
+#: lib/rabbit/theme/timer/property.rb:3
+msgid "text version timer"
+msgstr ""
+
+#: lib/rabbit/theme/clock/property.rb:2
+msgid "TextClock"
+msgstr ""
+
+#: lib/rabbit/theme/clock/property.rb:3
+msgid "text version clock"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-talk/property.rb:2
+msgid "LightningTalk"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-talk/property.rb:3
+msgid "Lightning Talk theme"
+msgstr ""
+
+#: lib/rabbit/theme/red/property.rb:2
+msgid "Red"
+msgstr ""
+
+#: lib/rabbit/theme/red/property.rb:3
+#, fuzzy
+msgid "Red theme"
+msgstr "/Recharger le thème"
+
+#: lib/rabbit/theme/image-timer/property.rb:2
+msgid "ImageTimer"
+msgstr ""
+
+#: lib/rabbit/theme/image-timer/property.rb:3
+msgid "image version timer"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-rabbit/property.rb:2
+msgid "LightningRabbit"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-rabbit/property.rb:3
+msgid "Rabbit theme with Lightning Talk theme"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-talk-toolkit/property.rb:2
+msgid "LightningTalk-ToolKit"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
+msgid "tool kit for lightning talk slide"
+msgstr ""
+
+#: lib/rabbit/theme/show-frame/property.rb:1
+msgid "Debug"
+msgstr ""
+
+#: lib/rabbit/theme/show-frame/property.rb:2
+msgid "ShowFrame"
+msgstr ""
+
+#: lib/rabbit/theme/show-frame/property.rb:3
+msgid "show element frame"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-simple/property.rb:2
+msgid "LightningTalk-Simple"
+msgstr ""
+
+#: lib/rabbit/theme/lightning-simple/property.rb:3
+msgid "Lightning Talk theme simple version"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-images/property.rb:2
+msgid "Ruby"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-images/property.rb:3
+msgid "images related Ruby"
+msgstr ""
+
+#: lib/rabbit/theme/cozmixng-images/property.rb:3
+msgid "images related COZMIXNG"
+msgstr ""
+
+#: lib/rabbit/theme/rabbit-images/property.rb:3
+msgid "images related Rabbit"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-gnome2/property.rb:2
+#: lib/rabbit/theme/ruby-gnome2-images/property.rb:2
+msgid "Ruby-GNOME2"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-gnome2/property.rb:3
+msgid "Ruby-GNOME2 theme"
+msgstr ""
+
+#: lib/rabbit/theme/ruby-gnome2-images/property.rb:3
+msgid "images related Ruby-GNOME2"
 msgstr ""
 
 #: lib/rabbit/logger/stderr.rb:14
@@ -160,15 +384,19 @@ msgstr ""
 msgid "Rabbit Error Dialog"
 msgstr "Boite de dialogue d'erreur de Rabbit"
 
-#: lib/rabbit/renderer/drawing-area.rb:596
+#: lib/rabbit/renderer/drawing-area.rb:472
+msgid "comment"
+msgstr ""
+
+#: lib/rabbit/renderer/drawing-area.rb:991
 msgid "Now processing... Do you really quit?"
 msgstr ""
 
-#: lib/rabbit/renderer/base.rb:561
+#: lib/rabbit/renderer/base.rb:625
 #, fuzzy
 msgid "%s does not support: %s"
 msgstr "%s n'existe pas."
 
-#: lib/rabbit/renderer/print.rb:325
+#: lib/rabbit/renderer/print.rb:328
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
