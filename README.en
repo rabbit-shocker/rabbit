@@ -72,26 +72,6 @@ gan <shinsato@kono.cis.iwate-u.ac.jp>
 
 usatti
 
-=== Images (5)
-
-Ruby-GNOME2's foot icon
-
-Geoff Youngs
-
-Licence: GFDL
-
-((<URL:http://ruby-gnome2.sourceforge.jp/hiki.cgi?Icons>))
-
-=== Images (6)
-
-Ruby-GNOME2's foot with ruby icon
-
-Joshua Keith
-
-Licence: GFDL
-
-((<URL:http://ruby-gnome2.sourceforge.jp/hiki.cgi?Icons>))
-
 === Mode for xyzzy
 
 misc/xyzzy
@@ -100,11 +80,13 @@ Mr. MIYAMUKO
 
 == Licence
 
-Ruby's (except files under lib/rabbit/tgif.rb)
+Ruby's (except files under lib/rabbit/tgif.rb). For more
+information see COPYING.
 
 The files under lib/rabbit/tgif.rb is the
 same licence of
 ((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)).
+For more information see COPYING-TGIFTOOLS.
 
 If you want to get PSD file of mascot character, tell
 program author. I'll ask images author.
