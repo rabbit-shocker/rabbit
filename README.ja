@@ -72,26 +72,6 @@ gan <shinsato@kono.cis.iwate-u.ac.jp>
 
 うさっち
 
-=== 画像（5）
-
-Ruby-GNOME2の足のアイコン
-
-Geoff Youngs
-
-ライセンス: GFDL
-
-((<URL:http://ruby-gnome2.sourceforge.jp/hiki.cgi?Icons>))
-
-=== 画像（6）
-
-Ruby-GNOME2の足とRubyのアイコン
-
-Joshua Keith
-
-ライセンス: GFDL
-
-((<URL:http://ruby-gnome2.sourceforge.jp/hiki.cgi?Icons>))
-
 === xyzzy用モード
 
 misc/xyzzy/
@@ -100,11 +80,13 @@ misc/xyzzy/
 
 == ライセンス
 
-プログラム，画像ともにRuby's （lib/rabbit/tgif.rbを除く）
+プログラム，画像ともにRuby's（lib/rabbit/tgif.rbを除く）です．
+詳しくはCOPYINGまたはCOPYING.jaを見てください．
 
 ただし，lib/rabbit/tgif.rbは
 ((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)) 
-と同じライセンスになります．
+と同じライセンスになります．詳しくはCOPYING-TGIFTOOLSまたは
+COPYING-TGIFTOOLS.jaを見てください．
 
 マスコットキャラクタのPSDファイルが欲しい人はプログラム作者
 に連絡してください．画像作者に相談してみます．

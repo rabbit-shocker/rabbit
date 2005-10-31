@@ -1,3 +1,5 @@
+# bin/rabbit -I sample sample/kof2005/skip-up-with-ruby-gnome2.rd
+
 = Skip up with(('&NewLine;'))Ruby-GNOME2
 
 : place
@@ -13,7 +15,7 @@
    COZMIXNG
 
 : theme
-   ruby-gnome2
+   kof2005
 
 = 近況
 
