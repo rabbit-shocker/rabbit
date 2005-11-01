@@ -552,7 +552,6 @@ module Rabbit
           else
             handled = handle_button_release(event, last_button_press_event)
           end
-          widget.grab_focus
           handled
         end
       end
