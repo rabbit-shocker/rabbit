@@ -106,7 +106,7 @@ module Rabbit
           tgif_file.close
           begin
             command = ["tgif", "-print", "-eps", "-quiet", tgif_file.path]
-            FileUtils.ln_sf(tgif_file.path, obj_path)
+            FileUtils.cp(tgif_file.path, obj_path)
             if run(*command)
               FileUtils.mv(eps_path, image_file.path)
               image_file
