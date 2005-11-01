@@ -13,7 +13,11 @@ module Rabbit
       include GetText
       
       @@enscript_highlight = {}
-      enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
+      enscript_highlight = []
+      begin
+        enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
+      rescue Errno::ENOENT => ignored
+      end
       enscript_highlight.flatten.each do |name|
         @@enscript_highlight[name.downcase] = name
       end
