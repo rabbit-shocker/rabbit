@@ -545,15 +545,12 @@ module Rabbit
         end
 
         @area.signal_connect("button_release_event") do |widget, event|
-          handled = false
-          if last_button_press_event
-            handled = call_hook_procs(@button_release_hook_procs,
-                                      event, last_button_press_event)
-            if handled
-              clear_button_handler
-            else
-              handled = handle_button_release(event, last_button_press_event)
-            end
+          handled = call_hook_procs(@button_release_hook_procs,
+                                    event, last_button_press_event)
+          if handled
+            clear_button_handler
+          else
+            handled = handle_button_release(event, last_button_press_event)
           end
           handled
         end
