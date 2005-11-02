@@ -838,12 +838,16 @@ module Rabbit
       def handle_button_press(event, release_event)
         case event.button
         when 1, 5
-          add_button_handler do
-            @canvas.move_to_next_if_can
+          unless release_event.state.mod1_mask?
+            add_button_handler do
+              @canvas.move_to_next_if_can
+            end
           end
         when 2, 4
-          add_button_handler do
-            @canvas.move_to_previous_if_can
+          unless release_event.state.mod1_mask?
+            add_button_handler do
+              @canvas.move_to_previous_if_can
+            end
           end
         when 3
           add_button_handler do
