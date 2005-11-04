@@ -156,28 +156,28 @@
 = 豊富な出力方法
 
   # image
-  # src = output.eps
+  # src = output.svg
   # keep_ratio = true
   # relative_height = 90
 
 = 豊富な入力方法
 
   # image
-  # src = input.eps
+  # src = input.svg
   # keep_ratio = true
   # relative_height = 90
 
 = 豊富なインターフェイス
 
   # image
-  # src = interface.eps
+  # src = interface.svg
   # keep_ratio = true
   # relative_height = 90
 
 = RabbitとRWiki
 
   # image
-  # src = rabbit-rwiki.eps
+  # src = rabbit-rwiki.svg
   # keep_ratio = true
   # relative_height = 90
 
