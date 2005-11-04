@@ -217,7 +217,7 @@ Ahh, I'll set up more better documents.
 : Go to n page
    1-9. +Ctrl is +10, +Alt is +20
 : Go to last page
-   e, >, End
+   e, $, >, End
 
 = Key bindings (presentation)
 

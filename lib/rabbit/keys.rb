@@ -62,6 +62,7 @@ module Rabbit
       Gdk::Keyval::GDK_End,
       Gdk::Keyval::GDK_KP_End,
       Gdk::Keyval::GDK_greater,
+      Gdk::Keyval::GDK_dollar,
     ]
       
     TOGGLE_FULLSCREEN_KEYS = [
