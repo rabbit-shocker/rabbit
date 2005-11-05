@@ -182,6 +182,11 @@ Windowsの場合はinstall.batを実行してもインストールできます．
 
   % rabbit sample/rabbit-implementation.rd
 
+ただし，いくつかのサンプルは，テーマがsample/rabbit/theme以
+下にあるためトップからではうまく表示できないかもしれません．
+サンプルの実行は sample ディレクトリに入ってするとよいでしょ
+う．
+
 WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 ドロップしてもよいです．
 
