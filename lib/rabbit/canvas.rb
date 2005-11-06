@@ -219,13 +219,13 @@ module Rabbit
       slides << slide
     end
 
-    def apply_theme(name=nil)
+    def apply_theme(name=nil, &block)
       @theme_name = name if name
       _theme_name = name || theme_name
       if _theme_name and not @slides.empty?
         clear_theme
         clear_index_slides
-        manager = Theme::Manager.new(self)
+        manager = Theme::Manager.new(self, &block)
         manager.apply(_theme_name)
         @renderer.post_apply_theme
       end
@@ -243,8 +243,8 @@ module Rabbit
       end
     end
 
-    def reload_theme
-      apply_theme(@theme_name)
+    def reload_theme(&block)
+      apply_theme(@theme_name, &block)
     end
 
     def parse_rd(source=nil)

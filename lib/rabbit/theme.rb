@@ -136,16 +136,16 @@ module Rabbit
       def_delegators(:@canvas, :logger)
       
       attr_reader :canvas, :name
-      def initialize(canvas)
+      def initialize(canvas, &callback)
         @canvas = canvas
-        @applier = Applier.new(self)
+        @applier = Applier.new(self, &callback)
         apply("base")
       end
 
-      def apply(name)
+      def apply(name, &block)
         @name = name
         begin
-          @applier.apply_theme(name)
+          @applier.apply_theme(name, &block)
         rescue ThemeExit
           logger.info($!.message) if $!.have_message?
         rescue StandardError, LoadError, SyntaxError
@@ -190,13 +190,16 @@ module Rabbit
       include Enumerable
       include Element
       include Searcher
+      include DirtyCount
 
       NORMALIZED_WIDTH = 120.0
       NORMALIZED_HEIGHT = 90.0
 
-      def initialize(theme)
+      def initialize(theme, &callback)
         super()
         @theme = theme
+        @callback = callback
+        dirty_count_clean
         @match_cache = {}
         class << slides
           def elements
@@ -303,6 +306,12 @@ module Rabbit
       end
 
       def match(*paths, &block)
+        if dirty?
+          @callback.call if @callback
+          dirty_count_clean
+        else
+          dirty
+        end
         block.call(ElementContainer.new(_match(slides, *paths)))
       end
       

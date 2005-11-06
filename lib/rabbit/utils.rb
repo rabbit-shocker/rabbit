@@ -145,4 +145,29 @@ module Rabbit
       result
     end
   end
+
+  module DirtyCount
+    TOO_DIRTY = 5
+
+    def dirty?
+      @dirty_count >= TOO_DIRTY
+    end
+    
+    def dirty
+      @dirty_count += TOO_DIRTY / 10.0
+    end
+    
+    def very_dirty
+      @dirty_count += TOO_DIRTY
+    end
+    
+    def bit_dirty
+      @dirty_count += TOO_DIRTY / 100.0
+    end
+
+    def dirty_count_clean
+      @dirty_count = 0
+    end
+    
+  end
 end

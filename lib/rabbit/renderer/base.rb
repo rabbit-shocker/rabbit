@@ -17,10 +17,9 @@ module Rabbit
 
     module Base
       include GetText
+      include DirtyCount
       include ERB::Util
 
-      TOO_DIRTY = 5
-    
       Color = Struct.new(:red, :green, :blue, :alpha, :have_alpha)
 
       class Color
@@ -443,24 +442,8 @@ module Rabbit
         init_hook_procs
       end
 
-      def dirty?
-        @dirty_count >= TOO_DIRTY
-      end
-      
-      def dirty
-        @dirty_count += TOO_DIRTY / 10.0
-      end
-      
-      def very_dirty
-        @dirty_count += TOO_DIRTY
-      end
-      
-      def bit_dirty
-        @dirty_count += TOO_DIRTY / 100.0
-      end
-
       def clean
-        @dirty_count = 0
+        dirty_count_clean
       end
 
       def clean_if_dirty

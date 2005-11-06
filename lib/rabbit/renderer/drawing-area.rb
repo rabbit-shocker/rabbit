@@ -563,16 +563,9 @@ module Rabbit
       end
       
       def set_expose_event
-        prev_width = prev_height = nil
         @area.signal_connect("expose_event") do |widget, event|
           unless @caching
             @canvas.reload_source
-            if @drawable
-              if [prev_width, prev_height] != [width, height]
-                @canvas.reload_theme
-                prev_width, prev_height = width, height
-              end
-            end
           end
 
           if @white_out
@@ -655,9 +648,28 @@ module Rabbit
       end
 
       def set_configure_event_after
+        id = nil
+        last_width = last_height = nil
+        target_width = target_height = nil
         @area.signal_connect_after("configure_event") do |widget, event|
           @mask = nil
           set_hole
+          last_width = event.width
+          last_height = event.height
+          if !@caching and @drawable and id.nil?
+            id = Gtk.idle_add do
+              target_width = last_width
+              target_height = last_height
+              @canvas.reload_theme do
+                while Gtk.events_pending?
+                  Gtk.main_iteration
+                end
+              end
+              clear_pixmaps
+              id = nil
+              [target_width, target_height] != [last_width, last_height]
+            end
+          end
           false
         end
       end
@@ -749,7 +761,6 @@ module Rabbit
           @canvas.move_to_if_can(index)
         when *TOGGLE_FULLSCREEN_KEYS
           @canvas.toggle_fullscreen
-          @canvas.reload_theme
         when *RELOAD_THEME_KEYS
           @canvas.reload_theme
         when *SAVE_AS_IMAGE_KEYS
