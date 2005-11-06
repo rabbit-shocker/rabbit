@@ -1,0 +1,24 @@
+= <%= @base_name %>
+
+: <%= _("Category") %>
+   <%= _(category) %>
+
+: <%= _("Name") %>
+   <%= _(@name) %>
+
+: <%= _("Abstract") %>
+   <%= _(@abstract) %>
+
+== <%= _("Description") %>
+
+<%= _(@description) %>
+
+== <%= _("Dependency themes") %>
+<% @dependencies.each do |theme| %>
+  * ((<<%= theme %>>))
+<% end %>
+== <%= _("Parameters") %>
+<% @parameters.each do |name, info| %>
+: (({<%= name %>})) (<%= _("Default: ") %><%= _(info[:default]) %>)
+   <%= _(info[:description]) %>
+<% end %>

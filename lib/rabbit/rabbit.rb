@@ -136,5 +136,18 @@ module Rabbit
   end
 
   class CantFindHTMLTemplate < Error
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("can't find HTML template: %s") % @name)
+    end
+  end
+
+  class CantFindThemeRDTemplate < Error
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("can't find theme RD template: %s") % @name)
+    end
   end
 end

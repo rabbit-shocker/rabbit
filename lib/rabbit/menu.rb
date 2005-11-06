@@ -187,23 +187,10 @@ module Rabbit
       
       change = _("/ChangeTheme") + "/"
       merge = _("/MergeTheme") + "/"
-      etc = _("Etc")
-      
+
       categories = themes.collect do |entry|
-        if entry.category
-          _(entry.category)
-        else
-          etc
-        end
-      end.uniq.sort do |x, y|
-        if x == etc
-          1
-        elsif y == etc
-          -1
-        else
-          x <=> y
-        end
-      end
+        _(entry.category)
+      end.uniq.sort
       
       categories.each do |category|
         change_category = "#{change}#{_(category)}"

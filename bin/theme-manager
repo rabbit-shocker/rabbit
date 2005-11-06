@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+Thread.abort_on_exception = true
+
+require "optparse"
+require "ostruct"
+require "fileutils"
+
+require "rabbit/rabbit"
+require "rabbit/logger"
+
+Version = Rabbit::VERSION
+
+def parse(args)
+  options = OpenStruct.new
+  options.output_dir = "theme-doc"
+    
+  opts = OptionParser.new do |opts|
+    opts.banner = "#{opts.banner} SOURCE_INFOS"
+
+    opts.separator ""
+
+    opts.on("-I", "--include [PATH]",
+            "Add [PATH] to load path") do |path|
+      $LOAD_PATH.unshift(path)
+    end
+    
+    opts.separator ""
+    
+    opts.on("-o", "--output-dir [DIR]",
+            "Specify output directory as [PATH]") do |dir|
+      options.output_dir = dir
+    end
+    
+    opts.separator ""
+    
+    opts.on_tail("--help", "Show this message") do
+      print(opts.to_s)
+      exit
+    end
+  end
+
+  opts.parse!(args)
+
+  options
+end
+
+def main
+  options = parse(ARGV)
+  require 'rabbit/theme'
+
+  FileUtils.mkdir_p(options.output_dir)
+  themes = Rabbit::Theme::Searcher.collect_theme
+  themes.each do |theme|
+    file = File.join(options.output_dir, "#{theme.base_name}.rd")
+    File.open(file, "w") do |f|
+      f.print(theme.to_rd)
+    end
+  end
+end
+
+if __FILE__ == $0
+  main
+end

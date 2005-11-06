@@ -7,23 +7,25 @@ require 'rabbit/utils'
 module Rabbit
   module HTML
     class Generator
+      extend ERB::DefMethod
 
       include ERB::Util
 
+      path = ["rabbit", "html", "template.erb"]
+      template_path = Utils.find_path_in_load_path(*path)
+      raise CantFindHTMLTemplate.new(File.join(*path)) if template_path.nil?
+      def_erb_method("to_html(file_name_format, slide_number, image_type)",
+                     template_path)
+      
       def initialize(canvas)
-        path = ["rabbit", "html", "template.erb"]
-        path = Utils.find_path_in_load_path(*path)
-        raise CantFindHTMLTemplate.new if path.nil?
         @canvas = canvas
         @suffix = "html"
-        @erb = ERB.new(File.open(path) {|f| f.read})
-        @erb.filename = path
       end
 
       def save(file_name_format, slide_number, image_type)
         file_name = slide_file_name(file_name_format, slide_number)
         File.open(file_name, "w") do |f|
-          f.print(@erb.result(binding))
+          f.print(to_html(file_name_format, slide_number, image_type))
         end
       end
 
