@@ -22,7 +22,6 @@ module Rabbit
         @height = height
         @filename = nil
         @pixmaps = {}
-        @deleted_pixmaps = {}
         @pango_context = create_pango_context
         init_drawable
         init_color
@@ -217,14 +216,12 @@ module Rabbit
 
       def clear_pixmap(slide=nil)
         dirty
-        key = slide || @canvas.current_slide
-        @deleted_pixmaps[key] = @pixmaps.delete(key)
+        @pixmaps.delete(slide || @canvas.current_slide)
         clean_if_dirty
       end
 
       def clear_pixmaps
         dirty
-        @deleted_pixmaps = @pixmaps
         @pixmaps = {}
         clean_if_dirty
       end
@@ -272,12 +269,7 @@ module Rabbit
 
       def init_pixmap(slide, simulation)
         if simulation
-          pixmap = @deleted_pixmaps[slide]
-          if pixmap and pixmap.size == [@width, @height]
-            @pixmap = pixmap
-          else
-            @pixmap = Gdk::Pixmap.new(nil, @width, @height, depth)
-          end
+          @pixmap = Gdk::Pixmap.new(nil, @width, @height, depth)
           @pixmaps[slide] = @pixmap
         end
       end
