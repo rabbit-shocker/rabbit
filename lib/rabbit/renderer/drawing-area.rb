@@ -565,7 +565,12 @@ module Rabbit
       def set_expose_event
         @area.signal_connect("expose_event") do |widget, event|
           unless @caching
-            @canvas.reload_source
+            if @canvas.need_reload_source?
+              Gtk.idle_add do
+                @canvas.reload_source(&Utils.process_pending_event_proc)
+                false
+              end
+            end
           end
 
           if @white_out
@@ -660,11 +665,7 @@ module Rabbit
             id = Gtk.idle_add do
               target_width = last_width
               target_height = last_height
-              @canvas.reload_theme do
-                while Gtk.events_pending?
-                  Gtk.main_iteration
-                end
-              end
+              @canvas.reload_theme(&Utils.process_pending_event_proc)
               clear_pixmaps
               id = nil
               [target_width, target_height] != [last_width, last_height]

@@ -49,8 +49,8 @@ module Rabbit
       @window.size[1]
     end
 
-    def parse_rd(source)
-      @canvas.parse_rd(source)
+    def parse_rd(source, &block)
+      @canvas.parse_rd(source, &block)
     end
 
     def fullscreen

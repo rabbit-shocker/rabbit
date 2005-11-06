@@ -247,15 +247,19 @@ module Rabbit
       apply_theme(@theme_name, &block)
     end
 
-    def parse_rd(source=nil)
+    def parse_rd(source=nil, &block)
       @source = source || @source
       begin
         keep_index do
+          index = current_index
           tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
           clear
           visitor = RD2RabbitVisitor.new(self)
           visitor.visit(tree)
-          reload_theme
+          reload_theme do
+            set_current_index(index)
+            block.call if block
+          end
           @renderer.post_parse_rd
         end
       rescue Racc::ParseError
@@ -267,9 +271,9 @@ module Rabbit
       end
     end
 
-    def reload_source
+    def reload_source(&block)
       if need_reload_source?
-        parse_rd
+        parse_rd(&block)
       end
     end
 

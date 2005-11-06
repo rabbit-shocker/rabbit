@@ -501,10 +501,15 @@ def apply_theme_if_need(target, options)
   target.apply_theme(options.theme) if options.theme_specified
 end
 
-def parse_rd(target, options, logger)
+def parse_rd(target, options, logger, background=false)
   source = make_source(options, ARGV, logger)
   source.base = options.base if options.base
-  target.parse_rd(source)
+  if background
+    block = Rabbit::Utils.process_pending_event_proc
+  else
+    block = nil
+  end
+  target.parse_rd(source, &block)
 end
 
 def setup_image_info(target, options)
@@ -620,7 +625,7 @@ def do_display(options, logger)
   setup_print_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
   apply_theme_if_need(frame, options)
-  parse_rd(frame, options, logger)
+  parse_rd(frame, options, logger, true)
   frame.fullscreen if options.full_screen
 
   front = make_front(canvas, options)
