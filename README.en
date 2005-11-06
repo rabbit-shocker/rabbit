@@ -181,6 +181,11 @@ Type the following if you want to run sample/rabbit_en.rd.
 
   % rabbit --type file sample/rabbit_en.rd
 
+However, some samples use themes in sample/rabbit/theme and
+are not displayed correctly when run from the top directory.
+You would be better off running samples in the sample
+directory.
+
 If you are Windows user, you can drag and drop RD file to
 bin/rabbit.bat.
 
