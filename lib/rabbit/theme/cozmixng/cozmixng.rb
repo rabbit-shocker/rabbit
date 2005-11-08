@@ -2,6 +2,9 @@ include_theme("rabbit")
 
 add_theme_path("cozmixng-images")
 
+set_foreground("black")
+set_background("white")
+
 @image_with_frame = true
 include_theme("image")
 
@@ -28,6 +31,27 @@ end
 include_theme("icon")
 
 
+match(Slide, HeadLine) do |heads|
+  heads.horizontal_centering = false
+end
+
 match(Slide, Body) do |bodies|
   bodies.vertical_centering = true
+end
+
+
+@lightning_talk_contact_information = "http://cozmixng.org/"
+@lightning_talk_as_large_as_possible = true
+include_theme("lightning-talk-toolkit")
+
+proc_name = "cozmixng"
+
+match(Slide, HeadLine) do |heads|
+  heads.each do |head|
+    slide = head.parent
+    if lightning_talk_slide?(slide)
+      lightning_talk_slide(slide, proc_name)
+      lightning_talk_headline(head, proc_name)
+    end
+  end
 end
