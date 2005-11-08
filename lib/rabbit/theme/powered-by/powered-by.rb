@@ -33,13 +33,17 @@ add_powered_by = proc do |slide|
       canvas.draw_layout(layout, new_x, new_y - th) if layout
 
       new_x += tw
+      image_height = canvas.height / 12
       loaders.each do |loader|
-        slide_space = canvas.height - y - slide.margin_bottom
-        loader.resize(nil, slide_space) if loader.height > slide_space
+        original_height = loader.height
+        slide_space = canvas.height - y - slide.margin_bottom - @space
+        request_height = [image_height, slide_space].min
+        loader.resize(nil, request_height) if loader.height > request_height
         px = new_x + space
         py = new_y - loader.height
         canvas.draw_pixbuf(loader.pixbuf, px, py)
         new_x = px + loader.width 
+        loader.resize(nil, original_height)
       end
     end
     [x, y, w, h]

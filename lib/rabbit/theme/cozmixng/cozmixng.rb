@@ -29,5 +29,5 @@ include_theme("icon")
 
 
 match(Slide, Body) do |bodies|
-#  bodies.vertical_centering = true
+  bodies.vertical_centering = true
 end

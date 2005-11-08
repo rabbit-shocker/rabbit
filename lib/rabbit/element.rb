@@ -608,7 +608,7 @@ module Rabbit
           w = base_w
           h -= container_height
         end
-        [x, y - adjust_height, w, h + adjust_height]
+        [x, y, w, h]
       end
 
       def compile(canvas, x, y, w, h)
