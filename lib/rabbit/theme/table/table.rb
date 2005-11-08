@@ -125,6 +125,7 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
     orig_x = nil
     orig_w = nil
     cell_w = nil
+    width_not_set = true
 
     row = cell.parent
     table = row.parent.parent
@@ -136,8 +137,17 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
         cell_w = table.available_w / row.elements.size
         base_y = y + cell.padding_top
         text_width = cell_w - cell.padding_left - cell.padding_right
+        
+        need_recompile = false
         if cell.layout.nil? or cell.layout.pixel_size[0] > text_width
-          cell.dirty! 
+          need_recompile = true
+        elsif width_not_set
+          need_recompile = true
+          width_not_set = false
+        end
+        
+        if need_recompile
+          cell.dirty!
           cell.text_compile(canvas, x, base_y, text_width, h)
         end
       end

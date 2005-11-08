@@ -1,13 +1,13 @@
 = 参加者募集
 
-# 持ち時間5分
-
 : author
    須藤功平
 : institution
    COZMIXNG
 : theme
    cozmixng
+: allotted-time
+   5m
 
 = 内容
 
