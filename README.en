@@ -293,7 +293,7 @@ with the following.
 : -e, --encoding
    Specifies encoding of the input source.
    
-   Default is UTF-8.
+   Default is auto-detect.
 
 : -f, --full-screen
    Invoked with full screen mode.
@@ -467,7 +467,7 @@ with the following.
 : --comment-encoding [ENCODING]
    Specifies comment source encoding.
 
-   Default is UTF-8.
+   Default is auto-detect.
 
 == How to write
 

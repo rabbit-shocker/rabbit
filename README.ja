@@ -314,7 +314,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 : -e, --encoding
    入力ソースのエンコーディングを指定します．
    
-   デフォルトはUTF-8です．
+   指定しなかった場合は自動検出を試みます．
 
 : -f, --full-screen
    フルスクリーンモードで起動します．
@@ -488,7 +488,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 : --comment-encoding [ENCODING]
    初期コメント用ソースのエンコーディングを指定します．
 
-   デフォルトはUTF-8です．
+   指定しなかった場合は自動検出を試みます．
 
 
 == Rabbit用RDの書き方

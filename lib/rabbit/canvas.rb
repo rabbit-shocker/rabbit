@@ -568,13 +568,11 @@ module Rabbit
     end
 
     def init_comment(comment_source, comment_encoding)
-      comment_encoding ||= "UTF-8"
       args = [comment_encoding, logger, comment_source]
       @comment_source = Source::Memory.new(*args)
       if /^=\s*[^=]+$/ !~ @comment_source.read
         @comment_source.source = default_comment_source
       end
-      @comment_source.encoding = "UTF-8"
     end
 
     def default_comment_source

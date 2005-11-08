@@ -29,7 +29,7 @@ def parse(args, logger)
   options.saved_image_basename = nil
   options.saved_image_type = "png"
   options.output_html = false
-  options.encoding = "UTF-8"
+  options.encoding = nil
   options.locale_dir = nil
   options.print = false
   options.print_out_filename = nil
@@ -54,7 +54,7 @@ def parse(args, logger)
   options.server = false
   options.public_level = Rabbit::Front::PublicLevel::STRICT
   options.comment_source = nil
-  options.comment_encoding = "UTF-8"
+  options.comment_encoding = nil
 
   default_logger = logger
   
@@ -109,7 +109,7 @@ def parse(args, logger)
 
     opts.on("-e", "--encoding [ENCODING]",
             "Specify source encoding.",
-            "(#{options.encoding})") do |encoding|
+            "(auto)") do |encoding|
       options.encoding = encoding
     end
 
@@ -427,7 +427,7 @@ def parse(args, logger)
     
     opts.on("--comment-encoding [ENCODING]",
             "Specify comment source encoding.",
-            "(#{options.comment_encoding})") do |encoding|
+            "(auto)") do |encoding|
       options.comment_encoding = encoding
     end
     

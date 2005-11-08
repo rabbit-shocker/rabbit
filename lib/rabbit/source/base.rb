@@ -29,9 +29,15 @@ module Rabbit
       def read
         if need_read?
           @source = _read
-          unless /\Autf-?8\z/i =~ @encoding
+          if @encoding.nil?
+            enc = guess_encoding(@source)
+          else
+            enc = @encoding
+          end
+ 
+          unless /\Autf-?8\z/i =~ enc
             require "iconv"
-            @source = Iconv.iconv("UTF-8", @encoding, @source)
+            @source = Iconv.iconv("UTF-8", enc, @source)
           end
         end
         @source
@@ -102,7 +108,24 @@ module Rabbit
           nil
         end
       end
-      
+
+      def guess_encoding(str)
+        require 'nkf'
+        case NKF.guess(str)
+        when NKF::JIS
+          "ISO-2022-JP"
+        when NKF::EUC
+          "eucJP"
+        when NKF::SJIS
+          "CP932"
+        when NKF::UTF16
+          "UTF-16"
+        when NKF::UTF32
+          "UTF-32"
+        else
+          "UTF-8"
+        end
+      end
     end
 
     module LimitAccessInterval
