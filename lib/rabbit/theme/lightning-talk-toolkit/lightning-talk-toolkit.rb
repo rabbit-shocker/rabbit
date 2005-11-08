@@ -45,9 +45,11 @@ def lightning_talk_slide(slides, proc_name)
         text = %Q[<span size="#{@lightning_talk_font_size}">#{text}</span>]
         layout = canvas.make_layout(text)
         text_width, text_height = layout.pixel_size
+        layout.width = canvas.width - @margin_left - @margin_right
         layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
-        num_y = canvas.height - @margin_bottom - text_height
-        canvas.draw_layout(layout, x, num_y)
+        text_x = canvas.width - @margin_right
+        text_y = canvas.height - @margin_bottom - text_height
+        canvas.draw_layout(layout, text_x, text_y)
       end
       [x, y, w, h]
     end
