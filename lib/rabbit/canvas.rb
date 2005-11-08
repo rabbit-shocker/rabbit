@@ -462,6 +462,10 @@ module Rabbit
       end
     end
     
+    def title_slide
+      @slides.find{|x| x.is_a?(Element::TitleSlide)}
+    end
+
     private
     def process
       if @processing
@@ -519,10 +523,6 @@ module Rabbit
       @index_current_index = index_index
     end
     
-    def title_slide
-      @slides.find{|x| x.is_a?(Element::TitleSlide)}
-    end
-
     def default_theme
       ts = title_slide
       ts and ts.theme

@@ -3,6 +3,7 @@ theme_exit unless display?
 proc_name = "timer"
 init_proc_name_prefix = "timer_init"
 
+@timer_limit ||= canvas.title_slide.allotted_time
 if @timer_limit.nil?
   theme_exit("must specify @timer_limit!! (sec)")
 end

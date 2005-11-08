@@ -17,6 +17,9 @@
 : theme
    kof2005
 
+: allotted-time
+   15m
+
 = 近況
 
   * 私を知っている人向け

@@ -5,6 +5,7 @@ add_theme_path("rabbit-images")
 proc_name = "image-timer"
 init_proc_name_prefix = "image-timer-init"
 
+@image_timer_limit ||= canvas.title_slide.allotted_time
 if @image_timer_limit.nil?
   theme_exit("must specify @image_timer_limit!! (sec)")
 end

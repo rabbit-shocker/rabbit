@@ -873,6 +873,7 @@ module Rabbit
         if element.is_a?(DescriptionList)
           element.each do |item|
             name = item.term.collect{|x| x.text}.join("")
+            name = normalize_name(name)
             klass_name = to_class_name(name)
             if Element.const_defined?(klass_name)
               meta = Element.const_get(klass_name).new
@@ -897,6 +898,38 @@ module Rabbit
         @local_prop["theme"]
       end
 
+      def allotted_time
+        time = @local_prop["allotted-time"]
+        time = parse_time(time) if time
+        time
+      end
+
+      private
+      def normalize_name(name)
+        name.gsub(/_/, "-")
+      end
+
+      def parse_time(str)
+        if /\A\s*\z/m =~ str
+          nil
+        else
+          if /\A\s*(\d*\.?\d*)\s*(h|m|s)?\s*\z/i =~ str
+            time = $1.to_f
+            unit = $2
+            if unit
+              case unit.downcase
+              when "m"
+                time *= 60
+              when "h"
+                time *= 3600
+              end
+            end
+            time.to_i
+          else
+            nil
+          end
+        end
+      end
     end
 
     class Body
