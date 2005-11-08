@@ -8,7 +8,7 @@
 @dependencies = %w(rabbit-images)
 @parameters = {
   "@image_timer_limit" => {
-    :default => N_("canvas.title_slide.allotted_time"),
+    :default => "canvas.title_slide.allotted_time",
     :description => N_("Limit time by second."),
   },
   "@image_timer_auto_update" => {
