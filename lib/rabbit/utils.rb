@@ -90,6 +90,18 @@ module Rabbit
         end
       end
     end
+
+    def init_by_constants_as_default_value(obj)
+      klass = obj.class
+      klass.constants.each do |name|
+        const = klass.const_get(name)
+        unless const.kind_of?(Class)
+          var_name = name.downcase
+          obj.instance_variable_set("@#{var_name}", const.dup)
+          klass.module_eval {attr_accessor var_name}
+        end
+      end
+    end
   end
   
   module SystemRunner

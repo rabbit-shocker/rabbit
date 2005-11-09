@@ -8,13 +8,13 @@ module Rabbit
 
     class GUI
       include Base
-      include Keys
 
       def initialize(level=nil, width=450, height=400)
         Gtk.init
         super(*[level].compact)
         @width = width
         @height = height
+        @keys = Keys.new
         init_dialog
       end
 
@@ -113,7 +113,7 @@ module Rabbit
       def set_dialog_key_press_event
         @dialog.signal_connect("key_press_event") do |widget, event|
           case event.keyval
-          when *QUIT_KEYS
+          when *@keys.quit_keys
             quit
           end
           true

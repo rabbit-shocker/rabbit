@@ -248,6 +248,7 @@ module Rabbit
         init_drawable
         init_color
         clear_pixmaps
+        super
       end
       
       @@depth = nil

@@ -1,7 +1,8 @@
 require "gtk2"
+require "rabbit/utils"
 
 module Rabbit
-  module Keys
+  class Keys
 
     QUIT_KEYS = [
       Gdk::Keyval::GDK_Escape,
@@ -116,7 +117,7 @@ module Rabbit
       Gdk::Keyval::GDK_N,
     ]
     
-    module Control
+    class Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,
       ]
@@ -124,12 +125,27 @@ module Rabbit
       PRINT_KEYS = [
         Gdk::Keyval::GDK_p,
       ]
+
+      def initialize
+        Utils.init_by_constants_as_default_value(self)
+      end
     end
 
-    module Alt
+    class Alt
       RESET_ADJUSTMENT_KEYS = [
         Gdk::Keyval::GDK_a,
       ]
+
+      def initialize
+        Utils.init_by_constants_as_default_value(self)
+      end
+    end
+
+    attr_reader :control, :alt
+    def initialize
+      Utils.init_by_constants_as_default_value(self)
+      @control = Control.new
+      @alt = Alt.new
     end
   end
 end

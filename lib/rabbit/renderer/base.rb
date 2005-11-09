@@ -51,6 +51,7 @@ module Rabbit
         end
       end
 
+      attr_reader :keys
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :margin_left, :margin_right
       attr_accessor :margin_top, :margin_bottom
@@ -451,6 +452,7 @@ module Rabbit
       end
 
       def clear_theme
+        clear_keys
         clear_progress_color
       end
 
@@ -614,6 +616,10 @@ module Rabbit
         @motion_notify_hook_procs = []
         @button_press_hook_procs = []
         @button_release_hook_procs = []
+      end
+
+      def clear_keys
+        @keys = nil
       end
 
       def clear_progress_color

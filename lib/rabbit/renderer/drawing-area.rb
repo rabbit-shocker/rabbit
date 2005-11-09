@@ -9,7 +9,6 @@ module Rabbit
     
     class DrawingArea
       include Base
-      include Keys
 
       extend Forwardable
 
@@ -35,7 +34,6 @@ module Rabbit
       def_delegators(:@pixmap, :to_pixbuf)
 
       def_delegators(:@pixmap, :clear_pixmap, :clear_pixmaps)
-      def_delegators(:@pixmap, :clear_theme)
 
       def_delegators(:@pixmap, :filename, :filename=)
       
@@ -347,6 +345,11 @@ module Rabbit
         @comment_log_window.hide
         @comment_view_frame.hide if @comment_view_frame
       end
+
+      def clear_theme
+        @pixmap.clear_theme
+        super
+      end
       
       private
       def can_create_pixbuf?
@@ -415,6 +418,10 @@ module Rabbit
         @button_handler = []
       end
 
+      def clear_keys
+        @keys = Keys.new
+      end
+      
       def clear_progress_color
         super
         setup_progress_color
@@ -722,19 +729,19 @@ module Rabbit
       def handle_key(key_event)
         handled = true
         case key_event.keyval
-        when *QUIT_KEYS
+        when *@keys.quit_keys
           if @canvas.processing?
             confirm_quit
           else
             @canvas.quit
           end
-        when *MOVE_TO_NEXT_KEYS
+        when *@keys.move_to_next_keys
           @canvas.move_to_next_if_can
-        when *MOVE_TO_PREVIOUS_KEYS
+        when *@keys.move_to_previous_keys
           @canvas.move_to_previous_if_can
-        when *MOVE_TO_FIRST_KEYS
+        when *@keys.move_to_first_keys
           @canvas.move_to_first
-        when *MOVE_TO_LAST_KEYS
+        when *@keys.move_to_last_keys
           @canvas.move_to_last
         when Gdk::Keyval::GDK_0,
           Gdk::Keyval::GDK_1,
@@ -760,35 +767,35 @@ module Rabbit
           Gdk::Keyval::GDK_KP_9
           index = calc_slide_number(key_event, Gdk::Keyval::GDK_KP_0)
           @canvas.move_to_if_can(index)
-        when *TOGGLE_FULLSCREEN_KEYS
+        when *@keys.toggle_fullscreen_keys
           @canvas.toggle_fullscreen
-        when *RELOAD_THEME_KEYS
+        when *@keys.reload_theme_keys
           @canvas.reload_theme
-        when *SAVE_AS_IMAGE_KEYS
+        when *@keys.save_as_image_keys
           thread do
             @canvas.save_as_image
           end
-        when *ICONIFY_KEYS
+        when *@keys.iconify_keys
           @canvas.iconify
-        when *TOGGLE_INDEX_MODE_KEYS
+        when *@keys.toggle_index_mode_keys
           thread do
             @canvas.toggle_index_mode
           end
-        when *CACHE_ALL_SLIDES_KEYS
+        when *@keys.cache_all_slides_keys
           thread do
             @canvas.cache_all_slides
           end
-        when *WHITE_OUT_KEYS
+        when *@keys.white_out_keys
           toggle_white_out
-        when *BLACK_OUT_KEYS
+        when *@keys.black_out_keys
           toggle_black_out
-        when *TOGGLE_COMMENT_FRAME_KEYS
+        when *@keys.toggle_comment_frame_keys
           toggle_comment_frame
-        when *TOGGLE_COMMENT_VIEW_KEYS
+        when *@keys.toggle_comment_view_keys
           toggle_comment_view
-        when *EXPAND_HOLE_KEYS
+        when *@keys.expand_hole_keys
           expand_hole
-        when *NARROW_HOLE_KEYS
+        when *@keys.narrow_hole_keys
           narrow_hole
         else
           handled = false
@@ -798,7 +805,7 @@ module Rabbit
       
       def handle_key_when_processing(key_event)
         case key_event.keyval
-        when *QUIT_KEYS
+        when *@keys.quit_keys
           confirm_quit
         else
           @canvas.logger.info(_("processing..."))
@@ -808,9 +815,9 @@ module Rabbit
       def handle_key_with_control(key_event)
         handled = true
         case key_event.keyval
-        when *Control::REDRAW_KEYS
+        when *@keys.control.redraw_keys
           @canvas.redraw
-        when *Control::PRINT_KEYS
+        when *@keys.control.print_keys
           thread do
             @canvas.print
           end
@@ -823,7 +830,7 @@ module Rabbit
       def handle_key_with_alt(key_event)
         handled = true
         case key_event.keyval
-        when *Alt::RESET_ADJUSTMENT_KEYS
+        when *@keys.alt.reset_adjustment_keys
           reset_adjustment
         else
           handled = false

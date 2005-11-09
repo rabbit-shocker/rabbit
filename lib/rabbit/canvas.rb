@@ -90,6 +90,8 @@ module Rabbit
 
     def_delegators(:@renderer, :post_init_gui)
     
+    def_delegators(:@renderer, :keys)
+    
     def_delegators(:@source, :source=, :reset)
     
     attr_reader :logger, :renderer, :last_modified
