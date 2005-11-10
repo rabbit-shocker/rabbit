@@ -334,6 +334,7 @@ module Rabbit
           @mask.draw_rectangle(@xor_gc, true, mx, my, mw, mh)
           @window.shape_combine_mask(@mask, 0, 0)
         end
+        update_title # for xfwm
       end
 
       def reset_adjustment
