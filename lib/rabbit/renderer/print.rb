@@ -68,6 +68,9 @@ module Rabbit
       
       def post_toggle_index_mode
       end
+
+      def pre_parse_rd
+      end
       
       def post_parse_rd
         update_title

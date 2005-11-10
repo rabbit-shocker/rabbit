@@ -252,18 +252,21 @@ module Rabbit
     def parse_rd(source=nil, &block)
       @source = source || @source
       begin
+        index = current_index
         keep_index do
-          index = current_index
+          @renderer.pre_parse_rd
           tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
           clear
           visitor = RD2RabbitVisitor.new(self)
           visitor.visit(tree)
+          set_current_index(index)
           reload_theme do
-            set_current_index(index)
             block.call if block
           end
           @renderer.post_parse_rd
+          index = current_index
         end
+        set_current_index(index)
       rescue Racc::ParseError
         if block_given?
           yield($!)

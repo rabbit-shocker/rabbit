@@ -132,11 +132,17 @@ module Rabbit
         @area.queue_draw
       end
       
+      def pre_parse_rd
+        update_menu
+        clear_keys
+        @pixmap.pre_parse_rd
+      end
       
       def post_parse_rd
         clear_button_handler
         update_title
         update_menu
+        @pixmap.post_parse_rd
       end
       
       def index_mode_on

@@ -208,6 +208,14 @@ module Rabbit
     def_null_methods(:icon_list, :icon_list=, :set_icon_list)
 
     def_null_methods(:fullscreen?, :quit)
+
+    def fullscreen_available?
+      false
+    end
+
+    def iconify_available?
+      false
+    end
   end
   
   class EmbedFrame < Frame

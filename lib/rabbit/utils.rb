@@ -173,21 +173,36 @@ module Rabbit
       @dirty_count >= TOO_DIRTY
     end
     
-    def dirty
-      @dirty_count += TOO_DIRTY / 10.0
+    def dirty(factor=0.1)
+      check_dirty do
+        @dirty_count += TOO_DIRTY * factor
+      end
     end
     
     def very_dirty
-      @dirty_count += TOO_DIRTY
+      dirty(1)
     end
     
     def bit_dirty
-      @dirty_count += TOO_DIRTY / 100.0
+      dirty(0.01)
     end
 
     def dirty_count_clean
       @dirty_count = 0
     end
+
+    private
+    def dirtied
+      dirty_count_clean
+    end
     
+    def check_dirty
+      if dirty?
+        dirtied
+      else
+        yield
+      end
+    end
+      
   end
 end

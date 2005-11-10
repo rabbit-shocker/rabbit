@@ -323,12 +323,7 @@ module Rabbit
       end
 
       def match(*paths, &block)
-        if dirty?
-          @callback.call if @callback
-          dirty_count_clean
-        else
-          dirty
-        end
+        dirty
         block.call(ElementContainer.new(_match(slides, *paths)))
       end
       
@@ -584,6 +579,11 @@ module Rabbit
 
       def stop_auto_reload_thread
         canvas.stop_auto_reload_thread
+      end
+
+      def dirtied
+        @callback.call if @callback
+        super
       end
     end
   end

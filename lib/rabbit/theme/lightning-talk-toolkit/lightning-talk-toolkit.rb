@@ -88,6 +88,7 @@ def lightning_talk_headline(heads, proc_name)
         size = new_size
       end
       head.prop_set("size", size)
+      very_dirty
     end
   end
   

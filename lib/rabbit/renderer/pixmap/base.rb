@@ -69,6 +69,9 @@ module Rabbit
       def post_move(index)
       end
 
+      def pre_parse_rd
+      end
+      
       def post_parse_rd
         clear_pixmaps
       end
