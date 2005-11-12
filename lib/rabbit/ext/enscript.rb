@@ -98,7 +98,10 @@ module Rabbit
         when "i"
           Comment.new
         when "font"
-          ColoredText.new(element.get_attribute("color").to_s)
+          text = Text.new
+          color = element.get_attribute("color").to_s
+          text.add_default_prop("foreground", color)
+          text
         else
           format = _("enscript: unsupported element name: %s")
           visitor.logger.warn(format % element.qualified_name)

@@ -30,6 +30,7 @@ module Rabbit
         @x = @y = @w = @h = nil
         @parent = nil
         @user_property = {}
+        @default_prop = {}
         clear_theme
       end
       
@@ -158,6 +159,10 @@ module Rabbit
       end
       alias __prop_delete__ prop_delete
       
+      def add_default_prop(name, value)
+        @default_prop[name] = make_prop_value(name, value)
+      end
+
       def inline_element?
         true
       end
@@ -322,7 +327,7 @@ module Rabbit
       end
 
       def default_prop
-        {}
+        @default_prop.dup
       end
 
       protected
@@ -1001,22 +1006,6 @@ module Rabbit
       include TextContainerElement
     end
 
-    class ColoredText
-      include TextContainerElement
-      
-      def initialize(color, *args, &block)
-        super(*args, &block)
-        @color = color
-      end
-
-      def default_prop
-        name = "foreground"
-        {
-          name => make_prop_value(name, @color),
-        }
-      end
-    end
-    
     class Emphasis
       include TextContainerElement
     end

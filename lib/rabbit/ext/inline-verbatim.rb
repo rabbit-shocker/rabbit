@@ -59,6 +59,14 @@ module Rabbit
         return nil unless /^note:(.*)$/ =~ label
         Note.new(Text.new(visitor.apply_to_String($1)))
       end
+
+      def ext_inline_verb_lang(label, source, content, visitor)
+        label = label.to_s
+        return nil unless /^lang:([a-z]{2,2}):(.*)$/ =~ label
+        text = Text.new(visitor.apply_to_String($2))
+        text.add_default_prop("lang", $1)
+        text
+      end
     end
   end
 end
