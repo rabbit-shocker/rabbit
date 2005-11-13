@@ -1,6 +1,6 @@
 @category = N_("Time")
 @name = N_("ImageTimer")
-@abstract = N_("Timer, an image version")
+@abstract = N_("Timer toolkit, an image version")
 @description = N_("Displays the progress of time with position of an image. " \
                   "This is useful both for speakers and for listeners to " \
                   "know elapsed time and time left. " \

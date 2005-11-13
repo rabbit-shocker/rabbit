@@ -1,6 +1,6 @@
-@category = N_("ToolKit")
+@category = N_("Toolkit")
 @name = N_("HeadlineLogo")
-@abstract = N_("Function to display logos at the headlines")
+@abstract = N_("Toolkit to display logos at the headlines")
 @description = N_("Displays logos at the headline of the slides.")
 @parameters = {
   "@headline_logo_image" => {

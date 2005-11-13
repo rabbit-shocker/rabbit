@@ -1,6 +1,6 @@
 @category = N_("Time")
 @name = N_("TextClock")
-@abstract = N_("Clock, a text version")
+@abstract = N_("Clock toolkit, a text version")
 @description = N_("Displays current time with text.")
 @parameters = {
   "@clock_auto_update" => {
@@ -14,9 +14,8 @@
   },
   "@clock_uninstall" => {
     :default => "nil",
-    :description => N_("Whether uninstalling the function to display the " \
-                       "clock or not. " \
+    :description => N_("Whether uninstalling this toolkit or not. " \
                        "This option is useful for cases you do not want to " \
-                       "display clock for certain slides."),
+                       "make the toolkit work for certain slides."),
   },
 }

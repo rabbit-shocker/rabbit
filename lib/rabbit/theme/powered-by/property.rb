@@ -1,6 +1,6 @@
-@category = N_("ToolKit")
+@category = N_("Toolkit")
 @name = N_("PoweredBy")
-@abstract = N_("Powered-by ads")
+@abstract = N_("Powered-by ad toolkit")
 @description = N_("Displays programs the presentation slides are powered " \
                   "by (or displays some other ads) at the foot of the " \
                   "title slide and of the last slide. " \

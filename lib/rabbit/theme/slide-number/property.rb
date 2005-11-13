@@ -1,6 +1,6 @@
-@category = N_("ToolKit")
+@category = N_("Toolkit")
 @name = N_("TextSlideNumber")
-@abstract = N_("Function to display slide numbers, a text version")
+@abstract = N_("Toolkit to display slide numbers, a text version")
 @description = N_("Displays slide numbers with text at the bottom of the " \
                   "slides.")
 @parameters = {
@@ -14,9 +14,8 @@
   },
   "@slide_number_uninstall" => {
     :default => "nil",
-    :description => N_("Whether uninstalling the function to display slide " \
-                       "numbers or not. " \
+    :description => N_("Whether uninstalling this toolkit or not. " \
                        "This option is useful for cases you do not want to " \
-                       "display slide numbers for certain slides."),
+                       "make the toolkit work for certain slides."),
   },
 }

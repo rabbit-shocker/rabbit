@@ -1,6 +1,6 @@
-@category = N_("ToolKit")
+@category = N_("Toolkit")
 @name = N_("ImageSlideNumber")
-@abstract = N_("Function to display slide numbers, an image version")
+@abstract = N_("Toolkit to display slide numbers, an image version")
 @description = N_("Displays the progress of presentation with position of " \
                   "an image. " \
                   "This is useful both for speakers and for listeners to " \
@@ -55,9 +55,8 @@
   },
   "@image_slide_number_uninstall" => {
     :default => "nil",
-    :description => N_("Whether uninstalling the function to display slide " \
-                       "numbers or not. " \
+    :description => N_("Whether uninstalling this toolkit or not. " \
                        "This option is useful for cases you do not want to " \
-                       "display slide numbers for certain slides."),
+                       "make the toolkit work for certain slides."),
   },
 }
