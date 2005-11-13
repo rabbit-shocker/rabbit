@@ -83,7 +83,7 @@ module Rabbit
                       h * n)
     end
 
-    def process_pending_event_proc
+    def process_pending_events_proc
       Proc.new do
         while Gtk.events_pending?
           Gtk.main_iteration

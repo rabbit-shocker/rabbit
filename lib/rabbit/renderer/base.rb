@@ -1,3 +1,4 @@
+require "forwardable"
 require "erb"
 require "gtk2"
 
@@ -20,6 +21,8 @@ module Rabbit
       include DirtyCount
       include ERB::Util
 
+      extend Forwardable
+      
       Color = Struct.new(:red, :green, :blue, :alpha, :have_alpha)
 
       class Color
@@ -51,6 +54,8 @@ module Rabbit
         end
       end
 
+      def_delegators(:@canvas, :quit, :reload_theme, :reload_source)
+      
       attr_reader :keys
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :margin_left, :margin_right
@@ -62,6 +67,7 @@ module Rabbit
       attr_writer :margin_page_top, :margin_page_bottom
       
       def initialize(canvas)
+        super()
         @canvas = canvas
         @font_families = nil
         @paper_width = nil
@@ -175,8 +181,8 @@ module Rabbit
         false
       end
 
-      def quit_confirm
-        @canvas.quit
+      def confirm_quit
+        quit
       end
 
       def draw_flag(x, y, pole_height, params)

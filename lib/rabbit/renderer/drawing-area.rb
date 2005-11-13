@@ -50,6 +50,8 @@ module Rabbit
         @button_handling = false
         @mask = nil
         @mask_size = 0
+        @need_reload_source = false
+        @need_reload_theme = false
         init_progress
         clear_button_handler
         init_drawing_area
@@ -99,9 +101,14 @@ module Rabbit
       end
       
       def post_apply_theme
-        @pixmap.post_apply_theme
-        update_menu
-        @area.queue_draw
+        if @need_reload_theme
+          @need_reload_theme = false
+          reload_theme
+        else
+          @pixmap.post_apply_theme
+          update_menu
+          @area.queue_draw
+        end
       end
       
       def post_move(index)
@@ -139,10 +146,15 @@ module Rabbit
       end
       
       def post_parse_rd
-        clear_button_handler
-        update_title
-        update_menu
-        @pixmap.post_parse_rd
+        if @need_reload_source
+          @need_reload_source = false
+          reload_source
+        else
+          clear_button_handler
+          update_title
+          update_menu
+          @pixmap.post_parse_rd
+        end
       end
       
       def index_mode_on
@@ -222,11 +234,32 @@ module Rabbit
       def confirm_quit
         case confirm_dialog
         when Gtk::MessageDialog::RESPONSE_OK
-          @canvas.quit
+          quit
         when Gtk::MessageDialog::RESPONSE_CANCEL
         end
       end
-      
+
+      def reload_theme(&callback)
+        if @canvas.applying?
+          @need_reload_theme = true
+        else
+          callback ||= Utils.process_pending_events_proc
+          super(&callback)
+          clear_pixmaps
+        end
+      end
+
+      def reload_source(&callback)
+        if @canvas.parsing?
+          @need_reload_source = true
+        else
+          if @canvas.need_reload_source?
+            callback ||= Utils.process_pending_events_proc
+            super(&callback)
+          end
+        end
+      end
+
       def progress_foreground=(color)
         super
         setup_progress_color
@@ -579,12 +612,7 @@ module Rabbit
       def set_expose_event
         @area.signal_connect("expose_event") do |widget, event|
           unless @caching
-            if @canvas.need_reload_source?
-              Gtk.idle_add do
-                @canvas.reload_source(&Utils.process_pending_event_proc)
-                false
-              end
-            end
+            reload_source
           end
 
           if @white_out
@@ -667,22 +695,14 @@ module Rabbit
       end
 
       def set_configure_event_after
-        id = nil
-        last_width = last_height = nil
-        target_width = target_height = nil
         @area.signal_connect_after("configure_event") do |widget, event|
           @mask = nil
           set_hole
-          last_width = event.width
-          last_height = event.height
-          if !@caching and @drawable and id.nil?
-            id = Gtk.idle_add do
-              target_width = last_width
-              target_height = last_height
-              @canvas.reload_theme(&Utils.process_pending_event_proc)
-              clear_pixmaps
-              id = nil
-              [target_width, target_height] != [last_width, last_height]
+          if !@caching and @drawable
+            if @canvas.applying?
+              @need_reload_theme = true
+            else
+              reload_theme
             end
           end
           false
@@ -740,7 +760,7 @@ module Rabbit
           if @canvas.processing?
             confirm_quit
           else
-            @canvas.quit
+            quit
           end
         when *@keys.move_to_next_keys
           @canvas.move_to_next_if_can
@@ -777,7 +797,7 @@ module Rabbit
         when *@keys.toggle_fullscreen_keys
           @canvas.toggle_fullscreen
         when *@keys.reload_theme_keys
-          @canvas.reload_theme
+          reload_theme
         when *@keys.save_as_image_keys
           thread do
             @canvas.save_as_image

@@ -109,7 +109,9 @@ module Rabbit
       @saved_image_basename = nil
       @saved_image_type = "png"
       @processing = false
-      @quited = false
+      @quitted = false
+      @parsing = false
+      @applying = false
       @auto_reload_thread = nil
       @output_html = false
       init_comment(comment_source, comment_encoding)
@@ -117,12 +119,20 @@ module Rabbit
       @renderer = renderer.new(self)
     end
 
-    def quited?
-      @quited
+    def quitted?
+      @quitted
+    end
+
+    def parsing?
+      @parsing
+    end
+
+    def applying?
+      @applying
     end
 
     def quit
-      @quited = true
+      @quitted = true
       @frame.quit
     end
     
@@ -222,14 +232,20 @@ module Rabbit
     end
 
     def apply_theme(name=nil, &block)
+      return if applying?
       @theme_name = name if name
       _theme_name = name || theme_name
       if _theme_name and not @slides.empty?
-        clear_theme
-        clear_index_slides
-        manager = Theme::Manager.new(self, &block)
-        manager.apply(_theme_name)
-        @renderer.post_apply_theme
+        @applying = true
+        begin
+          clear_theme
+          clear_index_slides
+          manager = Theme::Manager.new(self, &block)
+          manager.apply(_theme_name)
+          @renderer.post_apply_theme
+        ensure
+          @applying = false
+        end
       end
     end
 
@@ -250,6 +266,8 @@ module Rabbit
     end
 
     def parse_rd(source=nil, &block)
+      return if parsing?
+      @parsing = true
       @source = source || @source
       begin
         index = current_index
@@ -273,6 +291,8 @@ module Rabbit
         else
           logger.warn($!.message)
         end
+      ensure
+        @parsing = false
       end
     end
 
@@ -432,7 +452,7 @@ module Rabbit
       thread = Thread.new do
         loop do
           sleep(interval)
-          break if quited? or thread[:stop]
+          break if quitted? or thread[:stop]
           redraw
         end
       end
