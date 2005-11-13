@@ -1,7 +1,7 @@
 @category = N_("Time")
 @name = N_("TextClock")
 @abstract = N_("Clock, a text version")
-@description = N_("Display current time with text.")
+@description = N_("Displays current time with text.")
 @parameters = {
   "@clock_auto_update" => {
     :default => "true",

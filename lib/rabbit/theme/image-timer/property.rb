@@ -1,7 +1,7 @@
 @category = N_("Time")
 @name = N_("ImageTimer")
 @abstract = N_("Timer, an image version")
-@description = N_("Display the progress of time with position of an image. " \
+@description = N_("Displays the progress of time with position of an image. " \
                   "This is useful both for speakers and for listeners to " \
                   "know elapsed time and time left. " \
                   "By default, a tortoise image walks slowly step by step.")
