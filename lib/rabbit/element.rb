@@ -266,12 +266,6 @@ module Rabbit
       end
       
       def do_horizontal_centering(canvas, x, y, w, h)
-        removed_width = w - simulated_width
-        adjust_width = (removed_width / 2.0).ceil
-        cx = x + adjust_width
-        cw = w - adjust_width
-        compile_for_horizontal_centering(canvas, cx, y, cw, h)
-        draw(true)
       end
 
       def previous_element
@@ -519,7 +513,7 @@ module Rabbit
 
       def do_horizontal_centering(canvas, x, y, w, h)
         @ox, @oy, @ow, @oh = @x, @y, @w, @h
-        adjust_width = ((w / 2.0) - (width / 2.0)).ceil
+        adjust_width = ((w - width) / 2.0).ceil
         x += adjust_width
         w -= adjust_width
         @centering_adjusted_width = adjust_width
