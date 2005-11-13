@@ -131,8 +131,10 @@ module Rabbit
         if event.changed_mask.fullscreen?
           @fullscreen_toggled = true
           if fullscreen?
+            @window.keep_above = true
             @canvas.fullscreened
           else
+            @window.keep_above = false
             @canvas.unfullscreened
           end
           @window.present
