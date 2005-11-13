@@ -174,9 +174,8 @@ module Rabbit
     end
     
     def dirty(factor=0.1)
-      check_dirty do
-        @dirty_count += TOO_DIRTY * factor
-      end
+      @dirty_count += TOO_DIRTY * factor
+      dirtied if dirty?
     end
     
     def very_dirty

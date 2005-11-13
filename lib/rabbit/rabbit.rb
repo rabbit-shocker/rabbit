@@ -150,4 +150,10 @@ module Rabbit
       super(_("can't find theme RD template: %s") % @name)
     end
   end
+
+  class ParseFinish < Error
+  end
+
+  class ApplyFinish < Error
+  end
 end

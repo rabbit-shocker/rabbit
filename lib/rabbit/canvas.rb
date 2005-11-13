@@ -110,8 +110,8 @@ module Rabbit
       @saved_image_type = "png"
       @processing = false
       @quitted = false
-      @parsing = false
-      @applying = false
+      @parse_request_queue = []
+      @apply_theme_request_queue = []
       @auto_reload_thread = nil
       @output_html = false
       init_comment(comment_source, comment_encoding)
@@ -124,11 +124,11 @@ module Rabbit
     end
 
     def parsing?
-      @parsing
+      not @parse_request_queue.empty?
     end
 
     def applying?
-      @applying
+      not @apply_theme_request_queue.empty?
     end
 
     def quit
@@ -232,23 +232,9 @@ module Rabbit
     end
 
     def apply_theme(name=nil, &block)
-      return if applying?
-      @theme_name = name if name
-      _theme_name = name || theme_name
-      if _theme_name and not @slides.empty?
-        @applying = true
-        begin
-          clear_theme
-          clear_index_slides
-          manager = Theme::Manager.new(self, &block)
-          manager.apply(_theme_name)
-          @renderer.post_apply_theme
-        ensure
-          @applying = false
-        end
-      end
+      _apply_theme(name, Object.new.__id__, &block)
     end
-
+    
     def theme_name
       @theme_name || default_theme || "default"
     end
@@ -266,34 +252,7 @@ module Rabbit
     end
 
     def parse_rd(source=nil, &block)
-      return if parsing?
-      @parsing = true
-      @source = source || @source
-      begin
-        index = current_index
-        keep_index do
-          @renderer.pre_parse_rd
-          tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
-          clear
-          visitor = RD2RabbitVisitor.new(self)
-          visitor.visit(tree)
-          set_current_index(index)
-          reload_theme do
-            block.call if block
-          end
-          @renderer.post_parse_rd
-          index = current_index
-        end
-        set_current_index(index)
-      rescue Racc::ParseError
-        if block_given?
-          yield($!)
-        else
-          logger.warn($!.message)
-        end
-      ensure
-        @parsing = false
-      end
+      _parse_rd(source, Object.new.__id__, &block)
     end
 
     def reload_source(&block)
@@ -492,6 +451,63 @@ module Rabbit
     end
 
     private
+    def _apply_theme(name, id, &block)
+      @theme_name = name if name
+      _theme_name = name || theme_name
+      if _theme_name and not @slides.empty?
+        @apply_theme_request_queue.push(id)
+        begin
+          clear_theme
+          clear_index_slides
+          manager = Theme::Manager.new(self) do
+            if @apply_theme_request_queue.last != id
+              raise ApplyFinish
+            end
+            block.call if block
+          end
+          manager.apply(_theme_name)
+          @renderer.post_apply_theme
+        rescue ApplyFinish
+        ensure
+          @apply_theme_request_queue.delete_if {|x| x == id}
+        end
+      end
+    end
+
+    def _parse_rd(source, id, &block)
+      @parse_request_queue.push(id)
+      @source = source || @source
+      begin
+        index = current_index
+        keep_index do
+          @renderer.pre_parse_rd
+          tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
+          clear
+          visitor = RD2RabbitVisitor.new(self)
+          visitor.visit(tree)
+          set_current_index(index)
+          reload_theme do
+            if @parse_request_queue.last != id
+              raise ParseFinish
+            end
+            block.call if block
+          end
+          @renderer.post_parse_rd
+          index = current_index
+        end
+        set_current_index(index)
+      rescue ParseFinish
+      rescue Racc::ParseError
+        if block_given?
+          yield($!)
+        else
+          logger.warn($!.message)
+        end
+      ensure
+        @parse_request_queue.delete_if {|x| x == id}
+      end
+    end
+
     def process
       if @processing
         @logger.info(_("processing..."))

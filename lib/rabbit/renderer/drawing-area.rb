@@ -50,7 +50,6 @@ module Rabbit
         @button_handling = false
         @mask = nil
         @mask_size = 0
-        @need_reload_source = false
         @need_reload_theme = false
         init_progress
         clear_button_handler
@@ -146,14 +145,13 @@ module Rabbit
       end
       
       def post_parse_rd
-        if @need_reload_source
-          @need_reload_source = false
-          reload_source
-        else
-          clear_button_handler
-          update_title
-          update_menu
-          @pixmap.post_parse_rd
+        clear_button_handler
+        update_title
+        update_menu
+        @pixmap.post_parse_rd
+        if @need_reload_theme
+          @need_reload_theme = false
+          reload_theme
         end
       end
       
@@ -250,13 +248,9 @@ module Rabbit
       end
 
       def reload_source(&callback)
-        if @canvas.parsing?
-          @need_reload_source = true
-        else
-          if @canvas.need_reload_source?
-            callback ||= Utils.process_pending_events_proc
-            super(&callback)
-          end
+        if @canvas.need_reload_source?
+          callback ||= Utils.process_pending_events_proc
+          super(&callback)
         end
       end
 
