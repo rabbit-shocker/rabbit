@@ -37,7 +37,7 @@ module Rabbit
  
           unless /\Autf-?8\z/i =~ enc
             require "iconv"
-            @source = Iconv.iconv("UTF-8", enc, @source)
+            @source = Iconv.conv("UTF-8", enc, @source)
           end
         end
         @source
