@@ -15,7 +15,7 @@
   },
   "@powered_by_images" => {
     :default => "[]",
-    :description => N_("Array of ad images."),
+    :description => N_("List of ad image file names."),
   },
   "@powered_by_text" => {
     :default => "nil",
