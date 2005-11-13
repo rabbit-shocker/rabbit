@@ -20,7 +20,9 @@ set_progress_background("#ff00cc00ff00")
 # set_progress_foreground("#eb29f6f6df41")
 # set_progress_background("#eb29f6f6e535")
 
-@image_with_frame = true
+if @image_with_frame.nil?
+  @image_with_frame = true
+end
 include_theme("image")
 
 include_theme("rabbit-title-logo")

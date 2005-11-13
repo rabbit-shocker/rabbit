@@ -5,7 +5,9 @@ add_theme_path("cozmixng-images")
 set_foreground("black")
 set_background("white")
 
-@image_with_frame = true
+if @image_with_frame.nil?
+  @image_with_frame = true
+end
 include_theme("image")
 
 @headline_logo_image = "cozmixchu.png"
@@ -40,7 +42,7 @@ match(Slide, Body) do |bodies|
 end
 
 
-@lightning_talk_contact_information = "http://cozmixng.org/"
+@lightning_talk_contact_information ||= "http://cozmixng.org/"
 @lightning_talk_as_large_as_possible = true
 include_theme("lightning-talk-toolkit")
 
