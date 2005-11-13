@@ -250,7 +250,7 @@ module Rabbit
       def reload_source(&callback)
         if @canvas.need_reload_source?
           callback ||= Utils.process_pending_events_proc
-          super(&callback)
+          super(callback)
         end
       end
 

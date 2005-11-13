@@ -251,13 +251,13 @@ module Rabbit
       apply_theme(@theme_name, &block)
     end
 
-    def parse_rd(source=nil, &block)
-      _parse_rd(source, Object.new.__id__, &block)
+    def parse_rd(source=nil, callback=nil, &block)
+      _parse_rd(source, Object.new.__id__, callback, &block)
     end
 
-    def reload_source(&block)
+    def reload_source(callback=nil, &block)
       if need_reload_source?
-        parse_rd(&block)
+        parse_rd(nil, callback, &block)
       end
     end
 
@@ -474,7 +474,7 @@ module Rabbit
       end
     end
 
-    def _parse_rd(source, id, &block)
+    def _parse_rd(source, id, callback, &block)
       @parse_request_queue.push(id)
       @source = source || @source
       begin
@@ -490,7 +490,7 @@ module Rabbit
             if @parse_request_queue.last != id
               raise ParseFinish
             end
-            block.call if block
+            callback.call if callback
           end
           @renderer.post_parse_rd
           index = current_index

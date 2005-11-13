@@ -509,7 +509,7 @@ def parse_rd(target, options, logger, background=false)
   else
     callback = nil
   end
-  target.parse_rd(source, &callback)
+  target.parse_rd(source, callback)
 end
 
 def setup_image_info(target, options)
