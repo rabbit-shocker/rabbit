@@ -208,9 +208,9 @@ module Rabbit
         if entry.category
           entry_path = _(entry.category)
         else
-          entry_path = etc.dup
+          entry_path = etc
         end
-        entry_path << "/#{_(entry.name)}"
+        entry_path += "/#{_(entry.name)}"
         path = "#{change}#{entry_path}"
         items << [path, "<Item>", "", nil, _change_theme, entry]
         path = "#{merge}#{entry_path}"
