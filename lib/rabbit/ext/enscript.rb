@@ -98,7 +98,7 @@ module Rabbit
         when "i"
           Comment.new
         when "font"
-          text = Text.new
+          text = TextContainer.new
           color = element.get_attribute("color").to_s
           text.add_default_prop("foreground", color)
           text
