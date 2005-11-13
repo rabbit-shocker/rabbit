@@ -19,6 +19,6 @@
   },
   "@powered_by_text" => {
     :default => "nil",
-    :description => N_("An ad text."),
+    :description => N_("Ad text."),
   },
 }
