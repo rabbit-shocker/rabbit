@@ -1,0 +1,5 @@
+@category = N_("Toolkit")
+@name = N_("RabbitItemMark")
+@abstract = N_("Toolkit to display colorful balls as item marks")
+@description = N_("Displays colorful balls at the head of list items.")
+@dependencies = %w(default-item-mark rabbit-images)

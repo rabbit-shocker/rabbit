@@ -27,9 +27,9 @@
     :default => "false",
     :description => N_("Whether drawing start and goal flags with text or " \
                        "not. " \
-                       "When 'true', flags are drawn with text with a form " \
-                       "of @image_slide_number_flag_type and on which slide " \
-                       "numbers are also drawn with color " \
+                       "When '(({true}))', flags are drawn with text with a " \
+                       "form of @image_slide_number_flag_type and on which " \
+                       "slide numbers are also drawn with color " \
                        "@image_slide_number_text_color. " \
                        "Otherwise, image files specified with " \
                        "@image_slide_number_start_image and " \

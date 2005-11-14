@@ -1,0 +1,5 @@
+@category = N_("Toolkit")
+@name = N_("SimpleItemMark")
+@abstract = N_("Toolkit to display simple black circles as item marks")
+@description = N_("Displays simple black circles at the head of list items.")
+@dependencies = %w(default-item-mark)
