@@ -1,4 +1,4 @@
 add_theme_path("ruby-images")
 
-@icon_images = ["ruby-pink-circle-icon.png", "ruby-pink-polygon-icon.png"]
+@icon_images = ["ruby-pink-circle-small-icon.png", "ruby-pink-polygon-icon.png"]
 include_theme("icon")
