@@ -128,8 +128,8 @@ end
 match(*(slide_body + enum_list_item + item_list_item)) do |items|
   name = "enum-item1"
   
-  mark_width = screen_x(2)
-  mark_height = screen_y(2)
+  mark_width = screen_x(1.5)
+  mark_height = screen_y(1.5)
   indent_width = mark_width * 3
   color = "#00ffff"
 
@@ -148,8 +148,8 @@ end
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   name = "enum-item2"
   
-  mark_width = screen_x(2)
-  mark_height = screen_y(2)
+  mark_width = screen_x(1)
+  mark_height = screen_y(1)
   indent_width = mark_width * 3
   color = "#ff00ff"
 
