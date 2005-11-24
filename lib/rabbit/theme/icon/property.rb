@@ -11,7 +11,7 @@
                   "When several images are specified and they have " \
                   "different sizes, an image with the most similar size to " \
                   "that of icon among them is chosen and scaled in order to " \
-                  "improve the final image quality.")
+                  "improve the quality of image finally displayed.")
 @parameters = {
   "@icon_image" => {
     :default => "[]",
