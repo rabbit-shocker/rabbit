@@ -42,5 +42,8 @@ module Rabbit
       msgid
     end
 
+    def locale=(locale)
+      ::GetText.locale = locale
+    end
   end
 end
