@@ -9,9 +9,9 @@
                   "rabbit, jumps along the bottom of slides between two " \
                   "flags.\n" \
                   "\n" \
-                  "Using with another theme, 'image-timer', you can make a " \
-                  "hare and a tortoise race like the fable of the hare and " \
-                  "the tortoise. " \
+                  "Using together with another theme, 'image-timer', you " \
+                  "can make a hare and a tortoise race like the fable of " \
+                  "the hare and the tortoise. " \
                   "When doing so, however, note that you should make your " \
                   "presentation not so slowly that the hare will lose to " \
                   "the tortoise.")

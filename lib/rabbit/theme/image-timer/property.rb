@@ -7,9 +7,9 @@
                   "By default, a tortoise image walks along the bottom of " \
                   "slides slowly step by step.\n" \
                   "\n" \
-                  "Using with another theme, 'image-slide-number', you can " \
-                  "make a hare and a tortoise race like the fable of the " \
-                  "hare and the tortoise. " \
+                  "Using together with another theme, 'image-slide-number', " \
+                  "you can make a hare and a tortoise race like the fable " \
+                  "of the hare and the tortoise. " \
                   "When doing so, however, note that you should make your " \
                   "presentation not so slowly that the hare will lose to " \
                   "the tortoise.")
