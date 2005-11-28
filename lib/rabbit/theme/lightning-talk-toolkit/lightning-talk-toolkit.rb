@@ -71,37 +71,42 @@ def lightning_talk_headline(heads, proc_name)
   heads.wrap_mode = @lightning_talk_wrap_mode
   
   heads.prop_set("size", @very_huge_font_size)
-  if @lightning_talk_as_large_as_possible
-    max = (canvas.height - @margin_top - @margin_bottom) * Pango::SCALE
-    width = (canvas.width - @margin_left - @margin_right) * Pango::SCALE
-    heads.each do |head|
-      size = head.prop_get("size").value
-      loop do
-        new_size = (size * 1.05).ceil
-        head.prop_set("size", new_size)
-        layout, text_width, text_height = canvas.make_layout(head.markuped_text)
-        layout.width = width
-        layout.wrap = @lightning_talk_wrap_mode
-        if layout.size[1] > max or layout.size[0] > width
-          break
+
+  max_height = (canvas.height - @margin_top - @margin_bottom) * Pango::SCALE
+  max_width = (canvas.width - @margin_left - @margin_right) * Pango::SCALE
+  heads.each do |head|
+    computed = false
+    orig_x = orig_y = orig_w = orig_h = nil
+    head.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
+      if simulation and
+          @lightning_talk_as_large_as_possible and
+          !computed
+        computed = true
+        size = head.prop_get("size").value
+        loop do
+          new_size = (size * 1.05).ceil
+          head.prop_set("size", new_size)
+          text = head.markuped_text
+          layout, text_width, text_height = canvas.make_layout(text)
+          layout.width = max_width
+          layout.wrap = @lightning_talk_wrap_mode
+          if layout.size[1] > max_height or layout.size[0] > max_width
+            break
+          end
+          size = new_size
         end
-        size = new_size
+        head.prop_set("size", size)
       end
-      head.prop_set("size", size)
-      very_dirty
-    end
-  end
-  
-  orig_x = orig_y = orig_w = orig_h = nil
-  heads.add_pre_draw_proc(proc_name) do |head, canvas, x, y, w, h, simulation|
-    orig_x, orig_y, orig_w, orig_h = x, y, w, h
-    [x, y, w, h]
-  end
-  heads.add_post_draw_proc(proc_name) do |head, canvas, x, y, w, h, simulation|
-    if head.empty?
-      [orig_x, orig_y, orig_w, orig_h]
-    else
+      orig_x, orig_y, orig_w, orig_h = x, y, w, h
       [x, y, w, h]
+    end
+
+    head.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
+      if head.empty?
+        [orig_x, orig_y, orig_w, orig_h]
+      else
+        [x, y, w, h]
+      end
     end
   end
 end
