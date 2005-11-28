@@ -162,7 +162,7 @@ module Rabbit
       end
 
       def off_screen_canvas
-        if can_create_pixbuf?
+        if off_screen_renderer?
           @canvas
         else
           make_canvas_with_off_screen_renderer
@@ -509,7 +509,7 @@ module Rabbit
       end
       
       private
-      def can_create_pixbuf?
+      def off_screen_renderer?
         false
       end
       

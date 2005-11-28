@@ -263,7 +263,7 @@ module Rabbit
         @@depth
       end
       
-      def can_create_pixbuf?
+      def off_screen_renderer?
         true
       end
 
