@@ -3,6 +3,8 @@
 
 Thread.abort_on_exception = true
 
+require 'English'
+
 require "optparse"
 require "ostruct"
 
@@ -13,6 +15,8 @@ require "rabbit/logger"
 require "rabbit/renderer"
 
 Version = Rabbit::VERSION
+
+include Rabbit::GetText
 
 def parse(args, logger)
   options = OpenStruct.new
@@ -30,7 +34,6 @@ def parse(args, logger)
   options.saved_image_type = "png"
   options.output_html = false
   options.encoding = nil
-  options.locale_dir = nil
   options.print = false
   options.print_out_filename = nil
   options.slides_per_page = 1
@@ -61,19 +64,27 @@ def parse(args, logger)
   get_last_name = Proc.new do |klass|
     klass.name.split("::").last
   end
-    
+
+  args.each_with_index do |arg, i|
+    if arg == "--locale-dir"
+      Rabbit::GetText.bindtextdomain(args[i + 1])
+    elsif /--locale-dir=/ =~ arg
+      Rabbit::GetText.bindtextdomain($POSTMATCH)
+    end
+  end
+  
   opts = OptionParser.new do |opts|
-    opts.banner = "#{opts.banner} SOURCE_INFOS"
+    opts.banner = "#{opts.banner} [SOURCE_INFOS]"
 
     opts.separator ""
 
     opts.on("-I", "--include [PATH]",
-            "Add [PATH] to load path") do |path|
+            _("Add [PATH] to load path.")) do |path|
       $LOAD_PATH.unshift(path)
     end
     
     opts.on("-t", "--theme [THEME]",
-            "Use [THEME] as theme.",
+            _("Use [THEME] as theme."),
             "(#{options.theme})") do |theme|
       options.theme = theme
       options.theme_specified = true
@@ -85,18 +96,18 @@ def parse(args, logger)
       get_last_name[x].downcase
     end
     source_type_descs = Rabbit::Source.types.collect do |x|
-      ["When select #{get_last_name[x]}",
-       "specify #{x.initial_args_description}",
-       "as SOURCE_INFOS.",
-       " "]
+      message = _("When select %s\nspecify %s\nas [SOURCE_INFOS].")
+      type = get_last_name[x]
+      message = message % [type, _(x.initial_args_description)]
+      message.split(/\n/) + [" "]
     end.flatten
     opts.on("-T", "--type [TYPE]",
             source_type_names,
-            "Specify source type as [TYPE].",
-            "Select from [#{source_type_names.join(', ')}].",
-            "Note: case insensitive.",
+            _("Specify source type as [TYPE]."),
+            _("Select from [%s].") % source_type_names.join(', '),
+            _("Note: case insensitive."),
             "(#{get_last_name[options.source_type]})",
-            "(ARGV: if no filename is given)",
+            _("(ARGV: if no filename is given)"),
             " ",
             *source_type_descs) do |source_type|
       options.source_type = Rabbit::Source.types.find do |t|
@@ -108,66 +119,67 @@ def parse(args, logger)
     end
 
     opts.on("-e", "--encoding [ENCODING]",
-            "Specify source encoding.",
-            "(auto)") do |encoding|
+            _("Specify source encoding."),
+            _("(auto)")) do |encoding|
       options.encoding = encoding
     end
 
     opts.on("-B", "--base [BASE]",
-            "Specify base URI or path of source as [BASE].",
-            "(auto)") do |base|
+            _("Specify base URI or path of source as [BASE]."),
+            _("(auto)")) do |base|
       options.base = base
     end
 
     opts.on("-f", "--full-screen",
-            "Turn on full screen mode.",
+            _("Turn on full screen mode."),
             "(#{options.full_screen})") do
       options.full_screen = true
     end
 
     opts.on("-w", "--width [WIDTH]",
             Integer,
-            "Set window width to [WIDTH].",
+            _("Set window width to [WIDTH]."),
             "(#{options.width})") do |width|
       options.width = width
     end
 
     opts.on("-h", "--height [HEIGHT]",
             Integer,
-            "Set window height to [HEIGHT].",
+            _("Set window height to [HEIGHT]."),
             "(#{options.height})") do |height|
       options.height = height
     end
 
+    message = _("Set window width and height to\n" \
+                "[WIDTH] and [HEIGHT].")
+    message = message.split(/\n/) + ["(#{options.width},#{options.height})"]
     opts.on("-S", "--size [WIDTH],[HEIGHT]",
             Array,
-            "Set window width and height to",
-            "[WIDTH] and [HEIGHT].",
-            "(#{options.width},#{options.height})") do |size|
+            *message) do |size|
       width, height = size.collect{|x| Integer(x)}
       options.width = width
       options.height = height
     end
 
     opts.on("-s", "--save-as-image",
-            "Save as image and exit.") do
+            _("Save as image and exit.")) do
       options.save_as_image = true
     end
 
     opts.on("-i", "--saved-image-type [TYPE]",
-            "Specify saved image type as [TYPE].",
+            _("Specify saved image type as [TYPE]."),
             "(#{options.saved_image_type})") do |t|
       options.saved_image_type = t
     end
 
     opts.on("-b", "--saved-image-basename [BASENAME]",
-            "Specify saved image basename as [BASENAME].",
-            "(Title of slide)") do |b|
+            _("Specify saved image basename as [BASENAME]."),
+            "(" + _("Title of slide") + ")") do |b|
       options.saved_image_basename = b
     end
 
     opts.on("--output-html [BOOL]",
-            "Output HTML for viewing saved images.",
+            _("Output HTML for viewing saved images."),
             "(#{options.output_html})") do |bool|
       options.output_html = bool != "false"
     end
@@ -176,35 +188,36 @@ def parse(args, logger)
       opts.separator ""
 
       opts.on("-p", "--print",
-              "Print and exit.") do
+              _("Print and exit.")) do
         options.print = true
       end
 
       opts.on("-o", "--output-filename [FILENAME]",
-              "Specify printed out filename as [FILENAME].",
-              "(\#{Title of slide}.ps)") do |f|
+              _("Specify printed out filename as [FILENAME]."),
+              "(\#{%s}.ps)" % _("Title of slide")) do |f|
         options.print_out_filename = f
       end
       
       opts.on("--paper-width [WIDTH]",
               Integer,
-              "Set paper width to [WIDTH] Pt.",
-              "(landscape A4 width)") do |width|
+              _("Set paper width to [WIDTH] Pt."),
+              _("(landscape A4 width)")) do |width|
         options.paper_width = width
       end
 
       opts.on("--paper-height [HEIGHT]",
               Integer,
-              "Set paper height to [HEIGHT] Pt.",
-              "(landscape A4 height)") do |height|
+              _("Set paper height to [HEIGHT] Pt."),
+              _("(landscape A4 height)")) do |height|
         options.paper_height = height
       end
 
+      message = _("Set paper width and height to\n" \
+                  "[WIDTH] Pt and [HEIGHT] Pt.")
+      message = message.split(/\n/) + [_("(landscape A4 size)")]
       opts.on("--paper-size [WIDTH],[HEIGHT]",
               Array,
-              "Set paper width and height to",
-              "[WIDTH] inch and [HEIGHT] Pt.",
-              "(landscape A4 size)") do |size|
+              *message) do |size|
         width, height = size.collect{|x| Integer(x)}
         options.paper_width = width
         options.paper_height = height
@@ -212,45 +225,46 @@ def parse(args, logger)
 
       opts.on("--slides-per-page [SLIDES]",
               Integer,
-              "Set slides per page. (1)") do |slides|
+              _("Set slides per page."),
+              "(1)") do |slides|
         options.slides_per_page = slides
       end
 
       opts.on("--margin-left [MARGIN]",
               Integer,
-              "Set left margin for slides per page mode print.",
-              "(auto)") do |margin|
+              _("Set left margin for slides per page mode print."),
+              _("(auto)")) do |margin|
         options.margin_left = margin
       end
 
       opts.on("--margin-right [MARGIN]",
               Integer,
-              "Set right margin for slides per page mode print.",
-              "(auto)") do |margin|
+              _("Set right margin for slides per page mode print."),
+              _("(auto)")) do |margin|
         options.margin_right = margin
       end
 
       opts.on("--margin-top [MARGIN]",
               Integer,
-              "Set top margin for slides per page mode print.",
-              "(auto)") do |margin|
+              _("Set top margin for slides per page mode print."),
+              _("(auto)")) do |margin|
         options.margin_top = margin
       end
 
       opts.on("--margin-bottom [MARGIN]",
               Integer,
-              "Set bottom margin for slides per page mode print.",
-              "(auto)") do |margin|
+              _("Set bottom margin for slides per page mode print."),
+              _("(auto)")) do |margin|
         options.margin_bottom = margin
       end
 
-      margin1 = "[ALL]"
-      margin2 = "[TOP_BOTTOM],[LEFT_RIGHT]"
-      margin3 = "[TOP],[LEFT_RIGHT],[BOTTOM]"
-      margin4 = "[TOP],[RIGHT],[BOTTOM],[LEFT]"
+      margin1 = _("[ALL]")
+      margin2 = _("[TOP_BOTTOM],[LEFT_RIGHT]")
+      margin3 = _("[TOP],[LEFT_RIGHT],[BOTTOM]")
+      margin4 = _("[TOP],[RIGHT],[BOTTOM],[LEFT]")
       opts.on("--margin {#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
               Array,
-              "Set margin for slides per page mode print.") do |margins|
+              _("Set margin for slides per page mode print.")) do |margins|
         begin
           top, right, bottom, left = parse_margins(margins)
           options.margin_top = top
@@ -264,35 +278,35 @@ def parse(args, logger)
 
       opts.on("--margin-page-left [MARGIN]",
               Integer,
-              "Set left page margin.",
-              "(auto)") do |margin|
+              _("Set left page margin."),
+              _("(auto)")) do |margin|
         options.margin_page_left = margin
       end
 
       opts.on("--margin-page-right [MARGIN]",
               Integer,
-              "Set right page margin.",
-              "(auto)") do |margin|
+              _("Set right page margin."),
+              _("(auto)")) do |margin|
         options.margin_page_right = margin
       end
 
       opts.on("--margin-page-top [MARGIN]",
               Integer,
-              "Set top page margin.",
-              "(auto)") do |margin|
+              _("Set top page margin."),
+              _("(auto)")) do |margin|
         options.margin_page_top = margin
       end
 
       opts.on("--margin-page-bottom [MARGIN]",
               Integer,
-              "Set bottom page margin.",
-              "(auto)") do |margin|
+              _("Set bottom page margin."),
+              _("(auto)")) do |margin|
         options.margin_page_bottom = margin
       end
 
       opts.on("--page-margin {#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
               Array,
-              "Set page margin.") do |margins|
+              _("Set page margin.")) do |margins|
         begin
           top, right, bottom, left = parse_margins(margins)
           options.margin_page_top = top
@@ -309,9 +323,9 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--locale-dir [DIR]",
-            "Specify locale dir as [DIR].",
-            "(auto)") do |d|
-      options.locale_dir = d
+            _("Specify locale dir as [DIR]."),
+            _("(auto)")) do |d|
+      Rabbit::GetText.bindtextdomain(d)
     end
     
     logger_type_names = Rabbit::Logger.types.collect do |x|
@@ -319,9 +333,9 @@ def parse(args, logger)
     end
     opts.on("--logger-type [TYPE]",
             logger_type_names,
-            "Specify logger type as [TYPE].",
-            "Select from [#{logger_type_names.join(', ')}].",
-            "Note: case insensitive.",
+            _("Specify logger type as [TYPE]."),
+            _("Select from [%s].") % logger_type_names.join(', '),
+            _("Note: case insensitive."),
             "(#{get_last_name[logger.class]})") do |logger_type|
       logger_class = Rabbit::Logger.types.find do |t|
         get_last_name[t].downcase == logger_type.downcase
@@ -337,19 +351,19 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--use-druby [BOOL]",
-            "Specify whether to use dRuby.",
+            _("Specify whether to use dRuby."),
             "(#{options.use_druby})") do |bool|
       options.use_druby = bool != "false"
     end
     
     opts.on("--druby-uri [URI]",
-            "Specify dRuby URI.",
+            _("Specify dRuby URI."),
             "(#{options.druby_uri})") do |uri|
       options.druby_uri = uri if uri
     end
     
     opts.on("--output-druby-uri [BOOL]",
-            "Specify whether to output dRuby URI.",
+            _("Specify whether to output dRuby URI."),
             "(#{options.output_druby_uri})") do |bool|
       options.output_druby_uri = bool != "false"
     end
@@ -357,13 +371,13 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--use-soap [BOOL]",
-            "Specify whether to use SOAP.",
+            _("Specify whether to use SOAP."),
             "(#{options.use_soap})") do |bool|
       options.use_soap = bool != "false"
     end
     
     opts.on("--soap-host [HOST]",
-            "Specify SOAP HOST.",
+            _("Specify SOAP host as [HOST]."),
             "(#{options.soap_host})") do |port|
       begin
         options.soap_host = host
@@ -371,7 +385,7 @@ def parse(args, logger)
     end
     
     opts.on("--soap-port [PORT]",
-            "Specify SOAP PORT.",
+            _("Specify SOAP port as [PORT]."),
             "(#{options.soap_port})") do |port|
       begin
         options.soap_port = Integer(port) if port
@@ -383,13 +397,13 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--use-xmlrpc [BOOL]",
-            "Specify whether to use XML-RPC.",
+            _("Specify whether to use XML-RPC."),
             "(#{options.use_xmlrpc})") do |bool|
       options.use_xmlrpc = bool != "false"
     end
     
     opts.on("--xmlrpc-host [HOST]",
-            "Specify XML-RPC HOST.",
+            _("Specify XML-RPC host as [HOST]."),
             "(#{options.xmlrpc_host})") do |port|
       begin
         options.xmlrpc_host = host
@@ -397,7 +411,7 @@ def parse(args, logger)
     end
     
     opts.on("--xmlrpc-port [PORT]",
-            "Specify XML-RPC PORT.",
+            _("Specify XML-RPC port as [PORT]."),
             "(#{options.xmlrpc_port})") do |port|
       begin
         options.xmlrpc_port = Integer(port) if port
@@ -409,7 +423,7 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--server [BOOL]",
-            "Specify whether to run as server.",
+            _("Specify whether to run as server."),
             "(#{options.server})") do |bool|
       options.server = bool != "false"
       if options.server
@@ -420,23 +434,23 @@ def parse(args, logger)
     opts.separator ""
     
     opts.on("--comment-source [FILE]",
-            "Specify initial comment source.",
-            "(default source)") do |name|
+            _("Specify initial comment source."),
+            _("(default source)")) do |name|
       options.comment_source = name
     end
     
     opts.on("--comment-encoding [ENCODING]",
-            "Specify comment source encoding.",
-            "(auto)") do |encoding|
+            _("Specify comment source encoding."),
+            _("(auto)")) do |encoding|
       options.comment_encoding = encoding
     end
     
     opts.separator ""
     
-    opts.on_tail("--help", "Show this message") do
+    opts.on_tail("--help", _("Show this message.")) do
       if logger.is_a?(Rabbit::Logger::STDERR) and
           default_logger == logger
-        print(opts.to_s)
+        print(GLib.locale_from_utf8(opts.to_s))
       else
         logger.info(opts.to_s)
       end
@@ -547,7 +561,7 @@ def setup_druby(front, options, logger)
     DRb.start_service(options.druby_uri, front)
     logger.info(DRb.uri) if options.output_druby_uri
   rescue Errno::EADDRINUSE
-    logger.error("#{options.druby_uri} is in use")
+    logger.error(_("dRuby URI <%s> is in use.") % options.druby_uri)
   end
 end
 
@@ -566,7 +580,7 @@ def setup_soap(front, options, logger)
     prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
     thread = Thread.new {server.start}
   rescue Errno::EADDRINUSE
-    logger.error("#{options.soap_port} is in use")
+    logger.error(_("port <%s> for SOAP is in use.") % options.soap_port)
   end
 
   thread
@@ -587,7 +601,7 @@ def setup_xmlrpc(front, options, logger)
     prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
     thread = Thread.new {server.start}
   rescue Errno::EADDRINUSE
-    logger.error("#{options.xmlrpc_port} is in use")
+    logger.error(_("port <%s> for XML-RPC is in use.") % options.xmlrpc_port)
   end
 
   thread
@@ -663,9 +677,9 @@ def do_server(options, logger)
   xmlrpc_server_thread.join if xmlrpc_server_thread
   if options.use_druby
     prev = trap(:INT) do
-      logger.info("going to shutdown ...")
+      logger.info(_("going to shutdown ..."))
       DRb.thread.exit
-      logger.info("DRb.thread done.")
+      logger.info(_("DRb.thread done."))
       trap(:INT, prev)
     end
     DRb.thread.join
@@ -678,8 +692,6 @@ def main
   logger = Rabbit::Logger::STDERR.new
   
   options, logger = parse(ARGV, logger)
-  
-  Rabbit::GetText.bindtextdomain(options.locale_dir)
   
   if options.save_as_image
     do_save_as_image(options, logger)

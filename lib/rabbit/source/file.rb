@@ -7,7 +7,7 @@ module Rabbit
       include Base
 
       def self.initial_args_description
-        "FILENAME"
+        N_("[FILENAME]")
       end
       
       def initialize(encoding, logger, name)

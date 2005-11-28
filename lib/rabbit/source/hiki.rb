@@ -10,7 +10,7 @@ module Rabbit
       include Base
 
       def self.initial_args_description
-        "HIKI_CGI_URI and PAGE_NAME"
+        N_("[HIKI_CGI_URI] and [PAGE_NAME]")
       end
 
       def initialize(encoding, cgi_uri, name)

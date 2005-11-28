@@ -9,7 +9,7 @@ module Rabbit
       include LimitAccessInterval
       
       def self.initial_args_description
-        "RWIKI_SOAP_IF_URI and PAGE_NAME"
+        N_("[RWIKI_SOAP_IF_URI] and [PAGE_NAME]")
       end
 
       def initialize(encoding, logger, soap_if_uri, name)

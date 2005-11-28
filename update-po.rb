@@ -8,11 +8,11 @@ msgmerge = "msgmerge"
 podir = "po/"
 appname = "rabbit"
 pot = "#{podir}#{appname}.pot"
-rbs = Dir.glob("lib/**/*.rb")
+targets = Dir.glob("lib/**/*.rb") + Dir.glob("bin/*")
 
 FileUtils.rm_f(pot)
-unless system(gettext, *(rbs + ["-o", pot]))
-  STDERR.puts("Can't run: #{gettext} #{rbs.join(' ')} -o #{pot}")
+unless system(gettext, *(targets + ["-o", pot]))
+  STDERR.puts("Can't run: #{gettext} #{targets.join(' ')} -o #{pot}")
 end
 
 Dir.glob("#{podir}*") do |dir|

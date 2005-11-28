@@ -7,7 +7,7 @@ module Rabbit
       include Base
       
       def self.initial_args_description
-        "none (get from STDIN) or FILE_NAMES"
+        N_("none (get from STDIN) or [FILE_NAMES]")
       end
       
       def initialize(encoding, logger, argf)

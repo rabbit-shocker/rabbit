@@ -15,10 +15,13 @@ module Rabbit
     module Base
       include Severity
       include GetText
+
+      attr_accessor :webrick_mode
       
       def initialize(level=INFO, prog_name=nil)
         @level = level
         @prog_name = prog_name
+        @webrick_mode = false
       end
       
       def debug?; @level <= DEBUG; end
@@ -59,7 +62,7 @@ module Rabbit
       def log(severity, message_or_error, prog_name=nil, &block)
         severity ||= UNKNOWN
         prog_name ||= @prog_name
-        if severity >= @level
+        if need_log?(severity)
           if message_or_error.nil? and block_given?
             message_or_error = yield
           end
@@ -94,8 +97,14 @@ module Rabbit
           message_or_error
         end
       end
-      
+
+      def need_log?(severity)
+        if @webrick_mode
+          severity <= WEBrick::Log::DEBUG - @level
+        else
+          severity >= @level
+        end
+      end
     end
-    
   end
 end

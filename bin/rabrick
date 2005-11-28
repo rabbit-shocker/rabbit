@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
+Thread.abort_on_exception = true
+
+require "English"
+
 require "optparse"
 require "ostruct"
 
@@ -10,51 +14,111 @@ require 'tofu/tofulet'
 require 'drb/drb'
 
 require "rabbit/rabbit"
+require "rabbit/logger"
 require "rabbit/div/tofu"
 
 Version = Rabbit::VERSION
 
-def parse(args)
+include Rabbit::GetText
+
+def parse(args, logger)
   options = OpenStruct.new
   options.druby_uri = "druby://localhost:10101"
   options.port = 10102
 
+  default_logger = logger
+  
+  get_last_name = Proc.new do |klass|
+    klass.name.split("::").last
+  end
+
+  args.each_with_index do |arg, i|
+    if arg == "--locale-dir"
+      Rabbit::GetText.bindtextdomain(args[i + 1])
+    elsif /--locale-dir=/ =~ arg
+      Rabbit::GetText.bindtextdomain($POSTMATCH)
+    end
+  end
+  
   opts = OptionParser.new do |opts|
     opts.separator ""
 
     opts.on("--druby-uri [URI]",
-            "Specify Rabbit's dRuby URI as [URI].",
+            _("Specify Rabbit's dRuby URI as [URI]."),
             "(#{options.druby_uri})") do |uri|
       options.druby_uri = uri
     end
 
     opts.on("--port [PORT]",
             Integer,
-            "Specify WEBrick port as [PORT].",
+            _("Specify WEBrick port as [PORT]."),
             "(#{options.port})") do |port|
       options.port = port
     end
 
     opts.separator ""
     
-    opts.on_tail("--help", "Show this message") do
-      puts opts.to_s
+    opts.on("--locale-dir [DIR]",
+            _("Specify locale dir as [DIR]."),
+            _("(auto)")) do |d|
+      Rabbit::GetText.bindtextdomain(d)
+    end
+    
+    opts.separator ""
+    
+    logger_type_names = Rabbit::Logger.types.collect do |x|
+      get_last_name[x].downcase
+    end
+    opts.on("--logger-type [TYPE]",
+            logger_type_names,
+            _("Specify logger type as [TYPE]."),
+            _("Select from [%s].") % logger_type_names.join(', '),
+            _("Note: case insensitive."),
+            "(#{get_last_name[logger.class]})") do |logger_type|
+      logger_class = Rabbit::Logger.types.find do |t|
+        get_last_name[t].downcase == logger_type.downcase
+      end
+      if logger_class.nil?
+        logger = default_logger
+        # logger.error("Unknown logger type: #{t}")
+      else
+        logger = logger_class.new
+      end
+    end
+    
+    opts.separator ""
+    
+    opts.on_tail("--help", _("Show this message.")) do
+      if logger.is_a?(Rabbit::Logger::STDERR) and
+          default_logger == logger
+        print(GLib.locale_from_utf8(opts.to_s))
+      else
+        logger.info(opts.to_s)
+      end
       exit
     end
   end
 
-  opts.parse!(args)
+  begin
+    opts.parse!(args)
+  rescue
+    logger.fatal($!.message)
+  end
 
-  options
+  [options, logger]
 end
 
 def main(monolithic=true)
-  options = parse(ARGV)
+  Rabbit::GetText.bindtextdomain
+  
+  logger = Rabbit::Logger::STDERR.new
+  
+  options, logger = parse(ARGV, logger)
   
   DRb.start_service
 
-  logger = WEBrick::Log::new(STDERR, WEBrick::Log::INFO)
-
+  logger.webrick_mode = true
+  
   server = WEBrick::HTTPServer.new(:Port => options.port,
                                    :AddressFamily => Socket::AF_INET,
                                    :Logger => logger)

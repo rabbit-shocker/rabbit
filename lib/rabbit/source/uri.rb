@@ -22,7 +22,7 @@ module Rabbit
         end
 
         def initial_args_description
-          "URI"
+          N_("URI")
         end
       end
       
