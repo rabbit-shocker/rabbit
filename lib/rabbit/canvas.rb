@@ -297,9 +297,9 @@ module Rabbit
       end
     end
 
-    def print
+    def print(&block)
       process do
-        @renderer.print
+        @renderer.print(&block)
       end
     end
     

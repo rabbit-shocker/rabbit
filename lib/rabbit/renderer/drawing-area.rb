@@ -789,19 +789,13 @@ module Rabbit
         when *@keys.reload_theme_keys
           reload_theme
         when *@keys.save_as_image_keys
-          thread do
-            @canvas.save_as_image
-          end
+          @canvas.save_as_image
         when *@keys.iconify_keys
           @canvas.iconify
         when *@keys.toggle_index_mode_keys
-          thread do
-            @canvas.toggle_index_mode
-          end
+          @canvas.toggle_index_mode
         when *@keys.cache_all_slides_keys
-          thread do
-            @canvas.cache_all_slides
-          end
+          @canvas.cache_all_slides
         when *@keys.white_out_keys
           toggle_white_out
         when *@keys.black_out_keys
@@ -835,9 +829,7 @@ module Rabbit
         when *@keys.control.redraw_keys
           @canvas.redraw
         when *@keys.control.print_keys
-          thread do
-            @canvas.print
-          end
+          @canvas.print
         else
           handled = false
         end
@@ -957,6 +949,7 @@ module Rabbit
 
       def update_progress(i)
         @progress_current = i
+        Utils.process_pending_events
       end
 
       def end_progress
@@ -1033,11 +1026,6 @@ module Rabbit
         result = dialog.run
         dialog.destroy
         result
-      end
-
-      def thread(&block)
-        thread = Thread.new(&block)
-        thread.priority = -10
       end
 
       def call_hook_procs(procs, *args)
