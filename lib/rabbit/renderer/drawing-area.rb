@@ -386,10 +386,6 @@ module Rabbit
       end
       
       private
-      def can_create_pixbuf?
-        true
-      end
-      
       def init_pixmap(w=width, h=height)
         @pixmap = Renderer::Pixmap.new(@canvas, w, h)
         @pixmap.setup_event(self)
