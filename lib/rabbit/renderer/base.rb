@@ -131,12 +131,16 @@ module Rabbit
       def cache_all_slides
         canvas = make_canvas_with_off_screen_renderer
         pre_cache_all_slides(canvas.slide_size)
+        canceled = false
         canvas.slides.each_with_index do |slide, i|
           canvas.move_to_if_can(i)
           slide.draw(canvas)
-          caching_all_slides(i, canvas)
+          unless caching_all_slides(i, canvas)
+            canceled = true
+            break
+          end
         end
-        post_cache_all_slides(canvas)
+        post_cache_all_slides(canvas, canceled)
         canvas.quit
       end
       
@@ -507,7 +511,7 @@ module Rabbit
       
       def post_init_gui
       end
-      
+
       private
       def off_screen_renderer?
         false

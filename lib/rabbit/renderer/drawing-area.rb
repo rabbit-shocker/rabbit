@@ -209,6 +209,7 @@ module Rabbit
 
       def pre_cache_all_slides(slide_size)
         @caching = true
+        @caching_size = [width, height]
         start_progress(slide_size)
       end
 
@@ -217,16 +218,21 @@ module Rabbit
         unless @pixmap.has_key?(@canvas.slides[i])
           @pixmap[@canvas.slides[i]] = canvas.renderer[canvas.slides[i]]
         end
+        @caching_size == [width, height]
       end
       
-      def post_cache_all_slides(canvas)
+      def post_cache_all_slides(canvas, canceled)
         end_progress
         @caching = false
-        @pixmap.clear_pixmaps
-        @canvas.slides.each_with_index do |slide, i|
-          @pixmap[slide] = canvas.renderer[canvas.slides[i]]
+        if canceled
+          reload_theme
+        else
+          @pixmap.clear_pixmaps
+          @canvas.slides.each_with_index do |slide, i|
+            @pixmap[slide] = canvas.renderer[canvas.slides[i]]
+          end
+          @area.queue_draw
         end
-        @area.queue_draw
       end
 
       def confirm_quit
@@ -444,7 +450,6 @@ module Rabbit
       end
       
       def clear_button_handler
-        @button_handler_thread = nil
         @button_handler = []
       end
 
