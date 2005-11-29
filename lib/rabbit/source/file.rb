@@ -3,7 +3,6 @@ require 'rabbit/source/base'
 module Rabbit
   module Source
     class File
-      
       include Base
 
       def self.initial_args_description

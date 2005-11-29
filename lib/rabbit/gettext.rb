@@ -21,7 +21,18 @@ rescue LoadError
     def gettext(msgid)
       msgid
     end
-    
+  end
+
+  module Locale
+    module_function
+    def get
+      ["LC_ALL", "LC_MESSAGES", "LANG"].each do |env|
+        ret = ENV[env]
+        break if ret
+      end
+      ret = "C" unless ret
+      ret
+    end
   end
 end
 
@@ -44,6 +55,13 @@ module Rabbit
 
     def locale=(locale)
       ::GetText.locale = locale
+    end
+  end
+
+  module Locale
+    module_function
+    def get
+      ::Locale.get
     end
   end
 end

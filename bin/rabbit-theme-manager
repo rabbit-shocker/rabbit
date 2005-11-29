@@ -1,42 +1,17 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
-Thread.abort_on_exception = true
-
-require "English"
-
-require "optparse"
-require "ostruct"
 require "fileutils"
 
-require "rabbit/rabbit"
-require "rabbit/logger"
+require "rabbit/console"
 
-Version = Rabbit::VERSION
+def parse(args=ARGV, logger=nil)
+  Rabbit::Console.parse!(args, logger) do |opts, options|
+    options.output_dir = "theme-doc"
+    options.locale_dir = nil
+    options.locales = %w(en ja fr)
 
-include Rabbit::GetText
 
-def parse(args, logger)
-  options = OpenStruct.new
-  options.output_dir = "theme-doc"
-  options.locale_dir = nil
-  options.locales = %w(en ja fr)
-
-  default_logger = logger
-  
-  get_last_name = Proc.new do |klass|
-    klass.name.split("::").last
-  end
-    
-  args.each_with_index do |arg, i|
-    if arg == "--locale-dir"
-      Rabbit::GetText.bindtextdomain(args[i + 1])
-    elsif /--locale-dir=/ =~ arg
-      Rabbit::GetText.bindtextdomain($POSTMATCH)
-    end
-  end
-  
-  opts = OptionParser.new do |opts|
     opts.separator ""
     
     opts.on("-I", "--include [PATH]",
@@ -58,72 +33,20 @@ def parse(args, logger)
             "([#{options.locales.join(', ')}])") do |locales|
       options.locales = locales
     end
-    
-    opts.separator ""
-    
-    opts.on("--locale-dir [DIR]",
-            _("Specify locale dir as [DIR]."),
-            _("(auto)")) do |d|
-      Rabbit::GetText.bindtextdomain(d)
-    end
-    
-    opts.separator ""
-    
-    logger_type_names = Rabbit::Logger.types.collect do |x|
-      get_last_name[x].downcase
-    end
-    opts.on("--logger-type [TYPE]",
-            logger_type_names,
-            _("Specify logger type as [TYPE]."),
-            _("Select from [%s].") % logger_type_names.join(', '),
-            _("Note: case insensitive."),
-            "(#{get_last_name[logger.class]})") do |logger_type|
-      logger_class = Rabbit::Logger.types.find do |t|
-        get_last_name[t].downcase == logger_type.downcase
-      end
-      if logger_class.nil?
-        logger = default_logger
-        # logger.error("Unknown logger type: #{t}")
-      else
-        logger = logger_class.new
-      end
-    end
-    
-    opts.separator ""
-    
-    opts.on_tail("--help", _("Show this message.")) do
-      if logger.is_a?(Rabbit::Logger::STDERR) and
-          default_logger == logger
-        print(GLib.locale_from_utf8(opts.to_s))
-      else
-        logger.info(opts.to_s)
-      end
-      exit
-    end
   end
-
-  begin
-    opts.parse!(args)
-  rescue
-    logger.fatal($!.message)
-  end
-
-  [options, logger]
 end
 
 def main
-  Rabbit::GetText.bindtextdomain
-  
-  logger = Rabbit::Logger::STDERR.new
-  
-  options, logger = parse(ARGV, logger)
+  options, logger = parse
   
   require 'rabbit/theme'
 
-  Rabbit::GetText.bindtextdomain(options.locale_dir)
-
+  current_locale = Rabbit::Locale.get
+  
   themes = Rabbit::Theme::Searcher.collect_theme
   options.locales.each do |locale|
+    Rabbit::GetText.locale = current_locale
+    logger.info(_("Generating documents for locale <%s>...") % locale)
     Rabbit::GetText.locale = locale
     output_dir = File.join(options.output_dir, locale)
     FileUtils.mkdir_p(output_dir)
@@ -136,6 +59,4 @@ def main
   end
 end
 
-if __FILE__ == $0
-  main
-end
+main

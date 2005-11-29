@@ -7,6 +7,11 @@ module Rabbit
 
     module Base
 
+      def self.append_features(klass)
+        super
+        klass.extend(GetText)
+      end
+      
       attr_reader :base, :tmp_base
       attr_accessor :encoding, :force_modified
 

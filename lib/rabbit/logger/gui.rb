@@ -36,7 +36,7 @@ module Rabbit
         log_severity(severity)
         log_prog_name(prog_name)
         log_message(message)
-        Gtk.main if severity >= FATAL and Gtk.main_level.zero?
+        Thread.new{Gtk.main} if need_log?(FATAL) and Gtk.main_level.zero?
       end
 
       def log_severity(severity)
