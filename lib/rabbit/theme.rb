@@ -130,15 +130,17 @@ module Rabbit
 
       def collect_theme
         themes = []
+        theme_name = {}
         $LOAD_PATH.each do |path|
           base_name = theme_dir(path)
           if File.directory?(base_name)
             Dir.foreach(base_name) do |theme|
               next if /\A..?\z/ =~ theme
               entry = Entry.new(File.join(base_name, theme))
-              if entry.available?
+              if entry.available? and !theme_name.has_key?(theme)
                 yield(entry) if block_given?
                 themes << entry
+                theme_name[theme] = true
               end
             end
           end
