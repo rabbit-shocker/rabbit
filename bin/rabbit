@@ -178,10 +178,10 @@ def parse(args, logger)
       options.saved_image_basename = b
     end
 
-    opts.on("--output-html [BOOL]",
+    opts.on("--[no-]output-html",
             _("Output HTML for viewing saved images."),
             "(#{options.output_html})") do |bool|
-      options.output_html = bool != "false"
+      options.output_html = bool
     end
 
     if Rabbit::Renderer.printable?
@@ -350,10 +350,10 @@ def parse(args, logger)
     
     opts.separator ""
     
-    opts.on("--use-druby [BOOL]",
+    opts.on("--[no-]use-druby",
             _("Specify whether to use dRuby."),
             "(#{options.use_druby})") do |bool|
-      options.use_druby = bool != "false"
+      options.use_druby = bool
     end
     
     opts.on("--druby-uri [URI]",
@@ -362,18 +362,18 @@ def parse(args, logger)
       options.druby_uri = uri if uri
     end
     
-    opts.on("--output-druby-uri [BOOL]",
+    opts.on("--[no-]output-druby-uri",
             _("Specify whether to output dRuby URI."),
             "(#{options.output_druby_uri})") do |bool|
-      options.output_druby_uri = bool != "false"
+      options.output_druby_uri = bool
     end
     
     opts.separator ""
     
-    opts.on("--use-soap [BOOL]",
+    opts.on("--[no-]use-soap",
             _("Specify whether to use SOAP."),
             "(#{options.use_soap})") do |bool|
-      options.use_soap = bool != "false"
+      options.use_soap = bool
     end
     
     opts.on("--soap-host [HOST]",
@@ -396,10 +396,10 @@ def parse(args, logger)
     
     opts.separator ""
     
-    opts.on("--use-xmlrpc [BOOL]",
+    opts.on("--[no-]use-xmlrpc",
             _("Specify whether to use XML-RPC."),
             "(#{options.use_xmlrpc})") do |bool|
-      options.use_xmlrpc = bool != "false"
+      options.use_xmlrpc = bool
     end
     
     opts.on("--xmlrpc-host [HOST]",
@@ -422,10 +422,10 @@ def parse(args, logger)
     
     opts.separator ""
     
-    opts.on("--server [BOOL]",
+    opts.on("--[no-]server",
             _("Specify whether to run as server."),
             "(#{options.server})") do |bool|
-      options.server = bool != "false"
+      options.server = bool
       if options.server
         options.public_level = Rabbit::Front::PublicLevel::ALL
       end

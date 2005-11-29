@@ -329,7 +329,7 @@ with the following.
    filename is UTF-8, you may need to setup environment
    variable such as LANG and G_FILENAME_ENCODING.
 
-: --output-html [true|false]
+: --output-html, --no-output-html
    Specifies whether Rabbit generates HTML or not for
    viewing saved slides.
    
@@ -409,25 +409,25 @@ with the following.
    Default is stderr which output log to standard error
    output.
 
-: --use-druby [true|false]
+: --use-druby, --no-use-druby
    Specifies whether to use dRuby interface.
 
-   Default is true.
+   Default is use.
 
 : --druby-uri [URI]
    Specifies dRuby interface URI.
 
    Default is druby://:10101.
 
-: --output-druby-uri [true|false]
+: --output-druby-uri, --no-output-druby-uri
    Specifies whether to output dRuby interface URI.
 
-   Default is false.
+   Default is not output.
 
-: --use-soap [true|false]
+: --use-soap, --no-use-soap
    Specifies whether to use SOAP interface.
 
-   Default is false.
+   Default is not use.
 
 : --soap-host [HOST]
    Specifies SOAP interface host.
@@ -439,10 +439,10 @@ with the following.
 
    Default is 10103.
 
-: --use-xmlrpc [true|false]
+: --use-xmlrpc, --no-use-xmlrpc
    Specifies whether to use XML-RPC interface.
 
-   Default is false.
+   Default is not use.
 
 : --xmlrpc-host [HOST]
    Specifies XML-RPC interface host.
@@ -454,10 +454,10 @@ with the following.
 
    Default is 10104.
 
-: --server [true|false]
+: --server, --no-server
    Specifies whether to run as server.
    
-   Default is false.
+   Default is not server.
 
 : --comment-source [FILE]
    Specifies initial comment source file name.

@@ -351,7 +351,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    に，ファイル名がUTF-8で保存される場合は，環境変数LANGとか
    G_FILENAME_ENCODINGとかを設定するとよいかもしれません．
 
-: --output-html [true|false]
+: --output-html, --no-output-html
    保存されたスライドを表示するHTMLを生成するかどうかを指定
    します．
    
@@ -429,7 +429,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    
    デフォルトはstderrで標準エラー出力に表示されます．
 
-: --use-druby [true|false]
+: --use-druby, --no-use-druby
    dRubyインターフェイスを使うかどうかを指定します．
 
    デフォルトでは使います．
@@ -439,12 +439,12 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    デフォルトではdruby://:10101です．
 
-: --output-druby-uri [true|false]
+: --output-druby-uri, --no-output-druby-uri
    dRubyインターフェイスのURIを表示するかどうかを指定します．
 
    デフォルトでは表示しません．
 
-: --use-soap [true|false]
+: --use-soap, --no-use-soap
    SOAPインターフェイスを使うかどうかを指定します．
 
    デフォルトでは使いません．
@@ -459,7 +459,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    デフォルトでは10103です．
 
-: --use-xmlrpc [true|false]
+: --use-xmlrpc, --no-use-xmlrpc
    XML-RPCインターフェイスを使うかどうかを指定します．
 
    デフォルトでは使いません．
@@ -474,7 +474,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    デフォルトでは10104です．
 
-: --server [true|false]
+: --server, --no-server
    サーバとして起動するかを指定します．
    
    デフォルトではサーバとして起動しません．
