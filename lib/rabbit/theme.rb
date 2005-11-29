@@ -136,7 +136,7 @@ module Rabbit
           if File.directory?(base_name)
             Dir.foreach(base_name) do |theme|
               next if /\A..?\z/ =~ theme
-              entry = Entry.new(File.join(base_name, theme))
+              entry = Entry.new(File.join(File.expand_path(base_name), theme))
               if entry.available? and !theme_name.has_key?(theme)
                 yield(entry) if block_given?
                 themes << entry
