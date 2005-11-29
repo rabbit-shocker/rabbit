@@ -9,12 +9,14 @@ module Rabbit
     class GUI
       include Base
 
+      attr_accessor :start_gui_main_loop_automatically
       def initialize(level=nil, width=450, height=400)
         Gtk.init
         super(*[level].compact)
         @width = width
         @height = height
         @keys = Keys.new
+        @start_gui_main_loop_automatically = true
         init_dialog
       end
 
@@ -25,7 +27,7 @@ module Rabbit
       def quit
         @dialog.destroy
       end
-      
+
       private
       def do_log(severity, prog_name, message)
         # ::STDERR.puts(format_severity(severity))
@@ -36,7 +38,9 @@ module Rabbit
         log_severity(severity)
         log_prog_name(prog_name)
         log_message(message)
-        Thread.new{Gtk.main} if need_log?(FATAL) and Gtk.main_level.zero?
+        if @start_gui_main_loop_automatically and Gtk.main_level.zero?
+          Thread.new{Gtk.main}
+        end
       end
 
       def log_severity(severity)

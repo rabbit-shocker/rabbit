@@ -557,6 +557,10 @@ end
 def do_display(options, logger)
   Rabbit.gui_init
 
+  if logger.respond_to?(:start_gui_main_loop_automatically=)
+    logger.start_gui_main_loop_automatically = false
+  end
+  
   canvas = make_canvas(options, logger, Rabbit::Renderer::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
   setup_paper_size(canvas, options)
