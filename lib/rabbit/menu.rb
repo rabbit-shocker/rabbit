@@ -2,7 +2,7 @@ require "gtk2"
 
 require "rabbit/gettext"
 require "rabbit/utils"
-require "rabbit/theme"
+require "rabbit/theme/searcher"
 require "rabbit/image"
 
 module Rabbit

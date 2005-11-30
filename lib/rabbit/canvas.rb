@@ -7,7 +7,7 @@ require 'rabbit/frame'
 require 'rabbit/renderer'
 require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
-require "rabbit/theme"
+require "rabbit/theme/manager"
 require "rabbit/index"
 require "rabbit/front"
 require "rabbit/html/generator"
