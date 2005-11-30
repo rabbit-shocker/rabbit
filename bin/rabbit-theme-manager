@@ -71,7 +71,7 @@ end
 def main
   options, logger = parse
   
-  require 'rabbit/theme'
+  require 'rabbit/theme/searcher'
 
   command = ARGV.first
   command = COMMANDS.first unless COMMANDS.include?(command)
