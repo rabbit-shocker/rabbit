@@ -582,6 +582,9 @@ end
 def do_server(options, logger)
   Rabbit.gui_init
   
+  # GLib::Log.cancel_handler
+  # GLib::Log.set_handler(nil, GLib::Log::LEVEL_ERROR)
+  
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
@@ -617,7 +620,7 @@ end
 
 def main
   options, logger = parse
-  
+
   if options.save_as_image
     do_save_as_image(options, logger)
   elsif options.print

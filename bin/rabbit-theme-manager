@@ -5,13 +5,15 @@ require "fileutils"
 
 require "rabbit/console"
 
-COMMANDS = %w(generate)
+COMMANDS = %w(generate browse)
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
-    options.output_dir = "theme-doc"
+    options.theme_doc_dir = "theme-doc"
     options.locale_dir = nil
     options.locales = %w(en ja fr)
+    options.width = 600
+    options.height = 400
 
 
     opts.banner = "#{opts.banner} [COMMAND]"
@@ -34,9 +36,9 @@ def parse(args=ARGV, logger=nil)
     
     opts.separator ""
     
-    opts.on("-o", "--output-dir [DIR]",
-            _("Specify output directory as [DIR].")) do |dir|
-      options.output_dir = dir
+    opts.on("--theme-doc-dir [DIR]",
+            _("Specify theme document directory as [DIR].")) do |dir|
+      options.theme_doc_dir = dir
     end
     
     opts.separator ""
@@ -50,6 +52,8 @@ def parse(args=ARGV, logger=nil)
 end
 
 def do_generate(options, logger)
+  require 'rabbit/theme/searcher'
+
   current_locale = Rabbit::Locale.get
   
   themes = Rabbit::Theme::Searcher.collect_theme
@@ -57,7 +61,7 @@ def do_generate(options, logger)
     Rabbit::GetText.locale = current_locale
     logger.info(_("Generating documents for locale <%s>...") % locale)
     Rabbit::GetText.locale = locale
-    output_dir = File.join(options.output_dir, locale)
+    output_dir = File.join(options.theme_doc_dir, locale)
     FileUtils.mkdir_p(output_dir)
     themes.each do |theme|
       file = File.join(output_dir, "#{theme.base_name}.rd")
@@ -68,13 +72,29 @@ def do_generate(options, logger)
   end
 end
 
+def do_browse(options, logger)
+  require 'rabbit/theme/browser'
+  
+  Rabbit.gui_init
+
+  browser = Rabbit::Theme::Browser.new(options.locales)
+  browser.set_window_size(options.width, options.height)
+  browser.run
+
+  Gtk.main
+end
+
 def main
   options, logger = parse
-  
-  require 'rabbit/theme/searcher'
 
   command = ARGV.first
-  command = COMMANDS.first unless COMMANDS.include?(command)
+  if command.nil?
+    command = COMMANDS.first
+  elsif !COMMANDS.include?(command)
+    logger.error(_("Unknown command: %s") % command)
+    logger.info(_("Available commands: %s") % COMMANDS.join(', '))
+    exit(1)
+  end
   command = command.downcase
 
   __send__("do_#{command}", options, logger)
