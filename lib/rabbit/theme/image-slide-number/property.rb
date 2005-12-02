@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("ImageSlideNumber")
+@title = N_("ImageSlideNumber")
 @abstract = N_("Toolkit to display slide numbers, an image version")
 @description = N_("Displays the progress of presentation with position of " \
                   "an image. " \

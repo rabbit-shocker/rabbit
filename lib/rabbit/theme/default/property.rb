@@ -1,3 +1,3 @@
 @category = N_("Theme")
-@name = N_("Default")
+@title = N_("Default")
 @description = N_("default theme")

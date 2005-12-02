@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("Icon")
+@title = N_("Icon")
 @abstract = N_("Toolkit to specify an image or images as icons")
 @description = N_("Specifies an image or images as icons of the window, " \
                   "which will be used by some window managers and desktop " \

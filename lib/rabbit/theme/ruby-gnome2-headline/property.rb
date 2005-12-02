@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("RubyGNOME2Headline")
+@title = N_("RubyGNOME2Headline")
 @abstract = N_("Toolkit to display headlines like those in the website of " \
                "the Ruby-GNOME2 Project")
 @description = N_("Displays headlines like ones in the website of the " \

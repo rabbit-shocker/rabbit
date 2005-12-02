@@ -11,19 +11,28 @@ module Rabbit
       
       TREE_MODEL = [
         [:name, String],
-        [:localized_name, String],
+        [:title, String],
         [:type, String],
       ]
       
       TAG_INFOS = [
         [
-          "heading",
+          "heading1",
           {
             "weight" => Pango::FontDescription::WEIGHT_BOLD,
             "pixels-above-lines" => 5,
             "pixels-below-lines" => 10,
             "left-margin" => 5,
             "size" => 18 * Pango::SCALE,
+          }
+        ],
+        [
+          "heading2",
+          {
+            "pixels-above-lines" => 5,
+            "pixels-below-lines" => 5,
+            "left-margin" => 5,
+            "size" => 17 * Pango::SCALE,
           }
         ],
         [
@@ -40,7 +49,7 @@ module Rabbit
           }
         ],
         [
-          "theme-link",
+          "link",
           {
             "foreground" => "blue",
             "underline" => Pango::AttrUnderline::SINGLE,
@@ -51,8 +60,10 @@ module Rabbit
       def initialize(locales=nil)
         @locales = locales
         @themes = Searcher.collect_theme
+        @hovering = false
         @category_buffers = {}
         @theme_buffers = {}
+        load_cursor
         load_itemize_icon
         init_gui
         load_themes
@@ -107,7 +118,7 @@ module Rabbit
       def init_tree_columns
         renderer = Gtk::CellRendererText.new
         @tree.insert_column(-1, _("Theme"), renderer,
-                            "text" => column(:localized_name))
+                            "text" => column(:title))
         @tree.selection.signal_connect("changed") do |selection|
           iter = selection.selected
           theme_changed(iter) if iter
@@ -129,6 +140,9 @@ module Rabbit
         @view.signal_connect("event-after") do |*args|
           view_event_after(*args)
         end
+        @view.signal_connect("motion-notify-event") do |*args|
+          view_motion_notify_event(*args)
+        end
       end
       
       def column(key)
@@ -141,6 +155,11 @@ module Rabbit
         loader = ImageLoader.new(icon_file)
         loader.resize(10, 10)
         @itemize_icon = loader.pixbuf
+      end
+
+      def load_cursor
+        @hand_cursor = Gdk::Cursor.new(Gdk::Cursor::HAND2)
+        @regular_cursor = Gdk::Cursor.new(Gdk::Cursor::XTERM)
       end
       
       def load_themes
@@ -158,15 +177,15 @@ module Rabbit
             categories[category] = iter
             iter[column(:type)] = "category"
             iter[column(:name)] = category
-            iter[column(:localized_name)] = _(category)
+            iter[column(:title)] = _(category)
           end
           child_iter = model.append(iter)
           child_iter[column(:type)] = "theme"
           child_iter[column(:name)] = entry.name
-          child_iter[column(:localized_name)] = _(entry.name)
+          child_iter[column(:title)] = _(entry.title)
           Utils.process_pending_events
         end
-        @tree.expand_all
+        # @tree.expand_all
       end
       
       def init_tags(buffer)
@@ -193,7 +212,7 @@ module Rabbit
           @themes.each do |entry|
             if entry.category == name
               insert_item(buffer, iter) do |buffer, iter|
-                insert_theme_link(buffer, iter, _(entry.name), entry.name)
+                insert_theme_link(buffer, iter, entry.name, _(entry.title))
               end
             end
           end
@@ -204,19 +223,37 @@ module Rabbit
         update_buffer(name, @theme_buffers) do |buffer|
           entry = @themes.find {|entry| entry.name == name}
           iter = buffer.start_iter
-          insert_heading(buffer, iter, _(entry.name))
-          buffer.insert(iter, _(entry.category))
+          insert_heading(buffer, iter, _(entry.title))
+          insert_item(buffer, iter) do |buffer, iter|
+            buffer.insert(iter, _("Name: "))
+            buffer.insert(iter, entry.name)
+          end
+          insert_item(buffer, iter) do |buffer, iter|
+            buffer.insert(iter, _("Category: "))
+            insert_category_link(buffer, iter, entry.category)
+          end
         end
       end
 
-      def insert_heading(buffer, iter, text)
-        buffer.insert(iter, "#{text}\n", "heading")
+      def insert_heading(buffer, iter, text, level=1)
+        buffer.insert(iter, "#{text}\n", "heading#{level}")
       end
 
-      def insert_theme_link(buffer, iter, text, name)
+      def insert_theme_link(buffer, iter, name, text=nil)
+        text ||= _(name)
         start_offset = iter.offset
-        buffer.insert(iter, text, "theme-link")
+        buffer.insert(iter, text, "link")
         tag = buffer.create_tag("theme-link-#{name}", {})
+        buffer.apply_tag(tag,
+                         buffer.get_iter_at_offset(start_offset),
+                         iter)
+      end
+
+      def insert_category_link(buffer, iter, name, text=nil)
+        text ||= _(name)
+        start_offset = iter.offset
+        buffer.insert(iter, text, "link")
+        tag = buffer.create_tag("category-link-#{name}", {})
         buffer.apply_tag(tag,
                          buffer.get_iter_at_offset(start_offset),
                          iter)
@@ -270,8 +307,8 @@ module Rabbit
 
       def follow_if_link(view, iter)
         iter.tags.each do |tag|
-          if /^theme-link-/ =~ tag.name
-            name = $POSTMATCH
+          name = get_name_from_link_tag(tag)
+          if name
             name_column = column(:name)
             @tree.model.each do |model, path, iter|
               if name == iter.get_value(name_column)
@@ -281,6 +318,49 @@ module Rabbit
               end
             end
           end
+        end
+      end
+
+      def set_cursor_if_appropriate(view, x, y)
+        buffer = view.buffer
+        iter = view.get_iter_at_location(x, y)
+        
+        hovering = false
+
+        iter.tags.each do |tag|
+          if link_tag?(tag)
+            hovering = true
+            break
+          end
+        end
+        
+        if hovering != @hovering
+          @hovering = hovering
+          window = view.get_window(Gtk::TextView::WINDOW_TEXT)
+          if @hovering
+            cursor = @hand_cursor
+          else
+            cursor = @regular_cursor
+          end
+          window.cursor = cursor
+        end
+      end
+    
+      def view_motion_notify_event(view, event)
+        x, y = view.window_to_buffer_coords(Gtk::TextView::WINDOW_WIDGET,
+                                            event.x, event.y)
+        set_cursor_if_appropriate(view, x, y)
+        view.window.pointer
+        false
+      end
+
+      def link_tag?(tag)
+        /-?link-?/ =~ tag.name
+      end
+      
+      def get_name_from_link_tag(tag)
+        if /^(theme|category)-link-/ =~ tag.name
+          $POSTMATCH
         end
       end
     end

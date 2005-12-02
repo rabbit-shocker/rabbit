@@ -1,5 +1,5 @@
 @category = N_("Time")
-@name = N_("TextClock")
+@title = N_("TextClock")
 @abstract = N_("Clock toolkit, a text version")
 @description = N_("Displays current time with text.")
 @parameters = {

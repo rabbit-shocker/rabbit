@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("HeadlineLogo")
+@title = N_("HeadlineLogo")
 @abstract = N_("Toolkit to display an image as a logo at the headlines")
 @description = N_("Displays an image as a logo at the headlines of slides.")
 @parameters = {

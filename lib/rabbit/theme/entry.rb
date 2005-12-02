@@ -18,14 +18,14 @@ module Rabbit
       raise CantFindThemeRDTemplate.new(File.join(*path)) if template_path.nil?
       def_erb_method("to_rd", template_path)
       
-      attr_reader :base_name, :name, :description
+      attr_reader :name, :title, :description
       attr_reader :abstract
       attr_reader :dependencies, :parameters
 
       def initialize(theme_dir)
         @theme_dir = theme_dir
-        @base_name = File.basename(@theme_dir)
-        @name = @base_name
+        @name = File.basename(@theme_dir)
+        @title = @name
         @category = nil
         @abstract = nil
         @description = nil
@@ -39,11 +39,11 @@ module Rabbit
       end
       
       def theme_file
-        File.join(@theme_dir, "#{@base_name}.rb")
+        File.join(@theme_dir, "#{@name}.rb")
       end
 
       def <=>(other)
-        @base_name <=> other.base_name
+        @name <=> other.name
       end
 
       def have_file?(target)

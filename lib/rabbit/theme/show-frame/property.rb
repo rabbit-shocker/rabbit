@@ -1,5 +1,5 @@
 @category = N_("Debug")
-@name = N_("ShowFrame")
+@title = N_("ShowFrame")
 @abstract = N_("Debug toolkit to show element frames")
 @description = N_("Show element frames useful for debug.")
 @parameters = {

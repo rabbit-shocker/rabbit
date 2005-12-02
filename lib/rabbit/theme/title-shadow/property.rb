@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("TitleShadow")
+@title = N_("TitleShadow")
 @abstract = N_("Toolkit to display shadows behind the title")
 @description = N_("Displays shadows behind the title string in the title " \
                   "slide.")

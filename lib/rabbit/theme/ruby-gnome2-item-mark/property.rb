@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("RubyGNOME2ItemMark")
+@title = N_("RubyGNOME2ItemMark")
 @abstract = N_("Toolkit to display list items like ones in the website of " \
                "the Ruby-GNOME2 Project")
 @description = N_("Displays list items like ones in the website of the " \

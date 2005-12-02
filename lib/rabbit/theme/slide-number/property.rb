@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("TextSlideNumber")
+@title = N_("TextSlideNumber")
 @abstract = N_("Toolkit to display slide numbers, a text version")
 @description = N_("Displays slide numbers with text at the bottom of the " \
                   "slides.")

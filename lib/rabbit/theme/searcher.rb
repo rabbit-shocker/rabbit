@@ -32,7 +32,7 @@ module Rabbit
       def find_theme(theme_name=name)
         found_entry = nil
         collect_theme do |entry|
-          if theme_name == entry.base_name
+          if theme_name == entry.name
             found_entry = entry
             break
           end
@@ -46,7 +46,7 @@ module Rabbit
           entry.have_file?(target)
         end
         if found_entry.nil?
-          names = themes.collect {|entry| entry.base_name}
+          names = themes.collect {|entry| entry.name}
           raise LoadError,
                 "can't find file in themes #{names.inspect}: #{target}."
         end

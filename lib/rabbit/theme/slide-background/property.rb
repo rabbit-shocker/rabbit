@@ -1,5 +1,5 @@
 @category = N_("Toolkit")
-@name = N_("SlideBackground")
+@title = N_("SlideBackground")
 @abstract = N_("Toolkit to display an image as a background of slides")
 @description = N_("Displays an image as a background of slides.")
 @parameters = {

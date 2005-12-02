@@ -1,3 +1,3 @@
 @category = N_("Theme")
-@name = N_("LightningRabbit")
+@title = N_("LightningRabbit")
 @description = N_("Rabbit theme with Lightning Talk theme")
