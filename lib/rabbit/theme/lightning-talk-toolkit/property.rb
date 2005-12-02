@@ -1,3 +1,3 @@
-@category = N_("ToolKit")
-@title = N_("LightningTalk-ToolKit")
+@category = N_("Toolkit")
+@title = N_("LightningTalk-Toolkit")
 @description = N_("tool kit for lightning talk slide")
