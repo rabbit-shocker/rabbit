@@ -1,6 +1,7 @@
 require 'gtk2'
 
 require 'rabbit/rabbit'
+require 'rabbit/image'
 require 'rabbit/theme/searcher'
 
 module Rabbit
@@ -16,18 +17,43 @@ module Rabbit
       
       TAG_INFOS = [
         [
-          "category",
+          "heading",
           {
             "weight" => Pango::FontDescription::WEIGHT_BOLD,
-            "size" => 15 * Pango::SCALE,
+            "pixels-above-lines" => 5,
+            "pixels-below-lines" => 10,
+            "left-margin" => 5,
+            "size" => 18 * Pango::SCALE,
           }
-        ]
+        ],
+        [
+          "item",
+          {
+            "indent" => 15,
+            "pixels-above-lines" => 2,
+            "pixels-below-lines" => 2,
+          }
+        ],
+        [
+          "item-content",
+          {
+          }
+        ],
+        [
+          "theme-link",
+          {
+            "foreground" => "blue",
+            "underline" => Pango::AttrUnderline::SINGLE,
+          }
+        ],
       ]
       
       def initialize(locales=nil)
         @locales = locales
-        @themes = Rabbit::Theme::Searcher.collect_theme
-        @buffers = {}
+        @themes = Searcher.collect_theme
+        @category_buffers = {}
+        @theme_buffers = {}
+        load_itemize_icon
         init_gui
         load_themes
       end
@@ -70,10 +96,7 @@ module Rabbit
       
       def init_document_tree
         @tree = Gtk::TreeView.new
-        scrolled_window = Gtk::ScrolledWindow.new
-        scrolled_window.set_policy(Gtk::PolicyType::AUTOMATIC,
-                                   Gtk::PolicyType::AUTOMATIC)
-        scrolled_window.add(@tree)
+        scrolled_window = wrap_by_scrolled_window(@tree)
         @hpaned.add1(scrolled_window)
         model_types = TREE_MODEL.collect {|key, type| type}
         model = Gtk::TreeStore.new(*model_types)
@@ -92,20 +115,32 @@ module Rabbit
       end
       
       def theme_changed(iter)
-        case iter.get_value(column(:type))
-        when "theme"
-          update_buffer(iter.get_value(column(:name)))
-        end
+        name = iter.get_value(column(:name))
+        type = iter.get_value(column(:type))
+        __send__("change_to_#{type}_buffer", name)
       end
       
       def init_document_view
         @view = Gtk::TextView.new
-        @hpaned.add2(@view)
+        scrolled_window = wrap_by_scrolled_window(@view)
+        @hpaned.add2(scrolled_window)
         @view.wrap_mode = Gtk::TextTag::WRAP_WORD
+        @view.editable = false
+        @view.signal_connect("event-after") do |*args|
+          view_event_after(*args)
+        end
       end
       
       def column(key)
         TREE_MODEL.index(TREE_MODEL.assoc(key))
+      end
+
+      def load_itemize_icon
+        rabbit_image_theme = Searcher.find_theme("rabbit-images")
+        icon_file = Searcher.find_file("green-item.png", [rabbit_image_theme])
+        loader = ImageLoader.new(icon_file)
+        loader.resize(10, 10)
+        @itemize_icon = loader.pixbuf
       end
       
       def load_themes
@@ -139,17 +174,114 @@ module Rabbit
           buffer.create_tag(name, properties)
         end
       end
-      
-      def update_buffer(name)
-        buffer = @buffers[name]
+
+      def update_buffer(name, buffers)
+        buffer = buffers[name]
         if buffer.nil?
           buffer = Gtk::TextBuffer.new
           init_tags(buffer)
-          @buffers[name] = buffer
+          buffers[name] = buffer
+          yield(buffer)
         end
         @view.buffer = buffer
-        entry = @themes.find {|entry| entry.name == name}
-        buffer.text = "#{_(entry.name)}\n#{_(entry.category)}"
+      end
+      
+      def change_to_category_buffer(name)
+        update_buffer(name, @category_buffers) do |buffer|
+          iter = buffer.start_iter
+          insert_heading(buffer, iter, _(name))
+          @themes.each do |entry|
+            if entry.category == name
+              insert_item(buffer, iter) do |buffer, iter|
+                insert_theme_link(buffer, iter, _(entry.name), entry.name)
+              end
+            end
+          end
+        end
+      end
+
+      def change_to_theme_buffer(name)
+        update_buffer(name, @theme_buffers) do |buffer|
+          entry = @themes.find {|entry| entry.name == name}
+          iter = buffer.start_iter
+          insert_heading(buffer, iter, _(entry.name))
+          buffer.insert(iter, _(entry.category))
+        end
+      end
+
+      def insert_heading(buffer, iter, text)
+        buffer.insert(iter, "#{text}\n", "heading")
+      end
+
+      def insert_theme_link(buffer, iter, text, name)
+        start_offset = iter.offset
+        buffer.insert(iter, text, "theme-link")
+        tag = buffer.create_tag("theme-link-#{name}", {})
+        buffer.apply_tag(tag,
+                         buffer.get_iter_at_offset(start_offset),
+                         iter)
+      end
+
+      def insert_item(buffer, iter, text=nil)
+        start_offset = iter.offset
+        buffer.insert(iter, @itemize_icon)
+        buffer.insert(iter, " ")
+        item_start_offset = iter.offset
+        if text.nil?
+          yield(buffer, iter)
+        else
+          buffer.insert(iter, text)
+        end
+        buffer.apply_tag("item-content",
+                         buffer.get_iter_at_offset(item_start_offset),
+                         iter)
+        buffer.apply_tag("item",
+                         buffer.get_iter_at_offset(start_offset),
+                         iter)
+        buffer.insert(iter, "\n")
+      end
+
+      def wrap_by_scrolled_window(widget)
+        scrolled_window = Gtk::ScrolledWindow.new
+        scrolled_window.set_policy(Gtk::PolicyType::AUTOMATIC,
+                                   Gtk::PolicyType::AUTOMATIC)
+        scrolled_window.add(widget)
+        scrolled_window
+      end
+
+      def view_event_after(view, event)
+        unless event.kind_of?(Gdk::EventButton) and
+            event.button == 1 and
+            event.event_type == Gdk::Event::BUTTON_RELEASE
+          return false
+        end
+
+        buffer = view.buffer
+        range = buffer.selection_bounds
+        if range and range[0].offset != range[1].offset
+          return false
+        end
+
+        x, y = view.window_to_buffer_coords(Gtk::TextView::WINDOW_WIDGET,
+                                            event.x, event.y)
+        iter = view.get_iter_at_location(x, y)
+        follow_if_link(view, iter)
+      end
+
+      def follow_if_link(view, iter)
+        iter.tags.each do |tag|
+          if /^theme-link-/ =~ tag.name
+            name = $POSTMATCH
+            name_column = column(:name)
+            @tree.model.each do |model, path, iter|
+              if name == iter.get_value(name_column)
+                @tree.expand_to_path(path)
+                @tree.selection.select_iter(iter)
+                break
+              end
+            end
+          end
+        end
       end
     end
   end
