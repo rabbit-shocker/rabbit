@@ -13,40 +13,40 @@ module Rabbit
         [:localized_name, String],
         [:type, String],
       ]
-
-			TAG_INFOS = [
-				[
-					"category",
-					{
-						"weight" => Pango::FontDescription::WEIGHT_BOLD,
-						"size" => 15 * Pango::SCALE,
-					}
-				]
-			]
+      
+      TAG_INFOS = [
+        [
+          "category",
+          {
+            "weight" => Pango::FontDescription::WEIGHT_BOLD,
+            "size" => 15 * Pango::SCALE,
+          }
+        ]
+      ]
       
       def initialize(locales=nil)
         @locales = locales
         @themes = Rabbit::Theme::Searcher.collect_theme
-				@buffers = {}
+        @buffers = {}
         init_gui
         load_themes
       end
-
+      
       def set_window_size(width, height)
         @window.set_size_request(width, height)
         @hpaned.position = width * 0.25
       end
-
+      
       def run
         @window.show_all
       end
-
+      
       private
       def init_gui
         init_window
         init_body
       end
-
+      
       def init_window
         @window = Gtk::Window.new
         @window.signal_connect("destroy") do
@@ -60,14 +60,14 @@ module Rabbit
         @vbox = Gtk::VBox.new
         @window.add(@vbox)
       end
-
+      
       def init_body
         @hpaned = Gtk::HPaned.new
         @vbox.pack_end(@hpaned)
         init_document_tree
         init_document_view
       end
-
+      
       def init_document_tree
         @tree = Gtk::TreeView.new
         scrolled_window = Gtk::ScrolledWindow.new
@@ -80,34 +80,34 @@ module Rabbit
         @tree.set_model(model)
         init_tree_columns
       end
-
+      
       def init_tree_columns
         renderer = Gtk::CellRendererText.new
         @tree.insert_column(-1, _("Theme"), renderer,
-														"text" => column(:localized_name))
-				@tree.selection.signal_connect("changed") do |selection|
-					iter = selection.selected
-					theme_changed(iter) if iter
-				end
+                            "text" => column(:localized_name))
+        @tree.selection.signal_connect("changed") do |selection|
+          iter = selection.selected
+          theme_changed(iter) if iter
+        end
       end
-
-			def theme_changed(iter)
-				case iter.get_value(column(:type))
-				when "theme"
-					update_buffer(iter.get_value(column(:name)))
-				end
-			end
-
+      
+      def theme_changed(iter)
+        case iter.get_value(column(:type))
+        when "theme"
+          update_buffer(iter.get_value(column(:name)))
+        end
+      end
+      
       def init_document_view
         @view = Gtk::TextView.new
         @hpaned.add2(@view)
         @view.wrap_mode = Gtk::TextTag::WRAP_WORD
       end
-
+      
       def column(key)
         TREE_MODEL.index(TREE_MODEL.assoc(key))
       end
-
+      
       def load_themes
         @themes = Searcher.collect_theme do |entry|
           Utils.process_pending_events
@@ -126,31 +126,31 @@ module Rabbit
             iter[column(:localized_name)] = _(category)
           end
           child_iter = model.append(iter)
-					child_iter[column(:type)] = "theme"
+          child_iter[column(:type)] = "theme"
           child_iter[column(:name)] = entry.name
           child_iter[column(:localized_name)] = _(entry.name)
           Utils.process_pending_events
         end
-				@tree.expand_all
+        @tree.expand_all
       end
-
-			def init_tags(buffer)
-				TAG_INFOS.each do |name, properties|
-					buffer.create_tag(name, properties)
-				end
-			end
-
-			def update_buffer(name)
-				buffer = @buffers[name]
-				if buffer.nil?
-					buffer = Gtk::TextBuffer.new
-					init_tags(buffer)
-					@buffers[name] = buffer
-				end
-				@view.buffer = buffer
-				entry = @themes.find {|entry| entry.name == name}
-				buffer.text = "#{_(entry.name)}\n#{_(entry.category)}"
-			end
+      
+      def init_tags(buffer)
+        TAG_INFOS.each do |name, properties|
+          buffer.create_tag(name, properties)
+        end
+      end
+      
+      def update_buffer(name)
+        buffer = @buffers[name]
+        if buffer.nil?
+          buffer = Gtk::TextBuffer.new
+          init_tags(buffer)
+          @buffers[name] = buffer
+        end
+        @view.buffer = buffer
+        entry = @themes.find {|entry| entry.name == name}
+        buffer.text = "#{_(entry.name)}\n#{_(entry.category)}"
+      end
     end
   end
 end
