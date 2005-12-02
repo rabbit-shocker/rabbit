@@ -11,20 +11,23 @@ module Rabbit
 
     include GetText
 
-    begin
-      rabbit_image_theme = Theme::Searcher.find_theme("rabbit-images")
-      file = Theme::Searcher.find_file("lavie-icon.png", [rabbit_image_theme])
-      loader = ImageLoader.new(file)
-      loader.resize(16, 16)
-      @@icon = loader.pixbuf
-    rescue LoadError
-      @@icon = nil
-      puts $!
-    end
-    
+    @@icon = nil
+
     def initialize(canvas)
       @canvas = canvas
       @menu = create_menu
+      if @@icon.nil?
+        begin
+          rabbit_image_theme = Theme::Searcher.find_theme("rabbit-images")
+          file = Theme::Searcher.find_file("lavie-icon.png",
+                                           [rabbit_image_theme])
+          loader = ImageLoader.new(file)
+          loader.resize(16, 16)
+          @@icon = loader.pixbuf
+        rescue LoadError
+          @canvas.logger.warn($!)
+        end
+      end
     end
 
     def popup(button, time)
