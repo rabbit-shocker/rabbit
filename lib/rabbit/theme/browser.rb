@@ -55,6 +55,43 @@ module Rabbit
             "underline" => Pango::AttrUnderline::SINGLE,
           }
         ],
+        [
+          "description",
+          {
+            "left-margin" => 20,
+            "right-margin" => 20,
+          }
+        ],
+        [
+          "parameter",
+          {
+            "left-margin" => 20,
+            "right-margin" => 20,
+            "pixels-below-lines" => 4,
+          }
+        ],
+        [
+          "parameter-name",
+          {
+            "foreground" => "red",
+            "family" => "Monospace",
+          }
+        ],
+        [
+          "parameter-default",
+          {
+            "foreground" => "gray",
+            "family" => "Monospace",
+            "style" => Pango::FontDescription::STYLE_ITALIC,
+          }
+        ],
+        [
+          "parameter-description",
+          {
+            "left-margin" => 40,
+            "right-margin" => 40,
+          }
+        ],
       ]
       
       def initialize(locales=nil)
@@ -232,6 +269,31 @@ module Rabbit
             buffer.insert(iter, _("Category: "))
             insert_category_link(buffer, iter, entry.category)
           end
+          if entry.abstract
+            insert_item(buffer, iter) do |buffer, iter|
+              buffer.insert(iter, _("Abstract: "))
+              buffer.insert(iter, _(entry.abstract))
+            end
+          end
+          if entry.description
+            insert_heading(buffer, iter, _("Description"), 2)
+            buffer.insert(iter, "#{_(entry.description)}\n", "description")
+          end
+          unless entry.dependencies.empty?
+            insert_heading(buffer, iter, _("Dependencies"), 2)
+            entry.dependencies.each do |dependency|
+              insert_item(buffer, iter) do |buffer, iter|
+                e = @themes.find {|e| e.name == dependency}
+                insert_theme_link(buffer, iter, e.name, _(e.title))
+              end
+            end
+          end
+          unless entry.parameters.empty?
+            insert_heading(buffer, iter, _("Parameters"), 2)
+            entry.parameters.each do |name, info|
+              insert_parameter(buffer, iter, name, info)
+            end
+          end
         end
       end
 
@@ -276,6 +338,20 @@ module Rabbit
                          buffer.get_iter_at_offset(start_offset),
                          iter)
         buffer.insert(iter, "\n")
+      end
+
+      def insert_parameter(buffer, iter, name, info)
+        start_offset = iter.offset
+        buffer.insert(iter, name, "parameter-name")
+        buffer.insert(iter, " (")
+        buffer.insert(iter, _("default: "))
+        buffer.insert(iter, info[:default], "parameter-default")
+        buffer.insert(iter, ")\n")
+        buffer.insert(iter, info[:description], "parameter-description")
+        buffer.insert(iter, "\n")
+        buffer.apply_tag("parameter",
+                         buffer.get_iter_at_offset(start_offset),
+                         iter)
       end
 
       def wrap_by_scrolled_window(widget)
