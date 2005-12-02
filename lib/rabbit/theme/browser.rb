@@ -38,7 +38,7 @@ module Rabbit
         [
           "item",
           {
-            "indent" => 15,
+            "left-margin" => 15,
             "pixels-above-lines" => 2,
             "pixels-below-lines" => 2,
           }
