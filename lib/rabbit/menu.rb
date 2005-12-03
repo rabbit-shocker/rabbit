@@ -303,11 +303,11 @@ module Rabbit
     end
     
     def change_theme(entry, *args)
-      @canvas.apply_theme(entry.base_name)
+      @canvas.apply_theme(entry.name)
     end
     
     def merge_theme(entry, *args)
-      @canvas.merge_theme(entry.base_name)
+      @canvas.merge_theme(entry.name)
     end
     
     def redraw(*args)
