@@ -93,11 +93,11 @@ def do_generate(options, logger)
 end
 
 def do_browse(options, logger)
-  require 'rabbit/theme/browser'
+  require 'rabbit/theme-browser'
   
   Rabbit.gui_init
 
-  browser = Rabbit::Theme::Browser.new(options.locales)
+  browser = Rabbit::ThemeBrowser.new(options.locales)
   browser.set_window_size(options.width, options.height)
   browser.run
 
