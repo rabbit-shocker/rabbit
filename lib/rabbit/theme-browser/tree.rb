@@ -11,6 +11,8 @@ module Rabbit
         [:name, String],
         [:title, String],
         [:type, String],
+        [:foreground, String],
+        [:property_editable, TrueClass],
       ]
       
       attr_reader :view
@@ -47,8 +49,12 @@ module Rabbit
       
       def init_columns
         renderer = Gtk::CellRendererText.new
-        @view.insert_column(-1, _("Theme"), renderer,
-                            "text" => column(:title))
+        params = {
+          "text" => column(:title),
+          "foreground" => column(:foreground),
+          "foreground-set" => column(:property_editable),
+        }
+        @view.insert_column(-1, _("Theme"), renderer, params)
         @view.selection.signal_connect("changed") do |selection|
           iter = selection.selected
           if iter
@@ -62,6 +68,11 @@ module Rabbit
       
       def init_model
         model = @view.model
+        type = column(:type)
+        name = column(:name)
+        title = column(:title)
+        foreground = column(:foreground)
+        property_editable = column(:property_editable)
         categories = {}
         @page.themes.each do |entry|
           category = entry.category
@@ -69,14 +80,17 @@ module Rabbit
           if iter.nil?
             iter = model.append(nil)
             categories[category] = iter
-            iter[column(:type)] = "category"
-            iter[column(:name)] = category
-            iter[column(:title)] = _(category)
+            iter[type] = "category"
+            iter[name] = category
+            iter[title] = _(category)
+            iter[property_editable] = false
           end
           child_iter = model.append(iter)
-          child_iter[column(:type)] = "theme"
-          child_iter[column(:name)] = entry.name
-          child_iter[column(:title)] = _(entry.title)
+          child_iter[type] = "theme"
+          child_iter[name] = entry.name
+          child_iter[title] = _(entry.title)
+          child_iter[foreground] = "#696969"
+          child_iter[property_editable] = !entry.property_editable?
         end
         # @view.expand_all
       end

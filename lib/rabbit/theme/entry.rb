@@ -35,7 +35,11 @@ module Rabbit
       end
 
       def available?
-        File.exist?(theme_file)
+        File.readable?(theme_file)
+      end
+
+      def property_editable?
+        File.writable?(property_file)
       end
       
       def theme_file
@@ -57,7 +61,7 @@ module Rabbit
       def category
         @category || N_("Etc")
       end
-      
+
       private
       def property_file
          File.join(@theme_dir, "#{PROPERTY_BASE_NAME}.rb")
