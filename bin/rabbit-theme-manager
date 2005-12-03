@@ -64,7 +64,7 @@ def do_generate(options, logger)
     output_dir = File.join(options.theme_doc_dir, locale)
     FileUtils.mkdir_p(output_dir)
     themes.each do |theme|
-      file = File.join(output_dir, "#{theme.base_name}.rd")
+      file = File.join(output_dir, "#{theme.name}.rd")
       File.open(file, "w") do |f|
         f.print(theme.to_rd)
       end
