@@ -43,7 +43,7 @@ module Rabbit
           GetText.locale = current_locale
           locale_name_for_the_locale = _(locale)
           GetText.locale = locale
-          page = Page.new(self, locale)
+          page = Page.new(self)
           @pages[locale] = page
           label = Gtk::Label.new(locale_name_for_the_locale)
           @notebook.append_page(page.widget, label)
@@ -207,7 +207,7 @@ module Rabbit
             "heading1",
             {
               "weight" => Pango::FontDescription::WEIGHT_BOLD,
-              "pixels-above-lines" => 5,
+              "pixels-above-lines" => 10,
               "pixels-below-lines" => 10,
               "left-margin" => 5,
               "size" => 18 * Pango::SCALE,
@@ -216,7 +216,7 @@ module Rabbit
           [
             "heading2",
             {
-              "pixels-above-lines" => 5,
+              "pixels-above-lines" => 10,
               "pixels-below-lines" => 5,
               "left-margin" => 5,
               "size" => 17 * Pango::SCALE,
@@ -358,65 +358,91 @@ module Rabbit
           update_buffer(name, @theme_buffers) do |buffer|
             entry = @page.themes.find {|entry| entry.name == name}
             iter = buffer.start_iter
-            insert_heading(buffer, iter, _(entry.title))
+            insert_entry(buffer, iter, entry)
+          end
+        end
+
+        def insert_entry(buffer, iter, entry)
+          insert_title(buffer, iter, entry)
+          insert_name(buffer, iter, entry)
+          insert_category(buffer, iter, entry)
+          insert_abstract(buffer, iter, entry) if entry.abstract
+          insert_description(buffer, iter, entry) if entry.description
+          unless entry.dependencies.empty?
+            insert_dependencies(buffer, iter, entry)
+          end
+          unless entry.parameters.empty?
+            insert_parameters(buffer, iter, entry)
+          end
+        end
+
+        def insert_title(buffer, iter, entry)
+          insert_heading(buffer, iter, _(entry.title))
+        end
+        
+        def insert_name(buffer, iter, entry)
+          insert_item(buffer, iter) do |buffer, iter|
+            buffer.insert(iter, _("Name: "))
+            buffer.insert(iter, entry.name)
+          end
+        end
+
+        def insert_category(buffer, iter, entry)
+          insert_item(buffer, iter) do |buffer, iter|
+            buffer.insert(iter, _("Category: "))
+            insert_category_link(buffer, iter, entry.category)
+          end
+        end
+
+        def insert_abstract(buffer, iter, entry)
+          insert_item(buffer, iter) do |buffer, iter|
+            buffer.insert(iter, _("Abstract: "))
+            buffer.insert(iter, _(entry.abstract))
+          end
+        end
+
+        def insert_description(buffer, iter, entry)
+          insert_heading(buffer, iter, _("Description"), 2)
+          buffer.insert(iter, "#{_(entry.description)}\n", "description")
+        end
+
+        def insert_dependencies(buffer, iter, entry)
+          insert_heading(buffer, iter, _("Dependencies"), 2)
+          entry.dependencies.each do |dependency|
             insert_item(buffer, iter) do |buffer, iter|
-              buffer.insert(iter, _("Name: "))
-              buffer.insert(iter, entry.name)
+              e = @page.themes.find {|e| e.name == dependency}
+              insert_theme_link(buffer, iter, e.name, _(e.title))
             end
-            insert_item(buffer, iter) do |buffer, iter|
-              buffer.insert(iter, _("Category: "))
-              insert_category_link(buffer, iter, entry.category)
-            end
-            if entry.abstract
-              insert_item(buffer, iter) do |buffer, iter|
-                buffer.insert(iter, _("Abstract: "))
-                buffer.insert(iter, _(entry.abstract))
-              end
-            end
-            if entry.description
-              insert_heading(buffer, iter, _("Description"), 2)
-              buffer.insert(iter, "#{_(entry.description)}\n", "description")
-            end
-            unless entry.dependencies.empty?
-              insert_heading(buffer, iter, _("Dependencies"), 2)
-              entry.dependencies.each do |dependency|
-                insert_item(buffer, iter) do |buffer, iter|
-                  e = @page.themes.find {|e| e.name == dependency}
-                  insert_theme_link(buffer, iter, e.name, _(e.title))
-                end
-              end
-            end
-            unless entry.parameters.empty?
-              insert_heading(buffer, iter, _("Parameters"), 2)
-              entry.parameters.each do |name, info|
-                insert_parameter(buffer, iter, name, info)
-              end
-            end
+          end
+        end
+
+        def insert_parameters(buffer, iter, entry)
+          insert_heading(buffer, iter, _("Parameters"), 2)
+          entry.parameters.each do |name, info|
+            insert_parameter(buffer, iter, name, info)
           end
         end
         
         def insert_heading(buffer, iter, text, level=1)
           buffer.insert(iter, "#{text}\n", "heading#{level}")
         end
-        
-        def insert_theme_link(buffer, iter, name, text=nil)
+
+        def insert_link(buffer, iter, type, name, text=nil)
           text ||= _(name)
           start_offset = iter.offset
           buffer.insert(iter, text, "link")
-          tag = buffer.create_tag("theme-link-#{name}", {})
+          tag = buffer.create_tag("#{type}-link-#{name}", {})
           buffer.apply_tag(tag,
                            buffer.get_iter_at_offset(start_offset),
                            iter)
         end
         
+        def insert_theme_link(buffer, iter, name, text)
+          insert_link(buffer, iter, "theme", name, text)
+        end
+        
         def insert_category_link(buffer, iter, name, text=nil)
-          text ||= _(name)
-          start_offset = iter.offset
-          buffer.insert(iter, text, "link")
-          tag = buffer.create_tag("category-link-#{name}", {})
-          buffer.apply_tag(tag,
-                           buffer.get_iter_at_offset(start_offset),
-                           iter)
+          insert_link(buffer, iter, "category", name, text)
         end
         
         def insert_item(buffer, iter, text=nil)
