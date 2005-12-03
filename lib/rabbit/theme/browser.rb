@@ -107,7 +107,7 @@ module Rabbit
       end
       
       def set_window_size(width, height)
-        @window.set_size_request(width, height)
+        @window.set_default_size(width, height)
         @hpaned.position = width * 0.25
       end
       

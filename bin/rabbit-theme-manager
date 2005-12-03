@@ -18,9 +18,9 @@ def parse(args=ARGV, logger=nil)
 
     opts.banner = "#{opts.banner} [COMMAND]"
 
-    opts.separator ""
     opts.separator _("[COMMAND] is one of them: [%s]") % COMMANDS.join(', ')
     opts.separator "(#{COMMANDS.first})"
+    opts.separator ""
 
     opts.on("-I", "--include [PATH]",
             _("Add [PATH] to load path.")) do |path|
@@ -29,11 +29,31 @@ def parse(args=ARGV, logger=nil)
     
     opts.separator ""
     
-    opts.on("-I", "--include [PATH]",
-            _("Add [PATH] to load path.")) do |path|
-      $LOAD_PATH.unshift(path)
+    opts.on("-w", "--width [WIDTH]",
+            Integer,
+            _("Set window width to [WIDTH]."),
+            "(#{options.width})") do |width|
+      options.width = width
     end
-    
+
+    opts.on("-h", "--height [HEIGHT]",
+            Integer,
+            _("Set window height to [HEIGHT]."),
+            "(#{options.height})") do |height|
+      options.height = height
+    end
+
+    message = _("Set window width and height to\n" \
+                "[WIDTH] and [HEIGHT].")
+    message = message.split(/\n/) + ["(#{options.width},#{options.height})"]
+    opts.on("-S", "--size [WIDTH],[HEIGHT]",
+            Array,
+            *message) do |size|
+      width, height = size.collect{|x| Integer(x)}
+      options.width = width
+      options.height = height
+    end
+
     opts.separator ""
     
     opts.on("--theme-doc-dir [DIR]",
