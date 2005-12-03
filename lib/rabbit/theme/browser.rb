@@ -347,7 +347,7 @@ module Rabbit
         buffer.insert(iter, _("default: "))
         buffer.insert(iter, info[:default], "parameter-default")
         buffer.insert(iter, ")\n")
-        buffer.insert(iter, info[:description], "parameter-description")
+        buffer.insert(iter, _(info[:description]), "parameter-description")
         buffer.insert(iter, "\n")
         buffer.apply_tag("parameter",
                          buffer.get_iter_at_offset(start_offset),
