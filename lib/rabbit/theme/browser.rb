@@ -94,31 +94,47 @@ module Rabbit
         ],
       ]
       
-      def initialize(locales=nil)
+      def initialize(locales)
         @locales = locales
         @themes = Searcher.collect_theme
         @hovering = false
         @category_buffers = {}
         @theme_buffers = {}
+        @locales.each do |locale|
+          @category_buffers[locale] = {}
+          @theme_buffers[locale] = {}
+        end
+        @trees = {}
+        @views = {}
+        @hpaneds = {}
+        load_themes
         load_cursor
         load_itemize_icon
         init_gui
-        load_themes
       end
       
       def set_window_size(width, height)
         @window.set_default_size(width, height)
-        @hpaned.position = width * 0.25
+        @hpaneds.each_value do |hpaned|
+          hpaned.position = width * 0.25
+        end
       end
       
       def run
         @window.show_all
+        @notebook.page = @init_page_number
       end
       
       private
       def init_gui
         init_window
-        init_body
+        current_locale = Locale.get
+        @init_page_number = 0
+        @locales.each_with_index do |locale, i|
+          @init_page_number = i if /#{locale}/ =~ current_locale
+          GetText.locale = locale
+          init_body(locale)
+        end
       end
       
       def init_window
@@ -131,32 +147,46 @@ module Rabbit
             @window.destroy
           end
         end
-        @vbox = Gtk::VBox.new
-        @window.add(@vbox)
+        init_notebook
+      end
+
+      def init_notebook
+        @notebook = Gtk::Notebook.new
+        @notebook.signal_connect("switch-page") do |book, page, n|
+          @current_locale = @locales[n]
+          GetText.locale = @current_locale
+          false
+        end
+        @window.add(@notebook)
       end
       
-      def init_body
-        @hpaned = Gtk::HPaned.new
-        @vbox.pack_end(@hpaned)
-        init_document_tree
-        init_document_view
+      def init_body(locale)
+        vbox = Gtk::VBox.new
+        hpaned = Gtk::HPaned.new
+        @hpaneds[locale] = hpaned
+        vbox.pack_end(hpaned)
+        init_document_tree(hpaned, locale)
+        init_document_view(hpaned, locale)
+        @notebook.append_page(vbox, Gtk::Label.new("#{_(locale)}(#{locale})"))
       end
       
-      def init_document_tree
-        @tree = Gtk::TreeView.new
-        scrolled_window = wrap_by_scrolled_window(@tree)
-        @hpaned.add1(scrolled_window)
+      def init_document_tree(hpaned, locale)
+        tree = Gtk::TreeView.new
+        @trees[locale] = tree
+        scrolled_window = wrap_by_scrolled_window(tree)
+        hpaned.add1(scrolled_window)
         model_types = TREE_MODEL.collect {|key, type| type}
         model = Gtk::TreeStore.new(*model_types)
-        @tree.set_model(model)
-        init_tree_columns
+        tree.set_model(model)
+        init_tree_columns(tree, locale)
+        init_tree_model(tree, locale)
       end
       
-      def init_tree_columns
+      def init_tree_columns(tree, locale)
         renderer = Gtk::CellRendererText.new
-        @tree.insert_column(-1, _("Theme"), renderer,
-                            "text" => column(:title))
-        @tree.selection.signal_connect("changed") do |selection|
+        tree.insert_column(-1, _("Theme"), renderer,
+                           "text" => column(:title))
+        tree.selection.signal_connect("changed") do |selection|
           iter = selection.selected
           theme_changed(iter) if iter
         end
@@ -168,16 +198,17 @@ module Rabbit
         __send__("change_to_#{type}_buffer", name)
       end
       
-      def init_document_view
-        @view = Gtk::TextView.new
-        scrolled_window = wrap_by_scrolled_window(@view)
-        @hpaned.add2(scrolled_window)
-        @view.wrap_mode = Gtk::TextTag::WRAP_WORD
-        @view.editable = false
-        @view.signal_connect("event-after") do |*args|
+      def init_document_view(hpaned, locale)
+        view = Gtk::TextView.new
+        @views[locale] = view
+        scrolled_window = wrap_by_scrolled_window(view)
+        hpaned.add2(scrolled_window)
+        view.wrap_mode = Gtk::TextTag::WRAP_WORD
+        view.editable = false
+        view.signal_connect("event-after") do |*args|
           view_event_after(*args)
         end
-        @view.signal_connect("motion-notify-event") do |*args|
+        view.signal_connect("motion-notify-event") do |*args|
           view_motion_notify_event(*args)
         end
       end
@@ -203,8 +234,10 @@ module Rabbit
         @themes = Searcher.collect_theme do |entry|
           Utils.process_pending_events
         end
-        
-        model = @tree.model
+      end
+
+      def init_tree_model(tree, locale)
+        model = tree.model
         categories = {}
         @themes.each do |entry|
           category = entry.category
@@ -222,7 +255,7 @@ module Rabbit
           child_iter[column(:title)] = _(entry.title)
           Utils.process_pending_events
         end
-        # @tree.expand_all
+        # tree.expand_all
       end
       
       def init_tags(buffer)
@@ -231,15 +264,23 @@ module Rabbit
         end
       end
 
+      def current_view
+        @views[@current_locale]
+      end
+
+      def current_tree
+        @trees[@current_locale]
+      end
+
       def update_buffer(name, buffers)
-        buffer = buffers[name]
+        buffer = buffers[@current_locale][name]
         if buffer.nil?
           buffer = Gtk::TextBuffer.new
           init_tags(buffer)
-          buffers[name] = buffer
+          buffers[@current_locale][name] = buffer
           yield(buffer)
         end
-        @view.buffer = buffer
+        current_view.buffer = buffer
       end
       
       def change_to_category_buffer(name)
@@ -386,10 +427,11 @@ module Rabbit
           name = get_name_from_link_tag(tag)
           if name
             name_column = column(:name)
-            @tree.model.each do |model, path, iter|
+            tree = current_tree
+            tree.model.each do |model, path, iter|
               if name == iter.get_value(name_column)
-                @tree.expand_to_path(path)
-                @tree.selection.select_iter(iter)
+                tree.expand_to_path(path)
+                tree.selection.select_iter(iter)
                 break
               end
             end

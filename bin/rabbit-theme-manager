@@ -11,7 +11,7 @@ def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.theme_doc_dir = "theme-doc"
     options.locale_dir = nil
-    options.locales = %w(en ja fr)
+    options.locales = [N_("en"), N_("ja"), N_("fr")]
     options.width = 600
     options.height = 400
 
