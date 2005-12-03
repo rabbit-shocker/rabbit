@@ -167,7 +167,11 @@ module Rabbit
         vbox.pack_end(hpaned)
         init_document_tree(hpaned, locale)
         init_document_view(hpaned, locale)
-        @notebook.append_page(vbox, Gtk::Label.new("#{_(locale)}(#{locale})"))
+        GetText.locale = Locale.get
+        locale_name_for_the_locale = _(locale)
+        GetText.locale = locale
+        @notebook.append_page(vbox,
+                              Gtk::Label.new(locale_name_for_the_locale))
       end
       
       def init_document_tree(hpaned, locale)
