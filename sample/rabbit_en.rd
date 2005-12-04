@@ -52,6 +52,8 @@ A presentation tool
 
 = More more ...
 
+  * colorize source
+  * funny themes
   * graffiti on the slide
   * inline image
 
