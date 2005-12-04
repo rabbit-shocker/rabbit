@@ -512,6 +512,10 @@ module Rabbit
       def post_init_gui
       end
 
+      def graffiti_mode?
+        false
+      end
+      
       private
       def off_screen_renderer?
         false

@@ -2,6 +2,7 @@ require "forwardable"
 
 require "rabbit/menu"
 require "rabbit/keys"
+require "rabbit/graffiti"
 require "rabbit/renderer/pixmap"
 
 module Rabbit
@@ -45,6 +46,7 @@ module Rabbit
         super
         @current_cursor = nil
         @blank_cursor = nil
+        @pencil_cursor = nil
         @caching = nil
         @comment_initialized = false
         @button_handling = false
@@ -53,6 +55,7 @@ module Rabbit
         @need_reload_theme = false
         init_progress
         clear_button_handler
+        init_graffiti
         init_drawing_area
         init_pixmap(1, 1)
         init_comment_log_window
@@ -114,17 +117,19 @@ module Rabbit
         @pixmap.post_move(index)
         update_title
         reset_adjustment
+        clear_graffiti
+        # toggle_graffiti_mode if @graffiti_mode
         @area.queue_draw
       end
       
       def post_fullscreen
-        set_cursor(blank_cursor)
+        update_cursor(blank_cursor, true)
         clear_pixmaps
         update_menu
       end
       
       def post_unfullscreen
-        set_cursor(nil)
+        update_cursor(nil, true)
         clear_pixmaps
         update_menu
       end
@@ -135,6 +140,7 @@ module Rabbit
       
       def redraw
         clear_pixmap
+        clear_graffiti
         @area.queue_draw
       end
       
@@ -156,11 +162,12 @@ module Rabbit
       end
       
       def index_mode_on
-        @drawable.cursor = nil
+        @before_index_mode_cursor = @current_cursor
+        update_cursor(nil, true)
       end
       
       def index_mode_off
-        @drawable.cursor = @current_cursor
+        update_cursor(@before_index_mode_cursor, true)
       end
       
       def post_toggle_index_mode
@@ -376,6 +383,21 @@ module Rabbit
         update_title # for xfwm
       end
 
+      def graffiti_mode?
+        @graffiti_mode
+      end
+      
+      def toggle_graffiti_mode
+        @graffiti_mode = !@graffiti_mode
+        update_cursor(@current_cursor)
+        update_menu
+      end
+
+      def clear_graffiti
+        @graffiti.clear
+        @area.queue_draw
+      end
+      
       def reset_adjustment
         super
         @area.queue_draw
@@ -489,6 +511,48 @@ module Rabbit
         end
         @progress.style = style
       end
+
+
+      def init_graffiti
+        @graffiti = Graffiti.new
+        @graffiti_mode = false
+
+        pressed_button = nil
+        target_button = 1
+        
+        add_button_press_hook do |event|
+          pressed_button = event.button
+          if @graffiti_mode and event.button == target_button
+            @graffiti.button_press(event.x, event.y, width, height)
+            true
+          else
+            false
+          end
+        end
+        
+        add_button_release_hook do |event, last_button_press_event|
+          pressed_button = nil
+          if @graffiti_mode and event.button == target_button
+            @graffiti.button_release(event.x, event.y, width, height)
+            true
+          else
+            false
+          end
+        end
+        
+        add_motion_notify_hook do |event|
+          if @graffiti_mode and
+              @graffiti.dragging? and
+              pressed_button == target_button
+            @graffiti.button_motion(event.x, event.y, width, height)
+            @graffiti.draw_last_segment(@drawable, @foreground)
+            true
+          else
+            false
+          end
+        end
+      end
+      
       
       COMMENT_LOG_COMMENT_COLUMN = 0
 
@@ -618,6 +682,7 @@ module Rabbit
                                      original_width, original_height)
           else
             draw_current_slide
+            @graffiti.draw_all_segment(@drawable, @foreground)
           end
         end
       end
@@ -726,10 +791,15 @@ module Rabbit
         @configure_signal_id = id
       end
       
-      def set_cursor(cursor)
-        @current_cursor = @drawable.cursor = cursor
+      def update_cursor(cursor, update_current_cursor=false)
+        if @graffiti_mode
+          @drawable.cursor = pencil_cursor
+        else
+          @drawable.cursor = cursor
+        end
+        @current_cursor = cursor if update_current_cursor
       end
-      
+
       def blank_cursor
         if @blank_cursor.nil?
           source = Gdk::Pixmap.new(@drawable, 1, 1, 1)
@@ -739,6 +809,10 @@ module Rabbit
           @blank_cursor = Gdk::Cursor.new(source, mask, fg, bg, 1, 1)
         end
         @blank_cursor
+      end
+
+      def pencil_cursor
+        @pencil_cursor ||= Gdk::Cursor.new(Gdk::Cursor::PENCIL)
       end
       
       def calc_slide_number(key_event, base)
@@ -813,6 +887,8 @@ module Rabbit
           expand_hole
         when *@keys.narrow_hole_keys
           narrow_hole
+        when *@keys.toggle_graffiti_mode_keys
+          toggle_graffiti_mode
         else
           handled = false
         end

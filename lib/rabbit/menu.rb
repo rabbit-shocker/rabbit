@@ -51,13 +51,35 @@ module Rabbit
 
         [_("/Separator"), "<Separator>"],
 
+        if @canvas.graffiti_mode?
+          [_("/GraffitiModeOff"), "<Item>", "",
+            nil, method(:toggle_graffiti_mode)]
+        else
+          [_("/GraffitiModeOn"), "<StockItem>", "",
+            Gtk::Stock::EDIT, method(:toggle_graffiti_mode)]
+        end,
+
+        if @canvas.graffiti_mode?
+          [_("/ClearGraffiti"), "<StockItem>", "",
+            Gtk::Stock::CLEAR, method(:clear_graffiti)]
+        else
+          nil
+        end,
+
+        [_("/Separator"), "<Separator>"],
+
         if @canvas.fullscreen_available?
           if @canvas.fullscreen?
             [_("/UnFullScreen"), "<StockItem>", "",
               Gtk::Stock::ZOOM_OUT, method(:toggle_fullscreen)]
           else
+            if Gtk::Stock.const_defined?(:FULLSCREEN)
+              icon = Gtk::Stock::FULLSCREEN
+            else
+              icon = Gtk::Stock::ZOOM_FIT
+            end
             [_("/FullScreen"), "<StockItem>", "",
-              Gtk::Stock::ZOOM_FIT, method(:toggle_fullscreen)]
+              icon, method(:toggle_fullscreen)]
           end
         else
           nil
@@ -334,6 +356,14 @@ module Rabbit
     
     def reset_adjustment(*args)
       @canvas.reset_adjustment
+    end
+    
+    def clear_graffiti(*args)
+      @canvas.clear_graffiti
+    end
+    
+    def toggle_graffiti_mode(*args)
+      @canvas.toggle_graffiti_mode
     end
   end
 end

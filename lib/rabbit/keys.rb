@@ -117,6 +117,10 @@ module Rabbit
       Gdk::Keyval::GDK_N,
     ]
     
+    TOGGLE_GRAFFITI_MODE_KEYS = [
+      Gdk::Keyval::GDK_G,
+    ]
+    
     class Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,

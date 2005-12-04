@@ -88,6 +88,9 @@ module Rabbit
     def_delegators(:@renderer, :adjustment_y, :adjustment_y=)
     def_delegators(:@renderer, :reset_adjustment)
 
+    def_delegators(:@renderer, :graffiti_mode?)
+    def_delegators(:@renderer, :clear_graffiti, :toggle_graffiti_mode)
+    
     def_delegators(:@renderer, :post_init_gui)
     
     def_delegators(:@renderer, :keys)

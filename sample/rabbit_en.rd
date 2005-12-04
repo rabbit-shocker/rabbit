@@ -50,10 +50,13 @@ A presentation tool
   * Internationalized message
   * Table
 
-= Not available
+= More more ...
 
   * graffiti on the slide
   * inline image
+
+= Not available
+
   * organize screenshots
   * jump to the link
 
@@ -61,6 +64,7 @@ A presentation tool
 
   * handle sound
   * handle 3D (I wish there were a library of X3D)
+    * now OpenGL is supported
 
 = Call on
 
