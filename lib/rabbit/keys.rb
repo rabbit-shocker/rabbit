@@ -130,6 +130,10 @@ module Rabbit
         Gdk::Keyval::GDK_p,
       ]
 
+      UNDO_GRAFFITI_KEYS = [
+        Gdk::Keyval::GDK_z,
+      ]
+      
       def initialize
         Utils.init_by_constants_as_default_value(self)
       end

@@ -397,6 +397,11 @@ module Rabbit
         @graffiti.clear
         @area.queue_draw
       end
+
+      def undo_graffiti
+        @graffiti.undo
+        @area.queue_draw
+      end
       
       def reset_adjustment
         super
@@ -911,6 +916,8 @@ module Rabbit
           @canvas.redraw
         when *@keys.control.print_keys
           @canvas.print
+        when *@keys.control.undo_graffiti_keys
+          undo_graffiti
         else
           handled = false
         end

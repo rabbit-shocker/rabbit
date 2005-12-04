@@ -57,5 +57,9 @@ module Rabbit
       @pressed = false
       @segments = []
     end
+
+    def undo
+      @segments.pop
+    end
   end
 end
