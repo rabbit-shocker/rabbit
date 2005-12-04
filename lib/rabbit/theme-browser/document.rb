@@ -12,10 +12,11 @@ module Rabbit
     class Document
       include GetText
       
-      attr_reader :view
+      attr_reader :view, :name
       
       def initialize(page)
         @page = page
+        @name = nil
         @hovering = false
         @category_buffers = {}
         @theme_buffers = {}
@@ -25,6 +26,7 @@ module Rabbit
       end
       
       def change_buffer(name, type)
+        @name = name
         __send__("change_to_#{type}_buffer", name)
       end
       
