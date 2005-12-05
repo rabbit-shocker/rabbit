@@ -1,6 +1,6 @@
 include_theme("rabbit")
 
-add_theme_path("cozmixng-images")
+add_image_path("cozmixng-images")
 
 set_foreground("black")
 set_background("white")

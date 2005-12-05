@@ -18,9 +18,8 @@ module Rabbit
       @menu = create_menu
       if @@icon.nil?
         begin
-          rabbit_image_theme = Theme::Searcher.find_theme("rabbit-images")
-          file = Theme::Searcher.find_file("lavie-icon.png",
-                                           [rabbit_image_theme])
+          image_theme = Theme::Searcher.find_theme("rabbit-images", true)
+          file = Theme::Searcher.find_file("lavie-icon.png", [image_theme])
           loader = ImageLoader.new(file)
           loader.resize(16, 16)
           @@icon = loader.pixbuf

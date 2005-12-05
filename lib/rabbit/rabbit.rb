@@ -1,3 +1,9 @@
+begin
+  require "rabbit/config"
+rescue LoadError
+  require "rabbit/default-config"
+end
+
 require "rabbit/gettext"
 
 module Rabbit

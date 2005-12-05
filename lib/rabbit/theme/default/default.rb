@@ -1,4 +1,4 @@
-add_theme_path("ruby-images")
+add_image_path("ruby-images")
 include_theme("image")
 include_theme("table")
 include_theme("slide-number")

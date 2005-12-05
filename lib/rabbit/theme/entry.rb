@@ -22,8 +22,9 @@ module Rabbit
       attr_reader :abstract
       attr_reader :dependencies, :parameters
 
-      def initialize(theme_dir)
+      def initialize(theme_dir, type)
         @theme_dir = theme_dir
+        @type = type
         @name = File.basename(@theme_dir)
         @title = @name
         @category = nil
@@ -60,6 +61,10 @@ module Rabbit
 
       def category
         @category || N_("Etc")
+      end
+
+      def image_theme?
+        @type == :image
       end
 
       private

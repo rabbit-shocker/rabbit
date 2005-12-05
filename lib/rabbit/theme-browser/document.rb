@@ -12,11 +12,12 @@ module Rabbit
     class Document
       include GetText
       
-      attr_reader :view, :name
+      attr_reader :view, :name, :type
       
       def initialize(page)
         @page = page
         @name = nil
+        @type = nil
         @hovering = false
         @category_buffers = {}
         @theme_buffers = {}
@@ -26,7 +27,7 @@ module Rabbit
       end
       
       def change_buffer(name, type)
-        @name = name
+        @name, @type = name, type
         __send__("change_to_#{type}_buffer", name)
       end
       
@@ -50,9 +51,9 @@ module Rabbit
       end
       
       def load_itemize_icon
-        rabbit_image_theme = Theme::Searcher.find_theme("rabbit-images")
+        image_theme = Theme::Searcher.find_theme("rabbit-images", true)
         icon_file = Theme::Searcher.find_file("green-item.png",
-                                              [rabbit_image_theme])
+                                              [image_theme])
         loader = ImageLoader.new(icon_file)
         loader.resize(10, 10)
         @itemize_icon = loader.pixbuf
@@ -145,7 +146,11 @@ module Rabbit
         entry.dependencies.each do |dependency|
           insert_item(buffer, iter) do |buffer, iter|
             e = @page.themes.find {|e| e.name == dependency}
-            insert_theme_link(buffer, iter, e.name, _(e.title))
+            if e
+              insert_theme_link(buffer, iter, e.name, _(e.title))
+            else
+              buffer.insert(iter, dependency)
+            end
           end
         end
       end
@@ -234,9 +239,9 @@ module Rabbit
       
       def follow_if_link(iter)
         iter.tags.each do |tag|
-          name = get_name_from_link_tag(tag)
-          if name
-            @page.change_tree(name)
+          name, type = link_tag_info(tag)
+          if name and type
+            @page.change_tree(name, type)
             break
           end
         end
@@ -279,9 +284,9 @@ module Rabbit
         /-?link-?/ =~ tag.name
       end
       
-      def get_name_from_link_tag(tag)
+      def link_tag_info(tag)
         if /^(theme|category)-link-/ =~ tag.name
-          $POSTMATCH
+          [$POSTMATCH, $1]
         end
       end
     end

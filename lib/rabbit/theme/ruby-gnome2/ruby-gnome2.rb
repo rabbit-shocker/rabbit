@@ -1,5 +1,5 @@
-add_theme_path("ruby-images")
-add_theme_path("rabbit-images")
+add_image_path("ruby-images")
+add_image_path("rabbit-images")
 
 include_theme("image")
 include_theme("table")

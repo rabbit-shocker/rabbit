@@ -72,7 +72,7 @@ module Rabbit
     end
     
     def load_themes
-      @themes = Theme::Searcher.collect_theme
+      @themes = Theme::Searcher.collect_all_theme
     end
   end
 end

@@ -22,10 +22,11 @@ module Rabbit
         init_gui
       end
       
-      def select(name)
+      def select(name, type)
         name_column = column(:name)
+        depth = type == "category" ? 1 : 2
         @view.model.each do |model, path, iter|
-          if name == iter.get_value(name_column)
+          if depth == path.depth and name == iter.get_value(name_column)
             @view.expand_to_path(path)
             @view.selection.select_iter(iter)
             break

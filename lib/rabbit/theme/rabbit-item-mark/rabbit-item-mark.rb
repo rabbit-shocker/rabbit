@@ -1,6 +1,6 @@
 include_theme("default-item-mark")
 
-add_theme_path("rabbit-images")
+add_image_path("rabbit-images")
 
 slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]

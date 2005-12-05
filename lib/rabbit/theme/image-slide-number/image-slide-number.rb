@@ -1,4 +1,4 @@
-add_theme_path("rabbit-images")
+add_image_path("rabbit-images")
 
 proc_name = "image-slide-number"
 

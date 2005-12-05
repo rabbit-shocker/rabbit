@@ -21,14 +21,14 @@ module Rabbit
         prev_name = @document.name
         unless prev_name.nil?
           paths = @forwarding ? @back_paths : @forward_paths
-          paths.push(prev_name)
+          paths.push([prev_name, @document.type])
         end
         update_move_button
         @document.change_buffer(name, type)
       end
 
-      def change_tree(name)
-        @tree.select(name)
+      def change_tree(name, type)
+        @tree.select(name, type)
       end
         
       def themes
@@ -57,11 +57,11 @@ module Rabbit
         @toolbar.toolbar_style = Gtk::Toolbar::ICONS
         @back = @toolbar.append(Gtk::Stock::GO_BACK, _("Go back")) do
           @forwarding = false
-          change_tree(@back_paths.pop)
+          change_tree(*@back_paths.pop)
           @forwarding = true
         end
         @forward = @toolbar.append(Gtk::Stock::GO_FORWARD, _("Go forward")) do
-          change_tree(@forward_paths.pop)
+          change_tree(*@forward_paths.pop)
         end
         update_move_button
       end

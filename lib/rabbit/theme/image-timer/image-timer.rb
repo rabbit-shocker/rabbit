@@ -1,6 +1,6 @@
 theme_exit unless display?
 
-add_theme_path("rabbit-images")
+add_image_path("rabbit-images")
 
 proc_name = "image-timer"
 init_proc_name_prefix = "image-timer-init"

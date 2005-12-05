@@ -74,10 +74,6 @@ module Rabbit
         end
       end
 
-      def add_theme_path(name)
-        @theme_paths << find_theme(name)
-      end
-
       def to_attrs(hash)
         canvas.to_attrs(hash)
       end
