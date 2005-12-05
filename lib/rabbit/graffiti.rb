@@ -8,11 +8,13 @@ module Rabbit
 
     def button_press(x, y, width, height)
       @pressed = true
+      @undo_index = nil
       @segments << [[x.to_f / width, y.to_f / height]]
     end
 
     def button_release(x, y, width, height)
       @pressed = false
+      @undo_stack << [:push]
     end
 
     def button_motion(x, y, width, height)
@@ -56,10 +58,26 @@ module Rabbit
     def clear
       @pressed = false
       @segments = []
+      @undo_stack = []
+      @undo_index = nil
     end
 
     def undo
-      @segments.pop
+      @undo_index ||= @undo_stack.size - 1
+      command, segment = @undo_stack[@undo_index]
+      case command
+      when :push
+        @undo_stack << [:pop, @segments.pop]
+      when :pop
+        @segments << segment
+        @undo_stack << [:push]
+      end
+      
+      if @undo_index > 0
+        @undo_index -= 1
+      else
+        @undo_index = nil
+      end
     end
   end
 end
