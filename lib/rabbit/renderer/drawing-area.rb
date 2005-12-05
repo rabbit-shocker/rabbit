@@ -7,7 +7,6 @@ require "rabbit/renderer/pixmap"
 
 module Rabbit
   module Renderer
-    
     class DrawingArea
       include Base
 
@@ -140,7 +139,6 @@ module Rabbit
       
       def redraw
         clear_pixmap
-        clear_graffiti
         @area.queue_draw
       end
       
@@ -911,15 +909,24 @@ module Rabbit
       
       def handle_key_with_control(key_event)
         handled = true
-        case key_event.keyval
-        when *@keys.control.redraw_keys
-          @canvas.redraw
-        when *@keys.control.print_keys
-          @canvas.print
-        when *@keys.control.undo_graffiti_keys
-          undo_graffiti
+        if @graffiti_mode
+          case key_event.keyval
+          when *@keys.control.clear_graffiti_keys
+            clear_graffiti
+          when *@keys.control.undo_graffiti_keys
+            undo_graffiti
+          else
+            handled = false
+          end
         else
-          handled = false
+          case key_event.keyval
+          when *@keys.control.redraw_keys
+            @canvas.redraw
+          when *@keys.control.print_keys
+            @canvas.print
+          else
+            handled = false
+          end
         end
         handled
       end
