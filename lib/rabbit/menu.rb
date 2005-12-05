@@ -299,21 +299,15 @@ module Rabbit
     end
 
     def toggle_index_mode(*args)
-      Thread.new do
-        @canvas.toggle_index_mode
-      end
+      @canvas.toggle_index_mode
     end
     
     def save_as_image(*args)
-      Thread.new do
-        @canvas.save_as_image
-      end
+      @canvas.save_as_image
     end
 
     def print(*args)
-      Thread.new do
-        @canvas.print
-      end
+      @canvas.print
     end
 
     def toggle_fullscreen(*args)
@@ -349,9 +343,7 @@ module Rabbit
     end
 
     def cache_all_slides(*args)
-      Thread.new do
-        @canvas.cache_all_slides
-      end
+      @canvas.cache_all_slides
     end
     
     def reset_adjustment(*args)
