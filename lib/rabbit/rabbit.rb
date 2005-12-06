@@ -65,6 +65,12 @@ module Rabbit
     end
   end
 
+  class TgifCanNotHandleError < ImageLoadWithExternalCommandError
+    def initialize(command)
+      super("Tgif", command)
+    end
+  end
+
   class TeXCanNotHandleError < ImageLoadWithExternalCommandError
     def initialize(command)
       super("TeX", command)

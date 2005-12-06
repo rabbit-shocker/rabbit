@@ -2,13 +2,10 @@ require "forwardable"
 require "tempfile"
 require 'thread'
 
-require "rabbit/image/base"
-require "rabbit/image/default"
-require "rabbit/image/eps"
-begin
-  require "rabbit/image/svg"
-rescue LoadError
-end
+require 'rabbit/utils'
+
+dir = File.join("rabbit", "image")
+Rabbit::Utils.require_files_under_directory_in_load_path(dir)
 
 module Rabbit
   

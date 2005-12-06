@@ -148,6 +148,13 @@ Tgif又はmimeTeXを呼び出す
   # keep_ratio = true
   # relative_height = 100
 
+= TgifでもOK
+
+  # image
+  # src = rabbit-balloon.obj
+  # keep_ratio = true
+  # relative_height = 100
+
 = 折り返し
 
 なーーーーーーーーーーーーーーーーーーーーーーーーーーーーーがーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーい行は？

@@ -146,6 +146,13 @@ call Tgif or mimeTeX
   # keep_ratio = true
   # relative_height = 100
 
+= Tgif is OK, too
+
+  # image
+  # src = rabbit-balloon.obj
+  # keep_ratio = true
+  # relative_height = 100
+
 = Wrap word
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
