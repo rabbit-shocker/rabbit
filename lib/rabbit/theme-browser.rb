@@ -9,9 +9,10 @@ module Rabbit
   class ThemeBrowser
     include GetText
     
-    attr_reader :themes
+    attr_reader :logger, :themes
     
-    def initialize(locales, startup_theme=nil)
+    def initialize(logger, locales, startup_theme=nil)
+      @logger = logger
       @locales = locales
       @pages = {}
       @startup_theme = startup_theme

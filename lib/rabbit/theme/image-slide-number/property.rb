@@ -20,7 +20,7 @@
   "@image_slide_number_image" => {
     :default => "'mini-usagi.png'",
     :description => N_("File name of an image that moves. " \
-                       "An image of a hare in the ((<rabbit-image>)) theme " \
+                       "An image of a hare in the ((<rabbit-images>)) theme " \
                        "is used by default."),
   },
   "@image_slide_number_show_text" => {

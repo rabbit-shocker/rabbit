@@ -1,19 +1,21 @@
-require "forwardable"
-
-require "rd/rdvisitor"
-require "rd/version"
-
+require "rabbit/rd-visitor"
 require 'rabbit/theme-browser/tag'
+require 'rabbit/theme-browser/ext/block-verbatim'
 
 module Rabbit
   class ThemeBrowser
-    class RD2DocumentVisitor < RD::RDVisitor
+    class RD2DocumentVisitor < RDVisitor
+      EXTENSIONS = {
+        "block_verbatim" => Ext::BlockVerbatim,
+      }
 
       @@itemize_icon = nil
-      
-      def initialize(buffer, iter)
+
+      attr_reader :logger
+      def initialize(buffer, iter, logger)
         @buffer = buffer
         @iter = iter
+        @logger = logger
         init_tags
         load_itemize_icon
         super()
@@ -88,6 +90,16 @@ module Rabbit
         end
       end
 
+      def apply_to_Verbatim(element)
+        content = []
+        element.each_line do |line|
+          content << line
+        end
+        content_str = content.join("")
+        /\A#\s*([^\n]+)(?:\n)?(?m:(.*)?)\z/ =~ content_str
+        apply_to_extension("block_verbatim", $1, $2.to_s, content_str)
+      end
+      
       def apply_to_StringElement(element)
         element.content.gsub(/\n\s*/, '')
       end
@@ -123,28 +135,11 @@ module Rabbit
         end
       end
 
-      private
-      def init_tags
-        Tag::INFOS.each do |name, properties|
-          @buffer.create_tag(name, properties)
-        end
-      end
-
-      def load_itemize_icon
-        unless @@itemize_icon
-          image_theme = Theme::Searcher.find_theme("rabbit-images", true)
-          icon_file = Theme::Searcher.find_file("green-item.png",
-                                                [image_theme])
-          loader = ImageLoader.new(icon_file)
-          loader.resize(10, 10)
-          @@itemize_icon = loader.pixbuf
-        end
-      end
-
       def insert(text, *args)
         @buffer.insert(@iter, text, *args)
       end
       
+
       def insert_link(name, text=nil)
         text ||= _(name)
         start_offset = @iter.offset
@@ -170,6 +165,24 @@ module Rabbit
           else
             insert(child)
           end
+        end
+      end
+      
+      private
+      def init_tags
+        Tag::INFOS.each do |name, properties|
+          @buffer.create_tag(name, properties)
+        end
+      end
+
+      def load_itemize_icon
+        unless @@itemize_icon
+          image_theme = Theme::Searcher.find_theme("rabbit-images", true)
+          icon_file = Theme::Searcher.find_file("green-item.png",
+                                                [image_theme])
+          loader = ImageLoader.new(icon_file)
+          loader.resize(10, 10)
+          @@itemize_icon = loader.pixbuf
         end
       end
     end

@@ -91,6 +91,13 @@ module Rabbit
         @type == :image
       end
 
+      def files
+        rejected_files = [theme_file, property_file]
+        Dir[File.join(@theme_dir, "*")].delete_if do |name|
+          rejected_files.include?(name)
+        end.sort
+      end
+
       private
       def property_file
          File.join(@theme_dir, "#{PROPERTY_BASE_NAME}.rb")

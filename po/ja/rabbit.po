@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-07 14:06+0900\n"
-"PO-Revision-Date: 2005-12-07 14:06+0900\n"
+"POT-Creation-Date: 2005-12-07 19:19+0900\n"
+"PO-Revision-Date: 2005-12-07 19:20+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -239,6 +239,10 @@ msgstr "このメッセージを表示します．"
 #: lib/rabbit/console.rb:104
 msgid "Show version."
 msgstr "バージョンを表示します．"
+
+#: lib/rabbit/rd-visitor.rb:47
+msgid "[BUG] [%s] %s extension isn't available."
+msgstr ""
 
 #: lib/rabbit/ext/block-verbatim.rb:134
 msgid "invalid source: %s"
@@ -598,10 +602,8 @@ msgstr ""
 #: lib/rabbit/theme/image-slide-number/property.rb:22
 msgid ""
 "File name of an image that moves. An image of a hare in the ((<rabbit-"
-"image>)) theme is used by default."
-msgstr ""
-"動く画像のファイル名。デフォルトでは、((<rabbit-image>))テーマのウサギの画像"
-"が使われます。"
+"images>)) theme is used by default."
+msgstr "動く画像のファイル名。デフォルトでは、((<rabbit-images>))テーマのウサギの画像が使われます。"
 
 #: lib/rabbit/theme/image-slide-number/property.rb:28
 msgid ""
@@ -654,45 +656,38 @@ msgid ""
 "default, a tortoise image walks along the bottom of slides slowly step by "
 "step.\n"
 "\n"
-"Using together with another theme, 'image-slide-number', you can make a hare "
-"and a tortoise race like the fable of the hare and the tortoise. When doing "
-"so, however, note that you should make your presentation not so slowly that "
-"the hare will lose to the tortoise."
+"Using together with another theme, ((<image-slide-number>)), you can make a "
+"hare and a tortoise race like the fable of the hare and the tortoise. When "
+"doing so, however, note that you should make your presentation not so slowly "
+"that the hare will lose to the tortoise."
 msgstr ""
-"時間の進行を画像の位置で表示します。これを用いると、話し手と聴き手の両方が、"
-"これまでの時間と残りの時間を知ることができるので便利です。デフォルトでは、カ"
-"メの画像が、スライド下部の 2 つの旗の間をのろのろと歩いていきます。\n"
+"時間の進行を画像の位置で表示します。これを用いると、話し手と聴き手の両方が、これまでの時間と残りの時間を知ることができるので便利です。デフォルトでは、カメの画像が、スライド下部の 2 つの旗の間をのろのろと歩いていきます。\n"
 "\n"
-"別のテーマ 'image-slide-number' と一緒に用いると、ウサギとカメの話のようにウ"
-"サギとカメを競争させることができます。しかしそうする場合、あまりゆっくりプレ"
-"ゼンテーションをおこなってウサギがカメに敗けてしまうことがないよう気をつけて"
-"ください。"
+"別のテーマ ((<image-slide-number>)) と一緒に用いると、ウサギとカメの話のようにウサギとカメを競争させることができます。しかしそうする場合、あまりゆっくりプレゼンテーションをおこなってウサギがカメに敗けてしまうことがないよう気をつけてください。"
 
-#: lib/rabbit/theme/image-timer/property.rb:20
+#: lib/rabbit/theme/image-timer/property.rb:21
 msgid "Limit time by second."
 msgstr "秒単位での制限時間。"
 
-#: lib/rabbit/theme/image-timer/property.rb:24
+#: lib/rabbit/theme/image-timer/property.rb:25
 msgid "Whether updating image position automatically or not."
 msgstr "画像の位置を自動更新するか否か。"
 
-#: lib/rabbit/theme/image-timer/property.rb:29
+#: lib/rabbit/theme/image-timer/property.rb:30
 msgid "Whether scrolling automatically or not."
 msgstr "自動スクロールするか否か。"
 
-#: lib/rabbit/theme/image-timer/property.rb:33
+#: lib/rabbit/theme/image-timer/property.rb:34
 msgid "Direction of automatic scrolling."
 msgstr "自動スクロールの方向。"
 
-#: lib/rabbit/theme/image-timer/property.rb:37
+#: lib/rabbit/theme/image-timer/property.rb:38
 msgid ""
-"File name of an image that moves. A tortoise image in the 'rabbit-image' "
-"theme is used by default."
-msgstr ""
-"動く画像のファイル名。デフォルトでは、'rabbit-image' テーマのカメの画像が使わ"
-"れます。"
+"File name of an image that moves. A tortoise image in the ((<rabbit-"
+"images>)) theme is used by default."
+msgstr "動く画像のファイル名。デフォルトでは、((<rabbit-images>)) テーマのカメの画像が使われます。"
 
-#: lib/rabbit/theme/image-timer/property.rb:43
+#: lib/rabbit/theme/image-timer/property.rb:44
 msgid "Time interval between automatic update."
 msgstr "自動更新の時間間隔。"
 
@@ -1028,15 +1023,19 @@ msgstr "%sはサポートしていません: %s"
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
-#: lib/rabbit/theme-browser/page.rb:67
+#: lib/rabbit/theme-browser/document.rb:91
+msgid "Images"
+msgstr "画像"
+
+#: lib/rabbit/theme-browser/page.rb:74
 msgid "Go back"
 msgstr "戻る"
 
-#: lib/rabbit/theme-browser/page.rb:72
+#: lib/rabbit/theme-browser/page.rb:79
 msgid "Go forward"
 msgstr "進む"
 
-#: lib/rabbit/theme-browser/page.rb:75
+#: lib/rabbit/theme-browser/page.rb:82
 msgid "Reload"
 msgstr "再読み込み"
 
@@ -1322,11 +1321,11 @@ msgstr "対象ロケールを[LOC1,LOC2,...]とします．"
 msgid "Generating documents for locale <%s>..."
 msgstr "ロケール<%s>のためのドキュメントを生成しています．．．"
 
-#: bin/rabbit-theme-manager:123
+#: bin/rabbit-theme-manager:124
 msgid "Unknown command: %s"
 msgstr "未知のコマンド: %s"
 
-#: bin/rabbit-theme-manager:124
+#: bin/rabbit-theme-manager:125
 msgid "Available commands: %s"
 msgstr "利用可能なコマンド: %s"
 

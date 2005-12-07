@@ -1,15 +1,13 @@
 require "forwardable"
 
-require "rd/rdvisitor"
-require "rd/version"
-
+require 'rabbit/rd-visitor'
 require "rabbit/element"
 require "rabbit/ext/refer"
 require "rabbit/ext/inline-verbatim"
 require "rabbit/ext/block-verbatim"
 
 module Rabbit
-  class RD2RabbitVisitor < RD::RDVisitor
+  class RD2RabbitVisitor < RDVisitor
     extend Forwardable
     
     include RD::MethodParse
@@ -23,10 +21,6 @@ module Rabbit
     OUTPUT_SUFFIX = ""
     INCLUDE_SUFFIX = ["rabbit", "rb"]
 
-    def self.version
-      VERSION
-    end
-    
     METACHAR = { "<" => "&#60;", ">" => "&#62;", "&" => "&#38;" }
 
     EXTENSIONS = {
@@ -252,20 +246,13 @@ module Rabbit
     end
     
     private
-    def init_extensions
-      @installed_extensions = {}
-      EXTENSIONS.each do |name, klass|
-        @installed_extensions[name] =  klass.new
-      end
-    end
-
     def prepare_footnotes(tree)
       @footnotes = tree.find_all{|i| i.is_a? RD::Footnote}
       @foottexts = []
     end
 
     def get_footnote_num(fn)
-      unless fn.is_a? RD::Footnote
+      unless fn.is_a?(RD::Footnote)
         raise ArgumentError, "#{fn} must be Footnote."
       end
       i = @footnotes.index(fn)
@@ -394,25 +381,6 @@ module Rabbit
 
     def title_slide?
       @title_slide
-    end
-
-    def apply_to_extension(ext_type, label, source, content)
-      result = nil
-      unless @installed_extensions.has_key?(ext_type)
-        logger.fatal("[BUG] [#{label}] #{ext_type} extension isn't installed.")
-      end
-      args = [label, source, content, self]
-      extension = @installed_extensions[ext_type]
-      result = extension.apply(*args)
-      default_method_name = "default_ext_#{ext_type}"
-      if result.nil? and
-          extension.respond_to?(default_method_name, true)
-        result = extension.__send__(default_method_name, *args)
-      end
-      if result.nil?
-        logger.fatal("[BUG] [#{label}] #{ext_type} extension isn't available.")
-      end
-      result
     end
   end
 end

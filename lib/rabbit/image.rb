@@ -8,9 +8,7 @@ dir = File.join("rabbit", "image")
 Rabbit::Utils.require_files_under_directory_in_load_path(dir)
 
 module Rabbit
-  
   module ImageManipulable
-
     extend Forwardable
 
     def_delegators(:@loader, :keep_ratio, :keep_ratio=)
@@ -38,9 +36,6 @@ module Rabbit
   end
   
   class ImageLoader
-
     include ImageManipulable
-
   end
-
 end

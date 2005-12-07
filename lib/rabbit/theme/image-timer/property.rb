@@ -7,7 +7,8 @@
                   "By default, a tortoise image walks along the bottom of " \
                   "slides slowly step by step.\n" \
                   "\n" \
-                  "Using together with another theme, 'image-slide-number', " \
+                  "Using together with another theme, " \
+                  "((<image-slide-number>)), " \
                   "you can make a hare and a tortoise race like the fable " \
                   "of the hare and the tortoise. " \
                   "When doing so, however, note that you should make your " \
@@ -35,8 +36,8 @@
   "@image_timer_image" => {
     :default => "'kame.png'",
     :description => N_("File name of an image that moves. " \
-                       "A tortoise image in the 'rabbit-image' theme is " \
-                       "used by default."),
+                       "A tortoise image in the ((<rabbit-images>)) theme " \
+                       "is used by default."),
   },
   "@image_timer_interval" => {
     :default => "3",

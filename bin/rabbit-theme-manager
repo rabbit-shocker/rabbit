@@ -106,7 +106,8 @@ def do_browse(options, logger)
   
   Rabbit.gui_init
 
-  browser = Rabbit::ThemeBrowser.new(options.locales, options.startup_theme)
+  args = [logger, options.locales, options.startup_theme]
+  browser = Rabbit::ThemeBrowser.new(*args)
   browser.set_window_size(options.width, options.height)
   browser.run
 

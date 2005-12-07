@@ -1,3 +1,5 @@
+require 'forwardable'
+
 require 'gtk2'
 
 require 'rabbit/rabbit'
@@ -7,9 +9,14 @@ require 'rabbit/theme-browser/document'
 module Rabbit
   class ThemeBrowser
     class Page
+      extend Forwardable
+
+      def_delegators(:@browser, :logger) 
+      
       attr_reader :widget
         
       def initialize(browser)
+        super()
         @browser = browser
         @back_paths = []
         @forward_paths = []

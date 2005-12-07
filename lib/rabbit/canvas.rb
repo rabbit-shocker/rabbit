@@ -484,7 +484,7 @@ module Rabbit
         index = current_index
         keep_index do
           @renderer.pre_parse_rd
-          tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
+          tree = ::RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
           clear
           visitor = RD2RabbitVisitor.new(self)
           visitor.visit(tree)

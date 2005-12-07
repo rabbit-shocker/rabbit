@@ -134,29 +134,6 @@ module Rabbit
           raise TeXCanNotHandleError.new(_("invalid source: %s") % src)
         end
       end
-
-      def parse_source(source)
-        prop = {}
-        in_src = false
-        src = ""
-        source.each do |line|
-          if in_src
-            src << line
-          else
-            case line
-            when /^\s*$/
-              in_src = true
-            when /^(?:#\s*)?(\S+)\s*=\s*(.+)\s*$/
-              prop[$1] = $2
-            else
-              in_src = true
-              src << line
-            end
-          end
-        end
-        [src, prop]
-      end
-      
     end
   end
 end

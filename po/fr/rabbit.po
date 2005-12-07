@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-07 14:06+0900\n"
+"POT-Creation-Date: 2005-12-07 19:19+0900\n"
 "PO-Revision-Date: 2005-12-07 14:06+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
@@ -248,6 +248,10 @@ msgstr ""
 
 #: lib/rabbit/console.rb:104
 msgid "Show version."
+msgstr ""
+
+#: lib/rabbit/rd-visitor.rb:47
+msgid "[BUG] [%s] %s extension isn't available."
 msgstr ""
 
 #: lib/rabbit/ext/block-verbatim.rb:134
@@ -594,7 +598,7 @@ msgstr ""
 #: lib/rabbit/theme/image-slide-number/property.rb:22
 msgid ""
 "File name of an image that moves. An image of a hare in the ((<rabbit-"
-"image>)) theme is used by default."
+"images>)) theme is used by default."
 msgstr ""
 
 #: lib/rabbit/theme/image-slide-number/property.rb:28
@@ -641,35 +645,35 @@ msgid ""
 "default, a tortoise image walks along the bottom of slides slowly step by "
 "step.\n"
 "\n"
-"Using together with another theme, 'image-slide-number', you can make a hare "
-"and a tortoise race like the fable of the hare and the tortoise. When doing "
-"so, however, note that you should make your presentation not so slowly that "
-"the hare will lose to the tortoise."
+"Using together with another theme, ((<image-slide-number>)), you can make a "
+"hare and a tortoise race like the fable of the hare and the tortoise. When "
+"doing so, however, note that you should make your presentation not so slowly "
+"that the hare will lose to the tortoise."
 msgstr ""
 
-#: lib/rabbit/theme/image-timer/property.rb:20
+#: lib/rabbit/theme/image-timer/property.rb:21
 msgid "Limit time by second."
 msgstr ""
 
-#: lib/rabbit/theme/image-timer/property.rb:24
+#: lib/rabbit/theme/image-timer/property.rb:25
 msgid "Whether updating image position automatically or not."
 msgstr ""
 
-#: lib/rabbit/theme/image-timer/property.rb:29
+#: lib/rabbit/theme/image-timer/property.rb:30
 msgid "Whether scrolling automatically or not."
 msgstr ""
 
-#: lib/rabbit/theme/image-timer/property.rb:33
+#: lib/rabbit/theme/image-timer/property.rb:34
 msgid "Direction of automatic scrolling."
 msgstr ""
 
-#: lib/rabbit/theme/image-timer/property.rb:37
+#: lib/rabbit/theme/image-timer/property.rb:38
 msgid ""
-"File name of an image that moves. A tortoise image in the 'rabbit-image' "
-"theme is used by default."
+"File name of an image that moves. A tortoise image in the ((<rabbit-"
+"images>)) theme is used by default."
 msgstr ""
 
-#: lib/rabbit/theme/image-timer/property.rb:43
+#: lib/rabbit/theme/image-timer/property.rb:44
 msgid "Time interval between automatic update."
 msgstr ""
 
@@ -988,15 +992,20 @@ msgstr "%s n'existe pas."
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
 
-#: lib/rabbit/theme-browser/page.rb:67
+#: lib/rabbit/theme-browser/document.rb:91
+#, fuzzy
+msgid "Images"
+msgstr "/Recharger le thème"
+
+#: lib/rabbit/theme-browser/page.rb:74
 msgid "Go back"
 msgstr ""
 
-#: lib/rabbit/theme-browser/page.rb:72
+#: lib/rabbit/theme-browser/page.rb:79
 msgid "Go forward"
 msgstr ""
 
-#: lib/rabbit/theme-browser/page.rb:75
+#: lib/rabbit/theme-browser/page.rb:82
 #, fuzzy
 msgid "Reload"
 msgstr "/Recharger le thème"
@@ -1277,12 +1286,12 @@ msgstr ""
 msgid "Generating documents for locale <%s>..."
 msgstr ""
 
-#: bin/rabbit-theme-manager:123
+#: bin/rabbit-theme-manager:124
 #, fuzzy
 msgid "Unknown command: %s"
 msgstr "Propriété inconnue : %s"
 
-#: bin/rabbit-theme-manager:124
+#: bin/rabbit-theme-manager:125
 #, fuzzy
 msgid "Available commands: %s"
 msgstr "commandes gs essayées : %s"

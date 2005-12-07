@@ -1,4 +1,5 @@
 require 'English'
+require 'forwardable'
 
 require 'gtk2'
 require "rd/rdfmt"
@@ -11,7 +12,10 @@ require 'rabbit/theme-browser/rd2document-lib'
 module Rabbit
   class ThemeBrowser
     class Document
+      extend Forwardable
       include GetText
+
+      def_delegators(:@page, :logger)
       
       attr_reader :view, :name, :type
       
@@ -60,9 +64,9 @@ module Rabbit
       end
 
       def rd2document(buffer, iter, source)
-          tree = RD::RDTree.new("=begin\n#{source}\n=end\n")
-          visitor = RD2DocumentVisitor.new(buffer, iter)
-          visitor.visit(tree)
+        tree = RD::RDTree.new("=begin\n#{source}\n=end\n")
+        visitor = RD2DocumentVisitor.new(buffer, iter, logger)
+        visitor.visit(tree)
       end
       
       def change_to_category_buffer(name)
@@ -82,7 +86,21 @@ module Rabbit
         update_buffer(name, @theme_buffers) do |buffer|
           entry = @page.themes.find {|entry| entry.name == name}
           iter = buffer.start_iter
-          rd2document(buffer, iter, entry.to_rd)
+          rd = entry.to_rd
+          if entry.image_theme?
+            rd << "== %s\n" % _("Images")
+            entry.files.each do |name|
+              rd << "\n"
+              rd << "=== #{File.basename(name)}\n"
+              rd << "\n"
+              rd << "  # image\n"
+              rd << "  # src = file://#{name}\n"
+              rd << "  # keep_ratio = true\n"
+              rd << "  # height = 100\n"
+              rd << "\n"
+            end
+          end
+          rd2document(buffer, iter, rd)
         end
       end
       
