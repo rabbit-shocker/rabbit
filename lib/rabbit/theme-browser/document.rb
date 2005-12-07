@@ -1,11 +1,12 @@
 require 'English'
 
 require 'gtk2'
+require "rd/rdfmt"
 
 require 'rabbit/rabbit'
 require 'rabbit/image'
 require 'rabbit/theme/searcher'
-require 'rabbit/theme-browser/tag'
+require 'rabbit/theme-browser/rd2document-lib'
 
 module Rabbit
   class ThemeBrowser
@@ -21,7 +22,6 @@ module Rabbit
         @hovering = false
         @category_buffers = {}
         @theme_buffers = {}
-        load_itemize_icon
         load_cursor
         init_gui
       end
@@ -44,21 +44,6 @@ module Rabbit
         end
       end
       
-      def init_tags(buffer)
-        Tag::INFOS.each do |name, properties|
-          buffer.create_tag(name, properties)
-        end
-      end
-      
-      def load_itemize_icon
-        image_theme = Theme::Searcher.find_theme("rabbit-images", true)
-        icon_file = Theme::Searcher.find_file("green-item.png",
-                                              [image_theme])
-        loader = ImageLoader.new(icon_file)
-        loader.resize(10, 10)
-        @itemize_icon = loader.pixbuf
-      end
-      
       def load_cursor
         @hand_cursor = Gdk::Cursor.new(Gdk::Cursor::HAND2)
         @regular_cursor = Gdk::Cursor.new(Gdk::Cursor::XTERM)
@@ -68,24 +53,28 @@ module Rabbit
         buffer = buffers[name]
         if buffer.nil?
           buffer = Gtk::TextBuffer.new
-          init_tags(buffer)
           buffers[name] = buffer
           yield(buffer)
         end
         @view.buffer = buffer
       end
+
+      def rd2document(buffer, iter, source)
+          tree = RD::RDTree.new("=begin\n#{source}\n=end\n")
+          visitor = RD2DocumentVisitor.new(buffer, iter)
+          visitor.visit(tree)
+      end
       
       def change_to_category_buffer(name)
         update_buffer(name, @category_buffers) do |buffer|
-          iter = buffer.start_iter
-          insert_heading(buffer, iter, _(name))
+          source = "= #{_(name)}\n"
           @page.themes.each do |entry|
             if entry.category == name
-              insert_item(buffer, iter) do |buffer, iter|
-                insert_theme_link(buffer, iter, entry.name, _(entry.title))
-              end
+              source << "  * ((<#{_(entry.title)}|#{entry.name}>))\n"
             end
           end
+          iter = buffer.start_iter
+          rd2document(buffer, iter, source)
         end
       end
       
@@ -93,7 +82,8 @@ module Rabbit
         update_buffer(name, @theme_buffers) do |buffer|
           entry = @page.themes.find {|entry| entry.name == name}
           iter = buffer.start_iter
-          insert_entry(buffer, iter, entry)
+          rd2document(buffer, iter, entry.to_rd)
+          # insert_entry(buffer, iter, entry)
         end
       end
       
@@ -164,24 +154,6 @@ module Rabbit
       
       def insert_heading(buffer, iter, text, level=1)
         buffer.insert(iter, "#{text}\n", "heading#{level}")
-      end
-      
-      def insert_link(buffer, iter, type, name, text=nil)
-        text ||= _(name)
-        start_offset = iter.offset
-        buffer.insert(iter, text, "link")
-        tag = buffer.create_tag("#{type}-link-#{name}", {})
-        buffer.apply_tag(tag,
-                         buffer.get_iter_at_offset(start_offset),
-                         iter)
-      end
-      
-      def insert_theme_link(buffer, iter, name, text)
-        insert_link(buffer, iter, "theme", name, text)
-      end
-      
-      def insert_category_link(buffer, iter, name, text=nil)
-        insert_link(buffer, iter, "category", name, text)
       end
       
       def insert_item(buffer, iter, text=nil)

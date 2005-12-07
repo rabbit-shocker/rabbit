@@ -1,0 +1,74 @@
+body:
+  size: 10
+
+heading1:
+  weight: bold
+  pixels-above-lines: 10
+  pixels-below-lines: 10
+  left-margin: 5
+  size: 20
+
+heading2:
+  pixels-above-lines: 10
+  pixels-below-lines: 5
+  left-margin: 5
+  size: 17
+
+item:
+  left-margin: 15
+  pixels-above-lines: 2
+  pixels-below-lines: 2
+
+item-content:
+
+link:
+  foreground: blue
+  underline: single
+
+code:
+  family: Monospace
+  foreground: "#ab940e"
+  style: italic
+
+description:
+  left-margin: 20
+  right-margin: 20
+  pixels-below-lines: 4
+
+description-term:
+  family: Monospace
+  size: 12
+  underline: single
+  weight: bold
+  pixels-below-lines: 10
+
+description-content:
+  left-margin: 30
+
+parameter:
+  left-margin: 20
+  right-margin: 20
+  pixels-below-lines: 4
+
+parameter-name:
+  foreground: red
+  family: Monospace
+
+parameter-default:
+  foreground: gray
+  family: Monospace
+  style: italic
+
+parameter-description:
+  left-margin: 40
+  right-margin: 40
+
+paragraph:
+
+top-level-paragraph:
+  pixels-above-lines: 5
+  left-margin: 20
+  right-margin: 20
+
+
+

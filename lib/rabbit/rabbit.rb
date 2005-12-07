@@ -28,11 +28,11 @@ module Rabbit
   add_gui_init_proc do
     Gtk.init
   end
-  
+
   class Error < StandardError
     include GetText
   end
-	
+
   class ImageLoadError < Error
   end
 
@@ -95,7 +95,7 @@ module Rabbit
 
   class SourceUnreadableError < Error
   end
-    
+
   class NotExistError < SourceUnreadableError
     attr_reader :name
     def initialize(name)
@@ -103,7 +103,7 @@ module Rabbit
       super(_("not exist: %s") % @name)
     end
   end
-  
+
   class NotFileError < SourceUnreadableError
     attr_reader :name
     def initialize(name)
@@ -111,7 +111,7 @@ module Rabbit
       super(_("not a file: %s") % @name)
     end
   end
-  
+
   class NotReadableError < SourceUnreadableError
     attr_reader :name
     def initialize(name)
