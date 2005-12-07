@@ -39,17 +39,26 @@ module Rabbit
         @hpaned.position = width * 0.25
       end
         
+      def reload
+        position = @hpaned.position
+        name, type = @document.name, @document.type
+        @widget.remove(@hpaned)
+        @browser.load_themes
+        
+        Tag.reload_tag_infos
+        init_view
+        
+        @hpaned.position = position
+        @hpaned.show_all
+        change_tree(name, type) if name and type
+      end
+      
       private
       def init_gui
         @widget = Gtk::VBox.new
         init_toolbar
         @widget.pack_start(@toolbar, false)
-        @hpaned = Gtk::HPaned.new
-        @widget.pack_start(@hpaned)
-        @tree = Tree.new(self)
-        @document = Document.new(self)
-        @hpaned.add1(wrap_by_scrolled_window(@tree.view))
-        @hpaned.add2(wrap_by_scrolled_window(@document.view))
+        init_view
       end
 
       def init_toolbar
@@ -63,7 +72,19 @@ module Rabbit
         @forward = @toolbar.append(Gtk::Stock::GO_FORWARD, _("Go forward")) do
           change_tree(*@forward_paths.pop)
         end
+        @reload = @toolbar.append(Gtk::Stock::REFRESH, _("Reload")) do
+          reload
+        end
         update_move_button
+      end
+
+      def init_view
+        @hpaned = Gtk::HPaned.new
+        @widget.pack_start(@hpaned)
+        @tree = Tree.new(self)
+        @document = Document.new(self)
+        @hpaned.add1(wrap_by_scrolled_window(@tree.view))
+        @hpaned.add2(wrap_by_scrolled_window(@document.view))
       end
 
       def update_move_button

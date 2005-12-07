@@ -52,11 +52,16 @@ module Rabbit
         result
       end
 
-      update_info_by_yaml_file("rabbit", "theme-browser", "default-tag.yaml")
-      begin
-        update_info_by_yaml_file("rabbit", "theme-browser", "tag.yaml")
-      rescue NotExistError
+      def reload_tag_infos
+        INFOS.clear
+        update_info_by_yaml_file("rabbit", "theme-browser", "default-tag.yaml")
+        begin
+          update_info_by_yaml_file("rabbit", "theme-browser", "tag.yaml")
+        rescue NotExistError
+        end
       end
+
+      reload_tag_infos
     end
   end
 end

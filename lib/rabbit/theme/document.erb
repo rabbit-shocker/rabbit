@@ -1,10 +1,10 @@
-= <%= @name %>
+= <%= _(@title) %>
+
+: <%= _("Name") %>
+   <%= @name %>
 
 : <%= _("Category") %>
    <%= _(category) %>
-
-: <%= _("Title") %>
-   <%= _(@title) %>
 
 <% if @abstract %>
 : <%= _("Abstract") %>
@@ -27,7 +27,7 @@
 <% unless @parameters.empty? %>
 == <%= _("Parameters") %>
 <%   @parameters.each do |name, info| %>
-: (({<%= name %>}))
+: ((|<%= name %>|))
    (<%= _("Default: ") %>(({<%= _(info[:default]) %>})))
 
    <%= _(info[:description]) %>

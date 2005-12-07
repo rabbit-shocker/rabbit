@@ -13,10 +13,34 @@ module Rabbit
       
       PROPERTY_BASE_NAME = "property"
 
-      path = ["rabbit", "theme", "document.erb"]
-      template_path = Utils.find_path_in_load_path(*path)
-      raise CantFindThemeRDTemplate.new(File.join(*path)) if template_path.nil?
-      def_erb_method("to_rd", template_path)
+      class << self
+        @@template_last_modified_time = nil
+        
+        def template_path
+          path = ["rabbit", "theme", "document.erb"]
+          template_path = Utils.find_path_in_load_path(*path)
+          if template_path.nil?
+            raise CantFindThemeRDTemplate.new(File.join(*path))
+          end
+          template_path
+        end
+        
+        def load_template(path=nil)
+          path ||= template_path
+          @@template_last_modified_time = File.mtime(path)
+          def_erb_method("to_rd", path)
+        end
+
+        def reload_template(path=nil)
+          path ||= template_path
+          if @@template_last_modified_time < File.mtime(path)
+            remove_method("to_rd")
+            load_template(path)
+          end
+        end
+      end
+
+      load_template
       
       attr_reader :name, :title, :description
       attr_reader :abstract

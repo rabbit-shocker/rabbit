@@ -29,10 +29,17 @@ module Rabbit
     def run
       @window.show_all
       @notebook.page = @init_page_number
-      if @startup_theme
-        current_locale = @locales[@notebook.page]
-        @pages[current_locale].change_tree(@startup_theme, "theme")
-      end
+      page.change_tree(@startup_theme, "theme") if @startup_theme
+    end
+    
+    def load_themes
+      Theme::Entry.reload_template
+      @themes = Theme::Searcher.collect_all_theme
+    end
+
+    def page
+      current_locale = @locales[@notebook.page]
+      @pages[current_locale]
     end
     
     private
@@ -59,9 +66,15 @@ module Rabbit
         Gtk.main_quit
       end
       @window.signal_connect("key_press_event") do |widget, event|
-        if event.state.control_mask? and event.keyval == Gdk::Keyval::GDK_q
-          @window.destroy
+        if event.state.control_mask?
+          case event.keyval
+          when Gdk::Keyval::GDK_q
+            @window.destroy
+          when Gdk::Keyval::GDK_r
+            page.reload
+          end
         end
+        false
       end
       init_notebook
     end
@@ -74,10 +87,6 @@ module Rabbit
         false
       end
       @window.add(@notebook)
-    end
-    
-    def load_themes
-      @themes = Theme::Searcher.collect_all_theme
     end
   end
 end

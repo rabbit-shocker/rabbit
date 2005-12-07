@@ -27,8 +27,12 @@ link:
 
 code:
   family: Monospace
+  foreground: "#2E8B57"
+  weight: bold
+
+variable:
+  family: Monospace
   foreground: "#ab940e"
-  style: italic
 
 description:
   left-margin: 20
@@ -38,12 +42,12 @@ description:
 description-term:
   family: Monospace
   size: 12
-  underline: single
   weight: bold
-  pixels-below-lines: 10
+  pixels-below-lines: 4
 
 description-content:
   left-margin: 30
+  pixels-below-lines: 8
 
 parameter:
   left-margin: 20
@@ -69,6 +73,3 @@ top-level-paragraph:
   pixels-above-lines: 5
   left-margin: 20
   right-margin: 20
-
-
-

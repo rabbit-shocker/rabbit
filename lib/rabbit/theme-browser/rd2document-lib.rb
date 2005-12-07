@@ -65,7 +65,7 @@ module Rabbit
           end
         end
       end
-  
+
       def apply_to_DescListItem(element, term, description)
         Proc.new do |*args|
           tag("description-term") do
@@ -77,7 +77,7 @@ module Rabbit
           end
         end
       end
-  
+
       def apply_to_TextBlock(element, contents)
         Proc.new do |*args|
           prefix, = args
@@ -114,7 +114,15 @@ module Rabbit
           end
         end
       end
-  
+
+      def apply_to_Var(element, contents)
+        Proc.new do |*args|
+          tag("variable") do
+            insert_children(contents)
+          end
+        end
+      end
+
       private
       def init_tags
         Tag::INFOS.each do |name, properties|
