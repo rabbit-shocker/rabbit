@@ -11,9 +11,10 @@ module Rabbit
     
     attr_reader :themes
     
-    def initialize(locales)
+    def initialize(locales, startup_theme=nil)
       @locales = locales
       @pages = {}
+      @startup_theme = startup_theme
       load_themes
       init_gui
     end
@@ -28,6 +29,10 @@ module Rabbit
     def run
       @window.show_all
       @notebook.page = @init_page_number
+      if @startup_theme
+        current_locale = @locales[@notebook.page]
+        @pages[current_locale].change_tree(@startup_theme, "theme")
+      end
     end
     
     private

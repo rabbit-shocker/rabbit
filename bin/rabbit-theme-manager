@@ -9,6 +9,7 @@ COMMANDS = %w(generate browse)
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
+    options.startup_theme = nil
     options.theme_doc_dir = "theme-doc"
     options.locale_dir = nil
     options.locales = [N_("en"), N_("ja"), N_("fr")]
@@ -27,6 +28,14 @@ def parse(args=ARGV, logger=nil)
       $LOAD_PATH.unshift(path)
     end
     
+    opts.separator ""
+    
+    opts.on("--startup-theme [THEME]",
+            _("Show [THEME] when startup."),
+            "(#{options.startup_theme})") do |theme|
+      options.startup_theme = theme
+    end
+
     opts.separator ""
     
     opts.on("-w", "--width [WIDTH]",
@@ -97,7 +106,7 @@ def do_browse(options, logger)
   
   Rabbit.gui_init
 
-  browser = Rabbit::ThemeBrowser.new(options.locales)
+  browser = Rabbit::ThemeBrowser.new(options.locales, options.startup_theme)
   browser.set_window_size(options.width, options.height)
   browser.run
 

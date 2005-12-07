@@ -52,7 +52,11 @@ module Rabbit
         result
       end
 
-      update_info_by_yaml_file("rabbit", "theme-browser", "tag.yaml")
+      update_info_by_yaml_file("rabbit", "theme-browser", "default-tag.yaml")
+      begin
+        update_info_by_yaml_file("rabbit", "theme-browser", "tag.yaml")
+      rescue NotExistError
+      end
     end
   end
 end
