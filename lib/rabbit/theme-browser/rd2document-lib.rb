@@ -16,7 +16,6 @@ module Rabbit
         @buffer = buffer
         @iter = iter
         @logger = logger
-        init_tags
         load_itemize_icon
         super()
       end
@@ -142,12 +141,9 @@ module Rabbit
 
       def insert_link(name, text=nil)
         text ||= _(name)
-        start_offset = @iter.offset
-        insert(text, "link")
-        tag = @buffer.create_tag("theme-link-#{name}", {})
-        @buffer.apply_tag(tag,
-                          @buffer.get_iter_at_offset(start_offset),
-                          @iter)
+        tag("theme-link-#{name}") do
+          insert(text, "link")
+        end
       end
 
       def tag(name)
@@ -169,12 +165,6 @@ module Rabbit
       end
       
       private
-      def init_tags
-        Tag::INFOS.each do |name, properties|
-          @buffer.create_tag(name, properties)
-        end
-      end
-
       def load_itemize_icon
         unless @@itemize_icon
           image_theme = Theme::Searcher.find_theme("rabbit-images", true)

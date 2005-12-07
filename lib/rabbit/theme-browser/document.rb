@@ -15,8 +15,27 @@ module Rabbit
       extend Forwardable
       include GetText
 
-      def_delegators(:@page, :logger)
+      @@tag_table = nil
+      class << self
+        def load_tag_table(themes)
+          @@tag_table = Gtk::TextTagTable.new
+          theme_infos = themes.collect do |entry|
+            ["theme-link-#{entry.name}", {}]
+          end
+          [theme_infos, Tag::INFOS].each do |infos|
+            infos.each do |name, properties|
+              tag = Gtk::TextTag.new(name)
+              properties.each do |key, value|
+                tag.set_property(key, value)
+              end
+              @@tag_table.add(tag)
+            end
+          end
+        end
+      end
       
+      def_delegators(:@page, :logger)
+
       attr_reader :view, :name, :type
       
       def initialize(page)
@@ -37,7 +56,7 @@ module Rabbit
       
       private
       def init_gui
-        @view = Gtk::TextView.new
+        @view = Gtk::TextView.new(nil)
         @view.wrap_mode = Gtk::TextTag::WRAP_WORD
         @view.editable = false
         @view.signal_connect("event-after") do |_, *args|
@@ -56,7 +75,7 @@ module Rabbit
       def update_buffer(name, buffers)
         buffer = buffers[name]
         if buffer.nil?
-          buffer = Gtk::TextBuffer.new
+          buffer = Gtk::TextBuffer.new(@@tag_table)
           buffers[name] = buffer
           yield(buffer)
         end

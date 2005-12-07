@@ -28,6 +28,7 @@ module Rabbit
     end
     
     def run
+      Document.load_tag_table(@themes)
       @window.show_all
       @notebook.page = @init_page_number
       page.change_tree(@startup_theme, "theme") if @startup_theme
