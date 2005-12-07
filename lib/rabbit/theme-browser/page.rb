@@ -72,23 +72,15 @@ module Rabbit
       def init_toolbar
         @toolbar = Gtk::Toolbar.new
         @toolbar.toolbar_style = Gtk::Toolbar::ICONS
-        @back = @toolbar.append(Gtk::Stock::GO_BACK, _("Go back")) do
-          @forwarding = false
-          change_tree(*@back_paths.pop)
-          @forwarding = true
-        end
-        @forward = @toolbar.append(Gtk::Stock::GO_FORWARD, _("Go forward")) do
-          change_tree(*@forward_paths.pop)
-        end
-        @up = @toolbar.append(Gtk::Stock::GO_UP, _("Go up")) do
-          entry = themes.find {|e| e.name == @document.name}
-          change_tree(entry.category, "category")
-        end
+
+        append_move_button
+        @toolbar.append_space
+        
+        append_up_button
         @up.sensitive = false
-        @reload = @toolbar.append(Gtk::Stock::REFRESH, _("Reload")) do
-          reload
-        end
-        update_move_button
+        @toolbar.append_space
+        
+        append_reload_button
       end
 
       def init_view
@@ -100,9 +92,33 @@ module Rabbit
         @hpaned.add2(wrap_by_scrolled_window(@document.view))
       end
 
+      def append_move_button
+        @back = @toolbar.append(Gtk::Stock::GO_BACK, _("Go back")) do
+          @forwarding = false
+          change_tree(*@back_paths.pop)
+          @forwarding = true
+        end
+        @forward = @toolbar.append(Gtk::Stock::GO_FORWARD, _("Go forward")) do
+          change_tree(*@forward_paths.pop)
+        end
+      end
+
       def update_move_button
         @back.sensitive = !@back_paths.empty?
         @forward.sensitive = !@forward_paths.empty?
+      end
+
+      def append_up_button
+        @up = @toolbar.append(Gtk::Stock::GO_UP, _("Go up")) do
+          entry = themes.find {|e| e.name == @document.name}
+          change_tree(entry.category, "category")
+        end
+      end
+
+      def append_reload_button
+        @reload = @toolbar.append(Gtk::Stock::REFRESH, _("Reload")) do
+          reload
+        end
       end
 
       def wrap_by_scrolled_window(widget)
