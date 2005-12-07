@@ -32,6 +32,7 @@ module Rabbit
         end
         update_move_button
         @document.change_buffer(name, type)
+        @up.sensitive = @document.type == "theme"
       end
 
       def change_tree(name, type)
@@ -79,6 +80,11 @@ module Rabbit
         @forward = @toolbar.append(Gtk::Stock::GO_FORWARD, _("Go forward")) do
           change_tree(*@forward_paths.pop)
         end
+        @up = @toolbar.append(Gtk::Stock::GO_UP, _("Go up")) do
+          entry = themes.find {|e| e.name == @document.name}
+          change_tree(entry.category, "category")
+        end
+        @up.sensitive = false
         @reload = @toolbar.append(Gtk::Stock::REFRESH, _("Reload")) do
           reload
         end

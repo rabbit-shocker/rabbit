@@ -11,8 +11,6 @@ module Rabbit
         [:name, String],
         [:title, String],
         [:type, String],
-        [:foreground, String],
-        [:property_editable, TrueClass],
       ]
       
       attr_reader :view
@@ -52,8 +50,6 @@ module Rabbit
         renderer = Gtk::CellRendererText.new
         params = {
           "text" => column(:title),
-          "foreground" => column(:foreground),
-          "foreground-set" => column(:property_editable),
         }
         @view.insert_column(-1, _("Theme"), renderer, params)
         @view.selection.signal_connect("changed") do |selection|
@@ -72,8 +68,6 @@ module Rabbit
         type = column(:type)
         name = column(:name)
         title = column(:title)
-        foreground = column(:foreground)
-        property_editable = column(:property_editable)
         categories = {}
         @page.themes.each do |entry|
           category = entry.category
@@ -84,14 +78,11 @@ module Rabbit
             iter[type] = "category"
             iter[name] = category
             iter[title] = _(category)
-            iter[property_editable] = false
           end
           child_iter = model.append(iter)
           child_iter[type] = "theme"
           child_iter[name] = entry.name
           child_iter[title] = _(entry.title)
-          child_iter[foreground] = "#696969"
-          child_iter[property_editable] = !entry.property_editable?
         end
         # @view.expand_all
       end

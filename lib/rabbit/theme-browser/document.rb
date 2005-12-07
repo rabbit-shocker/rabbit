@@ -56,7 +56,7 @@ module Rabbit
       
       private
       def init_gui
-        @view = Gtk::TextView.new(nil)
+        @view = Gtk::TextView.new
         @view.wrap_mode = Gtk::TextTag::WRAP_WORD
         @view.editable = false
         @view.signal_connect("event-after") do |_, *args|
