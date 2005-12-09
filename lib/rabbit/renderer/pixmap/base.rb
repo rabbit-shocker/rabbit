@@ -167,9 +167,21 @@ module Rabbit
           end
         end
       end
+
+      def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
+        sx = x - r
+        sy = y - r
+        w = r * 2
+        h = r * 2
+        draw_arc(filled, sx, sy, w, h, a1, a2, color, params)
+      end
       
       def draw_circle(filled, x, y, w, h, color=nil, params={})
         draw_arc(filled, x, y, w, h, 0, 360, color, params)
+      end
+      
+      def draw_circle_by_radius(filled, x, y, r, color=nil, params={})
+        draw_arc_by_radius(filled, x, y, r, 0, 360, color, params)
       end
       
       def draw_polygon(filled, points, color=nil, params={})

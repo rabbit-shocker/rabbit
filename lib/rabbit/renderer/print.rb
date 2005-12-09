@@ -124,14 +124,19 @@ module Rabbit
       
       # can't draw ellipse
       def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
+        r = w * 0.5
+        draw_arc_by_radius(filled, x + w * 0.5, y + h * 0.5,
+                           r, a1, a2, color, params)
+      end
+      
+      def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
         x, y = from_screen(x, y)
         a1, a2 = convert_angle(a1, a2)
         color = make_color(color)
         @context.save do
           set_color(color)
           set_line_width(get_line_width(params))
-          radius = w / 2
-          @context.arc_to(x + radius, y - radius, radius, a1, a2, false)
+          @context.arc_to(x, y, r, a1, a2, false)
           if filled
             @context.fill
           else
@@ -141,7 +146,11 @@ module Rabbit
       end
       
       def draw_circle(filled, x, y, w, h, color=nil, params={})
-        draw_arc(filled, x, y, w, h, 0, 359, color, params)
+        draw_arc(filled, x, y, w, h, 0, 359.99, color, params)
+      end
+
+      def draw_circle_by_radius(filled, x, y, r, color=nil, params={})
+        draw_arc_by_radius(filled, x, y, r, 0, 359.99, color, params)
       end
 
       def draw_polygon(filled, points, color=nil, params={})

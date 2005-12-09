@@ -58,6 +58,7 @@ module Rabbit
     def_delegators(:@renderer, :make_color, :make_layout, :to_rgb)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
+    def_delegators(:@renderer, :draw_arc_by_radius, :draw_circle_by_radius)
     def_delegators(:@renderer, :draw_slide, :draw_polygon, :draw_flag)
     def_delegators(:@renderer, :draw_rounded_rectangle)
 
