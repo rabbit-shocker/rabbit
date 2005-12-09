@@ -167,6 +167,7 @@ module Rabbit
       
       def index_mode_off
         update_cursor(@before_index_mode_cursor, true)
+        update_title
       end
       
       def post_toggle_index_mode
