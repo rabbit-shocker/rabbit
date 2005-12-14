@@ -427,6 +427,10 @@ module Rabbit
           setup_draw_info(markuped_text, canvas, w)
         end
       end
+
+      def text_to_html
+        markup_as_html(text)
+      end
       
       def do_horizontal_centering(canvas, x, y, w, h)
         self.align = Pango::Layout::ALIGN_CENTER
@@ -493,6 +497,16 @@ module Rabbit
         @prop.each do |name, formatter|
           if formatter.text_formatter?
             t = formatter.format(t)
+          end
+        end
+        t
+      end
+
+      def markup_as_html(str)
+        t = str
+        @prop.each do |name, formatter|
+          if formatter.html_formatter?
+            t = formatter.html_format(t)
           end
         end
         t
@@ -644,6 +658,12 @@ module Rabbit
         @elements.each(&block)
       end
 
+      def to_html
+        collect do |element|
+          element.to_html
+        end.join("\n")
+      end
+
       def [](*args)
         @elements[*args]
       end
@@ -761,6 +781,13 @@ module Rabbit
         [x, y + @height, w, h - @height]
       end
 
+      def to_html
+        html = @elements.collect do |elem|
+          elem.to_html
+        end.join("\n")
+        markup_as_html(html)
+      end
+
       def markuped_text
         mt = @elements.collect do |elem|
           elem.markuped_text
@@ -816,6 +843,10 @@ module Rabbit
         [x + width, y, w - width, h]
       end
 
+      def to_html
+        text_to_html
+      end
+
       def empty?
         /\A\s*\z/ =~ @text
       end
@@ -846,6 +877,10 @@ module Rabbit
           end
         end
       end
+
+      def to_html
+        "<div class='slide'>\n#{super}\n</div>"
+      end
     end
     
     class Slide
@@ -866,6 +901,10 @@ module Rabbit
       def initialize(title)
         super(title)
         @local_prop = {}
+      end
+
+      def to_html
+        "<div style='text-align: center;'>\n#{super}\n</div>"
       end
       
       def <<(element)
@@ -937,42 +976,82 @@ module Rabbit
     
     class Title
       include TextContainerElement
+
+      def to_html
+        "<h1>#{super}</h1>"
+      end
     end
     
     class Author
       include TextContainerElement
+
+      def to_html
+        "<address>#{super}</address>"
+      end
     end
     
     class Subtitle
       include TextContainerElement
+
+      def to_html
+        "<h2>#{super}</h2>"
+      end
     end
     
     class ContentSource
       include TextContainerElement
+
+      def to_html
+        "<p class='content-source'>#{super}</p>"
+      end
     end
     
     class Institution
       include TextContainerElement
+
+      def to_html
+        "<p class='institution'>#{super}</p>"
+      end
     end
     
     class Date
       include TextContainerElement
+
+      def to_html
+        "<p class='date'>#{super}</p>"
+      end
     end
     
     class Place
       include TextContainerElement
+
+      def to_html
+        "<p class='place'>#{super}</p>"
+      end
     end
     
     class When
       include TextContainerElement
+
+      def to_html
+        "<p class='when'>#{super}</p>"
+      end
     end
     
     class Where
       include TextContainerElement
+
+      def to_html
+        "<p class='where'>#{super}</p>"
+      end
     end
     
     class HeadLine
       include TextContainerElement
+
+      def to_html
+        "<h1>#{super}</h1>"
+      end
     end
     
     class Text
@@ -986,6 +1065,10 @@ module Rabbit
     class PreformattedBlock
       include TextContainerElement
       include BlockHorizontalCentering
+
+      def to_html
+        "<pre>#{super}</pre>"
+      end
     end
     
     class PreformattedText
@@ -1074,28 +1157,51 @@ module Rabbit
     
     class Paragraph
       include TextContainerElement
+
+      def to_html
+        "<p>\n#{super}\n</p>"
+      end
     end
     
     class ItemList
       include ContainerElement
+
+      def to_html
+        "<ul>\n#{super}\n</ul>"
+      end
     end
     
     class ItemListItem
       include ContainerElement
+
+      def to_html
+        "<li>\n#{super}\n</li>"
+      end
     end
 
     class EnumList
       include ContainerElement
-      include Enumerable
+
+      def to_html
+        "<ol>\n#{super}\n</ol>"
+      end
     end
     
     class EnumListItem
       include ContainerElement
       attr_accessor :order
+
+      def to_html
+        "<li>\n#{super}\n</li>"
+      end
     end
 
     class DescriptionList
       include ContainerElement
+
+      def to_html
+        "<dl>\n#{super}\n</dl>"
+      end
     end
     
     class DescriptionListItem
@@ -1113,10 +1219,23 @@ module Rabbit
         @elements[1..-1].each(&block)
       end
 
+      def to_html
+        result = @elements[0].to_html
+        result << "\n<dd>\n"
+        each_without_term do |element|
+          result << "#{element.to_html}\n"
+        end
+        result << "</dd>"
+        result
+      end
     end
 
     class DescriptionTerm
       include TextContainerElement
+
+      def to_html
+        "<dt>\n#{super}\n</dt>"
+      end
     end
 
     class MethodList
@@ -1193,6 +1312,16 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         draw_image(canvas, x, y, w, h, simulation)
+      end
+
+      def to_html
+        return 'image is not supported'
+        filename = File.join(base_dir, "XXX.png")
+        @loader.pixbuf.save(filename, "png")
+        result = "<img "
+        result << "title='#{@caption}' " if @caption
+        result << "src='#{filename}' />"
+        result
       end
 
       def dither_mode
@@ -1278,26 +1407,52 @@ module Rabbit
       def body
         elements.find {|e| e.is_a?(TableBody)}
       end
+
+      def to_html
+        caption = nil
+        caption = "<caption>#{@caption}</caption>\n" if @caption
+        "<table>\n#{caption}#{super}\n</table>"
+      end
     end
 
     class TableHead
       include ContainerElement
+
+      def to_html
+        "<thead>\n#{super}\n</thead>"
+      end
     end
 
     class TableBody
       include ContainerElement
+
+      def to_html
+        "<tbody>\n#{super}\n</tbody>"
+      end
     end
     
     class TableRow
       include ContainerElement
+
+      def to_html
+        "<tr>\n#{super}\n</tr>"
+      end
     end
 
     class TableHeader
       include TextElement
+
+      def to_html
+        "<th>#{super}</th>"
+      end
     end
 
     class TableCell
       include TextElement
+
+      def to_html
+        "<td>#{super}</td>"
+      end
     end
     
   end

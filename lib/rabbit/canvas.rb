@@ -103,7 +103,7 @@ module Rabbit
     
     attr_writer :saved_image_basename
 
-    attr_accessor :saved_image_type, :output_html
+    attr_accessor :saved_image_type, :output_html, :rss_base_uri
 
 
     def initialize(logger, renderer, comment_source=nil, comment_encoding=nil)
@@ -118,6 +118,7 @@ module Rabbit
       @apply_theme_request_queue = []
       @auto_reload_thread = nil
       @output_html = false
+      @rss_base_uri = true
       init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
@@ -286,16 +287,22 @@ module Rabbit
     
     def save_as_image
       process do
-        if @output_html
-          generator = HTML::Generator.new(self)
-        end
+        generator = HTML::Generator.new(self) if @output_html
         file_name_format =
           "#{saved_image_basename}%0#{number_of_places(slide_size)}d.%s"
+        base_dir = File.dirname(file_name_format)
+        FileUtils.mkdir_p(base_dir)
         each_slide_pixbuf do |pixbuf, slide_number|
+          puts current_slide.to_html if slide_number == 3
           image_file_name = file_name_format % [slide_number, @saved_image_type]
           pixbuf.save(image_file_name, normalized_saved_image_type)
           if @output_html
             generator.save(file_name_format, slide_number, @saved_image_type)
+          end
+        end
+        if @output_html and @rss_base_uri
+          unless generator.save_rss(base_dir, @rss_base_uri)
+            logger.warn(_("can't generate RSS"))
           end
         end
       end

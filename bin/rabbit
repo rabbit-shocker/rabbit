@@ -21,6 +21,7 @@ def parse(args=ARGV, logger=nil)
     options.saved_image_basename = nil
     options.saved_image_type = "png"
     options.output_html = false
+    options.rss_base_uri = nil
     options.encoding = nil
     options.print = false
     options.print_out_filename = nil
@@ -156,6 +157,13 @@ def parse(args=ARGV, logger=nil)
             _("Output HTML for viewing saved images."),
             "(#{options.output_html})") do |bool|
       options.output_html = bool
+    end
+
+    opts.on("--rss-base-uri [URI]",
+            _("Specify base URI of RSS as [URI]."),
+            _("RSS is generated only when HTML is output."),
+            "(#{options.rss_base_uri})") do |uri|
+      options.rss_base_uri = uri
     end
 
     if Rabbit::Renderer.printable?
@@ -455,6 +463,7 @@ def setup_image_info(target, options)
   target.saved_image_type = options.saved_image_type
   target.saved_image_basename = options.saved_image_basename
   target.output_html = options.output_html
+  target.rss_base_uri = options.rss_base_uri
 end
 
 def setup_print_info(target, options)
