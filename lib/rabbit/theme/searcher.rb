@@ -79,7 +79,7 @@ module Rabbit
       end
 
       def collect_image_theme(&block)
-        _collect_theme(Config::IMAGE_PATH + $LOAD_PATH,
+        _collect_theme($LOAD_PATH + Config::IMAGE_PATH,
                        "image_dir", :image, &block)
       end
       
