@@ -415,7 +415,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    ます．Rabbitをシステムにインストールせずに使う場合は
    Rabbitのトップディレクトリで以下のようにします．
 
-     % bin/rabbit --locale-dir data/locale --type file sample/rabbit.rd
+     % ruby -I./lib bin/rabbit --locale-dir data/locale sample/rabbit.rd
    
    デフォルトでは/usr/local/share/locale/や
    /usr/share/locale/あたりが使われます．
