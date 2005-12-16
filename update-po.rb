@@ -9,7 +9,7 @@ msgmerge = "msgmerge"
 podir = "po/"
 appname = "rabbit"
 pot = "#{podir}#{appname}.pot"
-targets = Dir.glob("lib/**/*.rb") + Dir.glob("bin/*")
+targets = Dir.glob("lib/**/*.rb") + Dir.glob("bin/*") + Dir.glob("data/**/*.rb")
 
 FileUtils.rm_f(pot)
 rgettext_args = targets + ["-o", pot]
