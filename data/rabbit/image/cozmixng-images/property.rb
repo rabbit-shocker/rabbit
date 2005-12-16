@@ -1,3 +1,4 @@
 @category = N_("Image")
 @title = N_("COZMIXNGImage")
-@description = N_("images related COZMIXNG")
+@abstract = N_("Images related to COZMIXNG")
+@description = N_("Provides images related to COZMIXNG.")

@@ -1,3 +1,4 @@
 @category = N_("Image")
 @title = N_("RubyImage")
-@description = N_("images related Ruby")
+@abstract = N_("Images related to Ruby")
+@description = N_("Provides images related to Ruby.")
