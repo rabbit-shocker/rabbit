@@ -71,7 +71,18 @@ module Rabbit
       end
 
       def collect_all_theme(&block)
-        collect_theme(&block) + collect_image_theme(&block)
+        theme_names = {}
+        themes = []
+        callback = Proc.new do |entry|
+          unless theme_names.has_key?(entry.name)
+            theme_names[entry.name] = true
+            themes << entry
+            block.call(entry) if block
+          end
+        end
+        collect_image_theme(&callback)
+        collect_theme(&callback)
+        themes.sort
       end
 
       def collect_theme(&block)
