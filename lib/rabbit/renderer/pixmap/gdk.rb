@@ -5,13 +5,18 @@ require "rabbit/utils"
 
 module Rabbit
   module Renderer
-    
-    class PixmapBase
+    class PixmapGdk
       include Base
       include ScreenInfo
 
       @@color_table = {}
-  
+
+      class << self
+        def priority
+          0
+        end
+      end
+      
       attr_accessor :width, :height, :pango_context
       
       attr_accessor :filename
@@ -340,7 +345,6 @@ module Rabbit
         gc.set_clip_origin(*clip_origin)
         result
       end
-      
     end
   end
 end

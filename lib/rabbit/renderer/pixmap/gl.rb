@@ -1,3 +1,4 @@
+raise LoadError, "disable GL support"
 require "gtkglext"
 
 require "rabbit/rabbit"
@@ -6,11 +7,17 @@ Rabbit.add_gui_init_proc do
 end
 
 require "rabbit/trackball"
-require "rabbit/renderer/pixmap/base"
+require "rabbit/renderer/pixmap/gdk"
 
 module Rabbit
   module Renderer
-    class PixmapGL < PixmapBase
+    class PixmapGL < PixmapGdk
+
+      class << self
+        def priority
+          -100
+        end
+      end
       
       def initialize(canvas, width=nil, height=nil)
         super
