@@ -122,6 +122,27 @@ module Rabbit
         end
       end
       
+      def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil, params={})
+        unless @context.respond_to?(:rounded_rect)
+          not_support_method("draw_rounded_rectangle")
+        end
+        
+        x, y = from_screen(x, y)
+        x_radius = params[:x_radius] || radius
+        y_radius = params[:y_radius] || radius
+        
+        @context.save do
+          set_color(make_color(color))
+          set_line_width(get_line_width(params))
+          args = [x, y, w, h, x_radius, y_radius]
+          if filled
+            @context.rounded_rect_filled(*args)
+          else
+            @context.rounded_rect_stroked(*args)
+          end
+        end
+      end
+
       # can't draw ellipse
       def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
         r = w * 0.5

@@ -300,56 +300,6 @@ module Rabbit
         [params["pole_width"] + params["flag_width"], pole_height]
       end
       
-      def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil, params={})
-        x_radius = params[:x_radius] || radius
-        y_radius = params[:y_radius] || radius
-        x_diameter = x_radius * 2
-        y_diameter = y_radius * 2
-
-        line_width = params[:line_width]
-        
-        inner_x = x + x_radius
-        inner_y = y + y_radius
-        inner_w = w - x_diameter
-        inner_h = h - y_diameter
-        
-        if filled
-          draw_rectangle(true, inner_x, inner_y, inner_w, inner_h, color)
-        end
-
-        if filled
-          top = [inner_x, y, inner_w, y_radius]
-          left = [x, inner_y, x_radius, inner_h]
-          bottom = [inner_x, inner_y + inner_h, inner_w, y_radius]
-          right = [inner_x + inner_w, inner_y, x_radius, inner_h]
-
-          [top, left, bottom, right].each do |rx, ry, rw, rh|
-            draw_rectangle(true, rx, ry, rw, rh, color)
-          end
-        else
-          top = [inner_x, y, inner_x + inner_w, y]
-          left = [x, inner_y, x, inner_y + inner_h]
-          bottom = [inner_x, y + h, inner_x + inner_w, y + h]
-          right = [x + w, inner_y, x + w, inner_y + inner_h]          
-          [top, left, bottom, right].each do |start_x, start_y, end_x, end_y|
-            draw_line(start_x, start_y, end_x, end_y, color,
-                      {:line_width => line_width})
-          end
-        end
-          
-        upper_left = [x, y, 90]
-        lower_left = [x, y + inner_h, 180]
-        lower_right = [x + inner_w, y + inner_h, 270]
-        upper_right = [x + inner_w, y, 0]
-        [
-          upper_left, lower_left,
-          lower_right, upper_right
-        ].each do |ax, ay, start_angle|
-          draw_arc(filled, ax, ay, x_diameter, y_diameter,
-                   start_angle, 90, color, {:line_width => line_width})
-        end
-      end
-
       def draw_cube(filled, x, y, z, size, color=nil)
         not_support_method("draw_cube")
       end
