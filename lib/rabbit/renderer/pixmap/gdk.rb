@@ -1,48 +1,14 @@
-require "rabbit/rabbit"
-
-require "rabbit/renderer/base"
-require "rabbit/utils"
+require "rabbit/renderer/pixmap/base"
 
 module Rabbit
   module Renderer
     class PixmapGdk
-      include Base
-      include ScreenInfo
-
-      @@color_table = {}
+      include PixmapBase
 
       class << self
         def priority
           0
         end
-      end
-      
-      attr_accessor :width, :height, :pango_context
-      
-      attr_accessor :filename
-      
-      def initialize(canvas, width=nil, height=nil)
-        super(canvas)
-        @width = width
-        @height = height
-        @filename = nil
-        @pixmaps = {}
-        @pango_context = create_pango_context
-        init_drawable
-        init_color
-        clear_pixmaps
-      end
-
-      def has_key?(slide)
-        @pixmaps.has_key?(slide)
-      end
-      
-      def [](slide)
-        @pixmaps[slide]
-      end
-
-      def []=(slide, pixmap)
-        @pixmaps[slide] = pixmap
       end
       
       def foreground=(color)
@@ -65,29 +31,6 @@ module Rabbit
         pixmap.draw_pixbuf(*args)
         @background.set_tile(pixmap)
         @background.fill = Gdk::GC::Fill::TILED
-      end
-      
-      def post_apply_theme
-        clear_pixmaps
-      end
-
-      def post_move(index)
-      end
-
-      def pre_parse_rd
-      end
-      
-      def post_parse_rd
-        clear_pixmaps
-      end
-      
-      def index_mode_on
-      end
-      
-      def index_mode_off
-      end
-      
-      def post_toggle_index_mode
       end
       
       def draw_slide(slide, simulation)
@@ -231,14 +174,6 @@ module Rabbit
         draw_arc(filled, sx, sy, w, h, a1, a2, color, params)
       end
       
-      def draw_circle(filled, x, y, w, h, color=nil, params={})
-        draw_arc(filled, x, y, w, h, 0, 360, color, params)
-      end
-      
-      def draw_circle_by_radius(filled, x, y, r, color=nil, params={})
-        draw_arc_by_radius(filled, x, y, r, 0, 360, color, params)
-      end
-      
       def draw_polygon(filled, points, color=nil, params={})
         gc = make_gc(color)
         drawable.draw_polygon(gc, filled, points)
@@ -261,7 +196,7 @@ module Rabbit
       end
       
       def make_color(color, default_is_foreground=true)
-        make_gc(color, default_is_foreground).foreground
+        make_gdk_color(color, default_is_foreground)
       end
 
       def to_rgb(color)
@@ -270,119 +205,10 @@ module Rabbit
         [color.red, color.green, color.blue]
       end
       
-      def make_layout(text)
-        attrs, text = Pango.parse_markup(text)
-        layout = Pango::Layout.new(@pango_context)
-        layout.text = text
-        layout.set_attributes(attrs)
-        layout
-      end
-
-      def to_pixbuf(slide)
-        drawable = @pixmaps[slide]
-        args = [drawable.colormap, drawable, 0, 0, width, height]
-        Gdk::Pixbuf.from_drawable(*args)
-      end
-
-      def clear_pixmap(slide=nil)
-        dirty
-        @pixmaps.delete(slide || @canvas.current_slide)
-        clean_if_dirty
-      end
-
-      def clear_pixmaps
-        dirty
-        @pixmaps = {}
-        clean_if_dirty
-      end
-
-      def clean
-        super
-        GC.start
-      end
-
-      def create_pango_context
-        Gtk::Invisible.new.create_pango_context
-      end
-      
-      def pre_to_pixbuf(slide_size)
-      end
-
-      def to_pixbufing(i)
-      end
-      
-      def post_to_pixbuf
-      end
-
-      def clear_theme
-        init_drawable
-        init_color
-        clear_pixmaps
-        super
-      end
-      
-      @@depth = nil
-      private
-      def depth
-        if @@depth.nil?
-          @@depth = screen_depth
-        end
-        @@depth
-      end
-      
-      def off_screen_renderer?
-        true
-      end
-
-      def drawable
-        @pixmap
-      end
-
-      def init_pixmap(slide, simulation)
-        if simulation
-          @pixmap = Gdk::Pixmap.new(nil, @width, @height, depth)
-          @pixmaps[slide] = @pixmap
-        end
-      end
-      
-      def init_drawable
-        @pixmap = Gdk::Pixmap.new(nil, 1, 1, depth)
-      end
-      
       def init_color
-        @background_color = "white"
+        super
         @foreground = Gdk::GC.new(@pixmap)
         @background = make_gc_from_string(@background_color)
-      end
-
-      def make_gc(color, default_is_foreground=true)
-        if color.nil?
-          if default_is_foreground
-            Gdk::GC.new(@pixmap)
-          else
-            make_gc_from_string(@background_color)
-          end
-        elsif color.is_a?(String)
-          make_gc_from_string(color)
-        else
-          color
-        end
-      end
-
-      def make_gc_from_string(str)
-        gc = Gdk::GC.new(@pixmap)
-        if @@color_table.has_key?(str)
-          color = @@color_table[str]
-        else
-          color = Gdk::Color.parse(str)
-          colormap = Gdk::Colormap.system
-          unless colormap.alloc_color(color, false, true)
-            raise CantAllocateColorError.new(str)
-          end
-          @@color_table[str] = color
-        end
-        gc.set_foreground(color)
-        gc
       end
 
       def set_mask(gc, x, y, mask)

@@ -189,6 +189,14 @@ module Rabbit
         quit
       end
 
+      def draw_circle(filled, x, y, w, h, color=nil, params={})
+        draw_arc(filled, x, y, w, h, 0, 360, color, params)
+      end
+      
+      def draw_circle_by_radius(filled, x, y, r, color=nil, params={})
+        draw_arc_by_radius(filled, x, y, r, 0, 360, color, params)
+      end
+      
       def draw_flag(x, y, pole_height, params)
         if params["flag_type"] == "triangle"
           draw_triangle_flag(x, y, pole_height, params)
@@ -594,7 +602,10 @@ module Rabbit
       def get_line_width(params, default=nil)
         params[:line_width] || default
       end
+
+      def invert_y(y)
+        height - y
+      end
     end
-    
   end
 end

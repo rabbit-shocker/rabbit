@@ -622,9 +622,9 @@ module Rabbit
           @background = Gdk::GC.new(@drawable)
           @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
           @white = Gdk::GC.new(@drawable)
-          @white.set_foreground(make_color("white"))
+          @white.set_foreground(@pixmap.make_gdk_color("white"))
           @black = Gdk::GC.new(@drawable)
-          @black.set_foreground(make_color("black"))
+          @black.set_foreground(@pixmap.make_gdk_color("black"))
           init_pixmap
         end
       end

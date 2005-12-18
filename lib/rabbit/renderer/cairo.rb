@@ -1,0 +1,205 @@
+require 'cairo'
+
+require 'rabbit/renderer/base'
+
+module Cairo
+  class Context
+    unless instance_methods.include?("rounded_rectangle")
+      def rounded_rectangle(x, y, width, height, x_radius, y_radius=nil)
+        x1 = x
+        x2 = x1 + width
+        y1 = y
+        y2 = y1 + height
+        
+        y_radius ||= x_radius
+        
+        x_radius = [x_radius, width / 2].min
+        y_radius = [y_radius, height / 2].min
+        
+        xr1 = x_radius
+        xr2 = x_radius / 2.0
+        yr1 = y_radius
+        yr2 = y_radius / 2.0
+        
+        move_to(x1 + xr1, y1)
+        line_to(x2 - xr1, y1)
+        curve_to(x2 - xr2, y1, x2, y1 + yr2, x2, y1 + yr1)
+        line_to(x2, y2 - yr1)
+        curve_to(x2, y2 - yr2, x2 - xr2, y2, x2 - xr1, y2)
+        line_to(x1 + xr1, y2)
+        curve_to(x1 + xr2, y2, x1, y2 - yr2, x1, y2 - yr1)
+        line_to(x1, y1 + yr1)
+        curve_to(x1, y1 + yr2, x1 + xr2, y1, x1 + xr1, y1)
+        close_path
+      end
+    end
+  end
+end
+
+module Rabbit
+  module Renderer
+    module Cairo
+      include Base
+
+      def draw_line(x1, y1, x2, y2, color=nil, params={})
+        x1, y1 = from_screen(x1, y1)
+        x2, y2 = from_screen(x2, y2)
+        color = make_color(color)
+        @context.save do
+          set_color(color)
+          set_line_width(get_line_width(params))
+          @context.stroke do
+            @context.move_to(x1, y1)
+            @context.line_to(x2, y2)
+          end
+        end
+      end
+
+      def draw_rectangle(filled, x, y, w, h, color=nil, params={})
+        x, y = from_screen(x, y)
+        color = make_color(color)
+        @context.save do
+          set_color(color)
+          set_line_width(get_line_width(params))
+          @context.rectangle(x, y, w, h)
+          if filled
+            @context.fill
+          else
+            @context.stroke
+          end
+        end
+      end
+      
+      def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil, params={})
+        x, y = from_screen(x, y)
+        x_radius = params[:x_radius] || radius
+        y_radius = params[:y_radius] || radius
+        
+        @context.save do
+          set_color(make_color(color))
+          set_line_width(get_line_width(params))
+          @context.new_path
+          @context.rounded_rectangle(x, y, w, h, x_radius, y_radius)
+          if filled
+            @context.fill
+          else
+            @context.stroke
+          end
+        end
+      end
+
+      def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
+        r = w * 0.5
+        draw_arc_by_radius(filled, x + w * 0.5, y + h * 0.5,
+                           r, a1, a2, color, params)
+      end
+      
+      def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
+        x, y = from_screen(x, y)
+        a1, a2 = convert_angle(a1, a2)
+        color = make_color(color)
+        @context.save do
+          set_color(color)
+          set_line_width(get_line_width(params))
+          args = [x, y, r, a1, a2]
+          if filled
+            @context.fill do
+              @context.move_to(x, y)
+              @context.arc(*args)
+              @context.close_path
+            end
+          else
+            @context.stroke do
+              @context.arc(*args)
+            end
+          end
+        end
+      end
+      
+      def draw_polygon(filled, points, color=nil, params={})
+        return if points.empty?
+        color = make_color(color)
+        @context.save do
+          set_color(color)
+          set_line_width(get_line_width(params))
+          @context.move_to(*from_screen(*points.first))
+          points[1..-1].each do |x, y|
+            @context.line_to(*from_screen(x, y))
+          end
+          @context.line_to(*from_screen(*points.first))
+          if filled
+            @context.fill
+          else
+            @context.stroke
+          end
+        end
+      end
+      
+      def draw_layout(layout, x, y, color=nil, params={})
+        x, y = from_screen(x, y)
+        color = make_color(color)
+        @context.save do
+          set_color(color)
+          set_line_width(get_line_width(params))
+          @context.move_to(x, y)
+          @context.show_pango_layout(layout)
+        end
+      end
+      
+      def draw_pixbuf(pixbuf, x, y, params={})
+        x, y = from_screen(x, y)
+        color = make_color(params['color'])
+        width = params['width'] || pixbuf.width
+        height = params['height'] || pixbuf.height
+        args = [pixbuf.pixels, width, height, pixbuf.rowstride]
+        @context.save do
+          @context.translate(x, y)
+          @context.set_source_pixbuf(pixbuf, 0, 0)
+          @context.paint
+        end
+      end
+
+      
+      def make_color(color, default_is_foreground=true)
+        return color if color.is_a?(Color)
+        if color.nil?
+          if default_is_foreground
+            @foreground
+          else
+            @background
+          end
+        else
+          Color.new_from_gdk_color(Gdk::Color.parse(color))
+        end
+      end
+
+      def make_layout(text)
+        attrs, text = Pango.parse_markup(text)
+        layout = @context.create_pango_layout
+        layout.text = text
+        layout.set_attributes(attrs)
+        @context.update_pango_layout(layout)
+        layout
+      end
+      
+      def set_color(color)
+        @context.set_source_rgb(color.red, color.green, color.blue)
+      end
+
+      def set_line_width(line_width)
+        if line_width
+          @context.set_line_width(line_width)
+        end
+      end
+
+      def convert_angle(a1, a2)
+        a2 += a1
+        [a2, a1].collect {|a| (360 - a) * (Math::PI / 180.0)}
+      end
+      
+      def from_screen(x, y)
+        [x, y]
+      end
+    end
+  end
+end

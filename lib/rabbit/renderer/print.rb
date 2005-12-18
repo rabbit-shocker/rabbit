@@ -157,23 +157,19 @@ module Rabbit
         @context.save do
           set_color(color)
           set_line_width(get_line_width(params))
-          @context.arc_to(x, y, r, a1, a2, false)
+          args = [x, y, r, a1, a2, false]
           if filled
+            @context.move_to(x, y)
+            @context.arc_to(*args)
+            @context.close_path
             @context.fill
           else
+            @context.arc_to(*args)
             @context.stroke
           end
         end
       end
       
-      def draw_circle(filled, x, y, w, h, color=nil, params={})
-        draw_arc(filled, x, y, w, h, 0, 359.99, color, params)
-      end
-
-      def draw_circle_by_radius(filled, x, y, r, color=nil, params={})
-        draw_arc_by_radius(filled, x, y, r, 0, 359.99, color, params)
-      end
-
       def draw_polygon(filled, points, color=nil, params={})
         return if points.empty?
         color = make_color(color)
@@ -311,12 +307,12 @@ module Rabbit
       
 
       def from_screen(x, y)
-        [x + margin_page_left, height - y + margin_page_bottom]
+        [x + margin_page_left, invert_y(y) + margin_page_bottom]
       end
 
       def convert_angle(a1, a2)
         a2 += a1
-        a2 -= 360 if a2 > 360
+        a2 -= 0.000001 if a2 == 360
         [a1, a2]
       end
       
