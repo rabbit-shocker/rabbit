@@ -285,11 +285,11 @@ module Rabbit
 
           adjust_y = ((text_height / 2.0) - (mark_height / 2.0)).ceil
 
-          start_x = item.x - mark_width
-          start_y = item.base_y + first_text.margin_top + adjust_y
-          end_x = mark_width
-          end_y = mark_height
-          yield(item, canvas, start_x, start_y, end_x, end_y)
+          indent_base_x = item.x - mark_width
+          indent_base_y = item.base_y + first_text.margin_top + adjust_y
+          width = mark_width
+          height = mark_height
+          yield(item, canvas, indent_base_x, indent_base_y, width, height)
         end
       end
 
@@ -309,9 +309,9 @@ module Rabbit
           end
             
           draw_mark(items, indent_proc, width_proc, height_proc, name) do
-            |item, canvas, start_x, start_y, end_x, end_y|
-            sx = start_x - loader.width * 0.5
-            canvas.draw_pixbuf(loader.pixbuf, sx, start_y)
+            |item, canvas, x, y, w, h|
+            x -= loader.width * 0.5
+            canvas.draw_pixbuf(loader.pixbuf, x, y)
           end
         end
       end

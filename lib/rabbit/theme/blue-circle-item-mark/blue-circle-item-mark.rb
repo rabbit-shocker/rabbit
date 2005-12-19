@@ -15,10 +15,9 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   items.delete_post_draw_proc_by_name(name)
   
   draw_mark(items, indent_width, mark_width, mark_height, name) do
-    |item, canvas, start_x, start_y, end_x, end_y|
-    sx = start_x - mark_space
-    canvas.draw_circle(true, sx, start_y, end_x, end_y,
-                       @blue_circle_blue)
+    |item, canvas, x, y, w, h|
+    x -= mark_space
+    canvas.draw_circle(true, x, y, w, h, @blue_circle_blue)
   end
 
   space = @space * (3 / 4.0)
@@ -38,10 +37,10 @@ match(*(slide_body + (item_list_item * 2))) do |items|
 
   line_width = {:line_width => screen_size(0.1)}
   draw_mark(items, indent_width, mark_width, mark_height, name) do
-    |item, canvas, start_x, start_y, end_x, end_y|
-    sx = start_x - mark_space
-    canvas.draw_circle(true, sx, start_y, end_x, end_y, "white")
-    canvas.draw_circle(false, sx, start_y, end_x, end_y,
+    |item, canvas, x, y, w, h|
+    x -= mark_space
+    canvas.draw_circle(true, x, y, w, h, "white")
+    canvas.draw_circle(false, x, y, w, h,
                        @blue_circle_blue, line_width)
   end
 
