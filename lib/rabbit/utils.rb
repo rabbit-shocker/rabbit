@@ -33,6 +33,14 @@ module Rabbit
       end
     end
 
+    def corresponding_class_under_module(mod)
+      collect_classes_under_module(mod).find_all do |klass|
+        klass.respond_to?(:priority)
+      end.sort_by do |klass|
+        klass.priority
+      end.last
+    end
+
     def arg_list(arity)
       args = []
       if arity == -1

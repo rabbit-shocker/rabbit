@@ -8,13 +8,7 @@ module Rabbit
 
       class << self
         def new(*args, &block)
-          corresponding_class.new(*args, &block)
-        end
-
-        def corresponding_class
-          collect_classes_under_module(self).sort_by do |klass|
-            klass.priority
-          end.last
+          corresponding_class_under_module(self).new(*args, &block)
         end
       end
     end

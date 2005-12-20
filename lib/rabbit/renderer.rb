@@ -20,7 +20,7 @@ module Rabbit
 
       def printable_renderer(slides_per_page)
         if slides_per_page > 1
-          MultiplePrint
+          Print::Multiple
         else
           Print
         end
