@@ -293,7 +293,6 @@ module Rabbit
         base_dir = File.dirname(file_name_format)
         FileUtils.mkdir_p(base_dir)
         each_slide_pixbuf do |pixbuf, slide_number|
-          puts current_slide.to_html if slide_number == 3
           image_file_name = file_name_format % [slide_number, @saved_image_type]
           pixbuf.save(image_file_name, normalized_saved_image_type)
           if @output_html
