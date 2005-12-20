@@ -200,7 +200,7 @@ module Rabbit
           make_gdk_color(color, default_is_foreground)
         end
         
-        def to_rgb(color)
+        def to_gdk_rgb(color)
           color = make_color(color) unless color.is_a?(Gdk::Color)
           color = Gdk::Colormap.system.query_color(color.pixel)
           [color.red, color.green, color.blue]

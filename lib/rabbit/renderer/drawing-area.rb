@@ -31,7 +31,7 @@ module Rabbit
       
       def_delegators(:@pixmap, :gl_compile, :gl_call_list)
     
-      def_delegators(:@pixmap, :make_color, :to_rgb)
+      def_delegators(:@pixmap, :make_color)
 
       def_delegators(:@pixmap, :to_pixbuf)
 
@@ -510,10 +510,12 @@ module Rabbit
         return unless @progress
         style = @progress.style.copy
         if @progress_foreground
-          style.set_bg(Gtk::STATE_NORMAL, *to_rgb(@progress_foreground))
+          rgb = @pixmap.to_gdk_rgb(@progress_foreground)
+          style.set_bg(Gtk::STATE_NORMAL, *rgb)
         end
         if @progress_background
-          style.set_bg(Gtk::STATE_PRELIGHT, *to_rgb(@progress_background))
+          rgb = @pixmap.to_gdk_rgb(@progress_background)
+          style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
         end
         @progress.style = style
       end
@@ -1039,14 +1041,11 @@ module Rabbit
         adjust_progress_window
         @progress.fraction = @progress_current = 0
         @progress_max = max.to_f
-        Gtk.timeout_add(100) do
-          @progress.fraction = @progress_current / @progress_max
-          @progress_current < @progress_max
-        end
       end
 
       def update_progress(i)
         @progress_current = i
+        @progress.fraction = @progress_current / @progress_max
         Utils.process_pending_events
       end
 

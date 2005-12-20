@@ -52,6 +52,12 @@ module Rabbit
             [red, green, blue]
           end
         end
+
+        def to_gdk_rgb
+          [red, green, blue].collect do |color|
+            (color * COLOR_NORMALIZE).truncate
+          end
+        end
       end
 
       def_delegators(:@canvas, :quit, :reload_theme, :reload_source)
