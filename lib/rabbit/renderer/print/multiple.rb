@@ -33,10 +33,8 @@ module Rabbit
         def_delegators(:@print, :clear_theme)
         
         def initialize(canvas)
-          super
           @print = Print.new(canvas)
-          init_paper
-          init_color
+          super
         end
         
         def width

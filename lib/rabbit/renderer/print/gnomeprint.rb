@@ -21,16 +21,6 @@ module Rabbit
           @background_image = nil
           init_job
           init_printers
-          init_paper
-          init_color
-        end
-        
-        def page_width
-          @page_width - margin_page_left - margin_page_right
-        end
-        
-        def page_height
-          @page_height - margin_page_top - margin_page_bottom
         end
         
         def paper_width=(value)
@@ -350,7 +340,6 @@ module Rabbit
         end
         
         def update_filename
-          filename = @filename || "#{GLib.filename_from_utf8(@canvas.title)}.ps"
           update_printer(filename)
           @job.print_to_file(filename)
           init_paper

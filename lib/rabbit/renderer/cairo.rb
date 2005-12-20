@@ -41,6 +41,8 @@ module Rabbit
     module Cairo
       include Base
 
+      attr_writer :foreground, :background, :background_image
+        
       def draw_line(x1, y1, x2, y2, color=nil, params={})
         x1, y1 = from_screen(x1, y1)
         x2, y2 = from_screen(x2, y2)
@@ -151,7 +153,6 @@ module Rabbit
         color = make_color(params['color'])
         width = params['width'] || pixbuf.width
         height = params['height'] || pixbuf.height
-        args = [pixbuf.pixels, width, height, pixbuf.rowstride]
         @context.save do
           @context.translate(x, y)
           @context.set_source_pixbuf(pixbuf, 0, 0)
