@@ -12,7 +12,7 @@ module Rabbit
         
         class << self
           def priority
-            100
+            -100
           end
         end
         

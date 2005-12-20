@@ -175,10 +175,6 @@ module Rabbit
           gc.set_foreground(color)
           gc
         end
-        
-        def init_color
-          @background_color = "white"
-        end
       end
     end
   end

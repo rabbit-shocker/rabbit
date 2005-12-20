@@ -316,8 +316,9 @@ module Rabbit
         end
         
         def init_color
+          super
           @foreground = make_color("black")
-          @background = make_color("white")
+          @background = make_color(@background_color)
         end
         
         

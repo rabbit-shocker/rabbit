@@ -612,6 +612,10 @@ module Rabbit
       def invert_y(y)
         height - y
       end
+
+      def init_color
+        @background_color = "white"
+      end
     end
   end
 end

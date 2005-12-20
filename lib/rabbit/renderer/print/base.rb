@@ -53,10 +53,6 @@ module Rabbit
         def filename
           @filename ||= "#{GLib.filename_from_utf8(@canvas.title)}.ps"
         end
-        
-        private
-        def init_color
-        end
       end
     end
   end
