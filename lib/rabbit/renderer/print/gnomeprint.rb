@@ -21,6 +21,8 @@ module Rabbit
           @background_image = nil
           init_job
           init_printers
+          init_paper
+          init_color
         end
         
         def paper_width=(value)

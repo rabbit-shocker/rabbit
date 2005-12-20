@@ -10,12 +10,8 @@ module Rabbit
     require_files_under_directory_in_load_path(dir)
 
     class << self
-      def types
-        collect_classes_under_module(self)
-      end
-
       def printable?
-        types.find {|t| /print/i =~ t.name}
+        Print.printable?
       end
 
       def printable_renderer(slides_per_page)

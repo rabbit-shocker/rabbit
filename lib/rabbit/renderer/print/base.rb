@@ -14,8 +14,6 @@ module Rabbit
         def initialize(canvas)
           super
           @filename = nil
-          init_paper
-          init_color
         end
 
         def page_width
@@ -63,4 +61,3 @@ module Rabbit
     end
   end
 end
-

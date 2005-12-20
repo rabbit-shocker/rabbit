@@ -3,8 +3,8 @@ module Rabbit
     module Print
       extend Utils
       
-      A4_WIDTH = 595.275590551181
-      A4_HEIGHT = 841.889763779528
+      A4_WIDTH = 596
+      A4_HEIGHT = 842
         
       dir = ::File.join("rabbit", "renderer", "print")
       require_files_under_directory_in_load_path(dir)
@@ -12,6 +12,10 @@ module Rabbit
       class << self
         def new(*args, &block)
           corresponding_class_under_module(self).new(*args, &block)
+        end
+
+        def printable?
+          not corresponding_class_under_module(self).nil?
         end
       end
     end

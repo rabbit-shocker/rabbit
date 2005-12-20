@@ -18,6 +18,8 @@ module Rabbit
         
         def initialize(canvas)
           super
+          init_paper
+          init_color
         end
 
         def pre_print(slide_size)
