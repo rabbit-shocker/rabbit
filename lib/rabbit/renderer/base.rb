@@ -4,6 +4,7 @@ require "gtk2"
 
 require "rabbit/rabbit"
 require "rabbit/gettext"
+require "rabbit/renderer/color"
 
 module Pango
   class Context
@@ -15,7 +16,6 @@ end
 
 module Rabbit
   module Renderer
-
     module Base
       include GetText
       include DirtyCount
@@ -23,43 +23,6 @@ module Rabbit
 
       extend Forwardable
       
-      Color = Struct.new(:red, :green, :blue, :alpha, :have_alpha)
-
-      class Color
-
-        COLOR_NORMALIZE = 65535.0
-
-        class << self
-          def new_from_gdk_color(color, have_alpha=false)
-            red = color.red / COLOR_NORMALIZE
-            green = color.green / COLOR_NORMALIZE
-            blue = color.blue / COLOR_NORMALIZE
-            alpha = 1.0
-            new(red, green, blue, alpha, have_alpha)
-          end
-        end
-
-        alias have_alpha? have_alpha
-        
-        def to_s
-          "#%02X%02X%02X" % to_a.collect{|color| (color * 255).round}
-        end
-
-        def to_a
-          if have_alpha?
-            [red, green, blue, alpha]
-          else
-            [red, green, blue]
-          end
-        end
-
-        def to_gdk_rgb
-          [red, green, blue].collect do |color|
-            (color * COLOR_NORMALIZE).truncate
-          end
-        end
-      end
-
       def_delegators(:@canvas, :quit, :reload_theme, :reload_source)
       
       attr_reader :keys, :x_dpi, :y_dpi

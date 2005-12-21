@@ -178,7 +178,7 @@ module Rabbit
           if @@color_table.has_key?(str)
             color = @@color_table[str]
           else
-            color = Gdk::Color.parse(str)
+            color = Color.parse(str).to_gdk_color
             colormap = Gdk::Colormap.system
             unless colormap.alloc_color(color, false, true)
               raise CantAllocateColorError.new(str)

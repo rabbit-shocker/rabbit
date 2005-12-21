@@ -247,7 +247,7 @@ module Rabbit
               @background
             end
           else
-            Color.new_from_gdk_color(Gdk::Color.parse(color))
+            Color.parse(color)
           end
         end
         
@@ -333,7 +333,9 @@ module Rabbit
         end
         
         def set_color(color)
-          @context.set_rgb_color(color.red, color.green, color.blue)
+          red, green, blue, alpha = color.to_a
+          @context.set_rgb_color(red, green, blue)
+          @context.set_opacity(alpha) if alpha
         end
         
         def set_line_width(line_width)

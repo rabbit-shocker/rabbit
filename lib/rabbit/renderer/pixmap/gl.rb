@@ -258,7 +258,7 @@ module Rabbit
           if color.nil?
             color = @foreground.foreground
           elsif color.is_a?(String)
-            color = Gdk::Color.parse(color)
+            color = Color.parse(color).to_gdk_color
           end
           color = Color.new_from_gdk_color(color, true)
           ::GL.Light(::GL::LIGHT0, ::GL::DIFFUSE, color.to_a)
