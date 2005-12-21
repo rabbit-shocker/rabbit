@@ -62,7 +62,7 @@ module Rabbit
 
       def_delegators(:@canvas, :quit, :reload_theme, :reload_source)
       
-      attr_reader :keys
+      attr_reader :keys, :x_dpi, :y_dpi
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :margin_left, :margin_right
       attr_accessor :margin_top, :margin_bottom
@@ -95,6 +95,7 @@ module Rabbit
         clean
         clear_progress_color
         init_hook_procs
+        init_dpi
       end
 
       def margin_page_left
@@ -594,6 +595,11 @@ module Rabbit
         @motion_notify_hook_procs = []
         @button_press_hook_procs = []
         @button_release_hook_procs = []
+      end
+
+      def init_dpi
+        @x_dpi = 72
+        @y_dpi = 72
       end
 
       def clear_keys

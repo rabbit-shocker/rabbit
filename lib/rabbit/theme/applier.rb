@@ -39,8 +39,8 @@ module Rabbit
       include Searcher
       include DirtyCount
 
-      NORMALIZED_WIDTH = 120.0
-      NORMALIZED_HEIGHT = 90.0
+      NORMALIZED_WIDTH = 91.0
+      NORMALIZED_HEIGHT = 67.5
 
       def initialize(theme, &callback)
         super()
@@ -99,11 +99,11 @@ module Rabbit
       end
 
       def print?
-        canvas.renderer.printable?
+        canvas.printable?
       end
 
       def display?
-        canvas.renderer.display?
+        canvas.display?
       end
 
       def theme_exit(message=nil)
@@ -215,28 +215,36 @@ module Rabbit
         end
       end
 
+      def normalized_width
+        (canvas.x_dpi / 72.0) * NORMALIZED_WIDTH
+      end
+
+      def normalized_height
+        (canvas.y_dpi / 72.0) * NORMALIZED_HEIGHT
+      end
+
       def normalized_size(s)
-        ((s / canvas.width.to_f) * NORMALIZED_WIDTH).ceil
+        ((s / canvas.width.to_f) * normalized_width).ceil
       end
 
       def normalized_x(sx)
-        ((sx / canvas.width.to_f) * NORMALIZED_WIDTH).ceil
+        ((sx / canvas.width.to_f) * normalized_width).ceil
       end
 
       def normalized_y(sy)
-        ((sy / canvas.height.to_f) * NORMALIZED_HEIGHT).ceil
+        ((sy / canvas.height.to_f) * normalized_height).ceil
       end
 
       def screen_size(n)
-        ((canvas.width * n) / NORMALIZED_WIDTH).ceil
+        ((canvas.width * n) / normalized_width).ceil
       end
 
       def screen_x(nx)
-        ((canvas.width * nx) / NORMALIZED_WIDTH).ceil
+        ((canvas.width * nx) / normalized_width).ceil
       end
 
       def screen_y(ny)
-        ((canvas.height * ny) / NORMALIZED_HEIGHT).ceil
+        ((canvas.height * ny) / normalized_height).ceil
       end
 
       def indent(elements, size_or_proc, name=nil)

@@ -39,6 +39,8 @@ module Rabbit
 
       def_delegators(:@pixmap, :filename, :filename=)
       
+      def_delegators(:@pixmap, :x_dpi, :y_dpi)
+      
       BUTTON_PRESS_ACCEPTING_TIME = 250
       MASK_SIZE_STEP = 0.05
 

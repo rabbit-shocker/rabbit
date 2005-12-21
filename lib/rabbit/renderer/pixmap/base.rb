@@ -134,6 +134,19 @@ module Rabbit
         def drawable
           @pixmap
         end
+
+        def init_dpi
+          screen = Gdk::Screen.default
+          # from xdpyinfo
+          ## there are 2.54 centimeters to an inch;
+          ## so there are 25.4 millimeters.
+          ##
+          ##     dpi = N pixels / (M millimeters / (25.4 millimeters / 1 inch))
+          ##         = N pixels / (M inch / 25.4)
+          ##         = N * 25.4 pixels / M inch
+          @x_dpi = ((screen.width * 25.4) / screen.width_mm).round
+          @y_dpi = ((screen.height * 25.4) / screen.height_mm).round
+        end
         
         def init_pixmap(slide, simulation)
           if simulation

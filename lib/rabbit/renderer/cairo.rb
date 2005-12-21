@@ -179,6 +179,7 @@ module Rabbit
         layout = @context.create_pango_layout
         layout.text = text
         layout.set_attributes(attrs)
+        layout.context.resolution = @x_dpi
         @context.update_pango_layout(layout)
         layout
       end

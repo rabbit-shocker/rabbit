@@ -75,6 +75,7 @@ module Rabbit
 
         def init_context
           surface = find_surface(filename)
+          surface.set_dpi(@x_dpi, @y_dpi)
           @context = ::Cairo::Context.new(surface)
         end
 

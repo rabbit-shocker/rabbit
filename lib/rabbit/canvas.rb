@@ -77,6 +77,9 @@ module Rabbit
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
     def_delegators(:@renderer, :confirm_quit)
 
+    def_delegators(:@renderer, :display?, :printable?)
+    def_delegators(:@renderer, :x_dpi, :y_dpi)
+    
     def_delegators(:@renderer, :white_outing?, :black_outing?)
     def_delegators(:@renderer, :toggle_white_out, :toggle_black_out)
 
