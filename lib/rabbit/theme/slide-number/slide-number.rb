@@ -5,6 +5,8 @@ proc_name = "slide-number"
   "font_family" => @font_family,
 }
 
+@slide_number_color || nil
+
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
 
@@ -19,7 +21,7 @@ match(Slide) do |slides|
       layout.set_width(w * Pango::SCALE)
       layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
       num_y = canvas.height - @margin_bottom - text_height
-      canvas.draw_layout(layout, x, num_y)
+      canvas.draw_layout(layout, x, num_y, @slide_number_color)
     end
     [x, y, w, h]
   end

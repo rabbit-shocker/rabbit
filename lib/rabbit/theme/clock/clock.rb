@@ -12,6 +12,7 @@ end
   "size" => @xx_small_font_size,
   "font_family" => @font_family,
 }
+@clock_color ||= "#0009"
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
@@ -31,7 +32,7 @@ match(Slide) do |slides|
       text_width, text_height = layout.pixel_size
       layout.set_width(w * Pango::SCALE)
       num_y = canvas.height - @margin_bottom - text_height
-      canvas.draw_layout(layout, x, num_y)
+      canvas.draw_layout(layout, x, num_y, @clock_color)
     end
     [x, y, w, h]
   end

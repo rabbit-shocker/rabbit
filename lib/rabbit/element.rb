@@ -556,6 +556,12 @@ module Rabbit
           [key, value]
         end
       end
+
+      def draw_layout(canvas, x, y)
+        color = prop_get("foreground")
+        color = color.value if color
+        canvas.draw_layout(@layout, x, y, color)
+      end
     end
 
     module BlockHorizontalCentering
@@ -813,7 +819,7 @@ module Rabbit
 
       def draw_elements(canvas, x, y, w, h, simulation)
         unless simulation
-          canvas.draw_layout(@layout, x, y)
+          draw_layout(canvas, x, y)
         end
         [x, y + @height, w, h - @height]
       end
@@ -875,7 +881,7 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
-          canvas.draw_layout(@layout, x, y)
+          draw_layout(canvas, x, y)
         end
         [x + width, y, w - width, h]
       end

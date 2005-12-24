@@ -1,7 +1,7 @@
 proc_name = "title-shadow"
 
 match(TitleSlide, Title) do |titles|
-  @title_shadow_color ||= "#6f6f6f"
+  @title_shadow_color ||= "#6f6f6fcc"
 
   shadow_layout = nil
   move_x = nil
@@ -22,7 +22,6 @@ match(TitleSlide, Title) do |titles|
         move_y = screen_y(font_size.to_f / screen_size(20))
 
         shadow_title = title.clone
-        shadow_title.prop_set("foreground", @title_shadow_color)
         shadow_layout = canvas.make_layout(shadow_title.markuped_text)
         shadow_layout.set_width(w * Pango::SCALE)
         if title.do_horizontal_centering? or
@@ -30,7 +29,8 @@ match(TitleSlide, Title) do |titles|
           shadow_layout.set_alignment(Pango::Layout::ALIGN_CENTER)
         end
       end
-      canvas.draw_layout(shadow_layout, x + move_x, y + move_y)
+      args = [shadow_layout, x + move_x, y + move_y, @title_shadow_color]
+      canvas.draw_layout(*args)
     end
     [x, y, w, h]
   end

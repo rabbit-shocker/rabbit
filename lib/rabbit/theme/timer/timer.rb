@@ -18,7 +18,8 @@ end
 }
 @timer_props.delete("font_family") unless @timer_props["font_family"]
 
-@timer_over_color ||= "red"
+@timer_color ||= "#0006"
+@timer_over_color ||= "#f006"
 @timer_interval ||= 1
 
 @timer_limit_time = nil
@@ -48,14 +49,18 @@ match(Slide) do |slides|
     unless simulation
       rest_time = @timer_limit_time - Time.now
       text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
-      props = @timer_props.dup
-      props["color"] = @timer_over_color if rest_time < 0
-      text = %Q[<span #{to_attrs(props)}>#{text}</span>]
+      text = %Q[<span #{to_attrs(@timer_props)}>#{text}</span>]
       layout = canvas.make_layout(text)
       layout.set_width(w * Pango::SCALE)
       width, height = layout.pixel_size
       num_y = canvas.height - @margin_bottom - height
-      canvas.draw_layout(layout, x, num_y)
+      args = [layout, x, num_y]
+      if rest_time < 0
+        args << @timer_over_color
+      else
+        args << @timer_color
+      end
+      canvas.draw_layout(*args)
     end
     [x, y, w, h]
   end

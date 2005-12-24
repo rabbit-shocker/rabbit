@@ -91,6 +91,12 @@ module Rabbit
         end
 EOC
     end
+    
+    class Foreground
+      def text_formatter?
+        false
+      end
+    end
 
     module ConvenienceTextFormatter
 

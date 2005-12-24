@@ -1,7 +1,8 @@
 @very_huge_font_size ||= screen_size(15 * Pango::SCALE)
 @lightning_talk_background_color ||= "white"
 @lightning_talk_contact_information ||= nil
-@lightning_talk_font_size ||= @x_small_font_size
+@lightning_talk_contact_information_font_size ||= @x_small_font_size
+@lightning_talk_contact_information_color ||= nil
 @lightning_talk_as_large_as_possible ||= false
 @lightning_talk_wrap_mode ||= Pango::Layout::WRAP_WORD
 @lightning_talk_uninstall ||= false
@@ -42,14 +43,16 @@ def lightning_talk_slide(slides, proc_name)
     slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
       unless simulation
         text = @lightning_talk_contact_information
-        text = %Q[<span size="#{@lightning_talk_font_size}">#{text}</span>]
+        size = @lightning_talk_contact_information_font_size
+        text = %Q[<span size="#{size}">#{text}</span>]
         layout = canvas.make_layout(text)
         text_width, text_height = layout.pixel_size
         layout.width = slide.width * Pango::SCALE
         layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
         text_x = @margin_left
         text_y = canvas.height - @margin_bottom - text_height
-        canvas.draw_layout(layout, text_x, text_y)
+        canvas.draw_layout(layout, text_x, text_y,
+                           @lightning_talk_contact_information_color)
       end
       [x, y, w, h]
     end

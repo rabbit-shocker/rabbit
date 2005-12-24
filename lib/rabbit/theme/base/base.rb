@@ -47,8 +47,13 @@
 @table_header_padding_top = screen_y(0.5)
 @table_header_padding_bottom = screen_y(0.5)
 
+@table_caption_space = screen_y(2)
+@table_caption_color = "black"
+
+
 @image_with_frame = nil
 @image_caption_space = screen_y(1)
+@image_caption_color = "black"
 @image_frame_color = "black"
 @image_frame_shadow_color = "gray"
 @image_frame_padding = screen_size(1)

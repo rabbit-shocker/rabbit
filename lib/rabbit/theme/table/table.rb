@@ -34,12 +34,12 @@ match(*all_table) do |tables|
         caption.compile(canvas, x, y, w, h)
         layout = caption.layout
         th = caption.height
-        table.margin_top = th + @space
-        adjust_y = th + @space / 2.0
+        table.margin_top = th + @table_caption_space
+        adjust_y = th + @table_caption_space / 2.0
       end
       if !simulation and layout
         layout.width = w * Pango::SCALE
-        canvas.draw_layout(layout, x, y - adjust_y)
+        canvas.draw_layout(layout, x, y - adjust_y, @table_caption_color)
       end
       [x, y, w, h]
     end

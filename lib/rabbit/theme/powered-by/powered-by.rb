@@ -5,6 +5,8 @@ proc_name = "powered-by"
   "font_family" => @font_family,
 }
 
+@powered_by_text_color ||= nil
+
 @powered_by_images ||= []
 
 loaders = @powered_by_images.collect do |image|
@@ -29,8 +31,10 @@ add_powered_by = proc do |slide|
       
       new_x = slide.margin_left
       new_y = canvas.height - slide.margin_bottom
-      
-      canvas.draw_layout(layout, new_x, new_y - th) if layout
+
+      if layout
+        canvas.draw_layout(layout, new_x, new_y - th, @powered_by_text_color)
+      end
 
       new_x += tw
       image_height = canvas.height / 12

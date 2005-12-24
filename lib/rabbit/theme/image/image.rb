@@ -64,7 +64,7 @@ match("**", Image) do |images|
       if !simulation and layout
         base_x = image.ox || x
         base_y = y
-        canvas.draw_layout(layout, base_x, base_y)
+        canvas.draw_layout(layout, base_x, base_y, @image_caption_color)
       end
       [x, y, w, h]
     end
