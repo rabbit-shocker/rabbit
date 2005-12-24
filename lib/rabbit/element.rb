@@ -466,6 +466,12 @@ module Rabbit
         @layout.nil?
       end
 
+      def font(props)
+        props.each do |key, value|
+          prop_set(*normalize_font_property(key, value))
+        end
+      end
+
       private
       def setup_draw_info(str, canvas, w)
         layout = canvas.make_layout(str)
@@ -518,6 +524,37 @@ module Rabbit
 
       def default_align
         Pango::Layout::ALIGN_LEFT
+      end
+
+      def normalize_font_property(key, value)
+        key = key.to_s
+        case key
+        when /\A(family|size)\z/
+          ["font_#{$1}", value]
+        when /\A(desc)(?:ription)?\z/
+          ["font_#{$1}", value]
+        when /\A(?:foreground|color|fg_color|fg)\z/
+          ["foreground", value]
+        when /\A(?:background|bg_color|bg)\z/
+          ["background", value]
+        when /\A(?:underline|ul)\z/
+          ["underline", value]
+        when /\A(?:underline|ul)_color\z/
+          ["underline_color", value]
+        when /\A(rise|superscript|subscript)\z/
+          value = -value if $1 == "subscript"
+          ["rise", value]
+        when /\A(?:strike[_]?through)\z/
+          value = value ? "true" : "false" unless value.is_a?(String)
+          ["strikethrough", value]
+        when /\A(?:strike[_]?through_color)\z/
+          ["strikethrough_color", value]
+        when /\A(?:fallback)\z/
+          value = value ? "true" : "false" unless value.is_a?(String)
+          ["fallback", value]
+        else
+          [key, value]
+        end
       end
     end
 
