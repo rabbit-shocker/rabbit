@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-12-17 01:41+0900\n"
-"PO-Revision-Date: 2005-12-17 02:12+0900\n"
+"PO-Revision-Date: 2005-12-25 19:39+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -84,15 +84,15 @@ msgstr "/一覧モード"
 
 #: lib/rabbit/menu.rb:54
 msgid "/GraffitiModeOff"
-msgstr "落書きモードオフ"
+msgstr "/落書きモードオフ"
 
 #: lib/rabbit/menu.rb:57
 msgid "/GraffitiModeOn"
-msgstr "落書きモードオン"
+msgstr "/落書きモードオン"
 
 #: lib/rabbit/menu.rb:62
 msgid "/ClearGraffiti"
-msgstr "落書きクリア"
+msgstr "/落書きクリア"
 
 #: lib/rabbit/menu.rb:72
 msgid "/UnFullScreen"
