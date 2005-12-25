@@ -45,13 +45,9 @@ module Rabbit
       alias have_alpha? have_alpha
       
       def to_s
-        if have_alpha?
-          "#%04X%04X%04X" % to_gdk_rgb
-        else
-          "#%04X%04X%04X%04X" % to_gdk_rgba
-        end
+        "#%04X%04X%04X%04X" % to_gdk_rgba
       end
-      
+
       def to_a
         if have_alpha?
           [red, green, blue, alpha]
@@ -70,6 +66,10 @@ module Rabbit
         end
       end
 
+      def to_gdk_format
+        to_s.gsub(/[a-z0-9]{4}\z/i, '')
+      end
+      
       def to_gdk_color
         Gdk::Color.new(*to_gdk_rgb)
       end

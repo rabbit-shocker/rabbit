@@ -23,9 +23,11 @@ add_powered_by = proc do |slide|
   slide.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
     unless simulation
       if @powered_by_text and layout.nil?
-        text = @powered_by_text
-        text = %Q[<span #{to_attrs(@powered_by_props)}>#{text}</span>]
-        layout = canvas.make_layout(text)
+        text = Text.new(@powered_by_text)
+        text.font @powered_by_props
+        set_font_family(text)
+        text.compile(canvas, x, y, w, h)
+        layout = text.layout
         tw, th = layout.pixel_size
       end
       

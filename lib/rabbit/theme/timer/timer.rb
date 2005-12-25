@@ -49,12 +49,13 @@ match(Slide) do |slides|
     unless simulation
       rest_time = @timer_limit_time - Time.now
       text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
-      text = %Q[<span #{to_attrs(@timer_props)}>#{text}</span>]
-      layout = canvas.make_layout(text)
-      layout.set_width(w * Pango::SCALE)
-      width, height = layout.pixel_size
-      num_y = canvas.height - @margin_bottom - height
-      args = [layout, x, num_y]
+      text = Text.new(text)
+      text.font @timer_props
+      set_font_family(text)
+      text.compile(canvas, x, y, w, h)
+      text.layout.set_width(w * Pango::SCALE)
+      num_y = canvas.height - @margin_bottom - text.height
+      args = [text.layout, x, num_y]
       if rest_time < 0
         args << @timer_over_color
       else

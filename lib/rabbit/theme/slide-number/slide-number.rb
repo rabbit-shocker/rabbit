@@ -14,14 +14,14 @@ match(Slide) do |slides|
   
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
-      text = "#{canvas.current_index}/#{canvas.slide_size - 1}"
-      text = %Q[<span #{to_attrs(@slide_number_props)}>#{text}</span>]
-      layout = canvas.make_layout(text)
-      text_width, text_height = layout.pixel_size
+      text = Text.new("#{canvas.current_index}/#{canvas.slide_size - 1}")
+      text.font @slide_number_props
+      text.align = Pango::Layout::ALIGN_RIGHT
+      text.compile(canvas, x, y, w, h)
+      layout = text.layout
       layout.set_width(w * Pango::SCALE)
-      layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
-      num_y = canvas.height - @margin_bottom - text_height
-      canvas.draw_layout(layout, x, num_y, @slide_number_color)
+      num_y = canvas.height - @margin_bottom - text.height
+      canvas.draw_layout(text.layout, x, num_y, @slide_number_color)
     end
     [x, y, w, h]
   end

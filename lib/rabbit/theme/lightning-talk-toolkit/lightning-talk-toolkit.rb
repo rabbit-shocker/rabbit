@@ -42,16 +42,15 @@ def lightning_talk_slide(slides, proc_name)
   if @lightning_talk_contact_information
     slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
       unless simulation
-        text = @lightning_talk_contact_information
-        size = @lightning_talk_contact_information_font_size
-        text = %Q[<span size="#{size}">#{text}</span>]
-        layout = canvas.make_layout(text)
-        text_width, text_height = layout.pixel_size
-        layout.width = slide.width * Pango::SCALE
-        layout.set_alignment(Pango::Layout::ALIGN_RIGHT)
+        text = Text.new(@lightning_talk_contact_information)
+        text.font :size => @lightning_talk_contact_information_font_size
+        set_font_family(text)
+        text.align = Pango::Layout::ALIGN_RIGHT
+        text.compile(canvas, x, y, w, h)
+        text.layout.set_width(slide.width * Pango::SCALE)
         text_x = @margin_left
-        text_y = canvas.height - @margin_bottom - text_height
-        canvas.draw_layout(layout, text_x, text_y,
+        text_y = canvas.height - @margin_bottom - text.height
+        canvas.draw_layout(text.layout, text_x, text_y,
                            @lightning_talk_contact_information_color)
       end
       [x, y, w, h]

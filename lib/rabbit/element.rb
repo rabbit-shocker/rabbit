@@ -468,7 +468,12 @@ module Rabbit
 
       def font(props)
         props.each do |key, value|
-          prop_set(*normalize_font_property(key, value))
+          key, value = normalize_font_property(key, value)
+          if value
+            prop_set(key, value)
+          else
+            prop_delete(key)
+          end
         end
       end
 
@@ -529,7 +534,7 @@ module Rabbit
       def normalize_font_property(key, value)
         key = key.to_s
         case key
-        when /\A(family|size)\z/
+        when /\A(family)\z/
           ["font_#{$1}", value]
         when /\A(desc)(?:ription)?\z/
           ["font_#{$1}", value]

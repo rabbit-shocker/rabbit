@@ -14,9 +14,9 @@ class RabbitElementTest < Test::Unit::TestCase
     assert_normalize_font_property(["font_family", "Sans"],
                                    [:family, "Sans"])
 
-    assert_normalize_font_property(["font_size", 12800],
+    assert_normalize_font_property(["size", 12800],
                                    [:size, 12800])
-    assert_normalize_font_property(["font_size", "small"],
+    assert_normalize_font_property(["size", "small"],
                                    [:size, "small"])
 
     assert_normalize_font_property(["style", "oblique"],

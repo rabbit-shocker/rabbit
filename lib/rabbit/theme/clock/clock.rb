@@ -26,13 +26,13 @@ match(Slide) do |slides|
   
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
-      text = Time.now.strftime('%H:%M:%S')
-      text = %Q[<span #{to_attrs(@clock_props)}>#{text}</span>]
-      layout = canvas.make_layout(text)
-      text_width, text_height = layout.pixel_size
-      layout.set_width(w * Pango::SCALE)
-      num_y = canvas.height - @margin_bottom - text_height
-      canvas.draw_layout(layout, x, num_y, @clock_color)
+      text = Text.new(Time.now.strftime('%H:%M:%S'))
+      text.font @clock_props
+      set_font_family(text)
+      text.compile(canvas, x, y, w, h)
+      text.layout.set_width(w * Pango::SCALE)
+      num_y = canvas.height - @margin_bottom - text.height
+      canvas.draw_layout(text.layout, x, num_y, @clock_color)
     end
     [x, y, w, h]
   end

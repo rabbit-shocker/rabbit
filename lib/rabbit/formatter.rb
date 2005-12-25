@@ -1,13 +1,12 @@
 require "cgi"
+require "rabbit/renderer/color"
 
 module Rabbit
-  
   module Format
 
     extend Utils
     
     module Formatter
-
       def h(str)
         CGI.escapeHTML(str.to_s)
       end
@@ -58,15 +57,19 @@ module Rabbit
       end
       
       def format(text)
-        tagged_text(text, "span", {name => @value})
+        tagged_text(text, "span", normalize_attribute(name, @value))
       end
-      
+
       def html_format(text)
         css_name, css_value = pango2css(name, @value)
         tagged_text(text, "span", {'style' => "#{css_name}: #{css_value};"})
       end
 
       private
+      def normalize_attribute(name, value)
+        {name => value}
+      end
+      
       def pango2css(name, value)
         css_name = PANGO2CSS[name]
         if css_name.respond_to?(:call)
@@ -93,8 +96,9 @@ EOC
     end
     
     class Foreground
-      def text_formatter?
-        false
+      def normalize_attribute(name, value)
+        value = Renderer::Color.parse(value).to_gdk_format
+        super(name, value)
       end
     end
 
@@ -130,6 +134,5 @@ EOC
         end
 EOC
     end
-
   end
 end

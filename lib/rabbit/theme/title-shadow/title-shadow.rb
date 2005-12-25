@@ -22,6 +22,7 @@ match(TitleSlide, Title) do |titles|
         move_y = screen_y(font_size.to_f / screen_size(20))
 
         shadow_title = title.clone
+        shadow_title.font :color => nil
         shadow_layout = canvas.make_layout(shadow_title.markuped_text)
         shadow_layout.set_width(w * Pango::SCALE)
         if title.do_horizontal_centering? or
