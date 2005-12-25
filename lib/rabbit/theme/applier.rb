@@ -61,11 +61,19 @@ module Rabbit
           f.read
         end
         in_theme(entry) do
-          instance_eval(src, entry.theme_file)
+          instance_eval(normalize_source(src), entry.theme_file)
         end
       end
 
       private
+      def normalize_source(src)
+        src.gsub(/(?=^|\W)@(very_)?huge_(script_)?font_size(?=$|\W)/) do |x|
+          x = "x"
+          x *= 2 unless $1.nil?
+          "@#{x}_large_#{$2}font_size"
+        end
+      end
+      
       def include_theme(name)
         begin
           apply_theme(name)

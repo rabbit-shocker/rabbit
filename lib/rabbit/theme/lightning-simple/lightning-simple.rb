@@ -49,15 +49,15 @@ end
 
 @lightning_talk_as_large_as_possible = true
 include_theme("lightning-talk-toolkit")
+props = @lightning_talk_props.dup
+props.update(:proc_name => "lightning-simple")
 
-proc_name = "lightning-simple"
-
-match(Slide, HeadLine) do |heads|
-  heads.each do |head|
-    slide = head.parent
-    if lightning_talk_slide?(slide)
-      lightning_talk_slide(slide, proc_name)
-      lightning_talk_headline(head, proc_name)
+match(Slide) do |slides|
+  slides.each do |slide|
+    if slide.lightning_talk?
+      slide.lightning_talk(props)
     end
   end
 end
+
+include_theme("windows-adjust")

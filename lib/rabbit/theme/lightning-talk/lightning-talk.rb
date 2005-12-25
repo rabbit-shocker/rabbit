@@ -60,16 +60,8 @@ match(TitleSlide, Institution) do |titles|
 end
 
 
+props = @lightning_talk_props.dup
+props.update(:proc_name => proc_name)
 match(Slide) do |slides|
-  lightning_talk_slide(slides, proc_name)
-end
-
-match(Slide, HeadLine) do |heads|
-  lightning_talk_headline(heads, proc_name)
-end
-
-match("**", Emphasis) do |texts|
-  set_font_family(texts)
-  texts.prop_set("foreground", "red")
-  texts.prop_set("weight", "heavy")
+  slides.lightning_talk(props)
 end
