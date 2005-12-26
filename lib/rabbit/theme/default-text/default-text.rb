@@ -58,13 +58,13 @@ match("**", HeadLine, "**", Superscript) do |texts|
 end
 
 match("**", Title, "**", Subscript) do |texts|
-  texts.prop_set("size", @huge_script_font_size)
-  texts.prop_set("rise", -(@huge_script_font_size * 2 / 3.0).to_i)
+  texts.prop_set("size", @x_large_script_font_size)
+  texts.prop_set("rise", -(@x_large_script_font_size * 2 / 3.0).to_i)
 end
 
 match("**", Title, "**", Superscript) do |texts|
-  texts.prop_set("size", @huge_script_font_size)
-  texts.prop_set("rise", (@huge_script_font_size * 5 / 3.0).to_i)
+  texts.prop_set("size", @x_large_script_font_size)
+  texts.prop_set("rise", (@x_large_script_font_size * 5 / 3.0).to_i)
 end
 
 match("**", PreformattedText) do |texts|

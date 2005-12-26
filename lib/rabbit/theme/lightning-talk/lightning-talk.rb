@@ -1,8 +1,6 @@
 include_theme("image")
 include_theme("lightning-talk-toolkit")
 
-proc_name = "lightning-talk"
-
 match(TitleSlide) do |slides|
   slides.horizontal_centering = true
   slides.vertical_centering = true
@@ -20,7 +18,7 @@ end
 
 match(TitleSlide, Title) do |titles|
   set_font_family(titles)
-  titles.prop_set("size", @huge_font_size)
+  titles.prop_set("size", @x_large_font_size)
   titles.prop_set("weight", "heavy")
 
   space = screen_size(5)
@@ -59,9 +57,6 @@ match(TitleSlide, Institution) do |titles|
   titles.prop_set("style", "italic")
 end
 
-
-props = @lightning_talk_props.dup
-props.update(:proc_name => proc_name)
 match(Slide) do |slides|
-  slides.lightning_talk(props)
+  slides.lightning_talk
 end

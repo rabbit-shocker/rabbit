@@ -1,4 +1,4 @@
-@huge_font_size = @large_font_size
+@x_large_font_size = @large_font_size
 include_theme("default-title-text")
 
 match(TitleSlide, "*") do |elems|

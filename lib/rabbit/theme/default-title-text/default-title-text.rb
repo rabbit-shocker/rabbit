@@ -4,7 +4,7 @@ match(TitleSlide, "*") do |elems|
 end
 
 match(TitleSlide, Title) do |titles|
-  titles.prop_set("size", @huge_font_size)
+  titles.prop_set("size", @x_large_font_size)
   titles.prop_set("weight", "heavy")
 end
 

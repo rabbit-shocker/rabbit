@@ -12,14 +12,14 @@ include_theme("default-text")
 @small_font_size = small_font_size
 @xx_small_font_size = xx_small_font_size
 
-huge_font_size = @huge_font_size
+x_large_font_size = @x_large_font_size
 large_font_size = @large_font_size
 normal_font_size = @normal_font_size
-@huge_font_size = screen_size(7 * Pango::SCALE)
+@x_large_font_size = screen_size(7 * Pango::SCALE)
 @large_font_size = screen_size(4.5 * Pango::SCALE)
 @normal_font_size = screen_size(3.5 * Pango::SCALE)
 include_theme("default-title-text")
-@huge_font_size = huge_font_size
+@x_large_font_size = x_large_font_size
 @large_font_size = large_font_size
 @normal_font_size = normal_font_size
 
@@ -47,15 +47,14 @@ else
   include_theme("image-timer")
 end
 
+@lightning_talk_proc_name = "lightning-simple"
 @lightning_talk_as_large_as_possible = true
 include_theme("lightning-talk-toolkit")
-props = @lightning_talk_props.dup
-props.update(:proc_name => "lightning-simple")
 
 match(Slide) do |slides|
   slides.each do |slide|
     if slide.lightning_talk?
-      slide.lightning_talk(props)
+      slide.lightning_talk
     end
   end
 end

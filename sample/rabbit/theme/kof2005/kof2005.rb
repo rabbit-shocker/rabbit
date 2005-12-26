@@ -1,4 +1,4 @@
-@huge_font_size = (@huge_font_size * 0.8).ceil
+@x_large_font_size = (@x_large_font_size * 0.8).ceil
 
 include_theme("ruby-gnome2")
 

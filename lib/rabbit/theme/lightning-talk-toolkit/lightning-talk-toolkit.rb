@@ -1,3 +1,4 @@
+@lightning_talk_proc_name ||= "lightning-talk"
 @lightning_talk_color ||= "black"
 @lightning_talk_background_color ||= "white"
 @lightning_talk_contact_information ||= nil
@@ -6,7 +7,8 @@
 @lightning_talk_contact_information_font_family ||= @font_family
 @lightning_talk_as_large_as_possible ||= false
 @lightning_talk_wrap_mode ||= Pango::Layout::WRAP_WORD
-@lightning_talk_props = {
+@lightning_talk_params = {
+  :proc_name => @lightning_talk_proc_name,
   :size => @xx_large_font_size,
   :color => @lightning_talk_color,
   :background_color => @lightning_talk_background_color,
@@ -20,18 +22,25 @@
 
 def setup_lightning_talk_slide(slide)
   class << slide
-    def lightning_talk(props={}, &block)
+    attr_writer :lightning_talk_default_params
+    def lightning_talk_default_params
+      @lightning_talk_default_params ||= {}
+    end
+    
+    def lightning_talk(params={}, &block)
       if lightning_talk?
+        params = lightning_talk_default_params.merge(params)
+        
         clear_pre_draw_procs
         clear_post_draw_procs
         
         self.vertical_centering = true
         self.horizontal_centering = true
         
-        lightning_talk_setup_background(props)
-        lightning_talk_setup_contact_information(props)
+        lightning_talk_setup_background(params)
+        lightning_talk_setup_contact_information(params)
         
-        headline.lightning_talk(props)
+        headline.lightning_talk(params)
         block.call(self, headline) if block
       end
     end
@@ -45,9 +54,9 @@ def setup_lightning_talk_slide(slide)
     alias takahashi? lightning_talk?
     
     private
-    def lightning_talk_setup_background(props)
-      proc_name = props[:proc_name] || "lightning-talk"
-      background_color = props[:background_color] || "white"
+    def lightning_talk_setup_background(params)
+      proc_name = params[:proc_name]
+      background_color = params[:background_color]
       add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
         unless simulation
           args = [
@@ -64,22 +73,22 @@ def setup_lightning_talk_slide(slide)
       end
     end
 
-    def lightning_talk_setup_contact_information(props)
-      proc_name = props[:proc_name] || "lightning-talk"
-      contact_information = props[:contact_information]
-      contact_information_size = props[:contact_information_size]
-      contact_information_family = props[:contact_information_family]
-      contact_information_color = props[:contact_information_color]
+    def lightning_talk_setup_contact_information(params)
+      proc_name = params[:proc_name]
+      contact_information = params[:contact_information]
+      contact_information_size = params[:contact_information_size]
+      contact_information_family = params[:contact_information_family]
+      contact_information_color = params[:contact_information_color]
       
       if contact_information
         add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
           unless simulation
             text = Text.new(contact_information)
-            props = {
+            params = {
               :size => contact_information_size,
               :family => contact_information_family,
             }
-            text.font(props)
+            text.font(params)
             text.align = Pango::Layout::ALIGN_RIGHT
             text.compile(canvas, x, y, w, h)
             text.layout.set_width(width * Pango::SCALE)
@@ -97,17 +106,14 @@ end
 
 def setup_lightning_talk_headline(head)
   class << head
-    def lightning_talk(props={})
-      proc_name = props[:proc_name] || "lightning-talk"
-      wrap_mode = props[:wrap_mode] || Pango::Layout::WRAP_WORD
-      as_large_as_possible = props[:as_large_as_possible] || false
-      color = props[:color] || "black"
+    def lightning_talk(params)
+      proc_name = params[:proc_name]
       
       clear_pre_draw_procs
       clear_post_draw_procs
       
-      font :size => props[:size], :color => color
-      self.wrap_mode = wrap_mode
+      font :size => params[:size], :color => params[:color]
+      self.wrap_mode = params[:wrap_mode]
       
       orig_x = orig_y = orig_w = orig_h = nil
       add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
@@ -123,17 +129,17 @@ def setup_lightning_talk_headline(head)
         end
       end
       
-      if as_large_as_possible
-        lightning_talk_as_large_as_possible(props)
+      if params[:as_large_as_possible]
+        lightning_talk_as_large_as_possible(params)
       end
     end
     alias takahashi lightning_talk
 
     private
-    def lightning_talk_as_large_as_possible(props={})
+    def lightning_talk_as_large_as_possible(params)
       slide = parent
-      proc_name = props[:proc_name] || "lightning-talk"
-      wrap_mode = props[:wrap_mode] || Pango::Layout::WRAP_WORD
+      proc_name = params[:proc_name]
+      wrap_mode = params[:wrap_mode]
       
       computed = false
       add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
@@ -142,7 +148,7 @@ def setup_lightning_talk_headline(head)
           max_height = canvas.height - slide.margin_top - slide.margin_bottom
           max_width *= Pango::SCALE
           max_height *= Pango::SCALE
-          size = props[:size] || @first_line_height * Pango::SCALE
+          size = params[:size]
           
           computed = true
           loop do
@@ -170,5 +176,6 @@ match(Slide) do |slides|
   slides.each do |slide|
     setup_lightning_talk_slide(slide)
     setup_lightning_talk_headline(slide.headline)
+    slide.lightning_talk_default_params = @lightning_talk_params
   end
 end
