@@ -26,9 +26,14 @@ module Rabbit
 
       def method_missing(meth, *args, &block)
         each do |elem|
-          elem.__send__(meth, *args) do |*block_args|
-            block.call(elem, *block_args)
+          if block
+            proxy_block = Proc.new do |*block_args|
+              block.call(elem, *block_args)
+            end
+          else
+            proxy_block = nil
           end
+          elem.__send__(meth, *args, &proxy_block)
         end
       end
     end
