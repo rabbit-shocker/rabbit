@@ -1,32 +1,39 @@
+require "erb"
+require "stringio"
+
 require "gtk2"
 
 require "rabbit/gettext"
 require "rabbit/utils"
 require "rabbit/theme/searcher"
 require "rabbit/image"
+require "rabbit/action"
 
 module Rabbit
-
   class Menu
-
     include GetText
+    include ERB::Util
 
     @@icon = nil
 
-    def initialize(canvas)
-      @canvas = canvas
-      @menu = create_menu
-      if @@icon.nil?
-        begin
-          image_theme = Theme::Searcher.find_theme("rabbit-images", true)
-          file = Theme::Searcher.find_file("lavie-icon.png", [image_theme])
-          loader = ImageLoader.new(file)
-          loader.resize(16, 16)
-          @@icon = loader.pixbuf
-        rescue LoadError
-          @canvas.logger.warn($!)
-        end
-      end
+    def initialize(actions)
+      @merge = Gtk::UIManager.new
+      @merge.insert_action_group(actions, 0)
+      @jump_actions = nil
+      @jump_merge_id = nil
+      @theme_actions = nil
+      @theme_merge_id = nil
+      update_ui
+    end
+
+    def accel_group
+      @merge.accel_group
+    end
+
+    def update_menu(canvas)
+      update_jump_menu(canvas)
+      update_theme_menu(canvas)
+      canvas.action("ClearGraffiti").visible = canvas.graffiti_mode?
     end
 
     def popup(button, time)
@@ -34,327 +41,195 @@ module Rabbit
     end
     
     private
-    def create_menu
-      ifp = Gtk::ItemFactory.new(Gtk::ItemFactory::TYPE_MENU, "<main>", nil)
+    def update_jump_menu(canvas)
+      @merge.remove_ui(@jump_merge_id) if @jump_merge_id
+      @merge.remove_action_group(@jump_actions) if @jump_actions
 
-      items = [
-        [_("/Separator"), "<Tearoff>"],
-
-        if @canvas.index_mode?
-          [_("/Slide"), "<Item>", "",
-            nil, method(:toggle_index_mode)]
-        else
-          [_("/Index"), "<StockItem>", "",
-            Gtk::Stock::INDEX, method(:toggle_index_mode)]
-        end,
-
-        [_("/Separator"), "<Separator>"],
-
-        if @canvas.graffiti_mode?
-          [_("/GraffitiModeOff"), "<Item>", "",
-            nil, method(:toggle_graffiti_mode)]
-        else
-          [_("/GraffitiModeOn"), "<StockItem>", "",
-            Gtk::Stock::EDIT, method(:toggle_graffiti_mode)]
-        end,
-
-        if @canvas.graffiti_mode?
-          [_("/ClearGraffiti"), "<StockItem>", "",
-            Gtk::Stock::CLEAR, method(:clear_graffiti)]
-        else
-          nil
-        end,
-
-        [_("/Separator"), "<Separator>"],
-
-        if @canvas.fullscreen_available?
-          if @canvas.fullscreen?
-            [_("/UnFullScreen"), "<StockItem>", "",
-              Gtk::Stock::ZOOM_OUT, method(:toggle_fullscreen)]
-          else
-            if Gtk::Stock.const_defined?(:FULLSCREEN)
-              icon = Gtk::Stock::FULLSCREEN
-            else
-              icon = Gtk::Stock::ZOOM_FIT
-            end
-            [_("/FullScreen"), "<StockItem>", "",
-              icon, method(:toggle_fullscreen)]
-          end
-        else
-          nil
-        end,
-
-        if @canvas.fullscreen_available?
-          [_("/Separator"), "<Separator>"]
-        else
-          nil
-        end,
-        
-        if @canvas.white_outing?
-          [_("/UnWhiteOut"), "<Item>", "", nil, method(:toggle_white_out)]
-        else
-          [_("/WhiteOut"), "<Item>", "", nil, method(:toggle_white_out)]
-        end,
-        
-        if @canvas.black_outing?
-          [_("/UnBlackOut"), "<Item>", "", nil, method(:toggle_black_out)]
-        else
-          [_("/BlackOut"), "<Item>", "", nil, method(:toggle_black_out)]
-        end,
-
-        [_("/Separator"), "<Separator>"],
-        
-        if @canvas.comment_frame_available?
-          if @canvas.showing_comment_frame?
-            [_("/HideCommentFrame"), "<Item>", "",
-              nil, method(:toggle_comment_frame)]
-          else
-            [_("/ShowCommentFrame"), "<StockItem>", "",
-              Gtk::Stock::DIALOG_INFO, method(:toggle_comment_frame)]
-          end
-        else
-          nil
-        end,
-
-        if @canvas.comment_view_available?
-          if @canvas.showing_comment_view?
-            [_("/HideCommentView"), "<Item>", "",
-              nil, method(:toggle_comment_view)]
-          else
-            [_("/ShowCommentView"), "<Item>", "",
-              nil, method(:toggle_comment_view)]
-          end
-        else
-          nil
-        end,
-
-        if @canvas.comment_frame_available? or
-            @canvas.comment_view_available?
-          [_("/Separator"), "<Separator>"]
-        else
-          nil
-        end,
-
-        # [_("/Jump"), "<StockItem>", "", Gtk::Stock::JUMP_TO],
-        [_("/Jump")],
-        [_("/Jump") + _("/Separator"), "<Tearoff>"],
-
-        [_("/Separator"), "<Separator>"],
-        
-        [_("/Next"), "<StockItem>", "",
-         Gtk::Stock::GO_FORWARD, method(:move_to_next)],
-        [_("/Previous"), "<StockItem>", "",
-         Gtk::Stock::GO_BACK, method(:move_to_previous)],
-        [_("/First"), "<StockItem>", "",
-         Gtk::Stock::GOTO_FIRST, method(:move_to_first)],
-        [_("/Last"), "<StockItem>", "",
-         Gtk::Stock::GOTO_LAST, method(:move_to_last)],
-        
-        [_("/Separator"), "<Separator>"],
-        
-        if @canvas.iconify_available? and @@icon
-          [_("/Iconify"), "<ImageItem>", "", @@icon, method(:iconify)]
-        else
-          nil
-        end,
-        
-        if @canvas.iconify_available?
-          [_("/Separator"), "<Separator>"]
-        else
-          nil
-        end,
-        
-        [_("/Redraw"), "<StockItem>", "",
-          Gtk::Stock::REFRESH, method(:redraw)],
-
-        [_("/ReloadTheme"), "<StockItem>", "",
-          Gtk::Stock::REFRESH, method(:reload_theme)],
-
-        [_("/ChangeTheme")],
-        [_("/ChangeTheme") + _("/Separator"), "<Tearoff>"],
-
-        [_("/MergeTheme")],
-        [_("/MergeTheme") + _("/Separator"), "<Tearoff>"],
-
-        [_("/CacheAllSlides"), "<Item>", "", nil, method(:cache_all_slides)],
-
-        [_("/Separator"), "<Separator>"],
-        
-        [_("/SaveAsImage"), "<StockItem>", "",
-         Gtk::Stock::SAVE, method(:save_as_image)],
-
-        if Renderer.printable?
-          [_("/Print"), "<StockItem>", "",
-            Gtk::Stock::PRINT, method(:print)]
-        end,
-        
-        [_("/Separator"), "<Separator>"],
-        
-        [_("/ResetAdjustment"), "<StockItem>", "",
-          Gtk::Stock::CLEAR, method(:reset_adjustment)],
-        
-        [_("/Separator"), "<Separator>"],
-        
-        [_("/Quit"), "<StockItem>", "", Gtk::Stock::QUIT, method(:quit)],
-      ]
-
-      _move_to = method(:move_to)
-      jump = _("/Jump") + "/"
-      @canvas.slides.each_with_index do |slide, i|
-        items << [
-          "#{jump}#{i}: #{Utils.unescape_title(slide.title)}",
-          "<Item>", "", nil, _move_to, i
-        ]
+      @jump_merge_id = @merge.new_merge_id
+      @jump_actions = Gtk::ActionGroup.new("JumpActions")
+      @merge.insert_action_group(@jump_actions, 0)
+      jump_path = "/popup/Jump"
+      canvas.slides.each_with_index do |slide, i|
+        name = "Jump#{i}"
+        label = "#{i}: #{Utils.unescape_title(slide.title)}"
+        tooltip = _("Jump to page: %d") % i
+        action = Gtk::Action.new(name, label, tooltip, nil)
+        action.signal_connect("activate") do
+          canvas.activate("Jump") {i}
+        end
+        @jump_actions.add_action(action)
+        @merge.add_ui(@jump_merge_id, jump_path, name, name,
+                      Gtk::UIManager::AUTO, false)
       end
+      tearoff = @merge.get_widget(jump_path).submenu.children.first
+      tearoff.show
+    end
+    
+    def update_ui
+      @merge_ui = @merge.add_ui(ui_xml)
+      @menu = @merge.get_widget("/popup")
+      tearoff = Gtk::TearoffMenuItem.new
+      tearoff.show
+      @menu.prepend(tearoff)
+    end
+
+    def update_theme_menu(canvas)
+      @merge.remove_ui(@theme_merge_id) if @theme_merge_id
+      @merge.remove_action_group(@theme_actions) if @theme_actions
+      
+      @theme_merge_id = @merge.new_merge_id
+      @theme_actions = Gtk::ActionGroup.new("ThemeActions")
+      @merge.insert_action_group(@theme_actions, 0)
 
       themes = Theme::Searcher.collect_theme
       
-      change = _("/ChangeTheme") + "/"
-      merge = _("/MergeTheme") + "/"
-
       categories = themes.collect do |entry|
-        _(entry.category)
-      end.uniq.sort
-      
+        entry.category
+      end + ["Etc"]
+      categories = categories.uniq.sort_by {|cat| _(cat)}
+
+      change = "/popup/ChangeTheme"
+      merge = "/popup/MergeTheme"
+
       categories.each do |category|
-        change_category = "#{change}#{_(category)}"
-        items << [change_category]
-        items << [change_category + _("/Separator"), "<Tearoff>"]
+        name = "ChangeThemeCategory#{category}"
+        label = _(category)
+        action = Gtk::Action.new(name, label, nil, nil)
+        @theme_actions.add_action(action)
+        @merge.add_ui(@theme_merge_id, change, category, name,
+                      Gtk::UIManager::MENU, false)
 
-        merge_category = "#{merge}#{_(category)}"
-        items << [merge_category]
-        items << [merge_category + _("/Separator"), "<Tearoff>"]
+        name = "MergeThemeCategory#{category}"
+        label = _(category)
+        action = Gtk::Action.new(name, label, nil, nil)
+        @theme_actions.add_action(action)
+        @merge.add_ui(@theme_merge_id, merge, category, name,
+                      Gtk::UIManager::MENU, false)
       end
 
-      _change_theme = method(:change_theme)
-      _merge_theme = method(:merge_theme)
       themes.each do |entry|
-        if entry.category
-          entry_path = _(entry.category)
-        else
-          entry_path = etc
-        end
-        entry_path += "/#{_(entry.name)}"
-        path = "#{change}#{entry_path}"
-        items << [path, "<Item>", "", nil, _change_theme, entry]
-        path = "#{merge}#{entry_path}"
-        items << [path, "<Item>", "", nil, _merge_theme, entry]
-      end
-
-      ifp.create_items(items.compact)
-
-      ifp.get_widget("<main>")
-    end
-
-    def create_menu_when_processing
-      ifp = Gtk::ItemFactory.new(Gtk::ItemFactory::TYPE_MENU, "<main>", nil)
-
-      items = [
-        [_("/Separator"), "<Tearoff>"],
+        category = entry.category || etc
         
-        [_("/Quit"), "<StockItem>", "",
-          Gtk::Stock::QUIT, method(:confirm_quit)],
+        path = "#{change}/#{category}"
+        name = "ChangeThemeEntry#{entry.name}"
+        label = _(entry.name)
+        action = Gtk::Action.new(name, label, nil, nil)
+        action.signal_connect("activate") do
+          canvas.activate("ChangeTheme") {entry}
+        end
+        @theme_actions.add_action(action)
+        @merge.add_ui(@theme_merge_id, path, entry.name, name,
+                      Gtk::UIManager::AUTO, false)
+
+        path = "#{merge}/#{category}"
+        name = "MergeThemeEntry#{entry.name}"
+        label = _(entry.name)
+        action = Gtk::Action.new(name, label, nil, nil)
+        action.signal_connect("activate") do
+          canvas.activate("MergeTheme") {entry}
+        end
+        @theme_actions.add_action(action)
+        @merge.add_ui(@theme_merge_id, path, entry.name, name,
+                      Gtk::UIManager::AUTO, false)
+      end
+    end
+
+    def ui_xml
+      format_xml(ui_axml)
+    end
+
+    def format_xml(axml)
+      output = StringIO.new
+      @indent = "  "
+      _format_xml(axml, output, 0)
+      output.rewind
+      output.read
+    end
+
+    def _format_xml(axml, output, indent)
+      case axml
+      when Array
+        tag, *others = axml
+        output.print("#{@indent * indent}<#{tag}")
+        if others.first.is_a?(Hash)
+          attrs, *others = others
+          attrs.each do |key, value|
+            output.print(" #{h(key)}=\"#{h(value)}\"") if value
+          end
+        end
+        if others.empty?
+          output.print("/>\n")
+        else
+          output.print(">\n")
+          others.each do |other|
+            _format_xml(other, output, indent + 1)
+          end
+          output.print("#{@indent * indent}</#{tag}>\n")
+        end
+      when String
+        output.print(h(axml))
+      else
+        raise "!?!?!?: #{axml.inspect}"
+      end
+    end
+
+    def ui_axml
+      [:ui,
+        [:popup,
+          *items.collect do |key, name|
+            params = {:name => name, :action => name}
+            case key
+            when :separator
+              [:separator]
+            when :item
+              [:menuitem, params]
+            when :menu
+              [:menu, params]
+            end
+          end
+        ]
       ]
-
-      ifp.create_items(items.compact)
-
-      ifp.get_widget("<main>")
-    end
-
-    def toggle_white_out(*args)
-      @canvas.toggle_white_out
     end
     
-    def toggle_black_out(*args)
-      @canvas.toggle_black_out
-    end
-    
-    def toggle_comment_frame(*args)
-      @canvas.toggle_comment_frame
-    end
-
-    def toggle_comment_view(*args)
-      @canvas.toggle_comment_view
-    end
-
-    def move_to_next(*args)
-      @canvas.move_to_next_if_can
-    end
-    
-    def move_to_previous(*args)
-      @canvas.move_to_previous_if_can
-    end
-    
-    def move_to_first(*args)
-      @canvas.move_to_first
-    end
-    
-    def move_to_last(*args)
-      @canvas.move_to_last
-    end
-    
-    def move_to(index, *args)
-      @canvas.move_to_if_can(index)
-    end
-
-    def toggle_index_mode(*args)
-      @canvas.toggle_index_mode
-    end
-    
-    def save_as_image(*args)
-      @canvas.save_as_image
-    end
-
-    def print(*args)
-      @canvas.print
-    end
-
-    def toggle_fullscreen(*args)
-      @canvas.toggle_fullscreen
-    end
-    
-    def iconify(*args)
-      @canvas.iconify
-    end
-    
-    def change_theme(entry, *args)
-      @canvas.apply_theme(entry.name)
-    end
-    
-    def merge_theme(entry, *args)
-      @canvas.merge_theme(entry.name)
-    end
-    
-    def redraw(*args)
-      @canvas.redraw
-    end
-    
-    def reload_theme(*args)
-      @canvas.reload_theme
-    end
-    
-    def quit(*args)
-      @canvas.quit
-    end
-
-    def confirm_quit(*args)
-      @canvas.confirm_quit
-    end
-
-    def cache_all_slides(*args)
-      @canvas.cache_all_slides
-    end
-    
-    def reset_adjustment(*args)
-      @canvas.reset_adjustment
-    end
-    
-    def clear_graffiti(*args)
-      @canvas.clear_graffiti
-    end
-    
-    def toggle_graffiti_mode(*args)
-      @canvas.toggle_graffiti_mode
+    def items
+      [
+        [:item, "ToggleIndexMode"],
+        [:separator],
+        [:item, "ToggleGraffitiMode"],
+        [:item, "ClearGraffiti"],
+        [:separator],
+        [:item, "ToggleFullScreen"],
+        [:separator],
+        [:item, "RadioBlankWhiteOut"],
+        [:item, "RadioBlankBlackOut"],
+        [:item, "RadioBlankShow"],
+        [:separator],
+        [:item, "ToggleCommentFrame"],
+        [:item, "ToggleCommentView"],
+        [:separator],
+        [:menu, "Jump"],
+        [:separator],
+        [:item, "Previous"],
+        [:item, "Next"],
+        [:item, "First"],
+        [:item, "Last"],
+        [:separator],
+        [:item, "Iconify"],
+        [:separator],
+        [:item, "Redraw"],
+        [:item, "ReloadTheme"],
+        [:menu, "ChangeTheme"],
+        [:menu, "MergeTheme"],
+        [:separator],
+        [:item, "CacheAllSlides"],
+        [:separator],
+        [:item, "SaveAsImage"],
+        [:item, "Print"],
+        [:separator],
+        [:item, "ResetAdjustment"],
+        [:separator],
+        [:item, "Quit"],
+      ]
     end
   end
 end

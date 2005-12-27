@@ -10,6 +10,7 @@ require "rabbit/rd2rabbit-lib"
 require "rabbit/theme/manager"
 require "rabbit/index"
 require "rabbit/front"
+require "rabbit/action"
 require "rabbit/html/generator"
 
 module Rabbit
@@ -102,7 +103,7 @@ module Rabbit
     def_delegators(:@source, :source=, :reset)
     
     attr_reader :logger, :renderer, :last_modified
-    attr_reader :comment_source
+    attr_reader :comment_source, :actions
     
     attr_writer :saved_image_basename
 
@@ -125,6 +126,7 @@ module Rabbit
       init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
+      @actions = Action.action_group(self)
     end
 
     def quitted?
@@ -463,12 +465,21 @@ module Rabbit
       @slides.find{|x| x.is_a?(Element::TitleSlide)}
     end
 
+    def activate(name, &block)
+      action(name).activate(&block)
+    end
+
+    def action(name)
+      @actions.get_action(name)
+    end
+    
     private
     def _apply_theme(name, id, &block)
       @theme_name = name if name
       _theme_name = name || theme_name
       if _theme_name and not @slides.empty?
         @apply_theme_request_queue.push(id)
+        index_mode = @index_mode
         begin
           clear_theme
           clear_index_slides
@@ -480,6 +491,7 @@ module Rabbit
           end
           manager.apply(_theme_name)
           @renderer.post_apply_theme
+          activate("ToggleIndexMode") if index_mode
         rescue ApplyFinish
         ensure
           @apply_theme_request_queue.delete_if {|x| x == id}
@@ -556,7 +568,7 @@ module Rabbit
     end
     
     def clear_index_slides
-      @index_mode = false
+      activate("ToggleIndexMode") if @index_mode
       @index_current_index = 0
       @index_slides = []
     end
@@ -570,11 +582,13 @@ module Rabbit
     end
 
     def keep_index
+      index_mode = @index_mode
       index = @current_index
       index_index = @index_current_index
       yield
       @current_index = index
       @index_current_index = index_index
+      @index_mode = index_mode
     end
     
     def default_theme

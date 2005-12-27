@@ -65,6 +65,7 @@ module Rabbit
       end
       
       def attach_to(window)
+        init_menu
         @window = window
         @hbox = Gtk::HBox.new
         @vbox = Gtk::VBox.new
@@ -78,6 +79,7 @@ module Rabbit
         @window.add(@hbox)
         @hbox.show
         @vbox.show
+        @window.add_accel_group(@menu.accel_group)
         set_configure_event
       end
     
@@ -493,13 +495,17 @@ module Rabbit
       end
 
       def update_menu
-        @menu = Menu.new(@canvas)
+        @menu.update_menu(@canvas)
       end
 
       def update_title
         @canvas.update_title(@canvas.slide_title)
       end
 
+      def init_menu
+        @menu = Menu.new(@canvas.actions)
+      end
+      
       def init_progress
         @progress_window = Gtk::Window.new(Gtk::Window::POPUP)
         @progress_window.app_paintable = true
@@ -882,7 +888,7 @@ module Rabbit
         when *@keys.iconify_keys
           @canvas.iconify
         when *@keys.toggle_index_mode_keys
-          @canvas.toggle_index_mode
+          @canvas.activate("ToggleIndexMode")
         when *@keys.cache_all_slides_keys
           @canvas.cache_all_slides
         when *@keys.white_out_keys
