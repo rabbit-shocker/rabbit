@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-12-28 18:03+0900\n"
-"PO-Revision-Date: 2005-12-28 17:53+0900\n"
+"PO-Revision-Date: 2005-12-28 18:42+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
 "MIME-Version: 1.0\n"
@@ -918,21 +918,19 @@ msgstr ""
 
 #: lib/rabbit/action/basic.rb:8
 msgid "Next slide"
-msgstr ""
+msgstr "Transparent suivant"
 
 #: lib/rabbit/action/basic.rb:16
-#, fuzzy
 msgid "Previous slide"
-msgstr "/Transparent précédent"
+msgstr "Transparent précédent"
 
 #: lib/rabbit/action/basic.rb:24
-#, fuzzy
 msgid "First slide"
-msgstr "/Premier transparent"
+msgstr "Premier transparent"
 
 #: lib/rabbit/action/basic.rb:32
 msgid "Last slide"
-msgstr ""
+msgstr "Dernier transparent"
 
 #: lib/rabbit/action/basic.rb:42
 #, fuzzy
@@ -1367,17 +1365,3 @@ msgstr ""
 #, fuzzy
 msgid "Default: "
 msgstr "/Recharger le thème"
-
-#, fuzzy
-#~ msgid "Next"
-#~ msgstr "/Transparent suivant"
-
-#, fuzzy
-#~ msgid "Last"
-#~ msgstr "/Dernier transparent"
-
-#~ msgid "/Slide"
-#~ msgstr "/Mode transparents"
-
-#~ msgid "/UnFullScreen"
-#~ msgstr "/Sortir du plein écran"
