@@ -41,16 +41,15 @@ match(Slide, Body) do |bodies|
   bodies.vertical_centering = true
 end
 
+@lightning_talk_proc_name = "cozmixng"
 @lightning_talk_as_large_as_possible = true
 @lightning_talk_contact_information ||= "http://cozmixng.org"
 include_theme("lightning-talk-toolkit")
-props = @lightning_talk_props.dup
-props.update(:proc_name => "cozmixng")
 
 match(Slide) do |slides|
   slides.each do |slide|
     if slide.lightning_talk?
-      slide.lightning_talk(props)
+      slide.lightning_talk
     end
   end
 end

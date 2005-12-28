@@ -34,6 +34,8 @@ module Rabbit
       update_jump_menu(canvas)
       update_theme_menu(canvas)
       canvas.action("ClearGraffiti").visible = canvas.graffiti_mode?
+      @merge.ensure_update
+      show_tearoff
     end
 
     def popup(button, time)
@@ -61,8 +63,6 @@ module Rabbit
         @merge.add_ui(@jump_merge_id, jump_path, name, name,
                       Gtk::UIManager::AUTO, false)
       end
-      tearoff = @merge.get_widget(jump_path).submenu.children.first
-      tearoff.show
     end
     
     def update_ui
@@ -85,52 +85,51 @@ module Rabbit
       
       categories = themes.collect do |entry|
         entry.category
-      end + ["Etc"]
-      categories = categories.uniq.sort_by {|cat| _(cat)}
+      end.uniq.sort_by {|cat| _(cat)}
 
       change = "/popup/ChangeTheme"
       merge = "/popup/MergeTheme"
 
       categories.each do |category|
-        name = "ChangeThemeCategory#{category}"
-        label = _(category)
-        action = Gtk::Action.new(name, label, nil, nil)
-        @theme_actions.add_action(action)
-        @merge.add_ui(@theme_merge_id, change, category, name,
-                      Gtk::UIManager::MENU, false)
-
-        name = "MergeThemeCategory#{category}"
-        label = _(category)
-        action = Gtk::Action.new(name, label, nil, nil)
-        @theme_actions.add_action(action)
-        @merge.add_ui(@theme_merge_id, merge, category, name,
-                      Gtk::UIManager::MENU, false)
+        theme_menu_add_category("Change", change, category)
+        theme_menu_add_category("Merge", merge, category)
       end
 
       themes.each do |entry|
-        category = entry.category || etc
-        
-        path = "#{change}/#{category}"
-        name = "ChangeThemeEntry#{entry.name}"
-        label = _(entry.name)
-        action = Gtk::Action.new(name, label, nil, nil)
-        action.signal_connect("activate") do
-          canvas.activate("ChangeTheme") {entry}
-        end
-        @theme_actions.add_action(action)
-        @merge.add_ui(@theme_merge_id, path, entry.name, name,
-                      Gtk::UIManager::AUTO, false)
+        theme_menu_add_theme("Change", change, entry, canvas)
+        theme_menu_add_theme("Merge", merge, entry, canvas)
+      end
+    end
 
-        path = "#{merge}/#{category}"
-        name = "MergeThemeEntry#{entry.name}"
-        label = _(entry.name)
-        action = Gtk::Action.new(name, label, nil, nil)
-        action.signal_connect("activate") do
-          canvas.activate("MergeTheme") {entry}
+    def theme_menu_add_category(prefix, path, category)
+      name = "#{prefix}ThemeCategory#{category}"
+      label = _(category)
+      action = Gtk::Action.new(name, label, nil, nil)
+      @theme_actions.add_action(action)
+      @merge.add_ui(@theme_merge_id, path, category, name,
+                    Gtk::UIManager::MENU, false)
+    end
+
+    def theme_menu_add_theme(prefix, path, entry, canvas)
+      path = "#{path}/#{entry.category}"
+      name = "#{prefix}ThemeEntry#{entry.name}"
+      label = _(entry.name)
+      action = Gtk::Action.new(name, label, nil, nil)
+      action.signal_connect("activate") do
+        canvas.activate("#{prefix}Theme") {entry}
+      end
+      @theme_actions.add_action(action)
+      @merge.add_ui(@theme_merge_id, path, entry.name, name,
+                    Gtk::UIManager::AUTO, false)
+    end
+
+    def show_tearoff(sub_menus=@menu.children)
+      sub_menus.each do |child|
+        if child.respond_to?(:submenu) and child.submenu
+          tearoff, *child_sub_menus = child.submenu.children
+          tearoff.show
+          show_tearoff(child_sub_menus)
         end
-        @theme_actions.add_action(action)
-        @merge.add_ui(@theme_merge_id, path, entry.name, name,
-                      Gtk::UIManager::AUTO, false)
       end
     end
 
