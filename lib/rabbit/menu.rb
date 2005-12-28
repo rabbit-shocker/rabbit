@@ -54,7 +54,7 @@ module Rabbit
       canvas.slides.each_with_index do |slide, i|
         name = "Jump#{i}"
         label = "#{i}: #{Utils.unescape_title(slide.title)}"
-        tooltip = _("Jump to page: %d") % i
+        tooltip = _("Jump to the %dth slide") % i
         action = Gtk::Action.new(name, label, tooltip, nil)
         action.signal_connect("activate") do
           canvas.activate("Jump") {i}

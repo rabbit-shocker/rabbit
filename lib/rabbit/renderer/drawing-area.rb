@@ -916,7 +916,7 @@ module Rabbit
         when *@keys.quit_keys
           confirm_quit
         else
-          @canvas.logger.info(_("processing..."))
+          @canvas.logger.info(_("Processing..."))
         end
       end
       

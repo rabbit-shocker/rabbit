@@ -535,7 +535,7 @@ module Rabbit
 
     def process
       if @processing
-        @logger.info(_("processing..."))
+        @logger.info(_("Processing..."))
         return
       end
       begin

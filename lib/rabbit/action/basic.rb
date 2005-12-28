@@ -5,7 +5,7 @@ module Rabbit
       canvas.move_to_next_if_can
     end
     def act_next_config(config, canvas)
-      config[:label] = N_("Next")
+      config[:label] = N_("Next slide")
       config[:stock_id] = Gtk::Stock::GO_FORWARD
     end
 
@@ -13,7 +13,7 @@ module Rabbit
       canvas.move_to_previous_if_can
     end
     def act_previous_config(config, canvas)
-      config[:label] = N_("Previous")
+      config[:label] = N_("Previous slide")
       config[:stock_id] = Gtk::Stock::GO_BACK
     end
 
@@ -21,7 +21,7 @@ module Rabbit
       canvas.move_to_first
     end
     def act_first_config(config, canvas)
-      config[:label] = N_("First")
+      config[:label] = N_("First slide")
       config[:stock_id] = Gtk::Stock::GOTO_FIRST
     end
 
@@ -29,7 +29,7 @@ module Rabbit
       canvas.move_to_last
     end
     def act_last_config(config, canvas)
-      config[:label] = N_("Last")
+      config[:label] = N_("Last slide")
       config[:stock_id] = Gtk::Stock::GOTO_LAST
     end
 
@@ -39,7 +39,7 @@ module Rabbit
       end
     end
     def act_jump_config(config, canvas)
-      config[:label] = N_("Jump")
+      config[:label] = N_("Jump to")
     end
 
     def act_save_as_image(action, group, canvas)
