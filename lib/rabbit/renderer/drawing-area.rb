@@ -124,6 +124,7 @@ module Rabbit
         reset_adjustment
         clear_graffiti
         # toggle_graffiti_mode if @graffiti_mode
+        update_menu
         @area.queue_draw
       end
       

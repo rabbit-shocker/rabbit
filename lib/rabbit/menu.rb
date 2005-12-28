@@ -33,7 +33,11 @@ module Rabbit
     def update_menu(canvas)
       update_jump_menu(canvas)
       update_theme_menu(canvas)
-      canvas.action("ClearGraffiti").visible = canvas.graffiti_mode?
+      canvas.action("PreviousSlide").sensitive = canvas.have_previous_slide?
+      canvas.action("NextSlide").sensitive = canvas.have_next_slide?
+      canvas.action("FirstSlide").sensitive = !canvas.first_slide?
+      canvas.action("LastSlide").sensitive = !canvas.last_slide?
+      canvas.action("ClearGraffiti").sensitive = canvas.graffiti_mode?
       @merge.ensure_update
       show_tearoff
     end
@@ -208,10 +212,10 @@ module Rabbit
         [:separator],
         [:menu, "Jump"],
         [:separator],
-        [:item, "Previous"],
-        [:item, "Next"],
-        [:item, "First"],
-        [:item, "Last"],
+        [:item, "PreviousSlide"],
+        [:item, "NextSlide"],
+        [:item, "FirstSlide"],
+        [:item, "LastSlide"],
         [:separator],
         [:item, "Iconify"],
         [:separator],

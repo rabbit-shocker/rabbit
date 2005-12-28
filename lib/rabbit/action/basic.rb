@@ -1,34 +1,34 @@
 module Rabbit
   module Action
     module_function
-    def act_next(action, group, canvas)
+    def act_next_slide(action, group, canvas)
       canvas.move_to_next_if_can
     end
-    def act_next_config(config, canvas)
+    def act_next_slide_config(config, canvas)
       config[:label] = N_("Next slide")
       config[:stock_id] = Gtk::Stock::GO_FORWARD
     end
 
-    def act_previous(action, group, canvas)
+    def act_previous_slide(action, group, canvas)
       canvas.move_to_previous_if_can
     end
-    def act_previous_config(config, canvas)
+    def act_previous_slide_config(config, canvas)
       config[:label] = N_("Previous slide")
       config[:stock_id] = Gtk::Stock::GO_BACK
     end
 
-    def act_first(action, group, canvas)
+    def act_first_slide(action, group, canvas)
       canvas.move_to_first
     end
-    def act_first_config(config, canvas)
+    def act_first_slide_config(config, canvas)
       config[:label] = N_("First slide")
       config[:stock_id] = Gtk::Stock::GOTO_FIRST
     end
 
-    def act_last(action, group, canvas)
+    def act_last_slide(action, group, canvas)
       canvas.move_to_last
     end
-    def act_last_config(config, canvas)
+    def act_last_slide_config(config, canvas)
       config[:label] = N_("Last slide")
       config[:stock_id] = Gtk::Stock::GOTO_LAST
     end
