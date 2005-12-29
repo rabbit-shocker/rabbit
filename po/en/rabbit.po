@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-28 18:03+0900\n"
+"POT-Creation-Date: 2005-12-29 20:02+0900\n"
 "PO-Revision-Date: 2005-12-28 18:02+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -65,19 +65,23 @@ msgstr ""
 msgid "can't find theme RD template: %s"
 msgstr ""
 
-#: lib/rabbit/menu.rb:57
+#: lib/rabbit/menu.rb:60
 msgid "Jump to the %dth slide"
 msgstr ""
 
-#: lib/rabbit/canvas.rb:309
+#: lib/rabbit/canvas.rb:313
 msgid "can't generate RSS"
 msgstr ""
 
-#: lib/rabbit/canvas.rb:538 lib/rabbit/renderer/drawing-area.rb:919
+#: lib/rabbit/canvas.rb:476
+msgid "Unknown action: %s"
+msgstr ""
+
+#: lib/rabbit/canvas.rb:548 lib/rabbit/renderer/drawing-area.rb:925
 msgid "Processing..."
 msgstr ""
 
-#: lib/rabbit/canvas.rb:647
+#: lib/rabbit/canvas.rb:658
 msgid "Comment"
 msgstr ""
 
@@ -234,6 +238,7 @@ msgstr ""
 #: lib/rabbit/theme/lightning-talk/property.rb:1
 #: lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: lib/rabbit/theme/lightning-simple/property.rb:1
+#: lib/rabbit/theme/blue-circle/property.rb:1
 #: lib/rabbit/theme/ruby-gnome2/property.rb:1
 #: lib/rabbit/theme/red-frame/property.rb:1
 #: lib/rabbit/theme-browser/tree.rb:54
@@ -709,6 +714,14 @@ msgid ""
 "COZMIXNG and Rabbit at the foot of the title slide and of the last slide."
 msgstr ""
 
+#: lib/rabbit/theme/blue-circle/property.rb:2
+msgid "Blue Circle"
+msgstr ""
+
+#: lib/rabbit/theme/blue-circle/property.rb:3
+msgid "Blue Circle theme"
+msgstr ""
+
 #: lib/rabbit/theme/ruby-gnome2-description/property.rb:2
 msgid "RubyGNOME2Description"
 msgstr ""
@@ -831,20 +844,16 @@ msgstr ""
 msgid "Rabbit Error Dialog"
 msgstr ""
 
-#: lib/rabbit/renderer/drawing-area.rb:594
+#: lib/rabbit/renderer/drawing-area.rb:604
 msgid "comment"
 msgstr ""
 
-#: lib/rabbit/renderer/drawing-area.rb:1128
-msgid "Now processing... Do you really quit?"
-msgstr ""
-
-#: lib/rabbit/renderer/base.rb:552
+#: lib/rabbit/renderer/base.rb:577
 msgid "%s does not support: %s"
 msgstr ""
 
-#: lib/rabbit/renderer/print/gnomeprint.rb:362
-#: lib/rabbit/renderer/print/cairo.rb:89
+#: lib/rabbit/renderer/print/gnomeprint.rb:364
+#: lib/rabbit/renderer/print/cairo.rb:91
 msgid "can't find printer for %s"
 msgstr ""
 
@@ -868,23 +877,31 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: lib/rabbit/action/toggle.rb:8
-msgid "Comment frame"
+#: lib/rabbit/action/toggle.rb:12 lib/rabbit/action/radio.rb:27
+msgid "White out"
 msgstr ""
 
-#: lib/rabbit/action/toggle.rb:15
-msgid "Comment view"
-msgstr ""
-
-#: lib/rabbit/action/toggle.rb:22
-msgid "Index mode"
+#: lib/rabbit/action/toggle.rb:23 lib/rabbit/action/radio.rb:32
+msgid "Black out"
 msgstr ""
 
 #: lib/rabbit/action/toggle.rb:30
+msgid "Comment frame"
+msgstr ""
+
+#: lib/rabbit/action/toggle.rb:37
+msgid "Comment view"
+msgstr ""
+
+#: lib/rabbit/action/toggle.rb:44
+msgid "Index mode"
+msgstr ""
+
+#: lib/rabbit/action/toggle.rb:52
 msgid "Full screen"
 msgstr ""
 
-#: lib/rabbit/action/toggle.rb:38
+#: lib/rabbit/action/toggle.rb:60
 msgid "Graffiti mode"
 msgstr ""
 
@@ -908,60 +925,72 @@ msgstr ""
 msgid "Jump to"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:49
+#: lib/rabbit/action/basic.rb:57
 msgid "Save as image"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:57
+#: lib/rabbit/action/basic.rb:65
 msgid "Print"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:65
+#: lib/rabbit/action/basic.rb:73
 msgid "Iconify"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:76
+#: lib/rabbit/action/basic.rb:85
 msgid "Change theme"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:85
+#: lib/rabbit/action/basic.rb:95
 msgid "Merge theme"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:92
+#: lib/rabbit/action/basic.rb:104
 msgid "Reload theme"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:100
+#: lib/rabbit/action/basic.rb:112
 msgid "Redraw"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:108
+#: lib/rabbit/action/basic.rb:122
 msgid "_Quit"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:116
-msgid "Confirm quit"
-msgstr ""
-
 #: lib/rabbit/action/basic.rb:123
-msgid "Cache all slides"
+msgid "_Quit with confirmation"
 msgstr ""
 
 #: lib/rabbit/action/basic.rb:130
+msgid "Now processing... Do you really quit?"
+msgstr ""
+
+#: lib/rabbit/action/basic.rb:147
+msgid "Cache all slides"
+msgstr ""
+
+#: lib/rabbit/action/basic.rb:154
+msgid "Graffiti"
+msgstr ""
+
+#: lib/rabbit/action/basic.rb:162
 msgid "Clear graffiti"
 msgstr ""
 
-#: lib/rabbit/action/basic.rb:138
+#: lib/rabbit/action/basic.rb:170
+msgid "Undo graffiti"
+msgstr ""
+
+#: lib/rabbit/action/basic.rb:185
 msgid "Reset adjustment"
 msgstr ""
 
-#: lib/rabbit/action/radio.rb:27
-msgid "White out"
+#: lib/rabbit/action/basic.rb:193
+msgid "Expand hole"
 msgstr ""
 
-#: lib/rabbit/action/radio.rb:32
-msgid "Black out"
+#: lib/rabbit/action/basic.rb:200
+msgid "Narrow hole"
 msgstr ""
 
 #: lib/rabbit/action/radio.rb:37
