@@ -33,13 +33,21 @@ module Rabbit
       config[:stock_id] = Gtk::Stock::GOTO_LAST
     end
 
-    def act_jump(action, group, canvas)
+    def act_jump_to(action, group, canvas)
       if action.block_given?
         canvas.move_to_if_can(action.call(action, group, canvas))
       end
     end
-    def act_jump_config(config, canvas)
+    def act_jump_to_config(config, canvas)
       config[:label] = N_("Jump to")
+      config[:stock_id] = Gtk::Stock::JUMP_TO
+    end
+
+    def update_move_slide_action_status(canvas)
+      canvas.action("PreviousSlide").sensitive = canvas.have_previous_slide?
+      canvas.action("NextSlide").sensitive = canvas.have_next_slide?
+      canvas.action("FirstSlide").sensitive = !canvas.first_slide?
+      canvas.action("LastSlide").sensitive = !canvas.last_slide?
     end
 
     def act_save_as_image(action, group, canvas)
@@ -68,7 +76,8 @@ module Rabbit
 
     def act_change_theme(action, group, canvas)
       if action.block_given?
-        canvas.apply_theme(action.call(action, group, canvas).name)
+        entry, block = action.call(action, group, canvas)
+        canvas.apply_theme(entry.name, &block)
       end
       
     end
@@ -78,7 +87,8 @@ module Rabbit
 
     def act_merge_theme(action, group, canvas)
       if action.block_given?
-        canvas.merge_theme(action.call(action, group, canvas).name)
+        entry, block = action.call(action, group, canvas)
+        canvas.merge_theme(entry.name, &block)
       end
     end
     def act_merge_theme_config(config, canvas)
@@ -86,7 +96,9 @@ module Rabbit
     end
 
     def act_reload_theme(action, group, canvas)
-      canvas.reload_theme
+      block = nil
+      block = action.call(action, group, canvas) if action.block_given?
+      canvas.reload_theme(&block)
     end
     def act_reload_theme_config(config, canvas)
       config[:label] = N_("Reload theme")
@@ -101,19 +113,31 @@ module Rabbit
       config[:stock_id] = Gtk::Stock::REFRESH
     end
 
+    def update_theme_action_status(canvas)
+      canvas.action("ReloadTheme").sensitive = !canvas.applying?
+      canvas.action("ChangeTheme").sensitive = !canvas.applying?
+      canvas.action("MergeTheme").sensitive = !canvas.applying?
+    end
+
+    @@quit_label = N_("_Quit")
+    @@quit_with_confirmation_label = N_("_Quit with confirmation")
+    def quit_action_label(canvas)
+      canvas.processing? ? @@quit_with_confirmation_label : @@quit_label
+    end
+    
     def act_quit(action, group, canvas)
-      canvas.quit
+      if !canvas.processing? or
+          canvas.confirm(_("Now processing... Do you really quit?"))
+        canvas.quit
+      end
     end
     def act_quit_config(config, canvas)
-      config[:label] = N_("_Quit")
+      config[:label] = quit_action_label(canvas)
       config[:stock_id] = Gtk::Stock::QUIT
     end
 
-    def act_confirm_quit(action, group, canvas)
-      canvas.confirm_quit
-    end
-    def act_confirm_quit_config(config, canvas)
-      config[:label] = N_("Confirm quit")
+    def update_quit_action_status(canvas)
+      canvas.action("Quit").label = _(quit_action_label(canvas))
     end
 
     def act_cache_all_slides(action, group, canvas)
@@ -121,6 +145,14 @@ module Rabbit
     end
     def act_cache_all_slides_config(config, canvas)
       config[:label] = N_("Cache all slides")
+    end
+
+    def act_graffiti(action, group, canvas)
+      update_graffiti_action_status(canvas)
+    end
+    def act_graffiti_config(config, canvas)
+      config[:label] = N_("Graffiti")
+      config[:stock_id] = Gtk::Stock::EDIT
     end
 
     def act_clear_graffiti(action, group, canvas)
@@ -131,12 +163,41 @@ module Rabbit
       config[:stock_id] = Gtk::Stock::CLEAR
     end
 
+    def act_undo_graffiti(action, group, canvas)
+      canvas.undo_graffiti
+    end
+    def act_undo_graffiti_config(config, canvas)
+      config[:label] = N_("Undo graffiti")
+      config[:stock_id] = Gtk::Stock::UNDO
+    end
+
+    def update_graffiti_action_status(canvas)
+      graffiti_available = canvas.graffiti_mode? || canvas.have_graffiti?
+      canvas.action("Graffiti").sensitive = graffiti_available
+      canvas.action("ClearGraffiti").sensitive = canvas.have_graffiti?
+      canvas.action("UndoGraffiti").sensitive = canvas.can_undo_graffiti?
+    end
+
     def act_reset_adjustment(action, group, canvas)
       canvas.reset_adjustment
     end
     def act_reset_adjustment_config(config, canvas)
       config[:label] = N_("Reset adjustment")
       config[:stock_id] = Gtk::Stock::CLEAR
+    end
+
+    def act_expand_hole(action, group, canvas)
+      canvas.expand_hole
+    end
+    def act_expand_hole_config(config, canvas)
+      config[:label] = N_("Expand hole")
+    end
+
+    def act_narrow_hole(action, group, canvas)
+      canvas.narrow_hole
+    end
+    def act_narrow_hole_config(config, canvas)
+      config[:label] = N_("Narrow hole")
     end
   end
 end

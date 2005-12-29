@@ -6,6 +6,7 @@ module Gtk
     def activate(&block)
       @block = block
       _activate
+    ensure
       @block = nil
     end
 

@@ -83,16 +83,16 @@ match(Slide) do |slides|
           case @image_timer_auto_scroll_direction
           when :top
             canvas.adjustment_y += auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjustment_y > 1
+            canvas.activate("NextSlide") if canvas.adjustment_y > 1
           when :bottom
             canvas.adjustment_y -= auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjustment_y < -1
+            canvas.activate("NextSlide") if canvas.adjustment_y < -1
           when :right
             canvas.adjustment_x -= auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjustment_x < -1
+            canvas.activate("NextSlide") if canvas.adjustment_x < -1
           else
             canvas.adjustment_x += auto_scroll_ratio
-            canvas.move_to_next_if_can if canvas.adjustment_x > 1
+            canvas.activate("NextSlide") if canvas.adjustment_x > 1
           end
         end
       end

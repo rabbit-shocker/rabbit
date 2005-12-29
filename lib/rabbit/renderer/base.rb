@@ -23,7 +23,7 @@ module Rabbit
 
       extend Forwardable
       
-      def_delegators(:@canvas, :quit, :reload_theme, :reload_source)
+      def_delegators(:@canvas, :reload_source)
       
       attr_reader :keys, :x_dpi, :y_dpi
       attr_accessor :paper_width, :paper_height, :slides_per_page
@@ -90,11 +90,14 @@ module Rabbit
         else
           canvas = make_canvas_with_printable_renderer
           pre_print(canvas.slide_size)
+          canceled = false
           canvas.print do |i|
-            printing(i)
+            result = printing(i)
+            canceled = !result
+            result
           end
-          post_print
-          canvas.quit
+          post_print(canceled)
+          canvas.activate("Quit")
         end
       end
 
@@ -111,9 +114,9 @@ module Rabbit
           end
         end
         post_cache_all_slides(canvas, canceled)
-        canvas.quit
+        canvas.activate("Quit")
       end
-      
+
       def redraw
       end
 
@@ -126,13 +129,17 @@ module Rabbit
         canvas = off_screen_canvas
         previous_index = canvas.current_index
         pre_to_pixbuf(canvas.slide_size)
+        canceled = false
         canvas.slides.each_with_index do |slide, i|
-          to_pixbufing(i)
+          unless to_pixbufing(i)
+            canceled = true
+            break
+          end
           yield(canvas.to_pixbuf(i), i)
         end
-        post_to_pixbuf
+        post_to_pixbuf(canceled)
         canvas.move_to_if_can(previous_index)
-        canvas.quit if canvas != @canvas
+        canvas.activate("Quit") if canvas != @canvas
       end
 
       def off_screen_canvas
@@ -155,8 +162,8 @@ module Rabbit
         false
       end
 
-      def confirm_quit
-        quit
+      def confirm
+        true
       end
 
       def draw_circle(filled, x, y, w, h, color=nil, params={})
@@ -444,6 +451,20 @@ module Rabbit
         false
       end
       
+      def have_graffiti?
+        false
+      end
+      
+      def can_undo_graffiti?
+        false
+      end
+
+      def expand_hole
+      end
+
+      def narrow_hole
+      end
+      
       private
       def off_screen_renderer?
         false
@@ -451,12 +472,16 @@ module Rabbit
       
       def do_print(&block)
         pre_print(@canvas.slide_size)
+        canceled = false
         @canvas.slides.each_with_index do |slide, i|
           @canvas.move_to_if_can(i)
           @canvas.current_slide.draw(@canvas)
-          block.call(i) if block
+          if block and !block.call(i)
+            canceled = true
+            break
+          end
         end
-        post_print
+        post_print(canceled)
       end
 
       def make_canvas_with_renderer(renderer)

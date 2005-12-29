@@ -6,6 +6,14 @@ module Rabbit
       clear
     end
 
+    def have_graffiti?
+      not @segments.empty?
+    end
+
+    def can_undo?
+      not @undo_stack.empty?
+    end
+
     def button_press(x, y, width, height)
       @pressed = true
       @undo_index = nil

@@ -12,13 +12,13 @@ end
 @@auto_slide_timeout_id = Gtk.timeout_add(@auto_slide_span) do
   if canvas.last_slide?
     if @auto_slide_loop
-      canvas.move_to_first
+      canvas.activate("FirstSlide")
       true
     else
       false
     end
   else
-    canvas.move_to_next_if_can
+    canvas.activate("NextSlide")
     true
   end
 end

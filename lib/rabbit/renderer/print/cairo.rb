@@ -27,7 +27,8 @@ module Rabbit
           init_context
         end
 
-        def post_print
+        def post_print(canceled)
+          return if canceled
           @context.target.finish
         end
         

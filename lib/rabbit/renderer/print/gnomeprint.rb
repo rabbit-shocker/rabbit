@@ -41,7 +41,8 @@ module Rabbit
           @shown_page = true
         end
         
-        def post_print
+        def post_print(canceled)
+          return if canceled
           @job.close
           @job.print
         end

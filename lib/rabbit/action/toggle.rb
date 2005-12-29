@@ -1,6 +1,28 @@
 module Rabbit
   module Action
     module_function
+    def act_toggle_white_out(action, group, canvas)
+      if canvas.white_outing?
+        canvas.activate("RadioBlankShow")
+      else
+        canvas.activate("RadioBlankWhiteOut")
+      end
+    end
+    def act_toggle_white_out_config(config, canvas)
+      config[:label] = N_("White out")
+    end
+
+    def act_toggle_black_out(action, group, canvas)
+      if canvas.black_outing?
+        canvas.activate("RadioBlankShow")
+      else
+        canvas.activate("RadioBlankBlackOut")
+      end
+    end
+    def act_toggle_black_out_config(config, canvas)
+      config[:label] = N_("Black out")
+    end
+
     def act_toggle_comment_frame(action, group, canvas)
       canvas.toggle_comment_frame
     end

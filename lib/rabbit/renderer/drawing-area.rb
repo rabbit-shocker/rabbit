@@ -124,7 +124,6 @@ module Rabbit
         reset_adjustment
         clear_graffiti
         # toggle_graffiti_mode if @graffiti_mode
-        update_menu
         @area.queue_draw
       end
       
@@ -177,6 +176,7 @@ module Rabbit
       end
       
       def post_toggle_index_mode
+        @canvas.activate("ClearGraffiti")
         update_menu
         @area.queue_draw
       end
@@ -202,9 +202,10 @@ module Rabbit
 
       def printing(i)
         update_progress(i)
+        not @canvas.quitted?
       end
 
-      def post_print
+      def post_print(canceled)
         end_progress
       end
 
@@ -214,9 +215,10 @@ module Rabbit
 
       def to_pixbufing(i)
         update_progress(i)
+        not @canvas.quitted?
       end
       
-      def post_to_pixbuf
+      def post_to_pixbuf(canceled)
         end_progress
       end
 
@@ -248,12 +250,8 @@ module Rabbit
         end
       end
 
-      def confirm_quit
-        case confirm_dialog
-        when Gtk::MessageDialog::RESPONSE_OK
-          quit
-        when Gtk::MessageDialog::RESPONSE_CANCEL
-        end
+      def confirm(message)
+        confirm_dialog(message) == Gtk::MessageDialog::RESPONSE_OK
       end
 
       def reload_theme(&callback)
@@ -392,6 +390,14 @@ module Rabbit
       def graffiti_mode?
         @graffiti_mode
       end
+
+      def have_graffiti?
+        @graffiti.have_graffiti?
+      end
+      
+      def can_undo_graffiti?
+        @graffiti.can_undo?
+      end
       
       def toggle_graffiti_mode
         @graffiti_mode = !@graffiti_mode
@@ -401,11 +407,13 @@ module Rabbit
 
       def clear_graffiti
         @graffiti.clear
+        Action.update_graffiti_action_status(@canvas)
         @area.queue_draw
       end
 
       def undo_graffiti
         @graffiti.undo
+        Action.update_graffiti_action_status(@canvas)
         @area.queue_draw
       end
       
@@ -551,6 +559,7 @@ module Rabbit
           pressed_button = nil
           if @graffiti_mode and event.button == target_button
             @graffiti.button_release(event.x, event.y, width, height)
+            Action.update_graffiti_action_status(@canvas)
             true
           else
             false
@@ -613,9 +622,9 @@ module Rabbit
         @area.can_focus = true
         event_mask = Gdk::Event::BUTTON_PRESS_MASK
         event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
-        event_mask |= Gdk::Event::BUTTON1_MOTION_MASK 
-        event_mask |= Gdk::Event::BUTTON2_MOTION_MASK 
-        event_mask |= Gdk::Event::BUTTON3_MOTION_MASK 
+        event_mask |= Gdk::Event::BUTTON1_MOTION_MASK
+        event_mask |= Gdk::Event::BUTTON2_MOTION_MASK
+        event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
         @area.add_events(event_mask)
         set_realize
         set_key_press_event
@@ -843,19 +852,15 @@ module Rabbit
         handled = true
         case key_event.keyval
         when *@keys.quit_keys
-          if @canvas.processing?
-            confirm_quit
-          else
-            quit
-          end
+          @canvas.activate("Quit")
         when *@keys.move_to_next_keys
-          @canvas.move_to_next_if_can
+          @canvas.activate("NextSlide")
         when *@keys.move_to_previous_keys
-          @canvas.move_to_previous_if_can
+          @canvas.activate("PreviousSlide")
         when *@keys.move_to_first_keys
-          @canvas.move_to_first
+          @canvas.activate("FirstSlide")
         when *@keys.move_to_last_keys
-          @canvas.move_to_last
+          @canvas.activate("LastSlide")
         when Gdk::Keyval::GDK_0,
           Gdk::Keyval::GDK_1,
           Gdk::Keyval::GDK_2,
@@ -867,7 +872,7 @@ module Rabbit
           Gdk::Keyval::GDK_8,
           Gdk::Keyval::GDK_9
           index = calc_slide_number(key_event, Gdk::Keyval::GDK_0)
-          @canvas.move_to_if_can(index)
+          @canvas.activate("JumpTo") {index}
         when Gdk::Keyval::GDK_KP_0,
           Gdk::Keyval::GDK_KP_1,
           Gdk::Keyval::GDK_KP_2,
@@ -879,33 +884,33 @@ module Rabbit
           Gdk::Keyval::GDK_KP_8,
           Gdk::Keyval::GDK_KP_9
           index = calc_slide_number(key_event, Gdk::Keyval::GDK_KP_0)
-          @canvas.move_to_if_can(index)
+          @canvas.activate("JumpTo") {index}
         when *@keys.toggle_fullscreen_keys
-          @canvas.toggle_fullscreen
+          @canvas.activate("ToggleFullScreen")
         when *@keys.reload_theme_keys
-          reload_theme
+          @canvas.activate("ReloadTheme") {Utils.process_pending_events_proc}
         when *@keys.save_as_image_keys
-          @canvas.save_as_image
+          @canvas.activate("SaveAsImage")
         when *@keys.iconify_keys
-          @canvas.iconify
+          @canvas.activate("Iconify")
         when *@keys.toggle_index_mode_keys
           @canvas.activate("ToggleIndexMode")
         when *@keys.cache_all_slides_keys
-          @canvas.cache_all_slides
+          @canvas.activate("CacheAllSlides")
         when *@keys.white_out_keys
-          toggle_white_out
+          @canvas.activate("ToggleWhiteOut")
         when *@keys.black_out_keys
-          toggle_black_out
+          @canvas.activate("ToggleBlackOut")
         when *@keys.toggle_comment_frame_keys
-          toggle_comment_frame
+          @canvas.activate("ToggleCommentFrame")
         when *@keys.toggle_comment_view_keys
-          toggle_comment_view
+          @canvas.activate("ToggleCommentView")
         when *@keys.expand_hole_keys
-          expand_hole
+          @canvas.activate("ExpandHole")
         when *@keys.narrow_hole_keys
-          narrow_hole
+          @canvas.activate("NarrowHole")
         when *@keys.toggle_graffiti_mode_keys
-          toggle_graffiti_mode
+          @canvas.activate("ToggleGraffitiMode")
         else
           handled = false
         end
@@ -915,9 +920,9 @@ module Rabbit
       def handle_key_when_processing(key_event)
         case key_event.keyval
         when *@keys.quit_keys
-          confirm_quit
+          @canvas.activate("Quit")
         else
-          @canvas.logger.info(_("Processing..."))
+          @canvas.logger.warn(_("Processing..."))
         end
       end
       
@@ -926,18 +931,18 @@ module Rabbit
         if @graffiti_mode
           case key_event.keyval
           when *@keys.control.clear_graffiti_keys
-            clear_graffiti
+            @canvas.activate("ClearGraffiti")
           when *@keys.control.undo_graffiti_keys
-            undo_graffiti
+            @canvas.activate("UndoGraffiti")
           else
             handled = false
           end
         else
           case key_event.keyval
           when *@keys.control.redraw_keys
-            @canvas.redraw
+            @canvas.activate("Redraw")
           when *@keys.control.print_keys
-            @canvas.print
+            @canvas.activate("Print")
           else
             handled = false
           end
@@ -949,7 +954,7 @@ module Rabbit
         handled = true
         case key_event.keyval
         when *@keys.alt.reset_adjustment_keys
-          reset_adjustment
+          @canvas.activate("ResetAdjustment")
         else
           handled = false
         end
@@ -977,13 +982,13 @@ module Rabbit
         when 1, 5
           unless release_event.state.mod1_mask?
             add_button_handler do
-              @canvas.move_to_next_if_can
+              @canvas.activate("NextSlide")
             end
           end
         when 2, 4
           unless release_event.state.mod1_mask?
             add_button_handler do
-              @canvas.move_to_previous_if_can
+              @canvas.activate("PreviousSlide")
             end
           end
         when 3
@@ -998,8 +1003,8 @@ module Rabbit
           if @canvas.index_mode?
             index = @canvas.current_slide.slide_number(@canvas, event.x, event.y)
             if index
-              @canvas.toggle_index_mode
-              @canvas.move_to_if_can(index)
+              @canvas.activate("ToggleIndexMode")
+              @canvas.activate("JumpTo") {index}
             end
           end
           clear_button_handler
@@ -1122,11 +1127,10 @@ module Rabbit
         [w / 10, -1]
       end
       
-      def confirm_dialog
+      def confirm_dialog(message)
         flags = Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT
         dialog_type = Gtk::MessageDialog::INFO
         buttons = Gtk::MessageDialog::BUTTONS_OK_CANCEL
-        message = _("Now processing... Do you really quit?")
         dialog = Gtk::MessageDialog.new(nil, flags, dialog_type,
                                         buttons, message)
         result = dialog.run
@@ -1222,7 +1226,7 @@ module Rabbit
         super
       end
       
-      def post_to_pixbuf
+      def post_to_pixbuf(canceled)
         super
         @pixbufs = {}
       end

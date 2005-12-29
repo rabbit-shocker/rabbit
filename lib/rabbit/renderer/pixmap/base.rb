@@ -109,7 +109,7 @@ module Rabbit
         def to_pixbufing(i)
         end
         
-        def post_to_pixbuf
+        def post_to_pixbuf(canceled)
         end
         
         def clear_theme

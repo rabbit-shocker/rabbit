@@ -76,7 +76,8 @@ module Rabbit
     def_delegators(:@renderer, :to_attrs, :flag_size)
     
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
-    def_delegators(:@renderer, :confirm_quit)
+
+    def_delegators(:@renderer, :confirm)
 
     def_delegators(:@renderer, :display?, :printable?)
     def_delegators(:@renderer, :x_dpi, :y_dpi)
@@ -93,12 +94,15 @@ module Rabbit
     def_delegators(:@renderer, :adjustment_y, :adjustment_y=)
     def_delegators(:@renderer, :reset_adjustment)
 
-    def_delegators(:@renderer, :graffiti_mode?)
-    def_delegators(:@renderer, :clear_graffiti, :toggle_graffiti_mode)
+    def_delegators(:@renderer, :graffiti_mode?, :have_graffiti?)
+    def_delegators(:@renderer, :can_undo_graffiti?, :toggle_graffiti_mode)
+    def_delegators(:@renderer, :clear_graffiti, :undo_graffiti)
     
     def_delegators(:@renderer, :post_init_gui)
     
     def_delegators(:@renderer, :keys)
+
+    def_delegators(:@renderer, :expand_hole, :narrow_hole)
     
     def_delegators(:@source, :source=, :reset)
     
@@ -377,7 +381,6 @@ module Rabbit
           end
           @index_mode = true
           @renderer.index_mode_on
-          move_to_first
         end
         modified
       end
@@ -427,7 +430,7 @@ module Rabbit
         loop do
           sleep(interval)
           break if quitted? or thread[:stop]
-          redraw
+          activate("Redraw")
         end
       end
       @auto_reload_thread = thread
@@ -466,7 +469,12 @@ module Rabbit
     end
 
     def activate(name, &block)
-      action(name).activate(&block)
+      act = action(name)
+      if act
+        act.activate(&block)
+      else
+        logger.warn(_("Unknown action: %s") % name)
+      end
     end
 
     def action(name)
@@ -481,6 +489,7 @@ module Rabbit
         @apply_theme_request_queue.push(id)
         index_mode = @index_mode
         begin
+          Action.update_theme_action_status(self)
           clear_theme
           clear_index_slides
           manager = Theme::Manager.new(self) do
@@ -495,6 +504,7 @@ module Rabbit
         rescue ApplyFinish
         ensure
           @apply_theme_request_queue.delete_if {|x| x == id}
+          Action.update_theme_action_status(self)
         end
       end
     end
@@ -613,6 +623,7 @@ module Rabbit
     
     def move_to(index)
       set_current_index(index)
+      Action.update_move_slide_action_status(self)
       @renderer.post_move(current_index)
     end
 

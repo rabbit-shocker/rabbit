@@ -19,8 +19,8 @@ module Rabbit
     def initialize(actions)
       @merge = Gtk::UIManager.new
       @merge.insert_action_group(actions, 0)
-      @jump_actions = nil
-      @jump_merge_id = nil
+      @jump_to_actions = nil
+      @jump_to_merge_id = nil
       @theme_actions = nil
       @theme_merge_id = nil
       update_ui
@@ -31,13 +31,12 @@ module Rabbit
     end
 
     def update_menu(canvas)
-      update_jump_menu(canvas)
+      update_jump_to_menu(canvas)
       update_theme_menu(canvas)
-      canvas.action("PreviousSlide").sensitive = canvas.have_previous_slide?
-      canvas.action("NextSlide").sensitive = canvas.have_next_slide?
-      canvas.action("FirstSlide").sensitive = !canvas.first_slide?
-      canvas.action("LastSlide").sensitive = !canvas.last_slide?
-      canvas.action("ClearGraffiti").sensitive = canvas.graffiti_mode?
+      Action.update_move_slide_action_status(canvas)
+      Action.update_graffiti_action_status(canvas)
+      Action.update_theme_action_status(canvas)
+      Action.update_quit_action_status(canvas)
       @merge.ensure_update
       show_tearoff
     end
@@ -47,24 +46,24 @@ module Rabbit
     end
     
     private
-    def update_jump_menu(canvas)
-      @merge.remove_ui(@jump_merge_id) if @jump_merge_id
-      @merge.remove_action_group(@jump_actions) if @jump_actions
+    def update_jump_to_menu(canvas)
+      @merge.remove_ui(@jump_to_merge_id) if @jump_to_merge_id
+      @merge.remove_action_group(@jump_to_actions) if @jump_to_actions
 
-      @jump_merge_id = @merge.new_merge_id
-      @jump_actions = Gtk::ActionGroup.new("JumpActions")
-      @merge.insert_action_group(@jump_actions, 0)
-      jump_path = "/popup/Jump"
+      @jump_to_merge_id = @merge.new_merge_id
+      @jump_to_actions = Gtk::ActionGroup.new("JumpToActions")
+      @merge.insert_action_group(@jump_to_actions, 0)
+      jump_to_path = "/popup/JumpTo"
       canvas.slides.each_with_index do |slide, i|
-        name = "Jump#{i}"
+        name = "JumpTo#{i}"
         label = "#{i}: #{Utils.unescape_title(slide.title)}"
         tooltip = _("Jump to the %dth slide") % i
         action = Gtk::Action.new(name, label, tooltip, nil)
         action.signal_connect("activate") do
-          canvas.activate("Jump") {i}
+          canvas.activate("JumpTo") {i}
         end
-        @jump_actions.add_action(action)
-        @merge.add_ui(@jump_merge_id, jump_path, name, name,
+        @jump_to_actions.add_action(action)
+        @merge.add_ui(@jump_to_merge_id, jump_to_path, name, name,
                       Gtk::UIManager::AUTO, false)
       end
     end
@@ -117,10 +116,12 @@ module Rabbit
     def theme_menu_add_theme(prefix, path, entry, canvas)
       path = "#{path}/#{entry.category}"
       name = "#{prefix}ThemeEntry#{entry.name}"
-      label = _(entry.name)
+      label = _(entry.title)
       action = Gtk::Action.new(name, label, nil, nil)
       action.signal_connect("activate") do
-        canvas.activate("#{prefix}Theme") {entry}
+        canvas.activate("#{prefix}Theme") do
+          [entry, Utils.process_pending_events_proc]
+        end
       end
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, entry.name, name,
@@ -179,19 +180,23 @@ module Rabbit
     def ui_axml
       [:ui,
         [:popup,
-          *items.collect do |key, name|
-            params = {:name => name, :action => name}
-            case key
-            when :separator
-              [:separator]
-            when :item
-              [:menuitem, params]
-            when :menu
-              [:menu, params]
-            end
-          end
+          *items_to_axml(items)
         ]
       ]
+    end
+
+    def items_to_axml(items)
+      items.collect do |key, name, *others|
+        params = {:name => name, :action => name}
+        case key
+        when :separator
+          [:separator]
+        when :item
+          [:menuitem, params]
+        when :menu
+          [:menu, params, *items_to_axml(others)]
+        end
+      end
     end
     
     def items
@@ -199,7 +204,10 @@ module Rabbit
         [:item, "ToggleIndexMode"],
         [:separator],
         [:item, "ToggleGraffitiMode"],
-        [:item, "ClearGraffiti"],
+        [:menu, "Graffiti",
+          [:item, "ClearGraffiti"],
+          [:item, "UndoGraffiti"],
+        ],
         [:separator],
         [:item, "ToggleFullScreen"],
         [:separator],
@@ -210,7 +218,7 @@ module Rabbit
         [:item, "ToggleCommentFrame"],
         [:item, "ToggleCommentView"],
         [:separator],
-        [:menu, "Jump"],
+        [:menu, "JumpTo"],
         [:separator],
         [:item, "PreviousSlide"],
         [:item, "NextSlide"],
