@@ -183,6 +183,11 @@ module Rabbit
         @context.update_pango_layout(layout)
         layout
       end
+
+      private
+      def init_context
+        set_line_width(1)
+      end
       
       def set_color(color)
         @context.set_source_rgba(color.to_a)

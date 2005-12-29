@@ -274,6 +274,7 @@ module Rabbit
         def init_job
           @job = Gnome::PrintJob.new
           @context = @job.context
+          set_line_width(1)
           @config = @job.config
         end
         
