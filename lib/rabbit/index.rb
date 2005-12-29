@@ -26,15 +26,19 @@ module Rabbit
         thumbnails_set = []
         number_of_slides = 0
         canvas.renderer.pre_to_pixbuf(maker.slide_size)
+        canceled = false
         maker.each_slide_pixbuf do |pixbuf, slide_number|
-          canvas.renderer.to_pixbufing(slide_number)
+          unless canvas.renderer.to_pixbufing(slide_number)
+            canceled = true
+            break
+          end
           if slide_number.remainder(max_per_slide).zero?
             thumbnails_set << []
           end
           thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, slide_number)
           number_of_slides = slide_number
         end
-        canvas.renderer.post_to_pixbuf
+        canvas.renderer.post_to_pixbuf(canceled)
         maker.quit
         
         thumbnails_set.collect do |thumbnails|

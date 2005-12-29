@@ -258,8 +258,7 @@ module Rabbit
         if @canvas.applying?
           @need_reload_theme = true
         else
-          callback ||= Utils.process_pending_events_proc
-          super(&callback)
+          @canvas.activate("ReloadTheme") {Utils.process_pending_events_proc}
           clear_pixmaps
         end
       end
@@ -888,7 +887,7 @@ module Rabbit
         when *@keys.toggle_fullscreen_keys
           @canvas.activate("ToggleFullScreen")
         when *@keys.reload_theme_keys
-          @canvas.activate("ReloadTheme") {Utils.process_pending_events_proc}
+          reload_theme
         when *@keys.save_as_image_keys
           @canvas.activate("SaveAsImage")
         when *@keys.iconify_keys

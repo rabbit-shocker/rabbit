@@ -107,6 +107,7 @@ module Rabbit
         end
         
         def to_pixbufing(i)
+          true
         end
         
         def post_to_pixbuf(canceled)

@@ -114,9 +114,11 @@ module Rabbit
     end
 
     def update_theme_action_status(canvas)
-      canvas.action("ReloadTheme").sensitive = !canvas.applying?
-      canvas.action("ChangeTheme").sensitive = !canvas.applying?
-      canvas.action("MergeTheme").sensitive = !canvas.applying?
+      not_applying = !canvas.applying?
+      canvas.action("ReloadTheme").sensitive = not_applying
+      canvas.action("ChangeTheme").sensitive = not_applying
+      canvas.action("MergeTheme").sensitive = not_applying
+      canvas.action("CacheAllSlides").sensitive = not_applying
     end
 
     @@quit_label = N_("_Quit")
