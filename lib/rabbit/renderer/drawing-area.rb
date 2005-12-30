@@ -202,23 +202,27 @@ module Rabbit
 
       def printing(i)
         update_progress(i)
-        not @canvas.quitted?
+        continue = !@canvas.quitted?
+        continue
       end
 
       def post_print(canceled)
         end_progress
       end
 
-      def pre_to_pixbuf(slide_size)
+      def pre_make_thumbnail(slide_size)
         start_progress(slide_size)
+        @making_thumbnail_size = [width, height]
       end
 
-      def to_pixbufing(i)
+      def making_thumbnail(i)
         update_progress(i)
-        not @canvas.quitted?
+        continue = @making_thumbnail_size == [width, height] &&
+          !@canvas.quitted? && !@canvas.applying?
+        continue
       end
       
-      def post_to_pixbuf(canceled)
+      def post_make_thumbnail(canceled)
         end_progress
       end
 

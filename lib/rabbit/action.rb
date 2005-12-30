@@ -110,5 +110,13 @@ module Rabbit
 
     dir = ::File.join("rabbit", "action")
     require_files_under_directory_in_load_path(dir)
+
+    module_function
+    def update_processing_action_status(canvas)
+      canvas.action("ToggleIndexMode").sensitive = !canvas.processing?
+      canvas.action("CacheAllSlides").sensitive = !canvas.processing?
+      canvas.action("SaveAsImage").sensitive = !canvas.processing?
+      canvas.action("Print").sensitive = !canvas.processing?
+    end
   end
 end

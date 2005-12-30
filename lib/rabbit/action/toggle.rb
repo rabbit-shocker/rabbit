@@ -50,7 +50,11 @@ module Rabbit
     end
     def act_toggle_full_screen_config(config, canvas)
       config[:label] = N_("Full screen")
-      config[:stock_id] = Gtk::Stock::FULLSCREEN
+      if Gtk::Stock.const_defined?(:FULLSCREEN)
+        config[:stock_id] = Gtk::Stock::FULLSCREEN
+      else
+        config[:stock_id] = Gtk::Stock::ZOOM_FIT
+      end
     end
 
     def act_toggle_graffiti_mode(action, group, canvas)

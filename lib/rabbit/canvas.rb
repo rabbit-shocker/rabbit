@@ -307,6 +307,7 @@ module Rabbit
           if @output_html
             generator.save(file_name_format, slide_number, @saved_image_type)
           end
+          true
         end
         if @output_html and @rss_base_uri
           unless generator.save_rss(base_dir, @rss_base_uri)
@@ -487,6 +488,7 @@ module Rabbit
       _theme_name = name || theme_name
       if _theme_name and not @slides.empty?
         @apply_theme_request_queue.push(id)
+        success = false
         index_mode = @index_mode
         begin
           Action.update_theme_action_status(self)
@@ -500,12 +502,13 @@ module Rabbit
           end
           manager.apply(_theme_name)
           @renderer.post_apply_theme
-          activate("ToggleIndexMode") if index_mode
+          success = true
         rescue ApplyFinish
         ensure
           @apply_theme_request_queue.delete_if {|x| x == id}
           Action.update_theme_action_status(self)
         end
+        activate("ToggleIndexMode") if success and index_mode
       end
     end
 
@@ -550,6 +553,7 @@ module Rabbit
       end
       begin
         @processing = true
+        Action.update_processing_action_status(self)
         yield
       rescue Exception
         puts $!.class
@@ -558,6 +562,7 @@ module Rabbit
         raise
       ensure
         @processing = false
+        Action.update_processing_action_status(self)
       end
     end
     

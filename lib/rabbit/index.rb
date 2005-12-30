@@ -25,33 +25,34 @@ module Rabbit
         max_per_slide = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
         number_of_slides = 0
-        canvas.renderer.pre_to_pixbuf(maker.slide_size)
+        canvas.renderer.pre_make_thumbnail(maker.slide_size)
         canceled = false
         maker.each_slide_pixbuf do |pixbuf, slide_number|
-          unless canvas.renderer.to_pixbufing(slide_number)
+          if canvas.renderer.making_thumbnail(slide_number)
+            if slide_number.remainder(max_per_slide).zero?
+              thumbnails_set << []
+            end
+            thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, slide_number)
+            number_of_slides = slide_number
+          else
             canceled = true
-            break
           end
-          if slide_number.remainder(max_per_slide).zero?
-            thumbnails_set << []
-          end
-          thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, slide_number)
-          number_of_slides = slide_number
+          !canceled
         end
-        canvas.renderer.post_to_pixbuf(canceled)
+        canvas.renderer.post_make_thumbnail(canceled)
         maker.quit
-        
-        thumbnails_set.collect do |thumbnails|
-          Slide.new(thumbnails, number_of_slides)
+
+        if canceled
+          []
+        else
+          thumbnails_set.collect do |thumbnails|
+            Slide.new(thumbnails, number_of_slides)
+          end
         end
       end
 
       private
       def make_thumbnail_maker(canvas, width, height)
-        make_thumbnail_maker_without_frame(canvas, width, height)
-      end
-      
-      def make_thumbnail_maker_without_frame(canvas, width, height)
         new_canvas = Canvas.new(canvas.logger, Renderer::Pixmap)
         new_canvas.width = width
         new_canvas.height = height
@@ -60,13 +61,6 @@ module Rabbit
           nil
         end
         new_canvas
-      end
-
-      def make_thumbnail_maker_with_frame(canvas, width, height)
-        new_canvas = Canvas.new(canvas.logger, Renderer::DrawingArea)
-        frame = Frame.new(canvas.logger, new_canvas)
-        frame.init_gui(width, height, false)
-        frame
       end
     end
 

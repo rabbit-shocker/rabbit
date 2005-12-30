@@ -119,6 +119,7 @@ module Rabbit
       canvas.action("ChangeTheme").sensitive = not_applying
       canvas.action("MergeTheme").sensitive = not_applying
       canvas.action("CacheAllSlides").sensitive = not_applying
+      canvas.action("ToggleFullScreen").sensitive = not_applying
     end
 
     @@quit_label = N_("_Quit")
