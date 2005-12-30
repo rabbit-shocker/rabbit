@@ -25,10 +25,10 @@ module Rabbit
         max_per_slide = ROW_NUMBER * COLUMN_NUMBER
         thumbnails_set = []
         number_of_slides = 0
-        canvas.renderer.pre_make_thumbnail(maker.slide_size)
+        canvas.renderer.pre_to_pixbuf(maker.slide_size)
         canceled = false
         maker.each_slide_pixbuf do |pixbuf, slide_number|
-          if canvas.renderer.making_thumbnail(slide_number)
+          if canvas.renderer.to_pixbufing(slide_number)
             if slide_number.remainder(max_per_slide).zero?
               thumbnails_set << []
             end
@@ -39,7 +39,7 @@ module Rabbit
           end
           !canceled
         end
-        canvas.renderer.post_make_thumbnail(canceled)
+        canvas.renderer.post_to_pixbuf(canceled)
         maker.quit
 
         if canceled

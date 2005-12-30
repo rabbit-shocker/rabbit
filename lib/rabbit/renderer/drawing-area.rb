@@ -210,19 +210,19 @@ module Rabbit
         end_progress
       end
 
-      def pre_make_thumbnail(slide_size)
+      def pre_to_pixbuf(slide_size)
         start_progress(slide_size)
-        @making_thumbnail_size = [width, height]
+        @pixbufing_size = [width, height]
       end
 
-      def making_thumbnail(i)
+      def to_pixbufing(i)
         update_progress(i)
-        continue = @making_thumbnail_size == [width, height] &&
+        continue = @pixbufing_size == [width, height] &&
           !@canvas.quitted? && !@canvas.applying?
         continue
       end
       
-      def post_make_thumbnail(canceled)
+      def post_to_pixbuf(canceled)
         end_progress
       end
 
