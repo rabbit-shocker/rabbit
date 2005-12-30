@@ -86,6 +86,7 @@ module Rabbit
           else
             # @context.begin_page(slide.title) if @shown_page
             @context.begin_page if @shown_page
+            set_line_width(1)
             yield
             if @show_page
               @context.show_page
@@ -275,7 +276,6 @@ module Rabbit
         def init_job
           @job = Gnome::PrintJob.new
           @context = @job.context
-          set_line_width(1)
           @config = @job.config
         end
         
