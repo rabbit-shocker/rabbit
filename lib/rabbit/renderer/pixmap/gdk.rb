@@ -11,6 +11,10 @@ module Rabbit
             0
           end
         end
+
+        def initialize(canvas, width=nil, height=nil)
+          super
+        end
         
         def foreground=(color)
           @foreground.set_foreground(color)

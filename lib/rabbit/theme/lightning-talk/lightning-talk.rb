@@ -1,4 +1,5 @@
 include_theme("image")
+include_theme("default-text")
 include_theme("lightning-talk-toolkit")
 
 match(TitleSlide) do |slides|

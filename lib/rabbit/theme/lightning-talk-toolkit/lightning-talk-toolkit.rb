@@ -1,5 +1,6 @@
 @lightning_talk_proc_name ||= "lightning-talk"
 @lightning_talk_color ||= "black"
+@lightning_talk_font_family ||= @font_family
 @lightning_talk_background_color ||= "white"
 @lightning_talk_contact_information ||= nil
 @lightning_talk_contact_information_font_size ||= @x_small_font_size
@@ -11,6 +12,7 @@
   :proc_name => @lightning_talk_proc_name,
   :size => @xx_large_font_size,
   :color => @lightning_talk_color,
+  :family => @lightning_talk_font_family,
   :background_color => @lightning_talk_background_color,
   :contact_information => @lightning_talk_contact_information,
   :contact_information_size => @lightning_talk_contact_information_font_size,
@@ -111,8 +113,13 @@ def setup_lightning_talk_headline(head)
       
       clear_pre_draw_procs
       clear_post_draw_procs
-      
-      font :size => params[:size], :color => params[:color]
+
+      font_params = {
+        :size => params[:size],
+        :color => params[:color],
+        :family => params[:family],
+      }
+      font(font_params)
       self.wrap_mode = params[:wrap_mode]
       
       orig_x = orig_y = orig_w = orig_h = nil
