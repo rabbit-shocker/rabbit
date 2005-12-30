@@ -39,22 +39,25 @@ A presentation tool
   * mathematical characters (('&Sigma;'))(('&sum;sub:i=0'))
   * display image
   * auto reload modified source
-  * reload theme
 
 = More available things
 
+  * reload theme
   * auto generation of index page
   * right click menu
   * screenshot on the off screen
   * PS/PDF output (but quality is ...)
-  * Internationalized message
-  * Table
 
 = More more ...
 
+  * Internationalized message
+  * Table
   * colorize source
   * funny themes
   * graffiti on the slide
+
+= More more more ...
+
   * inline image
 
 = Not available
@@ -169,6 +172,19 @@ What about?
 
 What about?
 
+= May be added color
+
+What about?
+
+  # enscript ruby
+  like
+  this
+  def It's
+    OK?
+  end
+
+What about?
+
 = Itemization
 
   (1) What
@@ -214,16 +230,20 @@ What about?
 
 Ahh, I'll set up more better documents.
 
-= Key bindings (basic)
+= Key (basic)
 
 : Quit
    q, Esc
-: Next page
-   n, f, j, l, Spc, Ret, Tab, +, ↓, →, left click and so on.
-: Previous page
-   p, b, k, h, BS, Del, -, ↑, ←, center click and so on.
 
-= Key bindings (convenience)
+: Next page
+   n, f, j, l, Spc, Ret, Tab, +, (('&DownArrow;')),
+   (('&RightArrow;')), left click, ...
+
+: Previous page
+   p, b, k, h, BS, Del, -, (('&UpArrow;')),
+   (('&LeftArrow;')), center click, ...
+
+= Key (convenience)
 
 : Go to title page
    a, 0, <, Home
@@ -232,7 +252,7 @@ Ahh, I'll set up more better documents.
 : Go to last page
    e, $, >, End
 
-= Key bindings (presentation)
+= Key (presentation)
 
 : Toggle full screen
    F5, F10, F11
@@ -240,10 +260,10 @@ Ahh, I'll set up more better documents.
 : Toggle index mode
    i
 
-: Go to specified page in index mode
+: Go to the page in index mode
    double click
 
-= Key bindings (feature)
+= Key (feature)
 
 : Screenshot
    save each page as image
@@ -255,7 +275,7 @@ Ahh, I'll set up more better documents.
 
    Ctrl+p
 
-= Key binding (draw)
+= Key (draw)
 
 : Redraw
    Ctrl+l
@@ -266,7 +286,7 @@ Ahh, I'll set up more better documents.
 : Reset slide adjustment
    Alt+a
 
-= Key binding (hole)
+= Key (hole)
 
 : Expand hole
    E
@@ -274,7 +294,7 @@ Ahh, I'll set up more better documents.
 : Narrow hole
    N
 
-= Key binding (etc)
+= Key (etc)
 
 : Iconify
    z
