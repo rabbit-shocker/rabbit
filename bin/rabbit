@@ -13,6 +13,7 @@ def parse(args=ARGV, logger=nil)
     options.base = nil
     options.source_type = Rabbit::Source::File
     options.full_screen = false
+    options.index_mode = false
     options.width = 800
     options.height = 600
     options.paper_width = nil
@@ -105,10 +106,16 @@ def parse(args=ARGV, logger=nil)
       options.base = base
     end
 
-    opts.on("-f", "--full-screen",
-            _("Turn on full screen mode."),
-            "(#{options.full_screen})") do
-      options.full_screen = true
+    opts.on("-f", "--[no-]full-screen",
+            _("Toggle full screen mode."),
+            "(#{options.full_screen ? 'yes' : 'no'})") do |bool|
+      options.full_screen = bool
+    end
+
+    opts.on("--[no-]index-mode",
+            _("Toggle index mode."),
+            "(#{options.index_mode ? 'yes' : 'no'})") do |bool|
+      options.index_mode = bool
     end
 
     opts.on("-w", "--width [WIDTH]",
@@ -560,6 +567,7 @@ def do_save_as_image(options, logger)
   setup_paper_size(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
+  canvas.activate("ToggleIndexMode") if options.index_mode
   canvas.save_as_image
 end
 
@@ -579,6 +587,7 @@ def do_display(options, logger)
   apply_theme_if_need(frame, options)
   parse_rd(frame, options, logger, true)
   frame.fullscreen if options.full_screen
+  canvas.activate("ToggleIndexMode") if options.index_mode
 
   front = make_front(canvas, options)
   setup_druby(front, options, logger) if options.use_druby

@@ -297,8 +297,15 @@ with the following.
    
    Default is auto-detect.
 
-: -f, --full-screen
-   Invoked with full screen mode.
+: -f, --full-screen, --no-f, --no-full-screen
+   Specifies whether Rabbit is invoked with full screen mode.
+
+   Default is no.
+
+: --index-mode, --no-index-mode
+   Specifies whether Rabbit is invoked with index mode.
+
+   Default is no.
 
 : -w, --width
    Specifies the width of window.
