@@ -27,14 +27,29 @@ end
 opts.parse!(ARGV)
 
 ARGV.each do |rd|
-  base_name = File.basename(rd, ".rd")
-  output_dir = File.join(options.output_base, base_name)
-  FileUtils.mkdir_p(output_dir)
-  puts("processing #{rd}...")
-  system(options.rabbit,
-         "-s",
-         "-b", File.join(output_dir, base_name),
-         "-i", "jpg",
-         "-I", File.dirname(rd),
-         rd)
+  original_base_name = File.basename(rd, ".rd")
+  themes = [nil]
+  case original_base_name
+  when "rabbit"
+    themes << "red-frame"
+  when "lightning-talk"
+    themes << "lightning-talk-with-contact"
+  end
+  themes.each do |theme|
+    base_name = original_base_name.dup
+    base_name << "-#{theme.sub(/^#{base_name}-/, '')}" if theme
+    output_dir = File.join(options.output_base, base_name)
+    FileUtils.mkdir_p(output_dir)
+    puts("processing #{rd}...")
+    args = [
+      "-s",
+      "-b", File.join(output_dir, base_name),
+      "-i", "jpg",
+      "-I", File.dirname(rd),
+    ]
+    args.concat(["-t", theme]) if theme
+    args << rd
+    system(*(options.rabbit.split + args))
+    system(*(options.rabbit.split + ["--index-mode"] + args))
+  end
 end
