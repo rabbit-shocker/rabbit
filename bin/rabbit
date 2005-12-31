@@ -108,13 +108,13 @@ def parse(args=ARGV, logger=nil)
 
     opts.on("-f", "--[no-]full-screen",
             _("Toggle full screen mode."),
-            "(#{options.full_screen ? 'yes' : 'no'})") do |bool|
+            "(#{options.full_screen ? 'on' : 'off'})") do |bool|
       options.full_screen = bool
     end
 
     opts.on("--[no-]index-mode",
             _("Toggle index mode."),
-            "(#{options.index_mode ? 'yes' : 'no'})") do |bool|
+            "(#{options.index_mode ? 'on' : 'off'})") do |bool|
       options.index_mode = bool
     end
 
