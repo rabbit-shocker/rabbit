@@ -78,7 +78,17 @@ module Rabbit
         end
         false
       end
+      init_icon_list
       init_notebook
+    end
+
+    def init_icon_list
+      image_theme = Theme::Searcher.find_theme("rabbit-images", true)
+      file = Theme::Searcher.find_file("lavie-icon.png", [image_theme])
+      loader = ImageLoader.new(file)
+      @window.icon_list = [loader.pixbuf]
+    rescue LoadError
+      @logger.warn($!)
     end
     
     def init_notebook
