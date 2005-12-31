@@ -85,7 +85,7 @@ def setup_lightning_talk_slide(slide)
       if contact_information
         add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
           unless simulation
-            text = Text.new(contact_information)
+            text = Element::Text.new(contact_information)
             params = {
               :size => contact_information_size,
               :family => contact_information_family,

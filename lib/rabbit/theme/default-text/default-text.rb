@@ -109,6 +109,7 @@ end
 
 match("**", Foottext) do |texts|
   texts.prop_set("size", @xx_small_font_size)
+  set_font_family(texts)
 end
 
 match("**", Footnote) do |notes|
