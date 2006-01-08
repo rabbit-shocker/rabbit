@@ -501,6 +501,8 @@ def setup_druby(front, options, logger)
   begin
     DRb.start_service(options.druby_uri, front)
     logger.info(DRb.uri) if options.output_druby_uri
+  rescue SocketError
+    logger.error($!)
   rescue Errno::EADDRINUSE
     logger.error(_("dRuby URI <%s> is in use.") % options.druby_uri)
   end
