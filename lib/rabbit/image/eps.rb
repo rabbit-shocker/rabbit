@@ -104,8 +104,6 @@ module Rabbit
           tmp.puts("#{x} neg #{y} neg translate")
           tmp.print(File.open(@filename) {|f| f.read})
           tmp.close
-          tmp.open
-          tmp.close
           yield tmp.path
         else
           yield @filename
