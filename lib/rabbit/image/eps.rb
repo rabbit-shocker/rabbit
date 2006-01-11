@@ -71,6 +71,7 @@ module Rabbit
           if GS_COMMANDS.any? {|gs| run(gs, *args)}
             begin
               tmp.open
+              tmp.binmode
               tmp.read
             ensure
               tmp.close
