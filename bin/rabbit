@@ -459,11 +459,12 @@ def parse_rd(target, options, logger, background=false)
   source = make_source(options, ARGV, logger)
   source.base = options.base if options.base
   if background
-    callback = Rabbit::Utils.process_pending_events_proc
+    Rabbit::Utils.process_while_idle_time do |callback|
+      target.parse_rd(source, callback)
+    end
   else
-    callback = nil
+    target.parse_rd(source)
   end
-  target.parse_rd(source, callback)
 end
 
 def setup_image_info(target, options)

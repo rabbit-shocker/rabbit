@@ -103,6 +103,37 @@ module Rabbit
       end
     end
 
+    def make_pull(last_value=nil)
+      ret = nil
+      do_next = Proc.new do
+        callback = Proc.new do |result|
+          callcc do |_do_next|
+            do_next = Proc.new {_do_next.call}
+            ret.call(result)
+          end
+        end
+        yield(callback)
+      end
+      
+      Proc.new do
+        callcc do |ret|
+          do_next.call
+          ret.call(last_value)
+        end
+      end
+    end
+
+    def process_while_idle_time(callback=nil)
+      callback ||= Proc.new {|ret| ret.call(true)}
+      pull = Rabbit::Utils.make_pull(false) do |ret|
+        yield(Proc.new {|*rest| callback.call(ret, *rest)})
+      end
+      pull.call
+      Gtk.idle_add do
+        pull.call
+      end
+    end
+
     def init_by_constants_as_default_value(obj)
       klass = obj.class
       klass.constants.each do |name|
@@ -219,6 +250,5 @@ module Rabbit
         yield
       end
     end
-      
   end
 end
