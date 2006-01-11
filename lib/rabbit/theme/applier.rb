@@ -1,5 +1,6 @@
 require 'delegate'
 
+require 'rabbit/utils'
 require 'rabbit/element'
 require 'rabbit/image'
 require 'rabbit/theme/searcher'
@@ -157,8 +158,7 @@ module Rabbit
       end
       
       def windows?
-        # Gdk.windowing_win32? # what about this?
-        /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
+        Utils.windows?
       end
 
       def match(*paths, &block)

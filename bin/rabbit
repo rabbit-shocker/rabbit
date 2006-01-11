@@ -587,7 +587,7 @@ def do_display(options, logger)
   setup_print_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
   apply_theme_if_need(frame, options)
-  parse_rd(frame, options, logger, true)
+  parse_rd(frame, options, logger, !Rabbit::Utils.windows?)
   frame.fullscreen if options.full_screen
   canvas.activate("ToggleIndexMode") if options.index_mode
 
