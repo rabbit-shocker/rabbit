@@ -6,28 +6,33 @@ $Id$
 
 == Install Ruby
 
-Use ((<One-Click Ruby Installer
-|URL:http://rubyforge.org/projects/rubyinstaller/>))
+Install ruby 1.8.4.
+
+: ruby-1.8.4-i386-mswin32.zip
+   ((<URL:ftp://ftp.ruby-lang.org/pub/ruby/binaries/mswin32/ruby-1.8.4-i386-mswin32.zip>))
 
 == Install RDTool
 
-Copy extracted files of the following archive to the
-directory which is installed ruby.
-* ((<URL:http://ftp.ruby-lang.org/pub/ruby/binaries/mingw/1.8/ext/rdtool-0.6.14-i386-mingw32-1.8.tar.gz>))
+Install ((<RAA:rdtool>)).
+
+Extract the following archive and execute setup.rb to install.
+
+: rdtool-0.6.20.tar.gz
+   ((<URL:http://www.moonwolf.com/ruby/archive/rdtool-0.6.20.tar.gz>))
 
 == Install Ruby/GTK2
 
-Execute install.rb to install.
+Extract the following archive and execute install.rb to install.
 
-: ruby-gtk2-0.10.0-2-i386-msvcrt-1.8.zip
-    * ((<URL:http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.10.0-2-i386-msvcrt-1.8.zip?download>))
+: ruby-gtk2-0.14.1-1-i386-msvcrt-1.zip
+   ((<URL:http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.14.1-1-i386-msvcrt-1.zip>))
 
 == Install GTK+ 2
 
 Install GTK+ 2 package of GLADE for Windows.
 
-: gtk+-win32-aio-2.4-rc15
-    * ((<URL:http://gladewin32.sourceforge.net/modules.php?name=Downloads&d_op=getit&lid=43>))
+: gtk-win32-2.8.8-rc2.exe
+   ((<URL:http://gladewin32.sourceforge.net/modules/wfdownloads/visit.php?lid=95>))
 
 == Install Rabbit!!
 
