@@ -11,28 +11,20 @@ module Rabbit
     COLUMN_NUMBER = 4
     
     class << self
-      def make_index_slides(canvas)
-        thumbnail_width = canvas.width / (COLUMN_NUMBER + 1)
-        thumbnail_height = canvas.height / (ROW_NUMBER + 1)
-
-        maker = make_thumbnail_maker(canvas, thumbnail_width, thumbnail_height)
+      def make_thumbnails(canvas, width, height)
+        maker = make_thumbnail_maker(canvas, width, height)
         maker.apply_theme(canvas.theme_name) if canvas.theme_name
 
         canvas.source_force_modified(true) do |source|
           maker.parse_rd(source)
         end
 
-        max_per_slide = ROW_NUMBER * COLUMN_NUMBER
-        thumbnails_set = []
-        number_of_slides = 0
+        thumbnails = []
         canvas.renderer.pre_to_pixbuf(maker.slide_size)
         canceled = false
         maker.each_slide_pixbuf do |pixbuf, slide_number|
           if canvas.renderer.to_pixbufing(slide_number)
-            if slide_number.remainder(max_per_slide).zero?
-              thumbnails_set << []
-            end
-            thumbnails_set.last << ThumbnailPixbuf.new(pixbuf, slide_number)
+            thumbnails << ThumbnailPixbuf.new(pixbuf, slide_number)
             number_of_slides = slide_number
           else
             canceled = true
@@ -43,11 +35,32 @@ module Rabbit
         maker.quit
 
         if canceled
-          []
+          nil
         else
-          thumbnails_set.collect do |thumbnails|
-            Slide.new(thumbnails, number_of_slides)
+          thumbnails
+        end
+      end
+      
+      def make_index_slides(canvas)
+        width = canvas.width / (COLUMN_NUMBER + 1)
+        height = canvas.height / (ROW_NUMBER + 1)
+
+        thumbnails = make_thumbnails(canvas, width, height)
+        return [] unless thumbnails
+
+        max_per_slide = ROW_NUMBER * COLUMN_NUMBER
+        thumbnails_set = []
+        number_of_slides = 0
+        thumbnails.each_with_index do |thumbnail, slide_number|
+          if slide_number.remainder(max_per_slide).zero?
+            thumbnails_set << []
           end
+          thumbnails_set.last << thumbnail
+          number_of_slides = slide_number
+        end
+
+        thumbnails_set.collect do |thumbnails|
+          Slide.new(thumbnails, number_of_slides)
         end
       end
 
