@@ -802,9 +802,9 @@ module Rabbit
         @area.signal_connect("scroll_event") do |widget, event|
           case event.direction
           when Gdk::EventScroll::Direction::UP
-            @canvas.move_to_previous_if_can
+            @canvas.activate("PreviousSlide")
           when Gdk::EventScroll::Direction::DOWN
-            @canvas.move_to_next_if_can
+            @canvas.activate("NextSlide")
           end
         end
       end
