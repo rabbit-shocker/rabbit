@@ -427,18 +427,26 @@ module Rabbit
 
     def start_auto_reload_thread(interval)
       stop_auto_reload_thread
-      thread = Thread.new do
-        loop do
-          sleep(interval)
-          break if quitted? or thread[:stop]
+      timer = GLib::Timeout.add(interval * 1000) do
+        if quitted?
+          false
+        else
           activate("Redraw")
+          true
         end
       end
-      @auto_reload_thread = thread
+      @auto_reload_timer = timer
     end
 
     def stop_auto_reload_thread
-      @auto_reload_thread[:stop] = true if @auto_reload_thread
+      if @auto_reload_timer
+        if GLib::Source.respond_to?(:remove)
+          GLib::Source.remove(@auto_reload_timer)
+        else
+          Gtk.timeout_remove(@auto_reload_timer)
+        end
+        @auto_reload_timer = nil
+      end
     end
 
     def append_comment(comment)
