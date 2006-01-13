@@ -6,8 +6,6 @@ if @clock_auto_update.nil?
   @clock_auto_update = true
 end
 
-@@clock_auto_update_thread = nil
-
 @clock_props ||= {
   "size" => @xx_small_font_size,
   "font_family" => @font_family,
@@ -16,12 +14,12 @@ end
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
-  stop_auto_reload_thread
+  stop_auto_reload_timer
 
   break if @clock_uninstall
 
   if @clock_auto_update
-    start_auto_reload_thread(1)
+    start_auto_reload_timer(1)
   end
   
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|

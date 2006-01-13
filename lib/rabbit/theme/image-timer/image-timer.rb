@@ -27,12 +27,12 @@ end
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
-  stop_auto_reload_thread
+  stop_auto_reload_timer
   
   break if @image_timer_uninstall
 
   if @image_timer_auto_update
-    start_auto_reload_thread(@image_timer_interval)
+    start_auto_reload_timer(@image_timer_interval)
   end
 
   init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"

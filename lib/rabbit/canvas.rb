@@ -124,7 +124,7 @@ module Rabbit
       @quitted = false
       @parse_request_queue = []
       @apply_theme_request_queue = []
-      @auto_reload_thread = nil
+      @auto_reload_timer = nil
       @output_html = false
       @rss_base_uri = true
       init_comment(comment_source, comment_encoding)
@@ -425,8 +425,8 @@ module Rabbit
       @processing
     end
 
-    def start_auto_reload_thread(interval)
-      stop_auto_reload_thread
+    def start_auto_reload_timer(interval)
+      stop_auto_reload_timer
       timer = GLib::Timeout.add(interval * 1000) do
         if quitted?
           false
@@ -438,7 +438,7 @@ module Rabbit
       @auto_reload_timer = timer
     end
 
-    def stop_auto_reload_thread
+    def stop_auto_reload_timer
       if @auto_reload_timer
         if GLib::Source.respond_to?(:remove)
           GLib::Source.remove(@auto_reload_timer)
@@ -579,7 +579,7 @@ module Rabbit
     end
     
     def clear
-      stop_auto_reload_thread
+      stop_auto_reload_timer
       clear_slides
       clear_index_slides
       modified

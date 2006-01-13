@@ -23,17 +23,16 @@ end
 @timer_interval ||= 1
 
 @timer_limit_time = nil
-@@timer_auto_update_thread = nil
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
 
-  stop_auto_reload_thread
+  stop_auto_reload_timer
 
   break if @timer_uninstall
   
   if @timer_auto_update
-    start_auto_reload_thread(@timer_interval)
+    start_auto_reload_timer(@timer_interval)
   end
   
   init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"

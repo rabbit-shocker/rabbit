@@ -1,4 +1,5 @@
 require 'delegate'
+require 'forwardable'
 
 require 'rabbit/utils'
 require 'rabbit/element'
@@ -45,6 +46,12 @@ module Rabbit
       include Searcher
       include DirtyCount
 
+      extend Forwardable
+
+      logger_methods = [:debug, :info, :warn, :error, :fatal, :unknown]
+      def_delegators(:logger, *logger_methods)
+      private *logger_methods
+
       NORMALIZED_WIDTH = 91.0
       NORMALIZED_HEIGHT = 67.5
 
@@ -84,7 +91,7 @@ module Rabbit
         begin
           apply_theme(name)
         rescue ThemeExit
-          logger.info($!.message) if $!.have_message?
+          info($!.message) if $!.have_message?
         end
       end
 
@@ -112,6 +119,10 @@ module Rabbit
         @theme.canvas
       end
 
+      def logger
+        canvas.logger
+      end
+      
       def print?
         canvas.printable?
       end
@@ -421,12 +432,28 @@ module Rabbit
         end
       end
 
-      def start_auto_reload_thread(interval)
-        canvas.start_auto_reload_thread(interval)
+      def start_auto_reload_timer(interval)
+        canvas.start_auto_reload_timer(interval)
       end
 
+      def stop_auto_reload_timer
+        canvas.stop_auto_reload_timer
+      end
+
+      # For backward compatibility
+      def start_auto_reload_thread(interval)
+        format = _("%s is deprecated. Use %s instead.")
+        message = format % ["start_auto_reload_thread",
+                            "start_auto_reload_timer"]
+        warn(message)
+        start_auto_reload_timer(interval)
+      end
       def stop_auto_reload_thread
-        canvas.stop_auto_reload_thread
+        format = _("%s is deprecated. Use %s instead.")
+        message = format % ["stop_auto_reload_thread",
+                            "stop_auto_reload_timer"]
+        warn(message)
+        stop_auto_reload_timer
       end
 
       def dirtied
