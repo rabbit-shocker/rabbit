@@ -104,29 +104,28 @@ module Rabbit
     end
 
     def make_pull(last_value=nil)
-      ret = nil
-      do_next = Proc.new do
-        callback = Proc.new do |result|
+      _return = nil
+      _next = Proc.new do
+        __return = Proc.new do |result|
           callcc do |_do_next|
-            do_next = Proc.new {_do_next.call}
-            ret.call(result)
+            _next = Proc.new {_do_next.call}
+            _return.call(result)
           end
         end
-        yield(callback)
+        yield(__return)
       end
       
       Proc.new do
-        callcc do |ret|
-          do_next.call
-          ret.call(last_value)
+        callcc do |_return|
+          _next.call
+          _return.call(last_value)
         end
       end
     end
 
-    def process_while_idle_time(callback=nil)
-      callback ||= Proc.new {|ret| ret.call(true)}
-      pull = Rabbit::Utils.make_pull(false) do |ret|
-        yield(Proc.new {|*rest| callback.call(ret, *rest)})
+    def process_while_idle_time
+      pull = Rabbit::Utils.make_pull(false) do |_return|
+        yield(_return)
       end
       pull.call
       Gtk.idle_add do

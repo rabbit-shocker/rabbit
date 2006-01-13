@@ -459,8 +459,8 @@ def parse_rd(target, options, logger, background=false)
   source = make_source(options, ARGV, logger)
   source.base = options.base if options.base
   if background
-    Rabbit::Utils.process_while_idle_time do |callback|
-      target.parse_rd(source, callback)
+    Rabbit::Utils.process_while_idle_time do |_return|
+      target.parse_rd(source, Proc.new {_return.call(true)})
     end
   else
     target.parse_rd(source)
