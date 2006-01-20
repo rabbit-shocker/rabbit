@@ -237,12 +237,15 @@ module Rabbit
         unless @pixmap.has_key?(@canvas.slides[i])
           @pixmap[@canvas.slides[i]] = canvas.renderer[canvas.slides[i]]
         end
-        @caching_size == [width, height]
+        continue = @caching_size == [width, height] &&
+          !@canvas.quitted? && !@canvas.applying?
+        continue
       end
       
       def post_cache_all_slides(canvas, canceled)
         end_progress
         @caching = false
+        return if @canvas.quitted?
         if canceled
           reload_theme
         else
