@@ -92,44 +92,20 @@ module Rabbit
     end
 
     def process_pending_events
-      while Gtk.events_pending?
-        Gtk.main_iteration
+      if events_pending_available?
+        while Gtk.events_pending?
+          Gtk.main_iteration
+        end
       end
     end
-    
+
+    def events_pending_available?
+      !windows? or (Gtk::BINDING_VERSION <=> [0, 14, 1]) > 0
+    end
+
     def process_pending_events_proc
       Proc.new do
         process_pending_events
-      end
-    end
-
-    def make_pull(last_value=nil)
-      _return = nil
-      _next = Proc.new do
-        __return = Proc.new do |result|
-          callcc do |_do_next|
-            _next = Proc.new {_do_next.call}
-            _return.call(result)
-          end
-        end
-        yield(__return)
-      end
-      
-      Proc.new do
-        callcc do |_return|
-          _next.call
-          _return.call(last_value)
-        end
-      end
-    end
-
-    def process_while_idle_time
-      pull = Rabbit::Utils.make_pull(false) do |_return|
-        yield(_return)
-      end
-      pull.call
-      Gtk.idle_add do
-        pull.call
       end
     end
 
