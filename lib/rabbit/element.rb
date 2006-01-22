@@ -30,7 +30,7 @@ module Rabbit
         @default_prop = {}
         clear_theme
       end
-      
+
       def draw(simulation=false)
         x, y, w, h = setup_padding(@x, @y, @w, @h)
         x, y, w, h = _draw(@canvas, x, y, w, h, simulation)
@@ -319,6 +319,10 @@ module Rabbit
 
       def default_prop
         @default_prop.dup
+      end
+
+      def match?(pattern)
+        pattern === text
       end
 
       protected
@@ -635,6 +639,12 @@ module Rabbit
         @elements.unshift(element)
         element.parent = self
         dirty!
+      end
+
+      def text
+        @elements.collect do |element|
+          element.text
+        end.join("\n")
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
@@ -1358,6 +1368,10 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         draw_image(canvas, x, y, w, h, simulation)
+      end
+
+      def text
+        @caption.to_s
       end
 
       def to_html
