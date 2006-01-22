@@ -205,6 +205,7 @@ module Rabbit
 
     def act_search_slide_forward(action, group, canvas)
       canvas.search_slide(true)
+      update_saarch_action_status(canvas)
     end
     def act_search_slide_forward_config(config, canvas)
       config[:label] = N_("Search slide forward")
@@ -212,9 +213,42 @@ module Rabbit
 
     def act_search_slide_backward(action, group, canvas)
       canvas.search_slide(false)
+      update_saarch_action_status(canvas)
     end
     def act_search_slide_backward_config(config, canvas)
       config[:label] = N_("Search slide backward")
+    end
+
+    def act_search_slide_forward_next(action, group, canvas)
+      canvas.search_slide(true)
+      update_saarch_action_status(canvas)
+    end
+    def act_search_slide_forward_config(config, canvas)
+      config[:label] = N_("Search slide forward next")
+    end
+
+    def act_search_slide_backward_next(action, group, canvas)
+      canvas.search_slide(false)
+      update_saarch_action_status(canvas)
+    end
+    def act_search_slide_backward_next_config(config, canvas)
+      config[:label] = N_("Search slide backward next")
+    end
+
+    def act_stop_slide_search(action, group, canvas)
+      canvas.stop_slide_search
+      update_saarch_action_status(canvas)
+    end
+    def act_stop_slide_search_config(config, canvas)
+      config[:label] = N_("Stop slide search")
+    end
+
+    def update_saarch_action_status(canvas)
+      canvas.action("SearchSlideForward").sensitive = !canvas.searching?
+      canvas.action("SearchSlideBackward").sensitive = !canvas.searching?
+      canvas.action("SearchSlideForwardNext").sensitive = canvas.searching?
+      canvas.action("SearchSlideBackwardNext").sensitive = canvas.searching?
+      canvas.action("StopSlideSearch").sensitive = canvas.searching?
     end
   end
 end

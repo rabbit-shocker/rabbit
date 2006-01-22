@@ -104,7 +104,7 @@ module Rabbit
 
     def_delegators(:@renderer, :expand_hole, :narrow_hole)
 
-    def_delegators(:@renderer, :search_slide)
+    def_delegators(:@renderer, :search_slide, :stop_slide_search, :searching?)
 
     def_delegators(:@source, :source=, :reset)
 
@@ -501,9 +501,15 @@ module Rabbit
     def activate(name, &block)
       act = action(name)
       if act
-        act.activate(&block)
+        if act.sensitive?
+          act.activate(&block)
+          true
+        else
+          false
+        end
       else
         logger.warn(_("Unknown action: %s") % name)
+        false
       end
     end
 
@@ -520,7 +526,7 @@ module Rabbit
         success = false
         index_mode = @index_mode
         begin
-          Action.update_theme_action_status(self)
+          Action.update_status(self)
           clear_theme
           clear_index_slides
           manager = Theme::Manager.new(self) do
@@ -535,7 +541,7 @@ module Rabbit
         rescue ApplyFinish
         ensure
           @apply_theme_request_queue.delete_if {|x| x == id}
-          Action.update_theme_action_status(self)
+          Action.update_status(self)
         end
         activate("ToggleIndexMode") if success and index_mode
       end
@@ -582,7 +588,7 @@ module Rabbit
       end
       begin
         @processing = true
-        Action.update_processing_action_status(self)
+        Action.update_status(self)
         yield
       rescue Exception
         puts $!.class
@@ -591,7 +597,7 @@ module Rabbit
         raise
       ensure
         @processing = false
-        Action.update_processing_action_status(self)
+        Action.update_status(self)
       end
     end
     
@@ -657,7 +663,7 @@ module Rabbit
     
     def move_to(index)
       set_current_index(index)
-      Action.update_move_slide_action_status(self)
+      Action.update_status(self)
       @renderer.post_move(current_index)
     end
 

@@ -456,6 +456,15 @@ module Rabbit
         end
       end
 
+      def stop_slide_search
+        @search_window.hide
+        @search_window = nil
+      end
+
+      def searching?
+        !@search_window.nil?
+      end
+
       def connect_key(keyval, modifier, flags, &block)
         @user_accel_group.connect(keyval, modifier, flags, &block)
       end
@@ -979,6 +988,26 @@ module Rabbit
           @canvas.activate("ToggleGraffitiMode")
           true
         end
+        keys = Keys::SEARCH_SLIDE_FORWARD_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideForward")
+        end
+        keys = Keys::SEARCH_SLIDE_BACKWARD_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideBackward")
+        end
+        keys = Keys::SEARCH_SLIDE_FORWARD_NEXT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideForwardNext")
+        end
+        keys = Keys::SEARCH_SLIDE_BACKWARD_NEXT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideBackwardNext")
+        end
+        keys = Keys::STOP_SLIDE_SEARCH_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("StopSlideSearch")
+        end
       end
 
       def init_control_keys
@@ -1016,12 +1045,22 @@ module Rabbit
         keys = Keys::Control::SEARCH_SLIDE_FORWARD_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("SearchSlideForward")
-          true
         end
         keys = Keys::Control::SEARCH_SLIDE_BACKWARD_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("SearchSlideBackward")
-          true
+        end
+        keys = Keys::Control::SEARCH_SLIDE_FORWARD_NEXT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideForwardNext")
+        end
+        keys = Keys::Control::SEARCH_SLIDE_BACKWARD_NEXT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideBackwardNext")
+        end
+        keys = Keys::Control::STOP_SLIDE_SEARCH_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("StopSlideSearch")
         end
       end
 
@@ -1248,9 +1287,7 @@ module Rabbit
           search_slide_with_current_input(true)
         end
         entry.signal_connect("activate") do
-          search_slide_with_current_input
-          @search_window.hide
-          @search_window = nil
+          search_slide_with_current_input(true)
           true
         end
       end

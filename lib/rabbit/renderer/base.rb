@@ -467,6 +467,13 @@ module Rabbit
       def search_slide(forward=true)
       end
 
+      def stop_slide_search
+      end
+
+      def searching?
+        false
+      end
+
       def connect_key(keyval, modifier, flags, &block)
       end
 

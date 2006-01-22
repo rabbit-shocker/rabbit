@@ -32,6 +32,7 @@ module Rabbit
     @@actions = []
     @@toggle_actions = []
     @@radio_actions = []
+    @@update_status_methods = []
     class << self
       def method_added(name)
         case name.to_s
@@ -43,6 +44,8 @@ module Rabbit
           @@toggle_actions << [Utils.to_class_name($1), name]
         when /^act_(.+)$/
           @@actions << [Utils.to_class_name($1), name]
+        when /^update_(.+)_status$/
+          @@update_status_methods << name
         end
       end
 
@@ -55,6 +58,12 @@ module Rabbit
         group.add_toggle_actions(actions)
         add_radio_actions(group, @@radio_actions, canvas)
         group
+      end
+
+      def update_status(canvas)
+        @@update_status_methods.each do |method|
+          __send__(method, canvas)
+        end
       end
 
       private

@@ -121,6 +121,26 @@ module Rabbit
       Gdk::Keyval::GDK_G,
     ]
 
+    SEARCH_SLIDE_FORWARD_KEYS = [
+      Gdk::Keyval::GDK_slash,
+    ]
+
+    SEARCH_SLIDE_BACKWARD_KEYS = [
+      Gdk::Keyval::GDK_question,
+    ]
+
+    SEARCH_SLIDE_FORWARD_NEXT_KEYS = [
+      Gdk::Keyval::GDK_n,
+    ]
+
+    SEARCH_SLIDE_BACKWARD_NEXT_KEYS = [
+      Gdk::Keyval::GDK_N,
+    ]
+
+    STOP_SLIDE_SEARCH_KEYS = [
+      Gdk::Keyval::GDK_Escape,
+    ]
+
     module Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,
@@ -144,6 +164,18 @@ module Rabbit
 
       SEARCH_SLIDE_BACKWARD_KEYS = [
         Gdk::Keyval::GDK_r,
+      ]
+
+      SEARCH_SLIDE_FORWARD_NEXT_KEYS = [
+        Gdk::Keyval::GDK_s,
+      ]
+
+      SEARCH_SLIDE_BACKWARD_NEXT_KEYS = [
+        Gdk::Keyval::GDK_r,
+      ]
+
+      STOP_SLIDE_SEARCH_KEYS = [
+        Gdk::Keyval::GDK_g,
       ]
     end
 
