@@ -65,7 +65,7 @@ module Rabbit
       Gdk::Keyval::GDK_greater,
       Gdk::Keyval::GDK_dollar,
     ]
-      
+
     TOGGLE_FULLSCREEN_KEYS = [
       Gdk::Keyval::GDK_F5,
       Gdk::Keyval::GDK_F10,
@@ -92,7 +92,7 @@ module Rabbit
     CACHE_ALL_SLIDES_KEYS = [
       Gdk::Keyval::GDK_c,
     ]
-    
+
     WHITE_OUT_KEYS = [
       Gdk::Keyval::GDK_W,
     ]
@@ -100,11 +100,11 @@ module Rabbit
     BLACK_OUT_KEYS = [
       Gdk::Keyval::GDK_B,
     ]
-    
+
     TOGGLE_COMMENT_FRAME_KEYS = [
       Gdk::Keyval::GDK_m,
     ]
-    
+
     TOGGLE_COMMENT_VIEW_KEYS = [
       Gdk::Keyval::GDK_M,
     ]
@@ -112,20 +112,20 @@ module Rabbit
     EXPAND_HOLE_KEYS = [
       Gdk::Keyval::GDK_E,
     ]
-    
+
     NARROW_HOLE_KEYS = [
       Gdk::Keyval::GDK_N,
     ]
-    
+
     TOGGLE_GRAFFITI_MODE_KEYS = [
       Gdk::Keyval::GDK_G,
     ]
-    
+
     module Control
       REDRAW_KEYS = [
         Gdk::Keyval::GDK_l,
       ]
-      
+
       PRINT_KEYS = [
         Gdk::Keyval::GDK_p,
       ]
@@ -133,9 +133,17 @@ module Rabbit
       UNDO_GRAFFITI_KEYS = [
         Gdk::Keyval::GDK_z,
       ]
-      
+
       CLEAR_GRAFFITI_KEYS = [
         Gdk::Keyval::GDK_l,
+      ]
+
+      SEARCH_SLIDE_FORWARD_KEYS = [
+        Gdk::Keyval::GDK_s,
+      ]
+
+      SEARCH_SLIDE_BACKWARD_KEYS = [
+        Gdk::Keyval::GDK_r,
       ]
     end
 

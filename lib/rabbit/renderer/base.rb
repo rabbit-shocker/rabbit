@@ -464,6 +464,9 @@ module Rabbit
       def narrow_hole
       end
 
+      def search_slide(forward=true)
+      end
+
       def connect_key(keyval, modifier, flags, &block)
       end
 

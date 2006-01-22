@@ -202,5 +202,19 @@ module Rabbit
     def act_narrow_hole_config(config, canvas)
       config[:label] = N_("Narrow hole")
     end
+
+    def act_search_slide_forward(action, group, canvas)
+      canvas.search_slide(true)
+    end
+    def act_search_slide_forward_config(config, canvas)
+      config[:label] = N_("Search slide forward")
+    end
+
+    def act_search_slide_backward(action, group, canvas)
+      canvas.search_slide(false)
+    end
+    def act_search_slide_backward_config(config, canvas)
+      config[:label] = N_("Search slide backward")
+    end
   end
 end

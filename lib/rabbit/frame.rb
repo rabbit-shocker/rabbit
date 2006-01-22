@@ -132,10 +132,8 @@ module Rabbit
         if event.changed_mask.fullscreen?
           @fullscreen_toggled = true
           if fullscreen?
-            @window.keep_above = true
             @canvas.fullscreened
           else
-            @window.keep_above = false
             @canvas.unfullscreened
           end
           @window.present
@@ -169,7 +167,6 @@ module Rabbit
           @window.hide
           @window.set_size_request(screen_width, screen_height)
           @window.decorated = false
-          @window.keep_above = true
           @window.show
           @window.move(0, 0)
           @window.present
@@ -187,7 +184,6 @@ module Rabbit
           @window.hide
           @window.set_size_request(@prev_width, @prev_height)
           @window.decorated = true
-          @window.keep_above = false
           @window.show
           @window.move(@prev_x, @prev_y)
           @window.present

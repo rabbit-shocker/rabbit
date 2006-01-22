@@ -104,6 +104,8 @@ module Rabbit
 
     def_delegators(:@renderer, :expand_hole, :narrow_hole)
 
+    def_delegators(:@renderer, :search_slide)
+
     def_delegators(:@source, :source=, :reset)
 
     attr_reader :logger, :renderer, :last_modified
@@ -189,6 +191,25 @@ module Rabbit
       else
         @slides
       end
+    end
+
+    def find_slide(pattern)
+      slides.find {|slide| slide.match?(pattern)}
+    end
+
+    def slide_index(pattern)
+      slides.each_with_index do |slide, i|
+        return i if slide.match?(pattern)
+      end
+      nil
+    end
+
+    def slide_indexes(pattern)
+      indexes = []
+      slides.each_with_index do |slide, i|
+        indexes << i if slide.match?(pattern)
+      end
+      indexes
     end
 
     def slide_size

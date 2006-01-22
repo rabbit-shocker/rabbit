@@ -2,6 +2,7 @@ require "forwardable"
 
 require "rabbit/menu"
 require "rabbit/keys"
+require "rabbit/search-window"
 require "rabbit/graffiti"
 require "rabbit/renderer/pixmap"
 
@@ -57,6 +58,7 @@ module Rabbit
         @mask = nil
         @mask_size = 0
         @need_reload_theme = false
+        @search_window = nil
         init_progress
         clear_button_handler
         init_graffiti
@@ -440,6 +442,20 @@ module Rabbit
         super
       end
       
+      def search_slide(forward=true)
+        if @search_window
+          if @search_window.forward? == forward
+            search_slide_with_current_input(true)
+          else
+            @search_window.forward = forward
+          end
+        else
+          setup_search_window(forward)
+          move_to_right_bottom(@search_window.window)
+          @search_window.show
+        end
+      end
+
       def connect_key(keyval, modifier, flags, &block)
         @user_accel_group.connect(keyval, modifier, flags, &block)
       end
@@ -997,6 +1013,16 @@ module Rabbit
           @canvas.activate("Print")
           true
         end
+        keys = Keys::Control::SEARCH_SLIDE_FORWARD_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideForward")
+          true
+        end
+        keys = Keys::Control::SEARCH_SLIDE_BACKWARD_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideBackward")
+          true
+        end
       end
 
       def init_alt_keys
@@ -1200,6 +1226,88 @@ module Rabbit
         @set_gc.set_function(Gdk::GC::SET)
         @clear_gc = Gdk::GC.new(@mask)
         @clear_gc.set_function(Gdk::GC::CLEAR)
+      end
+
+      def setup_search_window(forward)
+        @search_window = SearchWindow.new
+        @search_window.forward = forward
+        @search_window.window.set_transient_for(@window)
+        entry = @search_window.entry
+        direction = @search_window.direction
+        entry.signal_connect("key_press_event") do |widget, key|
+          if key.state == Gdk::Window::ModifierType.new
+            false
+          else
+            Gtk::AccelGroup.activate(@window, key.keyval, key.state)
+          end
+        end
+        entry.signal_connect("changed") do
+          search_slide_with_current_input
+        end
+        direction.signal_connect("toggled") do
+          search_slide_with_current_input(true)
+        end
+        entry.signal_connect("activate") do
+          search_slide_with_current_input
+          @search_window.hide
+          @search_window = nil
+          true
+        end
+      end
+
+      def move_to_right_bottom(target)
+        window = @window.window
+        screen = window.screen
+        num = screen.get_monitor(window)
+        monitor = screen.monitor_geometry(num)
+        window_x, window_y = window.origin
+        window_width, window_height = window.size
+        target_width, target_height = target.size_request
+
+        window_right = window_x + window_width - target_width
+        if window_right > screen.width
+          x = screen.width - target_width
+        elsif window_right < 0
+          x = 0
+        else
+          x = window_right
+        end
+
+        window_bottom = window_y + window_height - target_height
+        if window_bottom > screen.height
+          y = screen.height - target_height
+        elsif window_bottom < 0
+          y = 0
+        else
+          y = window_bottom
+        end
+
+        target.move(x, y)
+      end
+
+      def search_slide_with_current_input(search_next=false)
+        move_to_the_slide(@search_window.entry.text,
+                          @search_window.forward?,
+                          search_next)
+      end
+
+      def move_to_the_slide(text, forward, search_next=false)
+        return if /\A\s*\z/ =~ text
+        current_index = @canvas.current_index
+        indexes = @canvas.slide_indexes(/#{text}/i)
+        target_index = nil
+        indexes.each_with_index do |index, i|
+          if index == current_index
+            target_index = i + (forward ? 1 : -1) if search_next
+            break
+          elsif index > current_index
+            target_index = i + (forward ? 0 : -1)
+            break
+          end
+        end
+        if target_index and target_index >= 0
+          @canvas.activate("JumpTo") {indexes[target_index]}
+        end
       end
     end
 
