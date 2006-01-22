@@ -46,6 +46,7 @@ module Rabbit
 
       def initialize(canvas)
         @progress = nil
+        @user_accel_group = nil
         super
         @current_cursor = nil
         @blank_cursor = nil
@@ -60,6 +61,7 @@ module Rabbit
         clear_button_handler
         init_graffiti
         init_drawing_area
+        init_accel_group
         init_pixmap(1, 1)
         init_comment_log_window
       end
@@ -80,9 +82,10 @@ module Rabbit
         @hbox.show
         @vbox.show
         @window.add_accel_group(@menu.accel_group)
+        @window.add_accel_group(@accel_group)
         set_configure_event
       end
-    
+
       def detach_from(window)
         window.remove(@area)
         window.signal_handler_disconnect(@configure_signal_id)
@@ -150,7 +153,6 @@ module Rabbit
       
       def pre_parse_rd
         update_menu
-        clear_keys
         @pixmap.pre_parse_rd
       end
       
@@ -438,6 +440,14 @@ module Rabbit
         super
       end
       
+      def connect_key(keyval, modifier, flags, &block)
+        @user_accel_group.connect(keyval, modifier, flags, &block)
+      end
+
+      def disconnect_key(keyval, modifier)
+        @user_accel_group.disconnect_key(keyval, modifier)
+      end
+
       private
       def init_pixmap(w=width, h=height)
         @pixmap = Renderer::Pixmap.new(@canvas, w, h)
@@ -500,10 +510,6 @@ module Rabbit
         @button_handler = []
       end
 
-      def clear_keys
-        @keys = Keys.new
-      end
-      
       def clear_progress_color
         super
         setup_progress_color
@@ -520,7 +526,7 @@ module Rabbit
       def init_menu
         @menu = Menu.new(@canvas.actions)
       end
-      
+
       def init_progress
         @progress_window = Gtk::Window.new(Gtk::Window::POPUP)
         @progress_window.app_paintable = true
@@ -622,7 +628,20 @@ module Rabbit
                                        Gtk::POLICY_AUTOMATIC)
         @comment_log_window.add(@comment_log_view)
       end
-      
+
+      def init_accel_group
+        @accel_group = Gtk::AccelGroup.new
+        init_no_prefix_keys
+        init_control_keys
+        init_alt_keys
+      end
+
+      def clear_keys
+        @window.remove_accel_group(@user_accel_group) if @user_accel_group
+        @user_accel_group = Gtk::AccelGroup.new
+        @window.add_accel_group(@user_accel_group)
+      end
+
       def init_drawing_area
         @area = Gtk::DrawingArea.new
         @area.can_focus = true
@@ -633,7 +652,6 @@ module Rabbit
         event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
         @area.add_events(event_mask)
         set_realize
-        set_key_press_event
         set_button_event
         set_motion_notify_event
         set_expose_event
@@ -652,26 +670,6 @@ module Rabbit
           @black = Gdk::GC.new(@drawable)
           @black.set_foreground(@pixmap.make_gdk_color("black"))
           init_pixmap
-        end
-      end
-      
-      def set_key_press_event
-        @area.signal_connect("key_press_event") do |widget, event|
-          handled = false
-
-          if event.state.control_mask?
-            handled = handle_key_with_control(event)
-          end
-          
-          if event.state.mod1_mask?
-            handled = handle_key_with_alt(event)
-          end
-          
-          unless handled
-            handled = handle_key(event)
-          end
-          
-          handled
         end
       end
 
@@ -847,132 +845,176 @@ module Rabbit
         @pencil_cursor ||= Gdk::Cursor.new(Gdk::Cursor::PENCIL)
       end
       
-      def calc_slide_number(key_event, base)
-        val = key_event.keyval
-        val += 10 if key_event.state.control_mask?
-        val += 20 if key_event.state.mod1_mask?
+      def calc_slide_number(val, modifier, base)
+        val += 10 if modifier.control_mask?
+        val += 20 if modifier.mod1_mask?
         val - base
       end
 
-      def handle_key(key_event)
-        handled = true
-        case key_event.keyval
-        when *@keys.quit_keys
+      def set_keys(keys, mod, flags=nil, &block)
+        flags ||= Gtk::AccelFlags::VISIBLE
+        keys.each do |val|
+          @accel_group.connect(val, mod, flags, &block)
+        end
+      end
+
+      def init_no_prefix_keys
+        mod = Gdk::Window::ModifierType.new
+
+        keys = Keys::QUIT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("Quit")
-        when *@keys.move_to_next_keys
+          true
+        end
+        keys = Keys::MOVE_TO_NEXT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("NextSlide")
-        when *@keys.move_to_previous_keys
+          true
+        end
+        keys = Keys::MOVE_TO_PREVIOUS_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("PreviousSlide")
-        when *@keys.move_to_first_keys
+          true
+        end
+        keys = Keys::MOVE_TO_FIRST_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("FirstSlide")
-        when *@keys.move_to_last_keys
+          true
+        end
+        keys = Keys::MOVE_TO_LAST_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("LastSlide")
-        when Gdk::Keyval::GDK_0,
-          Gdk::Keyval::GDK_1,
-          Gdk::Keyval::GDK_2,
-          Gdk::Keyval::GDK_3,
-          Gdk::Keyval::GDK_4,
-          Gdk::Keyval::GDK_5,
-          Gdk::Keyval::GDK_6,
-          Gdk::Keyval::GDK_7,
-          Gdk::Keyval::GDK_8,
-          Gdk::Keyval::GDK_9
-          index = calc_slide_number(key_event, Gdk::Keyval::GDK_0)
+          true
+        end
+        keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_#{i}")}
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_0)
           @canvas.activate("JumpTo") {index}
-        when Gdk::Keyval::GDK_KP_0,
-          Gdk::Keyval::GDK_KP_1,
-          Gdk::Keyval::GDK_KP_2,
-          Gdk::Keyval::GDK_KP_3,
-          Gdk::Keyval::GDK_KP_4,
-          Gdk::Keyval::GDK_KP_5,
-          Gdk::Keyval::GDK_KP_6,
-          Gdk::Keyval::GDK_KP_7,
-          Gdk::Keyval::GDK_KP_8,
-          Gdk::Keyval::GDK_KP_9
-          index = calc_slide_number(key_event, Gdk::Keyval::GDK_KP_0)
+          true
+        end
+        keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KP_#{i}")}
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_KP_0)
           @canvas.activate("JumpTo") {index}
-        when *@keys.toggle_fullscreen_keys
+          true
+        end
+        keys = Keys::TOGGLE_FULLSCREEN_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleFullScreen")
-        when *@keys.reload_theme_keys
+          true
+        end
+        keys = Keys::RELOAD_THEME_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           reload_theme
-        when *@keys.save_as_image_keys
+          true
+        end
+        keys = Keys::SAVE_AS_IMAGE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("SaveAsImage")
-        when *@keys.iconify_keys
+          true
+        end
+        keys = Keys::ICONIFY_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("Iconify")
-        when *@keys.toggle_index_mode_keys
+          true
+        end
+        keys = Keys::TOGGLE_INDEX_MODE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleIndexMode")
-        when *@keys.cache_all_slides_keys
+          true
+        end
+        keys = Keys::CACHE_ALL_SLIDES_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("CacheAllSlides")
-        when *@keys.white_out_keys
+          true
+        end
+        keys = Keys::WHITE_OUT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleWhiteOut")
-        when *@keys.black_out_keys
+          true
+        end
+        keys = Keys::BLACK_OUT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleBlackOut")
-        when *@keys.toggle_comment_frame_keys
+          true
+        end
+        keys = Keys::TOGGLE_COMMENT_FRAME_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleCommentFrame")
-        when *@keys.toggle_comment_view_keys
+          true
+        end
+        keys = Keys::TOGGLE_COMMENT_VIEW_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleCommentView")
-        when *@keys.expand_hole_keys
+          true
+        end
+        keys = Keys::EXPAND_HOLE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ExpandHole")
-        when *@keys.narrow_hole_keys
+          true
+        end
+        keys = Keys::NARROW_HOLE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("NarrowHole")
-        when *@keys.toggle_graffiti_mode_keys
+          true
+        end
+        keys = Keys::TOGGLE_GRAFFITI_MODE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleGraffitiMode")
-        else
-          handled = false
-        end
-        handled
-      end
-      
-      def handle_key_when_processing(key_event)
-        case key_event.keyval
-        when *@keys.quit_keys
-          @canvas.activate("Quit")
-        else
-          @canvas.logger.warn(_("Processing..."))
+          true
         end
       end
-      
-      def handle_key_with_control(key_event)
-        handled = true
-        if @graffiti_mode
-          case key_event.keyval
-          when *@keys.control.clear_graffiti_keys
+
+      def init_control_keys
+        mod = Gdk::Window::CONTROL_MASK
+
+        keys = Keys::Control::CLEAR_GRAFFITI_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          if @graffiti_mode
             @canvas.activate("ClearGraffiti")
-          when *@keys.control.undo_graffiti_keys
+            true
+          else
+            false
+          end
+        end
+        keys = Keys::Control::UNDO_GRAFFITI_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          if @graffiti_mode
             @canvas.activate("UndoGraffiti")
+            true
           else
-            handled = false
-          end
-        else
-          case key_event.keyval
-          when *@keys.control.redraw_keys
-            @canvas.activate("Redraw")
-          when *@keys.control.print_keys
-            @canvas.activate("Print")
-          else
-            handled = false
+            false
           end
         end
-        handled
+
+        keys = Keys::Control::REDRAW_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("Redraw")
+          true
+        end
+        keys = Keys::Control::PRINT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("Print")
+          true
+        end
       end
-      
-      def handle_key_with_alt(key_event)
-        handled = true
-        case key_event.keyval
-        when *@keys.alt.reset_adjustment_keys
+
+      def init_alt_keys
+        mod = Gdk::Window::MOD1_MASK
+
+        keys = Keys::Alt::RESET_ADJUSTMENT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ResetAdjustment")
-        else
-          handled = false
+          true
         end
-        handled
       end
-      
+
       BUTTON_PRESS_HANDLER = {
         Gdk::Event::Type::BUTTON_PRESS => "handle_button_press",
         Gdk::Event::Type::BUTTON2_PRESS => "handle_button2_press",
         Gdk::Event::Type::BUTTON3_PRESS => "handle_button3_press",
       }
-      
+
       def handle_button_release(event, last_button_press_event)
         press_event_type = last_button_press_event.event_type
         if BUTTON_PRESS_HANDLER.has_key?(press_event_type)

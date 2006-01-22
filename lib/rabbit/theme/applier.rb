@@ -460,6 +460,16 @@ module Rabbit
         @callback.call if @callback
         super
       end
+
+      def connect_key(keyval, modifier=nil, flags=nil, &block)
+        modifier ||= Gdk::Window::ModifierType.new
+        flags ||= Gtk::AccelFlags::VISIBLE
+        canvas.connect_key(keyval, modifier, flags, &block)
+      end
+
+      def disconnect_key(keyval, modifier=nil)
+        canvas.disconnect_key(keyval, modifier)
+      end
     end
   end
 end

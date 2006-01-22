@@ -25,7 +25,7 @@ module Rabbit
       
       def_delegators(:@canvas, :reload_source)
       
-      attr_reader :keys, :x_dpi, :y_dpi
+      attr_reader :x_dpi, :y_dpi
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :margin_left, :margin_right
       attr_accessor :margin_top, :margin_bottom
@@ -463,7 +463,13 @@ module Rabbit
 
       def narrow_hole
       end
-      
+
+      def connect_key(keyval, modifier, flags, &block)
+      end
+
+      def disconnect_key(keyval, modifier)
+      end
+
       private
       def off_screen_renderer?
         false
@@ -590,7 +596,6 @@ module Rabbit
       end
 
       def clear_keys
-        @keys = nil
       end
 
       def clear_progress_color

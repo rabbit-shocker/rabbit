@@ -97,15 +97,15 @@ module Rabbit
     def_delegators(:@renderer, :graffiti_mode?, :have_graffiti?)
     def_delegators(:@renderer, :can_undo_graffiti?, :toggle_graffiti_mode)
     def_delegators(:@renderer, :clear_graffiti, :undo_graffiti)
-    
+
     def_delegators(:@renderer, :post_init_gui)
-    
-    def_delegators(:@renderer, :keys)
+
+    def_delegators(:@renderer, :connect_key, :disconnect_key)
 
     def_delegators(:@renderer, :expand_hole, :narrow_hole)
-    
+
     def_delegators(:@source, :source=, :reset)
-    
+
     attr_reader :logger, :renderer, :last_modified
     attr_reader :comment_source, :actions
     
@@ -190,7 +190,7 @@ module Rabbit
         @slides
       end
     end
-    
+
     def slide_size
       slides.size
     end
@@ -345,7 +345,7 @@ module Rabbit
     end
 
     def move_to_if_can(index)
-      if 0 <= index and index < slide_size
+      if index and 0 <= index and index < slide_size
         move_to(index)
       end
       current_index
