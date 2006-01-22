@@ -223,7 +223,7 @@ module Rabbit
       canvas.search_slide(true)
       update_saarch_action_status(canvas)
     end
-    def act_search_slide_forward_config(config, canvas)
+    def act_search_slide_forward_next_config(config, canvas)
       config[:label] = N_("Search slide forward next")
     end
 
