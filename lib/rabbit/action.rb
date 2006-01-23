@@ -69,7 +69,7 @@ module Rabbit
       private
       def to_gtk_actions(actions, canvas, toggle=false)
         actions.collect do |name, action|
-          config = {}
+          config = {:label => name}
           config_method = "#{action}_config"
           __send__(config_method, config, canvas) if respond_to?(config_method)
           callback = method(action)
@@ -96,7 +96,7 @@ module Rabbit
           end.collect do |config_method|
             /^act_(.*)_config$/ =~ config_method
             action_name = Utils.to_class_name($1)
-            config = {}
+            config = {:label => action_name}
             __send__(config_method, config, canvas)
             default_value = config[:value] if config[:default]
             [
