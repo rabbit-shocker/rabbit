@@ -656,6 +656,7 @@ module Rabbit
 
       def init_accel_group
         @accel_group = Gtk::AccelGroup.new
+        init_number_keys
         init_no_prefix_keys
         init_shift_keys
         init_control_keys
@@ -885,6 +886,28 @@ module Rabbit
         end
       end
 
+      def init_number_keys
+        [
+         Gdk::Window::ModifierType.new,
+         Gdk::Window::ModifierType::SHIFT_MASK,
+         Gdk::Window::ModifierType::CONTROL_MASK,
+         Gdk::Window::ModifierType::MOD1_MASK,
+        ].each do |mod|
+          keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_#{i}")}
+          set_keys(keys, mod) do |group, obj, val, modifier|
+            index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_0)
+            @canvas.activate("JumpTo") {index}
+            true
+          end
+          keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KP_#{i}")}
+          set_keys(keys, mod) do |group, obj, val, modifier|
+            index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_KP_0)
+            @canvas.activate("JumpTo") {index}
+            true
+          end
+        end
+      end
+
       def init_no_prefix_keys
         mod = Gdk::Window::ModifierType.new
 
@@ -911,18 +934,6 @@ module Rabbit
         keys = Keys::MOVE_TO_LAST_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("LastSlide")
-          true
-        end
-        keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_#{i}")}
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_0)
-          @canvas.activate("JumpTo") {index}
-          true
-        end
-        keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KP_#{i}")}
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_KP_0)
-          @canvas.activate("JumpTo") {index}
           true
         end
         keys = Keys::TOGGLE_FULLSCREEN_KEYS
