@@ -1330,8 +1330,9 @@ module Rabbit
 
       def move_to_the_slide(text, forward, search_next=false)
         return if /\A\s*\z/ =~ text
+        @canvas.logger.info(text)
         current_index = @canvas.current_index
-        indexes = @canvas.slide_indexes(/#{text}/i)
+        indexes = @canvas.slide_indexes(/#{text}/iu)
         target_index = nil
         indexes.each_with_index do |index, i|
           if index == current_index
@@ -1342,6 +1343,7 @@ module Rabbit
             break
           end
         end
+        target_index = indexes.size - 1 if target_index.nil? and !forward
         if target_index and target_index >= 0
           @canvas.activate("JumpTo") {indexes[target_index]}
         end
