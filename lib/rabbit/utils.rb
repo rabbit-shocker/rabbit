@@ -68,27 +68,9 @@ module Rabbit
       REXML::Text.unnormalize(title).gsub(/\r|\n/, ' ')
     end
 
-    def rotate_pixbuf(pixbuf)
-      w = pixbuf.width
-      h = pixbuf.height
-      n = pixbuf.n_channels
-      pixels = pixbuf.pixels
-      data = "\0" * pixels.size
-      i = 0
-      pixels.each_byte do |rgba|
-        base, rgba_index = i.divmod(n)
-        y, x = base.divmod(w)
-        partition_index = (h * (x + 1)) - y - 1
-        data[partition_index * n + rgba_index] = rgba
-        i += 1
-      end
-      Gdk::Pixbuf.new(data,
-                      pixbuf.colorspace,
-                      pixbuf.has_alpha?,
-                      pixbuf.bits_per_sample,
-                      pixbuf.height,
-                      pixbuf.width,
-                      h * n)
+    def drawable_to_pixbuf(drawable)
+      args = [drawable.colormap, drawable, 0, 0, *drawable.size]
+      Gdk::Pixbuf.from_drawable(*args)
     end
 
     def process_pending_events
@@ -125,8 +107,68 @@ module Rabbit
       # Gdk.windowing_win32? # what about this?
       /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
     end
+
+    def move_to(base, target)
+      window = base.window
+      screen = window.screen
+      num = screen.get_monitor(window)
+      monitor = screen.monitor_geometry(num)
+      window_x, window_y = window.origin
+      window_width, window_height = window.size
+      target_width, target_height = target.size_request
+
+      args = [window_x, window_y, window_width, window_height]
+      args.concat([target_width, target_height])
+      args.concat([screen.width, screen.height])
+      x, y = yield(*args)
+
+      target.move(x, y)
+    end
+
+    def compute_left_x(base_x)
+      [base_x, 0].max
+    end
+
+    def compute_right_x(base_x, base_width, target_width, max_x)
+      right = base_x + base_width - target_width
+      [[right, max_x - target_width].min, 0].max
+    end
+
+    def compute_top_y(base_y)
+      [base_y, 0].max
+    end
+
+    def compute_bottom_y(base_y, base_height, target_height, max_y)
+      bottom = base_y + base_height - target_height
+      [[bottom, max_y - target_height].min, 0].max
+    end
+
+    def move_to_top_left(base, target)
+      move_to(base, target) do |bx, by, bw, bh, tw, th, sw, sh|
+        [compute_left_x(bx), compute_top_y(by)]
+      end
+    end
+
+    def move_to_top_right(base, target)
+      move_to(base, target) do |bx, by, bw, bh, tw, th, sw, sh|
+        [compute_right_x(bx, bw, tw, sw), compute_top_y(by)]
+      end
+    end
+
+    def move_to_bottom_left(base, target)
+      move_to(base, target) do |bx, by, bw, bh, tw, th, sw, sh|
+        [compute_left_x(bx), compute_bottom_y(by, bh, th, sh)]
+      end
+    end
+
+    def move_to_bottom_right(base, target)
+      move_to(base, target) do |bx, by, bw, bh, tw, th, sw, sh|
+        [compute_right_x(bx, bw, tw, sw),
+         compute_bottom_y(by, bh, th, sh)]
+      end
+    end
   end
-  
+
   module SystemRunner
     def run(cmd, *args)
       begin

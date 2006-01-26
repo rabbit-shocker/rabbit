@@ -77,9 +77,7 @@ module Rabbit
         end
         
         def to_pixbuf(slide)
-          drawable = @pixmaps[slide]
-          args = [drawable.colormap, drawable, 0, 0, width, height]
-          Gdk::Pixbuf.from_drawable(*args)
+          Utils.drawable_to_pixbuf(@pixmaps[slide])
         end
         
         def clear_pixmap(slide=nil)

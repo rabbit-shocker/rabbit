@@ -451,7 +451,7 @@ module Rabbit
           end
         else
           setup_search_window(forward)
-          move_to_right_bottom(@search_window.window)
+          adjust_search_window
           @search_window.show
         end
       end
@@ -840,7 +840,8 @@ module Rabbit
           args = [event.x, event.y, event.width, event.height]
           adjust_comment_frame(*args)
           adjust_comment_view(*args)
-          adjust_progress_window(*args)
+          adjust_progress_window
+          adjust_search_window
           false
         end
         @configure_signal_id = id
@@ -1185,23 +1186,23 @@ module Rabbit
         end
       end
 
-      def adjust_progress_window(x=nil, y=nil, w=nil, h=nil)
-        wx, wy = @canvas.window.position
-        @progress_window.move(x || wx, y || wy)
+      def adjust_progress_window
+        if @window
+          Utils.move_to_top_left(@window, @progress_window)
+        end
+      end
+
+      def adjust_search_window
+        if @window and @search_window
+          Utils.move_to_bottom_right(@window, @search_window.window)
+        end
       end
 
       def adjust_comment_frame(x=nil, y=nil, w=nil, h=nil)
         if @comment_initialized
           w, h = suggested_comment_frame_size(w, h)
-          @comment_frame.resize(w, h)
-          wx, wy = @canvas.window.position
-          x ||= wx
-          y ||= wy
-          if @comment_view_frame.visible?
-            x = x + @comment_view_frame.window.size_request[0]
-          end
-          y = y + height - h
-          @comment_frame.window.move(x, y)
+          @comment_frame.window.set_size_request(w, h)
+          Utils.move_to_bottom_left(@window, @comment_frame.window)
         end
       end
 
@@ -1223,7 +1224,7 @@ module Rabbit
         fw, fh = suggested_comment_view_frame_size(w, h)
         @comment_view_frame.set_size_request(fw, fh)
       end
-      
+
       def suggested_comment_frame_size(w=nil, h=nil)
         w ||= @canvas.width
         h ||= @canvas.height
@@ -1292,36 +1293,6 @@ module Rabbit
         end
       end
 
-      def move_to_right_bottom(target)
-        window = @window.window
-        screen = window.screen
-        num = screen.get_monitor(window)
-        monitor = screen.monitor_geometry(num)
-        window_x, window_y = window.origin
-        window_width, window_height = window.size
-        target_width, target_height = target.size_request
-
-        window_right = window_x + window_width - target_width
-        if window_right > screen.width
-          x = screen.width - target_width
-        elsif window_right < 0
-          x = 0
-        else
-          x = window_right
-        end
-
-        window_bottom = window_y + window_height - target_height
-        if window_bottom > screen.height
-          y = screen.height - target_height
-        elsif window_bottom < 0
-          y = 0
-        else
-          y = window_bottom
-        end
-
-        target.move(x, y)
-      end
-
       def search_slide_with_current_input(search_next=false)
         move_to_the_slide(@search_window.entry.text,
                           @search_window.forward?,
@@ -1375,12 +1346,18 @@ module Rabbit
       end
       
       def clear_pixmap(slide=nil)
-        @pixbufs.delete(slide || @canvas.current_slide)
+        @pixbufs.delete(@pixmap[slide || @canvas.current_slide])
       end
 
       def clear_pixmaps
         @pixbufs = {}
         super
+      end
+
+      def clear_keys
+      end
+
+      def update_menu
       end
 
       def post_apply_theme
@@ -1447,11 +1424,15 @@ module Rabbit
       def adjust_progress_window(*args)
       end
 
-      def draw_pixmap(slide)
-        unless @pixbufs.has_key?(slide)
-          @pixbufs[slide] = Utils.rotate_pixbuf(@pixmap.to_pixbuf(slide))
+      def adjust_search_window(*args)
+      end
+
+      def draw_pixmap(pixmap)
+        unless @pixbufs.has_key?(pixmap)
+          pixbuf = Utils.drawable_to_pixbuf(pixmap)
+          @pixbufs[pixmap] = pixbuf.rotate(Gdk::Pixbuf::ROTATE_CLOCKWISE)
         end
-        @drawable.draw_pixbuf(@foreground, @pixbufs[slide],
+        @drawable.draw_pixbuf(@foreground, @pixbufs[pixmap],
                               0, 0, 0, 0, -1, -1,
                               Gdk::RGB::DITHER_NORMAL, 0, 0)
       end
