@@ -93,32 +93,8 @@ module Rabbit
       Gdk::Keyval::GDK_c,
     ]
 
-    WHITE_OUT_KEYS = [
-      Gdk::Keyval::GDK_W,
-    ]
-
-    BLACK_OUT_KEYS = [
-      Gdk::Keyval::GDK_B,
-    ]
-
     TOGGLE_COMMENT_FRAME_KEYS = [
       Gdk::Keyval::GDK_m,
-    ]
-
-    TOGGLE_COMMENT_VIEW_KEYS = [
-      Gdk::Keyval::GDK_M,
-    ]
-
-    EXPAND_HOLE_KEYS = [
-      Gdk::Keyval::GDK_E,
-    ]
-
-    NARROW_HOLE_KEYS = [
-      Gdk::Keyval::GDK_N,
-    ]
-
-    TOGGLE_GRAFFITI_MODE_KEYS = [
-      Gdk::Keyval::GDK_G,
     ]
 
     SEARCH_SLIDE_FORWARD_KEYS = [
@@ -133,13 +109,39 @@ module Rabbit
       Gdk::Keyval::GDK_n,
     ]
 
-    SEARCH_SLIDE_BACKWARD_NEXT_KEYS = [
-      Gdk::Keyval::GDK_N,
-    ]
-
     STOP_SLIDE_SEARCH_KEYS = [
       Gdk::Keyval::GDK_Escape,
     ]
+
+    module Shift
+      WHITE_OUT_KEYS = [
+        Gdk::Keyval::GDK_w,
+      ]
+
+      BLACK_OUT_KEYS = [
+        Gdk::Keyval::GDK_b,
+      ]
+
+      TOGGLE_COMMENT_VIEW_KEYS = [
+        Gdk::Keyval::GDK_m,
+      ]
+
+      EXPAND_HOLE_KEYS = [
+        Gdk::Keyval::GDK_e,
+      ]
+
+      NARROW_HOLE_KEYS = [
+        Gdk::Keyval::GDK_n,
+      ]
+
+      TOGGLE_GRAFFITI_MODE_KEYS = [
+        Gdk::Keyval::GDK_g,
+      ]
+
+      SEARCH_SLIDE_BACKWARD_NEXT_KEYS = [
+        Gdk::Keyval::GDK_n,
+      ]
+    end
 
     module Control
       REDRAW_KEYS = [

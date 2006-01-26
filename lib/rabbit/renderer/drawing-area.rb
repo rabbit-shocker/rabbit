@@ -657,6 +657,7 @@ module Rabbit
       def init_accel_group
         @accel_group = Gtk::AccelGroup.new
         init_no_prefix_keys
+        init_shift_keys
         init_control_keys
         init_alt_keys
       end
@@ -954,39 +955,9 @@ module Rabbit
           @canvas.activate("CacheAllSlides")
           true
         end
-        keys = Keys::WHITE_OUT_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("ToggleWhiteOut")
-          true
-        end
-        keys = Keys::BLACK_OUT_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("ToggleBlackOut")
-          true
-        end
         keys = Keys::TOGGLE_COMMENT_FRAME_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleCommentFrame")
-          true
-        end
-        keys = Keys::TOGGLE_COMMENT_VIEW_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("ToggleCommentView")
-          true
-        end
-        keys = Keys::EXPAND_HOLE_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("ExpandHole")
-          true
-        end
-        keys = Keys::NARROW_HOLE_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("NarrowHole")
-          true
-        end
-        keys = Keys::TOGGLE_GRAFFITI_MODE_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("ToggleGraffitiMode")
           true
         end
         keys = Keys::SEARCH_SLIDE_FORWARD_KEYS
@@ -1001,13 +972,48 @@ module Rabbit
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("SearchSlideForwardNext")
         end
-        keys = Keys::SEARCH_SLIDE_BACKWARD_NEXT_KEYS
-        set_keys(keys, mod) do |group, obj, val, modifier|
-          @canvas.activate("SearchSlideBackwardNext")
-        end
         keys = Keys::STOP_SLIDE_SEARCH_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("StopSlideSearch")
+        end
+      end
+
+      def init_shift_keys
+        mod = Gdk::Window::SHIFT_MASK
+
+        keys = Keys::Shift::WHITE_OUT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("ToggleWhiteOut")
+          true
+        end
+        keys = Keys::Shift::BLACK_OUT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("ToggleBlackOut")
+          true
+        end
+        keys = Keys::Shift::TOGGLE_COMMENT_VIEW_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("ToggleCommentView")
+          true
+        end
+        keys = Keys::Shift::EXPAND_HOLE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("ExpandHole")
+          true
+        end
+        keys = Keys::Shift::NARROW_HOLE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("NarrowHole")
+          true
+        end
+        keys = Keys::Shift::TOGGLE_GRAFFITI_MODE_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("ToggleGraffitiMode")
+          true
+        end
+        keys = Keys::Shift::SEARCH_SLIDE_BACKWARD_NEXT_KEYS
+        set_keys(keys, mod) do |group, obj, val, modifier|
+          @canvas.activate("SearchSlideBackwardNext")
         end
       end
 
@@ -1301,7 +1307,6 @@ module Rabbit
 
       def move_to_the_slide(text, forward, search_next=false)
         return if /\A\s*\z/ =~ text
-        @canvas.logger.info(text)
         current_index = @canvas.current_index
         indexes = @canvas.slide_indexes(/#{text}/iu)
         target_index = nil
