@@ -24,22 +24,21 @@ module Rabbit
       end
       
       attr_accessor :keep_ratio
-    
-      attr_reader :pixbuf
+
+      attr_reader :width, :height
     
       def initialize(filename, keep_ratio)
         @filename = filename
         @keep_ratio = keep_ratio
         load_image
+        @width = @pixbuf.width
+        @height = @pixbuf.height
         @original_pixbuf = @pixbuf
       end
 
-      def width
-        @pixbuf.width
-      end
-    
-      def height
-        @pixbuf.height
+      def pixbuf
+        ensure_update
+        @pixbuf
       end
 
       def original_width
@@ -63,11 +62,13 @@ module Rabbit
           w ||= width
           h ||= height
         end
-        if w > 0 and h > 0 and [w, h] != [width, height]
-          _resize(w, h)
+        if w and w > 0 and h and h > 0 and [w, h] != [width, height]
+          @width = w
+          @height = h
         end
       end
 
+      private
       def load_by_pixbuf_loader(data, width=nil, height=nil)
         loader = Gdk::PixbufLoader.new
         begin
@@ -79,8 +80,12 @@ module Rabbit
         @pixbuf = loader.pixbuf
         resize(width, height)
       end
-      
-    end
 
+      def ensure_update
+        if [@width, @height] != [@pixbuf.width, @pixbuf.height]
+          _resize(@width, @height)
+        end
+      end
+    end
   end
 end
