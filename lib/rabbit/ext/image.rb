@@ -76,7 +76,7 @@ module Rabbit
               out.print(in_file.read)
             end
           end
-        rescue OpenURI::HTTPError
+        rescue SocketError, OpenURI::HTTPError
           visitor.logger.warn("#{$!.message}: #{uri}")
         end
       end
