@@ -25,30 +25,21 @@ module Rabbit
       
       attr_accessor :keep_ratio
 
-      attr_reader :width, :height
+      attr_reader :width, :height, :original_width, :original_height
     
       def initialize(filename, keep_ratio)
         @filename = filename
         @keep_ratio = keep_ratio
         load_image
-        @width = @pixbuf.width
-        @height = @pixbuf.height
-        @original_pixbuf = @pixbuf
+        @original_width = @width = _pixbuf.width
+        @original_height = @height = _pixbuf.height
       end
 
       def pixbuf
         ensure_update
-        @pixbuf
+        _pixbuf
       end
 
-      def original_width
-        @original_pixbuf.width
-      end
-    
-      def original_height
-        @original_pixbuf.height
-      end
-    
       def resize(w, h)
         if w.nil? and h.nil?
           return
@@ -82,9 +73,13 @@ module Rabbit
       end
 
       def ensure_update
-        if [@width, @height] != [@pixbuf.width, @pixbuf.height]
+        if [@width, @height] != [_pixbuf.width, _pixbuf.height]
           _resize(@width, @height)
         end
+      end
+
+      def _pixbuf
+        @pixbuf
       end
     end
   end

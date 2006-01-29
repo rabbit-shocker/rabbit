@@ -23,8 +23,7 @@ module Rabbit
       end
 
       def load_image(width=nil, height=nil)
-        @pixbuf = to_pixbuf
-        resize(width, height)
+        @pixbuf = to_pixbuf(width, height)
       end
 
       def filename

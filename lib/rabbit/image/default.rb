@@ -23,6 +23,7 @@ module Rabbit
           file.binmode
           load_by_pixbuf_loader(file.read, width, height)
         end
+        @original_pixbuf = @pixbuf
       end
     end
     
