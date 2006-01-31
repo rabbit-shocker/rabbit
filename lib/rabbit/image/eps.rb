@@ -87,6 +87,7 @@ module Rabbit
         File.open(@filename) do |f|
           f.each do |line|
             if /^%%BoundingBox:\s*/ =~ line
+              next if $POSTMATCH.chomp == '(atend)'
               sx, sy, ex, ey = $POSTMATCH.scan(/\d+/).map{|x| Integer(x)}
               w, h = ex - sx, ey - sy
             elsif /^%%Feature:\s*\*Resolution\s*(\d+)dpi/ =~ line
