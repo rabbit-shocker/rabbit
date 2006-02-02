@@ -84,17 +84,15 @@ module Rabbit
       
       def eps_size
         sx, sy, w, h, r = nil
-        File.open(@filename) do |f|
-          f.each do |line|
-            if /^%%BoundingBox:\s*/ =~ line
-              next if $POSTMATCH.chomp == '(atend)'
-              sx, sy, ex, ey = $POSTMATCH.scan(/-?\d+/).map{|x| Integer(x)}
-              w, h = ex - sx, ey - sy
-            elsif /^%%Feature:\s*\*Resolution\s*(\d+)dpi/ =~ line
-              r = $1.to_i
-            end
-            break if r and sx and sy and w and h
+        File.readlines(@filename).join.split(/(?:\r\n?|\n)/).each do |line|
+          if /^%%BoundingBox:\s*/ =~ line
+            next if $POSTMATCH.chomp == '(atend)'
+            sx, sy, ex, ey = $POSTMATCH.scan(/-?\d+/).map{|x| Integer(x)}
+            w, h = ex - sx, ey - sy
+          elsif /^%%Feature:\s*\*Resolution\s*(\d+)dpi/ =~ line
+            r = $1.to_i
           end
+          break if r and sx and sy and w and h
         end
         [sx, sy, w, h, r]
       end
