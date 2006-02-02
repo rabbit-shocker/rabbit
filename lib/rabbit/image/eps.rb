@@ -84,7 +84,7 @@ module Rabbit
       
       def eps_size
         sx, sy, w, h, r = nil
-        File.readlines(@filename).join.split(/(?:\r\n?|\n)/).each do |line|
+        File.read(@filename).split(/(?:\r\n?|\n)/).each do |line|
           if /^%%BoundingBox:\s*/ =~ line
             next if $POSTMATCH.chomp == '(atend)'
             sx, sy, ex, ey = $POSTMATCH.scan(/-?\d+/).map{|x| Integer(x)}
