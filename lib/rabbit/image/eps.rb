@@ -88,7 +88,7 @@ module Rabbit
           f.each do |line|
             if /^%%BoundingBox:\s*/ =~ line
               next if $POSTMATCH.chomp == '(atend)'
-              sx, sy, ex, ey = $POSTMATCH.scan(/\d+/).map{|x| Integer(x)}
+              sx, sy, ex, ey = $POSTMATCH.scan(/-?\d+/).map{|x| Integer(x)}
               w, h = ex - sx, ey - sy
             elsif /^%%Feature:\s*\*Resolution\s*(\d+)dpi/ =~ line
               r = $1.to_i
