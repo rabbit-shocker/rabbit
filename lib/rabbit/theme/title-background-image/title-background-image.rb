@@ -1,4 +1,4 @@
-proc_name = "title-background"
+proc_name = "title-background-image"
 
 if @title_background_image.nil?
   theme_exit("must specify @title_background_image!!")
