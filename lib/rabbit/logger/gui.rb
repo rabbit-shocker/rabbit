@@ -15,7 +15,6 @@ module Rabbit
         super(*[level].compact)
         @width = width
         @height = height
-        @keys = Keys.new
         @start_gui_main_loop_automatically = true
         init_dialog
       end
@@ -85,7 +84,7 @@ module Rabbit
         set_dialog_delete
         set_dialog_response
         set_dialog_expose_event
-        set_dialog_key_press_event
+        set_dialog_accel_group
       end
 
       def set_dialog_delete
@@ -114,16 +113,19 @@ module Rabbit
         end
       end
       
-      def set_dialog_key_press_event
-        @dialog.signal_connect("key_press_event") do |widget, event|
-          case event.keyval
-          when *@keys.quit_keys
-            quit
+      def set_dialog_accel_group
+        accel_group = Gtk::AccelGroup.new
+        mod = Gdk::Window::ModifierType.new
+        flags = Gtk::AccelFlags::VISIBLE
+        Keys::QUIT_KEYS.each do |val|
+          accel_group.connect(val, mod, flags) do
+            @dialog.signal_emit("response", Gtk::Dialog::RESPONSE_CLOSE)
+            true
           end
-          true
         end
+        @dialog.add_accel_group(accel_group)
       end
-      
+
       def init_buffer
         textview = Gtk::TextView.new
         textview.set_editable(false)
