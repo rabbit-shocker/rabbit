@@ -900,13 +900,11 @@ module Rabbit
           set_keys(keys, mod) do |group, obj, val, modifier|
             index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_0)
             @canvas.activate("JumpTo") {index}
-            true
           end
           keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KP_#{i}")}
           set_keys(keys, mod) do |group, obj, val, modifier|
             index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_KP_0)
             @canvas.activate("JumpTo") {index}
-            true
           end
         end
       end
@@ -917,62 +915,50 @@ module Rabbit
         keys = Keys::QUIT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("Quit")
-          true
         end
         keys = Keys::MOVE_TO_NEXT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("NextSlide")
-          true
         end
         keys = Keys::MOVE_TO_PREVIOUS_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("PreviousSlide")
-          true
         end
         keys = Keys::MOVE_TO_FIRST_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("FirstSlide")
-          true
         end
         keys = Keys::MOVE_TO_LAST_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("LastSlide")
-          true
         end
         keys = Keys::TOGGLE_FULLSCREEN_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleFullScreen")
-          true
         end
         keys = Keys::RELOAD_THEME_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           reload_theme
-          true
         end
         keys = Keys::SAVE_AS_IMAGE_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("SaveAsImage")
-          true
         end
         keys = Keys::ICONIFY_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("Iconify")
-          true
         end
         keys = Keys::TOGGLE_INDEX_MODE_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleIndexMode")
-          true
         end
         keys = Keys::CACHE_ALL_SLIDES_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("CacheAllSlides")
-          true
         end
         keys = Keys::TOGGLE_COMMENT_FRAME_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleCommentFrame")
-          true
         end
         keys = Keys::SEARCH_SLIDE_FORWARD_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
@@ -998,32 +984,26 @@ module Rabbit
         keys = Keys::Shift::WHITE_OUT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleWhiteOut")
-          true
         end
         keys = Keys::Shift::BLACK_OUT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleBlackOut")
-          true
         end
         keys = Keys::Shift::TOGGLE_COMMENT_VIEW_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleCommentView")
-          true
         end
         keys = Keys::Shift::EXPAND_HOLE_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ExpandHole")
-          true
         end
         keys = Keys::Shift::NARROW_HOLE_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("NarrowHole")
-          true
         end
         keys = Keys::Shift::TOGGLE_GRAFFITI_MODE_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ToggleGraffitiMode")
-          true
         end
         keys = Keys::Shift::SEARCH_SLIDE_BACKWARD_NEXT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
@@ -1036,32 +1016,20 @@ module Rabbit
 
         keys = Keys::Control::CLEAR_GRAFFITI_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
-          if @graffiti_mode
-            @canvas.activate("ClearGraffiti")
-            true
-          else
-            false
-          end
+          @canvas.activate("ClearGraffiti")
         end
         keys = Keys::Control::UNDO_GRAFFITI_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
-          if @graffiti_mode
-            @canvas.activate("UndoGraffiti")
-            true
-          else
-            false
-          end
+          @canvas.activate("UndoGraffiti")
         end
 
         keys = Keys::Control::REDRAW_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("Redraw")
-          true
         end
         keys = Keys::Control::PRINT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("Print")
-          true
         end
         keys = Keys::Control::SEARCH_SLIDE_FORWARD_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
@@ -1091,7 +1059,6 @@ module Rabbit
         keys = Keys::Alt::RESET_ADJUSTMENT_KEYS
         set_keys(keys, mod) do |group, obj, val, modifier|
           @canvas.activate("ResetAdjustment")
-          true
         end
       end
 

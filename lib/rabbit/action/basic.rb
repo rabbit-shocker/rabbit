@@ -177,8 +177,10 @@ module Rabbit
     def update_graffiti_action_status(canvas)
       graffiti_available = canvas.graffiti_mode? || canvas.have_graffiti?
       canvas.action("Graffiti").sensitive = graffiti_available
-      canvas.action("ClearGraffiti").sensitive = canvas.have_graffiti?
-      canvas.action("UndoGraffiti").sensitive = canvas.can_undo_graffiti?
+      #canvas.action("ClearGraffiti").sensitive = canvas.have_graffiti?
+      #canvas.action("UndoGraffiti").sensitive = canvas.can_undo_graffiti?
+      canvas.action("ClearGraffiti").sensitive = graffiti_available
+      canvas.action("UndoGraffiti").sensitive = graffiti_available
     end
 
     def act_reset_adjustment(action, group, canvas)
