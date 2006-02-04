@@ -167,6 +167,17 @@ module Rabbit
          compute_bottom_y(by, bh, th, sh)]
       end
     end
+
+    def combination(elements)
+      return [] if elements.empty?
+      first, *rest = elements
+      results = combination(rest)
+      if results.empty?
+        [[], [first]]
+      else
+        results + results.collect {|result| [first, *result]}
+      end
+    end
   end
 
   module SystemRunner

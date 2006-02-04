@@ -887,12 +887,15 @@ module Rabbit
       end
 
       def init_number_keys
-        [
-         Gdk::Window::ModifierType.new,
-         Gdk::Window::ModifierType::SHIFT_MASK,
-         Gdk::Window::ModifierType::CONTROL_MASK,
-         Gdk::Window::ModifierType::MOD1_MASK,
-        ].each do |mod|
+        no_mod = Gdk::Window::ModifierType.new
+        mods = Utils.combination([
+                                  Gdk::Window::ModifierType::CONTROL_MASK,
+                                  Gdk::Window::ModifierType::MOD1_MASK,
+                                 ])
+        mods.each do |mod|
+          mod = mod.inject(no_mod) do |result, item|
+            result | item
+          end
           keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_#{i}")}
           set_keys(keys, mod) do |group, obj, val, modifier|
             index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_0)

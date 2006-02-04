@@ -2,7 +2,6 @@ require "test/unit"
 
 module Test
   module Unit
-
     class Failure
       def long_display
         first, *others = location
@@ -21,6 +20,5 @@ module Test
         "Error:\n#{@test_name}:\n#{first}\n#{message}#{others}"
       end
     end
-    
   end
 end
