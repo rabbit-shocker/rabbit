@@ -30,14 +30,14 @@ module Rabbit
       def initialize(filename, keep_ratio)
         @filename = filename
         @keep_ratio = keep_ratio
-        load_image
-        @original_width = @width = _pixbuf.width
-        @original_height = @height = _pixbuf.height
+        update_size
+        @original_width = @width
+        @original_height = @height
       end
 
       def pixbuf
         ensure_update
-        _pixbuf
+        internal_pixbuf
       end
 
       def resize(w, h)
@@ -60,25 +60,29 @@ module Rabbit
       end
 
       private
-      def load_by_pixbuf_loader(data, width=nil, height=nil)
+      def load_by_pixbuf_loader(data)
         loader = Gdk::PixbufLoader.new
+        loader.signal_connect("size_prepared") do |l, width, height|
+          @width = width
+          @height = height
+        end
         begin
           loader.last_write(data)
         rescue Gdk::PixbufError
           loader.close rescue Gdk::PixbufError
           raise ImageLoadError.new("#{@filename}: #{$!.message}")
         end
-        @pixbuf = loader.pixbuf
-        resize(width, height)
+        loader
       end
 
       def ensure_update
-        if [@width, @height] != [_pixbuf.width, _pixbuf.height]
-          _resize(@width, @height)
+        _pixbuf = internal_pixbuf
+        if _pixbuf.nil? or [@width, @height] != [_pixbuf.width, _pixbuf.height]
+          ensure_resize(@width, @height)
         end
       end
 
-      def _pixbuf
+      def internal_pixbuf
         @pixbuf
       end
     end

@@ -4,7 +4,6 @@ require "rabbit/image/base"
 
 module Rabbit
   module ImageManipulable
-    
     class EPS < Base
 
       unshift_loader(self)
@@ -32,10 +31,14 @@ module Rabbit
       end
       
       private
-      def _resize(w, h)
-        load_image(w, h)
+      def ensure_resize(w, h)
+        @pixbuf = load_image(w, h).pixbuf
       end
-      
+
+      def update_size
+        load_image
+      end
+
       def load_image(width=nil, height=nil)
         data = begin
                  eps_to_png(width, height)
@@ -108,8 +111,6 @@ module Rabbit
           yield @filename
         end
       end
-    
     end
-    
   end
 end

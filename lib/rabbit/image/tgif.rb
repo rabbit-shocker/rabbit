@@ -26,9 +26,11 @@ module Rabbit
       end
 
       def_delegators(:@eps_loader, :keep_ratio, :keep_ratio=)
-      def_delegators(:@eps_loader, :pixbuf, :_pixbuf, :_resize, :width, :height)
+      def_delegators(:@eps_loader, :pixbuf, :internal_pixbuf)
+      def_delegators(:@eps_loader, :width, :height)
       def_delegators(:@eps_loader, :original_width, :original_height)
-      def_delegators(:@eps_loader, :resize)
+      def_delegators(:@eps_loader, :resize, :ensure_resize)
+      def_delegators(:@eps_loader, :update_size)
       
       def initialize(filename, keep_ratio)
         init_eps_loader(filename, keep_ratio)
