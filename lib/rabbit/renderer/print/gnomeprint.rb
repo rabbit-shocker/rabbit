@@ -80,7 +80,7 @@ module Rabbit
         end
         
         
-        def _draw_slide(slide, simulation)
+        def internal_draw_slide(slide, simulation)
           if simulation
             yield
           else
@@ -94,15 +94,6 @@ module Rabbit
             else
               @shown_page = false
             end
-          end
-        end
-        
-        def draw_slide(slide, simulation)
-          _draw_slide(slide, simulation) do
-            unless simulation
-              _draw_background
-            end
-            yield
           end
         end
         
@@ -227,7 +218,7 @@ module Rabbit
           end
         end
         
-        def _draw_background(x=0, y=0, w=width, h=height)
+        def internal_draw_background(x=0, y=0, w=width, h=height)
           draw_rectangle(true, x, y, w, h, @background)
           if @background_image
             params = {

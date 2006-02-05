@@ -88,10 +88,10 @@ module Rabbit
         
         def draw_slide(slide, simulation)
           @print.show_page = need_show_page?
-          @print._draw_slide(slide, simulation) do
+          @print.internal_draw_slide(slide, simulation) do
             unless simulation
               x, y = normalize(0, 0)
-              @print._draw_background(x, y, width, height)
+              @print.internal_draw_background(x, y, width, height)
               draw_rectangle(false, 0, 0, width, height, @black)
             end
             yield

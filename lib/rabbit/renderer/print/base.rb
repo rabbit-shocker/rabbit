@@ -53,6 +53,15 @@ module Rabbit
         def filename
           @filename ||= "#{GLib.filename_from_utf8(@canvas.title)}.ps"
         end
+
+        def draw_slide(slide, simulation)
+          internal_draw_slide(slide, simulation) do
+            unless simulation
+              internal_draw_background
+            end
+            yield
+          end
+        end
       end
     end
   end

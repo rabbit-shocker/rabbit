@@ -44,21 +44,12 @@ module Rabbit
         def post_move(index)
         end
         
-        def _draw_slide(slide, simulation)
+        def internal_draw_slide(slide, simulation)
           yield
           @context.show_page if !simulation and @show_page
         end
 
-        def draw_slide(slide, simulation)
-          _draw_slide(slide, simulation) do
-            unless simulation
-              _draw_background
-            end
-            yield
-          end
-        end
-
-        def _draw_background(x=0, y=0, w=width, h=height)
+        def internal_draw_background(x=0, y=0, w=width, h=height)
           draw_rectangle(true, x, y, w, h, @background)
         end
 
