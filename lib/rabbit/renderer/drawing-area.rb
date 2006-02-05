@@ -66,8 +66,9 @@ module Rabbit
         init_accel_group
         init_pixmap(1, 1)
         init_comment_log_window
+        init_color
       end
-      
+
       def attach_to(window)
         init_menu
         @window = window
@@ -608,7 +609,7 @@ module Rabbit
               @graffiti.dragging? and
               pressed_button == target_button
             @graffiti.button_motion(event.x, event.y, width, height)
-            @graffiti.draw_last_segment(@drawable, @foreground)
+            @graffiti.draw_last_segment(@drawable, @graffiti_color)
             true
           else
             false
@@ -693,9 +694,9 @@ module Rabbit
           @background = Gdk::GC.new(@drawable)
           @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
           @white = Gdk::GC.new(@drawable)
-          @white.set_foreground(@pixmap.make_gdk_color("white"))
+          @white.set_rgb_fg_color(@pixmap.make_gdk_color("white"))
           @black = Gdk::GC.new(@drawable)
-          @black.set_foreground(@pixmap.make_gdk_color("black"))
+          @black.set_rgb_fg_color(@pixmap.make_gdk_color("black"))
           init_pixmap
         end
       end
@@ -739,7 +740,7 @@ module Rabbit
                                      original_width, original_height)
           else
             draw_current_slide
-            @graffiti.draw_all_segment(@drawable, @foreground)
+            @graffiti.draw_all_segment(@drawable, @graffiti_color)
           end
         end
       end

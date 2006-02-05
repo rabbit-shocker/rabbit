@@ -160,6 +160,10 @@ module Rabbit
         canvas.progress_background = canvas.make_color(color)
       end
 
+      def set_graffiti_color(color)
+        canvas.graffiti_color = canvas.make_color(color)
+      end
+
       def font_families
         canvas.font_families.collect{|x| x.name}
       end

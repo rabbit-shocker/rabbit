@@ -20,6 +20,8 @@ set_progress_background("#ff00cc00ff00")
 # set_progress_foreground("#eb29f6f6df41")
 # set_progress_background("#eb29f6f6e535")
 
+set_graffiti_color("red")
+
 if @image_with_frame.nil?
   @image_with_frame = true
 end

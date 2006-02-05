@@ -1,3 +1,5 @@
+set_graffiti_color("blue")
+
 include_theme("default-icon")
 
 include_theme("image")

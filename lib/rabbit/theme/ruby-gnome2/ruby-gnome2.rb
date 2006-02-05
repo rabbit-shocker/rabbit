@@ -7,6 +7,8 @@ include_theme("default-text")
 
 set_background("white")
 
+set_graffiti_color("red")
+
 @title_logo_image = "ruby-pink-polygon.png"
 @title_logo_position = :left
 include_theme("title-logo")

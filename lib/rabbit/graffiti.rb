@@ -1,5 +1,7 @@
 require 'gtk2'
 
+require 'rabbit/renderer/color'
+
 module Rabbit
   class Graffiti
     def initialize
@@ -31,9 +33,11 @@ module Rabbit
       end
     end
 
-    def draw_last_segment(drawable, foreground)
+    def draw_last_segment(drawable, color)
       points = @segments.last
       if points.size >= 2
+        foreground = Gdk::GC.new(drawable)
+        foreground.set_rgb_fg_color(color.to_gdk_color)
         width, height = drawable.size
         prev, current = points[-2..-1]
         prev_x, prev_y = prev
@@ -44,8 +48,10 @@ module Rabbit
       end
     end
     
-    def draw_all_segment(drawable, foreground)
+    def draw_all_segment(drawable, color)
       width, height = drawable.size
+      foreground = Gdk::GC.new(drawable)
+      foreground.set_rgb_fg_color(color.to_gdk_color)
       @segments.each do |points|
         prev_x, prev_y = points.first
         prev_x *= width

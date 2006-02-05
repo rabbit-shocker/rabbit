@@ -32,6 +32,7 @@ module Rabbit
       attr_accessor :progress_foreground
       attr_accessor :progress_background
       attr_accessor :adjustment_x, :adjustment_y
+      attr_accessor :graffiti_color
       attr_writer :margin_page_left, :margin_page_right
       attr_writer :margin_page_top, :margin_page_bottom
       
@@ -398,6 +399,7 @@ module Rabbit
       def clear_theme
         clear_keys
         clear_progress_color
+        clear_graffiti_color
       end
 
       def white_outing?
@@ -608,6 +610,10 @@ module Rabbit
       def clear_keys
       end
 
+      def clear_graffiti_color
+        self.graffiti_color = @default_graffiti_color
+      end
+
       def clear_progress_color
         @progress_foreground = nil
         @progress_background = nil
@@ -623,6 +629,7 @@ module Rabbit
 
       def init_color
         @background_color = "white"
+        @default_graffiti_color = make_color("black")
       end
     end
   end
