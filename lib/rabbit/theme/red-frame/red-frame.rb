@@ -12,6 +12,8 @@ include_theme("rabbit-icon")
 set_progress_foreground("#ffffeb29ffff")
 set_progress_background("#ffff00000000")
 
+set_graffiti_color("red")
+
 color = "red"
 shadow_color = "#c09090"
 line_width = screen_size(0.8)

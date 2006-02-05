@@ -61,12 +61,11 @@ module Rabbit
         @search_window = nil
         init_progress
         clear_button_handler
-        init_graffiti
         init_drawing_area
         init_accel_group
         init_pixmap(1, 1)
         init_comment_log_window
-        init_color
+        init_graffiti
       end
 
       def attach_to(window)
@@ -577,6 +576,7 @@ module Rabbit
 
 
       def init_graffiti
+        init_graffiti_config
         @graffiti = Graffiti.new
         @graffiti_mode = false
 
@@ -609,7 +609,9 @@ module Rabbit
               @graffiti.dragging? and
               pressed_button == target_button
             @graffiti.button_motion(event.x, event.y, width, height)
-            @graffiti.draw_last_segment(@drawable, @graffiti_color)
+            @graffiti.draw_last_segment(@drawable,
+                                        @graffiti_color,
+                                        @graffiti_line_width)
             true
           else
             false
@@ -740,7 +742,9 @@ module Rabbit
                                      original_width, original_height)
           else
             draw_current_slide
-            @graffiti.draw_all_segment(@drawable, @graffiti_color)
+            @graffiti.draw_all_segment(@drawable,
+                                       @graffiti_color,
+                                       @graffiti_line_width)
           end
         end
       end

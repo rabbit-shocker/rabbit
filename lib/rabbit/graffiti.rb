@@ -33,11 +33,10 @@ module Rabbit
       end
     end
 
-    def draw_last_segment(drawable, color)
+    def draw_last_segment(drawable, color, line_width)
       points = @segments.last
       if points.size >= 2
-        foreground = Gdk::GC.new(drawable)
-        foreground.set_rgb_fg_color(color.to_gdk_color)
+        foreground = make_gc(drawable, color, line_width)
         width, height = drawable.size
         prev, current = points[-2..-1]
         prev_x, prev_y = prev
@@ -48,10 +47,9 @@ module Rabbit
       end
     end
     
-    def draw_all_segment(drawable, color)
+    def draw_all_segment(drawable, color, line_width)
       width, height = drawable.size
-      foreground = Gdk::GC.new(drawable)
-      foreground.set_rgb_fg_color(color.to_gdk_color)
+      foreground = make_gc(drawable, color, line_width)
       @segments.each do |points|
         prev_x, prev_y = points.first
         prev_x *= width
@@ -92,6 +90,17 @@ module Rabbit
       else
         @undo_index = nil
       end
+    end
+
+    private
+    def make_gc(drawable, color, line_width)
+      gc = Gdk::GC.new(drawable)
+      gc.set_rgb_fg_color(color.to_gdk_color)
+      gc.set_line_attributes(line_width || 1,
+                             Gdk::GC::LINE_SOLID,
+                             Gdk::GC::CAP_ROUND,
+                             Gdk::GC::JOIN_ROUND)
+      gc
     end
   end
 end

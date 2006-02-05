@@ -164,6 +164,10 @@ module Rabbit
         canvas.graffiti_color = canvas.make_color(color)
       end
 
+      def set_graffiti_line_width(line_width)
+        canvas.graffiti_line_width = line_width
+      end
+
       def font_families
         canvas.font_families.collect{|x| x.name}
       end
