@@ -207,6 +207,7 @@ module Rabbit
         [:menu, "Graffiti",
           [:item, "ClearGraffiti"],
           [:item, "UndoGraffiti"],
+          [:item, "ChangeGraffitiColor"],
         ],
         [:separator],
         [:item, "ToggleFullScreen"],

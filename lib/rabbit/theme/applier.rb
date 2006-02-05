@@ -5,6 +5,7 @@ require 'rabbit/utils'
 require 'rabbit/element'
 require 'rabbit/image'
 require 'rabbit/theme/searcher'
+require 'rabbit/renderer/color'
 
 module Rabbit
   module Theme
@@ -161,7 +162,7 @@ module Rabbit
       end
 
       def set_graffiti_color(color)
-        canvas.graffiti_color = canvas.make_color(color)
+        canvas.graffiti_color = Renderer::Color.parse(color)
       end
 
       def set_graffiti_line_width(line_width)

@@ -48,6 +48,7 @@ module Rabbit
     end
     
     def draw_all_segment(drawable, color, line_width)
+      return if @segments.empty?
       width, height = drawable.size
       foreground = make_gc(drawable, color, line_width)
       @segments.each do |points|

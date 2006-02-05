@@ -61,11 +61,11 @@ module Rabbit
         @search_window = nil
         init_progress
         clear_button_handler
+        init_graffiti
         init_drawing_area
         init_accel_group
         init_pixmap(1, 1)
         init_comment_log_window
-        init_graffiti
       end
 
       def attach_to(window)
@@ -471,6 +471,21 @@ module Rabbit
 
       def disconnect_key(keyval, modifier)
         @user_accel_group.disconnect_key(keyval, modifier)
+      end
+
+      def change_graffiti_color
+        dialog = Gtk::ColorSelectionDialog.new
+        dialog.colorsel.has_opacity_control = true
+        dialog.colorsel.has_palette = true
+        color = nil
+        if dialog.run == Gtk::Dialog::RESPONSE_OK
+          color = dialog.colorsel.current_color
+        end
+        dialog.destroy
+        if color
+          @graffiti_color = Color.new_from_gdk_color(color)
+          redraw
+        end
       end
 
       private

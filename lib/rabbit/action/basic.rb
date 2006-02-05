@@ -174,6 +174,14 @@ module Rabbit
       config[:stock_id] = Gtk::Stock::UNDO
     end
 
+    def act_change_graffiti_color(action, group, canvas)
+      canvas.change_graffiti_color
+    end
+    def act_change_graffiti_color_config(config, canvas)
+      config[:label] = N_("Change graffiti color")
+      config[:stock_id] = Gtk::Stock::SELECT_COLOR
+    end
+
     def update_graffiti_action_status(canvas)
       graffiti_available = canvas.graffiti_mode? || canvas.have_graffiti?
       canvas.action("Graffiti").sensitive = graffiti_available
@@ -181,6 +189,7 @@ module Rabbit
       #canvas.action("UndoGraffiti").sensitive = canvas.can_undo_graffiti?
       canvas.action("ClearGraffiti").sensitive = graffiti_available
       canvas.action("UndoGraffiti").sensitive = graffiti_available
+      canvas.action("ChangeGraffitiColor").sensitive = graffiti_available
     end
 
     def act_reset_adjustment(action, group, canvas)

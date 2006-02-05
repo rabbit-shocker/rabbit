@@ -10,7 +10,6 @@ module Rabbit
         include Renderer::Base
         include ScreenInfo
         
-        @@color_table = {}
         @@depth = nil
         
         attr_accessor :width, :height, :pango_context
@@ -167,25 +166,22 @@ module Rabbit
             end
           elsif color.is_a?(String)
             make_gc_from_string(color)
+          elsif color.is_a?(Gdk::Color)
+            make_gc_from_gdk_color(color)
           else
             color
           end
         end
-        
-        def make_gc_from_string(str)
+
+        def make_gc_from_gdk_color(color)
           gc = Gdk::GC.new(@pixmap)
-          if @@color_table.has_key?(str)
-            color = @@color_table[str]
-          else
-            color = Color.parse(str).to_gdk_color
-            colormap = Gdk::Colormap.system
-            unless colormap.alloc_color(color, false, true)
-              raise CantAllocateColorError.new(str)
-            end
-            @@color_table[str] = color
-          end
-          gc.set_foreground(color)
+          gc.set_rgb_fg_color(color)
           gc
+        end
+
+        def make_gc_from_string(str)
+          color = Color.parse(str).to_gdk_color
+          make_gc_from_gdk_color(color)
         end
       end
     end

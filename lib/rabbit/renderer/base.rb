@@ -482,6 +482,9 @@ module Rabbit
       def disconnect_key(keyval, modifier)
       end
 
+      def change_graffiti_color
+      end
+
       private
       def off_screen_renderer?
         false
@@ -633,8 +636,9 @@ module Rabbit
       end
 
       def init_graffiti_config
-        @default_graffiti_color = make_color("black")
+        @default_graffiti_color = Color.parse("black")
         @default_graffiti_line_width = 3
+        clear_graffiti_config
       end
     end
   end
