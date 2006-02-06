@@ -82,7 +82,7 @@ module Rabbit
     end
 
     def events_pending_available?
-      !windows? or (Gtk::BINDING_VERSION <=> [0, 14, 1]) > 0
+      !windows? #or (Gtk::BINDING_VERSION <=> [0, 14, 1]) > 0
     end
 
     def process_pending_events_proc
