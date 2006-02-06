@@ -31,8 +31,6 @@ module Rabbit
       def_delegators(:@pixmap, :draw_icosahedron, :draw_teapot)
       
       def_delegators(:@pixmap, :gl_compile, :gl_call_list)
-    
-      def_delegators(:@pixmap, :make_color)
 
       def_delegators(:@pixmap, :to_pixbuf)
 
@@ -579,11 +577,11 @@ module Rabbit
         return unless @progress
         style = @progress.style.copy
         if @progress_foreground
-          rgb = @pixmap.to_gdk_rgb(@progress_foreground)
+          rgb = @progress_foreground.to_gdk_rgb
           style.set_bg(Gtk::STATE_NORMAL, *rgb)
         end
         if @progress_background
-          rgb = @pixmap.to_gdk_rgb(@progress_background)
+          rgb = @progress_background.to_gdk_rgb
           style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
         end
         @progress.style = style
@@ -711,9 +709,9 @@ module Rabbit
           @background = Gdk::GC.new(@drawable)
           @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
           @white = Gdk::GC.new(@drawable)
-          @white.set_rgb_fg_color(@pixmap.make_gdk_color("white"))
+          @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
           @black = Gdk::GC.new(@drawable)
-          @black.set_rgb_fg_color(@pixmap.make_gdk_color("black"))
+          @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
           init_pixmap
         end
       end

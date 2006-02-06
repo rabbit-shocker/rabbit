@@ -160,20 +160,6 @@ module Rabbit
         end
       end
 
-      
-      def make_color(color, default_is_foreground=true)
-        return color if color.is_a?(Color)
-        if color.nil?
-          if default_is_foreground
-            @foreground
-          else
-            @background
-          end
-        else
-          Color.parse(color)
-        end
-      end
-
       def make_layout(text)
         attrs, text = Pango.parse_markup(text)
         layout = @context.create_pango_layout

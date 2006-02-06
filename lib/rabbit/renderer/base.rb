@@ -485,6 +485,15 @@ module Rabbit
       def change_graffiti_color
       end
 
+      def make_color(color)
+        return color if color.is_a?(Color)
+        if color.nil?
+          @foreground
+        else
+          Color.parse(color)
+        end
+      end
+
       private
       def off_screen_renderer?
         false

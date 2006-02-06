@@ -8,7 +8,7 @@ module Rabbit
         
         class << self
           def priority
-            0
+            1000
           end
         end
 
@@ -17,11 +17,11 @@ module Rabbit
         end
         
         def foreground=(color)
-          @foreground.set_foreground(color)
+          @foreground.set_rgb_fg_color(color.to_gdk_color)
         end
         
         def background=(color)
-          @background.set_foreground(color)
+          @background.set_rgb_fg_color(color.to_gdk_color)
         end
         
         def background_image=(pixbuf)
@@ -47,48 +47,12 @@ module Rabbit
         end
         
         def draw_line(x1, y1, x2, y2, color=nil, params={})
-          gc = make_gc(color)
-          line_width = get_line_width(params, 1) / 2
-          if x1 == x2
-            line_width.times do |i|
-              x_delta = i + 1
-              drawable.draw_line(gc, x1 - x_delta, y1, x2 - x_delta, y2)
-              drawable.draw_line(gc, x1 + x_delta, y1, x2 + x_delta, y2)
-            end
-          elsif y1 == y2
-            line_width.times do |i|
-              y_delta = i + 1
-              drawable.draw_line(gc, x1, y1 - y_delta, x2, y2 - y_delta)
-              drawable.draw_line(gc, x1, y1 + y_delta, x2, y2 + y_delta)
-            end
-          else
-            slope = (y2 - y1).to_f / (x2 - x1).to_f
-            theta = Math.atan(slope.abs)
-            y_delta = Math.sin(theta) * line_width
-            0.step(y_delta, y_delta > 0 ? 1 : -1) do |i|
-              x_delta = slope * i
-              drawable.draw_line(gc, x1 - x_delta, y1 + i, x2 - x_delta, y2 + i)
-              drawable.draw_line(gc, x1 + x_delta, y1 - i, x2 + x_delta, y2 - i)
-            end
-          end
+          gc = make_gc(color, params)
           drawable.draw_line(gc, x1, y1, x2, y2)
         end
         
         def draw_rectangle(filled, x, y, w, h, color=nil, params={})
-          gc = make_gc(color)
-          unless filled
-            line_width = get_line_width(params, 1) / 2
-            line_width.times do |i|
-              delta = i + 1
-              double_delta = delta * 2
-              drawable.draw_rectangle(gc, false,
-                                      x - delta, y - delta,
-                                      w + double_delta, h + double_delta)
-              drawable.draw_rectangle(gc, false,
-                                      x + delta, y + delta,
-                                      w - double_delta, h - double_delta)
-            end
-          end
+          gc = make_gc(color, params)
           drawable.draw_rectangle(gc, filled, x, y, w, h)
         end
         
@@ -143,32 +107,10 @@ module Rabbit
         end
         
         def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
-          gc = make_gc(color)
+          gc = make_gc(color, params)
           a1 *= 64
           a2 *= 64
-          line_width = get_line_width(params)
-          if filled or line_width.nil? or line_width == 1
-            drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
-          else
-            half_line_width = line_width / 2 + 1
-            nx = x - half_line_width
-            ny = y - half_line_width
-            nw = w + half_line_width * 2
-            nh = w + half_line_width * 2
-            mask = Gdk::Pixmap.new(nil, nw, nh, 1)
-            xor_gc = Gdk::GC.new(mask)
-            xor_gc.set_function(Gdk::GC::INVERT)
-            clear_gc = Gdk::GC.new(mask)
-            clear_gc.set_function(Gdk::GC::SET)
-            mask.draw_rectangle(clear_gc, true, 0, 0, nw, nh)
-            masked_w = nw - line_width * 2
-            masked_h = nh - line_width * 2
-            mask.draw_arc(xor_gc, true, line_width, line_width,
-                          masked_w, masked_h, a1, a2)
-            set_mask(gc, nx, ny, mask) do |gc|
-              drawable.draw_arc(gc, true, nx, ny, nw, nh, a1, a2)
-            end
-          end
+          drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
         end
         
         def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
@@ -180,17 +122,17 @@ module Rabbit
         end
         
         def draw_polygon(filled, points, color=nil, params={})
-          gc = make_gc(color)
+          gc = make_gc(color, params)
           drawable.draw_polygon(gc, filled, points)
         end
         
         def draw_layout(layout, x, y, color=nil, params={})
-          gc = make_gc(color)
+          gc = make_gc(color, params)
           drawable.draw_layout(gc, x, y, layout)
         end
         
         def draw_pixbuf(pixbuf, x, y, params={})
-          gc = make_gc(params['color'])
+          gc = make_gc(params['color'], params)
           args = [0, 0, x, y,
                   params['width'] || pixbuf.width,
                   params['height'] || pixbuf.height,
@@ -199,23 +141,17 @@ module Rabbit
                   params['y_dither'] || 0]
           drawable.draw_pixbuf(gc, pixbuf, *args)
         end
-        
-        def make_color(color, default_is_foreground=true)
-          make_gdk_color(color, default_is_foreground)
-        end
-        
-        def to_gdk_rgb(color)
-          color = make_color(color) unless color.is_a?(Gdk::Color)
-          color = Gdk::Colormap.system.query_color(color.pixel)
-          [color.red, color.green, color.blue]
-        end
-        
+
+
         def init_color
           super
           @foreground = Gdk::GC.new(@pixmap)
           @background = make_gc_from_string(@background_color)
         end
-        
+
+        private
+        # this method is no longer need. the reason that
+        # this isn't removed is only for my memo.
         def set_mask(gc, x, y, mask)
           clip_mask = gc.clip_mask
           clip_origin = gc.clip_origin
@@ -225,6 +161,38 @@ module Rabbit
           gc.clip_mask = clip_mask
           gc.set_clip_origin(*clip_origin)
           result
+        end
+
+        def internal_make_gc(color)
+          if color.nil?
+            Gdk::GC.new(@pixmap)
+          elsif color.is_a?(String)
+            make_gc_from_string(color)
+          elsif color.is_a?(Gdk::Color)
+            make_gc_from_gdk_color(color)
+          else
+            color
+          end
+        end
+
+        def make_gc_from_gdk_color(color)
+          gc = Gdk::GC.new(@pixmap)
+          gc.set_rgb_fg_color(color)
+          gc
+        end
+
+        def make_gc_from_string(str)
+          color = Color.parse(str).to_gdk_color
+          make_gc_from_gdk_color(color)
+        end
+
+        def make_gc(color, params={})
+          gc = internal_make_gc(color)
+          gc.set_line_attributes(get_line_width(params, 1),
+                                 Gdk::GC::LINE_SOLID,
+                                 Gdk::GC::CAP_ROUND,
+                                 Gdk::GC::JOIN_ROUND)
+          gc
         end
       end
     end

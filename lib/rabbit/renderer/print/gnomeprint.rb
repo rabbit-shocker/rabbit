@@ -228,22 +228,7 @@ module Rabbit
             draw_pixbuf(@background_image, x, y, params)
           end
         end
-        
-        
-        def make_color(color, default_is_foreground=true)
-          if color.is_a?(Color)
-            color
-          elsif color.nil?
-            if default_is_foreground
-              @foreground
-            else
-              @background
-            end
-          else
-            Color.parse(color)
-          end
-        end
-        
+
         def make_layout(text)
           attrs, text = Pango.parse_markup(text)
           layout = @context.create_layout

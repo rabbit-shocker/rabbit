@@ -71,10 +71,6 @@ module Rabbit
           layout
         end
         
-        def make_gdk_color(color, default_is_foreground=true)
-          make_gc(color, default_is_foreground).foreground
-        end
-        
         def to_pixbuf(slide)
           Utils.drawable_to_pixbuf(@pixmaps[slide])
         end
@@ -155,33 +151,6 @@ module Rabbit
         
         def init_drawable
           @pixmap = Gdk::Pixmap.new(nil, 1, 1, depth)
-        end
-        
-        def make_gc(color, default_is_foreground=true)
-          if color.nil?
-            if default_is_foreground
-              Gdk::GC.new(@pixmap)
-            else
-              make_gc_from_string(@background_color)
-            end
-          elsif color.is_a?(String)
-            make_gc_from_string(color)
-          elsif color.is_a?(Gdk::Color)
-            make_gc_from_gdk_color(color)
-          else
-            color
-          end
-        end
-
-        def make_gc_from_gdk_color(color)
-          gc = Gdk::GC.new(@pixmap)
-          gc.set_rgb_fg_color(color)
-          gc
-        end
-
-        def make_gc_from_string(str)
-          color = Color.parse(str).to_gdk_color
-          make_gc_from_gdk_color(color)
         end
       end
     end
