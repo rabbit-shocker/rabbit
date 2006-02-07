@@ -1,8 +1,8 @@
 module Rabbit
   module Gesture
     class Processor
-      DEFAULT_THRESHOLD = 64
-      DEFAULT_SKEW_THRESHOLD_ANGLE = 30
+      DEFAULT_THRESHOLD = 48
+      DEFAULT_SKEW_THRESHOLD_ANGLE = 90 / 4
 
       attr_accessor :threshold, :skew_threshold_angle
       attr_reader :motions
