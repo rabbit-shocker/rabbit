@@ -69,11 +69,6 @@ Execute install.bat.
     : htree.tar.gz
         ((<URL:http://cvs.m17n.org/viewcvs/ruby/htree.tar.gz>))
 
-(5) Extract the following archive and execute setup.rb to install.
-
-    : Iconv for One Click Installer
-        ((<URL:http://www.dave.burt.id.au/ruby/iconv.zip>))
-
 == Use rabrick
 
 Install ((<RAA:div>)).
