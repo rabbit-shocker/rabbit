@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-06 00:00+0900\n"
-"PO-Revision-Date: 2006-02-06 00:04+0900\n"
+"POT-Creation-Date: 2006-02-07 13:07+0900\n"
+"PO-Revision-Date: 2006-02-07 13:09+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -65,23 +65,27 @@ msgstr "HTML のテンプレートが見つかりません: %s"
 msgid "can't find theme RD template: %s"
 msgstr "テーマ RD のテンプレートが見つかりません: %s"
 
+#: lib/rabbit/rabbit.rb:170
+msgid "invalid motion: %s"
+msgstr "不正な動きです: %s"
+
 #: lib/rabbit/menu.rb:60
 msgid "Jump to the %dth slide"
 msgstr "%d番目のスライドへジャンプ"
 
-#: lib/rabbit/canvas.rb:338
+#: lib/rabbit/canvas.rb:340
 msgid "can't generate RSS"
 msgstr "RSS を生成できません"
 
-#: lib/rabbit/canvas.rb:514
+#: lib/rabbit/canvas.rb:516
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
 
-#: lib/rabbit/canvas.rb:589
+#: lib/rabbit/canvas.rb:591
 msgid "Processing..."
 msgstr "処理中です．．．"
 
-#: lib/rabbit/canvas.rb:701
+#: lib/rabbit/canvas.rb:703
 msgid "Comment"
 msgstr "コメント"
 
@@ -143,7 +147,7 @@ msgstr "enscript: サポートしていない言語です: %s"
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
 
-#: lib/rabbit/theme/applier.rb:454 lib/rabbit/theme/applier.rb:461
+#: lib/rabbit/theme/applier.rb:462 lib/rabbit/theme/applier.rb:469
 msgid "%s is deprecated. Use %s instead."
 msgstr "%sは非推奨です．代わりに%sを使ってください．"
 
@@ -915,16 +919,16 @@ msgstr "UTF-8から現在のロケールに変換できません: %s"
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/drawing-area.rb:659
+#: lib/rabbit/renderer/drawing-area.rb:707
 msgid "comment"
 msgstr "コメント"
 
-#: lib/rabbit/renderer/base.rb:597
+#: lib/rabbit/renderer/base.rb:610
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: lib/rabbit/renderer/print/gnomeprint.rb:364
-#: lib/rabbit/renderer/print/cairo.rb:91
+#: lib/rabbit/renderer/print/gnomeprint.rb:340
+#: lib/rabbit/renderer/print/cairo.rb:82
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
@@ -1091,6 +1095,10 @@ msgstr "スライド検索修了"
 #: lib/rabbit/action/radio.rb:37
 msgid "Show"
 msgstr "表示"
+
+#: lib/rabbit/graffiti/config-dialog.rb:47
+msgid "Line width:"
+msgstr "線の太さ"
 
 #: bin/rabbit:58 bin/rabbit-theme-manager:27
 msgid "Add [PATH] to load path."
