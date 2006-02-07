@@ -163,6 +163,14 @@ module Rabbit
     end
   end
 
+  class InvalidMotionError < Error
+    attr_reader :motion
+    def initialize(motion)
+      @motion = motion
+      super(_("invalid motion: %s") % @motion)
+    end
+  end
+
   class ParseFinish < Error
   end
 

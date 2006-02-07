@@ -3,6 +3,7 @@ require "forwardable"
 require "rabbit/menu"
 require "rabbit/keys"
 require "rabbit/search-window"
+require "rabbit/gesture/handler"
 require "rabbit/graffiti/processor"
 require "rabbit/graffiti/config-dialog"
 require "rabbit/renderer/pixmap"
@@ -38,7 +39,7 @@ module Rabbit
       def_delegators(:@pixmap, :filename, :filename=)
       
       def_delegators(:@pixmap, :x_dpi, :y_dpi)
-      
+
       BUTTON_PRESS_ACCEPTING_TIME = 250
       MASK_SIZE_STEP = 0.05
 
@@ -59,6 +60,7 @@ module Rabbit
         init_progress
         clear_button_handler
         init_graffiti
+        init_gesture
         init_drawing_area
         init_accel_group
         init_pixmap(1, 1)
@@ -67,6 +69,7 @@ module Rabbit
 
       def attach_to(window)
         init_menu
+        init_gesture_actions
         @window = window
         @hbox = Gtk::HBox.new
         @vbox = Gtk::VBox.new
@@ -480,6 +483,10 @@ module Rabbit
         end
       end
 
+      def add_gesture_action(sequence, action, &block)
+        @gesture.add_action(sequence, @canvas.action(action), &block)
+      end
+
       private
       def init_pixmap(w=width, h=height)
         @pixmap = Renderer::Pixmap.new(@canvas, w, h)
@@ -581,6 +588,55 @@ module Rabbit
         @progress.style = style
       end
 
+
+      def init_gesture
+        @gesture = Gesture::Handler.new
+
+        pressed_button = nil
+        first_motion = false
+        target_button = 3
+
+        add_button_press_hook do |event|
+          pressed_button = event.button
+          first_motion = true
+          if event.button == target_button
+            x, y, w, h = @area.allocation.to_a
+            @gesture.start(target_button, x + event.x, y + event.y, x, y)
+          end
+          false
+        end
+
+        add_button_release_hook do |event, last_button_press_event|
+          pressed_button = nil
+          if @gesture.processing? and event.button == target_button
+            update_cursor(@current_cursor)
+            @gesture.button_release(event.x, event.y, width, height)
+            @area.queue_draw
+            !first_motion
+          else
+            false
+          end
+        end
+
+        add_motion_notify_hook do |event|
+          if @gesture.processing? and pressed_button == target_button
+            update_cursor(hand_cursor) if first_motion
+            handled = @gesture.button_motion(event.x, event.y, width, height)
+            @area.queue_draw if handled or first_motion
+            first_motion = false
+            @gesture.draw_last_locus(@drawable)
+            true
+          else
+            false
+          end
+        end
+      end
+
+      def init_gesture_actions
+        @gesture.clear_actions
+        add_gesture_action(%w(L), "PreviousSlide")
+        add_gesture_action(%w(R), "NextSlide")
+      end
 
       def init_graffiti
         init_graffiti_config
@@ -752,6 +808,7 @@ module Rabbit
             @graffiti.draw_all_segment(@drawable,
                                        @graffiti_color,
                                        @graffiti_line_width)
+            @gesture.draw(@drawable) if @gesture.processing?
           end
         end
       end
@@ -884,7 +941,11 @@ module Rabbit
       def pencil_cursor
         @pencil_cursor ||= Gdk::Cursor.new(Gdk::Cursor::PENCIL)
       end
-      
+
+      def hand_cursor
+        @hand_cursor ||= Gdk::Cursor.new(Gdk::Cursor::HAND1)
+      end
+
       def calc_slide_number(val, modifier, base)
         val += 10 if modifier.control_mask?
         val += 20 if modifier.mod1_mask?

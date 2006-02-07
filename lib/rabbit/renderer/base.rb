@@ -383,7 +383,7 @@ module Rabbit
       def clear_button_release_hook
         @button_release_hook_procs.clear
       end
-      
+
       def clear_hooks
         init_hook_procs
       end
@@ -400,6 +400,7 @@ module Rabbit
         clear_keys
         clear_progress_color
         clear_graffiti_config
+        clear_gesture_actions
       end
 
       def white_outing?
@@ -492,6 +493,9 @@ module Rabbit
         else
           Color.parse(color)
         end
+      end
+
+      def add_gesture_action(sequence, action, &block)
       end
 
       private
@@ -648,6 +652,13 @@ module Rabbit
         @default_graffiti_color = Color.parse("black")
         @default_graffiti_line_width = 3
         clear_graffiti_config
+      end
+
+      def clear_gesture_actions
+        init_gesture_actions
+      end
+
+      def init_gesture_actions
       end
     end
   end

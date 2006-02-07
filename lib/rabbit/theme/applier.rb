@@ -169,6 +169,14 @@ module Rabbit
         canvas.graffiti_line_width = line_width
       end
 
+      def add_gesture_action(sequence, action=Proc.new)
+        canvas.add_gesture_action(sequence, action)
+      end
+
+      def activate(name, &block)
+        canvas.activate(name, &block)
+      end
+
       def font_families
         canvas.font_families.collect{|x| x.name}
       end
