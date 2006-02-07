@@ -173,6 +173,8 @@ module Rabbit
             cr.set_source_pixbuf(pixbuf, 0, 0)
             cr.paint
           end
+        elsif block_given?
+          yield
         end
       end
 

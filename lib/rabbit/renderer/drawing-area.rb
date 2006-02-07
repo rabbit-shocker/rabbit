@@ -636,9 +636,9 @@ module Rabbit
         @gesture.clear_actions
         bg_proc = Utils.process_pending_events_proc
         add_gesture_action(%w(R), "NextSlide")
-        add_gesture_action(%w(R L), "FirstSlide")
+        add_gesture_action(%w(R L), "LastSlide")
         add_gesture_action(%w(L), "PreviousSlide")
-        add_gesture_action(%w(L R), "LastSlide")
+        add_gesture_action(%w(L R), "FirstSlide")
         add_gesture_action(%w(U), "Quit")
         add_gesture_action(%w(D), "ToggleIndexMode", &bg_proc)
         add_gesture_action(%w(D U), "ToggleFullScreen", &bg_proc)
