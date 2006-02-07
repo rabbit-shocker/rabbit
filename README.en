@@ -88,6 +88,11 @@ misc/xyzzy
 
 Mr. MIYAMUKO
 
+== Co-Authors
+
+  * Mr. MIYAMUKO
+  * Mr. noritada
+
 == Licence
 
 Ruby's (except files under lib/rabbit/tgif.rb). For more
@@ -713,3 +718,4 @@ page from XXX.rd.
   * akira yamada: He makes Debian package (*.deb).
   * usatti: She drow some logos and taro series images.
   * dot: He helps installation on Windows.
+  * tanaka: He checks operations on Windows.
