@@ -3,9 +3,9 @@
 #|
 = rabbit-mode - rabbit のフロントエンド
 
-* Author:  miyamuko ((<URL:mailto:miyamuko (at) mtb.biglobe.ne.jp>))
-* URL: ((<URL:http://miyamuko.s56.xrea.com/xyzzy/rabbit.html>))
-* Version: $Id: rabbit-mode.l,v 1.11 2004/08/29 10:09:35 miyamuko Exp $
+* Author: MIYAMUKO Katsuyuki ((<URL:mailto:miyamuko (at) mtb.biglobe.ne.jp>))
+* URL: ((<URL:http://miyamuko.s56.xrea.com/xyzzy/rabbit-mode.html>))
+* Version: 0.2
 
 
 == 説明
@@ -49,9 +49,6 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
     * できるらしい。
       * ・・・ってこれは lisp じゃなくて ruby で実装して rabbit 本体に取り込んでもらったほうがよさげ。
 
-* rabbit がエラーを出力したときのみバッファを作るようにする
-  * 現状は *rabbit-output-buffer* にバッファ名を指定すればそこに出力する。
-    ただし、エラーが出なくてもバッファは作成してしまう。
 * rd 書き支援
   * rd 支援は ruby-doc-minor-mode に任せようと思ったけどやろうかな。
   * rd に特化した rd-mode をいい加減にちゃんとつくる。
@@ -68,7 +65,7 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
   * 普通のスライド
   * mimeTex
   * image
-    * keep_ratio、relative_width などの補完
+    * keep_scale、relative_width などの補完
   * 最終スライド
   * テンプレートのテキストファイル化
     * テキストファイルで作ってどこかに置くとメニューに出てくる。
@@ -87,24 +84,25 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
   * rd-mode をマイナーモードにして rabbit-mode をメジャーモード
   * rd-mode をメジャーモードにして rabbit-mode はモード継承
 * xyzzy から rabbit の操作
-  * rabbit を FindWindow して sendKey する
+  * rabbit を FindWindow して SendMessage する(?)
   * 追従モード
     * スライド単位で移動した場合は自動的に SendKey する
     * ページ数が 2 桁ある場合は無理 (?)
 
 * =begin, =end の削除
 * zphoto などの外部ツールとの連携
-* スライドごとに分割して 01.txt などに保存して less プレゼン (rabbit2less)
 
+* rabrick
+* rabbit-theme-browser
 
 == インストール
 
-((<NetInstaller|URL:http://www.mirai.ne.jp/~gyo/xyzzy/ni.html>)) でインストールした場合は
+((<NetInstaller|URL:http://www7a.biglobe.ne.jp/~hat/xyzzy/ni.html>)) でインストールした場合は
 3 以降で OK です。
 
 (1) アーカイブをダウンロードします。
 
-    ((<URL:http://miyamuko.s56.xrea.com/xyzzy/archives/rabbit.zip>))
+    ((<URL:http://miyamuko.s56.xrea.com/xyzzy/archives/rabbit-mode.zip>))
 
 (2) アーカイブを展開して、$XYZZY/site-lisp 配下にファイルをコピーします。
 
@@ -112,7 +110,7 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
 
         ;; rabbit-mode
         (require "rabbit-mode")
-        (pushnew '("\\.rb$" . rabbit-mode) *auto-mode-alist* :test 'equal)
+        (pushnew '("\\.rd$" . rabbit-mode) *auto-mode-alist* :test 'equal)
 
 (4) 設定を反映させるには xyzzy を再起動してください。
 
@@ -180,7 +178,7 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
     ここで設定します。
 
     例:
-        (setf *rabbit-command* "C:/ruby181/bin/ruby.exe -S rabbit")
+        (setf *rabbit-command* "C:/ruby184/bin/ruby.exe -S rabbit")
 
     パス名に空白文字が入っているとうまくいかないと思います。
 
@@ -209,7 +207,7 @@ rd ファイルを編集しながら xyzzy から rabbit を起動できます。
 
 rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
 
-  Copyright (C) 2004 MIYAMUKO Katsuyuki. All rights reserved.
+  Copyright (C) 2004-2006 MIYAMUKO Katsuyuki. All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
@@ -236,7 +234,7 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
   SUCH DAMAGE.
 |#
 
-(provide "rabbit")
+(provide "rabbit-mode")
 (in-package "editor")
 
 (export '(rabbit-slide-show
@@ -287,11 +285,9 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
 (defvar *rabbit-menu-name* "&Rabbit")
 (defvar *rabbit-menu-position* 'ed::help)
 
-; フック
 (defvar *rabbit-mode-hook* nil)
 (defvar *rabbit-comment-column* 0)
 
-; シンタックステーブル
 (defvar *rabbit-mode-syntax-table* nil)
 (unless *rabbit-mode-syntax-table*
   (setf *rabbit-mode-syntax-table* (make-syntax-table))
@@ -303,11 +299,9 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
   (set-syntax-end-comment *rabbit-mode-syntax-table* #\LFD)
   )
 
-; キーマップ
 (defvar *rabbit-mode-map* nil)
 (unless *rabbit-mode-map*
   (setf *rabbit-mode-map* (make-sparse-keymap))
-  ; 以下キー割当
   (define-key *rabbit-mode-map* '#\F5 'rabbit-slide-show)
   (define-key *rabbit-mode-map* '(#\C-c #\n) 'rabbit-narrow-to-slide)
   (define-key *rabbit-mode-map* '(#\C-c #\h) 'rabbit-toggle-hide-slide)
@@ -351,37 +345,37 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
 (unless *rabbit-menu*
   (setf *rabbit-menu* (copy-menu-items
                        (define-popup-menu
-                         (:item nil "ｽﾗｲﾄﾞｼｮｰ(&W)" 'rabbit-slide-show
-                          '(lambda () (unless (rabbit-executable-p) :disable)))
-                         (:item nil "ﾌﾟﾚﾋﾞｭｰ(&V)" 'rabbit-preview
-                          '(lambda () (unless (rabbit-executable-p) :disable)))
-                         (:popup nil "ﾌﾟﾚﾋﾞｭｰ"
-                          (:item nil "現在のｽﾗｲﾄﾞをﾌﾟﾚﾋﾞｭｰ(&C)" 'rabbit-preview-current-slide
-                           '(lambda () (unless (rabbit-executable-p) :disable)))
-                          (:item nil "ﾘｰｼﾞｮﾝをﾌﾟﾚﾋﾞｭｰ(&R)" 'rabbit-preview-region
-                           '(lambda () (unless (rabbit-executable-p) :disable)))
-                          (:item nil "選択領域をﾌﾟﾚﾋﾞｭｰ(&S)" 'rabbit-preview-selection
-                           '(lambda () (unless (rabbit-executable-p) :disable)))
-                          (:item nil "=beginから=endをﾌﾟﾚﾋﾞｭｰ(&E)" 'rabbit-preview-begin-end
-                           '(lambda () (unless (rabbit-executable-p) :disable))))
+                         (:item nil "スライドショー(&W)" 'rabbit-slide-show
+                          (lambda () (unless (rabbit-executable-p) :disable)))
+                         (:item nil "プレビュー(&V)" 'rabbit-preview
+                          (lambda () (unless (rabbit-executable-p) :disable)))
+                         (:popup nil "プレビュー"
+                          (:item nil "現在のスライドをプレビュー(&C)" 'rabbit-preview-current-slide
+                           (lambda () (unless (rabbit-executable-p) :disable)))
+                          (:item nil "リージョンをプレビュー(&R)" 'rabbit-preview-region
+                           (lambda () (unless (rabbit-executable-p) :disable)))
+                          (:item nil "選択領域をプレビュー(&S)" 'rabbit-preview-selection
+                           (lambda () (unless (rabbit-executable-p) :disable)))
+                          (:item nil "=beginから=endをプレビュー(&E)" 'rabbit-preview-begin-end
+                           (lambda () (unless (rabbit-executable-p) :disable))))
                          :sep
                          (:item nil "画像で保存する(&S)" 'rabbit-save-as-image
-                          '(lambda () :disable))
+                          (lambda () :disable))
                          :sep
-                         (:item nil "次のｽﾗｲﾄﾞ(&N)" 'rabbit-forward-slide)
-                         (:item nil "前のｽﾗｲﾄﾞ(&P)" 'rabbit-backward-slide)
-                         (:item nil "ｽﾗｲﾄﾞ一覧(&D)" 'list-function)
+                         (:item nil "次のスライド(&N)" 'rabbit-forward-slide)
+                         (:item nil "前のスライド(&P)" 'rabbit-backward-slide)
+                         (:item nil "スライド一覧(&D)" 'list-function)
                          :sep
-                         (:item nil "ｽﾗｲﾄﾞを複製..." 'rabbit-copy-slide)
-                         (:item nil "現在のｽﾗｲﾄﾞを複製" 'rabbit-copy-current-slide)
-                         (:item nil "ｽﾗｲﾄﾞを削除" 'rabbit-kill-slide)
-                         (:item nil "ｽﾗｲﾄﾞをﾏｰｸ" 'rabbit-mark-slide)
+                         (:item nil "スライドを複製..." 'rabbit-copy-slide)
+                         (:item nil "現在のスライドを複製" 'rabbit-copy-current-slide)
+                         (:item nil "スライドを削除" 'rabbit-kill-slide)
+                         (:item nil "スライドをマーク" 'rabbit-mark-slide)
                          :sep
-                         (:item nil "非表示ｽﾗｲﾄﾞに設定(&H)" 'rabbit-toggle-hide-slide
-                          #'(lambda () (when (rabbit-hide-slide-p) :check)))
+                         (:item nil "非表示スライドに設定(&H)" 'rabbit-toggle-hide-slide
+                          (lambda () (when (rabbit-hide-slide-p) :check)))
                          :sep
-                         (:popup nil "ﾃﾝﾌﾟﾚｰﾄ(&I)"
-                          (:item nil "ﾀｲﾄﾙﾍﾟｰｼﾞ(&T)" 'rabbit-insert-title-template))
+                         (:popup nil "テンプレート(&I)"
+                          (:item nil "タイトルページ(&T)" 'rabbit-insert-title-template))
                          )
                        (create-menu 'rabbit))))
 
@@ -389,7 +383,7 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
                              (position *rabbit-menu-position*)
                              (menu-name *rabbit-menu-name*))
   (when (menup menu)
-    (setq menu (copy-menu-items menu (create-menu 'mof)))
+    (setq menu (copy-menu-items menu (create-menu 'rabbit)))
     (delete-rabbit-menu menu)
     (cond
      ((and (numberp position) (integerp position))
@@ -404,7 +398,7 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
 (defun delete-rabbit-menu (&optional (menu (current-menu)))
   (let (ret)
     (if (menup menu)
-        (while (delete-menu menu 'ed::mof)
+        (while (delete-menu menu 'ed::rabbit)
           (setq ret t)))
     ret))
 
@@ -512,10 +506,9 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
                                    (rabbit-init-output-buffer)
                                    encoding)))
     (process-send-string proc str)
-    (rabbit-process-send-eof)
+    (rabbit-process-send-eof proc)
     proc))
 
-;; ^Z (EOF) を直接ファイルに書くと cvs に入れたとき ^Z 以降が切れる。
 (defun rabbit-process-send-eof (proc)
   (process-send-string proc (format nil "~c" #\C-z)))
 
@@ -547,18 +540,19 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
      (goto-marker ,marker)
      ,@body
      (set-marker ,marker (point))))
+(setf (get 'rabbit-with-marker-point 'lisp-indent-hook) 1)
 
 (defmacro rabbit-with-buffer-selected (buffer &rest body)
   `(save-excursion
      (set-buffer ,buffer)
      ,@body))
+(setf (get 'rabbit-with-buffer-selected 'lisp-indent-hook) 1)
 
 (defvar *rabbit-buffer-name* "*rabbit:output*")
 (defvar *rabbit-buffer* nil)
 (defun rabbit-make-process (command-line output encoding)
   (message command-line)
-  (let ((proc (make-process command-line :output output
-                            :incode encoding :outcode encoding)))
+  (let ((proc (make-process command-line :output output :outcode encoding)))
     (set-process-filter proc 'rabbit-process-filter)
     (set-process-sentinel proc 'rabbit-process-sentinel)
     (rabbit-activate-buffer output)
@@ -594,17 +588,6 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
              (zerop (buffer-size *rabbit-buffer*)))
     (delete-buffer *rabbit-buffer*)
     (setf *rabbit-buffer* nil)))
-
-;;
-;;
-;;
-
-(defun rabbit-read-from-file (file)
-  (let (result tmp)
-    (with-open-file (in file :direction :input :if-does-not-exist nil)
-      (while (setq tmp (read in nil))
-        (push tmp result))))
-    (nreverse result))
 
 ;;
 ;; template
@@ -694,14 +677,21 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
   (or (scan-buffer *rabbit-slide-header-regexp* :regexp t :no-dup no-dup :reverse t)
       (beginning-of-buffer)))
 
-(defun rabbit-kill-slide ()
-  (interactive)
-  (kill-new (rabbit-current-slide))
-  (rabbit-funcall-with-current-point 'delete-region))
+(defun rabbit-current-slide ()
+  (rabbit-funcall-with-current-point 'buffer-substring))
 
 (defun rabbit-narrow-to-slide ()
   (interactive)
   (rabbit-funcall-with-current-point 'narrow-to-region))
+
+(defun rabbit-delete-slide ()
+  (interactive)
+  (rabbit-funcall-with-current-point 'delete-region))
+
+(defun rabbit-kill-slide ()
+  (interactive)
+  (kill-new (rabbit-current-slide))
+  (rabbit-delete-slide))
 
 (defun rabbit-title-slide ()
   (multiple-value-bind (beg end)
@@ -713,9 +703,6 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
     (goto-char (point-min))
     (values (progn (rabbit-forward-slide nil) (point))
             (progn (rabbit-forward-slide) (point)))))
-
-(defun rabbit-current-slide ()
-  (rabbit-funcall-with-current-point 'buffer-substring))
 
 (defun rabbit-funcall-with-current-point (fn)
   (multiple-value-bind (beg end)
@@ -763,7 +750,6 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
   ; 略語展開
   (setf *local-abbrev-table* *rabbit-mode-abbrev-table*)
 
-  ; forward|backward-paragraph で移動する段落位置
   (make-local-variable 'paragraph-start)
   (setf paragraph-start *rabbit-slide-header-regexp*)
   (make-local-variable 'paragraph-separate)
@@ -773,15 +759,8 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
   (make-local-variable 'build-summary-function)
   (setf build-summary-function 'rabbit-build-summary-of-function)
 
-;  (make-local-variable 'mode-specific-indent-command)
-;  (setf mode-specific-indent-command 'rabbit-indent-line)
-;  (make-local-variable 'mode-newline-and-indent-command)
-;  (setf mode-newline-and-indent-command 'rabbit-newline-and-indent)
-
-  ; comment
   (setf comment-start "# " comment-end "") ; indent-for-commentで挿入される奴
   (setf comment-start-skip "#+[ \t]*")
-  (setf comment-indent-function 'c-comment-indent) ; c-modeを流用
   (when *rabbit-comment-column*
     (setf comment-column *rabbit-comment-column*))
 
