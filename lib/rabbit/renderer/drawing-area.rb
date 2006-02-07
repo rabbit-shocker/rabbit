@@ -14,8 +14,6 @@ module Rabbit
 
       extend Forwardable
 
-      @@color_table = {}
-      
       def_delegators(:@pixmap, :foreground, :background)
       def_delegators(:@pixmap, :foreground=, :background=)
       def_delegators(:@pixmap, :background_image, :background_image=)
