@@ -399,7 +399,7 @@ module Rabbit
         shadow_color = params[:shadow_color]
         shadow_offset = params[:shadow_offset] || 2
         shadow_width = params[:shadow_width] || 4
-        frame_width = 1
+        frame_width = params[:frame_width] || 1
 
         unless targets.is_a?(ElementContainer)
           targets = ElementContainer.new([targets])
@@ -425,7 +425,7 @@ module Rabbit
             end
             
             if frame_color
-              args = size + [frame_color]
+              args = size + [frame_color, {:line_width => frame_width}]
               canvas.draw_rectangle(false, *args)
             end
 

@@ -5,5 +5,5 @@ match(Slide, "*") do |elems|
 end
 
 match(Slide, Body, Paragraph) do |texts|
-  texts.margin_left = canvas.width * 0.15
+  texts.margin_left = canvas.width * 0.10
 end

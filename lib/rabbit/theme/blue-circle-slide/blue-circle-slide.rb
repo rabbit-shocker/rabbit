@@ -10,5 +10,6 @@ end
 
 match(Slide, Body) do |bodies|
   bodies.vertical_centering = true
+  bodies.margin_left = canvas.width * 0.05
   bodies.margin_right = canvas.width * 0.05
 end

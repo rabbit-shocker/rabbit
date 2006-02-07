@@ -8,9 +8,9 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   mark_width = screen_x(4)
   mark_height = screen_y(4)
   mark_space = mark_width * 0.3
-  margin_left = canvas.width * 0.1 + mark_width
+  margin_left = canvas.width * 0.05 + mark_width
   indent_width = margin_left + mark_width + mark_space
-    
+
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
   

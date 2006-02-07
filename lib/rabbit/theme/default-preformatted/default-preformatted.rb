@@ -6,6 +6,7 @@ match("**", PreformattedBlock) do |blocks|
   params = {
     :proc_name => name,
     :frame_color => @preformatted_frame_color,
+    :frame_width =>  @preformatted_frame_width,
     :fill_color => @preformatted_fill_color,
   }
 
