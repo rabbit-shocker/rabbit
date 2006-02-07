@@ -269,7 +269,7 @@ module Rabbit
         if @canvas.applying?
           @need_reload_theme = true
         else
-          @canvas.activate("ReloadTheme") {Utils.process_pending_events_proc}
+          @canvas.activate("ReloadTheme", &Utils.process_pending_events_proc)
           clear_pixmaps
         end
       end
@@ -634,8 +634,17 @@ module Rabbit
 
       def init_gesture_actions
         @gesture.clear_actions
-        add_gesture_action(%w(L), "PreviousSlide")
+        bg_proc = Utils.process_pending_events_proc
         add_gesture_action(%w(R), "NextSlide")
+        add_gesture_action(%w(R L), "FirstSlide")
+        add_gesture_action(%w(L), "PreviousSlide")
+        add_gesture_action(%w(L R), "LastSlide")
+        add_gesture_action(%w(U), "Quit")
+        add_gesture_action(%w(D), "ToggleIndexMode", &bg_proc)
+        add_gesture_action(%w(D U), "ToggleFullScreen", &bg_proc)
+
+        add_gesture_action(%w(UL), "Redraw")
+        add_gesture_action(%w(UL D), "ReloadTheme", &bg_proc)
       end
 
       def init_graffiti
