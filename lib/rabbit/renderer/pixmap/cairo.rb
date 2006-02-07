@@ -18,18 +18,6 @@ module Rabbit
           super
         end
         
-        def foreground=(color)
-          @foreground = color
-        end
-        
-        def background=(color)
-          @background = color
-        end
-        
-        def background_image=(pixbuf)
-          @background_image = pixbuf
-        end
-        
         def to_gdk_rgb(color)
           make_color(color).to_gdk_rgb
         end

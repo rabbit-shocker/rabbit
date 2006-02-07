@@ -1,7 +1,5 @@
 require 'cairo'
 
-require 'rabbit/renderer/base'
-
 module Cairo
   class Context
     unless instance_methods.include?("rounded_rectangle")
@@ -39,10 +37,6 @@ end
 module Rabbit
   module Renderer
     module Cairo
-      include Base
-
-      attr_writer :foreground, :background, :background_image
-        
       def draw_line(x1, y1, x2, y2, color=nil, params={})
         x1, y1 = from_screen(x1, y1)
         x2, y2 = from_screen(x2, y2)

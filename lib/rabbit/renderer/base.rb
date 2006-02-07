@@ -35,7 +35,8 @@ module Rabbit
       attr_accessor :graffiti_color, :graffiti_line_width
       attr_writer :margin_page_left, :margin_page_right
       attr_writer :margin_page_top, :margin_page_bottom
-      
+      attr_writer :foreground, :background, :background_image
+
       def initialize(canvas)
         super()
         @canvas = canvas

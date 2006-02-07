@@ -14,8 +14,6 @@ module Rabbit
           end
         end
         
-        attr_writer :foreground, :background, :background_image
-        
         def initialize(canvas)
           super
           @background_image = nil
