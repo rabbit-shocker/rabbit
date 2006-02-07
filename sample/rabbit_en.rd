@@ -58,11 +58,12 @@ A presentation tool
 
 = More more more ...
 
-  * inline image
+  * organize screenshots
+  * mouse gesture
 
 = Not available
 
-  * organize screenshots
+  * inline image
   * jump to the link
 
 = ToDo

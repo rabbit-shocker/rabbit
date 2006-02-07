@@ -12,6 +12,14 @@ Rabbit
 
 This is an application to do presentation with RD document.
 
+There are some features which are different from other
+presentation tools:
+
+  * To define slide look, use Ruby.
+  * There are many keyboard interfaces.
+  * This supports mouse gesture.
+  * and more...
+
 == Screenshots
 
 ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/>))
