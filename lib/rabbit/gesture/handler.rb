@@ -2,22 +2,24 @@ require 'gtk2'
 
 require 'rabbit/rabbit'
 require 'rabbit/gesture/processor'
+require 'rabbit/renderer/color'
 
 module Rabbit
   module Gesture
     class Handler
-      DEFAULT_BACK_RGBA = [0.2, 0.2, 0.2, 0.5]
-      DEFAULT_LINE_RGBA = [1, 0, 0, 1]
-      DEFAULT_NEXT_RGBA = [0, 1, 0, 0.8]
-      DEFAULT_CURRENT_RGBA = [1, 0, 1, 0.8]
+      DEFAULT_BACK_COLOR = Renderer::Color.parse("#3333337f")
+      DEFAULT_LINE_COLOR = Renderer::Color.parse("#f00f")
+      DEFAULT_NEXT_COLOR = Renderer::Color.parse("#0f0c")
+      DEFAULT_CURRENT_COLOR = Renderer::Color.parse("#f0fc")
 
+      attr_accessor :back_color, :line_color, :next_color, :current_color
       def initialize(conf={})
         super()
         conf ||= {}
-        @back_rgba = conf[:back_rgba] || DEFAULT_BACK_RGBA
-        @line_rgba = conf[:line_rgba] || DEFAULT_LINE_RGBA
-        @next_rgba = conf[:next_rgba] || DEFAULT_NEXT_RGBA
-        @current_rgba = conf[:current_rgba] || DEFAULT_CURRENT_RGBA
+        @back_color = conf[:back_color] || DEFAULT_BACK_COLOR
+        @line_color = conf[:line_color] || DEFAULT_LINE_COLOR
+        @next_color = conf[:next_color] || DEFAULT_NEXT_COLOR
+        @current_color = conf[:current_color] || DEFAULT_CURRENT_COLOR
         @processor = Processor.new(conf[:threshold],
                                    conf[:skew_threshold_angle])
         @actions = []
@@ -63,7 +65,7 @@ module Rabbit
         return unless drawable.respond_to?(:create_cairo_context)
         if @locus.size >= 2
           cr = drawable.create_cairo_context
-          cr.set_source_rgba(@line_rgba)
+          cr.set_source_rgba(@line_color.to_a)
           cr.move_to(*@locus[-2])
           cr.line_to(*@locus[-1])
           cr.stroke
@@ -75,15 +77,15 @@ module Rabbit
         cr = drawable.create_cairo_context
 
         cr.rectangle(0, 0, *drawable.size)
-        cr.set_source_rgba(@back_rgba)
+        cr.set_source_rgba(@back_color.to_a)
         cr.fill
 
-        cr.set_source_rgba(@next_rgba)
+        cr.set_source_rgba(@next_color.to_a)
         draw_available_marks(cr, next_available_motions)
 
         act, = action
         if act
-          cr.set_source_rgba(@current_rgba)
+          cr.set_source_rgba(@current_color.to_a)
           draw_mark(cr, act, *@processor.position)
         end
 
@@ -94,7 +96,7 @@ module Rabbit
         return unless drawable.respond_to?(:create_cairo_context)
         return if @locus.empty?
         cr = drawable.create_cairo_context
-        cr.set_source_rgba(@line_rgba)
+        cr.set_source_rgba(@line_color.to_a)
         first, *rest = @locus
         cr.move_to(*first)
         rest.each do |locus|
@@ -108,7 +110,7 @@ module Rabbit
         act, block = action
         @processor.reset
         @locus.clear
-        if act and act.sensitive?
+        if act
           act.activate(&block)
           true
         else
@@ -119,7 +121,7 @@ module Rabbit
       def action
         motions = @processor.motions
         @actions.each do |sequence, act, block|
-          return [act, block] if sequence == motions
+          return [act, block] if sequence == motions and act.sensitive?
         end
         nil
       end
@@ -155,17 +157,15 @@ module Rabbit
         y ||= @processor.position[1]
         radius ||= @processor.threshold
         cr.save do
-          cr.translate(x, y)
-          cr.scale(radius, radius)
-          cr.arc(0, 0, 0.5, 0, 2 * Math::PI)
+          cr.arc(x, y, radius / 2, 0, 2 * Math::PI)
           cr.fill
         end
         draw_action_image(cr, act, x, y)
       end
 
       def draw_action_image(cr, act, x, y)
-        return unless act
-        icon = act.create_icon(Gtk::IconSize::DIALOG)
+        icon = nil
+        icon = act.create_icon(Gtk::IconSize::DIALOG) if act
         if icon
           pixbuf = icon.render_icon(icon.stock, icon.icon_size, act.name)
           cr.save do
@@ -185,9 +185,20 @@ module Rabbit
 
           threshold = @processor.threshold
           x, y = @processor.position
-          x += threshold * adjust_x
-          y += threshold * adjust_y
-          draw_mark(cr, act, x, y, threshold)
+          center_x = x + threshold * adjust_x
+          center_y = y + threshold * adjust_y
+          draw_action_image(cr, act, center_x, center_y) do
+            cr.save do
+              cr.set_line_width(10)
+              cr.translate(x, y)
+              angle = @processor.skew_threshold_angle * 2 * (Math::PI / 180.0)
+              base_angle = -angle / 2
+              adjust_angle = calc_position_angle(motion)
+              cr.rotate(base_angle + adjust_angle)
+              cr.arc(0, 0, threshold, 0, angle)
+              cr.stroke
+            end
+          end
         end
       end
 
@@ -204,6 +215,20 @@ module Rabbit
         else
           0
         end
+      end
+
+      MOTION_TO_ANGLE = {
+        "R" => 0,
+        "LR" => Math::PI / 4,
+        "D" => Math::PI / 2,
+        "LL" => Math::PI / 1,
+        "L" => Math::PI,
+        "UL" => Math::PI * 5 / 4,
+        "U" => Math::PI * 3/ 2,
+        "UR" => Math::PI * 7 / 4,
+      }
+      def calc_position_angle(motion)
+        MOTION_TO_ANGLE[motion]
       end
     end
   end
