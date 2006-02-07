@@ -3,7 +3,8 @@ require "forwardable"
 require "rabbit/menu"
 require "rabbit/keys"
 require "rabbit/search-window"
-require "rabbit/graffiti"
+require "rabbit/graffiti/processor"
+require "rabbit/graffiti/config-dialog"
 require "rabbit/renderer/pixmap"
 
 module Rabbit
@@ -472,16 +473,11 @@ module Rabbit
       end
 
       def change_graffiti_color
-        dialog = Gtk::ColorSelectionDialog.new
-        dialog.colorsel.has_opacity_control = true
-        dialog.colorsel.has_palette = true
-        color = nil
-        if dialog.run == Gtk::Dialog::RESPONSE_OK
-          color = dialog.colorsel.current_color
-        end
-        dialog.destroy
-        if color
-          @graffiti_color = Color.new_from_gdk_color(color)
+        dialog = Graffiti::ConfigDialog.new(@graffiti_color,
+                                            @graffiti_line_width)
+        dialog.run do |color, line_width|
+          @graffiti_color = color if color
+          @graffiti_line_width = line_width if line_width
           redraw
         end
       end
@@ -590,7 +586,7 @@ module Rabbit
 
       def init_graffiti
         init_graffiti_config
-        @graffiti = Graffiti.new
+        @graffiti = Graffiti::Processor.new
         @graffiti_mode = false
 
         pressed_button = nil
