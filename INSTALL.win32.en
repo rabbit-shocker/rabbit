@@ -6,10 +6,10 @@ $Id$
 
 == Install Ruby
 
-Install ruby 1.8.4.
+Install ruby 1.8.4. Use One-Click Installer for convenience.
 
-: ruby-1.8.4-i386-mswin32.zip
-   ((<URL:ftp://ftp.ruby-lang.org/pub/ruby/binaries/mswin32/ruby-1.8.4-i386-mswin32.zip>))
+: ruby184-16p3.exe
+   ((<URL:http://rubyforge.org/frs/download.php/8338/ruby184-16p3.exe>))
 
 == Install RDTool
 

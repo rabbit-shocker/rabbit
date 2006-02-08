@@ -9,10 +9,11 @@ Windows上でRabbitを実行するのは大変です．以下を参考にして頑
 
 == Ruby 本体のインストール
 
-ruby 1.8.4 のインストール。
+ruby 1.8.4 のインストール。One-Click Installerを使うのが楽
+((-まだpreview3だけど，大丈夫でしょう．-))．
 
-: ruby-1.8.4-i386-mswin32.zip
-   ((<URL:ftp://ftp.ruby-lang.org/pub/ruby/binaries/mswin32/ruby-1.8.4-i386-mswin32.zip>))
+: ruby184-16p3.exe
+   ((<URL:http://rubyforge.org/frs/download.php/8338/ruby184-16p3.exe>))
 
 == RDTool のインストール
 
