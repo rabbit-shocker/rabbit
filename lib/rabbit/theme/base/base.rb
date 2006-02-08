@@ -66,7 +66,10 @@
 @font_family = nil
 @monospace_font_family = nil
 
-unless windows?
+if windows?
+  @font_family = "ms pgothic" if font_families.include?("ms pgothic")
+  @monospace_font_family = "ms gothic" if font_families.include?("ms gothic")
+else
   sans_families = font_families.grep(/Sans/i)
   unless sans_families.empty?
     if sans_families.include?("Sans")
