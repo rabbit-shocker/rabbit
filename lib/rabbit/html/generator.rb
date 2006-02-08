@@ -32,6 +32,10 @@ module Rabbit
 
       def save(file_name_format, slide_number, image_type)
         file_name = slide_file_name(file_name_format, slide_number)
+        if Utils.windows?
+          file_name = GLib.filename_to_utf8(file_name)
+          file_name = GLib.locale_from_utf8(file_name)
+        end
         File.open(file_name, "w") do |f|
           f.print(to_html(file_name_format, slide_number, image_type))
         end
