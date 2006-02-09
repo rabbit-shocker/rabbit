@@ -71,7 +71,7 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
   name = "enum1"
   
   indent_width = screen_x(2)
-  props = {
+  default_props = {
     "size" => @normal_font_size,
     "font_family" => @font_family,
   }
@@ -80,6 +80,8 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
   items.delete_post_draw_proc_by_name(name)
   
   draw_order(items, indent_width, name) do |item|
+    props = default_props
+    props = props.merge(item.first.text_props) unless item.empty?
     %Q[<span #{to_attrs(props)}>#{item.order}. </span>]
   end
 
@@ -91,7 +93,7 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
   name = "enum2"
   
   indent_width = screen_x(1.5)
-  props = {
+  default_props = {
     "size" => @small_font_size,
     "font_family" => @font_family,
   }
@@ -100,6 +102,8 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
   items.delete_post_draw_proc_by_name(name)
   
   draw_order(items, indent_width, name) do |item|
+    props = default_props
+    props = props.merge(item.first.text_props) unless item.empty?
     %Q[<span #{to_attrs(props)}>#{(?a + item.order - 1).chr}. </span>]
   end
 
@@ -111,7 +115,7 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
   name = "enum3"
   
   indent_width = screen_x(1)
-  props = {
+  default_props = {
     "size" => @x_small_font_size,
     "font_family" => @font_family,
   }
@@ -120,6 +124,8 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
   items.delete_post_draw_proc_by_name(name)
   
   draw_order(items, indent_width, name) do |item|
+    props = default_props
+    props = props.merge(item.first.text_props) unless item.empty?
     %Q[<span #{to_attrs(props)}>#{(?A + item.order - 1).chr}. </span>]
   end
 

@@ -325,6 +325,14 @@ module Rabbit
         pattern === text
       end
 
+      def text_props
+        props = {}
+        @prop.each do |name, formatter|
+          props[name] = formatter.value
+        end
+        props
+      end
+
       protected
       def user_property=(prop)
         @user_property = prop
@@ -613,12 +621,15 @@ module Rabbit
     end
     
     module ContainerElement
+      extend Forwardable
       
       include BlockElement
       include Enumerable
       
       attr_reader :elements
       
+      def_delegators(:@elements, :[], :empty?, :each, :first, :last)
+
       def initialize(elems=[])
         @elements = []
         elems = [elems] unless elems.is_a?(Array)
@@ -721,6 +732,17 @@ module Rabbit
 
       def [](*args)
         @elements[*args]
+      end
+
+      def empty?
+        @elements.empty?
+      end
+
+      def first
+        @elements.first
+      end
+
+      def last
       end
 
       def prop_set(*args)
