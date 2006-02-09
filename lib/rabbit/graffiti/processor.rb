@@ -1,11 +1,12 @@
 require 'gtk2'
 
-require 'rabbit/renderer/color'
+require 'rabbit/renderer'
 
 module Rabbit
   module Graffiti
     class Processor
       def initialize
+        extend(Renderer.renderer_module)
         clear
       end
       
@@ -37,31 +38,25 @@ module Rabbit
       def draw_last_segment(drawable, color, line_width)
         points = @segments.last
         if points.size >= 2
-          foreground = make_gc(drawable, color, line_width)
+          init_renderer(drawable)
           width, height = drawable.size
-          prev, current = points[-2..-1]
-          prev_x, prev_y = prev
-          x, y = current
-          drawable.draw_line(foreground,
-                             prev_x * width, prev_y * height,
-                             x * width, y * height)
+          converted_points = points.collect do |x, y|
+            [x * width, y * height]
+          end
+          draw_lines(converted_points, color, {:line_width => line_width})
         end
       end
       
       def draw_all_segment(drawable, color, line_width)
         return if @segments.empty?
+        init_renderer(drawable)
+        args = [color, {:line_width => line_width, :opened => true}]
         width, height = drawable.size
-        foreground = make_gc(drawable, color, line_width)
         @segments.each do |points|
-          prev_x, prev_y = points.first
-          prev_x *= width
-          prev_y *= height
-          points[1..-1].each do |x, y|
-            x *= width
-            y *= height
-            drawable.draw_line(foreground, prev_x, prev_y, x, y)
-            prev_x, prev_y = x, y
+          converted_points = points.collect do |x, y|
+            [x * width, y * height]
           end
+          draw_lines(converted_points, *args)
         end
       end
       

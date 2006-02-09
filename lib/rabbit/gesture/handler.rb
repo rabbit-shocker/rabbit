@@ -101,13 +101,7 @@ module Rabbit
       def draw_locus(drawable)
         return if @locus.empty?
         init_renderer(drawable)
-        first, *rest = @locus
-        prev_x, prev_y = first
-        args = [@line_color, {:line_width => @line_width}]
-        rest.each do |x, y|
-          draw_line(prev_x, prev_y, x, y, *args)
-          prev_x, prev_y = x, y
-        end
+        draw_lines(@locus, @line_color, {:line_width => @line_width})
       end
 
       private
