@@ -33,7 +33,8 @@ module Rabbit
         colorsel.signal_connect("color_changed") do
           color = Renderer::Color.new_from_gdk_color(colorsel.current_color)
           color.have_alpha = true
-          color.alpha = colorsel.current_alpha
+          alpha = colorsel.current_alpha / Renderer::Color::GDK_COLOR_NORMALIZE
+          color.alpha = alpha
           @callback.call(color, nil)
         end
       end

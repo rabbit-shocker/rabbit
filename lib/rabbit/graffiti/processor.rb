@@ -40,10 +40,12 @@ module Rabbit
         if points.size >= 2
           init_renderer(drawable)
           width, height = drawable.size
-          converted_points = points.collect do |x, y|
-            [x * width, y * height]
-          end
-          draw_lines(converted_points, color, {:line_width => line_width})
+          prev, current = points[-2..-1]
+          prev_x, prev_y = prev
+          x, y = current
+          draw_line(prev_x * width, prev_y * height,
+                    x * width, y * height,
+                    color, {:line_width => line_width})
         end
       end
       
