@@ -8,6 +8,7 @@ module Rabbit
     module Print
       class Multiple
         include Base
+        include Kernel
         extend Forwardable
       
         def_delegators(:@canvas, :current_index)

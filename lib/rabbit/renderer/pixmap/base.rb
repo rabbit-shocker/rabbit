@@ -22,7 +22,7 @@ module Rabbit
           @height = height
           @filename = nil
           @pixmaps = {}
-          init_drawable
+          init_dummy_pixmap
           init_color
           clear_pixmaps
           @pango_context = create_pango_context
@@ -107,7 +107,6 @@ module Rabbit
         end
         
         def clear_theme
-          init_drawable
           init_color
           clear_pixmaps
           super
@@ -146,11 +145,13 @@ module Rabbit
           if simulation
             @pixmap = Gdk::Pixmap.new(nil, @width, @height, depth)
             @pixmaps[slide] = @pixmap
+            init_renderer(@pixmap)
           end
         end
         
-        def init_drawable
+        def init_dummy_pixmap
           @pixmap = Gdk::Pixmap.new(nil, 1, 1, depth)
+          init_renderer(@pixmap)
         end
       end
     end

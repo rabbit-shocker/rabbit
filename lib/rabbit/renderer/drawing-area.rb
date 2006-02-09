@@ -12,6 +12,7 @@ module Rabbit
   module Renderer
     class DrawingArea
       include Base
+      include Kernel
 
       extend Forwardable
 

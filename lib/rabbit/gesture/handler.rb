@@ -1,8 +1,8 @@
 require 'gtk2'
 
 require 'rabbit/rabbit'
+require 'rabbit/renderer'
 require 'rabbit/gesture/processor'
-require 'rabbit/renderer/color'
 
 module Rabbit
   module Gesture
@@ -12,14 +12,21 @@ module Rabbit
       DEFAULT_NEXT_COLOR = Renderer::Color.parse("#0f0c")
       DEFAULT_CURRENT_COLOR = Renderer::Color.parse("#f0fc")
 
+      DEFAULT_LINE_WIDTH = 3
+      DEFAULT_NEXT_WIDTH = 10
+
       attr_accessor :back_color, :line_color, :next_color, :current_color
+      attr_accessor :line_width, :next_width
       def initialize(conf={})
+        extend(Renderer.renderer_module)
         super()
         conf ||= {}
         @back_color = conf[:back_color] || DEFAULT_BACK_COLOR
         @line_color = conf[:line_color] || DEFAULT_LINE_COLOR
         @next_color = conf[:next_color] || DEFAULT_NEXT_COLOR
         @current_color = conf[:current_color] || DEFAULT_CURRENT_COLOR
+        @line_width = conf[:line_width] || DEFAULT_LINE_WIDTH
+        @next_width = conf[:next_width] || DEFAULT_NEXT_WIDTH
         @processor = Processor.new(conf[:threshold],
                                    conf[:skew_threshold_angle])
         @actions = []
@@ -62,47 +69,45 @@ module Rabbit
       end
 
       def draw_last_locus(drawable)
-        return unless drawable.respond_to?(:create_cairo_context)
         if @locus.size >= 2
-          cr = drawable.create_cairo_context
-          cr.set_source_rgba(@line_color.to_a)
-          cr.move_to(*@locus[-2])
-          cr.line_to(*@locus[-1])
-          cr.stroke
+          init_renderer(drawable)
+          x1, y1 = @locus[-2]
+          x2, y2 = @locus[-1]
+          args = [x1, y1, x2, y2, @line_color, {:line_width => @line_width}]
+          draw_line(*args)
         end
       end
 
       def draw(drawable)
-        return unless drawable.respond_to?(:create_cairo_context)
-        cr = drawable.create_cairo_context
+        init_renderer(drawable)
 
-        cr.rectangle(0, 0, *drawable.size)
-        cr.set_source_rgba(@back_color.to_a)
-        cr.fill
+        if @back_color.alpha == 1.0 or
+            (@back_color.alpha < 1.0 and alpha_available?)
+          args = [true, 0, 0, *drawable.size]
+          args << @back_color
+          draw_rectangle(*args)
+        end
 
-        cr.set_source_rgba(@next_color.to_a)
-        draw_available_marks(cr, next_available_motions)
+        draw_available_marks(next_available_motions)
 
         act, = action
         if act
-          cr.set_source_rgba(@current_color.to_a)
-          draw_mark(cr, act, *@processor.position)
+          draw_mark(act, *@processor.position)
         end
 
         draw_locus(drawable)
       end
 
       def draw_locus(drawable)
-        return unless drawable.respond_to?(:create_cairo_context)
         return if @locus.empty?
-        cr = drawable.create_cairo_context
-        cr.set_source_rgba(@line_color.to_a)
+        init_renderer(drawable)
         first, *rest = @locus
-        cr.move_to(*first)
-        rest.each do |locus|
-          cr.line_to(*locus)
+        prev_x, prev_y = first
+        args = [@line_color, {:line_width => @line_width}]
+        rest.each do |x, y|
+          draw_line(prev_x, prev_y, x, y, *args)
+          prev_x, prev_y = x, y
         end
-        cr.stroke
       end
 
       private
@@ -152,33 +157,28 @@ module Rabbit
         not action.nil?
       end
 
-      def draw_mark(cr, act, x=nil, y=nil, radius=nil)
+      def draw_mark(act, x=nil, y=nil, radius=nil)
         x ||= @processor.position[0]
         y ||= @processor.position[1]
-        radius ||= @processor.threshold
-        cr.save do
-          cr.arc(x, y, radius / 2, 0, 2 * Math::PI)
-          cr.fill
-        end
-        draw_action_image(cr, act, x, y)
+        radius ||= @processor.threshold / 2.0
+        draw_circle_by_radius(true, x, y, radius, @current_color)
+        draw_action_image(act, x, y)
       end
 
-      def draw_action_image(cr, act, x, y)
+      def draw_action_image(act, x, y)
         icon = nil
         icon = act.create_icon(Gtk::IconSize::DIALOG) if act
         if icon
           pixbuf = icon.render_icon(icon.stock, icon.icon_size, act.name)
-          cr.save do
-            cr.translate(x - pixbuf.width / 2.0, y - pixbuf.height / 2.0)
-            cr.set_source_pixbuf(pixbuf, 0, 0)
-            cr.paint
-          end
+          x -= pixbuf.width / 2.0
+          y -= pixbuf.height / 2.0
+          draw_pixbuf(pixbuf, x, y)
         elsif block_given?
           yield
         end
       end
 
-      def draw_available_marks(cr, infos)
+      def draw_available_marks(infos)
         infos.each do |motion, act|
           args = [motion, %w(R), %w(L), %w(UR LR), %w(UL LL)]
           adjust_x = calc_position_ratio(*args)
@@ -189,17 +189,12 @@ module Rabbit
           x, y = @processor.position
           center_x = x + threshold * adjust_x
           center_y = y + threshold * adjust_y
-          draw_action_image(cr, act, center_x, center_y) do
-            cr.save do
-              cr.set_line_width(10)
-              cr.translate(x, y)
-              angle = @processor.skew_threshold_angle * 2 * (Math::PI / 180.0)
-              base_angle = -angle / 2
-              adjust_angle = calc_position_angle(motion)
-              cr.rotate(base_angle + adjust_angle)
-              cr.arc(0, 0, threshold, 0, angle)
-              cr.stroke
-            end
+          draw_action_image(act, center_x, center_y) do
+            angle = @processor.skew_threshold_angle
+            base_angle = calc_position_angle(motion) - angle
+            args = [false, x, y, threshold, base_angle, angle * 2]
+            args.concat([@next_color, {:line_width => @next_width}])
+            draw_arc_by_radius(*args)
           end
         end
       end
@@ -221,16 +216,24 @@ module Rabbit
 
       MOTION_TO_ANGLE = {
         "R" => 0,
-        "LR" => Math::PI / 4,
-        "D" => Math::PI / 2,
-        "LL" => Math::PI / 1,
-        "L" => Math::PI,
-        "UL" => Math::PI * 5 / 4,
-        "U" => Math::PI * 3/ 2,
-        "UR" => Math::PI * 7 / 4,
+        "UR" => 45,
+        "U" => 90,
+        "UL" => 135,
+        "L" => 180,
+        "LL" => 225,
+        "D" => 270,
+        "LR" => 315,
       }
       def calc_position_angle(motion)
         MOTION_TO_ANGLE[motion]
+      end
+
+      def make_color(color)
+        if color.is_a?(Renderer::Color)
+          color
+        else
+          Renderer::Color.parse(color)
+        end
       end
     end
   end

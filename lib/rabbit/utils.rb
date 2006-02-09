@@ -25,20 +25,36 @@ module Rabbit
       end
     end
 
-    def collect_classes_under_module(mod)
+    def collect_under_module(mod, klass)
       mod.constants.collect do |x|
         mod.const_get(x)
       end.find_all do |x|
-        x.is_a?(Class)
+        x.is_a?(klass)
       end
     end
 
-    def corresponding_class_under_module(mod)
-      collect_classes_under_module(mod).find_all do |klass|
-        klass.respond_to?(:priority)
-      end.sort_by do |klass|
-        klass.priority
+    def collect_classes_under_module(mod)
+      collect_under_module(mod, Class)
+    end
+
+    def collect_modules_under_module(mod)
+      collect_under_module(mod, Module)
+    end
+
+    def corresponding_objects(objects)
+      objects.find_all do |object|
+        object.respond_to?(:priority)
+      end.sort_by do |object|
+        object.priority
       end.last
+    end
+
+    def corresponding_class_under_module(mod)
+      corresponding_objects(collect_classes_under_module(mod))
+    end
+
+    def corresponding_module_under_module(mod)
+      corresponding_objects(collect_modules_under_module(mod))
     end
 
     def arg_list(arity)

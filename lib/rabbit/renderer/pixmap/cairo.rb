@@ -25,7 +25,6 @@ module Rabbit
         def draw_slide(slide, simulation)
           init_pixmap(slide, simulation)
           unless simulation
-            init_context
             draw_rectangle(true, 0, 0, width, height, @background)
           end
           yield
@@ -36,16 +35,6 @@ module Rabbit
           super
           @foreground = make_color("black")
           @background = make_color(@background_color)
-        end
-
-        def init_drawable
-          super
-          init_context
-        end
-
-        def init_context
-          @context = drawable.create_cairo_context
-          super
         end
       end
     end

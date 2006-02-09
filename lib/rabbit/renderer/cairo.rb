@@ -1,5 +1,7 @@
 require 'cairo'
 
+require 'rabbit/renderer/kernel'
+
 module Cairo
   class Context
     unless instance_methods.include?("rounded_rectangle")
@@ -37,6 +39,23 @@ end
 module Rabbit
   module Renderer
     module Cairo
+      include Kernel
+
+      class << self
+        def priority
+          100
+        end
+      end
+
+      def alpha_available?
+        true
+      end
+
+      def init_renderer(drawable)
+        @context = drawable.create_cairo_context
+        set_line_width(1)
+      end
+
       def draw_line(x1, y1, x2, y2, color=nil, params={})
         x1, y1 = from_screen(x1, y1)
         x2, y2 = from_screen(x2, y2)
@@ -165,10 +184,6 @@ module Rabbit
       end
 
       private
-      def init_context
-        set_line_width(1)
-      end
-      
       def set_color(color)
         @context.set_source_rgba(color.to_a)
       end

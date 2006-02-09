@@ -1,9 +1,7 @@
 require "rabbit/utils"
 
 module Rabbit
-
   module Renderer
-
     extend Utils
 
     dir = ::File.join("rabbit", "renderer")
@@ -20,6 +18,10 @@ module Rabbit
         else
           Print
         end
+      end
+
+      def renderer_module
+        corresponding_module_under_module(self)
       end
     end
   end

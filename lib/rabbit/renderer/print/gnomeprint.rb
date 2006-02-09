@@ -1,5 +1,6 @@
 require "gnomeprint2"
 
+require 'rabbit/renderer/kernel'
 require "rabbit/renderer/print/base"
 
 module Rabbit
@@ -7,6 +8,7 @@ module Rabbit
     module Print
       class GnomePrint
         include Base
+        include Kernel
 
         class << self
           def priority
