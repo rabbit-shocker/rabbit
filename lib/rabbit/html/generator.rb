@@ -31,11 +31,11 @@ module Rabbit
       end
 
       def save(file_name_format, slide_number, image_type)
-        file_name = slide_file_name(file_name_format, slide_number)
         if Utils.windows?
-          file_name = GLib.filename_to_utf8(file_name)
-          file_name = GLib.locale_from_utf8(file_name)
+          file_name_format = GLib.filename_to_utf8(file_name_format)
+          file_name_format = GLib.locale_from_utf8(file_name_format)
         end
+        file_name = slide_file_name(file_name_format, slide_number)
         File.open(file_name, "w") do |f|
           f.print(to_html(file_name_format, slide_number, image_type))
         end
@@ -124,8 +124,22 @@ module Rabbit
       end
 
       def slide_title
-        Utils.unescape_title(@canvas.slide_title)
+        title = Utils.unescape_title(@canvas.slide_title)
+        if Utils.windows?
+          GLib.locale_from_utf8(title)
+        else
+          title
+        end
       end
+
+      def encoding
+        if Utils.windows?
+          "Shift_JIS"
+        else
+          "UTF-8"
+        end
+      end
+      alias charset encoding
 
       def make_rss(base_uri)
         base_uri = base_uri.chomp('/') + '/'
