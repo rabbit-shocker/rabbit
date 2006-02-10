@@ -612,7 +612,7 @@ module Rabbit
           if @gesture.processing? and event.button == target_button
             update_cursor(@current_cursor)
             @gesture.button_release(event.x, event.y, width, height)
-            @area.queue_draw
+            @area.queue_draw unless @area.destroyed?
             !first_motion
           else
             false
