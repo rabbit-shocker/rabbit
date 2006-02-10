@@ -10,10 +10,10 @@ match("**", PreformattedBlock) do |blocks|
     :fill_color => @preformatted_fill_color,
   }
 
-  blocks.padding_left = @preformatted_padding_left
-  blocks.padding_right = @preformatted_padding_right
-  blocks.padding_top = @preformatted_padding_top
-  blocks.padding_bottom = @preformatted_padding_bottom
+  padding_set(:left => @preformatted_padding_left,
+              :right => @preformatted_padding_right,
+              :top => @preformatted_padding_top,
+              :bottom => @preformatted_padding_bottom)
 
   blocks.wrap_mode = false
 

@@ -1,12 +1,12 @@
-match("**", FoottextBlock) do |blocks|
+match("**", FoottextBlock) do
   name = "foottext-block"
   space = @space / 2.0
   color = "#33ff33"
 
-  blocks.delete_pre_draw_proc_by_name(name)
-  blocks.each do |block|
+  delete_pre_draw_proc_by_name(name)
+  each do |block|
     unless block.elements.empty?
-      block.margin_top = space * 3
+      block.margin_set(:top => space * 3)
 
       block.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
@@ -22,8 +22,8 @@ match("**", FoottextBlock) do |blocks|
   end
 end
 
-match("**", Foottext) do |texts|
-  texts.each do |text|
+match("**", Foottext) do
+  each do |text|
     if text.user_property["order_added"]
       order_text = text.elements.first
     else
@@ -37,9 +37,9 @@ match("**", Foottext) do |texts|
   end
 end
 
-match("**", Footnote) do |notes|
-  notes.prop_set("foreground", "blue")
-  notes.each do |note|
+match("**", Footnote) do
+  prop_set("foreground", "blue")
+  each do |note|
     note.text = "(*#{note.order})"
   end
 end

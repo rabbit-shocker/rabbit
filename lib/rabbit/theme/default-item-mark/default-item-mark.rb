@@ -10,8 +10,8 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   indent_width = mark_width * 3
   color = "green"
 
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
@@ -20,7 +20,7 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   end
 
   space = @space * (3 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
@@ -31,8 +31,8 @@ match(*(slide_body + (item_list_item * 2))) do |items|
   indent_width = mark_width * 3
   color = "blue"
   
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
@@ -41,7 +41,7 @@ match(*(slide_body + (item_list_item * 2))) do |items|
   end
 
   space = @space * (2 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
@@ -52,8 +52,8 @@ match(*(slide_body + (item_list_item * 3))) do |items|
   indent_width = mark_width * 3
   color = "red"
   
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
@@ -62,7 +62,7 @@ match(*(slide_body + (item_list_item * 3))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 enum_list_item = [EnumList, EnumListItem]
@@ -76,8 +76,8 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
     "font_family" => @font_family,
   }
 
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_order(items, indent_width, name) do |item|
     props = default_props
@@ -86,7 +86,7 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
   end
 
   space = @space * (3 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 match(*(slide_body + (enum_list_item * 2))) do |items|
@@ -98,8 +98,8 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
     "font_family" => @font_family,
   }
 
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_order(items, indent_width, name) do |item|
     props = default_props
@@ -108,7 +108,7 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
   end
 
   space = @space * (2 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 match(*(slide_body + (enum_list_item * 3))) do |items|
@@ -120,8 +120,8 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
     "font_family" => @font_family,
   }
 
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_order(items, indent_width, name) do |item|
     props = default_props
@@ -130,7 +130,7 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 
@@ -142,8 +142,8 @@ match(*(slide_body + enum_list_item + item_list_item)) do |items|
   indent_width = mark_width * 3
   color = "#00ffff"
 
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
@@ -152,7 +152,7 @@ match(*(slide_body + enum_list_item + item_list_item)) do |items|
   end
 
   space = @space * (2 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
@@ -163,8 +163,8 @@ match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   indent_width = mark_width * 3
   color = "#ff00ff"
 
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
+  delete_pre_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
@@ -173,19 +173,19 @@ match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
 
 desc_list_item = [DescriptionList, DescriptionListItem]
 
-match(*(slide_body + desc_list_item)) do |items|
+match(*(slide_body + desc_list_item)) do
   name = "desc-item1"
   
-  items.delete_post_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   space = @normal_font_size / Pango::SCALE
-  items.each do |item|
+  each do |item|
     term_items = ElementContainer.new(item[1..-1])
     term_items.delete_pre_draw_proc_by_name(name)
     term_items.delete_post_draw_proc_by_name(name)
@@ -193,16 +193,16 @@ match(*(slide_body + desc_list_item)) do |items|
   end
 
   space = @space * (3 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
-match(*(slide_body + (desc_list_item * 2))) do |items|
+match(*(slide_body + (desc_list_item * 2))) do
   name = "desc-item2"
   
-  items.delete_post_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   space = @small_font_size / Pango::SCALE
-  items.each do |item|
+  each do |item|
     term_items = ElementContainer.new(item[1..-1])
     term_items.delete_pre_draw_proc_by_name(name)
     term_items.delete_post_draw_proc_by_name(name)
@@ -210,16 +210,16 @@ match(*(slide_body + (desc_list_item * 2))) do |items|
   end
 
   space = @space * (2 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end
 
-match(*(slide_body + (desc_list_item * 3))) do |items|
+match(*(slide_body + (desc_list_item * 3))) do
   name = "desc-item3"
   
-  items.delete_post_draw_proc_by_name(name)
+  delete_post_draw_proc_by_name(name)
   
   space = @x_small_font_size / Pango::SCALE
-  items.each do |item|
+  each do |item|
     term_items = ElementContainer.new(item[1..-1])
     term_items.delete_pre_draw_proc_by_name(name)
     term_items.delete_post_draw_proc_by_name(name)
@@ -227,5 +227,5 @@ match(*(slide_body + (desc_list_item * 3))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  items.margin_bottom = space
+  margin_set(:bottom => space)
 end

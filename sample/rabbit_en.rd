@@ -46,18 +46,18 @@ A presentation tool
   * auto generation of index page
   * right click menu
   * screenshot on the off screen
-  * PS/PDF output (but quality is ...)
+  * Internationalized message
 
 = More more ...
 
-  * Internationalized message
+  * PS/PDF output ((-but quality is ...-))
   * Table
   * colorize source
   * funny themes
-  * graffiti on the slide
 
 = More more more ...
 
+  * graffiti on the slide
   * organize screenshots
   * mouse gesture
 

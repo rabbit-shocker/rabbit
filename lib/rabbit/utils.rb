@@ -194,6 +194,33 @@ module Rabbit
         results + results.collect {|result| [first, *result]}
       end
     end
+
+    def parse_four_dimensions(*values)
+      if values.is_a?(Array) and values.size == 1 and
+          (values.first.is_a?(Array) or values.first.is_a?(Hash))
+        values = values.first
+      end
+      if values.is_a?(Hash)
+        [values[:top], values[:right], values[:bottom], values[:left]]
+      else
+        case values.size
+        when 1
+          left = right = top = bottom = Integer(values.first)
+        when 2
+          top, left = values.collect{|x| Integer(x)}
+          bottom = top
+          right = left
+        when 3
+          top, left, bottom = values.collect{|x| Integer(x)}
+          right = left
+        when 4
+          top, right, bottom, left = values.collect{|x| Integer(x)}
+        else
+          raise ArgumentError
+        end
+        [top, right, bottom, left]
+      end
+    end
   end
 
   module SystemRunner

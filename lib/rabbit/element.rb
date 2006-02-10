@@ -333,6 +333,22 @@ module Rabbit
         props
       end
 
+      def margin_set(*values)
+        top, right, bottom, left = parse_four_dimensions(*values)
+        @margin_top = top if top
+        @margin_right = right if right
+        @margin_bottom = bottom if bottom
+        @margin_left = left if left
+      end
+
+      def padding_set(*values)
+        top, right, bottom, left = parse_four_dimensions(*values)
+        @padding_top = top if top
+        @padding_right = right if right
+        @padding_bottom = bottom if bottom
+        @padding_left = left if left
+      end
+
       protected
       def user_property=(prop)
         @user_property = prop

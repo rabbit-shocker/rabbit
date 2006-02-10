@@ -255,7 +255,7 @@ def parse(args=ARGV, logger=nil)
               Array,
               _("Set margin for slides per page mode print.")) do |margins|
         begin
-          top, right, bottom, left = parse_margins(margins)
+          top, right, bottom, left = Utils.parse_four_dimensions(margins)
           options.margin_top = top
           options.margin_right = right
           options.margin_bottom = bottom
@@ -297,7 +297,7 @@ def parse(args=ARGV, logger=nil)
               Array,
               _("Set page margin.")) do |margins|
         begin
-          top, right, bottom, left = parse_margins(margins)
+          top, right, bottom, left = Utils.parse_four_dimensions(margins)
           options.margin_page_top = top
           options.margin_page_right = right
           options.margin_page_bottom = bottom
@@ -406,25 +406,6 @@ def parse(args=ARGV, logger=nil)
       options.comment_encoding = encoding
     end
   end
-end
-
-def parse_margins(margins)
-  case margins.size
-  when 1
-    left = right = top = bottom = Integer(margins.first)
-  when 2
-    top, left = margins.collect{|x| Integer(x)}
-    bottom = top
-    right = left
-  when 3
-    top, left, bottom = margins.collect{|x| Integer(x)}
-    right = left
-  when 4
-    top, right, bottom, left = margins.collect{|x| Integer(x)}
-  else
-    raise ArgumentError
-  end
-  [top, right, bottom, left]
 end
 
 def make_canvas(options, logger, renderer)

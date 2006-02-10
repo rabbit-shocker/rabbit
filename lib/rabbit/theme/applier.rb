@@ -42,7 +42,6 @@ module Rabbit
     end
 
     class Applier
-      include Enumerable
       include Element
       include Searcher
       include DirtyCount
@@ -62,6 +61,7 @@ module Rabbit
         @callback = callback
         dirty_count_clean
         @match_cache = {}
+        @current_target = nil
         class << slides
           def elements
             self
@@ -191,7 +191,20 @@ module Rabbit
 
       def match(*paths, &block)
         dirty
-        block.call(ElementContainer.new(_match(slides, *paths)))
+        begin
+          @current_target = ElementContainer.new(_match(slides, *paths))
+          block.call(@current_target)
+        ensure
+          @current_target = nil
+        end
+      end
+
+      def method_missing(meth, *args, &block)
+        if @current_target
+          @current_target.__send__(meth, *args, &block)
+        else
+          super
+        end
       end
       
       def _match(current, *paths)
@@ -247,12 +260,6 @@ module Rabbit
           end
         else
           []
-        end
-      end
-
-      def each(*paths_array, &block)
-        paths_array.each do |paths|
-          match(*paths, &block)
         end
       end
 
