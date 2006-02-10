@@ -54,6 +54,8 @@ module Rabbit
       def init_renderer(drawable)
         @context = drawable.create_cairo_context
         set_line_width(1)
+        @context.line_cap = ::Cairo::LINE_CAP_ROUND
+        @context.line_join = ::Cairo::LINE_JOIN_ROUND
       end
 
       def draw_line(x1, y1, x2, y2, color=nil, params={})
