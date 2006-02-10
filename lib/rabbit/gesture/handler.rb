@@ -2,6 +2,7 @@ require 'gtk2'
 
 require 'rabbit/rabbit'
 require 'rabbit/renderer'
+require 'rabbit/renderer/color'
 require 'rabbit/gesture/processor'
 
 module Rabbit
