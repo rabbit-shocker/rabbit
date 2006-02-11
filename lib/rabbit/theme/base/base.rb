@@ -1,8 +1,8 @@
 @xx_large_font_size = screen_size(15 * Pango::SCALE)
 @x_large_font_size = screen_size(11 * Pango::SCALE)
 @large_font_size = screen_size(7 * Pango::SCALE)
-@normal_font_size = screen_size(4.5 * Pango::SCALE)
-@small_font_size = screen_size(4 * Pango::SCALE)
+@normal_font_size = screen_size(5.5 * Pango::SCALE)
+@small_font_size = screen_size(4.5 * Pango::SCALE)
 @x_small_font_size = screen_size(3.5 * Pango::SCALE)
 @xx_small_font_size = screen_size(3 * Pango::SCALE)
 
