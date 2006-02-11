@@ -6,7 +6,7 @@ match("**", FoottextBlock) do
   delete_pre_draw_proc_by_name(name)
   each do |block|
     unless block.elements.empty?
-      block.margin_set(:top => space * 3)
+      block.margin_with(:top => space * 3)
 
       block.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation

@@ -20,7 +20,7 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   end
 
   space = @space * (3 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
@@ -41,7 +41,7 @@ match(*(slide_body + (item_list_item * 2))) do |items|
   end
 
   space = @space * (2 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
@@ -62,7 +62,7 @@ match(*(slide_body + (item_list_item * 3))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 enum_list_item = [EnumList, EnumListItem]
@@ -86,7 +86,7 @@ match(*(slide_body + (enum_list_item * 1))) do |items|
   end
 
   space = @space * (3 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + (enum_list_item * 2))) do |items|
@@ -108,7 +108,7 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
   end
 
   space = @space * (2 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + (enum_list_item * 3))) do |items|
@@ -130,7 +130,7 @@ match(*(slide_body + (enum_list_item * 3))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 
@@ -152,7 +152,7 @@ match(*(slide_body + enum_list_item + item_list_item)) do |items|
   end
 
   space = @space * (2 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
@@ -173,7 +173,7 @@ match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   end
 
   space = @space * (1 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 
@@ -193,7 +193,7 @@ match(*(slide_body + desc_list_item)) do
   end
 
   space = @space * (3 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + (desc_list_item * 2))) do
@@ -210,7 +210,7 @@ match(*(slide_body + (desc_list_item * 2))) do
   end
 
   space = @space * (2 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end
 
 match(*(slide_body + (desc_list_item * 3))) do
@@ -227,5 +227,5 @@ match(*(slide_body + (desc_list_item * 3))) do
   end
 
   space = @space * (1 / 4.0)
-  margin_set(:bottom => space)
+  margin_with(:bottom => space)
 end

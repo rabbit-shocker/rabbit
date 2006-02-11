@@ -4,7 +4,7 @@ match("**", DescriptionTerm) do
   color = "#ff9900"
   space = @space / 2.0
 
-  margin_set(:bottom => space * 3)
+  margin_with(:bottom => space * 3)
   delete_post_draw_proc_by_name(name)
   add_post_draw_proc(name) do |term, canvas, x, y, w, h, simulation|
     unless simulation

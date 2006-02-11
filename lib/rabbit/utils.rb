@@ -195,13 +195,17 @@ module Rabbit
       end
     end
 
+    def extract_four_dimensions(params)
+      [params[:top], params[:right], params[:bottom], params[:left]]
+    end
+
     def parse_four_dimensions(*values)
       if values.is_a?(Array) and values.size == 1 and
           (values.first.is_a?(Array) or values.first.is_a?(Hash))
         values = values.first
       end
       if values.is_a?(Hash)
-        [values[:top], values[:right], values[:bottom], values[:left]]
+        extract_four_dimensions(values)
       else
         case values.size
         when 1

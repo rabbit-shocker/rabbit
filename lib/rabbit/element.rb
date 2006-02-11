@@ -341,12 +341,20 @@ module Rabbit
         @margin_left = left if left
       end
 
+      def margin_with(params)
+        margin_set(*extract_four_dimensions(params))
+      end
+
       def padding_set(*values)
         top, right, bottom, left = parse_four_dimensions(*values)
         @padding_top = top if top
         @padding_right = right if right
         @padding_bottom = bottom if bottom
         @padding_left = left if left
+      end
+
+      def padding_with(params)
+        padding_set(*extract_four_dimensions(params))
       end
 
       protected
