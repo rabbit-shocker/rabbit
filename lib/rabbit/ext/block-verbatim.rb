@@ -57,8 +57,8 @@ module Rabbit
 
       def ext_block_verb_rt(label, source, content, visitor)
         return nil unless /^rt$/i =~ label
-        @rt_visitor = RT2RabbitVisitor.new(visitor)
-        @rt_visitor.visit(RT::RTParser.parse(content))
+        rt_visitor = RT2RabbitVisitor.new(visitor)
+        rt_visitor.visit(RT::RTParser.parse(content))
       end
       
       private
