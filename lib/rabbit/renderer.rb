@@ -1,5 +1,7 @@
 require "rabbit/utils"
 
+require "rabbit/renderer/color"
+
 module Rabbit
   module Renderer
     extend Utils
