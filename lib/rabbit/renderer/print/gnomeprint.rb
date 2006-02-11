@@ -171,6 +171,10 @@ module Rabbit
           end
         end
         
+        def draw_lines(points, color=nil, params={})
+          draw_polygon(false, points, color, params.merge({:opened => true}))
+        end
+
         def draw_polygon(filled, points, color=nil, params={})
           return if points.empty?
           color = make_color(color)
@@ -181,7 +185,7 @@ module Rabbit
             points[1..-1].each do |x, y|
               @context.line_to(*from_screen(x, y))
             end
-            @context.line_to(*from_screen(*points.first))
+            @context.line_to(*from_screen(*points.first)) unless params[:opened]
             if filled
               @context.fill
             else
