@@ -67,11 +67,15 @@ module Rabbit
           make_file_name(file_name_format, slide_number, @suffix)
         end
       end
-        
-      def a_link(file_name_format, slide_number, label, label_only)
+
+      def href(file_name_format, slide_number)
         name = slide_file_name(file_name_format, slide_number)
-        href = File.basename(name)
-        HTML.a_link("<a href=\"#{href}\">", label, label_only)
+        h(File.basename(name))
+      end
+
+      def a_link(file_name_format, slide_number, label, label_only)
+        _href = href(file_name_format, slide_number)
+        HTML.a_link("<a href=\"#{_href}\">", label, label_only)
       end
 
       def first_slide?(slide_number)

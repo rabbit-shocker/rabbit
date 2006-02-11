@@ -29,8 +29,10 @@ div.slide img
 <body>
 <%= navi(file_name_format, slide_number) %>
 <div class="slide">
+<a href="<%= href(file_name_format, slide_number + 1) %>">
 <img title="<%= image_title(slide_number) %>"
      src="<%= image_src(file_name_format, slide_number, image_type) %>" />
+</a>
 </div>
 <%= navi(file_name_format, slide_number) %>
 <hr />
