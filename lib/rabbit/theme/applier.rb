@@ -27,6 +27,59 @@ module Rabbit
         end
       end
 
+      def draw_frame(params={}, &block)
+        proc_name = params[:proc_name] || "draw_frame"
+        frame_color = params[:frame_color]
+        fill_color = params[:fill_color]
+        shadow_color = params[:shadow_color]
+        shadow_offset = params[:shadow_offset] || 2
+        shadow_width = params[:shadow_width] || 4
+        frame_width = params[:frame_width] || 1
+
+        add_pre_draw_proc(proc_name) do |target, canvas, x, y, w, h, simulation|
+          unless simulation
+            if block_given?
+              fx, fy, fw, fh = yield(target, canvas, x, y, w, h)
+            end
+            fx ||= target.x
+            fy ||= target.y + target.centering_adjusted_height
+            fw ||= target.width
+            fh ||= target.height
+            if shadow_color
+              fh -= shadow_width
+            end
+            size = [fx, fy, fw, fh]
+
+            if fill_color
+              args = size + [fill_color]
+              canvas.draw_rectangle(true, *args)
+            end
+            
+            if frame_color
+              args = size + [frame_color, {:line_width => frame_width}]
+              canvas.draw_rectangle(false, *args)
+            end
+
+            if shadow_color
+              # Under Shadow
+              usx = fx + shadow_offset
+              usy = fy + fh + frame_width
+              usw = fw + shadow_width - shadow_offset
+              ush = shadow_width
+              canvas.draw_rectangle(true, usx, usy, usw, ush, shadow_color)
+      
+              # Right Shadow
+              rsx = fx + fw + frame_width
+              rsy = fy + shadow_offset
+              rsw = shadow_width
+              rsh = fh + shadow_width - shadow_offset
+              canvas.draw_rectangle(true, rsx, rsy, rsw, rsh, shadow_color)
+            end
+          end
+          [x, y, w, h]
+        end
+      end
+
       def method_missing(meth, *args, &block)
         each do |elem|
           if block
@@ -399,63 +452,19 @@ module Rabbit
         indent(items, make_order_layout, name, &draw_order)
       end
 
-      def draw_frame(targets, params={})
-        proc_name = params[:proc_name] || "draw_frame"
-        frame_color = params[:frame_color]
-        fill_color = params[:fill_color]
-        shadow_color = params[:shadow_color]
-        shadow_offset = params[:shadow_offset] || 2
-        shadow_width = params[:shadow_width] || 4
-        frame_width = params[:frame_width] || 1
+      def draw_frame(*args, &block)
+        if args.empty? or (args.size == 1 and args.first.is_a?(Hash))
+          targets = @current_target
+        else
+          targets, *args = args
+        end
 
         unless targets.is_a?(ElementContainer)
           targets = ElementContainer.new([targets])
         end
-        
-        targets.add_pre_draw_proc(proc_name) do |target, canvas, x, y, w, h, simulation|
-          unless simulation
-            if block_given?
-              fx, fy, fw, fh = yield(target, canvas, x, y, w, h)
-            end
-            fx ||= target.x
-            fy ||= target.y + target.centering_adjusted_height
-            fw ||= target.width
-            fh ||= target.height
-            if shadow_color
-              fh -= shadow_width
-            end
-            size = [fx, fy, fw, fh]
 
-            if fill_color
-              args = size + [fill_color]
-              canvas.draw_rectangle(true, *args)
-            end
-            
-            if frame_color
-              args = size + [frame_color, {:line_width => frame_width}]
-              canvas.draw_rectangle(false, *args)
-            end
-
-            if shadow_color
-              # Under Shadow
-              usx = fx + shadow_offset
-              usy = fy + fh + frame_width
-              usw = fw + shadow_width - shadow_offset
-              ush = shadow_width
-              canvas.draw_rectangle(true, usx, usy, usw, ush, shadow_color)
-      
-              # Right Shadow
-              rsx = fx + fw + frame_width
-              rsy = fy + shadow_offset
-              rsw = shadow_width
-              rsh = fh + shadow_width - shadow_offset
-              canvas.draw_rectangle(true, rsx, rsy, rsw, rsh, shadow_color)
-            end
-          end
-          [x, y, w, h]
-        end
+        targets.draw_frame(*args, &block)
       end
-
       def start_auto_reload_timer(interval)
         canvas.start_auto_reload_timer(interval)
       end

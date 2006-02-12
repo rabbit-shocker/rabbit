@@ -2,9 +2,9 @@ proc_name = "show-frame"
 
 @show_frame_color ||= "blue"
 
-match("**") do |elems|
-  elems.delete_pre_draw_proc_by_name(proc_name)
-  elems.delete_post_draw_proc_by_name(proc_name)
+match("**") do
+  delete_pre_draw_proc_by_name(proc_name)
+  delete_post_draw_proc_by_name(proc_name)
 
   break if @show_frame_uninstall
   
@@ -13,5 +13,5 @@ match("**") do |elems|
     :frame_color => @show_frame_color,
   }
   
-  draw_frame(elems, params)
+  draw_frame(params)
 end
