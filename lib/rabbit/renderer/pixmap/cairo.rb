@@ -36,6 +36,11 @@ module Rabbit
           @foreground = make_color("black")
           @background = make_color(@background_color)
         end
+
+        def init_renderer(drawable)
+          @context = drawable.create_cairo_context
+          init_context
+        end
       end
     end
   end
