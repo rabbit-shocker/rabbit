@@ -1,3 +1,5 @@
+require 'nkf'
+
 require "gtk2"
 
 module Rabbit
@@ -324,6 +326,33 @@ module Rabbit
       else
         yield
       end
+    end
+  end
+
+  module Converter
+    module_function
+    def keep_kcode(new_kcode)
+      kcode = $KCODE
+      $KCODE = new_kcode
+      yield
+    ensure
+      $KCODE = kcode
+    end
+
+    def to_utf8(str)
+      NKF.nkf("-w", str)
+    end
+
+    def to_eucjp(str)
+      NKF.nkf("-e", str)
+    end
+
+    def to_utf8_from_eucjp(str)
+      NKF.nkf("-wE", str)
+    end
+
+    def to_eucjp_from_utf8(str)
+      NKF.nkf("-eW", str)
     end
   end
 end

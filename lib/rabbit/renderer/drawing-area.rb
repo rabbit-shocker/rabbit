@@ -1339,7 +1339,7 @@ module Rabbit
       end
 
       def setup_search_window(forward)
-        @search_window = SearchWindow.new
+        @search_window = SearchWindow.new(@canvas)
         @search_window.forward = forward
         @search_window.window.set_transient_for(@window)
         entry = @search_window.entry
@@ -1364,15 +1364,15 @@ module Rabbit
       end
 
       def search_slide_with_current_input(search_next=false)
-        move_to_the_slide(@search_window.entry.text,
+        return if @search_window.empty?
+        move_to_the_slide(@search_window.regexp,
                           @search_window.forward?,
                           search_next)
       end
 
-      def move_to_the_slide(text, forward, search_next=false)
-        return if /\A\s*\z/ =~ text
+      def move_to_the_slide(reg, forward, search_next=false)
         current_index = @canvas.current_index
-        indexes = @canvas.slide_indexes(/#{text}/iu)
+        indexes = @canvas.slide_indexes(reg)
         target_index = nil
         indexes.each_with_index do |index, i|
           if index == current_index

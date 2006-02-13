@@ -1,10 +1,14 @@
 require 'gtk2'
 
+require 'rabbit/searcher'
+
 module Rabbit
   class SearchWindow
 
     attr_accessor :window, :direction, :entry
-    def initialize
+    def initialize(canvas)
+      @canvas = canvas
+      @searcher = Searcher.new(canvas)
       init_window
     end
 
@@ -24,6 +28,14 @@ module Rabbit
 
     def forward?
       @direction.active?
+    end
+
+    def empty?
+      /\A\s*\z/ =~ @entry.text
+    end
+
+    def regexp
+      @searcher.regexp(@entry.text)
     end
 
     private
