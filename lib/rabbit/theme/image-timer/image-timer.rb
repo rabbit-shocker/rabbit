@@ -21,7 +21,7 @@ end
 @image_timer_auto_scroll_direction ||= :left
 
 @image_timer_image ||= "kame.png"
-@image_timer_interval ||= 10
+@image_timer_interval ||= 5
 
 @image_timer_limit_time = nil
 
