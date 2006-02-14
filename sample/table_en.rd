@@ -25,7 +25,7 @@
 
   Content1, Content2
   Content1, Content Content 2
-  Loooooooooooooooooong Content3, Loooooooooooong Content4
+  Loooooooooong Content3, Loooooooong Content4
 
 = tab3
 
