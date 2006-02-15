@@ -755,13 +755,14 @@ module Rabbit
         event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
         @area.add_events(event_mask)
         set_realize
+        set_key_press_event
         set_button_event
         set_motion_notify_event
         set_expose_event
         set_scroll_event
         set_configure_event_after
       end
-      
+
       def set_realize
         @area.signal_connect_after("realize") do |widget|
           @drawable = widget.window
@@ -773,6 +774,44 @@ module Rabbit
           @black = Gdk::GC.new(@drawable)
           @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
           init_pixmap
+        end
+      end
+
+      def set_key_press_event
+        prev_keys = [
+          Gdk::Keyval::GDK_Up,
+          Gdk::Keyval::GDK_Left,
+          Gdk::Keyval::GDK_KP_Up,
+          Gdk::Keyval::GDK_KP_Left,
+        ]
+        next_keys = [
+          Gdk::Keyval::GDK_Right,
+          Gdk::Keyval::GDK_Down,
+          Gdk::Keyval::GDK_KP_Right,
+          Gdk::Keyval::GDK_KP_Down,
+        ]
+        @area.signal_connect("key_press_event") do |widget, event|
+          handled = true
+          modifier = event.state
+          case event.keyval
+          when *prev_keys
+            if modifier.nonzero?
+              index = calc_slide_number(0, modifier)
+              @canvas.activate("JumpTo") {@canvas.current_index - index}
+            else
+              @canvas.activate("PreviousSlide")
+            end
+          when *next_keys
+            if modifier.nonzero?
+              index = calc_slide_number(0, modifier)
+              @canvas.activate("JumpTo") {@canvas.current_index + index}
+            else
+              @canvas.activate("NextSlide")
+            end
+          else
+            handled = false
+          end
+          handled
         end
       end
 
@@ -956,10 +995,10 @@ module Rabbit
         @hand_cursor ||= Gdk::Cursor.new(Gdk::Cursor::HAND1)
       end
 
-      def calc_slide_number(val, modifier, base)
+      def calc_slide_number(val, modifier)
         val += 10 if modifier.control_mask?
         val += 20 if modifier.mod1_mask?
-        val - base
+        val
       end
 
       def set_keys(keys, mod, flags=nil, &block)
@@ -981,12 +1020,12 @@ module Rabbit
           end
           keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_#{i}")}
           set_keys(keys, mod) do |group, obj, val, modifier|
-            index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_0)
+            index = calc_slide_number(val - Gdk::Keyval::GDK_0, modifier)
             @canvas.activate("JumpTo") {index}
           end
           keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KP_#{i}")}
           set_keys(keys, mod) do |group, obj, val, modifier|
-            index = calc_slide_number(val, modifier, Gdk::Keyval::GDK_KP_0)
+            index = calc_slide_number(val - Gdk::Keyval::GDK_KP_0, modifier)
             @canvas.activate("JumpTo") {index}
           end
         end
