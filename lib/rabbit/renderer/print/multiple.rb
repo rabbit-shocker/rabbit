@@ -126,6 +126,11 @@ module Rabbit
           @print.draw_arc(filled, x, y, w, h, a1, a2, color, params)
         end
 
+        def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
+          x, y = normalize(x, y)
+          @print.draw_arc_by_radius(filled, x, y, r, a1, a2, color, params)
+        end
+
         def draw_layout(layout, x, y, color=nil, params={})
           x, y = normalize(x, y)
           @print.draw_layout(layout, x, y, color, params)
