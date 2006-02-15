@@ -34,9 +34,6 @@ module Rabbit
       def draw(simulation=false)
         x, y, w, h = setup_padding(@x, @y, @w, @h)
         x, y, w, h = _draw(@canvas, x, y, w, h, simulation)
-        if simulation
-          @simulated_width, @simulated_height = sync_simulated_size(x, y, w, h)
-        end
         x, w = restore_x_padding(x, w)
         x, w = restore_x_margin(x, w)
         x, w = adjust_x_centering(x, w)
@@ -168,8 +165,6 @@ module Rabbit
         @pre_draw_procs = []
         @post_draw_procs = []
         @width = @height = nil
-        @simulated_width = nil
-        @simulated_height = nil
         @centering_adjusted_width = nil
         @centering_adjusted_height = nil
         @horizontal_centering = @vertical_centering = false
@@ -271,14 +266,6 @@ module Rabbit
 
       def next_element
         sibling_element(1)
-      end
-
-      def simulated_width
-        @simulated_width || width
-      end
-
-      def simulated_height
-        @simulated_height || height
       end
 
       def available_w
@@ -390,12 +377,6 @@ module Rabbit
         else
           nil
         end
-      end
-
-      def sync_simulated_size(x, y, w, h)
-        sync_w = x - @x + width
-        sync_h = y - @y
-        [sync_w, sync_h]
       end
 
       def _draw(canvas, x, y, w, h, simulation)
@@ -635,13 +616,6 @@ module Rabbit
         h -= @padding_bottom
         [y, h]
       end
-
-      private
-      def sync_simulated_size(x, y, w, h)
-        sync_w = x - @x + width
-        sync_h = y - @y
-        [sync_w, sync_h]
-      end
     end
     
     module ContainerElement
@@ -690,7 +664,6 @@ module Rabbit
         args = [x, y, w, h]
         adjust_height = 0
         if do_vertical_centering?
-          # adjust_height = ((h - simulated_height - @padding_bottom) / 2.0).ceil
           adjust_height = ((h - height - @padding_bottom) / 2.0).ceil
           if y + adjust_height > 0
             args = [x, y + adjust_height, w, h - adjust_height]
