@@ -53,7 +53,10 @@ module Rabbit
       
       private
       def enscript_html_to_rabbit(html, visitor)
-        return nil unless defined?(HTree)
+        unless defined?(HTree)
+          visitor.logger.warn(_("enscript: can't find HTree library"))
+          return nil
+        end
         tree = HTree(enscript_extract_newline_around_pre(html))
         pre = enscript_get_element(tree, "pre")
         address = enscript_get_element(tree, "address")
