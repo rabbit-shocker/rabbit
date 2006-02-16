@@ -59,6 +59,8 @@ module Rabbit
         @adjustment_y = 0
         @progress_foreground = nil
         @progress_background = nil
+        @graffiti_color = nil
+        @graffiti_line_width = nil
         clean
         init_hook_procs
         init_dpi
@@ -439,8 +441,8 @@ module Rabbit
       end
 
       def clear_graffiti_config
-        self.graffiti_color = @default_graffiti_color
-        self.graffiti_line_width = @default_graffiti_line_width
+        @graffiti_color = nil
+        @graffiti_line_width = nil
       end
 
       def clear_progress_color
@@ -454,12 +456,6 @@ module Rabbit
 
       def init_color
         @background_color = "white"
-      end
-
-      def init_graffiti_config
-        @default_graffiti_color = Color.parse("black")
-        @default_graffiti_line_width = 3
-        clear_graffiti_config
       end
 
       def clear_gesture_actions

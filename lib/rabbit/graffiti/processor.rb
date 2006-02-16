@@ -1,15 +1,23 @@
 require 'gtk2'
 
 require 'rabbit/renderer'
+require 'rabbit/graffiti/config-dialog'
 
 module Rabbit
   module Graffiti
     class Processor
-      def initialize
+      DEFAULT_COLOR = Renderer::Color.parse("black")
+      DEFAULT_LINE_WIDTH = 3
+
+      attr_accessor :color, :line_width
+      def initialize(default_config={})
         extend(Renderer.renderer_module)
+        @default_color = default_config["color"] || DEFAULT_COLOR
+        @default_line_width = default_config["line_width"] || DEFAULT_LINE_WIDTH
         clear
+        clear_config
       end
-      
+
       def have_graffiti?
         not @segments.empty?
       end
@@ -35,7 +43,7 @@ module Rabbit
         end
       end
       
-      def draw_last_segment(drawable, color, line_width)
+      def draw_last_segment(drawable)
         points = @segments.last
         if points.size >= 2
           init_renderer(drawable)
@@ -45,14 +53,14 @@ module Rabbit
           x, y = current
           draw_line(prev_x * width, prev_y * height,
                     x * width, y * height,
-                    color, {:line_width => line_width})
+                    @color, {:line_width => @line_width})
         end
       end
       
-      def draw_all_segment(drawable, color, line_width)
+      def draw_all_segment(drawable)
         return if @segments.empty?
         init_renderer(drawable)
-        args = [color, {:line_width => line_width, :opened => true}]
+        args = [@color, {:line_width => @line_width, :opened => true}]
         width, height = drawable.size
         @segments.each do |points|
           converted_points = points.collect do |x, y|
@@ -72,7 +80,21 @@ module Rabbit
         @undo_stack = []
         @undo_index = nil
       end
-      
+
+      def change_color(&block)
+        dialog = Graffiti::ConfigDialog.new(@color, @line_width)
+        dialog.run do |color, line_width|
+          @color = color if color
+          @line_width = line_width if line_width
+          block.call
+        end
+      end
+
+      def clear_config
+        @color = @default_color
+        @line_width = @default_line_width
+      end
+
       def undo
         @undo_index ||= @undo_stack.size - 1
         command, segment = @undo_stack[@undo_index]

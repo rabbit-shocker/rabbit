@@ -5,7 +5,6 @@ require "rabbit/keys"
 require "rabbit/search-window"
 require "rabbit/gesture/handler"
 require "rabbit/graffiti/processor"
-require "rabbit/graffiti/config-dialog"
 require "rabbit/progress"
 require "rabbit/renderer/pixmap"
 
@@ -47,6 +46,12 @@ module Rabbit
       def_delegator(:@progress, :background, :progress_background)
       def_delegator(:@progress, :background=, :progress_background=)
       def_delegator(:@progress, :clear_color, :clear_progress_color)
+
+      def_delegator(:@graffiti, :color, :graffiti_color)
+      def_delegator(:@graffiti, :color=, :graffiti_color=)
+      def_delegator(:@graffiti, :line_width, :graffiti_line_width)
+      def_delegator(:@graffiti, :line_width=, :graffiti_line_width=)
+      def_delegator(:@graffiti, :clear_config, :clear_graffiti_config)
 
       BUTTON_PRESS_ACCEPTING_TIME = 250
       MASK_SIZE_STEP = 0.05
@@ -470,11 +475,7 @@ module Rabbit
       end
 
       def change_graffiti_color
-        dialog = Graffiti::ConfigDialog.new(@graffiti_color,
-                                            @graffiti_line_width)
-        dialog.run do |color, line_width|
-          @graffiti_color = color if color
-          @graffiti_line_width = line_width if line_width
+        @graffiti.change_color do
           redraw
         end
       end
@@ -616,7 +617,6 @@ module Rabbit
       end
 
       def init_graffiti
-        init_graffiti_config
         @graffiti = Graffiti::Processor.new
         @graffiti_mode = false
 
@@ -649,9 +649,7 @@ module Rabbit
               @graffiti.dragging? and
               pressed_button == target_button
             @graffiti.button_motion(event.x, event.y, width, height)
-            @graffiti.draw_last_segment(@drawable,
-                                        @graffiti_color,
-                                        @graffiti_line_width)
+            @graffiti.draw_last_segment(@drawable)
             true
           else
             false
@@ -821,9 +819,7 @@ module Rabbit
                                      original_width, original_height)
           else
             draw_current_slide
-            @graffiti.draw_all_segment(@drawable,
-                                       @graffiti_color,
-                                       @graffiti_line_width)
+            @graffiti.draw_all_segment(@drawable)
             @gesture.draw(@drawable) if @gesture.processing?
           end
         end
