@@ -51,6 +51,11 @@ module Rabbit
         true
       end
 
+      def init_renderer(drawable)
+        @context = drawable.create_cairo_context
+        init_context
+      end
+
       def init_context
         set_line_width(1)
         @context.line_cap = ::Cairo::LINE_CAP_ROUND
