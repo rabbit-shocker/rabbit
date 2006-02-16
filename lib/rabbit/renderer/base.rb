@@ -57,8 +57,9 @@ module Rabbit
         @list_id = 0
         @adjustment_x = 0
         @adjustment_y = 0
+        @progress_foreground = nil
+        @progress_background = nil
         clean
-        clear_progress_color
         init_hook_procs
         init_dpi
       end

@@ -6,6 +6,7 @@ require "rabbit/search-window"
 require "rabbit/gesture/handler"
 require "rabbit/graffiti/processor"
 require "rabbit/graffiti/config-dialog"
+require "rabbit/progress"
 require "rabbit/renderer/pixmap"
 
 module Rabbit
@@ -41,12 +42,16 @@ module Rabbit
       
       def_delegators(:@pixmap, :x_dpi, :y_dpi)
 
+      def_delegator(:@progress, :foreground, :progress_foreground)
+      def_delegator(:@progress, :foreground=, :progress_foreground=)
+      def_delegator(:@progress, :background, :progress_background)
+      def_delegator(:@progress, :background=, :progress_background=)
+      def_delegator(:@progress, :clear_color, :clear_progress_color)
+
       BUTTON_PRESS_ACCEPTING_TIME = 250
       MASK_SIZE_STEP = 0.05
 
       def initialize(canvas)
-        @progress = nil
-        @user_accel_group = nil
         super
         @current_cursor = nil
         @blank_cursor = nil
@@ -58,7 +63,7 @@ module Rabbit
         @mask_size = 0
         @need_reload_theme = false
         @search_window = nil
-        init_progress
+        @progress = Progress.new
         clear_button_handler
         init_graffiti
         init_gesture
@@ -280,16 +285,6 @@ module Rabbit
           callback ||= Utils.process_pending_events_proc
           super(callback)
         end
-      end
-
-      def progress_foreground=(color)
-        super
-        setup_progress_color
-      end
-      
-      def progress_background=(color)
-        super
-        setup_progress_color
       end
 
       def display?
@@ -550,11 +545,6 @@ module Rabbit
         @button_handler = []
       end
 
-      def clear_progress_color
-        super
-        setup_progress_color
-      end
-
       def update_menu
         @menu.update_menu(@canvas)
       end
@@ -566,29 +556,6 @@ module Rabbit
       def init_menu
         @menu = Menu.new(@canvas.actions)
       end
-
-      def init_progress
-        @progress_window = Gtk::Window.new(Gtk::Window::POPUP)
-        @progress_window.app_paintable = true
-        @progress = Gtk::ProgressBar.new
-        @progress.show_text = true
-        @progress_window.add(@progress)
-      end
-
-      def setup_progress_color
-        return unless @progress
-        style = @progress.style.copy
-        if @progress_foreground
-          rgb = @progress_foreground.to_gdk_rgb
-          style.set_bg(Gtk::STATE_NORMAL, *rgb)
-        end
-        if @progress_background
-          rgb = @progress_background.to_gdk_rgb
-          style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
-        end
-        @progress.style = style
-      end
-
 
       def init_gesture
         @gesture = Gesture::Handler.new
@@ -1273,23 +1240,19 @@ module Rabbit
       def start_progress(max)
         return if max.zero?
         update_menu
-        @progress_window.transient_for = @canvas.window
-        @progress_window.show_all
+        @progress.start_progress(max, @canvas.window)
         adjust_progress_window
-        @progress.fraction = @progress_current = 0
-        @progress_max = max.to_f
       end
 
       def update_progress(i)
-        @progress_current = i
-        @progress.fraction = @progress_current / @progress_max
+        @progress.update_progress(i)
         Utils.process_pending_events
       end
 
       def end_progress
-        @progress_current = @progress_max
+        @progress.end_progress
         Gtk.timeout_add(100) do
-          @progress_window.hide
+          @progress.window.hide
           update_menu
           false
         end
@@ -1297,7 +1260,7 @@ module Rabbit
 
       def adjust_progress_window
         if @window
-          Utils.move_to_top_left(@window, @progress_window)
+          Utils.move_to_top_left(@window, @progress.window)
         end
       end
 
