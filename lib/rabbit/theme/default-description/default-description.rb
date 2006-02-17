@@ -1,7 +1,7 @@
 @description_term_line_color ||= "#ff9900"
 
 match("**", DescriptionTerm) do
-  name = "description-term"
+  name = "description-term-line"
 
   space = @space / 2.0
 
@@ -14,4 +14,46 @@ match("**", DescriptionTerm) do
     end
     [x, y, w, h]
   end
+end
+
+
+slide_body = [Slide, Body]
+desc_list_item = [DescriptionList, DescriptionListItem]
+
+match(*(slide_body + desc_list_item)) do
+  space = @space * (3 / 4.0)
+  margin_with(:bottom => space)
+end
+
+match(*(slide_body + (desc_list_item * 2))) do
+  space = @space * (2 / 4.0)
+  margin_with(:bottom => space)
+end
+
+match(*(slide_body + (desc_list_item * 3))) do
+  space = @space * (1 / 4.0)
+  margin_with(:bottom => space)
+end
+
+desc_list_content = desc_list_item + [DescriptionContent]
+
+match(*(slide_body + desc_list_content)) do
+  name = "description-content-indent1"
+
+  space = @normal_font_size / Pango::SCALE
+  indent(space, name)
+end
+
+match(*(slide_body + desc_list_content * 2)) do
+  name = "description-content-indent2"
+
+  space = @small_font_size / Pango::SCALE
+  indent(space, name)
+end
+
+match(*(slide_body + desc_list_content * 3)) do
+  name = "description-content-indent3"
+
+  space = @x_small_font_size / Pango::SCALE
+  indent(space, name)
 end
