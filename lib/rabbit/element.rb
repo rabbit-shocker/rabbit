@@ -445,7 +445,11 @@ module Rabbit
       def text_to_html
         markup_as_html(text)
       end
-      
+
+      def do_horizontal_centering?
+        @horizontal_centering
+      end
+
       def do_horizontal_centering(canvas, x, y, w, h)
         self.align = Pango::Layout::ALIGN_CENTER
       end
@@ -702,7 +706,7 @@ module Rabbit
         prev_is_inline = false
         @elements.each do |element|
           element.compile(canvas, x, y, w, h)
-          if do_horizontal_centering? or element.do_horizontal_centering?
+          if element.do_horizontal_centering?
             element.do_horizontal_centering(canvas, x, y, w, h)
           end
           x, y, w, h = element.draw(true)
@@ -1150,6 +1154,15 @@ module Rabbit
       include TextContainerElement
     end
 
+    class BlockQuote
+      include ContainerElement
+      include BlockHorizontalCentering
+
+      def to_html
+        "<blockquote>#{super}</blockquote>"
+      end
+    end
+
     class Keyword
       include TextContainerElement
     end
@@ -1211,7 +1224,7 @@ module Rabbit
     class Verbatim
       include TextContainerElement
     end
-    
+
     class DeletedText
       include TextContainerElement
     end

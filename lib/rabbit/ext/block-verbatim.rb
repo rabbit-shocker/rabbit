@@ -60,6 +60,17 @@ module Rabbit
         rt_visitor = RT2RabbitVisitor.new(visitor)
         rt_visitor.visit(RT::RTParser.parse(content))
       end
+
+      def ext_block_verb_block_quote(label, source, content, visitor)
+        return nil unless /^blockquote$/i =~ label
+        src, prop = parse_source(source)
+        tree = RD::RDTree.new("=begin\n#{src}\n=end\n")
+        blockquote = BlockQuote.new
+        tree.root.children.each do |child|
+          blockquote << child.accept(visitor)
+        end
+        blockquote
+      end
       
       private
       def make_image_by_outer_command(path, prop, visitor)
