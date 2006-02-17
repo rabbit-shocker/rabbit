@@ -1,7 +1,10 @@
+@foot_text_block_line_color ||= "#33ff33"
+@foot_text_block_line_width ||= 3
+@foot_text_block_line_length_ratio ||= 0.5
+
 match("**", FootTextBlock) do
   name = "foot-text-block"
   space = @space / 2.0
-  color = "#33ff33"
 
   delete_pre_draw_proc_by_name(name)
   each do |block|
@@ -11,8 +14,12 @@ match("**", FootTextBlock) do
       block.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
           args = [
-            x, y - space * 2, (x + w / 2.0).ceil, y - space * 2,
-            color
+            x,
+            y - space * 2,
+            (x + w * @foot_text_block_line_length_ratio).ceil,
+            y - space * 2,
+            @foot_text_block_line_color,
+            {:line_width => @foot_text_block_line_width},
           ]
           canvas.draw_line(*args)
         end

@@ -1,9 +1,16 @@
+color = "red"
+shadow_color = "#c09090"
+line_width = screen_size(0.8)
+line_width += 1 if (line_width % 2).zero?
+
 include_theme("image")
 include_theme("table")
 include_theme("default-text")
 include_theme("default-title-slide")
 include_theme("default-slide")
 include_theme("default-method-list")
+@foot_text_block_line_color = color
+@foot_text_block_line_length_ratio = 0.8
 include_theme("default-foot-text")
 include_theme("default-description")
 include_theme("simple-item-mark")
@@ -12,12 +19,7 @@ include_theme("rabbit-icon")
 set_progress_foreground("#ffffeb29ffff")
 set_progress_background("#ffff00000000")
 
-set_graffiti_color("red")
-
-color = "red"
-shadow_color = "#c09090"
-line_width = screen_size(0.8)
-line_width += 1 if (line_width % 2).zero?
+set_graffiti_color(color)
 
 @title_shadow_color = shadow_color
 include_theme("title-shadow")

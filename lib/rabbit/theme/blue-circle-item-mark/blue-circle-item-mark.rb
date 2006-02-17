@@ -1,3 +1,5 @@
+include_theme("blue-circle-config")
+
 margin_left = canvas.width * 0.05
 
 slide_body = [Slide, Body]
