@@ -17,15 +17,6 @@
 @margin_top = screen_y(3)
 @margin_bottom = screen_y(3)
 
-@preformatted_frame_color = "#55003dff0eff"
-@preformatted_frame_width = 2
-@preformatted_fill_color = "#fcfae2"
-
-@preformatted_padding_left = screen_x(5)
-@preformatted_padding_right = screen_x(5)
-@preformatted_padding_top = screen_y(2)
-@preformatted_padding_bottom = screen_y(2)
-
 @table_frame_color = "#55003dff0eff"
 @table_fill_color = "#fcfae2"
 

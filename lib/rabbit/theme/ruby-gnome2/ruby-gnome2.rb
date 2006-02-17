@@ -3,7 +3,9 @@ add_image_path("rabbit-images")
 
 include_theme("image")
 include_theme("table")
+include_theme("default-title-text")
 include_theme("default-text")
+include_theme("default-method-list")
 
 set_background("white")
 
@@ -19,9 +21,10 @@ include_theme("ruby-gnome2-headline")
 include_theme("ruby-gnome2-item-mark")
 include_theme("ruby-gnome2-preformatted")
 include_theme("ruby-gnome2-description")
+include_theme("ruby-gnome2-foot-text")
 
 match("**", Emphasis) do |ems|
-  ems.prop_set("foreground", "#006600")
+  ems.prop_set("foreground", @ruby_gnome2_emphasis_color)
 end
 
 @image_slide_number_image = "mini-usa-taro.png"

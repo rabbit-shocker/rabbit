@@ -1,3 +1,5 @@
+include_theme("ruby-gnome2-config")
+
 include_theme("default-item-mark")
 
 slide_body = [Slide, Body]
@@ -20,12 +22,12 @@ match(*(slide_body + (item_list_item * 1) + [Paragraph])) do |paragraphs|
   paragraphs.delete_pre_draw_proc_by_name(name)
   paragraphs.delete_post_draw_proc_by_name(name)
 
-  paragraphs.prop_set("foreground", "#003399")
+  paragraphs.prop_set("foreground", @ruby_gnome2_color)
   space = @space * (3 / 8.0)
 
   paragraphs.add_post_draw_proc(name) do |paragraph, canvas, x, y, w, h, simulation|
     unless simulation
-      canvas.draw_line(x, y + space, x + w, y + space, "#ff9999")
+      canvas.draw_line(x, y + space, x + w, y + space, @ruby_gnome2_line_color)
     end
     [x, y, w, h]
   end
@@ -78,12 +80,12 @@ match(*(slide_body + (enum_list_item * 1) + [Paragraph])) do |paragraphs|
   paragraphs.delete_pre_draw_proc_by_name(name)
   paragraphs.delete_post_draw_proc_by_name(name)
 
-  paragraphs.prop_set("foreground", "#003399")
+  paragraphs.prop_set("foreground", @ruby_gnome2_color)
   space = @space * (3 / 8.0)
 
   paragraphs.add_post_draw_proc(name) do |paragraph, canvas, x, y, w, h, simulation|
     unless simulation
-      canvas.draw_line(x, y + space, x + w, y + space, "#ff9999")
+      canvas.draw_line(x, y + space, x + w, y + space, @ruby_gnome2_line_color)
     end
     [x, y, w, h]
   end

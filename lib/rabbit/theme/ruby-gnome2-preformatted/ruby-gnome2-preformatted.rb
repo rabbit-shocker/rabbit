@@ -1,5 +1,5 @@
-@preformatted_frame_color = "#3399cc"
-@preformatted_fill_color = "#ddeeff"
+@preformatted_frame_color = @ruby_gnome2_frame_color
+@preformatted_fill_color = @ruby_gnome2_fill_color
 include_theme("default-preformatted")
 
 match("**", PreformattedText) do |texts|

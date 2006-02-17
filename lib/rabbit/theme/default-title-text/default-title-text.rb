@@ -8,6 +8,7 @@
 @title_slide_note_font_size ||= @small_font_size
 
 match(TitleSlide, "*") do |elems|
+  elems.horizontal_centering = true
   elems.prop_set("size", @title_slide_font_size)
   set_font_family(elems)
 end

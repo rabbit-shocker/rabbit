@@ -1,7 +1,8 @@
 proc_name = "title-shadow"
 
+@title_shadow_color ||= "#6f6f6fcc"
+
 match(TitleSlide, Title) do |titles|
-  @title_shadow_color ||= "#6f6f6fcc"
 
   shadow_layout = nil
   move_x = nil
@@ -25,8 +26,7 @@ match(TitleSlide, Title) do |titles|
         shadow_title.font :color => nil
         shadow_layout = canvas.make_layout(shadow_title.markuped_text)
         shadow_layout.set_width(w * Pango::SCALE)
-        if title.do_horizontal_centering? or
-            title.parent.do_horizontal_centering?
+        if title.do_horizontal_centering?
           shadow_layout.set_alignment(Pango::Layout::ALIGN_CENTER)
         end
       end

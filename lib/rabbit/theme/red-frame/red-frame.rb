@@ -5,6 +5,7 @@ line_width += 1 if (line_width % 2).zero?
 
 include_theme("image")
 include_theme("table")
+include_theme("default-title-text")
 include_theme("default-text")
 include_theme("default-title-slide")
 include_theme("default-slide")
@@ -13,6 +14,9 @@ include_theme("default-method-list")
 @foot_text_block_line_length_ratio = 0.8
 include_theme("default-foot-text")
 include_theme("default-description")
+@preformatted_frame_color = color
+@preformatted_shadow_color = shadow_color
+include_theme("default-preformatted")
 include_theme("simple-item-mark")
 include_theme("rabbit-icon")
 
@@ -84,29 +88,6 @@ match(Slide, HeadLine) do |heads|
     end
     [x, y, w, h]
   end
-end
-
-match("**", PreformattedBlock) do |blocks|
-  name = "preformatted-block"
-  
-  blocks.horizontal_centering = true
-
-  params = {
-    :proc_name => name,
-    :frame_color => color,
-    :shadow_color => shadow_color,
-  }
-
-  blocks.padding_left = @preformatted_padding_left
-  blocks.padding_right = @preformatted_padding_right
-  blocks.padding_top = @preformatted_padding_top
-  blocks.padding_bottom = @preformatted_padding_bottom
-
-  blocks.wrap_mode = false
-
-  blocks.margin_bottom = @space
-    
-  draw_frame(blocks, params)
 end
 
 include_theme("windows-adjust")

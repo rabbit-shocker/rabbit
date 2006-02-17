@@ -1,5 +1,3 @@
-include_theme("default-title-text")
-
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
   heads.prop_set("weight", "bold")
