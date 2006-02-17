@@ -990,7 +990,7 @@ module Rabbit
             klass_name = to_class_name(name)
             if Element.const_defined?(klass_name)
               meta = Element.const_get(klass_name).new
-              item.each_without_term do |elem|
+              item.content.each do |elem|
                 elem.each do |e|
                   meta << e
                 end
@@ -998,7 +998,7 @@ module Rabbit
               super(meta)
             else
               content = ""
-              item.each_without_term do |x|
+              item.content.each do |x|
                 content << x.text
               end
               @local_prop[name] = content.strip
@@ -1282,26 +1282,14 @@ module Rabbit
     class DescriptionListItem
       include ContainerElement
       
-      attr_reader :term
+      attr_reader :term, :content
 
-      def initialize(term)
+      def initialize(term, content)
         super()
         @term = term
+        @content = content
         add_element(@term)
-      end
-
-      def each_without_term(&block)
-        @elements[1..-1].each(&block)
-      end
-
-      def to_html
-        result = @elements[0].to_html
-        result << "\n<dd>\n"
-        each_without_term do |element|
-          result << "#{element.to_html}\n"
-        end
-        result << "</dd>"
-        result
+        add_element(@content)
       end
     end
 
@@ -1313,27 +1301,34 @@ module Rabbit
       end
     end
 
+    class DescriptionContent
+      include ContainerElement
+
+      def to_html
+        "<dd>\n#{super}\n</dd>"
+      end
+    end
+
     class MethodList
       include ContainerElement
     end
     
     class MethodListItem
       include ContainerElement
+
+      attr_reader :term, :description
       
-      def initialize(term)
+      def initialize(term, description)
         super()
         @term = term
+        @description = description
         add_element(@term)
+        add_element(@description)
       end
 
       def name
         @term.name
       end
-
-      def each_without_term(&block)
-        @elements[1..-1].each(&block)
-      end
-
     end
 
     class MethodTerm
@@ -1352,6 +1347,10 @@ module Rabbit
 
     class MethodKind
       include TextContainerElement
+    end
+
+    class MethodDescription
+      include ContainerElement
     end
 
     class Image

@@ -14,7 +14,7 @@ module Rabbit
     include Element
     
     SYSTEM_NAME = "RD2RabbitLVisitor"
-    SYSTEM_VERSION = "0.0.1"
+    SYSTEM_VERSION = "0.0.2"
     VERSION = RD::Version.new_from_version_string(SYSTEM_NAME, SYSTEM_VERSION)
 
     # must-have constants
@@ -158,14 +158,16 @@ module Rabbit
 
     def apply_to_DescListItem(element, term, description)
       desc_term = DescriptionTerm.new(term)
-      item = DescriptionListItem.new(desc_term)
-      apply_to_ListItem(element, description, item)
+      desc_content = DescriptionContent.new
+      apply_to_ListItem(element, description, desc_content)
+      DescriptionListItem.new(desc_term, desc_content)
     end
 
     def apply_to_MethodListItem(element, term, description)
       method_term = parse_method(term)
-      item = MethodListItem.new(method_term)
-      apply_to_ListItem(element, description, item)
+      method_description = MethodDescription.new
+      apply_to_ListItem(element, description, method_description)
+      MethodListItem.new(method_term, method_description)
     end
   
     def apply_to_ListItem(element, contents, item)

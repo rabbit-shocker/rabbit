@@ -180,52 +180,40 @@ end
 desc_list_item = [DescriptionList, DescriptionListItem]
 
 match(*(slide_body + desc_list_item)) do
-  name = "desc-item1"
-  
-  delete_post_draw_proc_by_name(name)
-  
-  space = @normal_font_size / Pango::SCALE
-  each do |item|
-    term_items = ElementContainer.new(item[1..-1])
-    term_items.delete_pre_draw_proc_by_name(name)
-    term_items.delete_post_draw_proc_by_name(name)
-    term_items.indent(space, name)
-  end
-
   space = @space * (3 / 4.0)
   margin_with(:bottom => space)
 end
 
 match(*(slide_body + (desc_list_item * 2))) do
-  name = "desc-item2"
-  
-  delete_post_draw_proc_by_name(name)
-  
-  space = @small_font_size / Pango::SCALE
-  each do |item|
-    term_items = ElementContainer.new(item[1..-1])
-    term_items.delete_pre_draw_proc_by_name(name)
-    term_items.delete_post_draw_proc_by_name(name)
-    term_items.indent(space, name)
-  end
-
   space = @space * (2 / 4.0)
   margin_with(:bottom => space)
 end
 
 match(*(slide_body + (desc_list_item * 3))) do
-  name = "desc-item3"
-  
-  delete_post_draw_proc_by_name(name)
-  
-  space = @x_small_font_size / Pango::SCALE
-  each do |item|
-    term_items = ElementContainer.new(item[1..-1])
-    term_items.delete_pre_draw_proc_by_name(name)
-    term_items.delete_post_draw_proc_by_name(name)
-    term_items.indent(space, name)
-  end
-
   space = @space * (1 / 4.0)
   margin_with(:bottom => space)
 end
+
+desc_list_content = desc_list_item + [DescriptionContent]
+
+match(*(slide_body + desc_list_content)) do
+  name = "desc-content1"
+
+  space = @normal_font_size / Pango::SCALE
+  indent(space, name)
+end
+
+match(*(slide_body + desc_list_content * 2)) do
+  name = "desc-content2"
+
+  space = @small_font_size / Pango::SCALE
+  indent(space, name)
+end
+
+match(*(slide_body + desc_list_content * 3)) do
+  name = "desc-content3"
+
+  space = @x_small_font_size / Pango::SCALE
+  indent(space, name)
+end
+
