@@ -107,12 +107,12 @@ match("**", Code) do |texts|
   set_font_family(texts, @monospace_font_family)
 end
 
-match("**", Foottext) do |texts|
+match("**", FootText) do |texts|
   texts.prop_set("size", @xx_small_font_size)
   set_font_family(texts)
 end
 
-match("**", Footnote) do |notes|
+match("**", FootNote) do |notes|
   notes.prop_set("size", @script_font_size)
   notes.prop_set("rise", (@script_font_size * 3.0 / 2.0).ceil)
 end

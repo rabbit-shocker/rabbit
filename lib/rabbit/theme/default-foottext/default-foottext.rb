@@ -1,5 +1,5 @@
-match("**", FoottextBlock) do
-  name = "foottext-block"
+match("**", FootTextBlock) do
+  name = "foot-text-block"
   space = @space / 2.0
   color = "#33ff33"
 
@@ -22,7 +22,7 @@ match("**", FoottextBlock) do
   end
 end
 
-match("**", Foottext) do
+match("**", FootText) do
   each do |text|
     if text.user_property["order_added"]
       order_text = text.elements.first
@@ -37,7 +37,7 @@ match("**", Foottext) do
   end
 end
 
-match("**", Footnote) do
+match("**", FootNote) do
   prop_set("foreground", "blue")
   each do |note|
     note.text = "(*#{note.order})"

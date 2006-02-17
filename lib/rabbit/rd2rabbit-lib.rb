@@ -38,8 +38,6 @@ module Rabbit
 
       @slides = []
       @slide = nil
-      @footnotes = []
-      @foottexs = []
       @index = {}
 
       init_extensions
@@ -48,7 +46,7 @@ module Rabbit
     
     def visit(tree)
       prepare_labels(tree, "label-")
-      prepare_footnotes(tree)
+      prepare_foot_notes(tree)
       super(tree)
     end
 
@@ -73,7 +71,7 @@ module Rabbit
           target << content if display
         end
       end
-      burn_out_foottexts
+      burn_out_foot_texts
     end
 
     def apply_to_Headline(element, title)
@@ -86,7 +84,7 @@ module Rabbit
           @title_slide = false
           @slide = Slide.new(HeadLine.new(title))
         end
-        @foottexts << []
+        @foot_texts << []
         @slides << @slide
         @slide
       else
@@ -217,17 +215,17 @@ module Rabbit
       if @slide.nil?
         Text.new("")
       else
-        num = get_footnote_num(element)
+        num = get_foot_note_num(element)
         raise ArgumentError, "[BUG?] #{element} is not registered." unless num
-        add_foottext(num, content)
-        Footnote.new(num)
+        add_foot_text(num, content)
+        FootNote.new(num)
       end
     end
 
     def apply_to_Foottext(element, content)
-      num = get_footnote_num(element)
+      num = get_foot_note_num(element)
       raise ArgumentError, "[BUG] #{element} isn't registered." unless num
-      Foottext.new(num, content)
+      FootText.new(num, content)
     end
 
     def apply_to_Verb(element)
@@ -246,16 +244,16 @@ module Rabbit
     end
     
     private
-    def prepare_footnotes(tree)
-      @footnotes = tree.find_all{|i| i.is_a? RD::Footnote}
-      @foottexts = []
+    def prepare_foot_notes(tree)
+      @foot_notes = tree.find_all{|i| i.is_a? RD::Footnote}
+      @foot_texts = []
     end
 
-    def get_footnote_num(fn)
+    def get_foot_note_num(fn)
       unless fn.is_a?(RD::Footnote)
         raise ArgumentError, "#{fn} must be Footnote."
       end
-      i = @footnotes.index(fn)
+      i = @foot_notes.index(fn)
       if i
         i + 1
       else
@@ -360,20 +358,20 @@ module Rabbit
       end
     end
 
-    def add_foottext(num, foottext)
-      unless @footnotes[num - 1]
+    def add_foot_text(num, foot_text)
+      unless @foot_notes[num - 1]
         raise ArgumentError, "[BUG] footnote ##{num} isn't here."
       end
-      @foottexts.last << [foottext, num - 1]
+      @foot_texts.last << [foot_text, num - 1]
     end
     
-    def burn_out_foottexts
+    def burn_out_foot_texts
       @slides.each do |slide|
-        ftb = FoottextBlock.new
-        current_foottexts = @foottexts.shift
-        while ft_info = current_foottexts.shift
+        ftb = FootTextBlock.new
+        current_foot_texts = @foot_texts.shift
+        while ft_info = current_foot_texts.shift
           ft, num = ft_info
-          ftb << apply_to_Foottext(@footnotes[num], ft)
+          ftb << apply_to_Foottext(@foot_notes[num], ft)
         end
         slide << ftb
       end

@@ -1182,11 +1182,11 @@ module Rabbit
       include TextContainerElement
     end
 
-    class FoottextBlock
+    class FootTextBlock
       include ContainerElement
     end
     
-    class Footnote
+    class FootNote
       include TextElement
 
       attr_reader :order
@@ -1197,7 +1197,7 @@ module Rabbit
       end
     end
     
-    class Foottext
+    class FootText
       include TextContainerElement
 
       attr_reader :order
