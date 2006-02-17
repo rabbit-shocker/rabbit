@@ -80,12 +80,6 @@ match("**", Comment) do |texts|
   texts.prop_set("style", "italic")
 end
 
-match("**", DescriptionTerm) do |terms|
-  terms.prop_set("size", @normal_font_size)
-  terms.prop_set("weight", "bold")
-  set_font_family(terms)
-end
-
 match("**", MethodTerm) do |texts|
   texts.prop_set("size", @normal_font_size)
   set_font_family(texts, @monospace_font_family)
@@ -122,44 +116,63 @@ slide_body = [Slide, Body]
 
 item_list_item = [ItemList, ItemListItem]
 
-match(*(slide_body + (item_list_item * 2) + [Paragraph])) do |texts|
-  texts.prop_set("size", @small_font_size)
+match(*(slide_body + (item_list_item * 2))) do
+  prop_set("size", @small_font_size)
 end
 
-match(*(slide_body + (item_list_item * 3) + [Paragraph])) do |texts|
-  texts.prop_set("size", @x_small_font_size)
+match(*(slide_body + (item_list_item * 3))) do
+  prop_set("size", @x_small_font_size)
 end
 
 enum_list_item = [EnumList, EnumListItem]
 
-match(*(slide_body + (enum_list_item * 2) + [Paragraph])) do |texts|
-  texts.prop_set("size", @small_font_size)
+match(*(slide_body + (enum_list_item * 2))) do
+  prop_set("size", @small_font_size)
 end
 
-match(*(slide_body + (enum_list_item * 3) + [Paragraph])) do |texts|
-  texts.prop_set("size", @x_small_font_size)
+match(*(slide_body + (enum_list_item * 3))) do
+  prop_set("size", @x_small_font_size)
 end
 
 
-match(*(slide_body + enum_list_item + item_list_item + [Paragraph])) do |texts|
-  texts.prop_set("size", @small_font_size)
+match(*(slide_body + enum_list_item + item_list_item)) do
+  prop_set("size", @small_font_size)
 end
 
-match(*(slide_body + enum_list_item + (item_list_item * 2) + [Paragraph])) do |texts|
-  texts.prop_set("size", @x_small_font_size)
+match(*(slide_body + enum_list_item + (item_list_item * 2))) do
+  prop_set("size", @x_small_font_size)
 end
 
 
 desc_list_item = [DescriptionList, DescriptionListItem]
+desc_term = desc_list_item + [DescriptionTerm]
+desc_content = desc_list_item + [DescriptionContent]
 
-match(*(slide_body + (desc_list_item * 1) + [Paragraph])) do |texts|
-  texts.prop_set("size", @small_font_size)
+match(*(slide_body + (desc_content * 1))) do
+  prop_set("size", @small_font_size)
 end
 
-match(*(slide_body + (desc_list_item * 2) + [Paragraph])) do |texts|
-  texts.prop_set("size", @x_small_font_size)
+match(*(slide_body + (desc_content * 2))) do
+  prop_set("size", @x_small_font_size)
 end
 
-match(*(slide_body + (desc_list_item * 3) + [Paragraph])) do |texts|
-  texts.prop_set("size", @xx_small_font_size)
+match(*(slide_body + (desc_content * 3))) do
+  prop_set("size", @xx_small_font_size)
+end
+
+match("**", DescriptionTerm) do |terms|
+  prop_set("weight", "bold")
+  set_font_family(terms)
+end
+
+match(*(slide_body + desc_term)) do
+  prop_set("size", @normal_font_size)
+end
+
+match(*(slide_body + (desc_content * 1) + desc_term)) do
+  prop_set("size", @small_font_size)
+end
+
+match(*(slide_body + (desc_content * 2) + desc_term)) do
+  prop_set("size", @x_small_font_size)
 end
