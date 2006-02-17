@@ -189,7 +189,7 @@ match(*(slide_body + desc_list_item)) do
     term_items = ElementContainer.new(item[1..-1])
     term_items.delete_pre_draw_proc_by_name(name)
     term_items.delete_post_draw_proc_by_name(name)
-    indent(term_items, space, name)
+    term_items.indent(space, name)
   end
 
   space = @space * (3 / 4.0)
@@ -206,7 +206,7 @@ match(*(slide_body + (desc_list_item * 2))) do
     term_items = ElementContainer.new(item[1..-1])
     term_items.delete_pre_draw_proc_by_name(name)
     term_items.delete_post_draw_proc_by_name(name)
-    indent(term_items, space, name)
+    term_items.indent(space, name)
   end
 
   space = @space * (2 / 4.0)
@@ -223,7 +223,7 @@ match(*(slide_body + (desc_list_item * 3))) do
     term_items = ElementContainer.new(item[1..-1])
     term_items.delete_pre_draw_proc_by_name(name)
     term_items.delete_post_draw_proc_by_name(name)
-    indent(term_items, space, name)
+    term_items.indent(space, name)
   end
 
   space = @space * (1 / 4.0)

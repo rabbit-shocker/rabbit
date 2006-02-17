@@ -27,6 +27,33 @@ module Rabbit
         end
       end
 
+      def indent(size_or_proc, name=nil)
+        each do |element|
+          element.delete_pre_draw_proc_by_name(name)
+          element.delete_post_draw_proc_by_name(name)
+
+          other_infos = []
+          element.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
+            if size_or_proc.respond_to?(:call)
+              indent_size, *other_infos = size_or_proc.call(element, simulation)
+            else
+              indent_size = size_or_proc
+            end
+            element.margin_left = indent_size
+            [x, y, w, h]
+          end
+          
+          if block_given?
+            element.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
+              unless simulation
+                yield(element, canvas, x, y, w, h, *other_infos)
+              end
+              [x, y, w, h]
+            end
+          end
+        end
+      end
+
       def draw_frame(params={}, &block)
         proc_name = params[:proc_name] || "draw_frame"
         frame_color = params[:frame_color]
@@ -348,35 +375,8 @@ module Rabbit
         ((canvas.height * ny) / normalized_height).ceil
       end
 
-      def indent(elements, size_or_proc, name=nil)
-        elements.each do |element|
-          element.delete_pre_draw_proc_by_name(name)
-          element.delete_post_draw_proc_by_name(name)
-
-          other_infos = []
-          element.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
-            if size_or_proc.respond_to?(:call)
-              indent_size, *other_infos = size_or_proc.call(element, simulation)
-            else
-              indent_size = size_or_proc
-            end
-            element.margin_left = indent_size
-            [x, y, w, h]
-          end
-          
-          if block_given?
-            element.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
-              unless simulation
-                yield(element, canvas, x, y, w, h, *other_infos)
-              end
-              [x, y, w, h]
-            end
-          end
-        end
-      end
-
       def draw_mark(items, indent_width, width_or_proc, height_or_proc, name=nil)
-        indent(items, indent_width, name) do |item, canvas, x, y, w, h|
+        items.indent(indent_width, name) do |item, canvas, x, y, w, h|
           first_text = item.elements.first
           text_height = first_text.first_line_height
           text_height += first_text.padding_top + first_text.padding_bottom
@@ -449,7 +449,7 @@ module Rabbit
           canvas.draw_layout(layout, new_x, new_y)
         end
 
-        indent(items, make_order_layout, name, &draw_order)
+        items.indent(make_order_layout, name, &draw_order)
       end
 
       def draw_frame(*args, &block)
