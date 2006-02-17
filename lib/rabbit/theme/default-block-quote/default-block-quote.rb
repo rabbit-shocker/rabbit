@@ -9,8 +9,6 @@
 
 match("**", BlockQuote) do |blocks|
   name = "block-quote"
-  
-  blocks.horizontal_centering = true
 
   params = {
     :proc_name => name,
