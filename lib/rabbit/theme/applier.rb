@@ -10,18 +10,23 @@ require 'rabbit/renderer/color'
 module Rabbit
   module Theme
     class ElementContainer < DelegateClass(Array)
+      def initialize(applier, ary)
+        @applier = applier
+        super(ary)
+      end
+
       def collect(*args, &block)
-        self.class.new(super)
+        @applier.make_container(super)
       end
 
       def map(*args, &block)
-        self.class.new(super)
+        @applier.make_container(super)
       end
 
       def [](*args)
         result = super
         if result.is_a?(Array)
-          self.class.new(result)
+          @applier.make_container(result)
         else
           result
         end
@@ -42,7 +47,7 @@ module Rabbit
             element.margin_left = indent_size
             [x, y, w, h]
           end
-          
+
           if block_given?
             element.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
               unless simulation
@@ -52,6 +57,82 @@ module Rabbit
             end
           end
         end
+      end
+
+      def draw_mark(indent_width, width_or_proc, height_or_proc, name=nil)
+        indent(indent_width, name) do |item, canvas, x, y, w, h|
+          first_text = item.elements.first
+          text_height = first_text.first_line_height
+          text_height += first_text.padding_top + first_text.padding_bottom
+
+          if width_or_proc.respond_to?(:call)
+            mark_width = width_or_proc.call(item, canvas)
+          else
+            mark_width = width_or_proc
+          end
+          if height_or_proc.respond_to?(:call)
+            mark_height = height_or_proc.call(item, canvas)
+          else
+            mark_height = height_or_proc
+          end
+
+          adjust_y = ((text_height / 2.0) - (mark_height / 2.0)).ceil
+
+          indent_base_x = item.x - mark_width
+          indent_base_y = item.base_y + first_text.margin_top + adjust_y
+          width = mark_width
+          height = mark_height
+          yield(item, canvas, indent_base_x, indent_base_y, width, height)
+        end
+      end
+
+      def draw_image_mark(image_name, name=nil)
+        return if empty?
+
+        loader = ImageLoader.new(image_name)
+
+        width_proc = Proc.new {loader.width}
+        height_proc = Proc.new {loader.height}
+        indent_proc = Proc.new do |item, simulation|
+          text_height = item.elements.first.original_height
+          if text_height < loader.height
+            loader.resize(nil, (text_height * 2.0 / 3.0).ceil)
+          end
+          loader.width * 2.5
+        end
+
+        draw_mark(indent_proc, width_proc, height_proc, name) do
+          |item, canvas, x, y, w, h|
+          x -= loader.width * 0.5
+          canvas.draw_pixbuf(loader.pixbuf, x, y)
+        end
+      end
+      
+      def draw_order(indent_width, name=nil, &block)
+        layouts = {}
+        make_order_layout = Proc.new do |item, simulation|
+          layout = layouts[item]
+          if layout.nil?
+            str = block.call(item)
+            layout = @applier.make_layout(str)
+            layouts[item] = layout
+          end
+          tw, th = layout.pixel_size
+          [tw + indent_width, tw, th, layout]
+        end
+
+        draw_order = Proc.new do |item, canvas, x, y, w, h, tw, th, layout|
+          first_text = item.elements.first
+          text_height = first_text.original_height
+          text_height += first_text.padding_top + first_text.padding_bottom
+          adjust_y = ((text_height / 2.0) - (th / 2.0)).ceil
+
+          new_x = item.base_x + indent_width
+          new_y = item.base_y + first_text.margin_top + adjust_y
+          canvas.draw_layout(layout, new_x, new_y)
+        end
+
+        indent(make_order_layout, name, &draw_order)
       end
 
       def draw_frame(params={}, &block)
@@ -132,6 +213,8 @@ module Rabbit
       def_delegators(:logger, *logger_methods)
       private *logger_methods
 
+      def_delegators(:canvas, :make_layout)
+
       NORMALIZED_WIDTH = 91.0
       NORMALIZED_HEIGHT = 67.5
 
@@ -159,6 +242,18 @@ module Rabbit
         end
       end
 
+      def make_container(ary)
+          ElementContainer.new(self, ary)
+      end
+
+      def to_container(obj)
+        if obj.is_a?(ElementContainer)
+          obj
+        else
+          make_container([obj])
+        end
+      end
+
       private
       def normalize_source(src)
         src.gsub(/(?=^|\W)@(very_)?huge_(script_)?font_size(?=$|\W)/) do |x|
@@ -180,14 +275,6 @@ module Rabbit
         canvas.to_attrs(hash)
       end
 
-      def to_element_container(obj)
-        if obj.is_a?(ElementContainer)
-          obj
-        else
-          ElementContainer.new([obj])
-        end
-      end
-      
       def name
         @theme.name
       end
@@ -272,7 +359,7 @@ module Rabbit
       def match(*paths, &block)
         dirty
         begin
-          @current_target = ElementContainer.new(_match(slides, *paths))
+          @current_target = make_container(_match(slides, *paths))
           block.call(@current_target)
         ensure
           @current_target = nil
@@ -375,96 +462,50 @@ module Rabbit
         ((canvas.height * ny) / normalized_height).ceil
       end
 
-      def draw_mark(items, indent_width, width_or_proc, height_or_proc, name=nil)
-        items.indent(indent_width, name) do |item, canvas, x, y, w, h|
-          first_text = item.elements.first
-          text_height = first_text.first_line_height
-          text_height += first_text.padding_top + first_text.padding_bottom
-
-          if width_or_proc.respond_to?(:call)
-            mark_width = width_or_proc.call(item, canvas)
-          else
-            mark_width = width_or_proc
-          end
-          if height_or_proc.respond_to?(:call)
-            mark_height = height_or_proc.call(item, canvas)
-          else
-            mark_height = height_or_proc
-          end
-
-          adjust_y = ((text_height / 2.0) - (mark_height / 2.0)).ceil
-
-          indent_base_x = item.x - mark_width
-          indent_base_y = item.base_y + first_text.margin_top + adjust_y
-          width = mark_width
-          height = mark_height
-          yield(item, canvas, indent_base_x, indent_base_y, width, height)
+      def indent(*args, &block)
+        split_targets(args) do |targets, args|
+          targets.indent(*args, &block)
         end
       end
 
-      def draw_image_mark(items, image_name, name=nil)
-        unless items.empty?
-          
-          loader = ImageLoader.new(find_file(image_name))
-
-          width_proc = Proc.new {loader.width}
-          height_proc = Proc.new {loader.height}
-          indent_proc = Proc.new do |item, simulation|
-            text_height = item.elements.first.original_height
-            if text_height < loader.height
-              loader.resize(nil, (text_height * 2.0 / 3.0).ceil)
-            end
-            loader.width * 2.5
-          end
-            
-          draw_mark(items, indent_proc, width_proc, height_proc, name) do
-            |item, canvas, x, y, w, h|
-            x -= loader.width * 0.5
-            canvas.draw_pixbuf(loader.pixbuf, x, y)
-          end
+      def draw_mark(*args, &block)
+        split_targets(args) do |targets, args|
+          targets.draw_mark(*args, &block)
         end
       end
-      
-      def draw_order(items, indent_width, name=nil, &block)
-        layouts = {}
-        make_order_layout = Proc.new do |item, simulation|
-          layout = layouts[item]
-          if layout.nil?
-            str = block.call(item)
-            layout = canvas.make_layout(str)
-            layouts[item] = layout
-          end
-          tw, th = layout.pixel_size
-          [tw + indent_width, tw, th, layout]
+
+      def draw_image_mark(*args, &block)
+        split_targets(args) do |targets, args|
+          image_name, *args = args
+          image_name = find_file(image_name)
+          targets.draw_image_mark(image_name, *args, &block)
         end
+      end
 
-        draw_order = Proc.new do |item, canvas, x, y, w, h, tw, th, layout|
-          first_text = item.elements.first
-          text_height = first_text.original_height
-          text_height += first_text.padding_top + first_text.padding_bottom
-          adjust_y = ((text_height / 2.0) - (th / 2.0)).ceil
-
-          new_x = item.base_x + indent_width
-          new_y = item.base_y + first_text.margin_top + adjust_y
-          canvas.draw_layout(layout, new_x, new_y)
+      def draw_order(*args, &block)
+        split_targets(args) do |targets, args|
+          targets.draw_order(*args, &block)
         end
-
-        items.indent(make_order_layout, name, &draw_order)
       end
 
       def draw_frame(*args, &block)
-        if args.empty? or (args.size == 1 and args.first.is_a?(Hash))
+        split_targets(args) do |targets, args|
+          targets.draw_frame(*args, &block)
+        end
+      end
+
+      def split_targets(args)
+        if args.empty? or
+            !(args.first.is_a?(Element::Base) or
+              args.first.is_a?(ElementContainer))
           targets = @current_target
         else
           targets, *args = args
         end
 
-        unless targets.is_a?(ElementContainer)
-          targets = ElementContainer.new([targets])
-        end
-
-        targets.draw_frame(*args, &block)
+        yield [to_container(targets), args]
       end
+
       def start_auto_reload_timer(interval)
         canvas.start_auto_reload_timer(interval)
       end
