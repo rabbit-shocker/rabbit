@@ -4,10 +4,12 @@ proc_name = "image-slide-number"
 
 @image_slide_number_image ||= "mini-usagi.png"
 @image_slide_number_show_text ||= false
+@image_slide_number_font_size ||= @xx_small_font_size
 @image_slide_number_text_color ||= "white"
 @image_slide_number_flag_type ||= "rectangle"
 @image_slide_number_start_image ||= "start-flag.png"
 @image_slide_number_goal_image ||= "goal-flag.png"
+@image_slide_number_space_ratio ||= 1.0 / 12.0
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
@@ -28,7 +30,7 @@ match(Slide) do |slides|
   base_y = nil
   max_text_length = Math.log10(canvas.slide_size).truncate + 1
   text_attributes = {
-    "size" => @xx_small_font_size / max_text_length,
+    "size" => @image_slide_number_font_size / max_text_length,
     "font_family" => @font_family,
     "color" => @image_slide_number_text_color,
     "weight" => "heavy",
@@ -38,7 +40,7 @@ match(Slide) do |slides|
     unless simulation
       unless initialized
         height = canvas.height
-        image_height =  height / 12
+        image_height =  height * @image_slide_number_space_ratio
         loader.resize(nil, image_height)
 
         if @image_slide_number_show_text

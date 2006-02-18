@@ -22,6 +22,7 @@ end
 
 @image_timer_image ||= "kame.png"
 @image_timer_interval ||= 5
+@image_timer_space_ratio ||= 1.0 / 12.0
 
 @image_timer_limit_time = nil
 
@@ -55,7 +56,7 @@ match(Slide) do |slides|
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       unless initialized
-        image_height = canvas.height / 12
+        image_height = canvas.height * @image_timer_space_ratio
         loader.resize(nil, image_height)
         max_width = canvas.width - @margin_left - @margin_right
         base_y = canvas.height - @margin_bottom - loader.height
