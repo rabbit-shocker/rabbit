@@ -1,4 +1,5 @@
 color = "red"
+fill_color = "white"
 shadow_color = "#c09090"
 line_width = screen_size(0.8)
 line_width += 1 if (line_width % 2).zero?
@@ -15,8 +16,12 @@ include_theme("default-method-list")
 include_theme("default-foot-text")
 include_theme("default-description")
 @preformatted_frame_color = color
+@preformatted_fill_color = fill_color
 @preformatted_shadow_color = shadow_color
 include_theme("default-preformatted")
+@block_quote_frame_color = color
+@block_quote_fill_color = fill_color
+include_theme("default-block-quote")
 include_theme("simple-item-mark")
 include_theme("rabbit-icon")
 
