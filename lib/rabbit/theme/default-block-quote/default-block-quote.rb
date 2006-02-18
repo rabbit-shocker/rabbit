@@ -100,11 +100,11 @@ match("**", BlockQuote) do
           title_w = w + block.padding_left + block.padding_right
           title.compile(canvas, x, y, title_w, h)
           layout = title.layout
-          block.margin_bottom += title.height
+          block.margin_bottom += title.height + @block_quote_frame_width
         end
         unless simulation
           base_x = (block.ox || x) - block.padding_left
-          base_y = y + block.padding_bottom
+          base_y = y + block.padding_bottom + @block_quote_frame_width
           canvas.draw_layout(layout, base_x, base_y, @block_quote_title_color)
         end
         [x, y, w, h]
