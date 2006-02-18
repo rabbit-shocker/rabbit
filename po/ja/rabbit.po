@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-07 13:07+0900\n"
-"PO-Revision-Date: 2006-02-13 00:10+0900\n"
+"POT-Creation-Date: 2006-02-18 19:14+0900\n"
+"PO-Revision-Date: 2006-02-18 19:16+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -135,7 +135,7 @@ msgstr "[バグ] [%s] %s の拡張は利用できません．"
 msgid "Rabbit"
 msgstr "Rabbit"
 
-#: lib/rabbit/ext/block-verbatim.rb:134
+#: lib/rabbit/ext/block-verbatim.rb:144
 msgid "invalid source: %s"
 msgstr "不正なソースです: %s"
 
@@ -143,11 +143,15 @@ msgstr "不正なソースです: %s"
 msgid "enscript: unsupported language: %s"
 msgstr "enscript: サポートしていない言語です: %s"
 
-#: lib/rabbit/ext/enscript.rb:106
+#: lib/rabbit/ext/enscript.rb:57
+msgid "enscript: can't find HTree library"
+msgstr "ensciprt: HTreeライブラリが見付かりません"
+
+#: lib/rabbit/ext/enscript.rb:109
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
 
-#: lib/rabbit/theme/applier.rb:462 lib/rabbit/theme/applier.rb:469
+#: lib/rabbit/theme/applier.rb:519 lib/rabbit/theme/applier.rb:526
 msgid "%s is deprecated. Use %s instead."
 msgstr "%sは非推奨です．代わりに%sを使ってください．"
 
@@ -883,6 +887,10 @@ msgstr "タイトルスライドの背景として画像を表示するツール
 msgid "Displays an image as a background of the title slide."
 msgstr "タイトルスライドの背景として画像を表示します。"
 
+#: lib/rabbit/theme/default-block-quote/default-block-quote.rb:95
+msgid "[cited from `%s']"
+msgstr "[「%s」より引用]"
+
 #: lib/rabbit/source/memory.rb:10
 msgid "[FILENAME_OR_NOT]"
 msgstr "[ファイル名か何も指定しない]"
@@ -919,15 +927,15 @@ msgstr "UTF-8から現在のロケールに変換できません: %s"
 msgid "Rabbit Error Dialog"
 msgstr "Rabbitエラーダイアログ"
 
-#: lib/rabbit/renderer/drawing-area.rb:707
+#: lib/rabbit/renderer/drawing-area.rb:682
 msgid "comment"
 msgstr "コメント"
 
-#: lib/rabbit/renderer/base.rb:610
+#: lib/rabbit/renderer/base.rb:424
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: lib/rabbit/renderer/print/gnomeprint.rb:340
+#: lib/rabbit/renderer/print/gnomeprint.rb:344
 #: lib/rabbit/renderer/print/cairo.rb:82
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
@@ -1096,7 +1104,7 @@ msgstr "スライド検索修了"
 msgid "Show"
 msgstr "表示"
 
-#: lib/rabbit/graffiti/config-dialog.rb:47
+#: lib/rabbit/graffiti/config-dialog.rb:48
 msgid "Line width:"
 msgstr "線の太さ"
 
@@ -1334,23 +1342,23 @@ msgstr "(デフォルトソース)"
 msgid "Specify comment source encoding."
 msgstr "コメントソースのエンコーディングを指定します．"
 
-#: bin/rabbit:507
+#: bin/rabbit:488
 msgid "dRuby URI <%s> is in use."
 msgstr "dRuby URI<%s>は使用中です．"
 
-#: bin/rabbit:526
+#: bin/rabbit:507
 msgid "port <%s> for SOAP is in use."
 msgstr "SOAP用ポート<%s>は使用中です．"
 
-#: bin/rabbit:547
+#: bin/rabbit:528
 msgid "port <%s> for XML-RPC is in use."
 msgstr "XML-RPC用ポート<%s>は使用中です．"
 
-#: bin/rabbit:632
+#: bin/rabbit:613
 msgid "going to shutdown..."
 msgstr "終了中です．．．"
 
-#: bin/rabbit:634
+#: bin/rabbit:615
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
 

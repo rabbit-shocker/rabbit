@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-07 13:07+0900\n"
+"POT-Creation-Date: 2006-02-18 19:14+0900\n"
 "PO-Revision-Date: 2005-12-28 18:42+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Rabbit"
 msgstr "/Recharger le thème"
 
-#: lib/rabbit/ext/block-verbatim.rb:134
+#: lib/rabbit/ext/block-verbatim.rb:144
 msgid "invalid source: %s"
 msgstr ""
 
@@ -152,11 +152,15 @@ msgstr ""
 msgid "enscript: unsupported language: %s"
 msgstr ""
 
-#: lib/rabbit/ext/enscript.rb:106
+#: lib/rabbit/ext/enscript.rb:57
+msgid "enscript: can't find HTree library"
+msgstr ""
+
+#: lib/rabbit/ext/enscript.rb:109
 msgid "enscript: unsupported element name: %s"
 msgstr ""
 
-#: lib/rabbit/theme/applier.rb:462 lib/rabbit/theme/applier.rb:469
+#: lib/rabbit/theme/applier.rb:519 lib/rabbit/theme/applier.rb:526
 msgid "%s is deprecated. Use %s instead."
 msgstr ""
 
@@ -845,6 +849,10 @@ msgstr ""
 msgid "Displays an image as a background of the title slide."
 msgstr ""
 
+#: lib/rabbit/theme/default-block-quote/default-block-quote.rb:95
+msgid "[cited from `%s']"
+msgstr ""
+
 #: lib/rabbit/source/memory.rb:10
 msgid "[FILENAME_OR_NOT]"
 msgstr ""
@@ -877,16 +885,16 @@ msgstr ""
 msgid "Rabbit Error Dialog"
 msgstr "Boite de dialogue d'erreur de Rabbit"
 
-#: lib/rabbit/renderer/drawing-area.rb:707
+#: lib/rabbit/renderer/drawing-area.rb:682
 msgid "comment"
 msgstr ""
 
-#: lib/rabbit/renderer/base.rb:610
+#: lib/rabbit/renderer/base.rb:424
 #, fuzzy
 msgid "%s does not support: %s"
 msgstr "%s n'existe pas."
 
-#: lib/rabbit/renderer/print/gnomeprint.rb:340
+#: lib/rabbit/renderer/print/gnomeprint.rb:344
 #: lib/rabbit/renderer/print/cairo.rb:82
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
@@ -1068,7 +1076,7 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: lib/rabbit/graffiti/config-dialog.rb:47
+#: lib/rabbit/graffiti/config-dialog.rb:48
 msgid "Line width:"
 msgstr ""
 
@@ -1301,23 +1309,23 @@ msgstr "/Recharger le thème"
 msgid "Specify comment source encoding."
 msgstr ""
 
-#: bin/rabbit:507
+#: bin/rabbit:488
 msgid "dRuby URI <%s> is in use."
 msgstr ""
 
-#: bin/rabbit:526
+#: bin/rabbit:507
 msgid "port <%s> for SOAP is in use."
 msgstr ""
 
-#: bin/rabbit:547
+#: bin/rabbit:528
 msgid "port <%s> for XML-RPC is in use."
 msgstr ""
 
-#: bin/rabbit:632
+#: bin/rabbit:613
 msgid "going to shutdown..."
 msgstr ""
 
-#: bin/rabbit:634
+#: bin/rabbit:615
 msgid "DRb.thread done."
 msgstr ""
 
