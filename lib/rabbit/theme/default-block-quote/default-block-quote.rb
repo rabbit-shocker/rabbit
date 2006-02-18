@@ -2,6 +2,9 @@
 @block_quote_frame_width ||= 2
 @block_quote_fill_color ||= "#fcfae2"
 
+@block_quote_title_color ||= "#666"
+@block_quote_title_font_size ||= @x_small_font_size
+
 @block_quote_padding_left ||= screen_x(5)
 @block_quote_padding_right ||= screen_x(5)
 @block_quote_padding_top ||= screen_y(2)
@@ -77,6 +80,32 @@ match("**", BlockQuote) do
         unless simulation
           canvas.draw_pixbuf(close_quote.pixbuf, x + w,
                              y - adjust_close_quote_x)
+        end
+        [x, y, w, h]
+      end
+    end
+
+    name = "block-quote-title"
+    block.delete_post_draw_proc_by_name(name)
+
+    if block.title
+      layout = nil
+      block.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
+        if layout.nil?
+          title = Text.new(_("[cited from `%s']") % block.title)
+          title.font(:size => @block_quote_title_font_size,
+                     :style => "italic")
+          title.align = Pango::Layout::ALIGN_RIGHT
+          set_font_family(title)
+          title_w = w + block.padding_left + block.padding_right
+          title.compile(canvas, x, y, title_w, h)
+          layout = title.layout
+          block.margin_bottom += title.height
+        end
+        unless simulation
+          base_x = (block.ox || x) - block.padding_left
+          base_y = y + block.padding_bottom
+          canvas.draw_layout(layout, base_x, base_y, @block_quote_title_color)
         end
         [x, y, w, h]
       end

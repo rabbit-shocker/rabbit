@@ -1158,6 +1158,15 @@ module Rabbit
       include ContainerElement
       include BlockHorizontalCentering
 
+      attr_reader :cite, :title
+
+      def initialize(elems=[], prop={})
+        super(elems)
+        %w(cite title).each do |name|
+          instance_variable_set("@#{name}", prop[name])
+        end
+      end
+
       def to_html
         "<blockquote>#{super}</blockquote>"
       end

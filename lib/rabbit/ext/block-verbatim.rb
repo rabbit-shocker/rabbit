@@ -65,11 +65,10 @@ module Rabbit
         return nil unless /^blockquote$/i =~ label
         src, prop = parse_source(source)
         tree = RD::RDTree.new("=begin\n#{src}\n=end\n")
-        blockquote = BlockQuote.new
-        tree.root.children.each do |child|
-          blockquote << child.accept(visitor)
+        elems = tree.root.children.collect do |child|
+          child.accept(visitor)
         end
-        blockquote
+        BlockQuote.new(elems, prop)
       end
       
       private
