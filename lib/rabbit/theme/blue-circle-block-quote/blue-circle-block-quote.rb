@@ -1,8 +1,13 @@
+add_image_path("rabbit-images")
+
 include_theme("blue-circle-config")
 
 @block_quote_fill_color = "white"
 @block_quote_frame_color = @blue_circle_blue
 @block_quote_frame_width = 4
+
+@block_quote_open_quote_image = "open-quote-blue.png"
+@block_quote_close_quote_image = "close-quote-blue.png"
 
 include_theme("default-block-quote")
 
