@@ -1374,7 +1374,8 @@ module Rabbit
         target_index = nil
         indexes.each_with_index do |index, i|
           if index == current_index
-            target_index = i + (forward ? 1 : -1) if search_next
+            target_index = i
+            target_index += (forward ? 1 : -1) if search_next
             break
           elsif index > current_index
             target_index = i + (forward ? 0 : -1)
@@ -1382,7 +1383,8 @@ module Rabbit
           end
         end
         target_index = indexes.size - 1 if target_index.nil? and !forward
-        if target_index and target_index >= 0
+        if target_index and target_index >= 0 and
+            indexes[target_index] != current_index
           @canvas.activate("JumpTo") {indexes[target_index]}
         end
       end
