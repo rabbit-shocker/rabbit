@@ -26,8 +26,12 @@ module Rabbit
       update_ui
     end
 
-    def accel_group
-      @merge.accel_group
+    def attach(window)
+      window.add_accel_group(accel_group)
+    end
+
+    def detach(window)
+      window.remove_accel_group(accel_group)
     end
 
     def update_menu(canvas)
@@ -44,8 +48,12 @@ module Rabbit
     def popup(button, time)
       @menu.popup(nil, nil, button, time)
     end
-    
+
     private
+    def accel_group
+      @merge.accel_group
+    end
+
     def update_jump_to_menu(canvas)
       @merge.remove_ui(@jump_to_merge_id) if @jump_to_merge_id
       @merge.remove_action_group(@jump_to_actions) if @jump_to_actions

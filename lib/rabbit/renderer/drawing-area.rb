@@ -94,12 +94,13 @@ module Rabbit
         @window.add(@hbox)
         @hbox.show
         @vbox.show
-        @window.add_accel_group(@menu.accel_group)
+        @menu.attach(window)
         @window.add_accel_group(@accel_group)
         set_configure_event
       end
 
       def detach_from(window)
+        @menu.detach(window)
         window.remove(@area)
         window.signal_handler_disconnect(@configure_signal_id)
         @window = nil
