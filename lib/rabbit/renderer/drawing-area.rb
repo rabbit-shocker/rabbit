@@ -583,7 +583,7 @@ module Rabbit
         add_button_release_hook do |event, last_button_press_event|
           pressed_button = nil
           if @gesture.processing? and event.button == target_button
-            restore_cursor(:gesture)
+            restore_cursor(:gesture) unless first_motion
             @area.queue_draw
             @gesture.button_release(event.x, event.y, width, height)
             !first_motion
