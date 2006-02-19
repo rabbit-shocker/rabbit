@@ -6,6 +6,7 @@ require "rabbit/search-window"
 require "rabbit/gesture/handler"
 require "rabbit/graffiti/processor"
 require "rabbit/progress"
+require "rabbit/cursor-manager"
 require "rabbit/renderer/pixmap"
 
 module Rabbit
@@ -58,9 +59,6 @@ module Rabbit
 
       def initialize(canvas)
         super
-        @current_cursor = nil
-        @blank_cursor = nil
-        @pencil_cursor = nil
         @caching = nil
         @comment_initialized = false
         @button_handling = false
@@ -70,6 +68,7 @@ module Rabbit
         @search_window = nil
         @progress = Progress.new
         clear_button_handler
+        init_cursor
         init_graffiti
         init_gesture
         init_drawing_area
@@ -144,7 +143,7 @@ module Rabbit
       end
       
       def post_fullscreen
-        update_cursor(blank_cursor, true)
+        update_cursor(:blank, true)
         clear_pixmaps
         update_menu
       end
@@ -181,12 +180,12 @@ module Rabbit
       end
       
       def index_mode_on
-        @before_index_mode_cursor = @current_cursor
+        keep_cursor(:index)
         update_cursor(nil, true)
       end
       
       def index_mode_off
-        update_cursor(@before_index_mode_cursor, true)
+        restore_cursor(:index)
         update_title
       end
       
@@ -412,7 +411,11 @@ module Rabbit
       
       def toggle_graffiti_mode
         @graffiti_mode = !@graffiti_mode
-        update_cursor(@current_cursor)
+        if @graffiti_mode
+          update_cursor(:pencil)
+        else
+          restore_cursor(nil)
+        end
         update_menu
       end
 
@@ -578,7 +581,7 @@ module Rabbit
         add_button_release_hook do |event, last_button_press_event|
           pressed_button = nil
           if @gesture.processing? and event.button == target_button
-            update_cursor(@current_cursor)
+            restore_cursor(:gesture)
             @area.queue_draw
             @gesture.button_release(event.x, event.y, width, height)
             !first_motion
@@ -589,7 +592,10 @@ module Rabbit
 
         add_motion_notify_hook do |event|
           if @gesture.processing? and pressed_button == target_button
-            update_cursor(hand_cursor) if first_motion
+            if first_motion
+              keep_cursor(:gesture)
+              update_cursor(:hand)
+            end
             handled = @gesture.button_motion(event.x, event.y, width, height)
             @area.queue_draw if handled or first_motion
             first_motion = false
@@ -609,11 +615,17 @@ module Rabbit
         add_gesture_action(%w(L), "PreviousSlide")
         add_gesture_action(%w(L R), "FirstSlide")
         add_gesture_action(%w(U), "Quit")
+
         add_gesture_action(%w(D), "ToggleIndexMode", &bg_proc)
         add_gesture_action(%w(D U), "ToggleFullScreen", &bg_proc)
+        add_gesture_action(%w(LR), "ToggleGraffitiMode")
 
         add_gesture_action(%w(UL), "Redraw")
         add_gesture_action(%w(UL D), "ReloadTheme", &bg_proc)
+      end
+
+      def init_cursor
+        @cursor_manager = CursorManager.new
       end
 
       def init_graffiti
@@ -929,33 +941,19 @@ module Rabbit
         end
         @configure_signal_id = id
       end
-      
-      def update_cursor(cursor, update_current_cursor=false)
-        if @graffiti_mode
-          @drawable.cursor = pencil_cursor
-        else
-          @drawable.cursor = cursor
-        end
-        @current_cursor = cursor if update_current_cursor
+
+      def keep_cursor(name)
+        @cursor_manager.keep(name)
       end
 
-      def blank_cursor
-        if @blank_cursor.nil?
-          source = Gdk::Pixmap.new(@drawable, 1, 1, 1)
-          mask = Gdk::Pixmap.new(@drawable, 1, 1, 1)
-          fg = @foreground.foreground
-          bg = @background.foreground
-          @blank_cursor = Gdk::Cursor.new(source, mask, fg, bg, 1, 1)
-        end
-        @blank_cursor
+      def restore_cursor(name)
+        @cursor_manager.restore(@drawable, name)
       end
 
-      def pencil_cursor
-        @pencil_cursor ||= Gdk::Cursor.new(Gdk::Cursor::PENCIL)
-      end
-
-      def hand_cursor
-        @hand_cursor ||= Gdk::Cursor.new(Gdk::Cursor::HAND1)
+      def update_cursor(cursor_type, update_current_cursor=false)
+        @cursor_manager.current = cursor_type if update_current_cursor
+        cursor_type = :pencil if @graffiti_mode
+        @cursor_manager.update(@drawable, cursor_type)
       end
 
       def calc_slide_number(val, modifier)

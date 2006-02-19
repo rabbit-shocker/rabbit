@@ -176,4 +176,12 @@ module Rabbit
 
   class ApplyFinish < Error
   end
+
+  class UnknownCursorTypeError < Error
+    attr_reader :type
+    def intialize(type)
+      @type = type
+      super(_("unknown cursor type: %s") % @type)
+    end
+  end
 end
