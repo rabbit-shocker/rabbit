@@ -10,6 +10,8 @@ end
 module Rabbit
   class Searcher
     @@migemo_static_dict = nil
+    @@migemo_static_dict_cache = nil
+
     def initialize(canvas)
       @canvas = canvas
     end
@@ -49,6 +51,7 @@ module Rabbit
     def migemo_generate_regexp_str(pattern, with_paren)
       Converter.keep_kcode("EUC-JP") do
         migemo = Migemo.new(@@migemo_static_dict, pattern)
+        migemo.dict_cache = @@migemo_static_dict_cache
         migemo.with_paren = with_paren
         migemo.regex
       end
@@ -63,7 +66,10 @@ module Rabbit
     end
 
     def have_migemo_static_dict?
-      @@migemo_static_dict ||= search_migemo_static_dict
+      if @@migemo_static_dict.nil?
+        dict, dict_cache = search_migemo_static_dict
+        @@migemo_static_dict, @@migemo_static_dict_cache = dict, dict_cache
+      end
       not @@migemo_static_dict.nil?
     end
 
@@ -78,13 +84,23 @@ module Rabbit
            File.join(target, default_base_name),
            File.join(target, "migemo", default_base_name),
           ].each do |guess|
-            return MigemoStaticDict.new(guess) if File.readable?(guess)
+            return make_migemo_dict(guess) if File.readable?(guess)
           end
         elsif File.readable?(target)
-          return MigemoStaticDict.new(target)
+          return make_migemo_dict(target)
         end
       end
       nil
+    end
+
+    def make_migemo_dict(path)
+      dict = MigemoStaticDict.new(path)
+      dict_cache = nil
+      dict_cache_path = "#{path}.cache"
+      if File.readable?(dict_cache_path)
+        dict_cache = MigemoDictCache.new(dict_cache_path)
+      end
+      [dict, dict_cache]
     end
   end
 end

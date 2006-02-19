@@ -227,6 +227,13 @@ module Rabbit
         [top, right, bottom, left]
       end
     end
+
+    def time
+      before = Time.now
+      yield
+    ensure
+      p Time.now - before
+    end
   end
 
   module SystemRunner
