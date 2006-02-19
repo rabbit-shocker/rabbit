@@ -7,6 +7,7 @@ require "rabbit/gesture/handler"
 require "rabbit/graffiti/processor"
 require "rabbit/progress"
 require "rabbit/cursor-manager"
+require "rabbit/comment/log"
 require "rabbit/renderer/pixmap"
 
 module Rabbit
@@ -74,7 +75,7 @@ module Rabbit
         init_drawing_area
         init_accel_group
         init_pixmap(1, 1)
-        init_comment_log_window
+        init_comment_log
       end
 
       def attach_to(window)
@@ -85,7 +86,7 @@ module Rabbit
         @vbox = Gtk::VBox.new
         @vbox.pack_start(@area, true, true, 0)
         @area.show
-        @vbox.pack_end(@comment_log_window, false, false, 0)
+        @vbox.pack_end(@comment_log.widget, false, false, 0)
         @hbox.pack_end(@vbox, true, true, 0)
         init_comment_view_canvas
         init_comment_view_frame
@@ -312,7 +313,7 @@ module Rabbit
       end
 
       def showing_comment_view?
-        @comment_log_window and @comment_log_window.visible?
+        @comment_log.showing?
       end
 
       def comment_frame_available?
@@ -337,11 +338,11 @@ module Rabbit
       def toggle_comment_view
         ensure_comment
         if showing_comment_view?
-          @comment_log_window.hide_all
+          @comment_log.hide
           @comment_view_frame.hide
         else
           adjust_comment_view
-          @comment_log_window.show_all
+          @comment_log.show
           @comment_view_frame.show
           @comment_view_canvas.parse_rd(@canvas.comment_source)
           @comment_view_canvas.move_to_last
@@ -354,7 +355,7 @@ module Rabbit
         error_occurred = parse_comment(source, &block)
         unless error_occurred
           @comment_canvas.move_to_last
-          reset_comment_log
+          @comment_log.reset(@comment_canvas)
           if @comment_view_frame.visible?
             @comment_view_frame.parse_rd(source)
             @comment_view_canvas.move_to_last
@@ -437,7 +438,7 @@ module Rabbit
       end
 
       def post_init_gui
-        @comment_log_window.hide
+        @comment_log.hide
         @comment_view_frame.hide if @comment_view_frame
       end
 
@@ -668,43 +669,9 @@ module Rabbit
           end
         end
       end
-      
-      
-      COMMENT_LOG_COMMENT_COLUMN = 0
 
-      def reset_comment_log
-        @comment_log_model.clear
-        @comment_canvas.slides[1..-1].each do |slide|
-          iter = @comment_log_model.prepend
-          iter.set_value(COMMENT_LOG_COMMENT_COLUMN, slide.headline.text)
-        end
-      end
-      
-      def init_comment_log_model
-        @comment_log_model = Gtk::ListStore.new(String)
-      end
-
-      def init_comment_log_view
-        init_comment_log_model
-        @comment_log_view = Gtk::TreeView.new(@comment_log_model)
-        @comment_log_view.can_focus = false
-        @comment_log_view.rules_hint = true
-        @comment_log_renderer_comment = Gtk::CellRendererText.new
-        args = [
-          _("comment"),
-          @comment_log_renderer_comment,
-          {"text" => COMMENT_LOG_COMMENT_COLUMN}
-        ]
-        @comment_log_column_comment = Gtk::TreeViewColumn.new(*args)
-        @comment_log_view.append_column(@comment_log_column_comment)
-      end
-      
-      def init_comment_log_window
-        init_comment_log_view
-        @comment_log_window = Gtk::ScrolledWindow.new
-        @comment_log_window.set_policy(Gtk::POLICY_AUTOMATIC,
-                                       Gtk::POLICY_AUTOMATIC)
-        @comment_log_window.add(@comment_log_view)
+      def init_comment_log
+        @comment_log = Comment::Log.new
       end
 
       def init_accel_group
@@ -1274,9 +1241,9 @@ module Rabbit
 
       def adjust_comment_view(x=nil, y=nil, w=nil, h=nil)
         ww, wh = suggested_comment_log_window_size(w, h)
-        @comment_log_window.set_size_request(ww, wh)
+        @comment_log.widget.set_size_request(ww, wh)
         begin
-          _, _, _, header_height = @comment_log_column_comment.cell_size
+          header_height = @comment_log.header_height
         rescue TypeError
           header_height = nil
         end
@@ -1285,7 +1252,7 @@ module Rabbit
         else
           text_size = wh * 0.4
         end
-        @comment_log_renderer_comment.size = text_size * Pango::SCALE
+        @comment_log.font_size = text_size * Pango::SCALE
       
         fw, fh = suggested_comment_view_frame_size(w, h)
         @comment_view_frame.set_size_request(fw, fh)
@@ -1476,7 +1443,7 @@ module Rabbit
         @area.can_focus = false
       end
 
-      def init_comment_log_window
+      def init_comment_log
       end
       
       def init_comment
