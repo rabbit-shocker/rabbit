@@ -99,7 +99,7 @@ module Rabbit
         when "b"
           Keyword.new
         when "i"
-          Comment.new
+          Element::Comment.new
         when "font"
           text = TextContainer.new
           color = element.get_attribute("color").to_s
