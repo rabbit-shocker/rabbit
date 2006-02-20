@@ -94,7 +94,6 @@
       # image
       # src = lavie.png
       # caption = Lavie
-      # keep_ratio = true
       # width = 100
       # height = 100
 #      # normalized_width = 50
@@ -109,7 +108,6 @@
   # image
   # src = usagi.png
   # caption = 兎
-  # keep_ratio = true
 #  # normalized_width = 50
 #  # normalized_height = 50
 #  # relative_width = 100
@@ -125,16 +123,38 @@
 
 = 数式は？
 
-Tgif又はmimeTeXを呼び出す
+  * 書式はTeX（っぽい）
+  * バックエンド
+    * LaTeX
+    * Tgif
+    * mimeTeX
 
-  # TeX
-  # keep_ratio = true
+= LaTeX
+
+  # LaTeX
   # relative_width = 80
-  
+
+  $\Large f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
+
+  \LaTeX
+
+  $f(x) = e^2$
+
+= Tgif
+
+  # Tgif
+  # relative_width = 80
+
+  large f(x)=int {-infty} x~e^{-t^2}dt
+
+= mimeTeX
+
+  # mimeTeX
+  # relative_width = 80
+
   \Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt
 
-
-= 汚いじゃん
+= あるいはEPSを使う
 
   * あらかじめEPSを作っておく
 
@@ -142,21 +162,18 @@ Tgif又はmimeTeXを呼び出す
 
   # image
   # src = equation.eps
-  # keep_ratio = true
   # relative_width = 80
 
 = SVGでもOK
 
   # image
   # src = spiral.svg
-  # keep_ratio = true
   # relative_height = 100
 
 = TgifでもOK
 
   # image
   # src = rabbit-balloon.obj
-  # keep_ratio = true
   # relative_height = 100
 
 = 折り返し

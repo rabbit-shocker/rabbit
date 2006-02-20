@@ -125,15 +125,36 @@ You can use relative size.
 
 = Mathematical expressions?
 
-call Tgif or mimeTeX
+  * TeX (like) format
+  * backends
+    * LaTeX
+    * Tgif
+    * mimeTeX
 
-  # TeX
-  # keep_ratio = true
+= LaTeX
+
+  # LaTeX
   # relative_width = 80
-  
+
+  $\Large f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
+
+  \LaTeX
+
+= Tgif
+
+  # Tgif
+  # relative_width = 80
+
+  large f(x)=int {-infty} x~e^{-t^2}dt
+
+= mimeTeX
+
+  # mimeTeX
+  # relative_width = 80
+
   \Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt
 
-= It's dirty
+= Or use EPS
 
   * set up EPS before presentation
     * but need gs
