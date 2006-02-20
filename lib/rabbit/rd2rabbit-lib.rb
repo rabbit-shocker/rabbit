@@ -199,7 +199,7 @@ module Rabbit
     end
   
     def apply_to_Index(element, content)
-      Index.new(content)
+      Element::Index.new(content)
     end
 
     def apply_to_Reference_with_RDLabel(element, content)
