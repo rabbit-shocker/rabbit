@@ -136,7 +136,7 @@ You can use relative size.
   # LaTeX
   # relative_width = 80
 
-  $\Large f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
+  $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 
   \LaTeX
 

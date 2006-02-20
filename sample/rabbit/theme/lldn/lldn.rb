@@ -9,8 +9,7 @@ include_theme("image-timer")
 @lightning_talk_as_large_as_possible = true
 @lightning_talk_contact_information = "kou@cozmixng.org"
 include_theme("lightning-talk-toolkit")
-props = @lightning_talk_props.dup
-props.update(:proc_name => "lightning-rabbit")
+props = {:proc_name => "lightning-rabbit"}
 
 match(Slide) do |slides|
   slides.each do |slide|

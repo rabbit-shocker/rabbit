@@ -78,15 +78,15 @@
 
 = 数式
 
-   # TeX
-   # keep_ratio = true
+   # LaTeX
    # relative_width = 80
 
-   \Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt
+   $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 
-  \Large f(x)=
-    \Bigint_{-\infty}^x~
-      e^{-t^2}dt
+  $f(x)=
+    \displaystyle\int
+      _{-\infty}^x~
+        e^{-t^2}dt$
 
 = できること2
 
