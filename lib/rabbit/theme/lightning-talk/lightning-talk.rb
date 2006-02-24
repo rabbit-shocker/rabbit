@@ -63,3 +63,5 @@ end
 match(Slide) do |slides|
   slides.lightning_talk
 end
+
+include_theme("windows-adjust")
