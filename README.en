@@ -99,6 +99,14 @@ Mr. MIYAMUKO
   * Mr. MIYAMUKO
   * Mr. noritada
 
+== Copyright
+
+The code author has copyright of the source code. That is
+the committer has copyright of committed code and the patch
+author has copyrights of the patch code.
+
+The above image author has copyright of his/her images.
+
 == Licence
 
 Ruby's (except files under lib/rabbit/tgif.rb). For more
