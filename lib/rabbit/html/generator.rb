@@ -9,20 +9,21 @@ end
 require 'rabbit/rabbit'
 require 'rabbit/front'
 require 'rabbit/utils'
+require 'rabbit/keys'
 
 module Rabbit
   module HTML
     class Generator
-      extend ERB::DefMethod
-
       include ERB::Util
 
       path = ["rabbit", "html", "template.erb"]
       template_path = Utils.find_path_in_load_path(*path)
       raise CantFindHTMLTemplate.new(File.join(*path)) if template_path.nil?
-      def_erb_method("to_html(file_name_format, slide_number, image_type)",
+      erb = File.open(template_path) {|f| ERB.new(f.read, nil, "-")}
+      erb.def_method(self,
+                     "to_html(file_name_format, slide_number, image_type)",
                      template_path)
-      
+
       def initialize(canvas)
         @canvas = canvas
         @suffix = "html"
@@ -85,24 +86,57 @@ module Rabbit
       def last_slide?(slide_number)
         @canvas.slide_size.zero? or slide_number == @canvas.slide_size - 1
       end
-      
+
+      def first_index(slide_number)
+        0
+      end
+
+      def previous_index(slide_number)
+        slide_number - 1
+      end
+
+      def next_index(slide_number)
+        slide_number + 1
+      end
+
+      def last_index(slide_number)
+        @canvas.slide_size - 1
+      end
+
       def first_link(file_name_format, slide_number)
-        a_link(file_name_format, 0, h("<<"), first_slide?(slide_number))
+        a_link(file_name_format, first_index(slide_number),
+               h("<<"), first_slide?(slide_number))
       end
 
       def previous_link(file_name_format, slide_number)
-        a_link(file_name_format, slide_number - 1,
+        a_link(file_name_format, previous_index(slide_number),
                h("<"), first_slide?(slide_number))
       end
 
       def next_link(file_name_format, slide_number)
-        a_link(file_name_format, slide_number + 1,
+        a_link(file_name_format, next_index(slide_number),
                h(">"), last_slide?(slide_number))
       end
 
       def last_link(file_name_format, slide_number)
-        a_link(file_name_format, @canvas.slide_size - 1,
+        a_link(file_name_format, last_index(slide_number),
                h(">>"), last_slide?(slide_number))
+      end
+
+      def first_href(file_name_format, slide_number)
+        href(file_name_format, first_index(slide_number))
+      end
+
+      def previous_href(file_name_format, slide_number)
+        href(file_name_format, previous_index(slide_number))
+      end
+
+      def next_href(file_name_format, slide_number)
+        href(file_name_format, next_index(slide_number))
+      end
+
+      def last_href(file_name_format, slide_number)
+        href(file_name_format, last_index(slide_number))
       end
 
       def navi(file_name_format, slide_number)
