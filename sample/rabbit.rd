@@ -174,6 +174,12 @@
   # src = rabbit-balloon.obj
   # relative_height = 100
 
+= DiaでもOK
+
+  # image
+  # src = rabbit.dia
+  # relative_width = 90
+
 = 折り返し
 
 なーーーーーーーーーーーーーーーーーーーーーーーーーーーーーがーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーい行は？

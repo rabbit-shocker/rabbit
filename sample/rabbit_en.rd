@@ -178,6 +178,12 @@ You can use relative size.
   # keep_ratio = true
   # relative_height = 100
 
+= Dia is OK, too
+
+  # image
+  # src = rabbit.dia
+  # relative_width = 90
+
 = Wrap word
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
