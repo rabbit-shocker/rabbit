@@ -50,7 +50,8 @@ module Rabbit
       @type = type
       @command = command
       format =
-        _("can't handle %s because the following command can't be run successfully: %s")
+        _("can't handle %s because the following command " \
+          "can't be run successfully: %s")
       msg = format % [@type, @command]
       msg << "\n#{additional_info}" if additional_info
       super(msg)
@@ -62,6 +63,14 @@ module Rabbit
       format = _("tried gs commands: %s")
       additional_info = format % tried_commands.inspect
       super("EPS", command, additional_info)
+    end
+  end
+
+  class DiaCanNotHandleError < ImageLoadWithExternalCommandError
+    def initialize(command, tried_commands)
+      format = _("tried dia commands: %s")
+      additional_info = format % tried_commands.inspect
+      super("Dia", command, additional_info)
     end
   end
 
