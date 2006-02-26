@@ -45,7 +45,7 @@ module Rabbit
         end.join
         regexp_str = [regexp_str1, regexp_str2].join("|")
       end
-      /#{Converter.to_utf8_from_eucjp(regexp_str)}/u
+      /#{Converter.to_utf8_from_eucjp(regexp_str)}/iu
     end
 
     def migemo_generate_regexp_str(pattern, with_paren)
