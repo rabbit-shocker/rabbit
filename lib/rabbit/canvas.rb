@@ -8,7 +8,6 @@ require 'rabbit/renderer'
 require 'rabbit/element'
 require "rabbit/rd2rabbit-lib"
 require "rabbit/theme/manager"
-require "rabbit/index"
 require "rabbit/front"
 require "rabbit/action"
 require "rabbit/html/generator"
@@ -407,7 +406,7 @@ module Rabbit
           @renderer.index_mode_off
         else
           if @index_slides.empty?
-            @index_slides = Index.make_index_slides(self)
+            @index_slides = Element::IndexSlide.make_index_slides(self)
           end
           @index_mode = true
           @renderer.index_mode_on

@@ -6,10 +6,9 @@ module Rabbit
       include ContainerElement
 
       attr_reader :title
-      def initialize(first_element)
+      def initialize(title)
         super()
-        @title = first_element.text
-        add_element(first_element)
+        @title = title
       end
 
       def draw(canvas, simulation=nil)

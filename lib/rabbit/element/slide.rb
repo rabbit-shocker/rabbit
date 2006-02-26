@@ -6,6 +6,11 @@ module Rabbit
     class Slide
       include SlideElement
 
+      def initialize(title)
+        super(title.text)
+        add_element(title)
+      end
+
       def headline
         @elements[0]
       end

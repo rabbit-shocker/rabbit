@@ -8,7 +8,8 @@ module Rabbit
       include SlideElement
 
       def initialize(title)
-        super(title)
+        super(title.text)
+        add_element(title)
         @local_prop = {}
       end
 
