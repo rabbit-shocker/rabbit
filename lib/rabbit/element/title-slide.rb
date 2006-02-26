@@ -13,10 +13,6 @@ module Rabbit
         @local_prop = {}
       end
 
-      def to_html
-        "<div style='text-align: center;'>\n#{super}\n</div>"
-      end
-
       def <<(element)
         if element.is_a?(DescriptionList)
           element.each do |item|
