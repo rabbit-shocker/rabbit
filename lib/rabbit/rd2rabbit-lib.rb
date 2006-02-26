@@ -46,7 +46,7 @@ module Rabbit
     
     def visit(tree)
       prepare_labels(tree, "label-")
-      prepare_foot_notes(tree)
+      prepare_footnotes(tree)
       super(tree)
     end
 
@@ -217,7 +217,7 @@ module Rabbit
       if @slide.nil?
         Text.new("")
       else
-        num = get_foot_note_num(element)
+        num = get_footnote_num(element)
         raise ArgumentError, "[BUG?] #{element} is not registered." unless num
         add_foot_text(num, content)
         Footnote.new(num)
@@ -225,7 +225,7 @@ module Rabbit
     end
 
     def apply_to_Foottext(element, content)
-      num = get_foot_note_num(element)
+      num = get_footnote_num(element)
       raise ArgumentError, "[BUG] #{element} isn't registered." unless num
       FootText.new(num, content)
     end
@@ -246,16 +246,16 @@ module Rabbit
     end
     
     private
-    def prepare_foot_notes(tree)
-      @foot_notes = tree.find_all{|i| i.is_a? RD::Footnote}
+    def prepare_footnotes(tree)
+      @footnotes = tree.find_all{|i| i.is_a? RD::Footnote}
       @foot_texts = []
     end
 
-    def get_foot_note_num(fn)
+    def get_footnote_num(fn)
       unless fn.is_a?(RD::Footnote)
         raise ArgumentError, "#{fn} must be Footnote."
       end
-      i = @foot_notes.index(fn)
+      i = @footnotes.index(fn)
       if i
         i + 1
       else
@@ -361,7 +361,7 @@ module Rabbit
     end
 
     def add_foot_text(num, foot_text)
-      unless @foot_notes[num - 1]
+      unless @footnotes[num - 1]
         raise ArgumentError, "[BUG] footnote ##{num} isn't here."
       end
       @foot_texts.last << [foot_text, num - 1]
@@ -373,7 +373,7 @@ module Rabbit
         current_foot_texts = @foot_texts.shift
         while ft_info = current_foot_texts.shift
           ft, num = ft_info
-          ftb << apply_to_Foottext(@foot_notes[num], ft)
+          ftb << apply_to_Foottext(@footnotes[num], ft)
         end
         slide << ftb
       end
