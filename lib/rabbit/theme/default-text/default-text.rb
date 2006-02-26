@@ -104,7 +104,7 @@ match("**", FootText) do |texts|
   set_font_family(texts)
 end
 
-match("**", FootNote) do |notes|
+match("**", Footnote) do |notes|
   notes.prop_set("size", @script_font_size)
   notes.prop_set("rise", (@script_font_size * 3.0 / 2.0).ceil)
 end

@@ -220,7 +220,7 @@ module Rabbit
         num = get_foot_note_num(element)
         raise ArgumentError, "[BUG?] #{element} is not registered." unless num
         add_foot_text(num, content)
-        FootNote.new(num)
+        Footnote.new(num)
       end
     end
 

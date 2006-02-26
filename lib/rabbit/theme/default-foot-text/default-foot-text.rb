@@ -44,7 +44,7 @@ match("**", FootText) do
   end
 end
 
-match("**", FootNote) do
+match("**", Footnote) do
   prop_set("foreground", "blue")
   each do |note|
     note.text = "(*#{note.order})"

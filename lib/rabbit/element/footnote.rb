@@ -7,7 +7,7 @@ module Rabbit
       include ContainerElement
     end
 
-    class FootNote
+    class Footnote
       include TextElement
 
       attr_reader :order
