@@ -11,17 +11,22 @@ module Rabbit
       end
     end
 
-    def require_files_under_directory_in_load_path(dir)
+    def require_files_under_directory_in_load_path(dir, silent=true)
       normalize = Proc.new do |base_path, path|
         path.sub(/\A#{Regexp.escape(base_path)}\/?/, '').sub(/\.[^.]+$/, '')
       end
-    
+
       $LOAD_PATH.each do |path|
         source_glob = ::File.join(path, dir, '*')
         Dir.glob(source_glob) do |source|
           begin
             require normalize[path, source]
           rescue LoadError
+            unless silent
+              STDERR.puts(normalize[path, source])
+              STDERR.puts($!.message)
+              STDERR.puts($@)
+            end
           end
         end
       end
