@@ -41,7 +41,7 @@ module Rabbit
 
       private
       def init_eps_loader(filename, keep_ratio)
-        @eps_file = Tempfile.new("rabbit-dia")
+        @eps_file = Tempfile.new("rabbit-loader-dia")
         args = ["--export=#{@eps_file.path}"]
         args << "--export-to-format=eps"
         args << filename

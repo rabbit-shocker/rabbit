@@ -75,8 +75,10 @@ module Rabbit
   end
 
   class TgifCanNotHandleError < ImageLoadWithExternalCommandError
-    def initialize(command)
-      super("Tgif", command)
+    def initialize(command, tried_commands)
+      format = _("tried tgif commands: %s")
+      additional_info = format % tried_commands.inspect
+      super("Tgif", command, additional_info)
     end
   end
 

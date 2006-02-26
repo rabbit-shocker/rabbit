@@ -65,7 +65,7 @@ module Rabbit
         res_y = (height.to_f / h * DEFAULT_DPI).round
         
         adjust_eps_if_need(x, y) do |path|
-          tmp = Tempfile.new("Rabbit")
+          tmp = Tempfile.new("rabbit-image-eps")
           args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=#{device}
             -sOutputFile=#{tmp.path} -dEPSFitPage
             -dGraphicsAlphaBits=4 -dTextAlphaBits=4
@@ -102,7 +102,7 @@ module Rabbit
 
       def adjust_eps_if_need(x, y)
         if x and y and x > 0 and y > 0
-          tmp = Tempfile.new("Rabbit")
+          tmp = Tempfile.new("rabbit-loader-adjusted-eps")
           tmp.puts("#{x} neg #{y} neg translate")
           tmp.print(File.open(@filename) {|f| f.read})
           tmp.close

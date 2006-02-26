@@ -81,7 +81,7 @@ module Rabbit
       private
       def make_image_from_file(source, visitor)
         src, prop = parse_source(source)
-        src_file = Tempfile.new("rabbit")
+        src_file = Tempfile.new("rabbit-image-source")
         src_file.open
         src_file.print(src)
         src_file.close
@@ -93,18 +93,20 @@ module Rabbit
         end
         return nil if image_file.nil?
         image = make_image(visitor, %Q[file://#{image_file.path}], prop)
+        return nil if image.nil?
         image["_src"] = image_file # for protecting from GC
         image
       end
 
       def make_image_by_LaTeX(path, prop, visitor)
-        image_file = Tempfile.new("rabbit")
-        latex_file = Tempfile.new("rabbit-latex")
+        image_file = Tempfile.new("rabbit-image")
+        latex_file = Tempfile.new("rabbit-image-latex")
         dir = File.dirname(latex_file.path)
         base = latex_file.path.sub(/\.[^.]+$/, '')
         dvi_path = "#{base}.dvi"
         eps_path = "#{base}.eps"
         log_path = "#{base}.log"
+        aux_path = "#{base}.aux"
         File.open(path) do |f|
           src = []
           f.each_line do |line|
@@ -129,12 +131,13 @@ module Rabbit
             FileUtils.rm_f(dvi_path)
             FileUtils.rm_f(eps_path)
             FileUtils.rm_f(log_path)
+            FileUtils.rm_f(aux_path)
           end
         end
       end
 
       def make_image_by_mimeTeX(path, prop, visitor)
-        image_file = Tempfile.new("rabbit")
+        image_file = Tempfile.new("rabbit-image-mimetex")
         command = ["mimetex.cgi", "-e", image_file.path, "-f", path]
         if run(*command)
           image_file
@@ -145,10 +148,7 @@ module Rabbit
 
       def make_image_by_Tgif(path, prop, visitor)
         Tgif.init
-        image_file = Tempfile.new("rabbit")
-        tgif_file = Tempfile.new("rabbit-tgif")
-        obj_path = "#{tgif_file.path}.obj"
-        eps_path = "#{tgif_file.path}.eps"
+        tgif_file = Tempfile.new("rabbit-image-tgif")
         File.open(path) do |f|
           src = []
           f.each_line do |line|
@@ -160,18 +160,7 @@ module Rabbit
           tgif_file.print(Tgif::TgifObject.preamble)
           tgif_file.print(exp.tgif_format)
           tgif_file.close
-          begin
-            command = ["tgif", "-print", "-eps", "-quiet", tgif_file.path]
-            FileUtils.cp(tgif_file.path, obj_path)
-            if run(*command)
-              FileUtils.mv(eps_path, image_file.path)
-              image_file
-            else
-              raise TeXCanNotHandleError.new(command.join(" "))
-            end
-          ensure
-            FileUtils.rm_f(obj_path)
-          end
+          tgif_file
         end
       end
 
