@@ -74,15 +74,11 @@ module Rabbit
     end
 
     def search_migemo_static_dict
-      default_base_name = "migemo-dict"
-      [
-       File.join("", "usr", "local", "share"),
-       File.join("", "usr", "share"),
-      ].each do |target|
+      @canvas.migemo_dictionary_search_path.each do |target|
         if File.directory?(target)
           [
-           File.join(target, default_base_name),
-           File.join(target, "migemo", default_base_name),
+           File.join(target, @canvas.migemo_dictionary_name),
+           File.join(target, "migemo", @canvas.migemo_dictionary_name),
           ].each do |guess|
             return make_migemo_dict(guess) if File.readable?(guess)
           end

@@ -54,7 +54,7 @@ module Rabbit
 
     def setup_common_options(opts, options)
       opts.separator ""
-      opts.separator _("Common options:")
+      opts.separator _("Common options")
 
       setup_locale_options(opts, options)
       setup_logger_options(opts, options)

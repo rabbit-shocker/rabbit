@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
+require "rbconfig"
+
 require "rabbit/console"
 require "rabbit/canvas"
 require "rabbit/source"
@@ -48,6 +50,12 @@ def parse(args=ARGV, logger=nil)
     options.public_level = Rabbit::Front::PublicLevel::STRICT
     options.comment_source = nil
     options.comment_encoding = nil
+    options.migemo_dictionary_search_path = [
+      File.join(Config::CONFIG["prefix"], "share"),
+      File.join("", "usr", "local", "share"),
+      File.join("", "usr", "share"),
+    ].uniq
+    options.migemo_dictionary_name = "migemo-dict"
 
 
     opts.banner = "#{opts.banner} [SOURCE_INFOS]"
@@ -65,8 +73,10 @@ def parse(args=ARGV, logger=nil)
       options.theme = theme
       options.theme_specified = true
     end
-    
+
+
     opts.separator ""
+    opts.separator _("Source")
 
     source_type_names = Rabbit::Source.types.collect do |x|
       Rabbit::Console.get_last_name(x).downcase
@@ -106,6 +116,10 @@ def parse(args=ARGV, logger=nil)
       options.base = base
     end
 
+
+    opts.separator ""
+    opts.separator _("Initial state")
+
     opts.on("-f", "--[no-]full-screen",
             _("Toggle full screen mode."),
             "(#{options.full_screen ? 'on' : 'off'})") do |bool|
@@ -117,6 +131,10 @@ def parse(args=ARGV, logger=nil)
             "(#{options.index_mode ? 'on' : 'off'})") do |bool|
       options.index_mode = bool
     end
+
+
+    opts.separator ""
+    opts.separator _("Size")
 
     opts.on("-w", "--width [WIDTH]",
             Integer,
@@ -142,6 +160,10 @@ def parse(args=ARGV, logger=nil)
       options.width = width
       options.height = height
     end
+
+
+    opts.separator ""
+    opts.separator _("Save")
 
     opts.on("-s", "--save-as-image",
             _("Save as image and exit.")) do
@@ -175,6 +197,7 @@ def parse(args=ARGV, logger=nil)
 
     if Rabbit::Renderer.printable?
       opts.separator ""
+      opts.separator _("Print")
 
       opts.on("-p", "--print",
               _("Print and exit.")) do
@@ -186,7 +209,18 @@ def parse(args=ARGV, logger=nil)
               "(\#{%s}.ps)" % _("Title of slide")) do |f|
         options.print_out_filename = f
       end
-      
+
+      opts.on("--slides-per-page [SLIDES]",
+              Integer,
+              _("Set slides per page."),
+              "(1)") do |slides|
+        options.slides_per_page = slides
+      end
+
+
+      opts.separator ""
+      opts.separator _("Paper")
+
       opts.on("--paper-width [WIDTH]",
               Integer,
               _("Set paper width to [WIDTH] Pt."),
@@ -212,12 +246,9 @@ def parse(args=ARGV, logger=nil)
         options.paper_height = height
       end
 
-      opts.on("--slides-per-page [SLIDES]",
-              Integer,
-              _("Set slides per page."),
-              "(1)") do |slides|
-        options.slides_per_page = slides
-      end
+
+      opts.separator ""
+      opts.separator _("Margin")
 
       opts.on("--margin-left [MARGIN]",
               Integer,
@@ -310,6 +341,7 @@ def parse(args=ARGV, logger=nil)
     end
 
     opts.separator ""
+    opts.separator _("dRuby")
     
     opts.on("--[no-]use-druby",
             _("Specify whether to use dRuby."),
@@ -330,6 +362,7 @@ def parse(args=ARGV, logger=nil)
     end
     
     opts.separator ""
+    opts.separator _("SOAP")
     
     opts.on("--[no-]use-soap",
             _("Specify whether to use SOAP."),
@@ -356,6 +389,7 @@ def parse(args=ARGV, logger=nil)
     end
     
     opts.separator ""
+    opts.separator _("XML-RPC")
     
     opts.on("--[no-]use-xmlrpc",
             _("Specify whether to use XML-RPC."),
@@ -382,6 +416,7 @@ def parse(args=ARGV, logger=nil)
     end
     
     opts.separator ""
+    opts.separator _("Server")
     
     opts.on("--[no-]server",
             _("Specify whether to run as server."),
@@ -393,6 +428,7 @@ def parse(args=ARGV, logger=nil)
     end
     
     opts.separator ""
+    opts.separator _("Comment")
     
     opts.on("--comment-source [FILE]",
             _("Specify initial comment source."),
@@ -404,6 +440,24 @@ def parse(args=ARGV, logger=nil)
             _("Specify comment source encoding."),
             _("(auto)")) do |encoding|
       options.comment_encoding = encoding
+    end
+
+    opts.separator ""
+    opts.separator _("Migemo")
+
+    search_path = options.migemo_dictionary_search_path.join(', ')
+    opts.on("--migemo-dictionary-search-path [PATH],[PATH],...",
+            Array,
+            _("Specify search paths for Migemo static dictionary."),
+            _("(default #{search_path})")) do |path|
+      options.migemo_dictionary_search_path = path
+    end
+
+    opts.on("--migemo-dictionary-name [NAME]",
+            Array,
+            _("Specify static dictionary name for Migemo."),
+            _("(default #{options.migemo_dictionary_name})")) do |name|
+      options.migemo_dictionary_name = name
     end
   end
 end
@@ -475,6 +529,11 @@ def setup_paper_size(target, options)
   target.margin_right = options.margin_right
   target.margin_top = options.margin_top
   target.margin_bottom = options.margin_bottom
+end
+
+def setup_migemo_info(target, options)
+  target.migemo_dictionary_search_path = options.migemo_dictionary_search_path
+  target.migemo_dictionary_name = options.migemo_dictionary_name
 end
 
 def setup_druby(front, options, logger)
@@ -566,6 +625,7 @@ def do_display(options, logger)
   setup_paper_size(canvas, options)
   setup_image_info(frame, options)
   setup_print_info(canvas, options)
+  setup_migemo_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
   apply_theme_if_need(frame, options)
   parse_rd(frame, options, logger, !Rabbit::Utils.windows?)

@@ -119,6 +119,7 @@ module Rabbit
     attr_writer :saved_image_basename
 
     attr_accessor :saved_image_type, :output_html, :rss_base_uri
+    attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
 
 
     def initialize(logger, renderer, comment_source=nil, comment_encoding=nil)
@@ -134,6 +135,8 @@ module Rabbit
       @auto_reload_timer = nil
       @output_html = false
       @rss_base_uri = true
+      @migemo_dictionary_search_path = []
+      @migemo_dictionary_name = nil
       init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
