@@ -184,6 +184,12 @@ You can use relative size.
   # src = rabbit.dia
   # relative_width = 90
 
+= GIMP is OK, too
+
+  # image
+  # src = rabbit.xcf
+  # relative_height = 100
+
 = Wrap word
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong

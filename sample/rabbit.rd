@@ -180,6 +180,12 @@
   # src = rabbit.dia
   # relative_width = 90
 
+= GIMPでもOK
+
+  # image
+  # src = rabbit.xcf
+  # relative_height = 100
+
 = 折り返し
 
 なーーーーーーーーーーーーーーーーーーーーーーーーーーーーーがーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーい行は？

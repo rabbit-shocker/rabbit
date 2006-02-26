@@ -19,6 +19,7 @@ module Rabbit
       $LOAD_PATH.each do |path|
         source_glob = ::File.join(path, dir, '*')
         Dir.glob(source_glob) do |source|
+          next if File.directory?(source)
           begin
             require normalize[path, source]
           rescue LoadError
