@@ -1,4 +1,4 @@
-require "rabbit/renderer/gdk"
+require "rabbit/renderer/engine/gdk"
 require "rabbit/renderer/pixmap/base"
 
 module Rabbit
@@ -6,7 +6,7 @@ module Rabbit
     module Pixmap
       class GDK
         include Base
-        include Renderer::GDK
+        include Engine::GDK
         
         class << self
           def priority

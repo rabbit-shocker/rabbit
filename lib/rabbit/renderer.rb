@@ -1,13 +1,13 @@
 require "rabbit/utils"
 
 require "rabbit/renderer/color"
+require "rabbit/renderer/drawing-area"
+require "rabbit/renderer/pixmap"
+require "rabbit/renderer/print"
 
 module Rabbit
   module Renderer
     extend Utils
-
-    dir = ::File.join("rabbit", "renderer")
-    require_files_under_directory_in_load_path(dir)
 
     class << self
       def printable?
@@ -20,10 +20,6 @@ module Rabbit
         else
           Print
         end
-      end
-
-      def renderer_module
-        corresponding_module_under_module(self)
       end
     end
   end

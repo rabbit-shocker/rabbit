@@ -1,6 +1,6 @@
 require 'gtk2'
 
-require 'rabbit/renderer'
+require 'rabbit/renderer/engine'
 require 'rabbit/graffiti/config-dialog'
 
 module Rabbit
@@ -9,9 +9,10 @@ module Rabbit
       DEFAULT_COLOR = Renderer::Color.parse("black")
       DEFAULT_LINE_WIDTH = 3
 
+      include Renderer::Engine.renderer_module
+
       attr_accessor :color, :line_width
       def initialize(default_config={})
-        extend(Renderer.renderer_module)
         @default_color = default_config["color"] || DEFAULT_COLOR
         @default_line_width = default_config["line_width"] || DEFAULT_LINE_WIDTH
         clear

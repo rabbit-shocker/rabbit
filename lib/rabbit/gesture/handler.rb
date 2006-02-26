@@ -1,12 +1,14 @@
 require 'gtk2'
 
 require 'rabbit/rabbit'
-require 'rabbit/renderer'
+require 'rabbit/renderer/engine'
 require 'rabbit/gesture/processor'
 
 module Rabbit
   module Gesture
     class Handler
+      include Renderer::Engine.renderer_module
+
       DEFAULT_BACK_COLOR = Renderer::Color.parse("#3333337f")
       DEFAULT_LINE_COLOR = Renderer::Color.parse("#f00f")
       DEFAULT_NEXT_COLOR = Renderer::Color.parse("#0f0c")
@@ -18,7 +20,6 @@ module Rabbit
       attr_accessor :back_color, :line_color, :next_color, :current_color
       attr_accessor :line_width, :next_width
       def initialize(conf={})
-        extend(Renderer.renderer_module)
         super()
         conf ||= {}
         @back_color = conf[:back_color] || DEFAULT_BACK_COLOR
@@ -223,6 +224,7 @@ module Rabbit
       end
 
       def make_color(color)
+        color ||= @back_color
         if color.is_a?(Renderer::Color)
           color
         else
