@@ -1,6 +1,6 @@
 require "cairo"
 
-require "rabbit/renderer/cairo"
+require "rabbit/renderer/engine/cairo"
 require "rabbit/renderer/print/base"
 
 module Rabbit
@@ -8,7 +8,7 @@ module Rabbit
     module Print
       class Cairo
         include Base
-        include Renderer::Cairo
+        include Engine::Cairo
         
         class << self
           def priority

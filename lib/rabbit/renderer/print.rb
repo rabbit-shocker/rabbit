@@ -7,7 +7,7 @@ module Rabbit
       A4_HEIGHT = 842
         
       dir = ::File.join("rabbit", "renderer", "print")
-      require_files_under_directory_in_load_path(dir)
+      require_files_under_directory_in_load_path(dir, true)
 
       class << self
         def new(*args, &block)
