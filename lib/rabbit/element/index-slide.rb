@@ -99,7 +99,7 @@ module Rabbit
         sample_pixbuf_property(:height, 0)
       end
 
-      def draw(canvas)
+      def draw(canvas, simulation=nil)
         canvas.draw_slide(self, true) {}
         canvas.draw_slide(self, false) do
           w = width

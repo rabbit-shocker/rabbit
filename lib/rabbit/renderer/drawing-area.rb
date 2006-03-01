@@ -2,46 +2,23 @@ require "forwardable"
 
 require "rabbit/menu"
 require "rabbit/keys"
+require "rabbit/utils"
 require "rabbit/search-window"
 require "rabbit/gesture/handler"
 require "rabbit/graffiti/processor"
 require "rabbit/progress"
 require "rabbit/cursor-manager"
 require "rabbit/comment/log"
-require "rabbit/renderer/pixmap"
+require "rabbit/renderer/base"
+require "rabbit/renderer/engine"
 
 module Rabbit
   module Renderer
     class DrawingArea
       include Base
-      include Kernel
+      include Renderer::Engine::GDK
 
       extend Forwardable
-
-      def_delegators(:@pixmap, :foreground, :background)
-      def_delegators(:@pixmap, :foreground=, :background=)
-      def_delegators(:@pixmap, :background_image, :background_image=)
-      
-      def_delegators(:@pixmap, :draw_slide, :draw_line, :draw_rectangle)
-      def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
-      def_delegators(:@pixmap, :draw_arc_by_radius, :draw_circle_by_radius)
-      def_delegators(:@pixmap, :draw_pixbuf, :draw_polygon)
-      def_delegators(:@pixmap, :draw_rounded_rectangle)
-
-      def_delegators(:@pixmap, :draw_cube, :draw_sphere, :draw_cone)
-      def_delegators(:@pixmap, :draw_torus, :draw_tetrahedron)
-      def_delegators(:@pixmap, :draw_octahedron, :draw_dodecahedron)
-      def_delegators(:@pixmap, :draw_icosahedron, :draw_teapot)
-      
-      def_delegators(:@pixmap, :gl_compile, :gl_call_list)
-
-      def_delegators(:@pixmap, :to_pixbuf)
-
-      def_delegators(:@pixmap, :clear_pixmap, :clear_pixmaps)
-
-      def_delegators(:@pixmap, :filename, :filename=)
-      
-      def_delegators(:@pixmap, :x_dpi, :y_dpi)
 
       def_delegator(:@progress, :foreground, :progress_foreground)
       def_delegator(:@progress, :foreground=, :progress_foreground=)
@@ -58,8 +35,10 @@ module Rabbit
       BUTTON_PRESS_ACCEPTING_TIME = 250
       MASK_SIZE_STEP = 0.05
 
+      attr_accessor :filename
       def initialize(canvas)
         super
+        @filename = nil
         @caching = nil
         @comment_initialized = false
         @button_handling = false
@@ -68,13 +47,13 @@ module Rabbit
         @need_reload_theme = false
         @search_window = nil
         @progress = Progress.new
+        clear_compiled_slides
         clear_button_handler
         init_cursor
         init_graffiti
         init_gesture
         init_drawing_area
         init_accel_group
-        init_pixmap(1, 1)
         init_comment_log
       end
 
@@ -129,14 +108,13 @@ module Rabbit
           @need_reload_theme = false
           reload_theme
         else
-          @pixmap.post_apply_theme
+          clear_compiled_slides
           update_menu
           @area.queue_draw
         end
       end
       
       def post_move(index)
-        @pixmap.post_move(index)
         update_title
         reset_adjustment
         clear_graffiti
@@ -146,13 +124,13 @@ module Rabbit
       
       def post_fullscreen
         update_cursor(:blank, true)
-        clear_pixmaps
+        clear_compiled_slides
         update_menu
       end
       
       def post_unfullscreen
         update_cursor(nil, true)
-        clear_pixmaps
+        clear_compiled_slides
         update_menu
       end
       
@@ -161,20 +139,19 @@ module Rabbit
       end
       
       def redraw
-        clear_pixmap
+        clear_compiled_slide
         @area.queue_draw
       end
       
       def pre_parse_rd
         update_menu
-        @pixmap.pre_parse_rd
       end
       
       def post_parse_rd
         clear_button_handler
         update_title
         update_menu
-        @pixmap.post_parse_rd
+        clear_compiled_slides
         if @need_reload_theme
           @need_reload_theme = false
           reload_theme
@@ -250,14 +227,14 @@ module Rabbit
 
       def caching_all_slides(i, canvas)
         update_progress(i)
-        unless @pixmap.has_key?(@canvas.slides[i])
-          @pixmap[@canvas.slides[i]] = canvas.renderer[canvas.slides[i]]
-        end
+#         unless @pixmap.has_key?(@canvas.slides[i])
+#           @pixmap[@canvas.slides[i]] = canvas.renderer[canvas.slides[i]]
+#         end
         continue = @caching_size == [width, height] &&
           !@canvas.quitted? && !@canvas.applying?
         continue
       end
-      
+
       def post_cache_all_slides(canvas, canceled)
         end_progress
         @caching = false
@@ -265,10 +242,10 @@ module Rabbit
         if canceled
           reload_theme
         else
-          @pixmap.clear_pixmaps
-          @canvas.slides.each_with_index do |slide, i|
-            @pixmap[slide] = canvas.renderer[canvas.slides[i]]
-          end
+          clear_compiled_slides
+#           @canvas.slides.each_with_index do |slide, i|
+#             @pixbufs[slide] = canvas.renderer[canvas.slides[i]]
+#           end
           @area.queue_draw
         end
       end
@@ -282,7 +259,7 @@ module Rabbit
           @need_reload_theme = true
         else
           @canvas.activate("ReloadTheme", &Utils.process_pending_events_proc)
-          clear_pixmaps
+          clear_compiled_slides
         end
       end
 
@@ -443,11 +420,6 @@ module Rabbit
         @comment_view_frame.hide if @comment_view_frame
       end
 
-      def clear_theme
-        @pixmap.clear_theme
-        super
-      end
-      
       def search_slide(forward=true)
         if @search_window
           if @search_window.forward? == forward
@@ -490,9 +462,9 @@ module Rabbit
       end
 
       private
-      def init_pixmap(w=width, h=height)
-        @pixmap = Renderer::Pixmap.new(@canvas, w, h)
-        @pixmap.setup_event(self)
+      def init_dpi
+        @x_dpi = ScreenInfo.screen_x_resolution
+        @y_dpi = ScreenInfo.screen_y_resolution
       end
 
       def parse_comment(source)
@@ -710,16 +682,19 @@ module Rabbit
 
       def set_realize
         @area.signal_connect_after("realize") do |widget|
-          @drawable = widget.window
-          @foreground = Gdk::GC.new(@drawable)
-          @background = Gdk::GC.new(@drawable)
-          @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
-          @white = Gdk::GC.new(@drawable)
-          @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
-          @black = Gdk::GC.new(@drawable)
-          @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
-          init_pixmap
+          realized(widget)
         end
+      end
+
+      def realized(widget)
+        @drawable = widget.window
+        @foreground = Gdk::GC.new(@drawable)
+        @background = Gdk::GC.new(@drawable)
+        @background.set_foreground(widget.style.bg(Gtk::STATE_NORMAL))
+        @white = Gdk::GC.new(@drawable)
+        @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
+        @black = Gdk::GC.new(@drawable)
+        @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
       end
 
       def set_key_press_event
@@ -802,34 +777,34 @@ module Rabbit
             @graffiti.draw_all_segment(@drawable)
             @gesture.draw(@drawable) if @gesture.processing?
           end
+          true
         end
       end
 
       def draw_current_slide
         slide = @canvas.current_slide
         if slide
-          unless @pixmap.has_key?(slide)
-            @pixmap.width = width
-            @pixmap.height = height
-            slide.draw(@canvas)
+          unless compiled_slide?(slide)
+            compile_slide(slide)
           end
-          pixmap = @pixmap[slide]
-          if pixmap
-            if block_given?
-              yield(pixmap)
-            else
-              draw_pixmap(pixmap)
-            end
-          end
+          slide.draw(@canvas, false)
         end
       end
-      
-      def draw_pixmap(pixmap)
-        width, height = pixmap.size
+
+      def draw_slide(slide, simulation)
+        unless simulation
+          draw_rectangle(true, 0, 0, width, height, @background)
+        end
+        yield
+      end
+
+      def draw_current_slide_pixbuf(pixbuf)
+        width, height = pixbuf.width, pixbuf.height
         x = @adjustment_x * width
         y = @adjustment_y * height
-        @drawable.draw_drawable(@foreground, pixmap,
-                                x, y, 0, 0, width, height)
+        @drawable.draw_pixbuf(@foreground, pixbuf,
+                              x, y, 0, 0, width, height,
+                              Gdk::RGB::DITHER_NORMAL, 0, 0)
         if @adjustment_x != 0 or @adjustment_y != 0
           draw_next_slide
         end
@@ -837,20 +812,20 @@ module Rabbit
 
       def draw_next_slide
         @canvas.change_current_index(@canvas.current_index + 1) do
-          draw_current_slide do |pixmap|
-            draw_next_pixmap(pixmap)
+          draw_current_slide do |pixbuf|
+            draw_next_slide_pixbuf(pixbuf)
           end
         end
       end
 
-      def draw_next_pixmap(pixmap)
-        width, height = pixmap.size
+      def draw_next_slide_pixbuf(pixbuf)
+        width, height = pixbuf.size
         adjustment_width = @adjustment_x * width
         adjustment_height = @adjustment_y * height
         src_x = src_y = dest_x = dest_y = 0
         src_width = width
         src_height = height
-        
+
         if adjustment_width > 0
           dest_x = width - adjustment_width
           src_width = adjustment_width
@@ -858,7 +833,7 @@ module Rabbit
           src_x = width + adjustment_width
           src_width = -adjustment_width
         end
-        
+
         if adjustment_height > 0
           dest_y = height - adjustment_height
           src_height = adjustment_height
@@ -867,9 +842,9 @@ module Rabbit
           src_height = -adjustment_height
         end
 
-        @drawable.draw_drawable(@foreground, pixmap, src_x, src_y,
-                                dest_x, dest_y, src_width, src_height)
-
+        @drawable.draw_pixbuf(@foreground, pixbuf, src_x, src_y,
+                              dest_x, dest_y, src_width, src_height,
+                              Gdk::RGB::DITHER_NORMAL, 0, 0)
       end
 
       def set_configure_event_after
@@ -1354,9 +1329,48 @@ module Rabbit
           @canvas.activate("JumpTo") {indexes[target_index]}
         end
       end
+
+      def clear_compiled_slide(slide=nil)
+        @compiled_slides.delete(slide || @canvas.current_slide)
+      end
+
+      def clear_compiled_slides
+        @compiled_slides = {}
+      end
+
+      def compiled_slide?(slide)
+        @compiled_slides.has_key?(slide)
+      end
+
+      def compile_slide(slide)
+        @compiled_slides[slide] = true
+        slide.draw(@canvas, true)
+      end
     end
 
     class CommentDrawingArea < DrawingArea
+      include Kernel
+
+      def_delegators(:@pixmap, :foreground, :background)
+      def_delegators(:@pixmap, :foreground=, :background=)
+      def_delegators(:@pixmap, :background_image, :background_image=)
+
+      def_delegators(:@pixmap, :draw_slide, :draw_line, :draw_rectangle)
+      def_delegators(:@pixmap, :draw_arc, :draw_circle, :draw_layout)
+      def_delegators(:@pixmap, :draw_arc_by_radius, :draw_circle_by_radius)
+      def_delegators(:@pixmap, :draw_pixbuf, :draw_polygon)
+      def_delegators(:@pixmap, :draw_rounded_rectangle)
+
+      def_delegators(:@pixmap, :draw_cube, :draw_sphere, :draw_cone)
+      def_delegators(:@pixmap, :draw_torus, :draw_tetrahedron)
+      def_delegators(:@pixmap, :draw_octahedron, :draw_dodecahedron)
+      def_delegators(:@pixmap, :draw_icosahedron, :draw_teapot)
+
+      def_delegators(:@pixmap, :gl_compile, :gl_call_list)
+
+      def_delegators(:@pixmap, :filename, :filename=)
+
+      def_delegators(:@pixmap, :x_dpi, :y_dpi)
 
       attr_accessor :direction
 
@@ -1370,23 +1384,15 @@ module Rabbit
       
       def initialize(canvas)
         super
+        clear_pixbufs
+        init_pixmap(1, 1)
         @direction = :right
-        @pixbufs = {}
       end
 
       def attach_to(window)
         @window = window
         @window.add(@area)
         @area.show
-      end
-      
-      def clear_pixmap(slide=nil)
-        @pixbufs.delete(@pixmap[slide || @canvas.current_slide])
-      end
-
-      def clear_pixmaps
-        @pixbufs = {}
-        super
       end
 
       def clear_keys
@@ -1396,7 +1402,7 @@ module Rabbit
       end
 
       def post_apply_theme
-        @pixbufs = {}
+        clear_pixbufs
         super
       end
 
@@ -1424,18 +1430,13 @@ module Rabbit
 
       def update_comment(*args, &block)
       end
-      
+
       def post_init_gui
       end
 
       def post_toggle_index_mode
-        @pixbufs = {}
+        clear_pixbufs
         super
-      end
-      
-      def post_to_pixbuf(canceled)
-        super
-        @pixbufs = {}
       end
 
       private
@@ -1444,9 +1445,14 @@ module Rabbit
         @area.can_focus = false
       end
 
+      def init_pixmap(w=width, h=height)
+        @pixmap = Renderer::Pixmap.new(@canvas, w, h)
+        @pixmap.setup_event(self)
+      end
+
       def init_comment_log
       end
-      
+
       def init_comment
       end
 
@@ -1462,14 +1468,35 @@ module Rabbit
       def adjust_search_window(*args)
       end
 
-      def draw_pixmap(pixmap)
-        unless @pixbufs.has_key?(pixmap)
-          pixbuf = Utils.drawable_to_pixbuf(pixmap)
-          @pixbufs[pixmap] = pixbuf.rotate(Gdk::Pixbuf::ROTATE_CLOCKWISE)
+      def clear_pixbuf(slide=nil)
+        @pixbufs.delete(@pixmap[slide || @canvas.current_slide])
+      end
+
+      def clear_pixbufs
+        @pixbufs = {}
+      end
+
+      def slide_to_pixbuf(slide)
+        pixbuf = @pixmap.to_pixbuf(slide)
+        pixbuf.rotate(Gdk::Pixbuf::ROTATE_CLOCKWISE)
+      end
+
+      def draw_current_slide
+        slide = @canvas.current_slide
+        if slide
+          unless @pixbufs.has_key?(slide)
+            @pixmap.width = width
+            @pixmap.height = height
+            @pixbufs[slide] = slide_to_pixbuf(slide)
+          end
+          @drawable.draw_pixbuf(@foreground, @pixbufs[slide],
+                                0, 0, 0, 0, -1, -1,
+                                Gdk::RGB::DITHER_NORMAL, 0, 0)
         end
-        @drawable.draw_pixbuf(@foreground, @pixbufs[pixmap],
-                              0, 0, 0, 0, -1, -1,
-                              Gdk::RGB::DITHER_NORMAL, 0, 0)
+      end
+
+      def realized(widget)
+        init_pixmap
       end
     end
   end
