@@ -94,6 +94,13 @@ module Rabbit
         end
 EOC
     end
+
+    class Size
+      def initialize(value)
+        value = value.ceil if value.is_a?(Numeric)
+        super(value)
+      end
+    end
     
     class Foreground
       def normalize_attribute(name, value)
