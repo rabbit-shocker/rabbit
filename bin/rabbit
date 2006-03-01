@@ -620,7 +620,7 @@ def do_display(options, logger)
     logger.start_gui_main_loop_automatically = false
   end
   
-  canvas = make_canvas(options, logger, Rabbit::Renderer::DrawingArea)
+  canvas = make_canvas(options, logger, Rabbit::Renderer::Display::DrawingArea)
   frame = Rabbit::Frame.new(logger, canvas)
   setup_paper_size(canvas, options)
   setup_image_info(frame, options)

@@ -1,7 +1,7 @@
 require "rabbit/utils"
 
 require "rabbit/renderer/color"
-require "rabbit/renderer/drawing-area"
+require "rabbit/renderer/display"
 require "rabbit/renderer/pixmap"
 require "rabbit/renderer/print"
 
