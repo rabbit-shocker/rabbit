@@ -25,7 +25,6 @@ module Rabbit
         include Cursor
         include Search
         include Gesture
-        include Menu
         include KeyHandler
         include ButtonHandler
 
@@ -51,15 +50,17 @@ module Rabbit
           @window.add(@hbox)
           @hbox.show
           @vbox.show
-          @menu.attach(window)
-          @window.add_accel_group(@accel_group)
+          attach_menu
+          attach_key
           set_configure_event
         end
 
-        def detach_from(window)
-          detach_menu(window)
-          window.remove(@area)
-          window.signal_handler_disconnect(@configure_signal_id)
+        def detach
+          detach_key
+          detach_menu
+          @window.remove(@hbox)
+          @hbox = @vbox = @area = nil
+          @window.signal_handler_disconnect(@configure_signal_id)
           @window = nil
         end
 
@@ -76,10 +77,6 @@ module Rabbit
           end
         end
         alias original_height height
-
-        def destroy
-          @area.destroy
-        end
 
         def post_apply_theme
           if @need_reload_theme

@@ -1,9 +1,13 @@
 require 'gtk2'
 
+require 'rabbit/renderer/display/menu'
+
 module Rabbit
   module Renderer
     module Display
       module ButtonHandler
+        include Menu
+
         BUTTON_PRESS_ACCEPTING_TIME = 250
 
         def initialize(*args, &block)
@@ -72,7 +76,7 @@ module Rabbit
             end
           when 3
             add_button_handler do
-              @menu.popup(0, Gtk.current_event_time)
+              popup_menu
             end
           end
         end

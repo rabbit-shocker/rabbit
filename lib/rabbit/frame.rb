@@ -150,7 +150,7 @@ module Rabbit
 
     def set_window_signal_destroy
       @window.signal_connect("destroy") do
-        @canvas.destroy
+        @canvas.detach
         if main_window? and Gtk.main_level > 0
           Gtk.main_quit
         end

@@ -43,7 +43,7 @@ module Rabbit
     def_delegators(:@renderer, :margin_page_bottom, :margin_page_bottom=)
     def_delegators(:@renderer, :slides_per_page, :slides_per_page=)
     def_delegators(:@renderer, :font_families)
-    def_delegators(:@renderer, :destroy, :redraw)
+    def_delegators(:@renderer, :redraw)
     def_delegators(:@renderer, :cursor=, :filename, :filename=)
     def_delegators(:@renderer, :each_slide_pixbuf)
     def_delegators(:@renderer, :off_screen_canvas)
@@ -168,9 +168,9 @@ module Rabbit
       @renderer.attach_to(window)
     end
     
-    def detach_from(frame, window)
+    def detach
       @frame = NullFrame.new
-      @renderer.detach_from(window)
+      @renderer.detach
     end
     
     def title

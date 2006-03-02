@@ -29,7 +29,16 @@ module Rabbit
           @user_accel_group = Gtk::AccelGroup.new
         end
 
+        def attach_key
+          @window.add_accel_group(@accel_group)
+        end
+
+        def detach_key
+          @window.remove_accel_group(@accel_group)
+        end
+
         def clear_keys
+          super
           @window.remove_accel_group(@user_accel_group) if @user_accel_group
           clear_user_accel_group
           @window.add_accel_group(@user_accel_group)
