@@ -197,33 +197,41 @@ module Rabbit
           end_progress
         end
 
+        def cache_all_slides
+          pre_cache_all_slides(@canvas.slide_size)
+          canceled = false
+          @canvas.slides.each_with_index do |slide, i|
+            @canvas.change_current_index(i) do
+              compile_slide(slide)
+            end
+            unless caching_all_slides(i)
+              canceled = true
+              break
+            end
+          end
+          post_cache_all_slides(canceled)
+        end
+
         def pre_cache_all_slides(slide_size)
           @caching = true
           @caching_size = [width, height]
           start_progress(slide_size)
         end
 
-        def caching_all_slides(i, canvas)
+        def caching_all_slides(i)
           update_progress(i)
-          # unless @pixmap.has_key?(@canvas.slides[i])
-          #   @pixmap[@canvas.slides[i]] = canvas.renderer[canvas.slides[i]]
-          # end
           continue = @caching_size == [width, height] &&
             !@canvas.quitted? && !@canvas.applying?
           continue
         end
 
-        def post_cache_all_slides(canvas, canceled)
+        def post_cache_all_slides(canceled)
           end_progress
           @caching = false
           return if @canvas.quitted?
           if canceled
             reload_theme
           else
-            clear_compiled_slides
-            # @canvas.slides.each_with_index do |slide, i|
-            #   @pixbufs[slide] = canvas.renderer[canvas.slides[i]]
-            # end
             @area.queue_draw
           end
         end

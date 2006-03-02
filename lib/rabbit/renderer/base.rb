@@ -105,22 +105,6 @@ module Rabbit
         end
       end
 
-      def cache_all_slides
-        canvas = make_canvas_with_off_screen_renderer
-        pre_cache_all_slides(canvas.slide_size)
-        canceled = false
-        canvas.slides.each_with_index do |slide, i|
-          canvas.move_to_if_can(i)
-          slide.draw(canvas)
-          unless caching_all_slides(i, canvas)
-            canceled = true
-            break
-          end
-        end
-        post_cache_all_slides(canvas, canceled)
-        canvas.activate("Quit")
-      end
-
       def redraw
       end
 
@@ -128,7 +112,7 @@ module Rabbit
         @adjustment_x = 0
         @adjustment_y = 0
       end
-      
+
       def each_slide_pixbuf
         canvas = off_screen_canvas
         previous_index = canvas.current_index
