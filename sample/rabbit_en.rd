@@ -145,7 +145,7 @@ You can use relative size.
   # Tgif
   # relative_width = 80
 
-  large f(x)=int {-infty} x~e^{-t^2}dt
+  large f(x)=int {-infty} x~e^{-t^2}d t
 
 = mimeTeX
 
