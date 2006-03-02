@@ -448,12 +448,6 @@ module Rabbit
           @configure_signal_id = id
         end
 
-        def calc_slide_number(val, modifier)
-          val += 10 if modifier.control_mask?
-          val += 20 if modifier.mod1_mask?
-          val
-        end
-
         def confirm_dialog(message)
           flags = Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT
           dialog_type = Gtk::MessageDialog::INFO

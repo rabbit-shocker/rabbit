@@ -51,6 +51,12 @@ module Rabbit
           end
         end
 
+        def calc_slide_number(val, modifier)
+          val += 10 if modifier.control_mask?
+          val += 20 if modifier.mod1_mask?
+          val
+        end
+
         def init_number_keys
           no_mod = Gdk::Window::ModifierType.new
           mods = Utils.combination([
