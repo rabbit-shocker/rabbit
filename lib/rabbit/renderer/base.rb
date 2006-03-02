@@ -35,7 +35,6 @@ module Rabbit
       attr_accessor :graffiti_color, :graffiti_line_width
       attr_writer :margin_page_left, :margin_page_right
       attr_writer :margin_page_top, :margin_page_bottom
-      attr_writer :foreground, :background, :background_image
 
       def initialize(canvas)
         super()
@@ -220,6 +219,7 @@ module Rabbit
       end
 
       def clear_theme
+        init_color
         clear_keys
         clear_progress_color
         clear_graffiti_config

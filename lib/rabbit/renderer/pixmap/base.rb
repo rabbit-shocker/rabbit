@@ -73,12 +73,17 @@ module Rabbit
         def post_to_pixbuf(canceled)
         end
 
-        def clear_theme
-          init_color
+        def draw_slide(slide, simulation)
+          init_pixmap(slide, simulation)
           super
         end
 
         private
+        def init_color
+          super
+          init_engine_color
+        end
+
         def depth
           if @@depth.nil?
             @@depth = ScreenInfo.screen_depth

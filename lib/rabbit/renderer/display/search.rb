@@ -37,6 +37,11 @@ module Rabbit
           @search_window = nil
         end
 
+        def configured(x, y, w, h)
+          super
+          adjust_search_window
+        end
+
         def adjust_search_window
           if @window and @search_window
             Utils.move_to_bottom_right(window, @search_window.window)

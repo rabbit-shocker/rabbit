@@ -48,6 +48,8 @@ module Rabbit
           end
         end
 
+        attr_writer :foreground, :background, :background_image
+
         def alpha_available?
           true
         end
@@ -61,6 +63,10 @@ module Rabbit
           set_line_width(1)
           @context.line_cap = ::Cairo::LINE_CAP_ROUND
           @context.line_join = ::Cairo::LINE_JOIN_ROUND
+        end
+
+        def to_gdk_rgb(color)
+          make_color(color).to_gdk_rgb
         end
 
         def draw_line(x1, y1, x2, y2, color=nil, params={})
@@ -196,6 +202,11 @@ module Rabbit
         end
 
         private
+        def init_engine_color
+          @foreground = make_color("black")
+          @background = make_color(@background_color)
+        end
+
         def set_color(color)
           @context.set_source_rgba(color.to_a)
         end

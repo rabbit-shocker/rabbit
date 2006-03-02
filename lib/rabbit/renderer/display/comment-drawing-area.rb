@@ -2,15 +2,15 @@ require 'forwardable'
 
 require 'rabbit/renderer/base'
 require 'rabbit/renderer/pixmap'
-require 'rabbit/renderer/display/drawing-area'
+require 'rabbit/renderer/display/drawing-area-base'
 
 module Rabbit
   module Renderer
     module Display
-      class CommentDrawingArea < DrawingArea
-        extend Forwardable
+      class CommentDrawingArea
+        include DrawingAreaBase
 
-        include Kernel
+        extend Forwardable
 
         def_delegators(:@pixmap, :foreground, :background)
         def_delegators(:@pixmap, :foreground=, :background=)
@@ -106,27 +106,14 @@ module Rabbit
           @area.can_focus = false
         end
 
+        def init_color
+          super
+          @fg_gc = Gdk::GC.new(@drawable)
+        end
+
         def init_pixmap(w=width, h=height)
           @pixmap = Renderer::Pixmap.new(@canvas, w, h)
           @pixmap.setup_event(self)
-        end
-
-        def init_comment_log
-        end
-
-        def init_comment
-        end
-
-        def adjust_comment_frame(*args)
-        end
-
-        def adjust_comment_view(*args)
-        end
-
-        def adjust_progress_window(*args)
-        end
-
-        def adjust_search_window(*args)
         end
 
         def clear_pixbuf(slide=nil)
@@ -150,15 +137,14 @@ module Rabbit
               @pixmap.height = height
               @pixbufs[slide] = slide_to_pixbuf(slide)
             end
-            @drawable.draw_pixbuf(@foreground, @pixbufs[slide],
+            @drawable.draw_pixbuf(@fg_gc, @pixbufs[slide],
                                   0, 0, 0, 0, -1, -1,
                                   Gdk::RGB::DITHER_NORMAL, 0, 0)
           end
         end
 
-        def realized(widget)
-          init_pixmap
-          super
+        def init_renderer(drawable)
+          init_pixmap(*drawable.size)
         end
       end
     end

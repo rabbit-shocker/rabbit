@@ -15,26 +15,48 @@ module Rabbit
         end
 
         def init_renderer(drawable)
-          @drawable = drawable
+          @gdk_drawable = drawable
         end
 
         def alpha_available?
           false
         end
 
+        def foreground=(color)
+          @foreground.set_rgb_fg_color(color.to_gdk_color)
+        end
+
+        def background=(color)
+          @background.set_rgb_fg_color(color.to_gdk_color)
+        end
+
+        def background_image=(pixbuf)
+          w, h = pixbuf.width, pixbuf.height
+          pixmap = Gdk::Pixmap.new(nil, w, h, depth)
+          pixmap.draw_rectangle(@background, true, 0, 0, w, h)
+          args = [
+                  @foreground, pixbuf,
+                  0, 0, 0, 0, w, h,
+                  Gdk::RGB::DITHER_NORMAL, 0, 0,
+                 ]
+          pixmap.draw_pixbuf(*args)
+          @background.set_tile(pixmap)
+          @background.fill = Gdk::GC::Fill::TILED
+        end
+
         def draw_line(x1, y1, x2, y2, color=nil, params={})
           gc = make_gc(color, params)
-          @drawable.draw_line(gc, x1, y1, x2, y2)
+          @gdk_drawable.draw_line(gc, x1, y1, x2, y2)
         end
 
         def draw_lines(points, color=nil, params={})
           gc = make_gc(color, params)
-          @drawable.draw_lines(gc, points)
+          @gdk_drawable.draw_lines(gc, points)
         end
 
         def draw_rectangle(filled, x, y, w, h, color=nil, params={})
           gc = make_gc(color, params)
-          @drawable.draw_rectangle(gc, filled, x, y, w, h)
+          @gdk_drawable.draw_rectangle(gc, filled, x, y, w, h)
         end
 
         def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil, params={})
@@ -91,7 +113,7 @@ module Rabbit
           gc = make_gc(color, params)
           a1 *= 64
           a2 *= 64
-          @drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
+          @gdk_drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
         end
 
         def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
@@ -104,12 +126,12 @@ module Rabbit
 
         def draw_polygon(filled, points, color=nil, params={})
           gc = make_gc(color, params)
-          @drawable.draw_polygon(gc, filled, points)
+          @gdk_drawable.draw_polygon(gc, filled, points)
         end
 
         def draw_layout(layout, x, y, color=nil, params={})
           gc = make_gc(color, params)
-          @drawable.draw_layout(gc, x, y, layout)
+          @gdk_drawable.draw_layout(gc, x, y, layout)
         end
 
         def draw_pixbuf(pixbuf, x, y, params={})
@@ -120,10 +142,15 @@ module Rabbit
                   params['dither_mode'] || Gdk::RGB::DITHER_NORMAL,
                   params['x_dither'] || 0,
                   params['y_dither'] || 0]
-          @drawable.draw_pixbuf(gc, pixbuf, *args)
+          @gdk_drawable.draw_pixbuf(gc, pixbuf, *args)
         end
 
         private
+        def init_engine_color
+          @foreground = Gdk::GC.new(@gdk_drawable)
+          @background = make_gc_from_string(@background_color)
+        end
+
         # this method is no longer need. the reason that
         # this isn't removed is only for my memo.
         def set_mask(gc, x, y, mask)
@@ -139,7 +166,7 @@ module Rabbit
 
         def internal_make_gc(color)
           if color.nil?
-            Gdk::GC.new(@drawable)
+            Gdk::GC.new(@gdk_drawable)
           elsif color.is_a?(String)
             make_gc_from_string(color)
           elsif color.is_a?(Gdk::Color)
@@ -152,7 +179,7 @@ module Rabbit
         end
 
         def make_gc_from_gdk_color(color)
-          gc = Gdk::GC.new(@drawable)
+          gc = Gdk::GC.new(@gdk_drawable)
           gc.set_rgb_fg_color(color)
           gc
         end

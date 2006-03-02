@@ -46,6 +46,11 @@ module Rabbit
           end
         end
 
+        def configured(x, y, w, h)
+          super
+          adjust_progress_window
+        end
+
         def adjust_progress_window
           if @window
             Utils.move_to_top_left(@window, @progress.window)

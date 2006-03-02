@@ -12,6 +12,13 @@ module Rabbit
         end
       end
 
+      def draw_slide(slide, simulation)
+        unless simulation
+          draw_rectangle(true, 0, 0, width, height, @background)
+        end
+        yield
+      end
+
       def draw_circle(filled, x, y, w, h, color=nil, params={})
         draw_arc(filled, x, y, w, h, 0, 360, color, params)
       end
