@@ -20,6 +20,12 @@ module Rabbit
       attr_accessor :padding_left, :padding_right
       attr_accessor :padding_top, :padding_bottom
 
+      attr_accessor :default_margin_left, :default_margin_right
+      attr_accessor :default_margin_top, :default_margin_bottom
+
+      attr_accessor :default_padding_left, :default_padding_right
+      attr_accessor :default_padding_top, :default_padding_bottom
+
       attr_accessor :parent
 
       def initialize
@@ -27,6 +33,8 @@ module Rabbit
         @parent = nil
         @user_property = {}
         @default_prop = {}
+        init_default_padding
+        init_default_margin
         clear_theme
       end
 
@@ -219,14 +227,32 @@ module Rabbit
         [y, h]
       end
 
+      def init_default_padding
+        @default_padding_left = 0
+        @default_padding_right = 0
+        @default_padding_top = 0
+        @default_padding_bottom = 0
+      end
+
+      def init_default_margin
+        @default_margin_left = 0
+        @default_margin_right = 0
+        @default_margin_top = 0
+        @default_margin_bottom = 0
+      end
+
       def clear_padding
-        @padding_left = @padding_right = 0
-        @padding_top = @padding_bottom = 0
+        @padding_left = @default_padding_left
+        @padding_right = @default_padding_right
+        @padding_top = @default_padding_top
+        @padding_bottom = @default_padding_bottom
       end
 
       def clear_margin
-        @margin_left = @margin_right = 0
-        @margin_top = @margin_bottom = 0
+        @margin_left = @default_margin_left
+        @margin_right = @default_margin_right
+        @margin_top = @default_margin_top
+        @margin_bottom = @default_margin_bottom
       end
 
       def if_dirty
