@@ -79,6 +79,18 @@ module Rabbit
         HTML.a_link("<a href=\"#{_href}\">", label, label_only)
       end
 
+      def slide_image(file_name_format, slide_number, image_type)
+        src = image_src(file_name_format, slide_number, image_type)
+        img = "<img title='#{image_title(slide_number)}'\n"
+        img << "  src='#{src}' />"
+        if last_slide?(slide_number)
+          img
+        else
+          href = next_href(file_name_format, slide_number)
+          "<a href='#{href}'>\n#{img}\n</a>"
+        end
+      end
+
       def first_slide?(slide_number)
         slide_number.zero?
       end
@@ -152,7 +164,7 @@ module Rabbit
 
       def image_title(slide_number)
         title = h(slide_title)
-        title << "(#{slide_number}/#{@canvas.slide_size})"
+        title << "(#{slide_number}/#{@canvas.slide_size - 1})"
         title
       end
 

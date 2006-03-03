@@ -72,10 +72,7 @@ function handle_key(e)
 <body onkeypress="handle_key(event);">
 <%= navi(file_name_format, slide_number) %>
 <div class="slide">
-<a href="<%= href(file_name_format, slide_number + 1) %>">
-<img title="<%= image_title(slide_number) %>"
-     src="<%= image_src(file_name_format, slide_number, image_type) %>" />
-</a>
+<%= slide_image(file_name_format, slide_number, image_type) %>
 </div>
 <%= navi(file_name_format, slide_number) %>
 <hr />
