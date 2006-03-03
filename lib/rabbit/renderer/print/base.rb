@@ -17,11 +17,11 @@ module Rabbit
         end
 
         def page_width
-          @page_width - margin_page_left - margin_page_right
+          @page_width - page_margin_left - page_margin_right
         end
         
         def page_height
-          @page_height - margin_page_top - margin_page_bottom
+          @page_height - page_margin_top - page_margin_bottom
         end
         
         def width

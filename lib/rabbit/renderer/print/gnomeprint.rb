@@ -306,7 +306,7 @@ module Rabbit
         
         
         def from_screen(x, y)
-          [x + margin_page_left, invert_y(y) + margin_page_bottom]
+          [x + page_margin_left, invert_y(y) + page_margin_bottom]
         end
         
         def convert_angle(a1, a2)

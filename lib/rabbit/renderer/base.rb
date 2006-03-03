@@ -33,8 +33,8 @@ module Rabbit
       attr_accessor :progress_background
       attr_accessor :adjustment_x, :adjustment_y
       attr_accessor :graffiti_color, :graffiti_line_width
-      attr_writer :margin_page_left, :margin_page_right
-      attr_writer :margin_page_top, :margin_page_bottom
+      attr_writer :page_margin_left, :page_margin_right
+      attr_writer :page_margin_top, :page_margin_bottom
 
       def initialize(canvas)
         super()
@@ -47,10 +47,10 @@ module Rabbit
         @margin_right = nil
         @margin_top = nil
         @margin_bottom = nil
-        @margin_page_left = nil
-        @margin_page_right = nil
-        @margin_page_top = nil
-        @margin_page_bottom = nil
+        @page_margin_left = nil
+        @page_margin_right = nil
+        @page_margin_top = nil
+        @page_margin_bottom = nil
         @white_out = false
         @black_out = false
         @list_id = 0
@@ -65,20 +65,20 @@ module Rabbit
         init_dpi
       end
 
-      def margin_page_left
-        @margin_page_left || 0
+      def page_margin_left
+        @page_margin_left || 0
       end
       
-      def margin_page_right
-        @margin_page_right || 0
+      def page_margin_right
+        @page_margin_right || 0
       end
       
-      def margin_page_top
-        @margin_page_top || 0
+      def page_margin_top
+        @page_margin_top || 0
       end
       
-      def margin_page_bottom
-        @margin_page_bottom || 0
+      def page_margin_bottom
+        @page_margin_bottom || 0
       end
       
       def font_families
@@ -348,14 +348,14 @@ module Rabbit
         canvas.margin_left = @canvas.margin_left
         canvas.margin_right = @canvas.margin_right
         canvas.margin_top = @canvas.margin_top
-        canvas.margin_page_bottom = @canvas.margin_page_bottom
+        canvas.page_margin_bottom = @canvas.page_margin_bottom
       end
 
       def setup_page_margin(canvas)
-        canvas.margin_page_left = @canvas.margin_page_left
-        canvas.margin_page_right = @canvas.margin_page_right
-        canvas.margin_page_top = @canvas.margin_page_top
-        canvas.margin_page_bottom = @canvas.margin_page_bottom
+        canvas.page_margin_left = @canvas.page_margin_left
+        canvas.page_margin_right = @canvas.page_margin_right
+        canvas.page_margin_top = @canvas.page_margin_top
+        canvas.page_margin_bottom = @canvas.page_margin_bottom
       end
 
       def setup_paper_size(canvas)

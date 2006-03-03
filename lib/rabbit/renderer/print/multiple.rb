@@ -46,24 +46,24 @@ module Rabbit
           @slide_height ||= @layout.slide_height
         end
 
-        def margin_page_left=(margin)
+        def page_margin_left=(margin)
           super
-          @print.margin_page_left = margin
+          @print.page_margin_left = margin
         end
 
-        def margin_page_right=(margin)
+        def page_margin_right=(margin)
           super
-          @print.margin_page_right = margin
+          @print.page_margin_right = margin
         end
         
-        def margin_page_top=(margin)
+        def page_margin_top=(margin)
           super
-          @print.margin_page_top = margin
+          @print.page_margin_top = margin
         end
         
-        def margin_page_bottom=(margin)
+        def page_margin_bottom=(margin)
           super
-          @print.margin_page_bottom = margin
+          @print.page_margin_bottom = margin
         end
 
         def margin_left=(margin)
