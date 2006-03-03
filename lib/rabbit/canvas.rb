@@ -115,7 +115,7 @@ module Rabbit
     attr_reader :logger, :renderer, :last_modified
     attr_reader :comment_source, :actions
     
-    attr_writer :saved_image_basename
+    attr_writer :saved_image_base_name
 
     attr_accessor :saved_image_type, :output_html, :rss_base_uri
     attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
@@ -125,7 +125,7 @@ module Rabbit
       @logger = logger
       @frame = NullFrame.new
       @theme_name = nil
-      @saved_image_basename = nil
+      @saved_image_base_name = nil
       @saved_image_type = "png"
       @processing = false
       @quitted = false
@@ -326,7 +326,7 @@ module Rabbit
       process do
         generator = HTML::Generator.new(self) if @output_html
         file_name_format =
-          "#{saved_image_basename}%0#{number_of_places(slide_size)}d.%s"
+          "#{saved_image_base_name}%0#{number_of_places(slide_size)}d.%s"
         base_dir = File.dirname(file_name_format)
         FileUtils.mkdir_p(base_dir)
         each_slide_pixbuf do |pixbuf, slide_number|
@@ -363,8 +363,8 @@ module Rabbit
       @renderer.post_iconify
     end
 
-    def saved_image_basename
-      name = @saved_image_basename || GLib.filename_from_utf8(title)
+    def saved_image_base_name
+      name = @saved_image_base_name || GLib.filename_from_utf8(title)
       if @index_mode
         name + "_index"
       else
@@ -719,7 +719,7 @@ module Rabbit
       toggle_comment_view
     end
 
-    def saved_image_basename
+    def saved_image_base_name
       super + "_comment"
     end
 

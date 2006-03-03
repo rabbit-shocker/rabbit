@@ -21,7 +21,7 @@ def parse(args=ARGV, logger=nil)
     options.paper_width = nil
     options.paper_height = nil
     options.save_as_image = false
-    options.saved_image_basename = nil
+    options.saved_image_base_name = nil
     options.saved_image_type = "png"
     options.output_html = false
     options.rss_base_uri = nil
@@ -62,12 +62,12 @@ def parse(args=ARGV, logger=nil)
 
     opts.separator ""
 
-    opts.on("-I", "--include [PATH]",
+    opts.on("-I", "--include=PATH",
             _("Add [PATH] to load path.")) do |path|
       $LOAD_PATH.unshift(path)
     end
     
-    opts.on("-t", "--theme [THEME]",
+    opts.on("-t", "--theme=THEME",
             _("Use [THEME] as theme."),
             "(#{options.theme})") do |theme|
       options.theme = theme
@@ -82,12 +82,12 @@ def parse(args=ARGV, logger=nil)
       Rabbit::Console.get_last_name(x).downcase
     end
     source_type_descs = Rabbit::Source.types.collect do |x|
-      message = _("When select %s\nspecify %s\nas [SOURCE_INFOS].")
+      message = _("When select %s\nspecify %s\nas SOURCE_INFOS.")
       type = Rabbit::Console.get_last_name(x)
       message = message % [type, _(x.initial_args_description)]
       message.split(/\n/) + [" "]
     end.flatten
-    opts.on("-T", "--type [TYPE]",
+    opts.on("-T", "--type=TYPE",
             source_type_names,
             _("Specify source type as [TYPE]."),
             _("Select from [%s].") % source_type_names.join(', '),
@@ -104,13 +104,13 @@ def parse(args=ARGV, logger=nil)
       end
     end
 
-    opts.on("-e", "--encoding [ENCODING]",
-            _("Specify source encoding."),
+    opts.on("-e", "--encoding=ENCODING",
+            _("Specify source encoding as [ENCODING]."),
             _("(auto)")) do |encoding|
       options.encoding = encoding
     end
 
-    opts.on("-B", "--base [BASE]",
+    opts.on("-B", "--base=BASE",
             _("Specify base URI or path of source as [BASE]."),
             _("(auto)")) do |base|
       options.base = base
@@ -136,14 +136,14 @@ def parse(args=ARGV, logger=nil)
     opts.separator ""
     opts.separator _("Size")
 
-    opts.on("-w", "--width [WIDTH]",
+    opts.on("-w", "--width=WIDTH",
             Integer,
             _("Set window width to [WIDTH]."),
             "(#{options.width})") do |width|
       options.width = width
     end
 
-    opts.on("-h", "--height [HEIGHT]",
+    opts.on("-h", "--height=HEIGHT",
             Integer,
             _("Set window height to [HEIGHT]."),
             "(#{options.height})") do |height|
@@ -153,7 +153,7 @@ def parse(args=ARGV, logger=nil)
     message = _("Set window width and height to\n" \
                 "[WIDTH] and [HEIGHT].")
     message = message.split(/\n/) + ["(#{options.width},#{options.height})"]
-    opts.on("-S", "--size [WIDTH],[HEIGHT]",
+    opts.on("-S", "--size=WIDTH,HEIGHT",
             Array,
             *message) do |size|
       width, height = size.collect{|x| Integer(x)}
@@ -170,16 +170,17 @@ def parse(args=ARGV, logger=nil)
       options.save_as_image = true
     end
 
-    opts.on("-i", "--saved-image-type [TYPE]",
+    opts.on("-i", "--saved-image-type=TYPE",
             _("Specify saved image type as [TYPE]."),
             "(#{options.saved_image_type})") do |t|
       options.saved_image_type = t
     end
 
-    opts.on("-b", "--saved-image-basename [BASENAME]",
-            _("Specify saved image basename as [BASENAME]."),
+    opts.on("-b", "--saved-image-base-name=BASE_NAME",
+            "--saved-image-basename=BASE_NAME",
+            _("Specify saved image base name as [BASE_NAME]."),
             "(" + _("Title of slide") + ")") do |b|
-      options.saved_image_basename = b
+      options.saved_image_base_name = b
     end
 
     opts.on("--[no-]output-html",
@@ -188,7 +189,7 @@ def parse(args=ARGV, logger=nil)
       options.output_html = bool
     end
 
-    opts.on("--rss-base-uri [URI]",
+    opts.on("--rss-base-uri=URI",
             _("Specify base URI of RSS as [URI]."),
             _("RSS is generated only when HTML is output."),
             "(#{options.rss_base_uri})") do |uri|
@@ -204,13 +205,13 @@ def parse(args=ARGV, logger=nil)
         options.print = true
       end
 
-      opts.on("-o", "--output-filename [FILENAME]",
+      opts.on("-o", "--output-filename=FILENAME",
               _("Specify printed out filename as [FILENAME]."),
               "(\#{%s}.ps)" % _("Title of slide")) do |f|
         options.print_out_filename = f
       end
 
-      opts.on("--slides-per-page [SLIDES]",
+      opts.on("--slides-per-page=SLIDES",
               Integer,
               _("Set slides per page."),
               "(1)") do |slides|
@@ -221,14 +222,14 @@ def parse(args=ARGV, logger=nil)
       opts.separator ""
       opts.separator _("Paper")
 
-      opts.on("--paper-width [WIDTH]",
+      opts.on("--paper-width=WIDTH",
               Integer,
               _("Set paper width to [WIDTH] Pt."),
               _("(landscape A4 width)")) do |width|
         options.paper_width = width
       end
 
-      opts.on("--paper-height [HEIGHT]",
+      opts.on("--paper-height=HEIGHT",
               Integer,
               _("Set paper height to [HEIGHT] Pt."),
               _("(landscape A4 height)")) do |height|
@@ -238,7 +239,7 @@ def parse(args=ARGV, logger=nil)
       message = _("Set paper width and height to\n" \
                   "[WIDTH] Pt and [HEIGHT] Pt.")
       message = message.split(/\n/) + [_("(landscape A4 size)")]
-      opts.on("--paper-size [WIDTH],[HEIGHT]",
+      opts.on("--paper-size=WIDTH,HEIGHT",
               Array,
               *message) do |size|
         width, height = size.collect{|x| Integer(x)}
@@ -250,28 +251,28 @@ def parse(args=ARGV, logger=nil)
       opts.separator ""
       opts.separator _("Margin")
 
-      opts.on("--margin-left [MARGIN]",
+      opts.on("--margin-left=MARGIN",
               Integer,
               _("Set left margin for slides per page mode print."),
               _("(auto)")) do |margin|
         options.margin_left = margin
       end
 
-      opts.on("--margin-right [MARGIN]",
+      opts.on("--margin-right=MARGIN",
               Integer,
               _("Set right margin for slides per page mode print."),
               _("(auto)")) do |margin|
         options.margin_right = margin
       end
 
-      opts.on("--margin-top [MARGIN]",
+      opts.on("--margin-top=MARGIN",
               Integer,
               _("Set top margin for slides per page mode print."),
               _("(auto)")) do |margin|
         options.margin_top = margin
       end
 
-      opts.on("--margin-bottom [MARGIN]",
+      opts.on("--margin-bottom=MARGIN",
               Integer,
               _("Set bottom margin for slides per page mode print."),
               _("(auto)")) do |margin|
@@ -282,7 +283,7 @@ def parse(args=ARGV, logger=nil)
       margin2 = _("[TOP_BOTTOM],[LEFT_RIGHT]")
       margin3 = _("[TOP],[LEFT_RIGHT],[BOTTOM]")
       margin4 = _("[TOP],[RIGHT],[BOTTOM],[LEFT]")
-      opts.on("--margin {#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
+      opts.on("--margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
               Array,
               _("Set margin for slides per page mode print.")) do |margins|
         begin
@@ -296,35 +297,35 @@ def parse(args=ARGV, logger=nil)
         end
       end
 
-      opts.on("--margin-page-left [MARGIN]",
+      opts.on("--margin-page-left=MARGIN",
               Integer,
               _("Set left page margin."),
               _("(auto)")) do |margin|
         options.margin_page_left = margin
       end
 
-      opts.on("--margin-page-right [MARGIN]",
+      opts.on("--margin-page-right=MARGIN",
               Integer,
               _("Set right page margin."),
               _("(auto)")) do |margin|
         options.margin_page_right = margin
       end
 
-      opts.on("--margin-page-top [MARGIN]",
+      opts.on("--margin-page-top=MARGIN",
               Integer,
               _("Set top page margin."),
               _("(auto)")) do |margin|
         options.margin_page_top = margin
       end
 
-      opts.on("--margin-page-bottom [MARGIN]",
+      opts.on("--margin-page-bottom=MARGIN",
               Integer,
               _("Set bottom page margin."),
               _("(auto)")) do |margin|
         options.margin_page_bottom = margin
       end
 
-      opts.on("--page-margin {#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
+      opts.on("--page-margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
               Array,
               _("Set page margin.")) do |margins|
         begin
@@ -349,7 +350,7 @@ def parse(args=ARGV, logger=nil)
       options.use_druby = bool
     end
     
-    opts.on("--druby-uri [URI]",
+    opts.on("--druby-uri=URI",
             _("Specify dRuby URI."),
             "(#{options.druby_uri})") do |uri|
       options.druby_uri = uri if uri
@@ -370,7 +371,7 @@ def parse(args=ARGV, logger=nil)
       options.use_soap = bool
     end
     
-    opts.on("--soap-host [HOST]",
+    opts.on("--soap-host=HOST",
             _("Specify SOAP host as [HOST]."),
             "(#{options.soap_host})") do |port|
       begin
@@ -378,7 +379,7 @@ def parse(args=ARGV, logger=nil)
       end
     end
     
-    opts.on("--soap-port [PORT]",
+    opts.on("--soap-port=PORT",
             _("Specify SOAP port as [PORT]."),
             "(#{options.soap_port})") do |port|
       begin
@@ -397,7 +398,7 @@ def parse(args=ARGV, logger=nil)
       options.use_xmlrpc = bool
     end
     
-    opts.on("--xmlrpc-host [HOST]",
+    opts.on("--xmlrpc-host=HOST",
             _("Specify XML-RPC host as [HOST]."),
             "(#{options.xmlrpc_host})") do |port|
       begin
@@ -405,7 +406,7 @@ def parse(args=ARGV, logger=nil)
       end
     end
     
-    opts.on("--xmlrpc-port [PORT]",
+    opts.on("--xmlrpc-port=PORT",
             _("Specify XML-RPC port as [PORT]."),
             "(#{options.xmlrpc_port})") do |port|
       begin
@@ -430,13 +431,13 @@ def parse(args=ARGV, logger=nil)
     opts.separator ""
     opts.separator _("Comment")
     
-    opts.on("--comment-source [FILE]",
+    opts.on("--comment-source=FILE",
             _("Specify initial comment source."),
             _("(default source)")) do |name|
       options.comment_source = name
     end
     
-    opts.on("--comment-encoding [ENCODING]",
+    opts.on("--comment-encoding=ENCODING",
             _("Specify comment source encoding."),
             _("(auto)")) do |encoding|
       options.comment_encoding = encoding
@@ -446,14 +447,14 @@ def parse(args=ARGV, logger=nil)
     opts.separator _("Migemo")
 
     search_path = options.migemo_dictionary_search_path.join(', ')
-    opts.on("--migemo-dictionary-search-path [PATH],[PATH],...",
+    opts.on("--migemo-dictionary-search-path=PATH1,PATH2,...",
             Array,
             _("Specify search paths for Migemo static dictionary."),
             _("(default #{search_path})")) do |path|
       options.migemo_dictionary_search_path = path
     end
 
-    opts.on("--migemo-dictionary-name [NAME]",
+    opts.on("--migemo-dictionary-name=NAME",
             Array,
             _("Specify static dictionary name for Migemo."),
             _("(default #{options.migemo_dictionary_name})")) do |name|
@@ -503,7 +504,7 @@ end
 
 def setup_image_info(target, options)
   target.saved_image_type = options.saved_image_type
-  target.saved_image_basename = options.saved_image_basename
+  target.saved_image_base_name = options.saved_image_base_name
   target.output_html = options.output_html
   target.rss_base_uri = options.rss_base_uri
 end
