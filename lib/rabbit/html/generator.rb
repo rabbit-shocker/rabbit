@@ -81,13 +81,13 @@ module Rabbit
 
       def slide_image(file_name_format, slide_number, image_type)
         src = image_src(file_name_format, slide_number, image_type)
-        img = "<img title='#{image_title(slide_number)}'\n"
-        img << "  src='#{src}' />"
+        img = "<img title=\"#{image_title(slide_number)}\"\n"
+        img << "  src=\"#{src}\" />"
         if last_slide?(slide_number)
           img
         else
           href = next_href(file_name_format, slide_number)
-          "<a href='#{href}'>\n#{img}\n</a>"
+          "<a href=\"#{href}\">\n#{img}\n</a>"
         end
       end
 
