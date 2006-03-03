@@ -82,7 +82,7 @@ def parse(args=ARGV, logger=nil)
       Rabbit::Console.get_last_name(x).downcase
     end
     source_type_descs = Rabbit::Source.types.collect do |x|
-      message = _("When select %s\nspecify %s\nas SOURCE_INFOS.")
+      message = _("When select %s\nspecify %s\nas [SOURCE_INFOS].")
       type = Rabbit::Console.get_last_name(x)
       message = message % [type, _(x.initial_args_description)]
       message.split(/\n/) + [" "]
