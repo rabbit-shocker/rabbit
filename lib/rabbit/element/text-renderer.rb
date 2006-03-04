@@ -47,7 +47,7 @@ module Rabbit
         end
       end
 
-      def text_to_html
+      def text_to_html(generator)
         markup_as_html(text)
       end
 

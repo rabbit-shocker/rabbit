@@ -31,31 +31,31 @@ function handle_key(e)
   var handled = true;
   switch (key_code) {
 
-<% unless first_slide?(slide_number) -%>
+<% unless first_slide? -%>
 <% Rabbit::Keys::MOVE_TO_FIRST_KEYS.each do |key| -%>
   case <%= key %>:
 <% end -%>
-    location = "<%=first_href(file_name_format, slide_number)%>";
+    location = "<%= first_href %>";
     break;
 
 <% Rabbit::Keys::MOVE_TO_PREVIOUS_KEYS.each do |key| -%>
   case <%= key %>:
 <% end -%>
-    location = "<%=previous_href(file_name_format, slide_number)%>";
+    location = "<%= previous_href %>";
     break;
 <% end -%>
 
-<% unless last_slide?(slide_number) -%>
+<% unless last_slide? -%>
 <% Rabbit::Keys::MOVE_TO_NEXT_KEYS.each do |key| -%>
   case <%= key %>:
 <% end -%>
-    location = "<%=next_href(file_name_format, slide_number)%>";
+    location = "<%= next_href %>";
     break;
 
 <% Rabbit::Keys::MOVE_TO_LAST_KEYS.each do |key| -%>
   case <%= key %>:
 <% end -%>
-    location = "<%=last_href(file_name_format, slide_number)%>";
+    location = "<%= last_href %>";
     break;
 <% end -%>
 
@@ -70,11 +70,11 @@ function handle_key(e)
 <title><%=h slide_title %></title>
 </head>
 <body onkeypress="handle_key(event);">
-<%= navi(file_name_format, slide_number) %>
+<%= navi %>
 <div class="slide">
-<%= slide_image(file_name_format, slide_number, image_type) %>
+<%= slide_image %>
 </div>
-<%= navi(file_name_format, slide_number) %>
+<%= navi %>
 <hr />
 <div class="footer">
 <p>

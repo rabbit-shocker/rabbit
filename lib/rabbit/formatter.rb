@@ -1,4 +1,4 @@
-require "cgi"
+require "erb"
 require "rabbit/renderer/color"
 
 module Rabbit
@@ -7,10 +7,8 @@ module Rabbit
     extend Utils
     
     module Formatter
-      def h(str)
-        CGI.escapeHTML(str.to_s)
-      end
-      
+      include ERB::Util
+
       def text_formatter?
         false
       end

@@ -106,9 +106,9 @@ module Rabbit
         @elements.each(&block)
       end
 
-      def to_html
+      def to_html(generator)
         collect do |element|
-          element.to_html
+          element.to_html(generator)
         end.join("\n")
       end
 

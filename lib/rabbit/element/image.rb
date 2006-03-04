@@ -14,6 +14,7 @@ module Rabbit
       attr_reader :relative_width, :relative_height
 
       def initialize(filename, prop)
+        @filename = filename
         super(filename)
         %w(caption dither_mode).each do |name|
           instance_variable_set("@#{name}", prop[name])
@@ -41,14 +42,12 @@ module Rabbit
         @caption.to_s
       end
 
-      def to_html
-        return 'image is not supported'
-        filename = File.join(base_dir, "XXX.png")
-        @loader.pixbuf.save(filename, "png")
-        result = "<img "
-        result << "title='#{@caption}' " if @caption
-        result << "src='#{filename}' />"
-        result
+      def to_html(generator)
+        src = generator.save_pixbuf(pixbuf, File.basename(@filename))
+        html = "<img "
+        html << "title=\"#{generator.h(@caption)}\" " if @caption
+        html << "src=\"#{src}\" />"
+        html
       end
 
       def dither_mode

@@ -17,7 +17,7 @@ module Rabbit
         end
       end
 
-      def to_html
+      def to_html(generator)
         "<blockquote>#{super}</blockquote>"
       end
     end
@@ -25,7 +25,7 @@ module Rabbit
     class Paragraph
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p>\n#{super}\n</p>"
       end
     end

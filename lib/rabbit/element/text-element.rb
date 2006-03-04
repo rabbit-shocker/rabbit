@@ -19,8 +19,8 @@ module Rabbit
         [x + width, y, w - width, h]
       end
 
-      def to_html
-        text_to_html
+      def to_html(generator)
+        text_to_html(generator)
       end
 
       def empty?

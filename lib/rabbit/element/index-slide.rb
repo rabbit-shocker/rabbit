@@ -158,6 +158,14 @@ module Rabbit
         end
         [x + width + side_margin, y, w - width - side_margin, h]
       end
+
+      def to_html(generator)
+        number_of_places = generator.number_of_places(@number_of_slides)
+        format = "thumbnail%0#{number_of_places}d"
+        src = generator.save_pixbuf(@pixbuf, format % @number)
+        title = generator.image_title
+        "<img title=\"#{title}\" src=\"#{src}\" />"
+      end
     end
   end
 end

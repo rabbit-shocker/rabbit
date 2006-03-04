@@ -20,9 +20,9 @@ module Rabbit
         [x, y + @height, w, h - @height]
       end
 
-      def to_html
+      def to_html(generator)
         html = @elements.collect do |elem|
-          elem.to_html
+          elem.to_html(generator)
         end.join("\n")
         markup_as_html(html)
       end

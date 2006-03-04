@@ -5,7 +5,7 @@ module Rabbit
     class EnumList
       include ContainerElement
 
-      def to_html
+      def to_html(generator)
         "<ol>\n#{super}\n</ol>"
       end
     end
@@ -14,7 +14,7 @@ module Rabbit
       include ContainerElement
       attr_accessor :order
 
-      def to_html
+      def to_html(generator)
         "<li>\n#{super}\n</li>"
       end
     end

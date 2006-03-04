@@ -182,9 +182,9 @@ module Rabbit
       end
     end
 
-    def slide_title
+    def slide_title(index=current_index)
       return "" if slides.empty?
-      slide = current_slide
+      slide = slides[index]
       if slide.is_a?(Element::TitleSlide)
         slide.title
       else
@@ -324,23 +324,17 @@ module Rabbit
     
     def save_as_image
       process do
-        generator = HTML::Generator.new(self) if @output_html
-        file_name_format =
-          "#{saved_image_base_name}%0#{number_of_places(slide_size)}d.%s"
-        base_dir = File.dirname(file_name_format)
-        FileUtils.mkdir_p(base_dir)
+        generator = HTML::Generator.new(self,
+                                        saved_image_base_name,
+                                        @saved_image_type,
+                                        @output_html,
+                                        @rss_base_uri)
         each_slide_pixbuf do |pixbuf, slide_number|
-          image_file_name = file_name_format % [slide_number, @saved_image_type]
-          pixbuf.save(image_file_name, normalized_saved_image_type)
-          if @output_html
-            generator.save(file_name_format, slide_number, @saved_image_type)
-          end
+          generator.save(pixbuf, slide_number)
           true
         end
-        if @output_html and @rss_base_uri
-          unless generator.save_rss(base_dir, @rss_base_uri)
-            logger.warn(_("can't generate RSS"))
-          end
+        unless generator.save_rss
+          logger.warn(_("can't generate RSS"))
         end
       end
     end
@@ -364,11 +358,10 @@ module Rabbit
     end
 
     def saved_image_base_name
-      name = @saved_image_base_name || GLib.filename_from_utf8(title)
-      if @index_mode
-        name + "_index"
+      if @saved_image_base_name
+        GLib.filename_to_utf8(@saved_image_base_name)
       else
-        name
+        title
       end
     end
 
@@ -672,25 +665,6 @@ module Rabbit
       set_current_index(index)
       Action.update_status(self)
       @renderer.post_move(current_index)
-    end
-
-    def normalized_saved_image_type
-      case @saved_image_type
-      when /jpg/i
-        "jpeg"
-      else
-        @saved_image_type.downcase
-      end
-    end
-
-    def number_of_places(num)
-      n = 1
-      target = num
-      while target >= 10
-        target /= 10
-        n += 1
-      end
-      n
     end
 
     def init_comment(comment_source, comment_encoding)

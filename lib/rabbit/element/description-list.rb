@@ -6,7 +6,7 @@ module Rabbit
     class DescriptionList
       include ContainerElement
 
-      def to_html
+      def to_html(generator)
         "<dl>\n#{super}\n</dl>"
       end
     end
@@ -28,7 +28,7 @@ module Rabbit
     class DescriptionTerm
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<dt>\n#{super}\n</dt>"
       end
     end
@@ -36,7 +36,7 @@ module Rabbit
     class DescriptionContent
       include ContainerElement
 
-      def to_html
+      def to_html(generator)
         "<dd>\n#{super}\n</dd>"
       end
     end

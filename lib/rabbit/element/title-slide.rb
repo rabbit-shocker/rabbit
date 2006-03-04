@@ -79,7 +79,7 @@ module Rabbit
     class Title
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<h1>#{super}</h1>"
       end
     end
@@ -87,7 +87,7 @@ module Rabbit
     class Subtitle
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<h2>#{super}</h2>"
       end
     end
@@ -95,7 +95,7 @@ module Rabbit
     class Author
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<address>#{super}</address>"
       end
     end
@@ -103,7 +103,7 @@ module Rabbit
     class ContentSource
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p class='content-source'>#{super}</p>"
       end
     end
@@ -111,7 +111,7 @@ module Rabbit
     class Institution
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p class='institution'>#{super}</p>"
       end
     end
@@ -119,7 +119,7 @@ module Rabbit
     class Date
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p class='date'>#{super}</p>"
       end
     end
@@ -127,7 +127,7 @@ module Rabbit
     class Place
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p class='place'>#{super}</p>"
       end
     end
@@ -135,7 +135,7 @@ module Rabbit
     class When
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p class='when'>#{super}</p>"
       end
     end
@@ -143,7 +143,7 @@ module Rabbit
     class Where
       include TextContainerElement
 
-      def to_html
+      def to_html(generator)
         "<p class='where'>#{super}</p>"
       end
     end

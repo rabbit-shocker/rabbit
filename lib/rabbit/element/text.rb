@@ -16,7 +16,7 @@ module Rabbit
       include TextContainerElement
       include BlockHorizontalCentering
 
-      def to_html
+      def to_html(generator)
         "<pre>#{super}</pre>"
       end
     end

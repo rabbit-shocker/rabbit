@@ -22,7 +22,7 @@ module Rabbit
         elements.find {|e| e.is_a?(TableBody)}
       end
 
-      def to_html
+      def to_html(generator)
         caption = nil
         caption = "<caption>#{@caption}</caption>\n" if @caption
         "<table>\n#{caption}#{super}\n</table>"
@@ -32,7 +32,7 @@ module Rabbit
     class TableHead
       include ContainerElement
 
-      def to_html
+      def to_html(generator)
         "<thead>\n#{super}\n</thead>"
       end
     end
@@ -40,7 +40,7 @@ module Rabbit
     class TableBody
       include ContainerElement
 
-      def to_html
+      def to_html(generator)
         "<tbody>\n#{super}\n</tbody>"
       end
     end
@@ -48,7 +48,7 @@ module Rabbit
     class TableRow
       include ContainerElement
 
-      def to_html
+      def to_html(generator)
         "<tr>\n#{super}\n</tr>"
       end
     end
@@ -56,7 +56,7 @@ module Rabbit
     class TableHeader
       include TextElement
 
-      def to_html
+      def to_html(generator)
         "<th>#{super}</th>"
       end
     end
@@ -64,7 +64,7 @@ module Rabbit
     class TableCell
       include TextElement
 
-      def to_html
+      def to_html(generator)
         "<td>#{super}</td>"
       end
     end
