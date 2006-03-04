@@ -127,7 +127,8 @@ module Rabbit
         def init_comment_view_canvas
           @comment_view_canvas = CommentCanvas.new(@canvas.logger,
                                                    CommentDrawingArea)
-          @comment_view_canvas.saved_image_basename = @canvas.saved_image_basename
+          @comment_view_canvas.saved_image_base_name =
+            @canvas.saved_image_base_name
           @comment_view_canvas.filename = @canvas.filename
           @comment_view_canvas.slides_per_page = @canvas.slides_per_page
         end

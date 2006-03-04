@@ -79,6 +79,10 @@ module Rabbit
     class Title
       include TextContainerElement
 
+      def text
+        "= #{super}"
+      end
+
       def to_html(generator)
         "<h1>#{super}</h1>"
       end
@@ -86,6 +90,10 @@ module Rabbit
 
     class Subtitle
       include TextContainerElement
+
+      def text
+        ": subtitle\n   #{super}"
+      end
 
       def to_html(generator)
         "<h2>#{super}</h2>"
@@ -95,6 +103,10 @@ module Rabbit
     class Author
       include TextContainerElement
 
+      def text
+        ": author\n   #{super}"
+      end
+
       def to_html(generator)
         "<address>#{super}</address>"
       end
@@ -102,6 +114,10 @@ module Rabbit
 
     class ContentSource
       include TextContainerElement
+
+      def text
+        ": content-source\n   #{super}"
+      end
 
       def to_html(generator)
         "<p class='content-source'>#{super}</p>"
@@ -111,6 +127,10 @@ module Rabbit
     class Institution
       include TextContainerElement
 
+      def text
+        ": institution\n   #{super}"
+      end
+
       def to_html(generator)
         "<p class='institution'>#{super}</p>"
       end
@@ -118,6 +138,10 @@ module Rabbit
 
     class Date
       include TextContainerElement
+
+      def text
+        ": date\n   #{super}"
+      end
 
       def to_html(generator)
         "<p class='date'>#{super}</p>"
@@ -127,6 +151,10 @@ module Rabbit
     class Place
       include TextContainerElement
 
+      def text
+        ": place\n   #{super}"
+      end
+
       def to_html(generator)
         "<p class='place'>#{super}</p>"
       end
@@ -135,6 +163,10 @@ module Rabbit
     class When
       include TextContainerElement
 
+      def text
+        ": when\n   #{super}"
+      end
+
       def to_html(generator)
         "<p class='when'>#{super}</p>"
       end
@@ -142,6 +174,10 @@ module Rabbit
 
     class Where
       include TextContainerElement
+
+      def text
+        ": where\n   #{super}"
+      end
 
       def to_html(generator)
         "<p class='where'>#{super}</p>"

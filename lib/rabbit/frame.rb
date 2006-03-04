@@ -20,7 +20,7 @@ module Rabbit
     def_delegators(:@window, :set_size_request, :resize)
     
     def_delegators(:@canvas, :apply_theme, :theme_name)
-    def_delegators(:@canvas, :saved_image_type=, :saved_image_basename=)
+    def_delegators(:@canvas, :saved_image_type=, :saved_image_base_name=)
     def_delegators(:@canvas, :save_as_image, :each_slide_pixbuf)
     def_delegators(:@canvas, :print, :filename=, :output_html=)
     def_delegators(:@canvas, :rss_base_uri=)

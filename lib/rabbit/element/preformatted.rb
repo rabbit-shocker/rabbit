@@ -7,6 +7,10 @@ module Rabbit
       include TextContainerElement
       include BlockHorizontalCentering
 
+      def text
+        super.gsub(/^/, "  ")
+      end
+
       def to_html(generator)
         "<pre>#{super}</pre>"
       end

@@ -14,6 +14,16 @@ module Rabbit
       include ContainerElement
       attr_accessor :order
 
+      def text
+        prefix = "(#{order}) "
+        indent = " " * prefix.length
+        first, *rest = super.split(/\n/)
+        rest = rest.collect do |line|
+          "#{indent}#{line}"
+        end.join("\n")
+        "#{prefix}#{first}\n#{rest}".rstrip
+      end
+
       def to_html(generator)
         "<li>\n#{super}\n</li>"
       end

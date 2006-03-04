@@ -28,6 +28,10 @@ module Rabbit
     class DescriptionTerm
       include TextContainerElement
 
+      def text
+        ": #{super}"
+      end
+
       def to_html(generator)
         "<dt>\n#{super}\n</dt>"
       end
@@ -35,6 +39,10 @@ module Rabbit
 
     class DescriptionContent
       include ContainerElement
+
+      def text
+        super.gsub(/^/, "   ")
+      end
 
       def to_html(generator)
         "<dd>\n#{super}\n</dd>"

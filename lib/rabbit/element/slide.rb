@@ -23,6 +23,10 @@ module Rabbit
     class HeadLine
       include TextContainerElement
 
+      def text
+        "= #{super}"
+      end
+
       def to_html(generator)
         "<h1>#{super}</h1>"
       end

@@ -23,7 +23,7 @@ module Rabbit
       def to_html(generator)
         html = @elements.collect do |elem|
           elem.to_html(generator)
-        end.join("\n")
+        end.join("")
         markup_as_html(html)
       end
 

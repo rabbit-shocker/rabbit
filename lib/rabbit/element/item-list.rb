@@ -14,7 +14,13 @@ module Rabbit
       include ContainerElement
 
       def text
-        "* #{super}"
+        prefix = "* "
+        indent = " " * prefix.length
+        first, *rest = super.split(/\n/)
+        rest = rest.collect do |line|
+          "#{indent}#{line}"
+        end.join("\n")
+        "#{prefix}#{first}\n#{rest}".rstrip
       end
 
       def to_html(generator)

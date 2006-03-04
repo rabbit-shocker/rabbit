@@ -63,7 +63,7 @@ module Rabbit
         element = enscript_tree_to_rabbit_element(pre, visitor)
         if element
           visitor.logger.info(address.extract_text.to_s)
-          PreformattedBlock.new(PreformattedText.new(element))
+          PreformattedBlock.new(element)
         else
           nil
         end
@@ -91,7 +91,7 @@ module Rabbit
         end
         element
       end
-        
+
       def enscript_element_to_rabbit_element(element, visitor)
         case element.qualified_name
         when "pre"
@@ -111,7 +111,7 @@ module Rabbit
           nil
         end
       end
-      
+
       module_function
       def available?
         not @@enscript_highlight.empty?

@@ -25,6 +25,10 @@ module Rabbit
     class Paragraph
       include TextContainerElement
 
+      def text
+        "#{super}\n"
+      end
+
       def to_html(generator)
         "<p>\n#{super}\n</p>"
       end
