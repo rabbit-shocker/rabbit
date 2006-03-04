@@ -389,6 +389,12 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    
    デフォルトでは生成しません．
 
+: --output-index-html, --no-output-index-html
+   保存されたスライドのサムネイルを表示するHTMLを生成するか
+   どうかを指定します．
+   
+   デフォルトでは生成しません．
+
 : -p, --print
    スライドを印刷し，終了します．--output-filenameを指定する
    ことによりファイルに印刷したり，プリンタに直接印刷するこ

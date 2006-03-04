@@ -24,41 +24,50 @@ module Rabbit
       erb.def_method(self, "to_html", template_path)
 
       def initialize(canvas, base_name, image_type,
-                     output_html, rss_base_uri)
+                     output_html, output_index_html, rss_base_uri)
         @canvas = canvas
         @suffix = "html"
         @rss_info = []
-        @rss_file_name = "index.rdf"
+        @rss_filename = "index.rdf"
         @rss_base_uri = rss_base_uri
         @base_name = base_name
         @base_dir = File.dirname(@base_name)
         @image_type = image_type
         @output_html = output_html
-        @file_name_format =
-          "#{@base_name}%0#{number_of_places(@canvas.slide_size)}d%s.%s"
+        @output_index_html = output_index_html
         FileUtils.mkdir_p(to_filename_encoding(@base_dir))
       end
 
-      def save(pixbuf, slide_number)
-        @slide_number = slide_number
-        save_pixbuf(pixbuf)
-        file_name = slide_file_name
-        File.open(file_name, "w") do |f|
-          f.print(to_html)
+      def save(slide, pixbuf, slide_number)
+        save_html(slide, slide_number) do
+          save_pixbuf(pixbuf)
+          filename = slide_filename
+          output_html(filename)
+          if @rss_base_uri
+            @rss_info << [filename, slide_title(slide_number),
+                          @slide.to_rd, @slide.to_html(self)]
+          end
         end
-        if @rss_base_uri
-          slide = @canvas.slides[slide_number]
-          @rss_info << [file_name, slide_title(slide_number),
-                        slide.text, slide.to_html(self)]
+      end
+
+      def save_index(slide, slide_number)
+        save_html(slide, slide_number) do
+          @slide_index_html = @slide.to_html(self)
+          filename = slide_filename
+          output_html(filename)
+          if @rss_base_uri
+            @rss_info << [filename, slide_title(slide_number),
+                          @slide.to_rd, @slide_index_html]
+          end
+          @slide_index_html = nil
         end
-        @slide_number = nil
       end
 
       def save_rss
         return true if @rss_base_uri.nil?
         if Object.const_defined?(:RSS)
           rss = make_rss
-          name = File.join(@base_dir, @rss_file_name)
+          name = File.join(@base_dir, @rss_filename)
           File.open(to_filename_encoding(name), "w") do |f|
             f.print(rss.to_s)
           end
@@ -69,7 +78,7 @@ module Rabbit
       end
 
       def save_pixbuf(pixbuf, optional=nil)
-        pixbuf.save(pixbuf_file_name(@slide_number, optional),
+        pixbuf.save(pixbuf_filename(@slide_number, optional),
                     normalized_image_type)
         h(image_src(@slide_number, optional))
       end
@@ -84,13 +93,54 @@ module Rabbit
         n
       end
 
-      def image_title(slide_number=@slide_number)
-        title = h(slide_title(slide_number))
-        title << "(#{slide_number}/#{@canvas.slide_size - 1})"
-        title
+      def have_index?
+        @output_index_html
+      end
+
+      def have_html?
+        @output_html
+      end
+
+      def index_href(slide_number)
+        @canvas.with_index_mode(true) do
+          href(slide_number)
+        end
+      end
+
+      def slide_href(slide_number)
+        @canvas.with_index_mode(false) do
+          href(slide_number)
+        end
+      end
+
+      def index_image_title(slide_number)
+        @canvas.with_index_mode(true) do
+          image_title(slide_number)
+        end
+      end
+
+      def slide_image_title(slide_number)
+        @canvas.with_index_mode(false) do
+          image_title(slide_number)
+        end
       end
 
       private
+      def save_html(slide, slide_number)
+        @slide = slide
+        @slide_number = slide_number
+        yield
+      ensure
+        @slide_number = nil
+        @slide = nil
+      end
+
+      def filename_format
+        format = @base_name.dup
+        format << "-index" if @canvas.index_mode?
+        format << "%0#{number_of_places(@canvas.slide_size)}d%s.%s"
+      end
+
       def to_filename_encoding(utf8_filename)
         if GLib.respond_to?(:win32_locale_filename_from_utf8)
           GLib.win32_locale_filename_from_utf8(utf8_filename)
@@ -99,9 +149,9 @@ module Rabbit
         end
       end
 
-      def make_file_name(slide_number, suffix, optional=nil, convert=true)
+      def make_filename(slide_number, suffix, optional=nil, convert=true)
         optional = "-#{optional}" if optional
-        name = @file_name_format % [slide_number, optional || '', suffix]
+        name = filename_format % [slide_number, optional || '', suffix]
         if convert
           to_filename_encoding(name)
         else
@@ -109,20 +159,31 @@ module Rabbit
         end
       end
 
-      def slide_file_name(slide_number=@slide_number)
+      def slide_filename(slide_number=@slide_number)
         if !@canvas.index_mode? and slide_number.zero?
           File.join(@base_dir, "index.#{@suffix}")
         else
-          make_file_name(slide_number, @suffix)
+          make_filename(slide_number, @suffix)
         end
       end
 
-      def image_file_name(slide_number=@slide_number, optional=nil)
-        make_file_name(slide_number, @image_type, optional)
+      def image_filename(slide_number=@slide_number, optional=nil)
+        make_filename(slide_number, @image_type, optional)
       end
 
-      def pixbuf_file_name(slide_number=@slide_number, optional=nil)
-        make_file_name(slide_number, @image_type, optional, false)
+      def pixbuf_filename(slide_number=@slide_number, optional=nil)
+        make_filename(slide_number, @image_type, optional, false)
+      end
+
+      def output_html(filename)
+        if @canvas.index_mode?
+          return unless have_index?
+        else
+          return unless have_html?
+        end
+        File.open(filename, "w") do |f|
+          f.print(to_html)
+        end
       end
 
       def normalized_image_type
@@ -135,13 +196,27 @@ module Rabbit
       end
 
       def href(slide_number)
-        name = slide_file_name(slide_number)
+        name = slide_filename(slide_number)
         h(File.basename(name))
       end
 
       def a_link(slide_number, label, label_only)
         _href = href(slide_number)
         HTML.a_link("<a href=\"#{_href}\">", label, label_only)
+      end
+
+      def slide_content
+        if @canvas.index_mode?
+          @slide_index_html
+        else
+          "<div class=\"slide\">#{slide_image}</div>"
+        end
+      end
+
+      def image_title(slide_number=@slide_number)
+        title = h(slide_title(slide_number))
+        title << "(#{slide_number}/#{@canvas.slide_size - 1})"
+        title
       end
 
       def slide_image(slide_number=@slide_number)
@@ -215,6 +290,29 @@ module Rabbit
         href(last_index(slide_number))
       end
 
+      def toggle_mode_href
+        @canvas.with_index_mode(!@canvas.index_mode?) do
+          first_href
+        end
+      end
+
+      def toggle_mode_navi
+        result = ''
+        if @canvas.index_mode?
+          @canvas.with_index_mode(false) do
+            result << a_link(first_index, h(_("Slide")), !have_html?)
+          end
+        else
+          @canvas.with_index_mode(true) do
+            result << a_link(first_index, h(_("Index")), !have_index?)
+          end
+        end
+        unless result.empty?
+          result = "<div class=\"toggle-mode\">\n#{result}\n</div>"
+        end
+        result
+      end
+
       def navi(slide_number=@slide_number)
         result = ''
         result << '<div class="navi">'
@@ -227,7 +325,7 @@ module Rabbit
       end
 
       def image_src(slide_number=@slide_number, optional=nil)
-        File.basename(image_file_name(slide_number, optional))
+        File.basename(image_filename(slide_number, optional))
       end
 
       def slide_title(slide_number=@slide_number)

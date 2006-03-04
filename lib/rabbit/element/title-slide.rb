@@ -48,6 +48,10 @@ module Rabbit
         time
       end
 
+      def to_html(generator)
+        "<div class=\"title-slide\">\n#{super}\n</div>"
+      end
+
       private
       def normalize_name(name)
         name.gsub(/_/, "-")
@@ -79,8 +83,8 @@ module Rabbit
     class Title
       include TextContainerElement
 
-      def text
-        "= #{super}"
+      def to_rd
+        "= #{text}"
       end
 
       def to_html(generator)
@@ -91,8 +95,9 @@ module Rabbit
     class Subtitle
       include TextContainerElement
 
-      def text
-        ": subtitle\n   #{super}"
+
+      def to_rd
+        ": subtitle\n   #{text}"
       end
 
       def to_html(generator)
@@ -103,8 +108,8 @@ module Rabbit
     class Author
       include TextContainerElement
 
-      def text
-        ": author\n   #{super}"
+      def to_rd
+        ": author\n   #{text}"
       end
 
       def to_html(generator)
@@ -115,8 +120,8 @@ module Rabbit
     class ContentSource
       include TextContainerElement
 
-      def text
-        ": content-source\n   #{super}"
+      def to_rd
+        ": content-source\n   #{text}"
       end
 
       def to_html(generator)
@@ -127,8 +132,8 @@ module Rabbit
     class Institution
       include TextContainerElement
 
-      def text
-        ": institution\n   #{super}"
+      def to_rd
+        ": institution\n   #{text}"
       end
 
       def to_html(generator)
@@ -139,8 +144,8 @@ module Rabbit
     class Date
       include TextContainerElement
 
-      def text
-        ": date\n   #{super}"
+      def to_rd
+        ": date\n   #{text}"
       end
 
       def to_html(generator)
@@ -151,8 +156,8 @@ module Rabbit
     class Place
       include TextContainerElement
 
-      def text
-        ": place\n   #{super}"
+      def to_rd
+        ": place\n   #{text}"
       end
 
       def to_html(generator)
@@ -163,8 +168,8 @@ module Rabbit
     class When
       include TextContainerElement
 
-      def text
-        ": when\n   #{super}"
+      def to_rd
+        ": when\n   #{text}"
       end
 
       def to_html(generator)
@@ -175,8 +180,8 @@ module Rabbit
     class Where
       include TextContainerElement
 
-      def text
-        ": where\n   #{super}"
+      def to_rd
+        ": where\n   #{text}"
       end
 
       def to_html(generator)

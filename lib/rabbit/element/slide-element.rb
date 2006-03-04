@@ -26,10 +26,6 @@ module Rabbit
           end
         end
       end
-
-      def to_html(generator)
-        "<div class='slide'>\n#{super}\n</div>"
-      end
     end
   end
 end

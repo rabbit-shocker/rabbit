@@ -24,6 +24,7 @@ def parse(args=ARGV, logger=nil)
     options.saved_image_base_name = nil
     options.saved_image_type = "png"
     options.output_html = false
+    options.output_index_html = false
     options.rss_base_uri = nil
     options.encoding = nil
     options.print = false
@@ -187,6 +188,12 @@ def parse(args=ARGV, logger=nil)
             _("Output HTML for viewing saved images."),
             "(#{options.output_html})") do |bool|
       options.output_html = bool
+    end
+
+    opts.on("--[no-]output-index-html",
+            _("Output index HTML for navigating slides."),
+            "(#{options.output_index_html})") do |bool|
+      options.output_index_html = bool
     end
 
     opts.on("--rss-base-uri=URI",
@@ -506,6 +513,7 @@ def setup_image_info(target, options)
   target.saved_image_type = options.saved_image_type
   target.saved_image_base_name = options.saved_image_base_name
   target.output_html = options.output_html
+  target.output_index_html = options.output_index_html
   target.rss_base_uri = options.rss_base_uri
 end
 

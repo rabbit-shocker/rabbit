@@ -119,7 +119,7 @@ module Rabbit
         pre_to_pixbuf(canvas.slide_size)
         canceled = false
         canvas.slides.each_with_index do |slide, i|
-          if !to_pixbufing(i) or !yield(canvas.to_pixbuf(i), i)
+          if !to_pixbufing(i) or !yield(slide, canvas.to_pixbuf(i), i)
             canceled = true
             break
           end

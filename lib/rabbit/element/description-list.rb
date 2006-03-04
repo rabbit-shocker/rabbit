@@ -28,8 +28,8 @@ module Rabbit
     class DescriptionTerm
       include TextContainerElement
 
-      def text
-        ": #{super}"
+      def to_rd
+        ": #{text}"
       end
 
       def to_html(generator)
@@ -41,7 +41,11 @@ module Rabbit
       include ContainerElement
 
       def text
-        super.gsub(/^/, "   ")
+        super.gsub(/^/, "  ")
+      end
+
+      def to_rd
+        text.gsub(/^/, " ")
       end
 
       def to_html(generator)

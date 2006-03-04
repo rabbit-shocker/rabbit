@@ -18,13 +18,17 @@ module Rabbit
       def body
         @elements[1]
       end
+
+      def to_html(generator)
+        "<div class=\"slide\">\n#{super}\n</div>"
+      end
     end
 
     class HeadLine
       include TextContainerElement
 
-      def text
-        "= #{super}"
+      def to_rd
+        "= #{text}"
       end
 
       def to_html(generator)

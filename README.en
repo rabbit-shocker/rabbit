@@ -371,6 +371,12 @@ with the following.
    
    Default is off.
 
+: --output-index-html, --no-output-index-html
+   Specifies whether Rabbit generates index HTML with
+   thumbnail saved slides or not.
+   
+   Default is off.
+
 : -p, --print
    Prints slide and exit. You can print to file or directory
    send printer by using --output-filename.

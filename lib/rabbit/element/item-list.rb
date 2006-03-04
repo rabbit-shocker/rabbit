@@ -13,10 +13,10 @@ module Rabbit
     class ItemListItem
       include ContainerElement
 
-      def text
+      def to_rd
         prefix = "* "
         indent = " " * prefix.length
-        first, *rest = super.split(/\n/)
+        first, *rest = text.split(/\n/)
         rest = rest.collect do |line|
           "#{indent}#{line}"
         end.join("\n")

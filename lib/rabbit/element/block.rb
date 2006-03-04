@@ -29,6 +29,10 @@ module Rabbit
         "#{super}\n"
       end
 
+      def to_rd
+        text
+      end
+
       def to_html(generator)
         "<p>\n#{super}\n</p>"
       end

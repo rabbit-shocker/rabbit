@@ -40,6 +40,10 @@ module Rabbit
         end.join("")
       end
 
+      def to_rd
+        text
+      end
+
       def do_horizontal_centering?
         super and not width.nil?
       end

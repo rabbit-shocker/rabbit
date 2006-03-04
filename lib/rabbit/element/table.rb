@@ -22,11 +22,19 @@ module Rabbit
         elements.find {|e| e.is_a?(TableBody)}
       end
 
+      alias container_text text
       def text
+        result = ''
+        result << "#{@caption}\n" if @caption
+        result << super
+        result
+      end
+
+      def to_rd
         result = "# RT\n"
         result << "caption = #{@caption}\n" if @caption
         result << "\n"
-        result << super
+        result << container_text
         result.gsub(/^/, "  ")
       end
 
@@ -62,6 +70,10 @@ module Rabbit
 
       def text
         super.gsub(/\n/, ", ")
+      end
+
+      def to_rd
+        text
       end
 
       def to_html(generator)

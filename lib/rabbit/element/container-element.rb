@@ -41,6 +41,12 @@ module Rabbit
         end.join("\n")
       end
 
+      def to_rd
+        @elements.collect do |element|
+          element.to_rd
+        end.join("\n")
+      end
+
       def draw_element(canvas, x, y, w, h, simulation)
         draw_elements(canvas, x, y, w, h, simulation)
       end

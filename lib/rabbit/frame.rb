@@ -22,7 +22,8 @@ module Rabbit
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_base_name=)
     def_delegators(:@canvas, :save_as_image, :each_slide_pixbuf)
-    def_delegators(:@canvas, :print, :filename=, :output_html=)
+    def_delegators(:@canvas, :print, :filename=)
+    def_delegators(:@canvas, :output_html=, :output_index_html=)
     def_delegators(:@canvas, :rss_base_uri=)
     
     attr_reader :window, :logger

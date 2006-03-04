@@ -24,9 +24,10 @@ module Rabbit
           number_of_slide = maker.slide_size - 1
           canvas.renderer.pre_to_pixbuf(number_of_slide)
           canceled = false
-          maker.each_slide_pixbuf do |pixbuf, slide_number|
+          maker.each_slide_pixbuf do |slide, pixbuf, slide_number|
             if canvas.renderer.to_pixbufing(slide_number)
               thumbnails << IndexThumbnail.new(pixbuf,
+                                               maker.slide_title(slide_number),
                                                slide_number,
                                                number_of_slide)
             else
@@ -114,6 +115,10 @@ module Rabbit
           nil
         end
       end
+
+      def to_html(generator)
+        "<div class=\"index-slide\">\n#{super}\n</div>"
+      end
     end
 
     class IndexThumbnailRow
@@ -123,9 +128,10 @@ module Rabbit
     class IndexThumbnail
       include Base
 
-      attr_reader :pixbuf, :number, :number_of_slides
-      def initialize(pixbuf, number, number_of_slides)
+      attr_reader :pixbuf, :title, :number, :number_of_slides
+      def initialize(pixbuf, title, number, number_of_slides)
         @pixbuf = pixbuf
+        @title = title
         @number = number
         @number_of_slides = number_of_slides
         @layout = nil
@@ -159,12 +165,27 @@ module Rabbit
         [x + width + side_margin, y, w - width - side_margin, h]
       end
 
+      def text
+        @title
+      end
+
+      def to_rd
+        "* #{text}"
+      end
+
       def to_html(generator)
         number_of_places = generator.number_of_places(@number_of_slides)
         format = "thumbnail%0#{number_of_places}d"
         src = generator.save_pixbuf(@pixbuf, format % @number)
-        title = generator.image_title
-        "<img title=\"#{title}\" src=\"#{src}\" />"
+        title = generator.slide_image_title(@number)
+        result = ''
+        if generator.have_html?
+          href = generator.slide_href(@number)
+          result << "<a href=\"#{href}\">\n"
+        end
+        result << "<img title=\"#{title}\" src=\"#{src}\" />"
+        result << "\n</a>" if generator.have_html?
+        result
       end
     end
   end

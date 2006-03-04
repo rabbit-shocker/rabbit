@@ -42,6 +42,10 @@ module Rabbit
         @caption.to_s
       end
 
+      def to_rd
+        text
+      end
+
       def to_html(generator)
         src = generator.save_pixbuf(pixbuf, File.basename(@filename))
         html = "<img "

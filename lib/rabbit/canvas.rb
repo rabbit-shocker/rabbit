@@ -117,7 +117,8 @@ module Rabbit
     
     attr_writer :saved_image_base_name
 
-    attr_accessor :saved_image_type, :output_html, :rss_base_uri
+    attr_accessor :saved_image_type, :rss_base_uri
+    attr_accessor :output_html, :output_index_html
     attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
 
 
@@ -328,10 +329,22 @@ module Rabbit
                                         saved_image_base_name,
                                         @saved_image_type,
                                         @output_html,
+                                        @output_index_html,
                                         @rss_base_uri)
-        each_slide_pixbuf do |pixbuf, slide_number|
-          generator.save(pixbuf, slide_number)
-          true
+        if @output_html
+          with_index_mode(false) do
+            each_slide_pixbuf do |slide, pixbuf, slide_number|
+              generator.save(slide, pixbuf, slide_number)
+              true
+            end
+          end
+        end
+        if @output_index_html
+          with_index_mode(true) do
+            slides.each_with_index do |slide, slide_number|
+              generator.save_index(slide, slide_number)
+            end
+          end
         end
         unless generator.save_rss
           logger.warn(_("can't generate RSS"))
@@ -398,15 +411,19 @@ module Rabbit
           @index_mode = false
           @renderer.index_mode_off
         else
-          if @index_slides.empty?
-            @index_slides = Element::IndexSlide.make_index_slides(self)
-          end
+          update_index_slides
           @index_mode = true
           @renderer.index_mode_on
         end
         modified
       end
       @renderer.post_toggle_index_mode
+    end
+
+    def update_index_slides
+      if @index_slides.empty?
+        @index_slides = Element::IndexSlide.make_index_slides(self)
+      end
     end
 
     def source_force_modified(force_modified)
@@ -516,7 +533,16 @@ module Rabbit
     def action(name)
       @actions.get_action(name)
     end
-    
+
+    def with_index_mode(new_value)
+      current_index_mode = @index_mode
+      @index_mode = new_value
+      update_index_slides if @index_mode
+      yield
+    ensure
+      @index_mode = current_index_mode
+    end
+
     private
     def _apply_theme(name, id, &block)
       @theme_name = name if name
@@ -654,13 +680,6 @@ module Rabbit
       end
     end
 
-    def with_index_mode(new_value)
-      current_index_mode = @index_mode
-      @index_mode = new_value
-      yield
-      @index_mode = current_index_mode
-    end
-    
     def move_to(index)
       set_current_index(index)
       Action.update_status(self)

@@ -12,11 +12,23 @@ div.navi
   text-align: center;
 }
 
+div.slide,
+div.index-slide
+{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 div.slide
 {
   text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
+}
+
+div.index-slide
+{
+  width: 90%;
 }
 
 div.slide img
@@ -59,6 +71,15 @@ function handle_key(e)
     break;
 <% end -%>
 
+<% if (!@canvas.index_mode? and have_index?) or
+        (@canvas.index_mode? and have_html?) -%>
+<% Rabbit::Keys::TOGGLE_INDEX_MODE_KEYS.each do |key| -%>
+  case <%= key %>:
+<% end -%>
+    location = "<%= toggle_mode_href %>";
+    break;
+<% end -%>
+
   default:
     handled = false;
     break;
@@ -70,11 +91,11 @@ function handle_key(e)
 <title><%=h slide_title %></title>
 </head>
 <body onkeypress="handle_key(event);">
+<%= toggle_mode_navi %>
 <%= navi %>
-<div class="slide">
-<%= slide_image %>
-</div>
+<%= slide_content %>
 <%= navi %>
+<%= toggle_mode_navi %>
 <hr />
 <div class="footer">
 <p>
