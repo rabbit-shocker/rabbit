@@ -31,9 +31,10 @@ add_powered_by = proc do |slide|
 
       image_height = canvas.height / 12
       loaders.each do |loader|
-        slide_space = canvas.height - y - slide.margin_bottom - @space
+        slide_space = canvas.height - y - slide.margin_bottom - space
         request_height = [image_height, slide_space].min
-        loader.resize(nil, request_height)
+        request_height = image_height if request_height <= 0
+        loader.resize(nil, request_height) if loader.height > request_height
       end
     else
       new_x = slide.margin_left
