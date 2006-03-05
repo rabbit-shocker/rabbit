@@ -165,10 +165,12 @@ def setup_lightning_talk_headline(head)
             new_size = (size * 1.05).ceil
             font :size => new_size
             text = markuped_text
-            layout, text_width, text_height = canvas.make_layout(text)
+            layout = canvas.make_layout(text)
             layout.width = max_width
             layout.wrap = wrap_mode
-            current_width, current_height = layout.size
+            ink, log = layout.extents
+            current_width = log.width
+            current_height = [ink.height, log.height].max
             if current_width > max_width or current_height > max_height
               break
             end
