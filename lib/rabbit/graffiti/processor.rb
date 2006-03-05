@@ -113,17 +113,6 @@ module Rabbit
           @undo_index = nil
         end
       end
-      
-      private
-      def make_gc(drawable, color, line_width)
-        gc = Gdk::GC.new(drawable)
-        gc.set_rgb_fg_color(color.to_gdk_color)
-        gc.set_line_attributes(line_width || 1,
-                               Gdk::GC::LINE_SOLID,
-                               Gdk::GC::CAP_ROUND,
-                               Gdk::GC::JOIN_ROUND)
-        gc
-      end
     end
   end
 end
