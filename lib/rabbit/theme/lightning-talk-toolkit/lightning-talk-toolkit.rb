@@ -8,6 +8,7 @@
 @lightning_talk_contact_information_font_family ||= @font_family
 @lightning_talk_as_large_as_possible ||= false
 @lightning_talk_wrap_mode ||= Pango::Layout::WRAP_WORD
+@lightning_talk_horizontal_centering ||= false
 @lightning_talk_params = {
   :proc_name => @lightning_talk_proc_name,
   :size => @xx_large_font_size,
@@ -19,6 +20,7 @@
   :contact_information_color => @lightning_talk_contact_information_color,
   :contact_information_family => @lightning_talk_contact_information_font_family,
   :as_large_as_possible => @lightning_talk_as_large_as_possible,
+  :horizontal_centering => @lightning_talk_horizontal_centering,
   :wrap_mode => @lightning_talk_wrap_mode,
 }
 
@@ -121,6 +123,7 @@ def setup_lightning_talk_headline(head)
       }
       font(font_params)
       self.wrap_mode = params[:wrap_mode]
+      self.horizontal_centering = params[:horizontal_centering]
       
       orig_x = orig_y = orig_w = orig_h = nil
       add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
