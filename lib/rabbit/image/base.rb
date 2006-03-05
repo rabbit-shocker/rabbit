@@ -22,11 +22,11 @@ module Rabbit
           end
         end
       end
-      
+
       attr_accessor :keep_ratio
 
       attr_reader :width, :height, :original_width, :original_height
-    
+
       def initialize(filename, keep_ratio)
         @filename = filename
         @keep_ratio = keep_ratio
@@ -53,6 +53,8 @@ module Rabbit
           w ||= width
           h ||= height
         end
+        w = w.ceil if w
+        h = h.ceil if h
         if w and w > 0 and h and h > 0 and [w, h] != [width, height]
           @width = w
           @height = h
