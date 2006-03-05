@@ -21,13 +21,9 @@ match(Slide) do |slides|
     start_loader = ImageLoader.new(find_file(@image_slide_number_start_image))
     goal_loader = ImageLoader.new(find_file(@image_slide_number_goal_image))
   end
-  
-  initialized = false
-  max_width = nil
-  start_base_x = nil
-  goal_base_x = nil
-  base_x = nil
-  base_y = nil
+
+  start_flag_width = 0
+  goal_flag_width = 0
   max_text_length = Math.log10(canvas.slide_size).truncate + 1
   text_attributes = {
     "size" => @image_slide_number_font_size / max_text_length,
@@ -37,36 +33,31 @@ match(Slide) do |slides|
   }
   
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
-    unless simulation
-      unless initialized
-        height = canvas.height
-        image_height =  height * @image_slide_number_space_ratio
-        loader.resize(nil, image_height)
+    if simulation
+      image_height =  canvas.height * @image_slide_number_space_ratio
+      loader.resize(nil, image_height)
 
-        if @image_slide_number_show_text
-          props = {
-            "flag_type" => @image_slide_number_flag_type,
-            "text" => "%#{max_text_length}d" % canvas.slide_size.to_s,
-            "text_attributes" => text_attributes,
-          }
-          start_flag_width, _ = canvas.flag_size(image_height, props)
-          goal_flag_width = start_flag_width
-        else
-          start_loader.resize(nil, image_height)
-          goal_loader.resize(nil, image_height)
-          start_flag_width = start_loader.width
-          goal_flag_width = goal_loader.width
-        end
-        
-        base_x = @margin_left + start_flag_width
-        base_y = height - loader.height - @margin_bottom
-        max_width = canvas.width - @margin_left - @margin_right -
-          start_flag_width - loader.width
-        start_base_x = @margin_left
-        goal_base_x = canvas.width - @margin_right - goal_flag_width
-        
-        initialized = true
+      if @image_slide_number_show_text
+        props = {
+          "flag_type" => @image_slide_number_flag_type,
+          "text" => "%#{max_text_length}d" % canvas.slide_size.to_s,
+          "text_attributes" => text_attributes,
+        }
+        start_flag_width, _ = canvas.flag_size(image_height, props)
+        goal_flag_width = start_flag_width
+      else
+        start_loader.resize(nil, image_height)
+        goal_loader.resize(nil, image_height)
+        start_flag_width = start_loader.width
+        goal_flag_width = goal_loader.width
       end
+    else
+      base_x = slide.margin_left + start_flag_width
+      base_y = canvas.height - loader.height - slide.margin_bottom
+      max_width = canvas.width - slide.margin_left - slide.margin_right
+      max_width = max_width - start_flag_width - loader.width
+      start_base_x = slide.margin_left
+      goal_base_x = canvas.width - slide.margin_right - goal_flag_width
 
       if @image_slide_number_show_text
         props = {
@@ -75,7 +66,7 @@ match(Slide) do |slides|
           "text_attributes" => text_attributes,
           "flag_color" => "red",
         }
-        canvas.draw_flag(@margin_left, base_y, loader.height, props)
+        canvas.draw_flag(start_base_x, base_y, loader.height, props)
 
         props["text"] = (canvas.slide_size - 1).to_s
         props["flag_color"] = "blue"

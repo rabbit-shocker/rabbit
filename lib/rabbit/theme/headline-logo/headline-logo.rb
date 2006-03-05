@@ -8,18 +8,14 @@ match("**", HeadLine) do |heads|
 
   loader = ImageLoader.new(find_file(@headline_logo_image))
 
-  resized = false
-
   heads.each do |head|
     head.delete_pre_draw_proc_by_name(proc_name)
     head.delete_post_draw_proc_by_name(proc_name)
 
     head.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
-      unless simulation
-        unless resized
-          loader.resize(nil, head.height)
-          resized = true
-        end
+      if simulation
+        loader.resize(nil, head.height)
+      else
         canvas.draw_pixbuf(loader.pixbuf, w - loader.width, y)
       end
       [x, y, w, h]

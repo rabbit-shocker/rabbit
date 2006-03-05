@@ -234,11 +234,13 @@ module Rabbit
       end
     end
 
-    def time
+    def time(message=nil)
       before = Time.now
       yield
     ensure
-      p Time.now - before
+      output = Time.now - before
+      output = [message, output] if message
+      p output
     end
   end
 

@@ -39,12 +39,15 @@ module Rabbit
 
           other_infos = []
           element.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
-            if size_or_proc.respond_to?(:call)
-              indent_size, *other_infos = size_or_proc.call(element, simulation)
-            else
-              indent_size = size_or_proc
+            if simulation
+              if size_or_proc.respond_to?(:call)
+                result = size_or_proc.call(element, simulation)
+                indent_size, *other_infos = result
+              else
+                indent_size = size_or_proc
+              end
+              element.margin_left = indent_size
             end
-            element.margin_left = indent_size
             [x, y, w, h]
           end
 
