@@ -1,7 +1,7 @@
-require 'rabbit/element'
-
 require 'English'
 require 'erb'
+
+require 'rabbit/element'
 
 module Rabbit
   module Ext

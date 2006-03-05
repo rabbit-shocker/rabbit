@@ -1,4 +1,5 @@
 require "rabbit/rd-visitor"
+require "rabbit/element"
 require 'rabbit/theme-browser/tag'
 require 'rabbit/theme-browser/ext/block-verbatim'
 
