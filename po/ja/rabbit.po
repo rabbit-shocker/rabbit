@@ -6,14 +6,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-03 16:50+0900\n"
-"PO-Revision-Date: 2006-03-06 20:19+0900\n"
+"POT-Creation-Date: 2006-03-06 23:24+0900\n"
+"PO-Revision-Date: 2006-03-06 23:26+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
-"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
+"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
+"<nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/rabbit/menu.rb:68
+msgid "Jump to the %dth slide"
+msgstr "%d番目のスライドへジャンプ"
+
+#: lib/rabbit/canvas.rb:350
+msgid "can't generate RSS"
+msgstr "RSS を生成できません"
+
+#: lib/rabbit/canvas.rb:528
+msgid "Unknown action: %s"
+msgstr "未知のアクション: %s"
+
+#: lib/rabbit/canvas.rb:612
+msgid "Processing..."
+msgstr "処理中です．．．"
+
+#: lib/rabbit/canvas.rb:698 bin/rabbit:458
+msgid "Comment"
+msgstr "コメント"
 
 #: lib/rabbit/rabbit.rb:43
 msgid "no such file: %s"
@@ -84,26 +105,6 @@ msgstr "不正な動きです: %s"
 msgid "unknown cursor type: %s"
 msgstr "未知のカーソルタイプ: %s"
 
-#: lib/rabbit/menu.rb:68
-msgid "Jump to the %dth slide"
-msgstr "%d番目のスライドへジャンプ"
-
-#: lib/rabbit/canvas.rb:342
-msgid "can't generate RSS"
-msgstr "RSS を生成できません"
-
-#: lib/rabbit/canvas.rb:518
-msgid "Unknown action: %s"
-msgstr "未知のアクション: %s"
-
-#: lib/rabbit/canvas.rb:593
-msgid "Processing..."
-msgstr "処理中です．．．"
-
-#: lib/rabbit/canvas.rb:705 bin/rabbit:432
-msgid "Comment"
-msgstr "コメント"
-
 #: lib/rabbit/console.rb:42
 msgid "Usage: %s [options]"
 msgstr "使用法: %s [オプション]"
@@ -116,9 +117,9 @@ msgstr "共通のオプション"
 msgid "Specify locale dir as [DIR]."
 msgstr "ロケールディレクトリを[DIR]にします．"
 
-#: lib/rabbit/console.rb:67 bin/rabbit:109 bin/rabbit:115 bin/rabbit:257
-#: bin/rabbit:264 bin/rabbit:271 bin/rabbit:278 bin/rabbit:303 bin/rabbit:310
-#: bin/rabbit:317 bin/rabbit:324 bin/rabbit:442
+#: lib/rabbit/console.rb:67 bin/rabbit:109 bin/rabbit:115 bin/rabbit:263
+#: bin/rabbit:270 bin/rabbit:277 bin/rabbit:284 bin/rabbit:309 bin/rabbit:316
+#: bin/rabbit:323 bin/rabbit:330 bin/rabbit:468
 msgid "(auto)"
 msgstr "(自動)"
 
@@ -126,11 +127,11 @@ msgstr "(自動)"
 msgid "Specify logger type as [TYPE]."
 msgstr "ログの出力種類を[TYPE]にします．"
 
-#: lib/rabbit/console.rb:82 bin/rabbit:93
+#: lib/rabbit/console.rb:82 bin/rabbit:96
 msgid "Select from [%s]."
 msgstr "[%s]から選びます．"
 
-#: lib/rabbit/console.rb:83 bin/rabbit:94
+#: lib/rabbit/console.rb:83 bin/rabbit:97
 msgid "Note: case insensitive."
 msgstr "注意: 大文字小文字は区別しません．"
 
@@ -166,14 +167,14 @@ msgstr "ensciprt: HTreeライブラリが見付かりません"
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
 
-#: lib/rabbit/theme/applier.rb:519 lib/rabbit/theme/applier.rb:526
-#: lib/rabbit/theme/slide-background/slide-background.rb:1
-msgid "%s is deprecated. Use %s instead."
-msgstr "%sは非推奨です．代わりに%sを使ってください．"
-
 #: lib/rabbit/theme/entry.rb:87
 msgid "Etc"
 msgstr "その他"
+
+#: lib/rabbit/theme/applier.rb:522 lib/rabbit/theme/applier.rb:529
+#: lib/rabbit/theme/slide-background/slide-background.rb:1
+msgid "%s is deprecated. Use %s instead."
+msgstr "%sは非推奨です．代わりに%sを使ってください．"
 
 #: lib/rabbit/theme/title-logo/property.rb:1
 #: lib/rabbit/theme/image/property.rb:1
@@ -951,6 +952,34 @@ msgstr "[HikiのCGIのURI]と[ページ名]"
 msgid "URI"
 msgstr "URI"
 
+#: lib/rabbit/theme-browser/page.rb:96
+msgid "Go back"
+msgstr "戻る"
+
+#: lib/rabbit/theme-browser/page.rb:101
+msgid "Go forward"
+msgstr "進む"
+
+#: lib/rabbit/theme-browser/page.rb:112
+msgid "Go up"
+msgstr "上へ"
+
+#: lib/rabbit/theme-browser/page.rb:119
+msgid "Reload"
+msgstr "再読み込み"
+
+#: lib/rabbit/theme-browser/document.rb:110
+msgid "Images"
+msgstr "画像"
+
+#: lib/rabbit/html/generator.rb:324
+msgid "Slide"
+msgstr "スライド"
+
+#: lib/rabbit/html/generator.rb:328 lib/rabbit/element/index-slide.rb:102
+msgid "Index"
+msgstr "一覧"
+
 #: lib/rabbit/logger/stderr.rb:14
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr "UTF-8から現在のロケールに変換できません: %s"
@@ -968,53 +997,21 @@ msgstr "%sはサポートしていません: %s"
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
-#: lib/rabbit/theme-browser/document.rb:110
-msgid "Images"
-msgstr "画像"
+#: lib/rabbit/graffiti/config-dialog.rb:48
+msgid "Line width:"
+msgstr "線の太さ"
 
-#: lib/rabbit/theme-browser/page.rb:96
-msgid "Go back"
-msgstr "戻る"
-
-#: lib/rabbit/theme-browser/page.rb:101
-msgid "Go forward"
-msgstr "進む"
-
-#: lib/rabbit/theme-browser/page.rb:112
-msgid "Go up"
-msgstr "上へ"
-
-#: lib/rabbit/theme-browser/page.rb:119
-msgid "Reload"
-msgstr "再読み込み"
-
-#: lib/rabbit/action/toggle.rb:12 lib/rabbit/action/radio.rb:27
+#: lib/rabbit/action/radio.rb:27 lib/rabbit/action/toggle.rb:12
 msgid "White out"
 msgstr "ホワイトアウト"
 
-#: lib/rabbit/action/toggle.rb:23 lib/rabbit/action/radio.rb:32
+#: lib/rabbit/action/radio.rb:32 lib/rabbit/action/toggle.rb:23
 msgid "Black out"
 msgstr "ブラックアウト"
 
-#: lib/rabbit/action/toggle.rb:30
-msgid "Comment frame"
-msgstr "コメントフレーム"
-
-#: lib/rabbit/action/toggle.rb:37
-msgid "Comment view"
-msgstr "コメントビュー"
-
-#: lib/rabbit/action/toggle.rb:44
-msgid "Index mode"
-msgstr "一覧モード"
-
-#: lib/rabbit/action/toggle.rb:52
-msgid "Full screen"
-msgstr "フルスクリーン"
-
-#: lib/rabbit/action/toggle.rb:64
-msgid "Graffiti mode"
-msgstr "落書きモード"
+#: lib/rabbit/action/radio.rb:37
+msgid "Show"
+msgstr "表示"
 
 #: lib/rabbit/action/basic.rb:8
 msgid "Next slide"
@@ -1040,7 +1037,7 @@ msgstr "ジャンプ"
 msgid "Save as image"
 msgstr "画像として保存"
 
-#: lib/rabbit/action/basic.rb:65 bin/rabbit:201
+#: lib/rabbit/action/basic.rb:65 bin/rabbit:207
 msgid "Print"
 msgstr "印刷"
 
@@ -1128,35 +1125,43 @@ msgstr "次のスライドを後方検索"
 msgid "Stop slide search"
 msgstr "スライド検索修了"
 
-#: lib/rabbit/action/radio.rb:37
-msgid "Show"
-msgstr "表示"
+#: lib/rabbit/action/toggle.rb:30
+msgid "Comment frame"
+msgstr "コメントフレーム"
 
-#: lib/rabbit/graffiti/config-dialog.rb:48
-msgid "Line width:"
-msgstr "線の太さ"
+#: lib/rabbit/action/toggle.rb:37
+msgid "Comment view"
+msgstr "コメントビュー"
 
-#: lib/rabbit/element/index-slide.rb:89
-msgid "Index"
-msgstr "一覧"
+#: lib/rabbit/action/toggle.rb:44
+msgid "Index mode"
+msgstr "一覧モード"
+
+#: lib/rabbit/action/toggle.rb:52
+msgid "Full screen"
+msgstr "フルスクリーン"
+
+#: lib/rabbit/action/toggle.rb:64
+msgid "Graffiti mode"
+msgstr "落書きモード"
 
 #: lib/rabbit/comment/log.rb:57
 msgid "comment"
 msgstr "コメント"
 
-#: bin/rabbit:66 bin/rabbit-theme-manager:27
+#: bin/rabbit:69 bin/rabbit-theme-manager:27
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: bin/rabbit:71
+#: bin/rabbit:74
 msgid "Use [THEME] as theme."
 msgstr "テーマに[THEME]を使用します．"
 
-#: bin/rabbit:79
+#: bin/rabbit:82
 msgid "Source"
 msgstr "ソース"
 
-#: bin/rabbit:85
+#: bin/rabbit:88
 msgid ""
 "When select %s\n"
 "specify %s\n"
@@ -1166,11 +1171,11 @@ msgstr ""
 "[SOURCE_INFOS]として\n"
 "%sを指定します．"
 
-#: bin/rabbit:92
+#: bin/rabbit:95
 msgid "Specify source type as [TYPE]."
 msgstr "[TYPE]にソースの種類を指定します．"
 
-#: bin/rabbit:96
+#: bin/rabbit:99
 msgid "(ARGV: if no filename is given)"
 msgstr "(ARGV: ファイル名が与えられない場合)"
 
@@ -1230,7 +1235,7 @@ msgstr "保存する画像の種類を[TYPE]にします．"
 msgid "Specify saved image base name as [BASE_NAME]."
 msgstr "保存する画像のベース名を[BASE_NAME]にします．"
 
-#: bin/rabbit:182 bin/rabbit:210
+#: bin/rabbit:182 bin/rabbit:216
 msgid "Title of slide"
 msgstr "スライドのタイトル"
 
@@ -1239,46 +1244,50 @@ msgid "Output HTML for viewing saved images."
 msgstr "保存した画像を閲覧するためのHTMLを出力します．"
 
 #: bin/rabbit:193
+msgid "Output index HTML for navigating slides."
+msgstr "保存した画像を閲覧するための索引用HTMLを出力します．"
+
+#: bin/rabbit:199
 msgid "Specify base URI of RSS as [URI]."
 msgstr "RSS のベース URI を [URI] と指定します．"
 
-#: bin/rabbit:194
+#: bin/rabbit:200
 msgid "RSS is generated only when HTML is output."
 msgstr "RSS は、HTML が出力されるときだけ生成されます。"
 
-#: bin/rabbit:204
+#: bin/rabbit:210
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: bin/rabbit:209
+#: bin/rabbit:215
 msgid "Specify printed out filename as [FILENAME]."
 msgstr "[FILENAME]を印刷するファイル名とします．"
 
-#: bin/rabbit:216
+#: bin/rabbit:222
 msgid "Set slides per page."
 msgstr "1ページ中のスライドの枚数を設定します．"
 
-#: bin/rabbit:223
+#: bin/rabbit:229
 msgid "Paper"
 msgstr "用紙"
 
-#: bin/rabbit:227
+#: bin/rabbit:233
 msgid "Set paper width to [WIDTH] Pt."
 msgstr "用紙幅を[WIDTH] Ptにします．"
 
-#: bin/rabbit:228
+#: bin/rabbit:234
 msgid "(landscape A4 width)"
 msgstr "(横置きA4の幅)"
 
-#: bin/rabbit:234
+#: bin/rabbit:240
 msgid "Set paper height to [HEIGHT] Pt."
 msgstr "用紙の高さを[HEIGHT] Ptにします．"
 
-#: bin/rabbit:235
+#: bin/rabbit:241
 msgid "(landscape A4 height)"
 msgstr "(横置きA4の高さ)"
 
-#: bin/rabbit:239
+#: bin/rabbit:245
 msgid ""
 "Set paper width and height to\n"
 "[WIDTH] Pt and [HEIGHT] Pt."
@@ -1286,167 +1295,179 @@ msgstr ""
 "用紙の幅と高さを\n"
 "[WIDTH] Ptと[HEIGHT] Ptにします．"
 
-#: bin/rabbit:241
+#: bin/rabbit:247
 msgid "(landscape A4 size)"
 msgstr "(横置きA4サイズ)"
 
-#: bin/rabbit:252
+#: bin/rabbit:258
 msgid "Margin"
 msgstr "余白"
 
-#: bin/rabbit:256
+#: bin/rabbit:262
 msgid "Set left margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの左余白を設定します．"
 
-#: bin/rabbit:263
+#: bin/rabbit:269
 msgid "Set right margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの右余白を設定します．"
 
-#: bin/rabbit:270
+#: bin/rabbit:276
 msgid "Set top margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの上余白を設定します．"
 
-#: bin/rabbit:277
+#: bin/rabbit:283
 msgid "Set bottom margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの下余白を設定します．"
 
-#: bin/rabbit:282
+#: bin/rabbit:288
 msgid "[ALL]"
 msgstr "[全部]"
 
-#: bin/rabbit:283
+#: bin/rabbit:289
 msgid "[TOP_BOTTOM],[LEFT_RIGHT]"
 msgstr "[上下],[左右]"
 
-#: bin/rabbit:284
+#: bin/rabbit:290
 msgid "[TOP],[LEFT_RIGHT],[BOTTOM]"
 msgstr "[上],[左右],[下]"
 
-#: bin/rabbit:285
+#: bin/rabbit:291
 msgid "[TOP],[RIGHT],[BOTTOM],[LEFT]"
 msgstr "[上],[右],[下],[左]"
 
-#: bin/rabbit:288
+#: bin/rabbit:294
 msgid "Set margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの余白を設定します．"
 
-#: bin/rabbit:302
+#: bin/rabbit:308
 msgid "Set left page margin."
 msgstr "左ページ余白を設定します．"
 
-#: bin/rabbit:309
+#: bin/rabbit:315
 msgid "Set right page margin."
 msgstr "右ページ余白を指定します．"
 
-#: bin/rabbit:316
+#: bin/rabbit:322
 msgid "Set top page margin."
 msgstr "上ページ余白を指定します．"
 
-#: bin/rabbit:323
+#: bin/rabbit:329
 msgid "Set bottom page margin."
 msgstr "下ページ余白を指定します．"
 
-#: bin/rabbit:330
+#: bin/rabbit:336
 msgid "Set page margin."
 msgstr "ページ余白を指定します．"
 
-#: bin/rabbit:345
+#: bin/rabbit:351
 msgid "dRuby"
 msgstr "dRuby"
 
-#: bin/rabbit:348
+#: bin/rabbit:354
 msgid "Specify whether to use dRuby."
 msgstr "dRubyを使うかどうかを指定します．"
 
-#: bin/rabbit:354
+#: bin/rabbit:360
 msgid "Specify dRuby URI."
 msgstr "dRuby URIを指定します．"
 
-#: bin/rabbit:360
+#: bin/rabbit:366
 msgid "Specify whether to output dRuby URI."
 msgstr "dRuby URIを出力するかどうかを指定します．"
 
-#: bin/rabbit:366
+#: bin/rabbit:372
 msgid "SOAP"
 msgstr "SOAP"
 
-#: bin/rabbit:369
+#: bin/rabbit:375
 msgid "Specify whether to use SOAP."
 msgstr "SOAPを使うかどうかを指定します．"
 
-#: bin/rabbit:375
+#: bin/rabbit:381
 msgid "Specify SOAP host as [HOST]."
 msgstr "SOAPのホスト名を[HOST]とします．"
 
-#: bin/rabbit:383
+#: bin/rabbit:389
 msgid "Specify SOAP port as [PORT]."
 msgstr "SOAPのポートを[PORT]とします．"
 
-#: bin/rabbit:393
+#: bin/rabbit:399
 msgid "XML-RPC"
 msgstr "XML-RPC"
 
-#: bin/rabbit:396
+#: bin/rabbit:402
 msgid "Specify whether to use XML-RPC."
 msgstr "XML-RPCを使うかどうかを指定します．"
 
-#: bin/rabbit:402
+#: bin/rabbit:408
 msgid "Specify XML-RPC host as [HOST]."
 msgstr "XML-RPCのホスト名を[HOST]とします．"
 
-#: bin/rabbit:410
+#: bin/rabbit:416
 msgid "Specify XML-RPC port as [PORT]."
 msgstr "XML-RPCのポートを[PORT]とします．"
 
-#: bin/rabbit:420
+#: bin/rabbit:426
 msgid "Server"
 msgstr "サーバ"
 
-#: bin/rabbit:423
+#: bin/rabbit:429
 msgid "Specify whether to run as server."
 msgstr "サーバとして動作するかどうかを指定します．"
 
 #: bin/rabbit:435
+msgid "Public level"
+msgstr "公開レベル"
+
+#: bin/rabbit:442
+msgid "Specify public level."
+msgstr "公開レベルを指定します．"
+
+#: bin/rabbit:443
+msgid "Select from the following:"
+msgstr "以下から選択します．"
+
+#: bin/rabbit:461
 msgid "Specify initial comment source."
 msgstr "初期コメントソースを指定します．"
 
-#: bin/rabbit:436
+#: bin/rabbit:462
 msgid "(default source)"
 msgstr "(デフォルトソース)"
 
-#: bin/rabbit:441
+#: bin/rabbit:467
 msgid "Specify comment source encoding."
 msgstr "コメントソースのエンコーディングを指定します．"
 
-#: bin/rabbit:447
+#: bin/rabbit:473
 msgid "Migemo"
 msgstr "Migemo"
 
-#: bin/rabbit:452
+#: bin/rabbit:478
 msgid "Specify search paths for Migemo static dictionary."
 msgstr "Migemoの静的辞書の検索パスを指定します．"
 
-#: bin/rabbit:459
+#: bin/rabbit:485
 msgid "Specify static dictionary name for Migemo."
 msgstr "Migemoの静的辞書名を指定します．"
 
-#: bin/rabbit:548
+#: bin/rabbit:581
 msgid "dRuby URI <%s> is in use."
 msgstr "dRuby URI<%s>は使用中です．"
 
-#: bin/rabbit:567
+#: bin/rabbit:600
 msgid "port <%s> for SOAP is in use."
 msgstr "SOAP用ポート<%s>は使用中です．"
 
-#: bin/rabbit:588
+#: bin/rabbit:621
 msgid "port <%s> for XML-RPC is in use."
 msgstr "XML-RPC用ポート<%s>は使用中です．"
 
-#: bin/rabbit:674
+#: bin/rabbit:707
 msgid "going to shutdown..."
 msgstr "終了中です．．．"
 
-#: bin/rabbit:676
+#: bin/rabbit:709
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
 
