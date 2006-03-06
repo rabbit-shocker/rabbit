@@ -52,11 +52,10 @@ match(Slide) do |slides|
         goal_flag_width = goal_loader.width
       end
     else
-      base_x = slide.margin_left + start_flag_width
+      base_x = slide.margin_left
       base_y = canvas.height - loader.height - slide.margin_bottom
-      max_width = canvas.width - slide.margin_left - slide.margin_right
-      max_width = max_width - start_flag_width - loader.width
-      start_base_x = slide.margin_left
+      max_width = canvas.width - slide.margin_left - base_x - loader.width
+      start_base_x = base_x
       goal_base_x = canvas.width - slide.margin_right - goal_flag_width
 
       if @image_slide_number_show_text

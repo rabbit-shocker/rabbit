@@ -38,36 +38,32 @@ match(Slide) do |slides|
 
   init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
-    if @image_timer_limit_time.nil?
-      @image_timer_limit_time = Time.now + @image_timer_limit
+    unless simulation
+      @image_timer_limit_time ||= Time.now + @image_timer_limit
+      slide.delete_post_draw_proc_by_name(init_proc_name)
     end
-    slide.delete_post_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
 
   loader = ImageLoader.new(find_file(@image_timer_image))
 
-  initialized = false
   max_width = nil
-  start_base_x = nil
-  end_base_x = nil
   base_y = nil
 
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
-    unless simulation
-      unless initialized
-        image_height = canvas.height * @image_timer_space_ratio
-        loader.resize(nil, image_height)
-        max_width = canvas.width - @margin_left - @margin_right
-        base_y = canvas.height - @margin_bottom - loader.height
-        initialized = true
-      end
+    if simulation
+      image_height = canvas.height * @image_timer_space_ratio
+      loader.resize(nil, image_height)
+      max_width = canvas.width - slide.margin_left
+      max_width = max_width - slide.margin_right - loader.width
+      base_y = canvas.height - slide.margin_bottom - loader.height
+    else
       rest_time = @image_timer_limit_time - Time.now
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
       base_x = @margin_left + max_width * ratio
 
       canvas.draw_pixbuf(loader.pixbuf, base_x, base_y)
-      
+
       if @image_timer_auto_scroll
         if canvas.slide_size < 3
           slide_ratio = 1
