@@ -175,6 +175,7 @@ Windowsでの依存ライブラリのインストールは
   * ((<RAA:ruby-gettext>))（国際化されたメッセージを表示する
     ために必要）
   * ((<RAA:htree>))
+  * ((<Migemo|URL:http://0xcc.net/migemo/>))
 
 === 含まれているもの
 
@@ -517,6 +518,15 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    
    デフォルトではサーバとして起動しません．
 
+: --public-level
+   外部インターフェイス（dRuby/XML-RPC/SOAP経由）にRabbitの
+   機能をどのくらい公開するかを指定します．公開レベルは
+   strict, move, read-size, change-size, size, read-source,
+   change-source, source, allから選びます．後ろに挙げた公開
+   レベルほど多くの機能を公開します．
+
+   デフォルトではstrictです．
+
 : --comment-source [FILE]
    初期コメント用ソースのファイル名を指定します．
    
@@ -527,6 +537,19 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    初期コメント用ソースのエンコーディングを指定します．
 
    指定しなかった場合は自動検出を試みます．
+
+: --migemo-dictionary-search-path=PATH1,PATH2,...
+   Migemoの静的辞書の検索パスを指定します．検索パスは
+   --migemo-dictionary-nameで指定した静的辞書があるディレク
+   トリか，静的辞書のパスを指定します．コンマで区切って複数
+   のパスを指定することができます．
+
+   デフォルトは/usr/local/share, /usr/shareです．
+
+: --migemo-dictionary-name=NAME
+   Migemoの静的辞書名を指定します．
+
+   デフォルトはmigemo-dictです．
 
 
 == Rabbit用RDの書き方

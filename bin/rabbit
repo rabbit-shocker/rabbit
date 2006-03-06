@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
+GC.disable
 require "rbconfig"
 
 require "rabbit/console"
-require "rabbit/canvas"
 require "rabbit/source"
 require "rabbit/renderer"
+require "rabbit/front"
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
@@ -48,7 +49,8 @@ def parse(args=ARGV, logger=nil)
     options.xmlrpc_host = "0.0.0.0"
     options.xmlrpc_port = 10104
     options.server = false
-    options.public_level = Rabbit::Front::PublicLevel::STRICT
+    options.default_public_level = "strict"
+    options.public_level = nil
     options.comment_source = nil
     options.comment_encoding = nil
     options.migemo_dictionary_search_path = [
@@ -99,9 +101,6 @@ def parse(args=ARGV, logger=nil)
             *source_type_descs) do |source_type|
       options.source_type = Rabbit::Source.types.find do |t|
         Rabbit::Console.get_last_name(t).downcase == source_type.downcase
-      end
-      if options.source_type == Rabbit::Source::Memory
-        options.public_level = Rabbit::Front::PublicLevel::ALL
       end
     end
 
@@ -430,11 +429,31 @@ def parse(args=ARGV, logger=nil)
             _("Specify whether to run as server."),
             "(#{options.server})") do |bool|
       options.server = bool
-      if options.server
-        options.public_level = Rabbit::Front::PublicLevel::ALL
-      end
     end
-    
+
+    opts.separator ""
+    opts.separator _("Public level")
+
+    levels = Rabbit::Front::PublicLevel.constants.sort_by do |const|
+      Rabbit::Front::PublicLevel.const_get(const)
+    end.collect do |const|
+      const.downcase.gsub(/_/, "-")
+    end
+    messages = [_("Specify public level.")]
+    messages << _("Select from the following:")
+    messages << "["
+    messages << "  "
+    levels[0..-2].each do |level|
+      messages.last << "#{level}, "
+      messages << "  " if messages.last.size > 30
+    end
+    messages.last << levels.last
+    messages << "]"
+    messages << _("(#{options.default_public_level})")
+    opts.on("--public-level=LEVEL", levels, *messages) do |level|
+      options.public_level = level
+    end
+
     opts.separator ""
     opts.separator _("Comment")
     
@@ -457,14 +476,14 @@ def parse(args=ARGV, logger=nil)
     opts.on("--migemo-dictionary-search-path=PATH1,PATH2,...",
             Array,
             _("Specify search paths for Migemo static dictionary."),
-            _("(default #{search_path})")) do |path|
+            _("(#{search_path})")) do |path|
       options.migemo_dictionary_search_path = path
     end
 
     opts.on("--migemo-dictionary-name=NAME",
             Array,
             _("Specify static dictionary name for Migemo."),
-            _("(default #{options.migemo_dictionary_name})")) do |name|
+            _("(#{options.migemo_dictionary_name})")) do |name|
       options.migemo_dictionary_name = name
     end
   end
@@ -491,7 +510,13 @@ def make_source(options, argv, logger)
 end
 
 def make_front(canvas, options)
-  canvas.front(options.public_level)
+  level = options.public_level
+  if options.source_type == Rabbit::Source::Memory or options.server
+    level ||= "all"
+  end
+  level ||= options.default_public_level
+  level = level.gsub(/-/, "_").upcase
+  canvas.front(Rabbit::Front::PublicLevel.const_get(level))
 end
 
 def apply_theme_if_need(target, options)
@@ -690,6 +715,8 @@ end
 
 def main
   options, logger = parse
+
+  require "rabbit/canvas"
 
   if options.save_as_image
     do_save_as_image(options, logger)

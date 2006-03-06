@@ -174,6 +174,7 @@ libraries on Windows.
     SVG)
   * ((<RAA:ruby-gettext>)) (for displaying localized messages)
   * ((<RAA:htree>))
+  * ((<Migemo|URL:http://0xcc.net/migemo/>))
 
 === Included libraries
 
@@ -501,6 +502,15 @@ with the following.
    
    Default is not server.
 
+: --public-level
+   Specifies what Rabbit functions are public to external
+   interfaces (dRuby/XML-RPC/SOAP). Select public level from
+   strict, move, read-size, change-size, size, read-source,
+   change-source, source and all. More latter public level
+   indicates that Rabbit publishes more functions.
+
+   Default is strict.
+
 : --comment-source [FILE]
    Specifies initial comment source file name.
    
@@ -510,6 +520,22 @@ with the following.
    Specifies comment source encoding.
 
    Default is auto-detect.
+
+: --migemo-dictionary-search-path=PATH1,PATH2,...
+   Specifies search paths for Migemo's static
+   dictionary. Search paths are specified as a directory
+   that has static dictionary which name is specified by
+   --migemo-dictionary-name or as a path of static
+   dictionary. Two or more search paths can be specified by
+   separating comma.
+
+   Default is /usr/local/share and /usr/share.
+
+: --migemo-dictionary-name=NAME
+   Specifies Migemo's static dictionary name.
+
+   Default is migemo-dict.
+
 
 == How to write
 

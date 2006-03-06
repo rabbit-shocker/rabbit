@@ -21,7 +21,9 @@ module Rabbit
         Dir.glob(source_glob) do |source|
           next if File.directory?(source)
           begin
+            before = Time.now
             require normalize[path, source]
+            p [Time.now - before, normalize[path, source]] unless silent
           rescue LoadError
             unless silent
               STDERR.puts(normalize[path, source])
