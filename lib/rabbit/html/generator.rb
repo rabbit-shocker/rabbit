@@ -29,6 +29,7 @@ module Rabbit
         @suffix = "html"
         @rss_info = []
         @rss_filename = "index.rdf"
+        rss_base_uri = rss_base_uri.chomp('/') + '/' if rss_base_uri
         @rss_base_uri = rss_base_uri
         @base_name = base_name
         @base_dir = File.dirname(@base_name)
@@ -43,7 +44,7 @@ module Rabbit
           save_pixbuf(pixbuf)
           filename = slide_filename
           output_html(filename)
-          if @rss_base_uri
+          if rss_available?
             @rss_info << [filename, slide_title(slide_number),
                           @slide.to_rd, @slide.to_html(self)]
           end
@@ -55,7 +56,7 @@ module Rabbit
           @slide_index_html = @slide.to_html(self)
           filename = slide_filename
           output_html(filename)
-          if @rss_base_uri
+          if rss_available?
             @rss_info << [filename, slide_title(slide_number),
                           @slide.to_rd, @slide_index_html]
           end
@@ -64,7 +65,7 @@ module Rabbit
       end
 
       def save_rss
-        return true if @rss_base_uri.nil?
+        return true unless rss_available?
         if Object.const_defined?(:RSS)
           rss = make_rss
           name = File.join(@base_dir, @rss_filename)
@@ -278,6 +279,22 @@ module Rabbit
                h(">>"), last_slide?(slide_number))
       end
 
+      def rss_link
+        if rss_available?
+          attrs = {
+            "rel" => "alternate",
+            "type" => "application/rss+xml",
+            "title" => "RSS",
+            "href" => rss_uri,
+          }.collect do |key, value|
+            "#{h(key)}=\"#{h(value)}\""
+          end.join(" ")
+          "<link #{attrs} />"
+        else
+          ''
+        end
+      end
+
       def first_href(slide_number=@slide_number)
         href(first_index(slide_number))
       end
@@ -350,25 +367,32 @@ module Rabbit
       end
       alias charset encoding
 
+      def rss_available?
+        not @rss_base_uri.nil?
+      end
+
+      def rss_uri
+        "#{@rss_base_uri}index.rdf"
+      end
+
       def make_rss
-        base_uri = @rss_base_uri.chomp('/') + '/'
         RSS::Maker.make('1.0') do |maker|
           now = Time.now
           title_slide_info = @rss_info.first
           filename, title, text, html = title_slide_info
-          maker.channel.about = "#{base_uri}index.rdf"
+          maker.channel.about = rss_uri
           maker.channel.title = title
           maker.channel.description = text
-          maker.channel.link = base_uri
+          maker.channel.link = @rss_base_uri
           maker.channel.date = now
 
           @rss_info.each_with_index do |info, i|
             filename, title, text, html = info
             item = maker.items.new_item
-            item.link = "#{base_uri}#{File.basename(filename)}"
+            item.link = "#{@rss_base_uri}#{File.basename(filename)}"
             item.title = title
             item.description = text
-            item.content_encoded = normalize_html_reference(html, base_uri)
+            item.content_encoded = normalize_html_reference(html, @rss_base_uri)
             item.date = now - i
           end
         end
