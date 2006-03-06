@@ -177,7 +177,7 @@ module Rabbit
       end
 
       def pixbuf_filename(slide_number=@slide_number, optional=nil)
-        make_filename(slide_number, @image_type, optional, false)
+        make_filename(slide_number, @image_type, optional, !Utils.windows?)
       end
 
       def output_html(filename)
@@ -372,7 +372,7 @@ module Rabbit
       end
 
       def rss_uri
-        "#{@rss_base_uri}index.rdf"
+        "#{@rss_base_uri}#{@rss_filename}"
       end
 
       def make_rss
