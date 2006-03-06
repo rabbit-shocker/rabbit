@@ -60,7 +60,7 @@ match(Slide) do |slides|
     else
       rest_time = @image_timer_limit_time - Time.now
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
-      base_x = @margin_left + max_width * ratio
+      base_x = slide.margin_left + max_width * ratio
 
       canvas.draw_pixbuf(loader.pixbuf, base_x, base_y)
 
