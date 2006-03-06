@@ -227,19 +227,19 @@ with the following.
 
 === Options
 
-: -t, --theme
+: -t, --theme=THEME
    Specifies the theme.
 
-: -I, --include
+: -I, --include=PATH
    Adds the load path. Load paths are used to search theme.
 
-: -B, --base
+: -B, --base=BASE
    Specifies the URI or path to resolve relative path in the
    input. (For example, the path of image). If you don't
    specify it, it's automatically decided on the input
    source type.
 
-: -T, --type
+: -T, --type=TYPE
    Specifies the input source type.
 
    Available types are rwiki, file (default), argf and uri .
@@ -320,7 +320,7 @@ with the following.
      Example (with initial source):
        % rabbit --type memory file.rd
 
-: -e, --encoding
+: -e, --encoding=ENCODING
    Specifies encoding of the input source.
    
    Default is auto-detect.
@@ -335,28 +335,28 @@ with the following.
 
    Default is no.
 
-: -w, --width
+: -w, --width=WIDTH
    Specifies the width of window.
    
    Default is 800.
    
-: -h, --height
+: -h, --height=HEIGHT
    Specifies the height of window.
 
    Default is 600.
    
-: -S, --size
+: -S, --size=WIDTH,HEIGHT
    Specifies the width and height of window.
 
 : -s, --save-as-image
    Saves each slide as image and exit.
 
-: -i, --saved-image-type
+: -i, --saved-image-type=TYPE
    Specifies image type when saves.
    
    For example, png (default), jpeg and so on.
 
-: -b, --saved-image-basename
+: -b, --saved-image-base-name=BASE_NAME
    Specifies base name of saved image. Saved image is 
    "#{base name}#{page number}.#{extension}".
    
@@ -384,7 +384,7 @@ with the following.
    
    But the quality is not good.
 
-: -o, --output-filename
+: -o, --output-filename=FILENAME
    Specifies printed file name. Printed format is decided by
    extension. Printed format is PostScript when extension is
    .ps, is PDF when extension is .pdf and is PostScript when
@@ -395,30 +395,30 @@ with the following.
    
    Default is "#{title of slide}.ps".
 
-: --paper-width
+: --paper-width=WIDTH
    Specifies the width of paper when printing. The unit of
    width of paper is inch.
    
    Default is the width of landscape A4.
    
-: --paper-height
+: --paper-height=HEIGHT
    Specifies the height of paper when printing. The unit of
    height of paper is inch.
 
    Default is the height of landscape A4.
    
-: --paper-size
+: --paper-size=WIDTH,HEIGHT
    Specifies the width and height of paper when printing.
    The unit of width and height of paper is inch.
    
    Default is the size of landscape A4.
 
-: --slides-per-page
+: --slides-per-page=SLIDES
    Specifies slides per page.
    
    Default is 1.
 
-: --margin, --margin-*
+: --margin=={ALL|TOP_BOTTOM,LEFT_RIGHT|TOP,LEFT_RIGHT,BOTTOM|TOP,RIGHT,BOTTOM,LEFT}, --margin-*=MARGIN
    Specifies margin of slide when slides per margin is
    greater than 1.
     
@@ -426,12 +426,12 @@ with the following.
    page. But the algorithm is not good when slides per page
    is except 2 or 8.
 
-: --page-margin, --page-margin-*
+: --page-margin=={ALL|TOP_BOTTOM,LEFT_RIGHT|TOP,LEFT_RIGHT,BOTTOM|TOP,RIGHT,BOTTOM,LEFT}, --page-margin-*=MARGIN
    Specifies page margin when printing.
    
    Default is 0.
 
-: --locale-dir
+: --locale-dir=DIR
    Specifies the directory which has locale data (*.mo).
    If you want to use Rabbit without installing to system,
    you can type the following in the top directory.
@@ -441,7 +441,7 @@ with the following.
    Default is /usr/local/share/locale/, 
    /usr/share/locale/ and so on.
 
-: --logger-type
+: --logger-type=TYPE
    Specifies how display error log. If you specify `gui',
    error log is displayed. You should be specify --logger-type
    option because error may be occurred when parsing options
@@ -457,7 +457,7 @@ with the following.
 
    Default is use.
 
-: --druby-uri [URI]
+: --druby-uri=URI
    Specifies dRuby interface URI.
 
    Default is druby://:10101.
@@ -472,12 +472,12 @@ with the following.
 
    Default is not use.
 
-: --soap-host [HOST]
+: --soap-host=HOST
    Specifies SOAP interface host.
 
    Default is 0.0.0.0.
 
-: --soap-port [PORT]
+: --soap-port=PORT
    Specifies SOAP interface port.
 
    Default is 10103.
@@ -487,12 +487,12 @@ with the following.
 
    Default is not use.
 
-: --xmlrpc-host [HOST]
+: --xmlrpc-host=HOST
    Specifies XML-RPC interface host.
 
    Default is 0.0.0.0.
 
-: --xmlrpc-port [PORT]
+: --xmlrpc-port=PORT
    Specifies XML-RPC interface port.
 
    Default is 10104.
@@ -502,7 +502,7 @@ with the following.
    
    Default is not server.
 
-: --public-level
+: --public-level=LEVEL
    Specifies what Rabbit functions are public to external
    interfaces (dRuby/XML-RPC/SOAP). Select public level from
    strict, move, read-size, change-size, size, read-source,
@@ -511,12 +511,12 @@ with the following.
 
    Default is strict.
 
-: --comment-source [FILE]
+: --comment-source=FILE
    Specifies initial comment source file name.
    
    Default is simple comment source provided by system.
 
-: --comment-encoding [ENCODING]
+: --comment-encoding=ENCODING
    Specifies comment source encoding.
 
    Default is auto-detect.
