@@ -145,7 +145,11 @@ module Rabbit
         if GLib.respond_to?(:win32_locale_filename_from_utf8)
           GLib.win32_locale_filename_from_utf8(utf8_filename)
         else
-          GLib.filename_from_utf8(utf8_filename)
+          if Utils.windows?
+            GLib.locale_from_utf8(utf8_filename)
+          else
+            GLib.filename_from_utf8(utf8_filename)
+          end
         end
       end
 
