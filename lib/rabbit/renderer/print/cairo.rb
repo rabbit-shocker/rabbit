@@ -7,8 +7,8 @@ module Rabbit
   module Renderer
     module Print
       class Cairo
-        include Base
         include Engine::Cairo
+        include Base
         
         class << self
           def priority

@@ -7,8 +7,8 @@ module Rabbit
   module Renderer
     module Print
       class GnomePrint
-        include Base
         include Kernel
+        include Base
 
         class << self
           def priority
