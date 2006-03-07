@@ -64,7 +64,7 @@ module Rabbit
       private
       def load_by_pixbuf_loader(data)
         loader = Gdk::PixbufLoader.new
-        loader.signal_connect("size_prepared") do |l, width, height|
+        id = loader.signal_connect("size_prepared") do |l, width, height|
           @width = width
           @height = height
         end
@@ -74,6 +74,7 @@ module Rabbit
           loader.close rescue Gdk::PixbufError
           raise ImageLoadError.new("#{@filename}: #{$!.message}")
         end
+        loader.signal_handler_disconnect(id)
         loader
       end
 
