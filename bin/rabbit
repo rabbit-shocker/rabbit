@@ -632,6 +632,7 @@ def do_print(options, logger)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.print
+  canvas.quit
 end
 
 def do_save_as_image(options, logger)
@@ -645,6 +646,7 @@ def do_save_as_image(options, logger)
   parse_rd(canvas, options, logger)
   canvas.activate("ToggleIndexMode") if options.index_mode
   canvas.save_as_image
+  canvas.quit
 end
 
 def do_display(options, logger)
@@ -717,6 +719,7 @@ def main
   options, logger = parse
 
   require "rabbit/canvas"
+  GC.enable
 
   if options.save_as_image
     do_save_as_image(options, logger)
