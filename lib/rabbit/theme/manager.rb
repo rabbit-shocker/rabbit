@@ -16,10 +16,10 @@ module Rabbit
         apply("base")
       end
 
-      def apply(name, &block)
+      def apply(name)
         @name = name
         begin
-          @applier.apply_theme(name, &block)
+          @applier.apply_theme(name)
         rescue ThemeExit
           logger.info($!.message) if $!.have_message?
         rescue StandardError, LoadError, SyntaxError
