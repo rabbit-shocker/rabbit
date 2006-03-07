@@ -22,6 +22,8 @@ module Rabbit
         File.open(@filename, "rb") do |file|
           loader = load_by_pixbuf_loader(file.read)
           @original_pixbuf = loader.pixbuf
+          @width = @original_pixbuf.width
+          @height = @original_pixbuf.height
         end
       end
     end
