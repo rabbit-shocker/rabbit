@@ -44,7 +44,7 @@ module Rabbit
 
         class << self
           def priority
-            -100
+            100
           end
         end
 
@@ -223,7 +223,7 @@ module Rabbit
         end
 
         def from_screen(x, y)
-          [x, y]
+          [x.ceil, y.ceil]
         end
       end
     end
