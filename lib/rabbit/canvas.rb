@@ -406,6 +406,7 @@ module Rabbit
     end
 
     def toggle_index_mode
+      @renderer.pre_toggle_index_mode
       process do
         if @index_mode
           @index_mode = false

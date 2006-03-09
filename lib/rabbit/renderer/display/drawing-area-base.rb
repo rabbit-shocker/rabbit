@@ -143,6 +143,10 @@ module Rabbit
           update_title
         end
 
+        def pre_toggle_index_mode
+          Utils.process_pending_events
+        end
+
         def post_toggle_index_mode
           @canvas.activate("ClearGraffiti")
           update_menu

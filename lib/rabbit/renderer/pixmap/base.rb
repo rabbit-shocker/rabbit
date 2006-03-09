@@ -43,6 +43,9 @@ module Rabbit
         def index_mode_off
         end
 
+        def pre_toggle_index_mode
+        end
+
         def post_toggle_index_mode
         end
 
