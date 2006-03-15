@@ -178,14 +178,14 @@ module Rabbit
         format = "thumbnail%0#{number_of_places}d"
         src = generator.save_pixbuf(@pixbuf, format % @number)
         title = generator.slide_image_title(@number)
-        result = ''
-        if generator.have_html?
+        img = "<img title=\"#{title}\" src=\"#{src}\" />"
+
+        if generator.output_slide_html?
           href = generator.slide_href(@number)
-          result << "<a href=\"#{href}\">\n"
+          "<a href=\"#{href}\">\n#{img}\n</a>"
+        else
+          img
         end
-        result << "<img title=\"#{title}\" src=\"#{src}\" />"
-        result << "\n</a>" if generator.have_html?
-        result
       end
     end
   end

@@ -331,24 +331,7 @@ module Rabbit
                                         @output_html,
                                         @output_index_html,
                                         @rss_base_uri)
-        if @output_html
-          with_index_mode(false) do
-            each_slide_pixbuf do |slide, pixbuf, slide_number|
-              generator.save(slide, pixbuf, slide_number)
-              true
-            end
-          end
-        end
-        if @output_index_html
-          with_index_mode(true) do
-            slides.each_with_index do |slide, slide_number|
-              generator.save_index(slide, slide_number)
-            end
-          end
-        end
-        unless generator.save_rss
-          logger.warn(_("can't generate RSS"))
-        end
+        generator.save
       end
     end
 
