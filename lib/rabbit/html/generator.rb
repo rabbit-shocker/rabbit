@@ -58,6 +58,7 @@ module Rabbit
           end
         end
       end
+
       def save_pixbuf(pixbuf, optional=nil)
         pixbuf.save(pixbuf_filename(@slide_number, optional),
                     normalized_image_type)
@@ -129,11 +130,7 @@ module Rabbit
       private
       def save_environment
         @index_mode = @canvas.index_mode?
-        if output_html?
-          @canvas.with_index_mode(false) do
-            @slide_size = @canvas.slide_size
-          end
-        end
+        @slide_size = @canvas.slide_size
         if output_index_html?
           @canvas.with_index_mode(true) do
             @index_slide_size = @canvas.slide_size
