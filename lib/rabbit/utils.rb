@@ -247,6 +247,7 @@ module Rabbit
   end
 
   module SystemRunner
+    module_function
     def run(cmd, *args)
       begin
         system(cmd, *args)
