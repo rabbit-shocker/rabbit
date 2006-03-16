@@ -1,6 +1,6 @@
-require "cairo"
+require "rabbit/utils"
 
-require "rabbit/renderer/engine/cairo"
+Rabbit::Utils.require_safe "rabbit/renderer/engine/cairo"
 require "rabbit/renderer/print/base"
 
 module Rabbit

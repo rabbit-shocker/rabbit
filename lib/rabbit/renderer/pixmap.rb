@@ -1,3 +1,5 @@
+require "rabbit/utils"
+
 module Rabbit
   module Renderer
     module Pixmap

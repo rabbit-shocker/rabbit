@@ -1,4 +1,6 @@
-require "rabbit/renderer/engine/cairo"
+require "rabbit/utils"
+
+Rabbit::Utils.require_safe "rabbit/renderer/engine/cairo"
 require "rabbit/renderer/pixmap/base"
 
 module Rabbit

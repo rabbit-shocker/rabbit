@@ -11,6 +11,13 @@ module Rabbit
       end
     end
 
+    def require_safe(path)
+      require path
+    rescue LoadError
+      $".reject! {|x| /\A#{Regexp.escape(path)}/ =~ x}
+      raise
+    end
+
     def require_files_under_directory_in_load_path(dir, silent=true)
       normalize = Proc.new do |base_path, path|
         path.sub(/\A#{Regexp.escape(base_path)}\/?/, '').sub(/\.[^.]+$/, '')
@@ -22,11 +29,12 @@ module Rabbit
           next if File.directory?(source)
           begin
             before = Time.now
-            require normalize[path, source]
-            p [Time.now - before, normalize[path, source]] unless silent
+            normalized_path = normalize[path, source]
+            require_safe normalized_path
+            STDERR.puts([Time.now - before, path].inspect) unless silent
           rescue LoadError
             unless silent
-              STDERR.puts(normalize[path, source])
+              STDERR.puts(path)
               STDERR.puts($!.message)
               STDERR.puts($@)
             end
