@@ -31,7 +31,9 @@ module Rabbit
             before = Time.now
             normalized_path = normalize[path, source]
             require_safe normalized_path
-            STDERR.puts([Time.now - before, path].inspect) unless silent
+            unless silent
+              STDERR.puts([Time.now - before, normalized_path].inspect)
+            end
           rescue LoadError
             unless silent
               STDERR.puts(path)
