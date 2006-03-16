@@ -8,7 +8,9 @@
 @lightning_talk_contact_information_font_family ||= @font_family
 @lightning_talk_as_large_as_possible ||= false
 @lightning_talk_wrap_mode ||= Pango::Layout::WRAP_WORD
-@lightning_talk_horizontal_centering ||= false
+if @lightning_talk_horizontal_centering.nil?
+  @lightning_talk_horizontal_centering = true
+end
 @lightning_talk_params = {
   :proc_name => @lightning_talk_proc_name,
   :size => @xx_large_font_size,
