@@ -355,10 +355,12 @@ module Rabbit
 
     def saved_image_base_name
       if @saved_image_base_name
-        GLib.filename_to_utf8(@saved_image_base_name)
+        base_name = GLib.filename_to_utf8(@saved_image_base_name)
       else
-        title
+        base_name = title.dup
       end
+      base_name << "-index" if index_mode?
+      base_name
     end
 
     def move_to_if_can(index)
@@ -564,10 +566,7 @@ module Rabbit
         index = current_index
         keep_index do
           @renderer.pre_parse_rd
-          tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
-          clear
-          visitor = RD2RabbitVisitor.new(self)
-          visitor.visit(tree)
+          __parse_rd
           set_current_index(index)
           reload_theme do
             if @parse_request_queue.last != id
@@ -589,6 +588,13 @@ module Rabbit
       ensure
         @parse_request_queue.delete_if {|x| x == id}
       end
+    end
+
+    def __parse_rd
+      clear
+      tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
+      visitor = RD2RabbitVisitor.new(self)
+      visitor.visit(tree)
     end
 
     def process
