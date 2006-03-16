@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Rabbit 0.4.1\n"
+"Project-Id-Version: Rabbit 0.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-06 23:24+0900\n"
 "PO-Revision-Date: 2006-03-16 13:36+0900\n"
