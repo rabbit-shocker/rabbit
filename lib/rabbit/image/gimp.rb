@@ -32,9 +32,8 @@ module Rabbit
         command = <<-EOC
 (let ((image (car (gimp-file-load RUN-NONINTERACTIVE
                                   "#{@filename}" "#{@filename}"))))
-  (gimp-image-merge-visible-layers image 0)
-  (let ((drawable (car (gimp-image-get-active-drawable image))))
-    (file-png-save-defaults RUN-NONINTERACTIVE image drawable
+  (let ((layer (car (gimp-image-merge-visible-layers image 0))))
+    (file-png-save-defaults RUN-NONINTERACTIVE image layer
                             "#{png_path}" "#{png_path}"))
   (gimp-image-delete image))
 EOC
