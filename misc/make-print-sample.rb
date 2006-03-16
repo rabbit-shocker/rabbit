@@ -14,7 +14,7 @@ options.lang_suffixes = ["", "_en"]
 
 opts = OptionParser.new do |opts|
   opts.banner = "#{opts.banner} RD_FILES"
-  
+
   opts.on("--rabbit [RABBIT]",
           "rabbit path",
           "(#{options.rabbit})") do |rabbit|
@@ -60,6 +60,7 @@ ARGV.each do |rd|
            "-p",
            "-o", ps,
            target_rd)
+    puts("finished #{target_rd}.")
     system(options.ps2pdf, ps, pdf)
     system(options.rabbit,
            "-I", File.dirname(rd),
@@ -67,6 +68,7 @@ ARGV.each do |rd|
            "-o", index_ps,
            "--slides-per-page", "8",
            target_rd)
+    puts("finished #{target_rd}. (index)")
     system(options.ps2pdf, index_ps, index_pdf)
   end
 end

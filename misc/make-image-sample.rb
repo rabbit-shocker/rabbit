@@ -10,7 +10,7 @@ options.output_base = "/tmp/rabbit"
 
 opts = OptionParser.new do |opts|
   opts.banner = "#{opts.banner} RD_FILES"
-  
+
   opts.on("--rabbit [RABBIT]",
           "rabbit path",
           "(#{options.rabbit})") do |rabbit|
@@ -40,7 +40,9 @@ ARGV.each do |rd|
     base_name << "-#{theme.sub(/^#{base_name}-/, '')}" if theme
     output_dir = File.join(options.output_base, base_name)
     FileUtils.mkdir_p(output_dir)
-    puts("processing #{rd}...")
+    message = "processing #{rd}..."
+    message << " (#{theme})" if theme
+    puts(message)
     args = [
       "-s",
       "-b", File.join(output_dir, base_name),
@@ -49,7 +51,16 @@ ARGV.each do |rd|
     ]
     args.concat(["-t", theme]) if theme
     args << rd
+
     system(*(options.rabbit.split + args))
+    message = "finished #{rd}."
+    message << " (#{theme})" if theme
+    puts(message)
+
     system(*(options.rabbit.split + ["--index-mode"] + args))
+    message = "finished #{rd}. (index mode)"
+    message << " (#{theme})" if theme
+    puts(message)
   end
 end
+
