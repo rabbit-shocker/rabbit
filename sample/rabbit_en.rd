@@ -38,26 +38,29 @@ A presentation tool
   * sub(('sub:script')) and super(('sup:script'))
   * mathematical characters (('&Sigma;'))(('&sum;sub:i=0'))
   * display image
-  * auto reload modified source
 
 = More available things
 
+  * auto reload modified source
   * reload theme
   * auto generation of index page
   * right click menu
-  * screenshot on the off screen
-  * Internationalized message
 
 = More more ...
 
+  * screenshot on the off screen
+  * Internationalized message
   * PS/PDF output ((-but quality is ...-))
-  * Table
-  * colorize source
-  * funny themes
 
 = More more more ...
 
+  * Table
+  * colorize source
+  * funny themes
   * graffiti on the slide
+
+= More(('sup:4')) ...
+
   * organize screenshots
   * mouse gesture
 
