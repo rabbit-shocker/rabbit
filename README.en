@@ -175,6 +175,10 @@ libraries on Windows.
   * ((<RAA:ruby-gettext>)) (for displaying localized messages)
   * ((<RAA:htree>))
   * ((<Migemo|URL:http://0xcc.net/migemo/>))
+  * LaTeX
+  * Tgif
+  * Dia
+  * GIMP
 
 === Included libraries
 
