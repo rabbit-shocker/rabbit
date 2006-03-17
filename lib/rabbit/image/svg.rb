@@ -24,17 +24,13 @@ module Rabbit
 
       def update_size
         rsvg_environment do |name|
-          handle = RSVG::Handle.new
-          File.open(name, "rb") do |f|
-            handle.write(f.read)
-          end
-          handle.close
-          if handle.respond_to?(:dimensions)
+          if RSVG::Handle.respond_to?(:new_from_file)
+            handle = RSVG::Handle.new_from_file(name)
             dim = handle.dimensions
             @width = dim.width
             @height = dim.height
           else
-            _pixbuf = handle.pixbuf
+            _pixbuf = RSVG.pixbuf_from_file(name)
             @width = _pixbuf.width
             @height = _pixbuf.height
           end
