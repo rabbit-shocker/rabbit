@@ -331,6 +331,17 @@ Ahh, I'll set up more better documents.
 : Narrow hole
    N
 
+= Key (search)
+
+: Search forward
+   C-s, /
+
+: Search backward
+   C-r, ?
+
+: Quit search
+   C-g
+
 = Key (etc)
 
 : Iconify
