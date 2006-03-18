@@ -45,8 +45,20 @@ module Rabbit
         end
         
         def internal_draw_slide(slide, simulation)
-          yield
-          @context.show_page if !simulation and @show_page
+          if simulation
+            yield
+          else
+            @context.save do
+              yield
+            end
+            @context.show_page if @show_page
+          end
+        end
+
+        def internal_clip_slide(x=0, y=0, w=width, h=height)
+          x, y = from_screen(x, y)
+          @context.rectangle(x, y, w, h)
+          @context.clip
         end
 
         def internal_draw_background(x=0, y=0, w=width, h=height)

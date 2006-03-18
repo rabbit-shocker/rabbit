@@ -32,7 +32,7 @@ module Rabbit
         def_delegators(:@print, :create_pango_context)
         
         def_delegators(:@print, :clear_theme)
-        
+
         def initialize(canvas)
           @print = Print.new(canvas)
           super
@@ -90,12 +90,15 @@ module Rabbit
         def draw_slide(slide, simulation)
           @print.show_page = need_show_page?
           @print.internal_draw_slide(slide, simulation) do
-            unless simulation
+            if simulation
+              yield
+            else
               x, y = normalize(0, 0)
+              @print.internal_clip_slide(x, y, width, height)
               @print.internal_draw_background(x, y, width, height)
+              yield
               draw_rectangle(false, 0, 0, width, height, @black)
             end
-            yield
           end
         end
 
@@ -139,6 +142,11 @@ module Rabbit
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = normalize(x, y)
           @print.draw_pixbuf(pixbuf, x, y, params)
+        end
+
+        def draw_svg(handle, x, y, params={})
+          x, y = normalize(x, y)
+          @print.draw_svg(handle, x, y, params)
         end
 
         private

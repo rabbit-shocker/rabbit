@@ -87,8 +87,10 @@ module Rabbit
           else
             # @context.begin_page(slide.title) if @shown_page
             @context.begin_page if @shown_page
-            set_line_width(1)
-            yield
+            @context.save do
+              set_line_width(1)
+              yield
+            end
             if @show_page
               @context.show_page
               @shown_page = true
@@ -222,7 +224,18 @@ module Rabbit
             end
           end
         end
-        
+
+        def internal_clip_slide(x=0, y=0, w=width, h=height)
+          x, y = from_screen(x, y)
+          y -= h
+          @context.move_to(x, y)
+          @context.line_to(x, y + h)
+          @context.line_to(x + w, y + h)
+          @context.line_to(x + w, y)
+          @context.close_path
+          @context.clip
+        end
+
         def internal_draw_background(x=0, y=0, w=width, h=height)
           draw_rectangle(true, x, y, w, h, @background)
           if @background_image
