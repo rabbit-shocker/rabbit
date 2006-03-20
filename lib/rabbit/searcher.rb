@@ -29,7 +29,11 @@ module Rabbit
       if migemo_available?
         migemo_regexp
       else
-        /#{@text}/iu
+        begin
+          /#{@text}/iu
+        rescue RegexpError
+          /#{Regexp.escape(@text)}/iu
+        end
       end
     end
 
