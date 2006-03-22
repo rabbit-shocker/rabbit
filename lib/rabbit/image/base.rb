@@ -61,6 +61,10 @@ module Rabbit
         end
       end
 
+      def draw(canvas, x, y, params={})
+        canvas.draw_pixbuf(pixbuf, x, y, params)
+      end
+
       private
       def load_by_pixbuf_loader(data)
         loader = Gdk::PixbufLoader.new

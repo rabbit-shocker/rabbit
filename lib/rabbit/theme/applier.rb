@@ -107,7 +107,7 @@ module Rabbit
         draw_mark(indent_proc, width_proc, height_proc, name) do
           |item, canvas, x, y, w, h|
           x -= loader.width * 0.5
-          canvas.draw_pixbuf(loader.pixbuf, x, y)
+          loader.draw(canvas, x, y)
         end
       end
       

@@ -31,7 +31,7 @@ match(TitleSlide, Title) do |titles|
         new_x = title_slide.margin_left
       end
       new_y = title_slide.margin_top
-      canvas.draw_pixbuf(loader.pixbuf, new_x, new_y)
+      loader.draw(canvas, new_x, new_y)
     end
     [x, y, w, h]
   end

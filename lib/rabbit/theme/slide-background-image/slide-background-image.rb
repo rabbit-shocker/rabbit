@@ -17,7 +17,7 @@ match(Slide) do |slides|
           loader.resize(canvas.width, canvas.height)
           resized = true
         end
-        canvas.draw_pixbuf(loader.pixbuf, 0, 0)
+        loader.draw(canvas, 0, 0)
       end
     end
     [x, y, w, h]

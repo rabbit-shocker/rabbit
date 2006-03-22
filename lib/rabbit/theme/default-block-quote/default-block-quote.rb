@@ -68,7 +68,7 @@ match("**", BlockQuote) do
       adjust_open_quote_x = (@block_quote_padding_left / 2) + open_quote.width
       block.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
-          canvas.draw_pixbuf(open_quote.pixbuf, x - adjust_open_quote_x, y)
+          open_quote.draw(canvas, x - adjust_open_quote_x, y)
         end
         [x, y, w, h]
       end
@@ -78,8 +78,7 @@ match("**", BlockQuote) do
       adjust_close_quote_x += close_quote.height
       block.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
-          canvas.draw_pixbuf(close_quote.pixbuf, x + w,
-                             y - adjust_close_quote_x)
+          close_quote.draw(x + w, y - adjust_close_quote_x)
         end
         [x, y, w, h]
       end

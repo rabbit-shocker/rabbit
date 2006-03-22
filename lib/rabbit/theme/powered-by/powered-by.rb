@@ -50,7 +50,7 @@ add_powered_by = proc do |slide|
       loaders.each do |loader|
         px = new_x + space
         py = new_y - loader.height
-        canvas.draw_pixbuf(loader.pixbuf, px, py)
+        loader.draw(canvas, px, py)
         new_x = px + loader.width
       end
     end

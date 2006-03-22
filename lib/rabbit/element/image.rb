@@ -7,7 +7,10 @@ module Rabbit
       include BlockElement
       include BlockHorizontalCentering
 
+      alias element_draw draw
       include ImageManipulable
+      alias image_draw draw
+      alias draw element_draw
 
       attr_reader :caption
       attr_reader :normalized_width, :normalized_height
@@ -93,7 +96,7 @@ module Rabbit
       private
       def draw_image(canvas, x, y, w, h, simulation)
         unless simulation
-          canvas.draw_pixbuf(pixbuf, x, y)
+          image_draw(canvas, x, y)
         end
         [x, y + height, w, h - height]
       end

@@ -62,7 +62,7 @@ match(Slide) do |slides|
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
       base_x = slide.margin_left + max_width * ratio
 
-      canvas.draw_pixbuf(loader.pixbuf, base_x, base_y)
+      loader.draw(canvas, base_x, base_y)
 
       if @image_timer_auto_scroll
         if canvas.slide_size < 3

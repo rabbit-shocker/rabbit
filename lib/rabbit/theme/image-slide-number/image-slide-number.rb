@@ -71,8 +71,8 @@ match(Slide) do |slides|
         props["flag_color"] = "blue"
         canvas.draw_flag(goal_base_x, base_y, loader.height, props)
       else
-        canvas.draw_pixbuf(start_loader.pixbuf, start_base_x, base_y)
-        canvas.draw_pixbuf(goal_loader.pixbuf, goal_base_x, base_y)
+        start_loader.draw(canvas, start_base_x, base_y)
+        goal_loader.draw(canvas, goal_base_x, base_y)
       end
 
       if canvas.slide_size < 3
@@ -81,7 +81,7 @@ match(Slide) do |slides|
         ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
       end
       current_base_x = base_x + max_width * ratio
-      canvas.draw_pixbuf(loader.pixbuf, current_base_x, base_y)
+      loader.draw(canvas, current_base_x, base_y)
     end
     [x, y, w, h]
   end
