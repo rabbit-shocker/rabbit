@@ -78,7 +78,7 @@ match("**", BlockQuote) do
       adjust_close_quote_x += close_quote.height
       block.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
-          close_quote.draw(x + w, y - adjust_close_quote_x)
+          close_quote.draw(canvas, x + w, y - adjust_close_quote_x)
         end
         [x, y, w, h]
       end
