@@ -375,11 +375,11 @@ module Rabbit
       def toggle_mode_navi
         result = ''
         if outputting_index?
-          with_outputting_index(false) do
+          with_outputting_index(true) do
             result << a_link(first_index, h(_("Slide")), !output_html?)
           end
         else
-          with_outputting_index(true) do
+          with_outputting_index(false) do
             result << a_link(first_index, h(_("Index")), !output_index_html?)
           end
         end

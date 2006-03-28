@@ -770,7 +770,8 @@ page from XXX.rd.
   * gan: He wrote some flags.
   * KAKUTANI: He sent me a bug report for document. He makes
     a presentation with Rabbit. He gives me an idea for new
-    features and theme design.
+    features and theme design. He gives me a patch to fix a
+    bug related HTML generation.
   * atzm: He makes Gentoo package (*.ebuild).
   * akira yamada: He makes Debian package (*.deb).
   * usatti: She drow some logos and taro series images.
