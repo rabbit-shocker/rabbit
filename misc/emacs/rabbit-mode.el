@@ -16,13 +16,16 @@
 ;; rabbit-insert-image-template - 画像のテンプレートの挿入
 ;; rabbit-insert-slide - スライドの挿入
 
-;; これから
-;; * 多重起動を禁止
+;; アイディア
 ;; * 挿入はyatexのようにC-b SPC アイテム名でキーバインドをまとめる
 ;;   * 挿入できるアイテムを増やす
 ;;     * 表
 ;;     * 数式
 ;; * Emacs上でスライドの移動
+;; * スライド単位の移動
+;; * 一覧バッファの生成
+;;   * スライド
+;;   * image
 
 (require 'rd-mode)
 
@@ -56,6 +59,9 @@
 # # relative_height = 50
 "))
 
+(make-variable-buffer-local 'rabbit-running)
+(setq-default rabbit-running nil)
+
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
   (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
   (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
@@ -69,14 +75,20 @@
   (interactive)
   (let ((filename (rabbit-buffer-filename))
 	 (outbuf (rabbit-output-buffer)))
-    (start-process "rabbit" outbuf rabbit-command filename)))
+    (unless rabbit-running
+      (setq rabbit-running t)
+      (start-process "Rabbit" outbuf rabbit-command filename)
+      (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel))))
 
 ;; insert-procedures
 
 (defun rabbit-insert-title-template (rabbit-title)
   (interactive "spresen title:")
   (save-excursion (insert (format rabbit-title-template
-				  rabbit-title rabbit-author rabbit-institution rabbit-theme)))
+				  rabbit-title
+				  rabbit-author
+				  rabbit-institution
+				  rabbit-theme)))
   (forward-line 9))
 
 (defun rabbit-insert-image-template ()
@@ -84,7 +96,6 @@
   (save-excursion (insert rabbit-image-template))
   (forward-line)
   (forward-char 9))
-
 
 (defun rabbit-insert-slide (rabbit-slide-title)
   (interactive "sslide title:")
@@ -97,6 +108,10 @@
   (or (buffer-file-name)
       (error "このバッファはファイルではありません．")))
 
+(defun rabbit-sentinel (proc state)
+  (kill-buffer (process-buffer proc)))
+;; (setq rabbit-running nil)) ; 起動フラグを書き換えて多重起動を禁止しようとしたけど何故かできなかった
+
 ;; バッファの処理
 (defun rabbit-output-buffer ()
   (let* ((bufname (concat "*Rabbit<" (rabbit-buffer-filename) ">*"))
@@ -105,4 +120,3 @@
     buf))
 
 (provide 'rabbit-mode)
-
