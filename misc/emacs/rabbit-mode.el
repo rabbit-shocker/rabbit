@@ -26,6 +26,7 @@
 ;; * 一覧バッファの生成
 ;;   * スライド
 ;;   * image
+;; * 異常終了のメッセージをバッファに出す
 
 (require 'rd-mode)
 
@@ -47,9 +48,9 @@
    %s
 \n")
 
-(defvar rabbit-image-template (format
+(defvar rabbit-image-template 
 " # image
- # src = 
+ # src = %s
  # caption = 
  # width = 100
  # height = 100
@@ -57,7 +58,7 @@
 # # normalized_height = 50
 # # relative_width = 100
 # # relative_height = 50
-"))
+")
 
 (make-variable-buffer-local 'rabbit-running)
 (setq-default rabbit-running nil)
@@ -75,11 +76,14 @@
   (interactive)
   (let ((filename (rabbit-buffer-filename))
 	 (outbuf (rabbit-output-buffer)))
-    (unless rabbit-running
-      (setq rabbit-running t)
-      (start-process "Rabbit" outbuf rabbit-command filename)
-      (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel))))
-
+    (if rabbit-running
+	(error "Rabbitは既に起動しています．")
+      (progn
+	  (setq rabbit-running t)
+	  (start-process "Rabbit" outbuf rabbit-command filename)
+	  (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)))))
+      
+      
 ;; insert-procedures
 
 (defun rabbit-insert-title-template (rabbit-title)
@@ -91,9 +95,10 @@
 				  rabbit-theme)))
   (forward-line 9))
 
-(defun rabbit-insert-image-template ()
-  (interactive)
-  (save-excursion (insert rabbit-image-template))
+(defun rabbit-insert-image-template (rabbit-image-title)
+  (interactive "fimage file:")
+  (save-excursion (insert (format rabbit-image-template
+				  rabbit-image-title)))
   (forward-line)
   (forward-char 9))
 
