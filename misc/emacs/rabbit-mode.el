@@ -5,18 +5,26 @@
 ;;; Copyright (c) 2006 武田篤志 <tkdats@kono.cis.iwate-u.ac.jp>
 ;;; Last update 2006/03/19 Sun
 
-;; 変数
+;;; Install
+;;
+;; (autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
+;; (add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\\)$" . rabbit-mode))
+
+;;; 変数
+;;
 ;; rabbit-author - 作者
 ;; rabbit-institution 所属
 ;; rabbit-theme テーマ(デフォルトはrabbit)
 
-;; 機能
+;;; 機能
+;;
 ;; rabbit-run-rabbit - Rabbitを起動
 ;; rabbit-insert-title-template - タイトルのテンプレートの挿入
 ;; rabbit-insert-image-template - 画像のテンプレートの挿入
 ;; rabbit-insert-slide - スライドの挿入
 
-;; アイディア
+;;; アイディア
+;;
 ;; * 挿入はyatexのようにC-b SPC アイテム名でキーバインドをまとめる
 ;;   * 挿入できるアイテムを増やす
 ;;     * 表
