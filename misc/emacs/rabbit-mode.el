@@ -1,9 +1,7 @@
 ;;; -*- Emacs-Lisp -*-
-
 ;;; rabbit-mode.el
 ;;  Emacs major mode for Rabbit
 ;;; Copyright (c) 2006 武田篤志 <tkdats@kono.cis.iwate-u.ac.jp>
-;;; Last update 2006/03/19 Sun
 
 ;;; Install
 ;;
@@ -13,8 +11,8 @@
 ;;; 変数
 ;;
 ;; rabbit-author - 作者
-;; rabbit-institution 所属
-;; rabbit-theme テーマ(デフォルトはrabbit)
+;; rabbit-institution - 所属
+;; rabbit-theme - テーマ(デフォルトはrabbit)
 
 ;;; 機能
 ;;
@@ -71,7 +69,17 @@
 (make-variable-buffer-local 'rabbit-running)
 (setq-default rabbit-running nil)
 
+(defvar rabbit-comment-face 'font-lock-comment-face)
+(defvar rabbit-font-lock-keywords
+  (append '(("^#.*$"
+	     0 rabbit-comment-face))
+	  rd-font-lock-keywords))
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
+  (setq comment-start "#")
+  (make-local-variable 'font-lock-defaults)
+  (setq font-lock-defaults '((rabbit-font-lock-keywords) t nil))
+  (make-local-variable 'font-lock-keywords)
+  (setq font-lock-keywords rabbit-font-lock-keywords)
   (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
   (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
   (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template)
