@@ -54,6 +54,17 @@ module Rabbit
       @merge.accel_group
     end
 
+    def make_jump_to_action(title, i)
+      name = "JumpTo#{i}"
+      label = "#{i}: #{Utils.unescape_title(title)}"
+      tooltip = _("Jump to the %dth slide") % i
+      action = Gtk::Action.new(name, label, tooltip, nil)
+      action.signal_connect("activate") do
+        canvas.activate("JumpTo") {i}
+      end
+      action
+    end
+
     def update_jump_to_menu(canvas)
       @merge.remove_ui(@jump_to_merge_id) if @jump_to_merge_id
       @merge.remove_action_group(@jump_to_actions) if @jump_to_actions
@@ -63,16 +74,10 @@ module Rabbit
       @merge.insert_action_group(@jump_to_actions, 0)
       jump_to_path = "/popup/JumpTo"
       canvas.slides.each_with_index do |slide, i|
-        name = "JumpTo#{i}"
-        label = "#{i}: #{Utils.unescape_title(slide.title)}"
-        tooltip = _("Jump to the %dth slide") % i
-        action = Gtk::Action.new(name, label, tooltip, nil)
-        action.signal_connect("activate") do
-          canvas.activate("JumpTo") {i}
-        end
+        action = make_jump_to_action(slide.title, i)
         @jump_to_actions.add_action(action)
-        @merge.add_ui(@jump_to_merge_id, jump_to_path, name, name,
-                      Gtk::UIManager::AUTO, false)
+        @merge.add_ui(@jump_to_merge_id, jump_to_path, action.name,
+                      action.name, Gtk::UIManager::AUTO, false)
       end
     end
     
