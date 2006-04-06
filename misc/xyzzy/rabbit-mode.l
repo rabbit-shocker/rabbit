@@ -5,7 +5,7 @@
 
 * Author: MIYAMUKO Katsuyuki ((<URL:mailto:miyamuko (at) mtb.biglobe.ne.jp>))
 * URL: ((<URL:http://miyamuko.s56.xrea.com/xyzzy/rabbit-mode.html>))
-* Version: 0.2
+* Version: 0.3
 
 
 == 説明
@@ -346,21 +346,21 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
   (setf *rabbit-menu* (copy-menu-items
                        (define-popup-menu
                          (:item nil "スライドショー(&W)" 'rabbit-slide-show
-                          (lambda () (unless (rabbit-executable-p) :disable)))
+                          #'(lambda () (unless (rabbit-executable-p) :disable)))
                          (:item nil "プレビュー(&V)" 'rabbit-preview
-                          (lambda () (unless (rabbit-executable-p) :disable)))
+                          #'(lambda () (unless (rabbit-executable-p) :disable)))
                          (:popup nil "プレビュー"
                           (:item nil "現在のスライドをプレビュー(&C)" 'rabbit-preview-current-slide
-                           (lambda () (unless (rabbit-executable-p) :disable)))
+                           #'(lambda () (unless (rabbit-executable-p) :disable)))
                           (:item nil "リージョンをプレビュー(&R)" 'rabbit-preview-region
-                           (lambda () (unless (rabbit-executable-p) :disable)))
+                           #'(lambda () (unless (rabbit-executable-p) :disable)))
                           (:item nil "選択領域をプレビュー(&S)" 'rabbit-preview-selection
-                           (lambda () (unless (rabbit-executable-p) :disable)))
+                           #'(lambda () (unless (rabbit-executable-p) :disable)))
                           (:item nil "=beginから=endをプレビュー(&E)" 'rabbit-preview-begin-end
-                           (lambda () (unless (rabbit-executable-p) :disable))))
+                           #'(lambda () (unless (rabbit-executable-p) :disable))))
                          :sep
                          (:item nil "画像で保存する(&S)" 'rabbit-save-as-image
-                          (lambda () :disable))
+                          #'(lambda () :disable))
                          :sep
                          (:item nil "次のスライド(&N)" 'rabbit-forward-slide)
                          (:item nil "前のスライド(&P)" 'rabbit-backward-slide)
@@ -372,7 +372,7 @@ rabbit-mode は修正 BSD ライセンスに基づいて利用可能です。
                          (:item nil "スライドをマーク" 'rabbit-mark-slide)
                          :sep
                          (:item nil "非表示スライドに設定(&H)" 'rabbit-toggle-hide-slide
-                          (lambda () (when (rabbit-hide-slide-p) :check)))
+                          #'(lambda () (when (rabbit-hide-slide-p) :check)))
                          :sep
                          (:popup nil "テンプレート(&I)"
                           (:item nil "タイトルページ(&T)" 'rabbit-insert-title-template))
