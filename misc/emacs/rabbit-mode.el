@@ -2,6 +2,7 @@
 ;;; rabbit-mode.el
 ;;  Emacs major mode for Rabbit
 ;;; Copyright (c) 2006 武田篤志 <tkdats@kono.cis.iwate-u.ac.jp>
+;;; $Date$
 
 ;;; Install
 ;;
@@ -13,6 +14,15 @@
 ;; rabbit-author - 作者
 ;; rabbit-institution - 所属
 ;; rabbit-theme - テーマ(デフォルトはrabbit)
+;; rabbit-heading-face - スライド(= hoge)のフェイス
+;; rabbit-emphasis-face - ((* ... *))のフェイス
+;; rabbit-verbatim-face - ((' ... '))のフェイス
+;; rabbit-term-face -  ((: ... :))のフェイス
+;; rabbit-footnote-face - ((- ... -))のフェイス
+;; rabbit-link-face - ((< ... >))のフェイス
+;; rabbit-code-face - (({ ... }))のフェイス
+;; rabbit-description-face - ラベル付きリスト(:hoge)のフェイス
+;; rabbit-comment-face - コメントのフェイス(# hoge)
 
 ;;; 機能
 ;;
@@ -66,24 +76,48 @@
 # # relative_height = 50
 ")
 
-(make-variable-buffer-local 'rabbit-running)
-(setq-default rabbit-running nil)
-
+(defvar rabbit-heading-face 'font-lock-keyword-face)
+(defvar rabbit-emphasis-face 'font-lock-function-name-face)
+(defvar rabbit-verbatim-face 'font-lock-function-name-face)
+(defvar rabbit-term-face 'font-lock-function-name-face)
+(defvar rabbit-footnote-face 'font-lock-function-name-face)
+(defvar rabbit-link-face 'font-lock-function-name-face)
+(defvar rabbit-code-face 'font-lock-function-name-face)
+(defvar rabbit-description-face 'font-lock-constant-face)
 (defvar rabbit-comment-face 'font-lock-comment-face)
 (defvar rabbit-font-lock-keywords
-  (append '(("^#.*$"
-	     0 rabbit-comment-face))
-	  rd-font-lock-keywords))
+  (list
+   '("^= .*$"
+     0 rabbit-heading-face)
+   '("^==+ .*$"
+     0 rabbit-comment-face)
+   '("((\\*[^*]*\\*+\\([^)*][^%]*\\*+\\)*))"    ; ((* ... *))
+     0 rabbit-emphasis-face)
+   '("(('[^']*'+\\([^)'][^']*'+\\)*))"      ; ((' ... '))
+     0 rabbit-verbatim-face)
+   '("((:[^:]*:+\\([^):][^:]*:+\\)*))"      ; ((: ... :))
+     0 rabbit-term-face)
+   '("((-[^-]*-+\\([^)-][^-]*-+\\)*))"      ; ((- ... -))
+     0 rabbit-footnote-face)
+   '("((<[^>]*>+\\([^)>][^>]*>+\\)*))"      ; ((< ... >))
+     0 rabbit-link-face)
+   '("(({[^}]*}+\\([^)}][^}]*}+\\)*))"      ; (({ ... }))
+     0 rabbit-code-face)
+   '("^:.*$"
+     0 rabbit-description-face)
+   '("^#.*$"
+      0 rabbit-comment-face)
+   ))
+
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
+  (make-variable-buffer-local 'rabbit-running)
+  (setq-default rabbit-running nil)
   (setq comment-start "#")
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '((rabbit-font-lock-keywords) t nil))
   (make-local-variable 'font-lock-keywords)
   (setq font-lock-keywords rabbit-font-lock-keywords)
-  (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
-  (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
-  (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template)
-  (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide)
+  (rabbit-setup-keys)
   (run-hooks 'rabbit-mode-hook))
 
 ;;; interactive
@@ -96,10 +130,8 @@
 	(error "Rabbitは既に起動しています．")
       (progn
 	  (setq rabbit-running t)
-	  (start-process "Rabbit" outbuf rabbit-command filename)
+	  (start-process "Rabbit" outbuf rabbit-command filename)))))
 	  (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)))))
-      
-      
 ;; insert-procedures
 
 (defun rabbit-insert-title-template (rabbit-title)
@@ -125,6 +157,12 @@
 
 ;;; private
 
+(defun rabbit-setup-keys ()
+  (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
+  (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
+  (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template)
+  (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide))
+  
 (defun rabbit-buffer-filename ()
   (or (buffer-file-name)
       (error "このバッファはファイルではありません．")))
@@ -133,7 +171,6 @@
   (kill-buffer (process-buffer proc)))
 ;; (setq rabbit-running nil)) ; 起動フラグを書き換えて多重起動を禁止しようとしたけど何故かできなかった
 
-;; バッファの処理
 (defun rabbit-output-buffer ()
   (let* ((bufname (concat "*Rabbit<" (rabbit-buffer-filename) ">*"))
 	(buf (get-buffer-create bufname)))
