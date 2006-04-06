@@ -1,6 +1,12 @@
 require "rabbit/utils"
 
 Rabbit::Utils.require_safe "rabbit/renderer/engine/cairo"
+
+if !Cairo.const_defined?(:PSSurface) and
+    !Cairo.const_defined?(:PDFSurface)
+  raise LoadError
+end
+
 require "rabbit/renderer/print/base"
 
 module Rabbit
