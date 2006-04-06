@@ -1,4 +1,6 @@
-require "rsvg2"
+require "rabbit/utils"
+
+Rabbit::Utils.require_safe "rsvg2"
 
 require "rabbit/image/base"
 
