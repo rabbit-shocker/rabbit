@@ -1,7 +1,7 @@
 ;;; -*- Emacs-Lisp -*-
 ;;; rabbit-mode.el
 ;;  Emacs major mode for Rabbit
-;;; Copyright (c) 2006 武田篤志 <tkdats@kono.cis.iwate-u.ac.jp>
+;;; Copyright (c) 2006 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
 ;;; $Date$
 
 ;;; Install
@@ -9,40 +9,29 @@
 ;; (autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
 ;; (add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\)$" . rabbit-mode))
 
-;;; 変数
+;;; Variables
 ;;
-;; rabbit-author - 作者
-;; rabbit-institution - 所属
-;; rabbit-theme - テーマ(デフォルトはrabbit)
-;; rabbit-heading-face - スライド(= hoge)のフェイス
-;; rabbit-emphasis-face - ((* ... *))のフェイス
-;; rabbit-verbatim-face - ((' ... '))のフェイス
-;; rabbit-term-face -  ((: ... :))のフェイス
-;; rabbit-footnote-face - ((- ... -))のフェイス
-;; rabbit-link-face - ((< ... >))のフェイス
-;; rabbit-code-face - (({ ... }))のフェイス
-;; rabbit-description-face - ラベル付きリスト(:hoge)のフェイス
-;; rabbit-comment-face - コメントのフェイス(# hoge)
+;; rabbit-author - author of presentation
+;; rabbit-institution - author's institution 
+;; rabbit-theme - theme of presentation
+;; rabbit-heading-face - face of slide line (= hoge) 
+;; rabbit-emphasis-face - face of emphasis ((* ... *)) 
+;; rabbit-verbatim-face - face of verbatim ((' ... '))
+;; rabbit-term-face -  face of term ((: ... :))
+;; rabbit-footnote-face - face of footnote ((- ... -))
+;; rabbit-link-face - face of link ((< ... >))
+;; rabbit-code-face - face of code (({ ... }))
+;; rabbit-description-face - face of labeled list (:hoge)
+;; rabbit-keyboard-face - face of keyboard input ((% ... %))
+;; rabbit-variable-face - face of variable ((| ... |))
+;; rabbit-comment-face - face of comment (# hoge)
 
-;;; 機能
+;;; Functions
 ;;
-;; rabbit-run-rabbit - Rabbitを起動
-;; rabbit-insert-title-template - タイトルのテンプレートの挿入
-;; rabbit-insert-image-template - 画像のテンプレートの挿入
-;; rabbit-insert-slide - スライドの挿入
-
-;;; アイディア
-;;
-;; * 挿入はyatexのようにC-b SPC アイテム名でキーバインドをまとめる
-;;   * 挿入できるアイテムを増やす
-;;     * 表
-;;     * 数式
-;; * Emacs上でスライドの移動
-;; * スライド単位の移動
-;; * 一覧バッファの生成
-;;   * スライド
-;;   * image
-;; * 異常終了のメッセージをバッファに出す
+;; rabbit-run-rabbit - run Rabbit
+;; rabbit-insert-title-template - insert a title template
+;; rabbit-insert-image-template - insert a image template
+;; rabbit-insert-slide - insert a slide
 
 (require 'rd-mode)
 
@@ -50,8 +39,8 @@
   "Hooks run when entering `rabbit-mode' major mode")
 (defvar rabbit-command "rabbit")
 (defvar rabbit-output-buffer nil)
-(defvar rabbit-author "作者")
-(defvar rabbit-institution "所属")
+(defvar rabbit-author "Author")
+(defvar rabbit-institution "Institution")
 (defvar rabbit-theme "rabbit")
 (defvar rabbit-title-template 
 "= %s
@@ -85,6 +74,8 @@
 (defvar rabbit-code-face 'font-lock-function-name-face)
 (defvar rabbit-description-face 'font-lock-constant-face)
 (defvar rabbit-comment-face 'font-lock-comment-face)
+(defvar rabbit-keyboard-face 'font-lock-function-name-face)
+(defvar rabbit-variable-face 'font-lock-function-name-face)
 (defvar rabbit-font-lock-keywords
   (list
    '("^= .*$"
@@ -93,6 +84,10 @@
      0 rabbit-comment-face)
    '("((\\*[^*]*\\*+\\([^)*][^%]*\\*+\\)*))"    ; ((* ... *))
      0 rabbit-emphasis-face)
+   '("((%[^%]*%+\\([^)%][^%]*%+\\)*))"      ; ((% ... %))
+     0 rabbit-keyboard-face)
+   '("((|[^|]*|+\\([^)|][^|]*|+\\)*))"      ; ((| ... |))
+     0 rabbit-variable-face)
    '("(('[^']*'+\\([^)'][^']*'+\\)*))"      ; ((' ... '))
      0 rabbit-verbatim-face)
    '("((:[^:]*:+\\([^):][^:]*:+\\)*))"      ; ((: ... :))
@@ -104,7 +99,7 @@
    '("(({[^}]*}+\\([^)}][^}]*}+\\)*))"      ; (({ ... }))
      0 rabbit-code-face)
    '("^:.*$"
-     0 rabbit-description-face)
+     0 rd-description-face)
    '("^#.*$"
       0 rabbit-comment-face)
    ))
@@ -127,11 +122,12 @@
   (let ((filename (rabbit-buffer-filename))
 	 (outbuf (rabbit-output-buffer)))
     (if rabbit-running
-	(error "Rabbitは既に起動しています．")
+	(error "Rabbit is already running.")
       (progn
 	  (setq rabbit-running t)
-	  (start-process "Rabbit" outbuf rabbit-command filename)))))
-	  (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)))))
+	  (start-process "Rabbit" outbuf rabbit-command filename))
+      (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel))))
+
 ;; insert-procedures
 
 (defun rabbit-insert-title-template (rabbit-title)
@@ -165,11 +161,10 @@
   
 (defun rabbit-buffer-filename ()
   (or (buffer-file-name)
-      (error "このバッファはファイルではありません．")))
+      (error "This buffer is empty buffer.")))
 
 (defun rabbit-sentinel (proc state)
   (kill-buffer (process-buffer proc)))
-;; (setq rabbit-running nil)) ; 起動フラグを書き換えて多重起動を禁止しようとしたけど何故かできなかった
 
 (defun rabbit-output-buffer ()
   (let* ((bufname (concat "*Rabbit<" (rabbit-buffer-filename) ">*"))
