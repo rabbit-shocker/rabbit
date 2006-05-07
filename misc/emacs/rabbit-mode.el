@@ -142,9 +142,9 @@
 (defun rabbit-insert-image-template (rabbit-image-title)
   (interactive "fimage file:")
   (save-excursion (insert (format rabbit-image-template
-				  rabbit-image-title)))
-  (forward-line)
-  (forward-char 9))
+				  (file-relative-name rabbit-image-title))))
+  (forward-line 2)
+  (forward-char 13))
 
 (defun rabbit-insert-slide (rabbit-slide-title)
   (interactive "sslide title:")
@@ -167,8 +167,10 @@
   (kill-buffer (process-buffer proc)))
 
 (defun rabbit-output-buffer ()
-  (let* ((bufname (concat "*Rabbit<" (rabbit-buffer-filename) ">*"))
-	(buf (get-buffer-create bufname)))
+  (let* ((bufname (concat "*Rabbit<"
+			   (rabbit-buffer-filename)
+			   ">*"))
+	 (buf (get-buffer-create bufname)))
     (set-buffer buf)
     buf))
 
