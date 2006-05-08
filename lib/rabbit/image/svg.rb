@@ -19,16 +19,27 @@ module Rabbit
         end
       end
 
+      def draw(canvas, x, y, params={})
+        if @handle and canvas.rsvg_available?
+          params["width"] ||= @width
+          params["height"] ||= @height
+          canvas.draw_rsvg_handle(@handle, x, y, params)
+        else
+          super
+        end
+      end
+
       private
       def ensure_resize(w, h)
         @pixbuf = to_pixbuf(w, h)
       end
 
       def update_size
+        @handle = nil
         rsvg_environment do |name|
           if RSVG::Handle.respond_to?(:new_from_file)
-            handle = RSVG::Handle.new_from_file(name)
-            dim = handle.dimensions
+            @handle = RSVG::Handle.new_from_file(name)
+            dim = @handle.dimensions
             @width = dim.width
             @height = dim.height
           else

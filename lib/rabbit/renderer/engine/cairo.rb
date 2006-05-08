@@ -42,6 +42,8 @@ module Rabbit
       module Cairo
         include Kernel
 
+        @@rsvg_available = nil
+
         class << self
           def priority
             100
@@ -181,13 +183,30 @@ module Rabbit
 
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = from_screen(x, y)
-          color = make_color(params['color'])
-          width = params['width'] || pixbuf.width
-          height = params['height'] || pixbuf.height
           @context.save do
             @context.translate(x, y)
             @context.set_source_pixbuf(pixbuf, 0, 0)
             @context.paint
+          end
+        end
+
+        def rsvg_available?
+          if @@rsvg_available.nil?
+            instance_methods = ::Cairo::Context.instance_methods
+            @@rsvg_available = instance_methods.include?("render_rsvg_handle")
+          end
+          @@rsvg_available
+        end
+
+        def draw_rsvg_handle(handle, x, y, params={})
+          x, y = from_screen(x, y)
+          dim = handle.dimensions
+          width = (params["width"] || dim.width).to_f
+          height = (params["height"] || dim.height).to_f
+          @context.save do
+            @context.translate(x, y)
+            @context.scale(width / dim.width, height / dim.height)
+            @context.render_rsvg_handle(handle)
           end
         end
 

@@ -3,6 +3,10 @@ require "rabbit/renderer/color"
 module Rabbit
   module Renderer
     module Kernel
+      def rsvg_available?
+        false
+      end
+
       def make_color(color)
         return color if color.is_a?(Color)
         if color.nil?
@@ -137,7 +141,7 @@ module Rabbit
         params = setup_flag_params(pole_height, 1.5, params)
         [params["pole_width"] + params["flag_width"], pole_height]
       end
-      
+
       def draw_cube(filled, x, y, z, size, color=nil)
         not_support_method("draw_cube")
       end

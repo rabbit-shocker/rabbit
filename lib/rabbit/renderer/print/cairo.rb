@@ -18,7 +18,11 @@ module Rabbit
         
         class << self
           def priority
-            -100
+            if (::Cairo::VERSION <=> [1, 1, 7]) >= 0
+              100
+            else
+              -100
+            end
           end
         end
         
