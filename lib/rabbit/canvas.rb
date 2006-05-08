@@ -503,21 +503,22 @@ module Rabbit
 
     def activate(name, &block)
       act = action(name)
-      if act
-        if act.sensitive?
-          act.activate(&block)
-          true
-        else
-          false
-        end
+      if act and act.sensitive?
+        act.activate(&block)
+        true
       else
-        logger.warn(_("Unknown action: %s") % name)
         false
       end
     end
 
     def action(name)
-      @actions.get_action(name)
+      act = @actions.get_action(name)
+      if act
+        act
+      else
+        logger.warn(_("Unknown action: %s") % name)
+        false
+      end
     end
 
     def with_index_mode(new_value)
