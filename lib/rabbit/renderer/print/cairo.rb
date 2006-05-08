@@ -100,6 +100,8 @@ module Rabbit
             ::Cairo::PSSurface.new(filename, @page_width, @page_height)
           when /\.pdf/i
             ::Cairo::PDFSurface.new(filename, @page_width, @page_height)
+          when /\.svg/i
+            ::Cairo::SVGSurface.new(filename, @page_width, @page_height)
           else
             @canvas.logger.warn(_("can't find printer for %s") % filename)
             ::Cairo::PSSurface.new("default.ps", @page_width, @page_height)
