@@ -96,6 +96,7 @@ module Rabbit
           end
           target_index = indexes.size - 1 if target_index.nil? and !forward
           if target_index and target_index >= 0 and
+              target_index < indexes.size and
               indexes[target_index] != current_index
             @canvas.activate("JumpTo") {indexes[target_index]}
           end
