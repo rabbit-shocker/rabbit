@@ -33,7 +33,7 @@ def setup_lightning_talk_slide(slide)
       @lightning_talk_default_params ||= {}
     end
     
-    def lightning_talk(params={}, &block)
+    def takahashi(params={}, &block)
       if lightning_talk?
         params = lightning_talk_default_params.merge(params)
         
@@ -50,7 +50,7 @@ def setup_lightning_talk_slide(slide)
         block.call(self, headline) if block
       end
     end
-    alias takahashi lightning_talk
+    alias lightning_talk takahashi
 
     def lightning_talk?
       body.empty? or
@@ -112,7 +112,7 @@ end
 
 def setup_lightning_talk_headline(head)
   class << head
-    def lightning_talk(params)
+    def takahashi(params)
       proc_name = params[:proc_name]
       
       clear_pre_draw_procs
@@ -145,7 +145,7 @@ def setup_lightning_talk_headline(head)
         lightning_talk_as_large_as_possible(params)
       end
     end
-    alias takahashi lightning_talk
+    alias lightning_talk takahashi
 
     private
     def lightning_talk_as_large_as_possible(params)
