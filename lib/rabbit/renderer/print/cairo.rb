@@ -2,8 +2,9 @@ require "rabbit/utils"
 
 Rabbit::Utils.require_safe "rabbit/renderer/engine/cairo"
 
-if !Cairo.const_defined?(:PSSurface) and
-    !Cairo.const_defined?(:PDFSurface)
+if !(Cairo.const_defined?(:PSSurface) or
+     Cairo.const_defined?(:PDFSurface) or
+     Cairo.const_defined?(:SVGSurface))
   raise LoadError
 end
 
