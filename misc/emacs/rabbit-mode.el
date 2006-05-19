@@ -105,8 +105,8 @@
    ))
 
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
-  (make-variable-buffer-local 'rabbit-running)
   (setq-default rabbit-running nil)
+  (make-variable-buffer-local 'rabbit-running)
   (setq comment-start "#")
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '((rabbit-font-lock-keywords) t nil))
@@ -120,18 +120,19 @@
 (defun rabbit-run-rabbit ()
   (interactive)
   (let ((filename (rabbit-buffer-filename))
-	 (outbuf (rabbit-output-buffer)))
+	(outbuf (rabbit-output-buffer)))
+    (set-buffer outbuf)
     (if rabbit-running
 	(error "Rabbit is already running.")
       (progn
-	  (setq rabbit-running t)
-	  (start-process "Rabbit" outbuf rabbit-command filename))
-      (set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel))))
+	(setq rabbit-running t)
+	(start-process "Rabbit" outbuf rabbit-command filename)
+	(set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)))))
 
 ;; insert-procedures
 
 (defun rabbit-insert-title-template (rabbit-title)
-  (interactive "spresen title:")
+  (interactive "spresentation's title:")
   (save-excursion (insert (format rabbit-title-template
 				  rabbit-title
 				  rabbit-author
@@ -164,14 +165,14 @@
       (error "This buffer is empty buffer.")))
 
 (defun rabbit-sentinel (proc state)
-  (kill-buffer (process-buffer proc)))
+  (set-buffer (process-buffer proc))
+  (setq rabbit-running nil))
 
 (defun rabbit-output-buffer ()
   (let* ((bufname (concat "*Rabbit<"
-			   (rabbit-buffer-filename)
+			   (file-relative-name (rabbit-buffer-filename))
 			   ">*"))
 	 (buf (get-buffer-create bufname)))
-    (set-buffer buf)
     buf))
 
 (provide 'rabbit-mode)
