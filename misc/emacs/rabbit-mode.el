@@ -13,6 +13,7 @@
 (defvar rabbit-author "Author")
 (defvar rabbit-institution "Institution")
 (defvar rabbit-theme "rabbit")
+
 (defvar rabbit-title-template 
 "= %s
 
@@ -25,10 +26,14 @@
 \n")
 
 (defvar rabbit-image-template 
-"\n # image
+" # image
  # src = %s
 %s
 %s
+\n")
+
+(defvar rabbit-slide-template
+"= %s
 \n")
 
 (defvar rabbit-heading-face 'font-lock-keyword-face)
@@ -130,8 +135,9 @@
 
 (defun rabbit-insert-slide (rabbit-slide-title)
   (interactive "sslide title:")
-  (save-excursion (insert (format "\n= %s\n\n" rabbit-slide-title)))
-  (forward-line 3))
+  (save-excursion (insert (format rabbit-slide-template
+				  rabbit-slide-title)))
+  (forward-line 2))
 
 ;;; private
 
@@ -187,10 +193,10 @@
 
 (defun rabbit-move-after-insert-image (size)
   (cond ((string-equal size "")
-	 (forward-line 5))
+	 (forward-line 4))
 	((string-equal size "size")
-	 (forward-line 7))
+	 (forward-line 6))
 	(t
-	 (forward-line 6))))
+	 (forward-line 5))))
   
 (provide 'rabbit-mode)
