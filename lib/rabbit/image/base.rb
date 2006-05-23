@@ -23,16 +23,30 @@ module Rabbit
         end
       end
 
-      attr_accessor :keep_ratio
-
       attr_reader :width, :height, :original_width, :original_height
 
-      def initialize(filename, keep_ratio)
+      def initialize(filename, props)
         @filename = filename
-        @keep_ratio = keep_ratio
+        @props = normalize_props(props)
         update_size
         @original_width = @width
         @original_height = @height
+      end
+
+      def [](key)
+        @props[normalize_prop_key(key)]
+      end
+
+      def []=(key, value)
+        @props[normalize_prop_key(key)] = value
+      end
+
+      def keep_ratio
+        self["keep_ratio"]
+      end
+
+      def keep_ratio=(value)
+        self["keep_ratio"] = value
       end
 
       def pixbuf
@@ -43,7 +57,7 @@ module Rabbit
       def resize(w, h)
         if w.nil? and h.nil?
           return
-        elsif @keep_ratio
+        elsif keep_ratio
           if w and h.nil?
             h = (original_height * w.to_f / original_width).ceil
           elsif w.nil? and h
@@ -66,6 +80,22 @@ module Rabbit
       end
 
       private
+      def normalize_props(props)
+        normalized_props = {}
+        (props || {}).each do |key, value|
+          normalized_props[normalize_prop_key(key)] = value
+        end
+        keep_ratio_key = normalize_prop_key("keep_ratio")
+        unless normalized_props.has_key?(keep_ratio_key)
+          normalized_props[keep_ratio_key] = true
+        end
+        normalized_props
+      end
+
+      def normalize_prop_key(key)
+        key.to_s.gsub(/-/, "_")
+      end
+
       def load_by_pixbuf_loader(data)
         loader = Gdk::PixbufLoader.new
         id = loader.signal_connect("size_prepared") do |l, width, height|

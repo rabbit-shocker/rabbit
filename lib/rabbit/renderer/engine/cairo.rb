@@ -43,6 +43,7 @@ module Rabbit
         include Kernel
 
         @@rsvg_available = nil
+        @@poppler_available = nil
 
         class << self
           def priority
@@ -207,6 +208,27 @@ module Rabbit
             @context.translate(x, y)
             @context.scale(width / dim.width, height / dim.height)
             @context.render_rsvg_handle(handle)
+          end
+        end
+
+        def poppler_available?
+          if @@poppler_available.nil?
+            instance_methods = ::Cairo::Context.instance_methods
+            available = instance_methods.include?("render_poppler_page")
+            @@poppler_available = available
+          end
+          @@poppler_available
+        end
+
+        def draw_poppler_page(page, x, y, params={})
+          x, y = from_screen(x, y)
+          w, h = page.size
+          width = (params["width"] || w).to_f
+          height = (params["height"] || h).to_f
+          @context.save do
+            @context.translate(x, y)
+            @context.scale(width / w, height / h)
+            @context.render_poppler_page(page)
           end
         end
 

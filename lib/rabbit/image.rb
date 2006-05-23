@@ -15,23 +15,15 @@ module Rabbit
     def_delegators(:@loader, :pixbuf, :width, :height)
     def_delegators(:@loader, :original_width, :original_height)
     def_delegators(:@loader, :resize, :draw)
+    def_delegators(:@loader, :[], :[]=)
     alias_method :scale, :resize
 
-    def initialize(filename, *args, &block)
+    def initialize(filename, props=nil, *args, &block)
       unless File.exist?(filename)
         raise ImageFileDoesNotExistError.new(filename)
       end
       super(*args, &block)
-      @props = {}
-      @loader = Base.find_loader(filename).new(filename, true)
-    end
-
-    def [](name)
-      @props[name]
-    end
-
-    def []=(name, value)
-      @props[name] = value
+      @loader = Base.find_loader(filename).new(filename, props)
     end
   end
   

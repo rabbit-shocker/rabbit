@@ -18,7 +18,7 @@ module Rabbit
 
       def initialize(filename, prop)
         @filename = filename
-        super(filename)
+        super(filename, prop)
         %w(caption dither_mode).each do |name|
           instance_variable_set("@#{name}", prop[name])
         end

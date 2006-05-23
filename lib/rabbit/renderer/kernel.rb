@@ -7,6 +7,10 @@ module Rabbit
         false
       end
 
+      def poppler_available?
+        false
+      end
+
       def make_color(color)
         return color if color.is_a?(Color)
         if color.nil?
