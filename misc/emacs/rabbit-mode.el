@@ -4,35 +4,6 @@
 ;;; Copyright (c) 2006 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
 ;;; $Date$
 
-;;; Install
-;;
-;; (autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
-;; (add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\)$" . rabbit-mode))
-
-;;; Variables
-;;
-;; rabbit-author - author of presentation
-;; rabbit-institution - author's institution 
-;; rabbit-theme - theme of presentation
-;; rabbit-heading-face - face of slide line (= hoge) 
-;; rabbit-emphasis-face - face of emphasis ((* ... *)) 
-;; rabbit-verbatim-face - face of verbatim ((' ... '))
-;; rabbit-term-face -  face of term ((: ... :))
-;; rabbit-footnote-face - face of footnote ((- ... -))
-;; rabbit-link-face - face of link ((< ... >))
-;; rabbit-code-face - face of code (({ ... }))
-;; rabbit-description-face - face of labeled list (:hoge)
-;; rabbit-keyboard-face - face of keyboard input ((% ... %))
-;; rabbit-variable-face - face of variable ((| ... |))
-;; rabbit-comment-face - face of comment (# hoge)
-
-;;; Functions
-;;
-;; rabbit-run-rabbit - run Rabbit
-;; rabbit-insert-title-template - insert a title template
-;; rabbit-insert-image-template - insert a image template
-;; rabbit-insert-slide - insert a slide
-
 (require 'rd-mode)
 
 (defvar rabbit-mode-hook nil
@@ -54,16 +25,11 @@
 \n")
 
 (defvar rabbit-image-template 
-" # image
+"\n # image
  # src = %s
- # caption = 
- # width = 100
- # height = 100
-# # normalized_width = 50
-# # normalized_height = 50
-# # relative_width = 100
-# # relative_height = 50
-")
+%s
+%s
+\n")
 
 (defvar rabbit-heading-face 'font-lock-keyword-face)
 (defvar rabbit-emphasis-face 'font-lock-function-name-face)
@@ -104,6 +70,16 @@
       0 rabbit-comment-face)
    ))
 
+(defvar rabbit-specify-imagesize-list
+  '(("size")
+    ("normalized_width")
+    ("normalized_height")
+    ("relative_width")
+    ("relative_height")))
+
+(defvar rabbit-specify-imagesize-default
+  "relative-height")
+
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
   (setq-default rabbit-running nil)
   (make-variable-buffer-local 'rabbit-running)
@@ -140,12 +116,17 @@
 				  rabbit-theme)))
   (forward-line 9))
 
-(defun rabbit-insert-image-template (rabbit-image-title)
-  (interactive "fimage file:")
-  (save-excursion (insert (format rabbit-image-template
-				  (file-relative-name rabbit-image-title))))
-  (forward-line 2)
-  (forward-char 13))
+(defun rabbit-insert-image-template (file cap)
+  (interactive "fimage file: \nscaption:")
+  (let ((size (rabbit-read-size)))
+    (rabbit-print-image-template file cap size)
+    (rabbit-move-after-insert-image size)))
+
+(defun rabbit-insert-image-template-default (file cap)
+  (interactive "fimage file: \nscaption:")
+  (rabbit-print-image-template file cap rabbit-specify-imagesize-default)
+  (rabbit-move-after-insert-image rabbit-specify-imagesize-default))
+
 
 (defun rabbit-insert-slide (rabbit-slide-title)
   (interactive "sslide title:")
@@ -157,7 +138,8 @@
 (defun rabbit-setup-keys ()
   (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
   (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
-  (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template)
+  (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template-default)
+  (define-key rabbit-mode-map "\C-ci" 'rabbit-insert-image-template)
   (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide))
   
 (defun rabbit-buffer-filename ()
@@ -170,9 +152,45 @@
 
 (defun rabbit-output-buffer ()
   (let* ((bufname (concat "*Rabbit<"
-			   (file-relative-name (rabbit-buffer-filename))
-			   ">*"))
+			  (file-relative-name (rabbit-buffer-filename))
+			  ">*"))
 	 (buf (get-buffer-create bufname)))
     buf))
 
+(defun rabbit-read-size ()
+  (completing-read "type of size specicfy:"
+		   rabbit-specify-imagesize-list))
+
+(defun rabbit-print-image-template (filename caption size)
+  (let ((file (file-relative-name filename))
+	(cap (if (string-equal caption "")
+		 "# # caption ="
+	       (format " # caption = %s" caption)))
+	(size-string (rabbit-read-size-value-string size)))
+    (save-excursion (insert (format rabbit-image-template
+				    file
+				    cap
+				    size-string)))))
+
+(defun rabbit-read-size-value-string (size)
+  (cond
+   ((string-equal size "")
+    (format ""))
+   ((string-equal size "size")
+    (format " # width = %s\n # height = %s"
+	    (read-from-minibuffer "width:")
+	    (read-from-minibuffer "height:")))
+   (t
+     (format " # %s = %s"
+	     size
+	     (read-from-minibuffer (format "%s:" size))))))
+
+(defun rabbit-move-after-insert-image (size)
+  (cond ((string-equal size "")
+	 (forward-line 5))
+	((string-equal size "size")
+	 (forward-line 7))
+	(t
+	 (forward-line 6))))
+  
 (provide 'rabbit-mode)
