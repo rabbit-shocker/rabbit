@@ -24,10 +24,11 @@ def update_source(driver, src, name, page_name, log=nil)
   puts "committed #{name}"
 end
 
-def update_rd(driver, name, page_name=name)
+def update_rd(driver, name, page_name=name, prefix=nil)
+  prefix ||= "Rabbit::"
   src = convert(File.read(name))
-  src = yield(src) if block_given?
-  page_name = "Rabbit::#{page_name}"
+  src = yield(src, prefix) if block_given?
+  page_name = "#{prefix}#{page_name}"
   update_source(driver, src, name, page_name)
 end
 
@@ -51,9 +52,8 @@ driver = RWiki::SOAP::Driver.new(end_point)
 
 %w(ja en).each do |lang|
   %w(README INSTALL.win32).each do |target|
-    update_rd(driver, "#{target}.#{lang}") do |src|
-      src.gsub(/\(\(<(INSTALL.win32.#{lang})>\)\)/,
-               '((<Rabbit::\1>))')
+    update_rd(driver, "#{target}.#{lang}") do |src, prefix|
+      src.gsub(/\(\(<(INSTALL.win32.#{lang})>\)\)/, "((<#{prefix}\\1>))")
     end
   end
 end
@@ -63,8 +63,9 @@ end
  ["sample/rabbit_en.rd", "sample.en"],
  ["sample/rabbit-implementation.rd", "Implementation.ja"],
  ["sample/can_rabbit.rd", "CanRabbit.ja"],
-].each do |name, page_name|
-  update_rd(driver, name, page_name)
+ ["misc/emacs/README.ja", "README.ja", "rabbit-mode.el::"],
+].each do |name, page_name, prefix|
+  update_rd(driver, name, page_name, prefix)
 end
 
 update_index(driver, prev_version, current_version)
