@@ -1,6 +1,8 @@
 # -*- rd -*-
 
-= README
+= README.ja
+
+$Id$
 
 == rabbit-mode.el
 
@@ -10,8 +12,8 @@ Rabbitのソースファイル用のEmacsメジャーモードです．
 
 .emacsに以下を記述してください．
 
-(autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
-(add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\)$" . rabbit-mode))
+  (autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
+  (add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\)$" . rabbit-mode))
 
 == 関数
 
@@ -26,7 +28,7 @@ Rabbitのメッセージはバッファ*Rabbit<ファイル名>*という
 バッファに出力されます．
 
 === rabbit-insert-title-template(C-c C-t)
- 
+
 タイトルのテンプレートの挿入します．
 
 プレゼンテーションのタイトルを入力します．
@@ -63,7 +65,7 @@ normalized_height，relative_width，relative_heightです．
 
 関連する変数
 * rabbit-specify-imagesize-default
-  
+
 === rabbit-insert-slide(C-c C-s)
 
 スライドの挿入を挿入します．
@@ -94,7 +96,7 @@ rabbitの起動コマンドです．
 
 関連する関数
 * rabbit-insert-title-template
-  
+
 === rabbit-theme(rabbit)
 
 コマンドでテーマが指定されなかったときに使われるテーマです．
