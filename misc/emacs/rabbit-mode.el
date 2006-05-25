@@ -99,6 +99,7 @@
 ;;; interactive
 
 (defun rabbit-run-rabbit ()
+  "Emacs major mode for rabbit."
   (interactive)
   (let ((filename (rabbit-buffer-filename))
 	(outbuf (rabbit-output-buffer)))
@@ -110,9 +111,10 @@
 	(start-process "Rabbit" outbuf rabbit-command filename)
 	(set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)))))
 
-;; insert-procedures
+;;; insert functions
 
 (defun rabbit-insert-title-template (rabbit-title)
+  "insert a title template."
   (interactive "spresentation's title:")
   (save-excursion (insert (format rabbit-title-template
 				  rabbit-title
@@ -122,33 +124,55 @@
   (forward-line 9))
 
 (defun rabbit-insert-image-template (file cap)
+  "insert a image template."
   (interactive "fimage file: \nscaption:")
   (let ((size (rabbit-read-size)))
     (rabbit-print-image-template file cap size)
     (rabbit-move-after-insert-image size)))
 
 (defun rabbit-insert-image-template-default (file cap)
+  "insert a image template with default way to specify size."
   (interactive "fimage file: \nscaption:")
   (rabbit-print-image-template file cap rabbit-specify-imagesize-default)
   (rabbit-move-after-insert-image rabbit-specify-imagesize-default))
 
 
 (defun rabbit-insert-slide (rabbit-slide-title)
+  "insert a slide."
   (interactive "sslide title:")
   (save-excursion (insert (format rabbit-slide-template
 				  rabbit-slide-title)))
   (forward-line 2))
 
+;;; move functions
+
+(defun rabbit-next-slide ()
+  "move to next slide."
+  (interactive)
+  (forward-line 1)
+  (re-search-forward "^= " nil t)
+  (goto-char (match-beginning 0)))
+
+(defun rabbit-previous-slide ()
+  "move to previous slide."
+  (interactive)
+  (re-search-backward "^= " nil t)
+  (goto-char (match-beginning 0)))
+
 ;;; private
 
 (defun rabbit-setup-keys ()
+  "define default key bindings."
   (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
   (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
   (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template-default)
   (define-key rabbit-mode-map "\C-ci" 'rabbit-insert-image-template)
-  (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide))
+  (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide)
+  (define-key rabbit-mode-map "\M-n" 'rabbit-next-slide)
+  (define-key rabbit-mode-map "\M-p" 'rabbit-previous-slide))
   
 (defun rabbit-buffer-filename ()
+  "return file name relating current buffer."
   (or (buffer-file-name)
       (error "This buffer is empty buffer.")))
 
@@ -157,6 +181,7 @@
   (setq rabbit-running nil))
 
 (defun rabbit-output-buffer ()
+  "return buffer for rabbit output."
   (let* ((bufname (concat "*Rabbit<"
 			  (file-relative-name (rabbit-buffer-filename))
 			  ">*"))
@@ -164,10 +189,12 @@
     buf))
 
 (defun rabbit-read-size ()
-  (completing-read "type of size specicfy:"
+  "input function of way to specicfy size."
+  (completing-read "way to specicfy size:"
 		   rabbit-specify-imagesize-list))
 
 (defun rabbit-print-image-template (filename caption size)
+  "insert a image-template."
   (let ((file (file-relative-name filename))
 	(cap (if (string-equal caption "")
 		 "# # caption ="
@@ -179,6 +206,7 @@
 				    size-string)))))
 
 (defun rabbit-read-size-value-string (size)
+  "return strings that specify image size."
   (cond
    ((string-equal size "")
     (format ""))
@@ -192,6 +220,7 @@
 	     (read-from-minibuffer (format "%s:" size))))))
 
 (defun rabbit-move-after-insert-image (size)
+  "move to next location after insert image."
   (cond ((string-equal size "")
 	 (forward-line 4))
 	((string-equal size "size")

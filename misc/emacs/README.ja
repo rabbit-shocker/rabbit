@@ -72,6 +72,14 @@ normalized_height，relative_width，relative_heightです．
 
 スライド名を入力します．
 
+=== rabbit-next-slide(M-n)
+
+次のスライドへ移動します．
+
+=== rabbit-previous-slide(M-p)
+
+前のスライドへ移動します．
+
 == 変数
 
 変数名(デフォルト値)と記述します．
