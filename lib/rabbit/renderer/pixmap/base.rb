@@ -98,10 +98,6 @@ module Rabbit
           true
         end
 
-        def drawable
-          @pixmap
-        end
-
         def init_dpi
           @x_dpi = ScreenInfo.screen_x_resolution
           @y_dpi = ScreenInfo.screen_y_resolution
@@ -111,6 +107,7 @@ module Rabbit
           if simulation
             if @pixmap.nil? or @pixmap.size != [@width, @height]
               @pixmap = Gdk::Pixmap.new(nil, @width, @height, depth)
+              init_gl_capability(@pixmap)
             end
             init_renderer(@pixmap)
           end
@@ -118,6 +115,7 @@ module Rabbit
 
         def init_dummy_pixmap
           @pixmap = Gdk::Pixmap.new(nil, 1, 1, depth)
+          init_gl_capability(@pixmap)
           init_renderer(@pixmap)
         end
       end

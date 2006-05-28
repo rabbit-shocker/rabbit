@@ -8,6 +8,7 @@ require "rabbit/console"
 require "rabbit/source"
 require "rabbit/renderer"
 require "rabbit/front"
+Rabbit::Utils.require_safe "rabbit/renderer/gl"
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
@@ -59,6 +60,7 @@ def parse(args=ARGV, logger=nil)
       File.join("", "usr", "share"),
     ].uniq
     options.migemo_dictionary_name = "migemo-dict"
+    options.use_gl = false
 
 
     opts.banner = "#{opts.banner} [SOURCE_INFOS]"
@@ -486,6 +488,17 @@ def parse(args=ARGV, logger=nil)
             _("(#{options.migemo_dictionary_name})")) do |name|
       options.migemo_dictionary_name = name
     end
+
+    if defined?(Rabbit::Renderer::GL)
+      opts.separator ""
+      opts.separator _("3D")
+
+      opts.on("--[no-]use-gl",
+              _("Specify whether to use OpenGL if available."),
+              "(#{options.use_gl})") do |bool|
+        options.use_gl = bool
+      end
+    end
   end
 end
 
@@ -570,6 +583,10 @@ def setup_migemo_info(target, options)
   target.migemo_dictionary_name = options.migemo_dictionary_name
 end
 
+def setup_3d_info(target, options)
+  target.use_gl = options.use_gl
+end
+
 def setup_druby(front, options, logger)
   require "drb/drb"
   begin
@@ -629,6 +646,7 @@ def do_print(options, logger)
   canvas = make_canvas(options, logger, renderer)
   setup_paper_size(canvas, options)
   setup_print_info(canvas, options)
+  setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.print
@@ -642,6 +660,7 @@ def do_save_as_image(options, logger)
   setup_image_info(canvas, options)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
+  setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
   canvas.activate("ToggleIndexMode") if options.index_mode
@@ -662,6 +681,7 @@ def do_display(options, logger)
   setup_image_info(frame, options)
   setup_print_info(canvas, options)
   setup_migemo_info(canvas, options)
+  setup_3d_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
   apply_theme_if_need(frame, options)
   parse_rd(frame, options, logger, !Rabbit::Utils.windows?)
@@ -687,6 +707,7 @@ def do_server(options, logger)
   setup_paper_size(canvas, options)
   setup_image_info(canvas, options)
   setup_print_info(canvas, options)
+  setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
   parse_rd(canvas, options, logger)
 

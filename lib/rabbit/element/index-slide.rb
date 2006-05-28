@@ -91,6 +91,7 @@ module Rabbit
           new_canvas.width = width
           new_canvas.height = height
           new_canvas.pango_context = canvas.create_pango_context
+          new_canvas.use_gl = canvas.use_gl?
           def new_canvas.quit
             nil
           end

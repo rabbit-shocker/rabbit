@@ -566,6 +566,10 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    デフォルトはmigemo-dictです．
 
+: --use-gl, --no-use-gl
+   もし可能であればOpenGLを使うかどうかを指定します．
+
+   デフォルトでは使いません．
 
 == Rabbit用RDの書き方
 

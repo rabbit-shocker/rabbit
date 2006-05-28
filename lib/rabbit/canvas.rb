@@ -118,6 +118,7 @@ module Rabbit
     attr_reader :comment_source, :actions
     
     attr_writer :saved_image_base_name
+    attr_writer :use_gl
 
     attr_accessor :saved_image_type, :rss_base_uri
     attr_accessor :output_html, :output_index_html
@@ -139,6 +140,7 @@ module Rabbit
       @rss_base_uri = true
       @migemo_dictionary_search_path = []
       @migemo_dictionary_name = nil
+      @use_gl = false
       init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
@@ -155,6 +157,10 @@ module Rabbit
 
     def applying?
       not @apply_theme_request_queue.empty?
+    end
+
+    def use_gl?
+      @use_gl
     end
 
     def quit
@@ -320,9 +326,7 @@ module Rabbit
 
     def to_pixbuf(i)
       move_to_if_can(i)
-      slide = current_slide
-      slide.draw(self)
-      @renderer.to_pixbuf(slide)
+      @renderer.to_pixbuf(current_slide)
     end
     
     def save_as_image

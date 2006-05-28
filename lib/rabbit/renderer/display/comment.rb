@@ -115,6 +115,7 @@ module Rabbit
 
         def init_comment_canvas
           @comment_canvas = Canvas.new(@canvas.logger, DrawingArea)
+          @comment_canvas.use_gl = @canvas.use_gl?
         end
 
         def init_comment_view_frame
@@ -131,6 +132,7 @@ module Rabbit
             @canvas.saved_image_base_name
           @comment_view_canvas.filename = @canvas.filename
           @comment_view_canvas.slides_per_page = @canvas.slides_per_page
+          @comment_view_canvas.use_gl = @canvas.use_gl?
         end
 
         def init_comment_log

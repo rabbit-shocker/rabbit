@@ -12,6 +12,7 @@ require "rabbit/renderer/display/graffiti"
 require "rabbit/renderer/display/menu"
 require "rabbit/renderer/display/button-handler"
 require "rabbit/renderer/display/key-handler"
+require 'rabbit/renderer/display/gl'
 
 module Rabbit
   module Renderer
@@ -27,6 +28,7 @@ module Rabbit
         include Gesture
         include KeyHandler
         include ButtonHandler
+        include GL
 
         attr_accessor :filename
         def initialize(canvas)
@@ -39,6 +41,7 @@ module Rabbit
         end
 
         def attach_to(window)
+          init_gl(@area)
           init_menu
           init_gesture_actions
           @window = window
@@ -56,6 +59,7 @@ module Rabbit
         end
 
         def detach
+          finalize_gl
           detach_key
           detach_menu
           @window.remove(@hbox)

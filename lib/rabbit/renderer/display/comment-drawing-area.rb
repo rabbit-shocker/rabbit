@@ -28,6 +28,7 @@ module Rabbit
         def_delegators(:@pixmap, :draw_icosahedron, :draw_teapot)
 
         def_delegators(:@pixmap, :gl_compile, :gl_call_list)
+        def_delegators(:@pixmap, :gl_supported?)
 
         def_delegators(:@pixmap, :filename, :filename=)
 

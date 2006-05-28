@@ -4,6 +4,7 @@ require "gtk2"
 
 require "rabbit/rabbit"
 require "rabbit/gettext"
+require "rabbit/trackball"
 require "rabbit/renderer/color"
 
 module Pango
@@ -33,6 +34,7 @@ module Rabbit
       attr_accessor :progress_background
       attr_accessor :adjustment_x, :adjustment_y
       attr_accessor :graffiti_color, :graffiti_line_width
+      attr_accessor :gl_scale, :gl_quaternion
       attr_writer :page_margin_left, :page_margin_right
       attr_writer :page_margin_top, :page_margin_bottom
 
@@ -63,6 +65,7 @@ module Rabbit
         clean
         init_hook_procs
         init_dpi
+        init_gl_parameters
       end
 
       def page_margin_left
@@ -250,6 +253,10 @@ module Rabbit
         false
       end
 
+      def gl_available?
+        @canvas.use_gl? and gl_supported?
+      end
+
       def update_comment(source)
       end
       
@@ -333,6 +340,7 @@ module Rabbit
           setup_margin(canvas)
           setup_page_margin(canvas)
           setup_paper_size(canvas)
+          setup_3d(canvas)
           canvas.slides_per_page = @canvas.slides_per_page
         end
       end
@@ -341,6 +349,7 @@ module Rabbit
         make_canvas_with_renderer(Pixmap) do |canvas|
           canvas.width = @canvas.width
           canvas.height = @canvas.height
+          setup_3d(canvas)
         end
       end
 
@@ -366,6 +375,10 @@ module Rabbit
           canvas.paper_width = @canvas.width
           canvas.paper_height = @canvas.height
         end
+      end
+
+      def setup_3d(canvas)
+        canvas.use_gl = @canvas.use_gl?
       end
 
       def setup_flag_params(pole_height, default_flag_width_ratio, params)
@@ -419,6 +432,22 @@ module Rabbit
       def init_dpi
         @x_dpi = 72
         @y_dpi = 72
+      end
+
+      def init_gl_parameters
+        angle = 0.0 * (Math::PI / 180.0)
+        axis_x = 1.0
+        axis_y = 0.0
+        axis_z = 0.0
+        sine = Math.sin(0.5 * angle)
+        quaternion = [
+                      axis_x * sine,
+                      axis_y * sine,
+                      axis_z * sine,
+                      Math.cos(0.5 * angle)
+                     ]
+        @gl_quaternion = TrackBall::Vector.new(quaternion)
+        @gl_scale = 1.0
       end
 
       def clear_keys
