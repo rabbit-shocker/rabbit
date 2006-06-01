@@ -1,4 +1,4 @@
-require 'English'                                                               
+require 'English'
 
 require "optparse"
 require "ostruct"
@@ -62,8 +62,8 @@ module Rabbit
     end
     
     def setup_locale_options(opts, options)
-      opts.on("--locale-dir [DIR]",
-              _("Specify locale dir as [DIR]."),
+      opts.on("--locale-dir=DIR",
+              _("Specify locale dir as DIR."),
               _("(auto)")) do |d|
         bindtextdomain(d)
       end
@@ -76,9 +76,9 @@ module Rabbit
         get_last_name(x).downcase
       end
 
-      opts.on("--logger-type [TYPE]",
+      opts.on("--logger-type=TYPE",
               logger_type_names,
-              _("Specify logger type as [TYPE]."),
+              _("Specify logger type as TYPE."),
               _("Select from [%s].") % logger_type_names.join(', '),
               _("Note: case insensitive."),
               "(#{get_last_name(options.logger.class)})") do |logger_type|
@@ -91,7 +91,7 @@ module Rabbit
         else
           options.logger = logger_class.new
         end
-      end                                                                       
+      end
 
       opts.separator ""
     end
