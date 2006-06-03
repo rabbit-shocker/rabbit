@@ -1,7 +1,5 @@
 require 'nkf'
 
-require "gtk2"
-
 module Rabbit
   module Utils
     module_function

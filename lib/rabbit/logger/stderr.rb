@@ -1,3 +1,5 @@
+require 'glib2'
+
 require "rabbit/logger/base"
 
 module Rabbit
