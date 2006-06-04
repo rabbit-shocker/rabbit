@@ -8,10 +8,6 @@ module WEBrick
     def mobile?
       %r[(DoCoMo|J-PHONE|Vodafone|MOT-|UP\.Browser|DDIPOCKET|ASTEL|PDXGW|Palmscape|Xiino|sharp pda browser|Windows CE|L-mode|WILLCOM)]i =~ @req["user-agent"]
     end
-
-    def req_set?
-      not @res["content-type"].nil?
-    end
   end
 end
 
@@ -184,6 +180,7 @@ module Rabbit
         if ajax?(params)
           context.res_header("Content-Type", "text/html; charset=UTF-8")
           context.res_body(to_log_html(context))
+          throw(:tofu_done)
         end
       end
 
@@ -211,6 +208,7 @@ module Rabbit
       def do_current(context, params)
         context.res_header("Content-Type", "image/#{rabbit.image_type}")
         context.res_body(rabbit.current_slide_image)
+        throw(:tofu_done)
       end
 
       private
@@ -241,6 +239,7 @@ module Rabbit
       def setup_js_response(context, js)
         context.res_header("Content-Type", "text/javascript; charset=UTF-8")
         context.res_body(js.to_s)
+        throw(:tofu_done)
       end
 
       def js_path(context, name, add_param={})
@@ -268,6 +267,7 @@ module Rabbit
       def setup_css_response(context, css)
         context.res_header("Content-Type", "text/css; charset=UTF-8")
         context.res_body(css.to_s)
+        throw(:tofu_done)
       end
 
       def css_path(context, name, add_param={})
@@ -303,7 +303,7 @@ module Rabbit
 
       def do_GET(context)
         update_div(context)
-        @main.on_display(context) unless context.req_set?
+        @main.on_display(context)
       end
 
       def fetch(ref)
