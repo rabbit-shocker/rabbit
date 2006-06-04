@@ -65,7 +65,7 @@ module Rabbit
     def current_slide_text
       check_dirty
       slide = @canvas.current_slide
-      slide ? slide.to_rd : ""
+      slide ? slide.text : ""
     end
 
     def title

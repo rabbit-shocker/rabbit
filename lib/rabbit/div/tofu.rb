@@ -205,6 +205,8 @@ module Rabbit
       include RabbitDiv
 
       set_erb(File.join("rabbit", "div", "slide.erb"))
+      add_erb("to_html_i(context)", File.join("rabbit", "div", "slide-i.erb"))
+      reload_erb
 
       def do_current(context, params)
         context.res_header("Content-Type", "image/#{rabbit.image_type}")
