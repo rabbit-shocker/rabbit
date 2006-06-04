@@ -23,6 +23,16 @@ module Rabbit
         @cache = {}
       end
 
+      def to_div_i(context)
+        to_html_i(context)
+      rescue
+        "<p>error! #{h($!)}</p>"
+      end
+
+      def to_html_i(context)
+        to_html(context)
+      end
+
       private
       def rabbit
         @session.rabbit
@@ -37,12 +47,12 @@ module Rabbit
         result
       end
 
-      def param(method_name, add_param, separator=";")
+      def param(method_name, add_param, separator=nil)
         param = make_param(method_name, add_param)
         ary = param.collect do |k, v|
           "#{u(k)}=#{u(v)}"
         end
-        ary.join(separator)
+        ary.join(separator || h("&"))
       end
 
       def ajax_param(method_name, add_js_param=[])
@@ -86,8 +96,7 @@ module Rabbit
       include RabbitDiv
 
       set_erb(File.join("rabbit", "div", "main.erb"))
-      add_erb("to_html_i(context=nil)",
-              File.join("rabbit", "div", "main-i.erb"))
+      add_erb("to_html_i(context)", File.join("rabbit", "div", "main-i.erb"))
       reload_erb
 
       attr_reader :js
@@ -131,10 +140,10 @@ module Rabbit
       def do_last(context, params)
         rabbit.move_to_last
       end
-      
+
       private
       def a_link(context, key, label, label_only)
-        HTML.a_link(a(key, {}, context), label, label_only)
+        HTML.a_link("<a href=\"#{uri(key, {}, context)}\">", label, label_only)
       end
       
       def first_link(context)
@@ -158,6 +167,7 @@ module Rabbit
       include RabbitDiv
 
       set_erb(File.join("rabbit", "div", "comment.erb"))
+      add_erb("to_html_i(context)", File.join("rabbit", "div", "comment-i.erb"))
       add_erb("to_log_html(context=nil)", File.join("rabbit", "div", "log.erb"))
       reload_erb
 
