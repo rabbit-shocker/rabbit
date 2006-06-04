@@ -62,6 +62,12 @@ module Rabbit
       @images[@canvas.current_index]
     end
 
+    def current_slide_text
+      check_dirty
+      slide = @canvas.current_slide
+      slide ? slide.to_rd : ""
+    end
+
     def title
       check_dirty
       @canvas.title

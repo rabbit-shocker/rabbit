@@ -1,5 +1,9 @@
 <div class="slide">
 <a href="./">
+<% if context.mobile? %>
+<pre><%=h rabbit.current_slide_text %></pre>
+<% else %>
 <img title="<%= image_title %>" src="<%= image_path(context) %>" />
+<% end %>
 </a>
 </div>

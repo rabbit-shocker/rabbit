@@ -5,6 +5,10 @@ require 'rabbit/utils'
 
 module WEBrick
   class Tofulet
+    def mobile?
+      %r[(DoCoMo|J-PHONE|Vodafone|MOT-|UP\.Browser|DDIPOCKET|ASTEL|PDXGW|Palmscape|Xiino|sharp pda browser|Windows CE|L-mode|WILLCOM)]i =~ @req["user-agent"]
+    end
+
     def req_set?
       not @res["content-type"].nil?
     end
@@ -72,12 +76,19 @@ module Rabbit
           nil
         end
       end
+
+      def to_sjis(str)
+        NKF.nkf("-sdXm0", str.to_s)
+      end
     end
 
     class MainDiv < ::Div::Div
       include RabbitDiv
 
       set_erb(File.join("rabbit", "div", "main.erb"))
+      add_erb("to_html_i(context=nil)",
+              File.join("rabbit", "div", "main-i.erb"))
+      reload_erb
 
       attr_reader :js
       def initialize(session)
@@ -90,8 +101,13 @@ module Rabbit
       end
 
       def on_display(context)
-        context.res_header("Content-Type", "text/html; charset=UTF-8")
-        context.res_body(to_html(context))
+        if context.mobile?
+          context.res_header("Content-Type", "text/html; charset=Shift_JIS")
+          context.res_body(to_sjis(to_html_i(context)))
+        else
+          context.res_header("Content-Type", "text/html; charset=UTF-8")
+          context.res_body(to_html(context))
+        end
       end
     end
 
@@ -117,10 +133,6 @@ module Rabbit
       end
       
       private
-      def rabbit
-        @session.rabbit
-      end
-      
       def a_link(context, key, label, label_only)
         HTML.a_link(a(key, {}, context), label, label_only)
       end
