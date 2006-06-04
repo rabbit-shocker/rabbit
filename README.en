@@ -120,13 +120,17 @@ The above image author has copyright of his/her images.
 
 == Licence
 
-Ruby's (except files under lib/rabbit/tgif.rb). For more
-information see COPYING.
+Ruby's (except lib/rabbit/tgif.rb and
+lib/rabbit/div/prototype.js). For more information see
+COPYING.
 
-The files under lib/rabbit/tgif.rb is the
-same licence of
+lib/rabbit/tgif.rb is the same licence of
 ((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)).
 For more information see COPYING-TGIFTOOLS.
+
+lib/rabbit/div/prototype.js is MIT-style licence. For more
+information see ((<Prototype JavaScript
+Framework|URL:http://prototype.conio.net/>)).
 
 If you want to get PSD file of mascot character, tell
 program author. I'll ask images author.
@@ -776,10 +780,13 @@ page from XXX.rd.
     design.
   * noritada: He sent me a bug report for document.
   * gan: He wrote some flags.
-  * KAKUTANI: He sent me a bug report for document. He makes
-    a presentation with Rabbit. He gives me an idea for new
-    features and theme design. He gives me a patch to fix a
-    bug related HTML generation.
+  * KAKUTANI:
+    * He sent me a bug report for document.
+    * He makes a presentation with Rabbit.
+    * He gives me an idea for new features and theme design.
+    * He gives me a patch to fix a bug related HTML
+      generation.
+    * He makes Mac OS X (Intel) package.
   * atzm: He makes Gentoo package (*.ebuild).
   * akira yamada: He makes Debian package (*.deb).
   * usatti: She drow some logos and taro series images.
@@ -789,3 +796,4 @@ page from XXX.rd.
   * nskj77: He gave a name to FAQ page. He sends action
     reporting and some bug reports.
   * Atsushi Takeda: He wrote rabbit mode for Emacs.
+  * kimura wataru: He makes Mac OS X package.

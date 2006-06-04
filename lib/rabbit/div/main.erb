@@ -3,48 +3,8 @@
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
-<style type="text/css">
-div.navi
-{
-  text-align: center;
-}
-
-div.slide
-{
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-div.slide img
-{
-  border-style: none;
-}
-
-div.comment
-{
-  margin-left: auto;
-  margin-right: auto;
-}
-
-div.main
-{
-  margin-right: 11em;
-}
-
-div.sidebar
-{
-  position: absolute;
-  top: 0px;
-  right: 0em;
-  width: 10em;
-}
-
-div.comment input.comment
-{
-  width: 9em;
-}
-</style>
+<%= @js.to_html(context) %>
+<%= @css.to_html(context) %>
 <head>
 <title><%=h rabbit.slide_title %></title>
 </head>
@@ -53,11 +13,7 @@ div.comment input.comment
 <% if rabbit.accept_move? %>
 <%= @navi.to_div(context) %>
 <% end %>
-<div class="slide">
-<a href="./">
-<img title="<%= image_title %>" src="<%= image_path(context) %>" />
-</a>
-</div>
+<%= @slide.to_div(context) %>
 <% if rabbit.accept_move? %>
 <%= @navi.to_div(context) %>
 <% end %>

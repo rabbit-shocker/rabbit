@@ -116,13 +116,18 @@ misc/emacs/
 
 == ライセンス
 
-プログラム，画像ともにRuby's（lib/rabbit/tgif.rbを除く）です．
-詳しくはCOPYINGまたはCOPYING.jaを見てください．
+プログラム，画像ともにRuby's（lib/rabbit/tgif.rbと
+lib/rabbit/div/prototype.jsを除く）です．詳しくはCOPYINGまた
+はCOPYING.jaを見てください．
 
-ただし，lib/rabbit/tgif.rbは
+lib/rabbit/tgif.rbは
 ((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)) 
 と同じライセンスになります．詳しくはCOPYING-TGIFTOOLSまたは
 COPYING-TGIFTOOLS.jaを見てください．
+
+lib/rabbit/div/prototype.jsはMITスタイルのライセンスになります．
+詳しくは((<Prototype JavaScript
+Framework|URL:http://prototype.conio.net/>))を見てください．
 
 マスコットキャラクタのPSDファイルが欲しい人はプログラム作者
 に連絡してください．画像作者に相談してみます．
@@ -804,10 +809,12 @@ XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）を
   * noritadaさん: ドキュメントに関するバグ報告をしてくれまし
     た．
   * ganちゃん: 旗を書いてくれました．
-  * かくたにさん: ドキュメントに関するバグ報告をしてくれまし
-    た．Rabbitを使ってプレゼンしてくれます．テーマデザインや
-    機能拡張のアイディアをくれました．HTML出力に関するバグを
-    修正するパッチをくれました．
+  * かくたにさん:
+    * ドキュメントに関するバグ報告をしてくれました．
+    * Rabbitを使ってプレゼンしてくれます．
+    * テーマデザインや機能拡張のアイディアをくれました．
+    * HTML出力に関するバグを修正するパッチをくれました．
+    * Mac OS X(Intel)用のパッケージを作ってくれました．
   * atzmさん: Gentoo用のパッケージ（*.ebuild）を作ってくれま
     した．
   * やまだあきらさん: Debian用のパッケージ（*.deb）を作って
@@ -822,3 +829,4 @@ XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）を
   * 西川さん: FAQページの名前を考えてくれました．動作報告を
     してくれます．
   * 武田くん: Emacs用のrabbitモードを書いてくれました．
+  * 木村さん: Mac OS X用のパッケージを作ってくれました．

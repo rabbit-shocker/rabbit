@@ -1,15 +1,28 @@
 <div class="comment">
 <p>
-<%= form("comment", context) %>
-<input type="text" class="comment" name="<%= comment_param_name %>" />
-<input type="submit" name="submit-comment" value="GO!" />
+<%= form2({"id" => comment_form_name}, "comment", context) %>
+<input type="text" class="comment" value="" id="<%= comment_param_name %>" name="<%= comment_param_name %>" />
+<script type="text/javascript">
+function updateLog() {
+  Form.disable(<%= comment_form_name.dump %>);
+  new Ajax.Updater({success: 'log'},
+                   <%= action(context).dump %>,
+                   {
+                     method: 'get',
+                     parameters: <%= ajax_param("comment", comment_param_name) %>,
+                     onSuccess: function() {
+                       $(<%= comment_param_name.dump %>).value = "";
+                       Form.enable(<%= comment_form_name.dump %>);
+		     }
+                   });
+}
+</script>
+<input type="submit" name="submit-comment" value="GO!" onclick="updateLog(); return false;" />
 </form>
 </p>
-<p class="log">
-<ul>
-<% comments.reverse.each do |comment| %>
-<li><%=h comment %></li>
-<% end %>
-</ul>
+<p class="log" id="log">
 </p>
+<script type="text/javascript">
+updateLog();
+</script>
 </div>

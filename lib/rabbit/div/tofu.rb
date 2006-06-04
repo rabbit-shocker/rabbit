@@ -3,35 +3,101 @@ require "div/tofusession"
 
 require 'rabbit/utils'
 
+module WEBrick
+  class Tofulet
+    def req_set?
+      not @res["content-type"].nil?
+    end
+  end
+end
+
 module Rabbit
   module Div
-    class MainDiv < ::Div::Div
-      set_erb(File.join("rabbit", "div", "main.erb"))
-
-      def initialize(session)
+    module RabbitDiv
+      def initialize(*args)
         super
-        @navi = NaviDiv.new(session)
-        @comment = CommentDiv.new(session)
+        @cache = {}
       end
-      
+
       private
       def rabbit
         @session.rabbit
       end
 
-      def image_title
-        title = h(rabbit.slide_title)
-        title << "(#{rabbit.current_slide_number}/"
-        title << "#{rabbit.total_slide_number - 1})"
-        title
+      def form2(attrs, method_name, context_or_param, context_or_empty=nil)
+        result = form(method_name, context_or_param, context_or_empty)
+        attrs = attrs.collect do |key, value|
+          "#{h(key)}=\"#{h(value)}\""
+        end.join(" ")
+        result.gsub!(/(<form )/, "\\1#{attrs}")
+        result
       end
-      
-      def image_path(context)
-        "#{context.req_script_name}#{@session.image_path}"
+
+      def param(method_name, add_param, separator=";")
+        param = make_param(method_name, add_param)
+        ary = param.collect do |k, v|
+          "#{u(k)}=#{u(v)}"
+        end
+        ary.join(separator)
+      end
+
+      def ajax_param(method_name, add_js_param=[])
+        result = ''
+        result << param(method_name, {"ajax" => "1"}, "&").dump
+        add_js_param.each do |k|
+          result << " + "
+          result << "&#{u(k)}=".dump
+          result << " + $F(#{u(k).dump})"
+        end
+        result
+      end
+
+      def ajax?(params)
+        params.has_key?("ajax")
+      end
+
+      def uri(method_name, add_param, context)
+        "#{action(context)}?#{param(method_name, add_param)}"
+      end
+
+      def cache_read_file(key, *name)
+        @cache[key] ||= read_file(*name)
+      end
+
+      def read_file(*name)
+        path = Utils.find_path_in_load_path(*name)
+        if path
+          File.read(path)
+        else
+          nil
+        end
+      end
+    end
+
+    class MainDiv < ::Div::Div
+      include RabbitDiv
+
+      set_erb(File.join("rabbit", "div", "main.erb"))
+
+      attr_reader :js
+      def initialize(session)
+        super
+        @slide = SlideDiv.new(session)
+        @navi = NaviDiv.new(session)
+        @comment = CommentDiv.new(session)
+        @js = JSDiv.new(session)
+        @css = CSSDiv.new(session)
+      end
+
+      def on_display(context)
+        context.res_header("Content-Type", "text/html; charset=UTF-8")
+        context.res_body(to_html(context))
       end
     end
 
     class NaviDiv < ::Div::Div
+      include RabbitDiv
+
       set_erb(File.join("rabbit", "div", "navi.erb"))
 
       def do_first(context, params)
@@ -77,25 +143,29 @@ module Rabbit
     end
     
     class CommentDiv < ::Div::Div
+      include RabbitDiv
+
       set_erb(File.join("rabbit", "div", "comment.erb"))
+      add_erb("to_log_html(context=nil)", File.join("rabbit", "div", "log.erb"))
+      reload_erb
 
       def initialize(session)
         super
         @error_message = nil
       end
-      
+
       def do_comment(context, params)
         comment = params[comment_param_name]
         rabbit.append_comment(comment) do |error|
           @error_message = error.message
         end
-      end
-      
-      private
-      def rabbit
-        @session.rabbit
+        if ajax?(params)
+          context.res_header("Content-Type", "text/html; charset=UTF-8")
+          context.res_body(to_log_html(context))
+        end
       end
 
+      private
       def comments
         rabbit.comments
       end
@@ -103,13 +173,93 @@ module Rabbit
       def comment_param_name
         "comment"
       end
-    end
-    
-    class TofuSession < ::Div::TofuSession
 
+      def comment_form_name
+        "comment-form"
+      end
+    end
+
+    class SlideDiv < ::Div::Div
+      include RabbitDiv
+
+      set_erb(File.join("rabbit", "div", "slide.erb"))
+
+      def do_current(context, params)
+        context.res_header("Content-Type", "image/#{rabbit.image_type}")
+        context.res_body(rabbit.current_slide_image)
+      end
+
+      private
+      def image_title
+        title = h(rabbit.slide_title)
+        title << "(#{rabbit.current_slide_number}/"
+        title << "#{rabbit.total_slide_number - 1})"
+        title
+      end
+
+      def image_path(context, name="current", add_param={})
+        uri(name, add_param, context)
+      end
+    end
+
+    class JSDiv < ::Div::Div
+      include RabbitDiv
+
+      set_erb(File.join("rabbit", "div", "js.erb"))
+
+      def do_else(context, params)
+        cmd, = params['div_cmd']
+        content = cache_read_file(cmd, "rabbit", "div", "#{cmd}.js")
+        setup_js_response(context, content)
+      end
+
+      private
+      def setup_js_response(context, js)
+        context.res_header("Content-Type", "text/javascript; charset=UTF-8")
+        context.res_body(js.to_s)
+      end
+
+      def js_path(context, name, add_param={})
+        uri(name, add_param, context)
+      end
+
+      def script(context, name)
+        src = js_path(context, name)
+        %Q!<script type="text/javascript" src="#{src}"></script>!
+      end
+    end
+
+    class CSSDiv < ::Div::Div
+      include RabbitDiv
+
+      set_erb(File.join("rabbit", "div", "css.erb"))
+
+      def do_else(context, params)
+        cmd, = params['div_cmd']
+        content = cache_read_file(cmd, "rabbit", "div", "#{cmd}.css")
+        setup_css_response(context, content)
+      end
+
+      private
+      def setup_css_response(context, css)
+        context.res_header("Content-Type", "text/css; charset=UTF-8")
+        context.res_body(css.to_s)
+      end
+
+      def css_path(context, name, add_param={})
+        uri(name, add_param, context)
+      end
+
+      def css_link(context, name)
+        path = css_path(context, name)
+        %Q!<link rel="stylesheet" type="text/css" href="#{path}" />!
+      end
+    end
+
+    class TofuSession < ::Div::TofuSession
       @@rabbit = nil
       @@comment_rabbit = nil
-      
+
       def self.rabbit=(rabbit)
         @@rabbit = rabbit
       end
@@ -120,7 +270,6 @@ module Rabbit
 
       attr_reader :rabbit
       attr_reader :comment_rabbit
-      
       def initialize(bartender, hint=nil)
         super
         @main = MainDiv.new(self)
@@ -130,25 +279,7 @@ module Rabbit
 
       def do_GET(context)
         update_div(context)
-        if image_path?(context)
-          context.res_header("Content-Type", "image/#{@rabbit.image_type}")
-          context.res_body(@rabbit.current_slide_image)
-        else
-          context.res_header("Content-Type", "text/html; charset=UTF-8")
-          context.res_body(@main.to_html(context))
-        end
-      end
-
-      def image_path
-        if @rabbit.accept_move?
-          "/image/#{@rabbit.current_slide_number}/"
-        else
-          "/image/current/"
-        end
-      end
-      
-      def image_path?(context)
-        %r!/image/(?:current|[0-9]+)/! =~ context.req_path_info
+        @main.on_display(context) unless context.req_set?
       end
     end
   end
