@@ -99,7 +99,7 @@ module Rabbit
       add_erb("to_html_i(context)", File.join("rabbit", "div", "main-i.erb"))
       reload_erb
 
-      attr_reader :js
+      attr_reader :navi
       def initialize(session)
         super
         @slide = SlideDiv.new(session)
@@ -302,6 +302,10 @@ module Rabbit
       def do_GET(context)
         update_div(context)
         @main.on_display(context) unless context.req_set?
+      end
+
+      def fetch(ref)
+        super || (@rabbit.accept_move? ? @main.navi : nil)
       end
     end
   end
