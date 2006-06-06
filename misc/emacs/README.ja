@@ -34,6 +34,7 @@ Rabbitのメッセージはバッファ*Rabbit<ファイル名>*という
 プレゼンテーションのタイトルを入力します．
 
 関連する変数
+
 * rabbit-author
 * rabbit-institution
 * rabbit-theme
@@ -48,23 +49,21 @@ Rabbitのメッセージはバッファ*Rabbit<ファイル名>*という
 キャプションに何も入力しなかった場合（空文字列の場合)，
 テンプレートのキャプションの行はコメントアウトされます．
 
-サイズ指定の方法はsize(幅と高さを指定)，normalized_width，
-normalized_height，relative_width，relative_heightです．
+サイズ指定の方法は
+
+* relative
+* normalized
+* pixel(幅と高さを指定)
+
 サイズ指定の方法に何も入力しなかった場合（空文字列の場合)，
-画像サイズを変更しません．
+デフォルト(relative)を使います．
 
 === rabbit-insert-image-template-default(C-c C-i)
 
-デフォルトのサイズ指定の方法で画像のテンプレートを挿入します．
+デフォルト(relative)のサイズ指定の方法で画像のテンプレートを
+挿入します．
 
 画像のファイル名，キャプション，サイズを入力します．
-
-変数rabbit-specify-imagesize-defaultがデフォルトのサイズ指定
-の方法です．一番使うサイズ指定の方法を設定しておくと便利です．
-デフォルトは"relative_height"です．
-
-関連する変数
-* rabbit-specify-imagesize-default
 
 === rabbit-insert-slide(C-c C-s)
 
@@ -108,21 +107,6 @@ rabbitの起動コマンドです．
 === rabbit-theme(rabbit)
 
 コマンドでテーマが指定されなかったときに使われるテーマです．
-
-=== rabbit-specify-imagesize-default("relative-height")
-
-rabbit-insert-title-template-defaultのデフォルトの
-サイズ指定の方法です．
-
-有効な値
-* "size"
-* "normalized_width"
-* "normalized_height"
-* "relative_width"
-* "relative_height"
-
-関連する関数
-* rabbit-insert-title-template-default
 
 === Faces
 
