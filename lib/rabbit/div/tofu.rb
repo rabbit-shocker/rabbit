@@ -84,7 +84,7 @@ module Rabbit
       end
 
       def to_sjis(str)
-        NKF.nkf("-sdXm0", str.to_s)
+        NKF.nkf("-sWdXm0", str.to_s)
       end
     end
 
@@ -120,6 +120,8 @@ module Rabbit
       include RabbitDiv
 
       set_erb(File.join("rabbit", "div", "navi.erb"))
+      add_erb("to_html_i(context)", File.join("rabbit", "div", "navi-i.erb"))
+      reload_erb
 
       def do_first(context, params)
         rabbit.move_to_first
