@@ -26,20 +26,22 @@ end
 
 @image_timer_limit_time = nil
 
+@image_time_auto_updating = false
+
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
   stop_auto_reload_timer
-  
-  break if @image_timer_uninstall
 
-  if @image_timer_auto_update
-    start_auto_reload_timer(@image_timer_interval)
-  end
+  break if @image_timer_uninstall
 
   init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       @image_timer_limit_time ||= Time.now + @image_timer_limit
+      if @image_timer_auto_update && !@image_timer_auto_updating
+        @image_timer_auto_updating = true
+        start_auto_reload_timer(@image_timer_interval)
+      end
       slide.delete_post_draw_proc_by_name(init_proc_name)
     end
     [x, y, w, h]
