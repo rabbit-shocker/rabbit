@@ -85,8 +85,8 @@ def setup_lightning_talk_slide(slide)
       contact_information_size = params[:contact_information_size]
       contact_information_family = params[:contact_information_family]
       contact_information_color = params[:contact_information_color]
-      
-      if contact_information
+
+      if contact_information and /\A\s*\z/ !~ contact_information
         add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
           unless simulation
             text = Element::Text.new(contact_information)
