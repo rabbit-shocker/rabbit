@@ -60,7 +60,7 @@ Execute install.bat.
 (3) You may need to obtain ruby.st for Ruby syntax highlighting.
 
       > cd <Enscript Install Path>/share/enscript/hl
-      > ruby -ropen-uri -e "puts open('http://rubyforge.org/cgi-bin/viewcvs.cgi/*checkout*/support/ruby.st').read" > ruby.st
+      > ruby -ropen-uri -e "puts open('http://rubyforge.org/cgi-bin/viewvc.cgi/support/ruby.st?view=co').read" > ruby.st
 
 (4) Install ((<RAA:htree>)).
 
