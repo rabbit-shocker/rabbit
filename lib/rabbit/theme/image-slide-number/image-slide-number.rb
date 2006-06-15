@@ -24,7 +24,11 @@ match(Slide) do |slides|
 
   start_flag_width = 0
   goal_flag_width = 0
-  max_text_length = Math.log10(canvas.slide_size).truncate + 1
+  if canvas.slide_size < 2
+    max_text_length = 1
+  else
+    max_text_length = Math.log10(canvas.slide_size - 1).truncate + 1
+  end
   text_attributes = {
     "size" => @image_slide_number_font_size / max_text_length,
     "font_family" => @font_family,
