@@ -15,6 +15,7 @@ module Rabbit
       end
 
       def printable_renderer(slides_per_page)
+        raise NoPrintSupportError unless printable?
         if slides_per_page > 1
           Print::Multiple
         else

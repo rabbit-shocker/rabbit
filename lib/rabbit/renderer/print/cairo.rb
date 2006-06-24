@@ -1,3 +1,4 @@
+raise LoadError
 require "rabbit/utils"
 
 Rabbit::Utils.require_safe "rabbit/renderer/engine/cairo"

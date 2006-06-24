@@ -10,6 +10,12 @@ module Rabbit
         include DrawingAreaBase
         include Comment
 
+        class << self
+          def priority
+            100
+          end
+        end
+
         private
         def init_color
           super

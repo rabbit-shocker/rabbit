@@ -203,4 +203,10 @@ module Rabbit
       super(_("unknown cursor type: %s") % @type)
     end
   end
+
+  class NoPrintSupportError < Error
+    def initialize
+      super(_("print isn't supported"))
+    end
+  end
 end

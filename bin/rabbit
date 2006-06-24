@@ -204,149 +204,146 @@ def parse(args=ARGV, logger=nil)
       options.rss_base_uri = uri
     end
 
-    if Rabbit::Renderer.printable?
-      opts.separator ""
-      opts.separator _("Print")
+    opts.separator ""
+    opts.separator _("Print")
 
-      opts.on("-p", "--print",
-              _("Print and exit.")) do
-        options.print = true
+    opts.on("-p", "--print",
+            _("Print and exit.")) do
+      options.print = true
+    end
+
+    opts.on("-o", "--output-filename=FILENAME",
+            _("Specify printed out filename as [FILENAME]."),
+            "(\#{%s}.ps)" % _("Title of slide")) do |f|
+      options.print_out_filename = f
+    end
+
+    opts.on("--slides-per-page=SLIDES",
+            Integer,
+            _("Set slides per page."),
+            "(1)") do |slides|
+      options.slides_per_page = slides
+    end
+
+
+    opts.separator ""
+    opts.separator _("Paper")
+
+    opts.on("--paper-width=WIDTH",
+            Integer,
+            _("Set paper width to [WIDTH] Pt."),
+            _("(landscape A4 width)")) do |width|
+      options.paper_width = width
+    end
+
+    opts.on("--paper-height=HEIGHT",
+            Integer,
+            _("Set paper height to [HEIGHT] Pt."),
+            _("(landscape A4 height)")) do |height|
+      options.paper_height = height
+    end
+
+    message = _("Set paper width and height to\n" \
+                "[WIDTH] Pt and [HEIGHT] Pt.")
+    message = message.split(/\n/) + [_("(landscape A4 size)")]
+    opts.on("--paper-size=WIDTH,HEIGHT",
+            Array,
+            *message) do |size|
+      width, height = size.collect{|x| Integer(x)}
+      options.paper_width = width
+      options.paper_height = height
+    end
+
+
+    opts.separator ""
+    opts.separator _("Margin")
+
+    opts.on("--margin-left=MARGIN",
+            Integer,
+            _("Set left margin for slides per page mode print."),
+            _("(auto)")) do |margin|
+      options.margin_left = margin
+    end
+
+    opts.on("--margin-right=MARGIN",
+            Integer,
+            _("Set right margin for slides per page mode print."),
+            _("(auto)")) do |margin|
+      options.margin_right = margin
+    end
+
+    opts.on("--margin-top=MARGIN",
+            Integer,
+            _("Set top margin for slides per page mode print."),
+            _("(auto)")) do |margin|
+      options.margin_top = margin
+    end
+
+    opts.on("--margin-bottom=MARGIN",
+            Integer,
+            _("Set bottom margin for slides per page mode print."),
+            _("(auto)")) do |margin|
+      options.margin_bottom = margin
+    end
+
+    margin1 = _("[ALL]")
+    margin2 = _("[TOP_BOTTOM],[LEFT_RIGHT]")
+    margin3 = _("[TOP],[LEFT_RIGHT],[BOTTOM]")
+    margin4 = _("[TOP],[RIGHT],[BOTTOM],[LEFT]")
+    opts.on("--margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
+            Array,
+            _("Set margin for slides per page mode print.")) do |margins|
+      begin
+        top, right, bottom, left = Utils.parse_four_dimensions(margins)
+        options.margin_top = top
+        options.margin_right = right
+        options.margin_bottom = bottom
+        options.margin_left = left
+      rescue ArgumentError
+        raise OptionParser::InvalidArgument.new(margins)
       end
+    end
 
-      opts.on("-o", "--output-filename=FILENAME",
-              _("Specify printed out filename as [FILENAME]."),
-              "(\#{%s}.ps)" % _("Title of slide")) do |f|
-        options.print_out_filename = f
+    opts.on("--page-margin-left=MARGIN",
+            Integer,
+            _("Set left page margin."),
+            _("(auto)")) do |margin|
+      options.page_margin_left = margin
+    end
+
+    opts.on("--page-margin-right=MARGIN",
+            Integer,
+            _("Set right page margin."),
+            _("(auto)")) do |margin|
+      options.page_margin_right = margin
+    end
+
+    opts.on("--page-margin-top=MARGIN",
+            Integer,
+            _("Set top page margin."),
+            _("(auto)")) do |margin|
+      options.page_margin_top = margin
+    end
+
+    opts.on("--page-margin-bottom=MARGIN",
+            Integer,
+            _("Set bottom page margin."),
+            _("(auto)")) do |margin|
+      options.page_margin_bottom = margin
+    end
+
+    opts.on("--page-margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
+            Array,
+            _("Set page margin.")) do |margins|
+      begin
+        top, right, bottom, left = Utils.parse_four_dimensions(margins)
+        options.page_margin_top = top
+        options.page_margin_right = right
+        options.page_margin_bottom = bottom
+        options.page_margin_left = left
+      rescue ArgumentError
+        raise OptionParser::InvalidArgument.new(margins)
       end
-
-      opts.on("--slides-per-page=SLIDES",
-              Integer,
-              _("Set slides per page."),
-              "(1)") do |slides|
-        options.slides_per_page = slides
-      end
-
-
-      opts.separator ""
-      opts.separator _("Paper")
-
-      opts.on("--paper-width=WIDTH",
-              Integer,
-              _("Set paper width to [WIDTH] Pt."),
-              _("(landscape A4 width)")) do |width|
-        options.paper_width = width
-      end
-
-      opts.on("--paper-height=HEIGHT",
-              Integer,
-              _("Set paper height to [HEIGHT] Pt."),
-              _("(landscape A4 height)")) do |height|
-        options.paper_height = height
-      end
-
-      message = _("Set paper width and height to\n" \
-                  "[WIDTH] Pt and [HEIGHT] Pt.")
-      message = message.split(/\n/) + [_("(landscape A4 size)")]
-      opts.on("--paper-size=WIDTH,HEIGHT",
-              Array,
-              *message) do |size|
-        width, height = size.collect{|x| Integer(x)}
-        options.paper_width = width
-        options.paper_height = height
-      end
-
-
-      opts.separator ""
-      opts.separator _("Margin")
-
-      opts.on("--margin-left=MARGIN",
-              Integer,
-              _("Set left margin for slides per page mode print."),
-              _("(auto)")) do |margin|
-        options.margin_left = margin
-      end
-
-      opts.on("--margin-right=MARGIN",
-              Integer,
-              _("Set right margin for slides per page mode print."),
-              _("(auto)")) do |margin|
-        options.margin_right = margin
-      end
-
-      opts.on("--margin-top=MARGIN",
-              Integer,
-              _("Set top margin for slides per page mode print."),
-              _("(auto)")) do |margin|
-        options.margin_top = margin
-      end
-
-      opts.on("--margin-bottom=MARGIN",
-              Integer,
-              _("Set bottom margin for slides per page mode print."),
-              _("(auto)")) do |margin|
-        options.margin_bottom = margin
-      end
-
-      margin1 = _("[ALL]")
-      margin2 = _("[TOP_BOTTOM],[LEFT_RIGHT]")
-      margin3 = _("[TOP],[LEFT_RIGHT],[BOTTOM]")
-      margin4 = _("[TOP],[RIGHT],[BOTTOM],[LEFT]")
-      opts.on("--margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
-              Array,
-              _("Set margin for slides per page mode print.")) do |margins|
-        begin
-          top, right, bottom, left = Utils.parse_four_dimensions(margins)
-          options.margin_top = top
-          options.margin_right = right
-          options.margin_bottom = bottom
-          options.margin_left = left
-        rescue ArgumentError
-          raise OptionParser::InvalidArgument.new(margins)
-        end
-      end
-
-      opts.on("--page-margin-left=MARGIN",
-              Integer,
-              _("Set left page margin."),
-              _("(auto)")) do |margin|
-        options.page_margin_left = margin
-      end
-
-      opts.on("--page-margin-right=MARGIN",
-              Integer,
-              _("Set right page margin."),
-              _("(auto)")) do |margin|
-        options.page_margin_right = margin
-      end
-
-      opts.on("--page-margin-top=MARGIN",
-              Integer,
-              _("Set top page margin."),
-              _("(auto)")) do |margin|
-        options.page_margin_top = margin
-      end
-
-      opts.on("--page-margin-bottom=MARGIN",
-              Integer,
-              _("Set bottom page margin."),
-              _("(auto)")) do |margin|
-        options.page_margin_bottom = margin
-      end
-
-      opts.on("--page-margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
-              Array,
-              _("Set page margin.")) do |margins|
-        begin
-          top, right, bottom, left = Utils.parse_four_dimensions(margins)
-          options.page_margin_top = top
-          options.page_margin_right = right
-          options.page_margin_bottom = bottom
-          options.page_margin_left = left
-        rescue ArgumentError
-          raise OptionParser::InvalidArgument.new(margins)
-        end
-      end
-
     end
 
     opts.separator ""
@@ -651,6 +648,8 @@ def do_print(options, logger)
   parse_rd(canvas, options, logger)
   canvas.print
   canvas.quit
+rescue Rabbit::NoPrintSupportError
+  logger.error($!.message)
 end
 
 def do_save_as_image(options, logger)
@@ -675,7 +674,7 @@ def do_display(options, logger)
     logger.start_gui_main_loop_automatically = false
   end
   
-  canvas = make_canvas(options, logger, Rabbit::Renderer::Display::DrawingArea)
+  canvas = make_canvas(options, logger, Rabbit::Renderer::Display)
   frame = Rabbit::Frame.new(logger, canvas)
   setup_paper_size(canvas, options)
   setup_image_info(frame, options)

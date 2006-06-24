@@ -1,3 +1,4 @@
+raise LoadError
 require "gnomeprint2"
 
 require 'rabbit/renderer/kernel'
