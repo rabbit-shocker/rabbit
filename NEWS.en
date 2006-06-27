@@ -1,0 +1,24 @@
+# -*- rd -*-
+
+= NEWS.en
+
+$Id$
+
+== Changes 0.4.2 from 0.4.1
+
+  * fixed a search regular expression bug. (nskj77)
+  * fixed documents. (nskj77, kitaj)
+  * imported rabbit-mode.el. (Atsushi Takeda)
+  * fixed a bug related HTML generation. (KAKUTANI Shintaro)
+  * added Alice image. (asahina)
+  * updated rabbit-mode.l. (MIYAMUKO Katsuyuki, id:wata_d)
+  * supported takahashi method instead of takahashi alias.
+  * supported PDF rendering with Ruby/Poppler.
+  * improved OpenGL support.
+  * supported AJAX in Rabrick.
+  * supported mobile phone.
+  * improved memory usage.
+
+=== Other news
+
+  * Mac OS X package (DarwinPorts) is available by kimura wataru.
