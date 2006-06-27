@@ -1,4 +1,3 @@
-raise LoadError
 require "rabbit/utils"
 
 Rabbit::Utils.require_safe "rabbit/renderer/engine/cairo"
@@ -20,7 +19,7 @@ module Rabbit
         
         class << self
           def priority
-            if (::Cairo::VERSION <=> [1, 1, 7]) >= 0
+            if (::Cairo::VERSION <=> [1, 1, 10]) >= 0
               100
             else
               -100
@@ -91,7 +90,7 @@ module Rabbit
 
         def init_context
           surface = find_surface(filename)
-          surface.set_dpi(@x_dpi, @y_dpi)
+          surface.set_fallback_resolution(@x_dpi, @y_dpi)
           @context = ::Cairo::Context.new(surface)
           super
         end
