@@ -1,4 +1,3 @@
-raise LoadError
 require "gnomeprint2"
 
 require 'rabbit/renderer/kernel'
@@ -363,17 +362,17 @@ module Rabbit
         def find_printer(filename)
           if filename[0] == ?|
             @printers.find do |printer|
-              /Postscript/i =~ printer.value
+              "GENERIC" == printer.id
             end
           else
             case File.extname(filename)
             when /\.ps/i
               @printers.find do |printer|
-                /Postscript/i =~ printer.value
+                "GENERIC" == printer.id
               end
             when /\.pdf/i
               @printers.find do |printer|
-                /PDF/i =~ printer.value
+                "PDF" == printer.id
               end
             else
               nil
