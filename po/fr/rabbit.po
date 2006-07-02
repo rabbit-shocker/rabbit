@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Rabbit 0.4.2\n"
+"Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-02 13:16+0900\n"
-"PO-Revision-Date: 2006-03-16 13:37+0900\n"
+"PO-Revision-Date: 2006-07-02 16:54+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
 "MIME-Version: 1.0\n"
