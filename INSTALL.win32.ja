@@ -9,11 +9,10 @@ Windows上でRabbitを実行するのは大変です．以下を参考にして頑
 
 == Ruby 本体のインストール
 
-ruby 1.8.4 のインストール。One-Click Installerを使うのが楽
-((-まだpreview3だけど，大丈夫でしょう．-))．
+ruby 1.8.4 のインストール。One-Click Installerを使うのが楽．
 
-: ruby184-16p3.exe
-   ((<URL:http://rubyforge.org/frs/download.php/8338/ruby184-16p3.exe>))
+: ruby184-17_rc2.exe
+   ((<URL:http://rubyforge.org/frs/download.php/10286/ruby184-17_rc2.exe>))
 
 == RDTool のインストール
 
@@ -28,15 +27,15 @@ ruby 1.8.4 のインストール。One-Click Installerを使うのが楽
 
 アーカイブを展開して，install.rb を実行してインストールする。
 
-: ruby-gtk2-0.14.1-1-i386-msvcrt-1.zip
-   ((<URL:http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.14.1-1-i386-msvcrt-1.zip>))
+: ruby-gtk2-0.15.0-1-i386-msvcrt-1.zip
+   ((<URL:http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.15.0-1-i386-msvcrt-1.zip>))
 
 == GTK+ 2のインストール
 
 GLADE for Windows の GTK+ 2 パッケージをインストールする。
 
-: gtk-win32-2.8.8-rc2.exe
-   ((<URL:http://gladewin32.sourceforge.net/modules/wfdownloads/visit.php?lid=95>))
+: gtk-win32-2.8.18-rc1.exe
+   ((<URL:http://gladewin32.sourceforge.net/modules/wfdownloads/visit.php?lid=102>))
 
 == Rabbit のインストール
 
