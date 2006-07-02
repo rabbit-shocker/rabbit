@@ -19,20 +19,20 @@ def parse(args=ARGV, logger=nil)
     opts.separator ""
 
     opts.on("--druby-uri=URI",
-            _("Specify Rabbit's dRuby URI."),
+            _("Specify Rabbit's dRuby URI as [URI]."),
             "(#{options.druby_uri})") do |uri|
       options.druby_uri = uri
     end
 
     opts.on("--port=PORT",
             Integer,
-            _("Specify WEBrick port as PORT."),
+            _("Specify WEBrick port as [PORT]."),
             "(#{options.port})") do |port|
       options.port = port
     end
 
     opts.on("--[no-]debug",
-            _("Specify debug mode."),
+            _("Specify whether debug mode or not."),
             "(#{options.debug})") do |bool|
       options.debug = bool
     end
