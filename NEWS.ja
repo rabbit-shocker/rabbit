@@ -14,7 +14,7 @@ $Id$
   * rabbit-mode.lの修正．（みやむこさん，id:wata_dさん）
   * 高橋エイリアスから高橋メソッドへ．
   * Ruby/Popplerを用いたPDF表示のサポート．
-  * OpengGLサポートの改良．
+  * OpenGLサポートの改良．
   * RabrickでのAJAXをサポート．
   * 携帯電話をサポート．
   * メモり使用を改善．
