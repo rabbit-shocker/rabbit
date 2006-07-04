@@ -8,7 +8,6 @@ require "rabbit/console"
 require "rabbit/source"
 require "rabbit/renderer"
 require "rabbit/front"
-Rabbit::Utils.require_safe "rabbit/renderer/gl"
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
@@ -486,15 +485,13 @@ def parse(args=ARGV, logger=nil)
       options.migemo_dictionary_name = name
     end
 
-    if defined?(Rabbit::Renderer::GL)
-      opts.separator ""
-      opts.separator _("3D")
+    opts.separator ""
+    opts.separator _("3D")
 
-      opts.on("--[no-]use-gl",
-              _("Specify whether to use OpenGL if available."),
-              "(#{options.use_gl})") do |bool|
-        options.use_gl = bool
-      end
+    opts.on("--[no-]use-gl",
+            _("Specify whether to use OpenGL if available."),
+            "(#{options.use_gl})") do |bool|
+      options.use_gl = bool
     end
   end
 end
