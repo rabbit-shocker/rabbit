@@ -14,7 +14,7 @@ module Rabbit
 
         class << self
           def priority
-            100
+            Engine::Cairo.priority
           end
         end
       end

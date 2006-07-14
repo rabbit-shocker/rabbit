@@ -46,8 +46,20 @@ module Rabbit
         @@poppler_available = nil
 
         class << self
+          def available_with_gdk?
+            Gdk.respond_to?(:cairo_available?) and Gdk.cairo_available?
+          end
+
+          def available_with_pango?
+            Pango.respond_to?(:cairo_available?) and Pango.cairo_available?
+          end
+
           def priority
-            100
+            if available_with_gdk? and available_with_pango?
+              100
+            else
+              -100
+            end
           end
         end
 
