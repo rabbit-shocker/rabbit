@@ -20,8 +20,10 @@ module Rabbit
 
       def update_size
         File.open(@filename, "rb") do |file|
-          loader = load_by_pixbuf_loader(file.read)
-          @original_pixbuf = loader.pixbuf
+          Dir.chdir(File.dirname(@filename)) do
+            loader = load_by_pixbuf_loader(file.read)
+            @original_pixbuf = loader.pixbuf
+          end
         end
       end
     end
