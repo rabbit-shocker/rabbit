@@ -102,7 +102,10 @@
       (progn
 	(setq rabbit-running t)
 	(start-process "Rabbit" outbuf rabbit-command filename)
-	(set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)))))
+	(set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)
+        (if (one-window-p)
+            (set-window-buffer (split-window) outbuf)
+          (set-window-buffer (previous-window) outbuf))))))
 
 ;;; insert functions
 
