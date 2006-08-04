@@ -144,13 +144,16 @@
   (interactive)
   (forward-line 1)
   (re-search-forward "^= " nil t)
-  (goto-char (match-beginning 0)))
+  (goto-char (match-beginning 0))
+  (recenter))
 
 (defun rabbit-previous-slide ()
   "move to previous slide."
   (interactive)
+  (beginning-of-line)
   (re-search-backward "^= " nil t)
-  (goto-char (match-beginning 0)))
+  (goto-char (match-beginning 0))
+  (recenter))
 
 ;;; private
 
