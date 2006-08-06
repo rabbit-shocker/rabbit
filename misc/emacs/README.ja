@@ -30,7 +30,8 @@ Rabbitのメッセージはバッファ*Rabbit<ファイル名>*に出力されます．
 
 タイトルのテンプレートの挿入します．
 
-プレゼンテーションのタイトルを入力します．
+プレゼンテーションのタイトルとメタデータを入力します．
+メタデータは省略可能です．
 
 関連する変数
 
@@ -88,7 +89,7 @@ rabbitの起動コマンドです．
 
 * rabbit-run-rabbit
 
-=== rabbit-author(Author)
+=== rabbit-author(nil)
 
 タイトルに表示される作者名です．
 
@@ -96,7 +97,7 @@ rabbitの起動コマンドです．
 
 * rabbit-insert-title-template
 
-=== rabbit-institution(Institution)
+=== rabbit-institution(nil)
 
 タイトルに表示される所属です
 

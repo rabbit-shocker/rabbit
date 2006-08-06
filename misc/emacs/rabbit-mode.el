@@ -11,20 +11,12 @@
   "Hooks run when entering `rabbit-mode' major mode")
 (defvar rabbit-command "rabbit")
 (defvar rabbit-output-buffer nil)
-(defvar rabbit-author "Author")
-(defvar rabbit-institution "Institution")
+(defvar rabbit-author nil)
+(defvar rabbit-institution nil)
 (defvar rabbit-theme "rabbit")
 
-(defvar rabbit-title-template
-"= %s
-
-: author
-   %s
-: institution
-   %s
-: theme
-   %s
-\n")
+(defvar rabbit-title-metadata
+  '("subtitle" "content_source" "author" "institution" "theme"))
 
 (defvar rabbit-slide-template
 "= %s
@@ -109,15 +101,15 @@
 
 ;;; insert functions
 
-(defun rabbit-insert-title-template (rabbit-title)
+(defun rabbit-insert-title-template (title)
   "insert a title template."
-  (interactive "spresentation's title:")
-  (save-excursion (insert (format rabbit-title-template
-				  rabbit-title
-				  rabbit-author
-				  rabbit-institution
-				  rabbit-theme)))
-  (forward-line 9))
+  (interactive "spresentation's title: ")
+  (insert (concat
+           (rabbit-join-without-empty-string
+            `(,(concat "= " title "\n")
+              ,@(rabbit-make-metadata-strings))
+            "\n")
+           "\n")))
 
 (defun rabbit-insert-image-template (file)
   "insert a image template."
@@ -167,6 +159,27 @@
   (define-key rabbit-mode-map "\M-n" 'rabbit-next-slide)
   (define-key rabbit-mode-map "\M-p" 'rabbit-previous-slide))
 
+(defun rabbit-make-metadata-strings ()
+  (let ((result '(""))
+        (rabbit-subtitle nil)
+        (rabbit-content_source nil))
+    (dolist (metadata rabbit-title-metadata (reverse result))
+      (let ((valuable (intern (concat "rabbit-" metadata))))
+        (if (eval valuable)
+            (setq result (cons (rabbit-metadata-string-template metadata
+                                                                (eval valuable))
+                               result))
+          (let ((value (read-from-minibuffer (concat metadata ": "))))
+            (if (string-equal value "")
+                ""
+              (setq result (cons (rabbit-metadata-string-template metadata value)
+                                 result)))))))))
+          
+
+(defun rabbit-metadata-string-template (metadata value)
+  (concat ": " metadata "\n"
+          (rabbit-block-indent " ") value "\n"))
+    
 (defun rabbit-read-property (key)
   "read `key' value from minibuf and return string as \"key = value\"
 format if value is specified, otherwise return \"\"."
