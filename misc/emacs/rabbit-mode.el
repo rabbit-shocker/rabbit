@@ -18,10 +18,6 @@
 (defvar rabbit-title-metadata
   '("subtitle" "content_source" "author" "institution" "theme"))
 
-(defvar rabbit-slide-template
-"= %s
-\n")
-
 (defvar rabbit-heading-face 'font-lock-keyword-face)
 (defvar rabbit-emphasis-face 'font-lock-function-name-face)
 (defvar rabbit-verbatim-face 'font-lock-function-name-face)
@@ -122,12 +118,10 @@
   (rabbit-insert-image-template-real file))
 
 
-(defun rabbit-insert-slide (rabbit-slide-title)
+(defun rabbit-insert-slide (slide-title)
   "insert a slide."
   (interactive "sslide title: ")
-  (save-excursion (insert (format rabbit-slide-template
-                                  rabbit-slide-title)))
-  (forward-line 2))
+  (insert (concat "= " slide-title "\n\n")))
 
 ;;; move functions
 
