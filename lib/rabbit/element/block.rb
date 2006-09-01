@@ -4,6 +4,10 @@ require 'rabbit/element/block-element'
 
 module Rabbit
   module Element
+    class Container
+      include ContainerElement
+    end
+
     class BlockQuote
       include ContainerElement
       include BlockHorizontalCentering

@@ -7,6 +7,7 @@ require 'rabbit/ext/base'
 require 'rabbit/ext/image'
 require 'rabbit/ext/enscript'
 require 'rabbit/tgif'
+require 'rabbit/ext/anthy'
 
 module Rabbit
   module Ext
@@ -16,6 +17,7 @@ module Rabbit
       include Image
       include Enscript
       include GetText
+      include Anthy
 
       def default_ext_block_verbatim(label, source, content, visitor)
         content = visitor.apply_to_String(content.rstrip)
@@ -39,6 +41,11 @@ module Rabbit
         return nil unless /^enscript (\w+)$/i =~ label
         lang = $1.downcase.untaint
         enscript_block(label, lang, source, content, visitor)
+      end
+
+      def ext_block_verb_anthy(label, source, content, visitor)
+        return nil unless /^anthy$/i =~ label
+        anthy_hiragana_to_kanji(label, source, content, visitor)
       end
 
       def ext_block_verb_LaTeX(label, source, content, visitor)
