@@ -219,6 +219,14 @@ Windowsでの依存ライブラリのインストールは
 
 Windowsの場合はinstall.batを実行してもインストールできます．
 
+=== Gentoo (Portage)
+
+これでインストールできるようです．
+
+  % sudo env ACCEPT_KEYWORDS=~x86 FEATURES="digest" emerge rabbit
+
+((%% sudo emerge rabbit%))だけじゃだめなのかなぁ．
+
 == 使い方
 
   % rabbit XXX.rd
@@ -832,3 +840,4 @@ XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）を
   * 木村さん: Mac OS X用のパッケージを作ってくれました．
   * kitajさん: Windowsへのインストール方法の間違いを指摘して
     くれました．
+  * あかぴさん: emergeについてのドキュメントを書いてくれました．

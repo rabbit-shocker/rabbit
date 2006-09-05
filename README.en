@@ -216,6 +216,12 @@ The old repository is here.
 
 Execute install.bat if you are on Windows.
 
+=== Gentoo (Portage)
+
+  % sudo env ACCEPT_KEYWORDS=~x86 FEATURES="digest" emerge rabbit
+
+((%% sudo emerge rabbit%)) only isn't enough???
+
 == Usage
 
   % rabbit XXX.rd
@@ -797,4 +803,5 @@ page from XXX.rd.
     reporting and some bug reports.
   * Atsushi Takeda: He wrote rabbit mode for Emacs.
   * kimura wataru: He makes Mac OS X package.
-  * kitaj: He points out minor miss in INSTALL.win32.en.
+  * kitaj: He pointed out minor miss in INSTALL.win32.en.
+  * akapy: He wrote a document for emerge.
