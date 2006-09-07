@@ -33,10 +33,10 @@
 (defvar rabbit-variable-face 'font-lock-function-name-face)
 (defvar rabbit-font-lock-keywords
   (list
-   '("^= .*$"
-     0 rabbit-heading-face)
    '("^==+ .*$"
      0 rabbit-comment-face)
+   `(,rabbit-slide-header-regexp
+     0 rabbit-heading-face)
    '("((\\*[^*]*\\*+\\([^)*][^%]*\\*+\\)*))"    ; ((* ... *))
      0 rabbit-emphasis-face)
    '("((%[^%]*%+\\([^)%][^%]*%+\\)*))"      ; ((% ... %))
@@ -136,17 +136,16 @@
 (defun rabbit-next-slide ()
   "move to next slide."
   (interactive)
-  (forward-line 1)
-  (re-search-forward "^= " nil t)
-  (goto-char (match-beginning 0))
+  (rabbit-forward-slide)
+;;   (forward-line 1)
+;;   (goto-char )
   (recenter))
 
 (defun rabbit-previous-slide ()
   "move to previous slide."
   (interactive)
-  (beginning-of-line)
-  (re-search-backward "^= " nil t)
-  (goto-char (match-beginning 0))
+  (rabbit-backward-slide)
+;;   (goto-char )
   (recenter))
 
 ;;; private
@@ -177,7 +176,6 @@
                 ""
               (setq result (cons (rabbit-metadata-string-template metadata value)
                                  result)))))))))
-          
 
 (defun rabbit-metadata-string-template (metadata value)
   (concat ": " metadata "\n"
@@ -283,7 +281,8 @@ format if value is specified, otherwise return \"\"."
 (defun rabbit-current-slide-point ()
   (values (save-excursion (rabbit-forward-slide)
                           (point))
-          (save-excursion (rabbit-backward-slide)
+          (save-excursion (end-of-line)
+                          (rabbit-backward-slide)
                           (point))))
 
 (defun rabbit-forward-slide ()
@@ -293,7 +292,6 @@ format if value is specified, otherwise return \"\"."
   (beginning-of-line))
 
 (defun rabbit-backward-slide ()
-  (end-of-line)
   (or (re-search-backward rabbit-slide-header-regexp nil t)
       (beginning-of-buffer)))
 
