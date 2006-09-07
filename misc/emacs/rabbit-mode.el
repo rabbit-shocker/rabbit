@@ -18,6 +18,8 @@
 (defvar rabbit-title-metadata
   '("subtitle" "content_source" "author" "institution" "theme"))
 
+(defvar rabbit-slide-header-regexp "^=[ \t]*\\(.*\\)")
+
 (defvar rabbit-heading-face 'font-lock-keyword-face)
 (defvar rabbit-emphasis-face 'font-lock-function-name-face)
 (defvar rabbit-verbatim-face 'font-lock-function-name-face)
@@ -117,11 +119,17 @@
   (interactive "fimage file: ")
   (rabbit-insert-image-template-real file))
 
+;;; slide functions
 
 (defun rabbit-insert-slide (slide-title)
   "insert a slide."
   (interactive "sslide title: ")
   (insert (concat "= " slide-title "\n\n")))
+
+(defun rabbit-delete-slide ()
+  "delete a slide that cursor is on."
+  (interactive)
+  (rabbit-fancall-with-current-point 'delete-region))
 
 ;;; move functions
 
@@ -150,6 +158,7 @@
   (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template-default)
   (define-key rabbit-mode-map "\C-ci" 'rabbit-insert-image-template)
   (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide)
+  (define-key rabbit-mode-map "\C-c\C-d" 'rabbit-delete-slide)
   (define-key rabbit-mode-map "\M-n" 'rabbit-next-slide)
   (define-key rabbit-mode-map "\M-p" 'rabbit-previous-slide))
 
@@ -265,5 +274,27 @@ format if value is specified, otherwise return \"\"."
     (mapcar '(lambda (key)
                (rabbit-read-block-property (concat prefix key)))
             '("width" "height"))))
+
+(defun rabbit-fancall-with-current-point (func)
+  (multiple-value-bind (beg end)
+      (rabbit-current-slide-point)
+    (funcall func beg end)))
+
+(defun rabbit-current-slide-point ()
+  (values (save-excursion (rabbit-forward-slide)
+                          (point))
+          (save-excursion (rabbit-backward-slide)
+                          (point))))
+
+(defun rabbit-forward-slide ()
+  (end-of-line)
+  (or (re-search-forward rabbit-slide-header-regexp nil t)
+      (end-of-buffer))
+  (beginning-of-line))
+
+(defun rabbit-backward-slide ()
+  (end-of-line)
+  (or (re-search-backward rabbit-slide-header-regexp nil t)
+      (beginning-of-buffer)))
 
 (provide 'rabbit-mode)

@@ -69,6 +69,10 @@ Rabbitのメッセージはバッファ*Rabbit<ファイル名>*に出力されます．
 
 スライド名を入力します．
 
+=== rabbit-delete-slide(C-c C-d)
+
+カーソル上のスライドを削除します．
+
 === rabbit-next-slide(M-n)
 
 次のスライドへ移動します．
