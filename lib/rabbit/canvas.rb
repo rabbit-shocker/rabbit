@@ -13,9 +13,7 @@ require "rabbit/action"
 require "rabbit/html/generator"
 
 module Rabbit
-
   class Canvas
-    
     include Enumerable
     extend Forwardable
 
@@ -102,6 +100,8 @@ module Rabbit
     def_delegators(:@renderer, :graffiti_color, :graffiti_color=)
     def_delegators(:@renderer, :graffiti_line_width, :graffiti_line_width=)
 
+    def_delegators(:@renderer, :toggle_info_window)
+
     def_delegators(:@renderer, :add_gesture_action)
 
     def_delegators(:@renderer, :post_init_gui)
@@ -112,7 +112,7 @@ module Rabbit
 
     def_delegators(:@renderer, :search_slide, :stop_slide_search, :searching?)
 
-    def_delegators(:@source, :source=, :reset)
+    def_delegators(:@source, :source=, :reset, :base)
 
     attr_reader :logger, :renderer, :last_modified
     attr_reader :comment_source, :actions
@@ -174,8 +174,8 @@ module Rabbit
     end
 
     def attach_to(frame, window)
-      @frame = frame
-      @renderer.attach_to(window)
+      @frame = frame if frame
+      @renderer.attach_to(window) if window
     end
     
     def detach
@@ -714,25 +714,6 @@ module Rabbit
 
     def prepare_comment(comment)
       comment.to_s.gsub(/\r?\n/, '')
-    end
-   
-  end
-
-  class CommentCanvas < Canvas
-    def quit
-      toggle_comment_view
-    end
-
-    def saved_image_base_name
-      super + "_comment"
-    end
-
-    def filename=(new_filename)
-      if new_filename.nil?
-        super(new_filename)
-      else
-        super(new_filename + "_comment")
-      end
     end
   end
 end

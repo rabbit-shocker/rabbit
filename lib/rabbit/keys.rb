@@ -133,6 +133,10 @@ module Rabbit
       SEARCH_SLIDE_BACKWARD_NEXT_KEYS = [
         Gdk::Keyval::GDK_n,
       ]
+
+      TOGGLE_INFO_WINDOW_KEYS = [
+        Gdk::Keyval::GDK_i,
+      ]
     end
 
     module Control

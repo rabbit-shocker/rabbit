@@ -736,7 +736,7 @@ def main
   options, logger = parse
 
   require "rabbit/canvas"
-  GC.enable
+  #GC.enable
 
   if options.save_as_image
     do_save_as_image(options, logger)

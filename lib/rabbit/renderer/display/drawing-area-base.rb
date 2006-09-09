@@ -1,54 +1,42 @@
-require 'gtk2'
-
-require "rabbit/utils"
-require "rabbit/renderer/engine"
-require "rabbit/renderer/display/base"
+require "rabbit/renderer/display/drawing-area-primitive"
 require "rabbit/renderer/display/progress"
 require "rabbit/renderer/display/mask"
-require "rabbit/renderer/display/cursor"
 require "rabbit/renderer/display/search"
 require "rabbit/renderer/display/gesture"
 require "rabbit/renderer/display/graffiti"
 require "rabbit/renderer/display/menu"
 require "rabbit/renderer/display/button-handler"
 require "rabbit/renderer/display/key-handler"
-require 'rabbit/renderer/display/gl'
+require "rabbit/renderer/display/info"
 
 module Rabbit
   module Renderer
     module Display
       module DrawingAreaBase
-        include Base
+        include DrawingAreaPrimitive
 
         include Graffiti
         include Mask
         include Progress
-        include Cursor
         include Search
         include Gesture
         include KeyHandler
         include ButtonHandler
-        include GL
+        include Info
 
-        attr_accessor :filename
         def initialize(canvas)
-          super
-          @filename = nil
           @caching = nil
           @need_reload_theme = false
-          clear_compiled_slides
-          init_drawing_area
+          super
         end
 
         def attach_to(window)
-          init_gl(@area)
+          super
           init_menu
           init_gesture_actions
-          @window = window
           @hbox = Gtk::HBox.new
           @vbox = Gtk::VBox.new
           @vbox.pack_start(@area, true, true, 0)
-          @area.show
           @hbox.pack_end(@vbox, true, true, 0)
           @window.add(@hbox)
           @hbox.show
@@ -59,37 +47,23 @@ module Rabbit
         end
 
         def detach
-          finalize_gl
           detach_key
           detach_menu
-          @window.remove(@hbox)
-          @hbox = @vbox = @area = nil
-          @window.signal_handler_disconnect(@configure_signal_id)
-          @window = nil
-        end
-
-        def width
-          if @drawable
-            @drawable.size[0]
+          unless @window.destroyed?
+            @window.remove(@hbox)
+            @window.signal_handler_disconnect(@configure_signal_id)
           end
+          @window = @hbox = @vbox = nil
+          super
         end
-        alias original_width width
-
-        def height
-          if @drawable
-            @drawable.size[1]
-          end
-        end
-        alias original_height height
 
         def post_apply_theme
           if @need_reload_theme
             @need_reload_theme = false
             reload_theme
           else
-            clear_compiled_slides
+            super
             update_menu
-            @area.queue_draw
           end
         end
 
@@ -98,39 +72,34 @@ module Rabbit
           reset_adjustment
           clear_graffiti
           # toggle_graffiti_mode if @graffiti_mode
-          @area.queue_draw
+          super
         end
 
         def post_fullscreen
-          update_cursor(:blank, true)
-          clear_compiled_slides
+          super
           update_menu
         end
 
         def post_unfullscreen
-          update_cursor(nil, true)
-          clear_compiled_slides
+          super
           update_menu
         end
 
         def post_iconify
+          super
           update_menu
         end
 
-        def redraw
-          clear_compiled_slide
-          @area.queue_draw
-        end
-
         def pre_parse_rd
+          super
           update_menu
         end
 
         def post_parse_rd
+          super
           clear_button_handler
           update_title
           update_menu
-          clear_compiled_slides
           if @need_reload_theme
             @need_reload_theme = false
             reload_theme
@@ -138,38 +107,23 @@ module Rabbit
         end
 
         def index_mode_on
-          keep_cursor(:index)
-          update_cursor(nil, true)
+          super
         end
 
         def index_mode_off
-          restore_cursor(:index)
+          super
           update_title
         end
 
         def pre_toggle_index_mode
+          super
           Utils.process_pending_events
         end
 
         def post_toggle_index_mode
           @canvas.activate("ClearGraffiti")
           update_menu
-          @area.queue_draw
-        end
-
-        def make_layout(text)
-          attrs, text = Pango.parse_markup(text)
-          layout = create_pango_layout(text)
-          layout.set_attributes(attrs)
-          layout
-        end
-
-        def create_pango_context
-          @area.create_pango_context
-        end
-
-        def create_pango_layout(text)
-          @area.create_pango_layout(text)
+          super
         end
 
         def pre_print(slide_size)
@@ -187,6 +141,7 @@ module Rabbit
         end
 
         def pre_to_pixbuf(slide_size)
+          super
           start_progress(slide_size)
           @pixbufing_size = [width, height]
         end
@@ -195,10 +150,11 @@ module Rabbit
           update_progress(i)
           continue = @pixbufing_size == [width, height] &&
             !@canvas.quitted? && !@canvas.applying?
-          continue
+          super or continue
         end
 
         def post_to_pixbuf(canceled)
+          super
           end_progress
         end
 
@@ -249,8 +205,7 @@ module Rabbit
           if @canvas.applying?
             @need_reload_theme = true
           else
-            @canvas.activate("ReloadTheme", &Utils.process_pending_events_proc)
-            clear_compiled_slides
+            super
           end
         end
 
@@ -259,10 +214,6 @@ module Rabbit
             callback ||= Utils.process_pending_events_proc
             super(callback)
           end
-        end
-
-        def display?
-          true
         end
 
         def toggle_white_out
@@ -285,52 +236,31 @@ module Rabbit
         def post_init_gui
         end
 
-        def draw_slide(slide, simulation)
-          init_renderer(@drawable) unless simulation
-          super
-        end
-
         private
-        def init_dpi
-          @x_dpi = ScreenInfo.screen_x_resolution
-          @y_dpi = ScreenInfo.screen_y_resolution
-        end
-
         def update_title
           @canvas.update_title(@canvas.slide_title)
         end
 
         def init_drawing_area
-          @area = Gtk::DrawingArea.new
-          @area.can_focus = true
+          super
           event_mask = Gdk::Event::BUTTON_PRESS_MASK
           event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
           event_mask |= Gdk::Event::BUTTON1_MOTION_MASK
           event_mask |= Gdk::Event::BUTTON2_MOTION_MASK
           event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
           @area.add_events(event_mask)
-          set_realize
           set_key_press_event(@area)
           set_button_event(@area)
           set_motion_notify_event
-          set_expose_event
           set_scroll_event
-          set_configure_event_after
-        end
-
-        def set_realize
-          @area.signal_connect_after("realize") do |widget|
-            realized(widget)
-          end
         end
 
         def realized(widget)
-          @drawable = widget.window
+          super
           @white = Gdk::GC.new(@drawable)
           @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
           @black = Gdk::GC.new(@drawable)
           @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
-          init_renderer(@drawable)
         end
 
         def set_motion_notify_event
@@ -339,35 +269,21 @@ module Rabbit
           end
         end
 
-        def set_expose_event
-          @area.signal_connect("expose_event") do |widget, event|
-            unless @caching
-              reload_source
-            end
+        def exposed(widget, event)
+          reload_source unless @caching
 
-            if @white_out
-              @drawable.draw_rectangle(@white, true, 0, 0,
-                                       original_width, original_height)
-            elsif @black_out
-              @drawable.draw_rectangle(@black, true, 0, 0,
-                                       original_width, original_height)
-            else
-              draw_current_slide
-              draw_graffiti
-              draw_gesture
-            end
-            true
+          if @white_out
+            @drawable.draw_rectangle(@white, true, 0, 0,
+                                     original_width, original_height)
+          elsif @black_out
+            @drawable.draw_rectangle(@black, true, 0, 0,
+                                     original_width, original_height)
+          else
+            super
+            draw_graffiti
+            draw_gesture
           end
-        end
-
-        def draw_current_slide
-          slide = @canvas.current_slide
-          if slide
-            unless compiled_slide?(slide)
-              compile_slide(slide)
-            end
-            slide.draw(@canvas, false)
-          end
+          true
         end
 
         def draw_current_slide_pixbuf(pixbuf)
@@ -419,19 +335,11 @@ module Rabbit
                                 Gdk::RGB::DITHER_NORMAL, 0, 0)
         end
 
-        def set_configure_event_after
-          @area.signal_connect_after("configure_event") do |widget, event|
-            @mask = nil
-            set_hole
-            if !@caching and @drawable
-              if @canvas.applying?
-                @need_reload_theme = true
-              else
-                reload_theme
-              end
-            end
-            false
-          end
+        def configured_after(widget, event)
+          @mask = nil
+          set_hole
+          super unless @caching
+          false
         end
 
         def set_scroll_event
@@ -468,27 +376,6 @@ module Rabbit
           procs.find do |proc|
             proc.call(*args)
           end
-        end
-
-        def clear_compiled_slide(slide=nil)
-          @compiled_slides.delete(slide || @canvas.current_slide)
-        end
-
-        def clear_compiled_slides
-          @compiled_slides = {}
-        end
-
-        def compiled_slide?(slide)
-          @compiled_slides.has_key?(slide)
-        end
-
-        def compile_slide(slide)
-          @compiled_slides[slide] = true
-          slide.draw(@canvas, true)
-        end
-
-        def queue_draw
-          @area.queue_draw
         end
       end
     end

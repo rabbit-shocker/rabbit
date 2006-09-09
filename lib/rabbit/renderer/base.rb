@@ -231,6 +231,9 @@ module Rabbit
         @white_out = false
       end
 
+      def toggle_info_window
+      end
+
       def toggle_comment_frame
       end
 

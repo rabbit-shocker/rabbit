@@ -227,6 +227,8 @@ module Rabbit
         [:separator],
         [:item, "ToggleFullScreen"],
         [:separator],
+        [:item, "ToggleInfoWindow"],
+        [:separator],
         [:item, "RadioBlankWhiteOut"],
         [:item, "RadioBlankBlackOut"],
         [:item, "RadioBlankShow"],

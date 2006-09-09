@@ -244,6 +244,15 @@ module Rabbit
       end
     end
 
+    def split_number_to_minute_and_second(number)
+      if number >= 0
+        sign = " "
+      else
+        sign = "-"
+      end
+      [sign, *number.abs.divmod(60)]
+    end
+
     def time(message=nil)
       before = Time.now
       yield

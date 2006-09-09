@@ -1,3 +1,4 @@
+require 'rabbit/comment-canvas'
 require "rabbit/comment/log"
 
 module Rabbit

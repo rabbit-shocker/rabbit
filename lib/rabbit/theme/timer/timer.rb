@@ -43,7 +43,7 @@ match(Slide) do |slides|
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       rest_time = canvas.rest_time
-      text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
+      text = "%s%02d:%02d" % Utils.split_number_to_minute_and_second(rest_time)
       text = Text.new(text)
       text.font @timer_props
       set_font_family(text)
@@ -60,13 +60,4 @@ match(Slide) do |slides|
     end
     [x, y, w, h]
   end
-end
-
-def split_to_minute_and_second(number)
-  if number >= 0
-    sign = " "
-  else
-    sign = "-"
-  end
-  [sign, *number.abs.divmod(60)]
 end

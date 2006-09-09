@@ -64,5 +64,12 @@ module Rabbit
       config[:label] = N_("Graffiti mode")
       config[:stock_id] = Gtk::Stock::EDIT
     end
+
+    def act_toggle_info_window(action, group, canvas)
+      canvas.toggle_info_window
+    end
+    def act_toggle_info_window_config(config, canvas)
+      config[:label] = N_("Information window")
+    end
   end
 end

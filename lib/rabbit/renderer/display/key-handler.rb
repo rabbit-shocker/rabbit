@@ -189,6 +189,10 @@ module Rabbit
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("SearchSlideBackwardNext")
           end
+          keys = Keys::Shift::TOGGLE_INFO_WINDOW_KEYS
+          set_keys(keys, mod) do |group, obj, val, modifier|
+            @canvas.activate("ToggleInfoWindow")
+          end
         end
 
         def init_control_keys

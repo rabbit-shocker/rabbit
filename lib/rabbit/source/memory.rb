@@ -3,7 +3,6 @@ require 'rabbit/source/base'
 module Rabbit
   module Source
     class Memory
-      
       include Base
 
       def self.initial_args_description
@@ -38,6 +37,5 @@ module Rabbit
         @current_source = @original_source.dup
       end
     end
-    
   end
 end
