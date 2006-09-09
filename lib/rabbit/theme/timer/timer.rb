@@ -3,7 +3,7 @@ theme_exit unless display?
 proc_name = "timer"
 init_proc_name_prefix = "timer_init"
 
-@timer_limit ||= canvas.title_slide.allotted_time
+@timer_limit ||= canvas.allotted_time
 if @timer_limit.nil?
   theme_exit("must specify @timer_limit!! (sec)")
 end
@@ -22,8 +22,6 @@ end
 @timer_over_color ||= "#f006"
 @timer_interval ||= 1
 
-@timer_limit_time = nil
-
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
 
@@ -37,16 +35,14 @@ match(Slide) do |slides|
   
   init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
-    if @timer_limit_time.nil?
-      @timer_limit_time = Time.now + @timer_limit
-    end
+    canvas.start_timer(@timer_limit) if canvas.rest_time
     slide.delete_pre_draw_proc_by_name(init_proc_name)
     [x, y, w, h]
   end
 
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
-      rest_time = @timer_limit_time - Time.now
+      rest_time = canvas.rest_time
       text = "%s%02d:%02d" % split_to_minute_and_second(rest_time)
       text = Text.new(text)
       text.font @timer_props

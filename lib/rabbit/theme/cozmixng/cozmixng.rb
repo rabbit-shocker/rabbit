@@ -24,7 +24,7 @@ include_theme("slide-number")
 @image_slide_number_image = "mini-usa-taro.png"
 @image_slide_number_show_text = true
 include_theme("image-slide-number")
-if !print? and canvas.title_slide.allotted_time
+if !print? and canvas.allotted_time
   @image_timer_image = "mini-kame-taro.png"
   include_theme("image-timer")
 end

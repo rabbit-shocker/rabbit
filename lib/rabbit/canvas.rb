@@ -140,6 +140,7 @@ module Rabbit
       @rss_base_uri = true
       @migemo_dictionary_search_path = []
       @migemo_dictionary_name = nil
+      @limit_time = nil
       @use_gl = false
       init_comment(comment_source, comment_encoding)
       clear
@@ -534,6 +535,19 @@ module Rabbit
       yield
     ensure
       @index_mode = current_index_mode
+    end
+
+    def allotted_time
+      slide = title_slide
+      slide ? slide.allotted_time : nil
+    end
+
+    def start_timer(limit)
+      @limit_time = Time.now + limit
+    end
+
+    def rest_time
+      @limit_time ? @limit_time - Time.now : nil
     end
 
     private

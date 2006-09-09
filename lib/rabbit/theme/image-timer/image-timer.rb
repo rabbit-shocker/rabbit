@@ -5,7 +5,7 @@ add_image_path("rabbit-images")
 proc_name = "image-timer"
 init_proc_name_prefix = "image-timer-init"
 
-@image_timer_limit ||= canvas.title_slide.allotted_time
+@image_timer_limit ||= canvas.allotted_time
 if @image_timer_limit.nil?
   theme_exit("must specify @image_timer_limit!! (sec)")
 end
@@ -24,8 +24,6 @@ end
 @image_timer_interval ||= 5
 @image_timer_space_ratio ||= 1.0 / 12.0
 
-@image_timer_limit_time = nil
-
 @image_time_auto_updating = false
 
 match(Slide) do |slides|
@@ -37,7 +35,7 @@ match(Slide) do |slides|
   init_proc_name = "#{init_proc_name_prefix}.#{canvas.__id__}"
   slides.add_pre_draw_proc(init_proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
-      @image_timer_limit_time ||= Time.now + @image_timer_limit
+      canvas.start_timer(@image_timer_limit) if canvas.rest_time.nil?
       if @image_timer_auto_update && !@image_timer_auto_updating
         @image_timer_auto_updating = true
         start_auto_reload_timer(@image_timer_interval)
@@ -60,7 +58,7 @@ match(Slide) do |slides|
       max_width = max_width - slide.margin_right - loader.width
       base_y = canvas.height - slide.margin_bottom - loader.height
     else
-      rest_time = @image_timer_limit_time - Time.now
+      rest_time = canvas.rest_time
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
       base_x = slide.margin_left + max_width * ratio
 
