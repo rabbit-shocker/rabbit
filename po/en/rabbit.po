@@ -6,16 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-02 13:16+0900\n"
+"POT-Creation-Date: 2006-09-09 22:14+0900\n"
 "PO-Revision-Date: 2006-07-02 16:53+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
-"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
+"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
+"<nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:421
+#: ../../lib/rabbit/renderer/base.rb:424
 msgid "%s does not support: %s"
 msgstr ""
 
@@ -28,7 +29,11 @@ msgstr ""
 msgid "%s page isn't exist in PDF"
 msgstr ""
 
-#: ../../bin/rabbit:101
+#: ../../lib/rabbit/info-window.rb:78
+msgid "%s: Information window"
+msgstr ""
+
+#: ../../bin/rabbit:100
 msgid "(ARGV: if no filename is given)"
 msgstr ""
 
@@ -40,30 +45,30 @@ msgstr ""
 msgid "(Must be specified.)"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:67 ../../bin/rabbit:111 ../../bin/rabbit:117
-#: ../../bin/rabbit:264 ../../bin/rabbit:271 ../../bin/rabbit:278
-#: ../../bin/rabbit:285 ../../bin/rabbit:310 ../../bin/rabbit:317
-#: ../../bin/rabbit:324 ../../bin/rabbit:331 ../../bin/rabbit:467
+#: ../../lib/rabbit/console.rb:67 ../../bin/rabbit:110 ../../bin/rabbit:116
+#: ../../bin/rabbit:263 ../../bin/rabbit:270 ../../bin/rabbit:277
+#: ../../bin/rabbit:284 ../../bin/rabbit:309 ../../bin/rabbit:316
+#: ../../bin/rabbit:323 ../../bin/rabbit:330 ../../bin/rabbit:466
 msgid "(auto)"
 msgstr ""
 
-#: ../../bin/rabbit:461
+#: ../../bin/rabbit:460
 msgid "(default source)"
 msgstr ""
 
-#: ../../bin/rabbit:242
+#: ../../bin/rabbit:241
 msgid "(landscape A4 height)"
 msgstr ""
 
-#: ../../bin/rabbit:248
+#: ../../bin/rabbit:247
 msgid "(landscape A4 size)"
 msgstr ""
 
-#: ../../bin/rabbit:235
+#: ../../bin/rabbit:234
 msgid "(landscape A4 width)"
 msgstr ""
 
-#: ../../bin/rabbit:491
+#: ../../bin/rabbit:489
 msgid "3D"
 msgstr ""
 
@@ -75,8 +80,12 @@ msgstr ""
 msgid "Ad text."
 msgstr ""
 
-#: ../../bin/rabbit:71 ../../bin/rabbit-theme-manager:27
+#: ../../bin/rabbit:70 ../../bin/rabbit-theme-manager:27
 msgid "Add [PATH] to load path."
+msgstr ""
+
+#: ../../lib/rabbit/ext/anthy.rb:17
+msgid "Anthy isn't available"
 msgstr ""
 
 #: ../../bin/rabbit-theme-manager:125
@@ -159,7 +168,7 @@ msgstr ""
 msgid "Color of shadow."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:695 ../../bin/rabbit:457
+#: ../../lib/rabbit/canvas.rb:709 ../../bin/rabbit:456
 msgid "Comment"
 msgstr ""
 
@@ -175,7 +184,7 @@ msgstr ""
 msgid "Common options"
 msgstr ""
 
-#: ../../bin/rabbit:731
+#: ../../bin/rabbit:728
 msgid "DRb.thread done."
 msgstr ""
 
@@ -470,7 +479,11 @@ msgstr ""
 msgid "Index mode"
 msgstr ""
 
-#: ../../bin/rabbit:123
+#: ../../lib/rabbit/action/toggle.rb:72
+msgid "Information window"
+msgstr ""
+
+#: ../../bin/rabbit:122
 msgid "Initial state"
 msgstr ""
 
@@ -529,7 +542,7 @@ msgid ""
 "configuration for margins around them a little."
 msgstr ""
 
-#: ../../bin/rabbit:259
+#: ../../bin/rabbit:258
 msgid "Margin"
 msgstr ""
 
@@ -537,7 +550,7 @@ msgstr ""
 msgid "Merge theme"
 msgstr ""
 
-#: ../../bin/rabbit:472
+#: ../../bin/rabbit:471
 msgid "Migemo"
 msgstr ""
 
@@ -553,7 +566,7 @@ msgstr ""
 msgid "Next slide"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:83 ../../bin/rabbit:99
+#: ../../lib/rabbit/console.rb:83 ../../bin/rabbit:98
 msgid "Note: case insensitive."
 msgstr ""
 
@@ -561,15 +574,15 @@ msgstr ""
 msgid "Now processing... Do you really quit?"
 msgstr ""
 
-#: ../../bin/rabbit:189
+#: ../../bin/rabbit:188
 msgid "Output HTML for viewing saved images."
 msgstr ""
 
-#: ../../bin/rabbit:195
+#: ../../bin/rabbit:194
 msgid "Output index HTML for navigating slides."
 msgstr ""
 
-#: ../../bin/rabbit:230
+#: ../../bin/rabbit:229
 msgid "Paper"
 msgstr ""
 
@@ -603,15 +616,15 @@ msgstr ""
 msgid "Previous slide"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:65 ../../bin/rabbit:208
+#: ../../lib/rabbit/action/basic.rb:65 ../../bin/rabbit:207
 msgid "Print"
 msgstr ""
 
-#: ../../bin/rabbit:211
+#: ../../bin/rabbit:210
 msgid "Print and exit."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:609
+#: ../../lib/rabbit/canvas.rb:623
 msgid "Processing..."
 msgstr ""
 
@@ -639,11 +652,11 @@ msgstr ""
 msgid "Provides images related to Ruby."
 msgstr ""
 
-#: ../../bin/rabbit:434
+#: ../../bin/rabbit:433
 msgid "Public level"
 msgstr ""
 
-#: ../../bin/rabbit:202
+#: ../../bin/rabbit:201
 msgid "RSS is generated only when HTML is output."
 msgstr ""
 
@@ -739,11 +752,11 @@ msgstr ""
 msgid "RubyImage"
 msgstr ""
 
-#: ../../bin/rabbit:371
+#: ../../bin/rabbit:370
 msgid "SOAP"
 msgstr ""
 
-#: ../../bin/rabbit:168
+#: ../../bin/rabbit:167
 msgid "Save"
 msgstr ""
 
@@ -751,7 +764,7 @@ msgstr ""
 msgid "Save as image"
 msgstr ""
 
-#: ../../bin/rabbit:171
+#: ../../bin/rabbit:170
 msgid "Save as image and exit."
 msgstr ""
 
@@ -775,87 +788,87 @@ msgstr ""
 msgid "See ((<slide-background-image>))"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:82 ../../bin/rabbit:98
+#: ../../lib/rabbit/console.rb:82 ../../bin/rabbit:97
 msgid "Select from [%s]."
 msgstr ""
 
-#: ../../bin/rabbit:442
+#: ../../bin/rabbit:441
 msgid "Select from the following:"
 msgstr ""
 
-#: ../../bin/rabbit:425
+#: ../../bin/rabbit:424
 msgid "Server"
 msgstr ""
 
-#: ../../bin/rabbit:284
+#: ../../bin/rabbit:283
 msgid "Set bottom margin for slides per page mode print."
 msgstr ""
 
-#: ../../bin/rabbit:330
+#: ../../bin/rabbit:329
 msgid "Set bottom page margin."
 msgstr ""
 
-#: ../../bin/rabbit:263
+#: ../../bin/rabbit:262
 msgid "Set left margin for slides per page mode print."
 msgstr ""
 
-#: ../../bin/rabbit:309
+#: ../../bin/rabbit:308
 msgid "Set left page margin."
 msgstr ""
 
-#: ../../bin/rabbit:295
+#: ../../bin/rabbit:294
 msgid "Set margin for slides per page mode print."
 msgstr ""
 
-#: ../../bin/rabbit:337
+#: ../../bin/rabbit:336
 msgid "Set page margin."
 msgstr ""
 
-#: ../../bin/rabbit:241
+#: ../../bin/rabbit:240
 msgid "Set paper height to [HEIGHT] Pt."
 msgstr ""
 
-#: ../../bin/rabbit:246
+#: ../../bin/rabbit:245
 msgid ""
 "Set paper width and height to\n"
 "[WIDTH] Pt and [HEIGHT] Pt."
 msgstr ""
 
-#: ../../bin/rabbit:234
+#: ../../bin/rabbit:233
 msgid "Set paper width to [WIDTH] Pt."
 msgstr ""
 
-#: ../../bin/rabbit:270
+#: ../../bin/rabbit:269
 msgid "Set right margin for slides per page mode print."
 msgstr ""
 
-#: ../../bin/rabbit:316
+#: ../../bin/rabbit:315
 msgid "Set right page margin."
 msgstr ""
 
-#: ../../bin/rabbit:223
+#: ../../bin/rabbit:222
 msgid "Set slides per page."
 msgstr ""
 
-#: ../../bin/rabbit:277
+#: ../../bin/rabbit:276
 msgid "Set top margin for slides per page mode print."
 msgstr ""
 
-#: ../../bin/rabbit:323
+#: ../../bin/rabbit:322
 msgid "Set top page margin."
 msgstr ""
 
-#: ../../bin/rabbit:150 ../../bin/rabbit-theme-manager:50
+#: ../../bin/rabbit:149 ../../bin/rabbit-theme-manager:50
 msgid "Set window height to [HEIGHT]."
 msgstr ""
 
-#: ../../bin/rabbit:155 ../../bin/rabbit-theme-manager:55
+#: ../../bin/rabbit:154 ../../bin/rabbit-theme-manager:55
 msgid ""
 "Set window width and height to\n"
 "[WIDTH] and [HEIGHT]."
 msgstr ""
 
-#: ../../bin/rabbit:143 ../../bin/rabbit-theme-manager:43
+#: ../../bin/rabbit:142 ../../bin/rabbit-theme-manager:43
 msgid "Set window width to [WIDTH]."
 msgstr ""
 
@@ -887,7 +900,7 @@ msgstr ""
 msgid "SimpleItemMark"
 msgstr ""
 
-#: ../../bin/rabbit:139
+#: ../../bin/rabbit:138
 msgid "Size"
 msgstr ""
 
@@ -903,7 +916,7 @@ msgstr ""
 msgid "SlideBackgroundImage"
 msgstr ""
 
-#: ../../bin/rabbit:84
+#: ../../bin/rabbit:83
 msgid "Source"
 msgstr ""
 
@@ -923,11 +936,11 @@ msgstr ""
 msgid "Specify Rabbit's dRuby URI as [URI]."
 msgstr ""
 
-#: ../../bin/rabbit:380
+#: ../../bin/rabbit:379
 msgid "Specify SOAP host as [HOST]."
 msgstr ""
 
-#: ../../bin/rabbit:388
+#: ../../bin/rabbit:387
 msgid "Specify SOAP port as [PORT]."
 msgstr ""
 
@@ -935,31 +948,31 @@ msgstr ""
 msgid "Specify WEBrick port as [PORT]."
 msgstr ""
 
-#: ../../bin/rabbit:407
+#: ../../bin/rabbit:406
 msgid "Specify XML-RPC host as [HOST]."
 msgstr ""
 
-#: ../../bin/rabbit:415
+#: ../../bin/rabbit:414
 msgid "Specify XML-RPC port as [PORT]."
 msgstr ""
 
-#: ../../bin/rabbit:201
+#: ../../bin/rabbit:200
 msgid "Specify base URI of RSS as [URI]."
 msgstr ""
 
-#: ../../bin/rabbit:116
+#: ../../bin/rabbit:115
 msgid "Specify base URI or path of source as [BASE]."
 msgstr ""
 
-#: ../../bin/rabbit:466
+#: ../../bin/rabbit:465
 msgid "Specify comment source encoding."
 msgstr ""
 
-#: ../../bin/rabbit:359
+#: ../../bin/rabbit:358
 msgid "Specify dRuby URI."
 msgstr ""
 
-#: ../../bin/rabbit:460
+#: ../../bin/rabbit:459
 msgid "Specify initial comment source."
 msgstr ""
 
@@ -971,35 +984,35 @@ msgstr ""
 msgid "Specify logger type as [TYPE]."
 msgstr ""
 
-#: ../../bin/rabbit:216
+#: ../../bin/rabbit:215
 msgid "Specify printed out filename as [FILENAME]."
 msgstr ""
 
-#: ../../bin/rabbit:441
+#: ../../bin/rabbit:440
 msgid "Specify public level."
 msgstr ""
 
-#: ../../bin/rabbit:183
+#: ../../bin/rabbit:182
 msgid "Specify saved image base name as [BASE_NAME]."
 msgstr ""
 
-#: ../../bin/rabbit:176
+#: ../../bin/rabbit:175
 msgid "Specify saved image type as [TYPE]."
 msgstr ""
 
-#: ../../bin/rabbit:477
+#: ../../bin/rabbit:476
 msgid "Specify search paths for Migemo static dictionary."
 msgstr ""
 
-#: ../../bin/rabbit:110
+#: ../../bin/rabbit:109
 msgid "Specify source encoding as [ENCODING]."
 msgstr ""
 
-#: ../../bin/rabbit:97
+#: ../../bin/rabbit:96
 msgid "Specify source type as [TYPE]."
 msgstr ""
 
-#: ../../bin/rabbit:484
+#: ../../bin/rabbit:483
 msgid "Specify static dictionary name for Migemo."
 msgstr ""
 
@@ -1015,27 +1028,27 @@ msgstr ""
 msgid "Specify whether debug mode or not."
 msgstr ""
 
-#: ../../bin/rabbit:365
+#: ../../bin/rabbit:364
 msgid "Specify whether to output dRuby URI."
 msgstr ""
 
-#: ../../bin/rabbit:428
+#: ../../bin/rabbit:427
 msgid "Specify whether to run as server."
 msgstr ""
 
-#: ../../bin/rabbit:494
+#: ../../bin/rabbit:492
 msgid "Specify whether to use OpenGL if available."
 msgstr ""
 
-#: ../../bin/rabbit:374
+#: ../../bin/rabbit:373
 msgid "Specify whether to use SOAP."
 msgstr ""
 
-#: ../../bin/rabbit:401
+#: ../../bin/rabbit:400
 msgid "Specify whether to use XML-RPC."
 msgstr ""
 
-#: ../../bin/rabbit:353
+#: ../../bin/rabbit:352
 msgid "Specify whether to use dRuby."
 msgstr ""
 
@@ -1086,7 +1099,7 @@ msgstr ""
 msgid "Timer toolkit, an image version"
 msgstr ""
 
-#: ../../bin/rabbit:184 ../../bin/rabbit:217
+#: ../../bin/rabbit:183 ../../bin/rabbit:216
 msgid "Title of slide"
 msgstr ""
 
@@ -1106,11 +1119,11 @@ msgstr ""
 msgid "TitleShadow"
 msgstr ""
 
-#: ../../bin/rabbit:126
+#: ../../bin/rabbit:125
 msgid "Toggle full screen mode."
 msgstr ""
 
-#: ../../bin/rabbit:132
+#: ../../bin/rabbit:131
 msgid "Toggle index mode."
 msgstr ""
 
@@ -1247,7 +1260,7 @@ msgstr ""
 msgid "Undo graffiti"
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:525
+#: ../../lib/rabbit/canvas.rb:526
 msgid "Unknown action: %s"
 msgstr ""
 
@@ -1263,7 +1276,7 @@ msgstr ""
 msgid "Usage: %s [options]"
 msgstr ""
 
-#: ../../bin/rabbit:76
+#: ../../bin/rabbit:75
 msgid "Use [THEME] as theme."
 msgstr ""
 
@@ -1279,7 +1292,7 @@ msgstr ""
 msgid "Uses pink circle and polygon as icons."
 msgstr ""
 
-#: ../../bin/rabbit:90
+#: ../../bin/rabbit:89
 msgid ""
 "When select %s\n"
 "specify %s\n"
@@ -1318,11 +1331,11 @@ msgstr ""
 msgid "White out"
 msgstr ""
 
-#: ../../bin/rabbit:398
+#: ../../bin/rabbit:397
 msgid "XML-RPC"
 msgstr ""
 
-#: ../../bin/rabbit:289
+#: ../../bin/rabbit:288
 msgid "[ALL]"
 msgstr ""
 
@@ -1338,7 +1351,7 @@ msgstr ""
 msgid "[FILENAME]"
 msgstr ""
 
-#: ../../lib/rabbit/source/memory.rb:10
+#: ../../lib/rabbit/source/memory.rb:9
 msgid "[FILENAME_OR_NOT]"
 msgstr ""
 
@@ -1350,15 +1363,15 @@ msgstr ""
 msgid "[RWIKI_SOAP_IF_URI] and [PAGE_NAME]"
 msgstr ""
 
-#: ../../bin/rabbit:291
+#: ../../bin/rabbit:290
 msgid "[TOP],[LEFT_RIGHT],[BOTTOM]"
 msgstr ""
 
-#: ../../bin/rabbit:292
+#: ../../bin/rabbit:291
 msgid "[TOP],[RIGHT],[BOTTOM],[LEFT]"
 msgstr ""
 
-#: ../../bin/rabbit:290
+#: ../../bin/rabbit:289
 msgid "[TOP_BOTTOM],[LEFT_RIGHT]"
 msgstr ""
 
@@ -1391,7 +1404,7 @@ msgid "can't find HTML template: %s"
 msgstr ""
 
 #: ../../lib/rabbit/renderer/print/cairo.rb:107
-#: ../../lib/rabbit/renderer/print/gnomeprint.rb:359
+#: ../../lib/rabbit/renderer/print/gnomeprint.rb:358
 msgid "can't find printer for %s"
 msgstr ""
 
@@ -1412,11 +1425,11 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
-#: ../../bin/rabbit:350
+#: ../../bin/rabbit:349
 msgid "dRuby"
 msgstr ""
 
-#: ../../bin/rabbit:595
+#: ../../bin/rabbit:592
 msgid "dRuby URI <%s> is in use."
 msgstr ""
 
@@ -1444,7 +1457,7 @@ msgstr ""
 msgid "fr"
 msgstr "French"
 
-#: ../../bin/rabbit:729
+#: ../../bin/rabbit:726
 msgid "going to shutdown..."
 msgstr ""
 
@@ -1460,7 +1473,7 @@ msgstr ""
 msgid "invalid motion: %s"
 msgstr ""
 
-#: ../../lib/rabbit/ext/block-verbatim.rb:194
+#: ../../lib/rabbit/ext/block-verbatim.rb:201
 msgid "invalid source: %s"
 msgstr ""
 
@@ -1488,11 +1501,11 @@ msgstr ""
 msgid "not exist: %s"
 msgstr ""
 
-#: ../../bin/rabbit:614
+#: ../../bin/rabbit:611
 msgid "port <%s> for SOAP is in use."
 msgstr ""
 
-#: ../../bin/rabbit:635
+#: ../../bin/rabbit:632
 msgid "port <%s> for XML-RPC is in use."
 msgstr ""
 
@@ -1534,4 +1547,8 @@ msgstr ""
 
 #: ../../lib/rabbit/rabbit.rb:203
 msgid "unknown cursor type: %s"
+msgstr ""
+
+#: ../../lib/rabbit/info-window.rb:129
+msgid "unlimited"
 msgstr ""

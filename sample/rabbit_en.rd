@@ -350,6 +350,9 @@ Ahh, I'll set up more better documents.
 : Cache all slides
    c
 
+: Toggle information window
+   I
+
 = Finish
 
 What about this?
