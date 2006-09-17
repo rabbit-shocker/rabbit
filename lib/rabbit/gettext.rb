@@ -1,5 +1,10 @@
 begin
-  require "gettext"
+  begin
+    require "gettext"
+  rescue LoadError
+    require "rubygems"
+    require "gettext"
+  end
   module GetText
     alias _gettext gettext
     module_function :_gettext
