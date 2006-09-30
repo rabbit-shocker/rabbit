@@ -30,7 +30,11 @@ module Rabbit
       end
 
       def height
-        @height + @padding_top + @padding_bottom
+        if @height
+          @height + @padding_top + @padding_bottom
+        else
+          nil
+        end
       end
       
       def compile(canvas, x, y, w, h)
@@ -89,6 +93,56 @@ module Rabbit
         @layout.nil?
       end
 
+      def font_size
+        text_props["size"]
+      end
+
+      def have_numerical_font_size?
+        font_size.is_a?(Numeric)
+      end
+
+      def keep_in_size(proc_name=nil, &compute_max_size)
+        proc_name ||= "keep-in-size"
+        make_params = Proc.new do |canvas, x, y, w, h,
+                                   initial_width, initial_height,
+                                   max_width, max_height|
+          if (max_width and initial_width > max_width) or
+              (max_height and initial_height > max_height)
+            scale = 0.95
+            compare = Proc.new do |_width, _height|
+              (max_width.nil? or _width < max_width) and
+                (max_height.nil? or _height < max_height)
+            end
+            [scale, compare]
+          end
+        end
+        dynamic_font_size_computation(proc_name, compute_max_size, &make_params)
+      end
+
+      def as_large_as_possible(proc_name=nil, &compute_max_size)
+        proc_name ||= "as-large-as-possible"
+        make_params = Proc.new do |canvas, x, y, w, h,
+                                   initial_width, initial_height,
+                                   max_width, max_height|
+          if (max_width and initial_width > max_width) or
+              (max_height and initial_height > max_height)
+            scale = 0.95
+            compare = Proc.new do |_width, _height|
+              (max_width.nil? or _width < max_width) and
+                (max_height.nil? or _height < max_height)
+            end
+          else
+            scale = 1.05
+            compare = Proc.new do |_width, _height|
+              (max_width and _width > max_width) or
+                (max_height and _height > max_height)
+            end
+          end
+          [scale, compare]
+        end
+        dynamic_font_size_computation(proc_name, compute_max_size, &make_params)
+      end
+
       private
       def setup_draw_info(str, canvas, w)
         layout = canvas.make_layout(str)
@@ -108,7 +162,7 @@ module Rabbit
         width, height = layout.pixel_size
         if layout.width != -1 and
             (layout.alignment == Pango::Layout::ALIGN_CENTER or
-               layout.alignment == Pango::Layout::ALIGN_RIGHT)
+             layout.alignment == Pango::Layout::ALIGN_RIGHT)
           width = layout.width / Pango::SCALE
         end
         @width, @height = width, height
@@ -147,6 +201,83 @@ module Rabbit
         color = prop_get("foreground")
         color = color.value if color
         canvas.draw_layout(@layout, x, y, color)
+      end
+
+      def dynamic_font_size_computation(proc_name, compute_max_size,
+                                        &make_params)
+        computed = false
+        min_width = nil
+        add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
+          if simulation and !computed and have_numerical_font_size?
+            max_width = max_height = nil
+            if compute_max_size
+              max_width, max_height = compute_max_size.call(self, canvas,
+                                                            x, y, w, h)
+            else
+              max_width = (pw || w) - padding_left - padding_right
+              max_height = (ph || h) - padding_top - padding_bottom
+              max_width = nil if max_width <= 0
+              max_height = nil if max_height <= 0
+            end
+
+            computed = true
+
+            if max_width and max_height
+              compute_font_size(canvas, x, y, w, h, max_width, max_height,
+                                make_params)
+            end
+          end
+          [x, y, w, h]
+        end
+      end
+
+      def compute_font_size(canvas, x, y, w, h, max_width, max_height,
+                            make_params)
+        compile(canvas, x, y, w, h) if dirty?
+        initial_width, initial_height = @layout.pixel_size
+        scale, compare = make_params.call(canvas, x, y, w, h,
+                                          initial_width, initial_height,
+                                          max_width, max_height)
+
+        return if scale.nil? or compare.nil?
+
+        size = new_size = initial_font_size_for_compute_font_size
+        current_layout_size = @layout.pixel_size
+        unless compare.call(*@layout.pixel_size)
+          loop do
+            new_size = compute_next_font_size(size, scale)
+            set_computed_font_size(new_size)
+            compile(canvas, x, y, w, h)
+            break if compare.call(*@layout.pixel_size)
+            size = new_size
+          end
+        end
+        if scale > 1
+          set_computed_font_size(size)
+        else
+          set_computed_font_size(new_size)
+        end
+      end
+
+      protected
+      def initial_font_size_for_compute_font_size
+        font_size
+      end
+
+      def compute_next_font_size(previous_size, scale)
+        if previous_size
+          (previous_size * scale).ceil
+        else
+          nil
+        end
+      end
+
+      def set_computed_font_size(new_size)
+        if new_size
+          font :size => new_size
+          dirty!
+        end
+        new_size
       end
     end
   end

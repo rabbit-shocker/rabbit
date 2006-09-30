@@ -149,39 +149,8 @@ def setup_lightning_talk_headline(head)
 
     private
     def lightning_talk_as_large_as_possible(params)
-      slide = parent
       proc_name = params[:proc_name]
-      wrap_mode = params[:wrap_mode]
-      
-      computed = false
-      add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
-        if simulation and !computed
-          max_width = canvas.width - slide.margin_left - slide.margin_right
-          max_height = canvas.height - slide.margin_top - slide.margin_bottom
-          max_width *= Pango::SCALE
-          max_height *= Pango::SCALE
-          size = params[:size]
-          
-          computed = true
-          loop do
-            new_size = (size * 1.05).ceil
-            font :size => new_size
-            text = markuped_text
-            layout = canvas.make_layout(text)
-            layout.width = max_width
-            layout.wrap = wrap_mode
-            ink, log = layout.extents
-            current_width = log.width
-            current_height = [ink.height, log.height].max
-            if current_width > max_width or current_height > max_height
-              break
-            end
-            size = new_size
-          end
-          font :size => size
-        end
-        [x, y, w, h]
-      end
+      as_large_as_possible(proc_name)
     end
   end
 end
