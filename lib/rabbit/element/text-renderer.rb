@@ -277,7 +277,7 @@ module Rabbit
           font :size => new_size
           dirty!
         end
-        new_size
+        dirty?
       end
     end
   end

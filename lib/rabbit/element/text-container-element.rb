@@ -94,10 +94,10 @@ module Rabbit
 
       def set_computed_font_size(new_size)
         my_font_size, elements_font_size = new_size
-        super(my_font_size)
         elements_font_size.each_with_index do |size, i|
           dirty! if @elements[i].set_computed_font_size(size)
         end
+        super(my_font_size)
       end
     end
   end
