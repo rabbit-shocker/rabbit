@@ -61,21 +61,8 @@ if windows?
   @font_family = "ms pgothic" if font_families.include?("ms pgothic")
   @monospace_font_family = "ms gothic" if font_families.include?("ms gothic")
 else
-  sans_families = font_families.grep(/Sans/i)
-  unless sans_families.empty?
-    if sans_families.include?("Sans")
-      @font_family = "Sans"
-    else
-      @font_family = sans_families.first
-    end
-  end
-
-  monospace_families = font_families.grep(/Monospace/i)
-  unless monospace_families.empty?
-    if monospace_families.include?("Monospace")
-      @monospace_font_family = "Monospace"
-    else
-      @monospace_font_family = monospace_families.first
-    end
-  end
+  @font_family = find_font_family("Rabbit")
+  @font_family ||= find_font_family("Sans")
+  @monospace_font_family = find_font_family("Rabbit Monospace")
+  @monospace_font_family ||= find_font_family("Monospace")
 end

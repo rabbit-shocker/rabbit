@@ -351,10 +351,20 @@ module Rabbit
         canvas.font_families.collect{|x| x.name}
       end
 
+      def find_font_family(target_name)
+        families = font_families.grep(/#{Regexp.escape(target_name)}/i)
+        return nil if families.empty?
+        if families.include?(target_name)
+          target_name
+        else
+          families.first
+        end
+      end
+
       def set_font_family(target, family=@font_family)
         target.prop_set("font_family", family) if family
       end
-      
+
       def windows?
         Utils.windows?
       end
