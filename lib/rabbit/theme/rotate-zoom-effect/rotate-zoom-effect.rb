@@ -7,8 +7,9 @@ def setup_rotate_zoom_effect_slide(slide)
       scale_y = 0
       last_scale = 1
       idle_id = nil
+      effected = false
       add_pre_draw_proc(nil) do |canvas, x, y, w, h, simulation|
-        unless simulation
+        if !simulation and !effected
           angle = [angle + 0.05 * Math::PI, last_angle].min
           scale_x = [scale_x + rand * 0.05, last_scale].min
           scale_y = [scale_y + rand * 0.05, last_scale].min
@@ -17,7 +18,11 @@ def setup_rotate_zoom_effect_slide(slide)
             continue = ([angle, scale_x, scale_y] !=
                         [last_angle, last_scale, last_scale] and
                         canvas.current_slide == self)
-            translate(canvas, angle, scale_x, scale_y) unless continue
+            unless continue
+              translate(canvas, angle, scale_x, scale_y)
+              idle_id = nil
+              effected = true
+            end
             canvas.activate("Redraw")
             continue
           end
