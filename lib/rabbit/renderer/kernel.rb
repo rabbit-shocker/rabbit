@@ -20,6 +20,18 @@ module Rabbit
         end
       end
 
+      def translate(x, y, params={})
+      end
+
+      def rotate(angle, params={})
+      end
+
+      def scale(x, y, params={})
+      end
+
+      def reset_matrix
+      end
+
       def draw_slide(slide, simulation)
         unless simulation
           draw_rectangle(true, 0, 0, width, height, @background)

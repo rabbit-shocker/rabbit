@@ -84,6 +84,22 @@ module Rabbit
           make_color(color).to_gdk_rgb
         end
 
+        def translate(x, y, params={})
+          @context.translate(x, y)
+        end
+
+        def rotate(angle, params={})
+          @context.rotate(angle)
+        end
+
+        def scale(x, y, params={})
+          @context.scale(x, y)
+        end
+
+        def reset_matrix
+          @context.identity_matrix
+        end
+
         def draw_line(x1, y1, x2, y2, color=nil, params={})
           x1, y1 = from_screen(x1, y1)
           x2, y2 = from_screen(x2, y2)
