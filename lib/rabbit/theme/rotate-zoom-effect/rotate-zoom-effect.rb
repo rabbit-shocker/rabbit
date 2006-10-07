@@ -5,21 +5,22 @@ def setup_rotate_zoom_effect_slide(slide)
       last_angle = 2 * Math::PI
       scale_x = 0
       scale_y = 0
-      last_scale = 1
+      last_scale_x = 1
+      last_scale_y = 1
       idle_id = nil
       effected = false
       add_pre_draw_proc(nil) do |canvas, x, y, w, h, simulation|
         if !simulation and !effected
           angle = [angle + 0.05 * Math::PI, last_angle].min
-          scale_x = [scale_x + rand * 0.05, last_scale].min
-          scale_y = [scale_y + rand * 0.05, last_scale].min
+          scale_x = [scale_x + rand * 0.05, last_scale_x].min
+          scale_y = [scale_y + rand * 0.05, last_scale_y].min
           translate(canvas, angle, scale_x, scale_y)
           idle_id ||= Gtk.idle_add do
             continue = ([angle, scale_x, scale_y] !=
-                        [last_angle, last_scale, last_scale] and
+                        [last_angle, last_scale_x, last_scale_y] and
                         canvas.current_slide == self)
             unless continue
-              translate(canvas, angle, scale_x, scale_y)
+              translate(canvas, last_angle, last_scale_x, last_scale_y)
               idle_id = nil
               effected = true
             end
