@@ -126,7 +126,9 @@ def setup_lightning_talk_headline(head)
       font(font_params)
       self.wrap_mode = params[:wrap_mode]
       self.horizontal_centering = params[:horizontal_centering]
-      
+
+      substitute_newline
+
       orig_x = orig_y = orig_w = orig_h = nil
       add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
         orig_x, orig_y, orig_w, orig_h = x, y, w, h
@@ -140,7 +142,7 @@ def setup_lightning_talk_headline(head)
           [x, y, w, h]
         end
       end
-      
+
       if params[:as_large_as_possible]
         lightning_talk_as_large_as_possible(params)
       end
@@ -148,6 +150,12 @@ def setup_lightning_talk_headline(head)
     alias lightning_talk takahashi
 
     private
+    def substitute_newline
+      substitute_text do |text|
+        text.gsub(/(\\)?\\n/) {$1 ? "\\n" : "\n"}
+      end
+    end
+
     def lightning_talk_as_large_as_possible(params)
       proc_name = params[:proc_name]
       as_large_as_possible(proc_name)

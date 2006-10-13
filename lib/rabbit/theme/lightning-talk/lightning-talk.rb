@@ -64,15 +64,4 @@ match(Slide) do |slides|
   slides.lightning_talk
 end
 
-match(Slide, HeadLine) do |heads|
-  heads.each do |head|
-    slide = head.parent
-    if slide.takahashi?
-      head.substitute_text do |text|
-        text.gsub(/(\\)?\\n/) {$1 ? "\\n" : "\n"}
-      end
-    end
-  end
-end
-
 include_theme("windows-adjust")
