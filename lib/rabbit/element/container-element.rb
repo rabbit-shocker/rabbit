@@ -108,29 +108,10 @@ module Rabbit
         end
       end
 
-      def each(&block)
-        @elements.each(&block)
-      end
-
       def to_html(generator)
         collect do |element|
           element.to_html(generator)
         end.join("\n")
-      end
-
-      def [](*args)
-        @elements[*args]
-      end
-
-      def empty?
-        @elements.empty?
-      end
-
-      def first
-        @elements.first
-      end
-
-      def last
       end
 
       def prop_set(*args)
@@ -210,10 +191,6 @@ module Rabbit
 
       def dirty?
         super or @elements.any?{|x| x.dirty?}
-      end
-
-      def empty?
-        @elements.empty?
       end
 
       def inspect(verbose=false)
