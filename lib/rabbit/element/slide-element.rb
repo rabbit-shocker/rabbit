@@ -5,10 +5,12 @@ module Rabbit
     module SlideElement
       include ContainerElement
 
-      attr_reader :title
-      def initialize(title)
-        super()
-        @title = title
+      def initialize(title_element)
+        super(title_element)
+      end
+
+      def title
+        @elements.first.text
       end
 
       def draw(canvas, simulation=nil)
