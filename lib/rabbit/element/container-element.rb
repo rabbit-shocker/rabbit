@@ -47,6 +47,22 @@ module Rabbit
         end.join("\n")
       end
 
+      def substitute_text(&block)
+        substituted = false
+        e = @elements.dup
+        e.each_with_index do |element, i|
+          element_substituted = element.substitute_text(&block)
+          substituted ||= element_substituted
+        end
+        dirty! if substituted
+        substituted
+      end
+
+      def replace_element(child, *targets)
+        index = @elements.index(child)
+        @elements[index, 1] = targets
+      end
+
       def draw_element(canvas, x, y, w, h, simulation)
         draw_elements(canvas, x, y, w, h, simulation)
       end

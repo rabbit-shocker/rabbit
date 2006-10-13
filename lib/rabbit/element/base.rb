@@ -179,6 +179,14 @@ module Rabbit
         true
       end
 
+      def text_renderer?
+        false
+      end
+
+      def substitute_text
+        false
+      end
+
       def clear_theme
         @pre_draw_procs = []
         @post_draw_procs = []
@@ -346,14 +354,6 @@ module Rabbit
 
       def match?(pattern)
         pattern === text
-      end
-
-      def text_props
-        props = {}
-        @prop.each do |name, formatter|
-          props[name] = formatter.value
-        end
-        props
       end
 
       def margin_set(*values)

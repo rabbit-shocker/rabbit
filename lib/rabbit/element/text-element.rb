@@ -5,11 +5,39 @@ module Rabbit
     module TextElement
       include TextRenderer
 
-      attr_accessor :text
+      attr_reader :text
 
       def initialize(text)
         super()
         @text = text
+      end
+
+      def text=(new_text)
+        old_text = @text
+        @text = new_text
+        dirty! if old_text != @text
+        @text
+      end
+
+      def substitute_text
+        result = yield(@text.dup)
+        return false if result == @text
+        case result
+        when Array
+          new_elements = result.collect do |element|
+            if element.is_a?(Base)
+              element
+            else
+              new_element = clone
+              new_element.text = element
+              new_element
+            end
+          end
+          parent.replace_element(self, *new_elements)
+        else
+          self.text = result
+        end
+        true
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
@@ -24,7 +52,7 @@ module Rabbit
       end
 
       def empty?
-        /\A\s*\z/ =~ @text
+        @text.nil? or /\A\s*\z/ =~ @text
       end
     end
   end

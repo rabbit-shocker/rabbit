@@ -16,6 +16,10 @@ module Rabbit
         text_clear_theme
       end
 
+      def text_renderer?
+        true
+      end
+
       def align=(new_value)
         dirty! if @align != new_value
         @align = new_value
@@ -91,6 +95,14 @@ module Rabbit
 
       def text_dirty?
         @layout.nil?
+      end
+
+      def text_props
+        props = {}
+        @prop.each do |name, formatter|
+          props[name] = formatter.value
+        end
+        props
       end
 
       def font_size
