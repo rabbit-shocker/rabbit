@@ -1,10 +1,15 @@
 require 'rabbit/utils'
 require 'rabbit/formatter'
 
+require 'rabbit/element/base/draw-hook'
+
 module Rabbit
   module Element
     module Base
       include Utils
+
+      include DrawHook
+      def_draw_hooks :pre, :post
 
       attr_reader :x, :y, :w, :h
       attr_reader :px, :py, :pw, :ph
@@ -55,72 +60,6 @@ module Rabbit
 
       def dirty?
         @dirty
-      end
-
-      def add_pre_draw_proc(name=nil, &block)
-        @pre_draw_procs << [block, name]
-        block
-      end
-
-      def add_post_draw_proc(name=nil, &block)
-        @post_draw_procs << [block, name]
-        block
-      end
-
-      def delete_pre_draw_proc(block)
-        @pre_draw_procs.reject! do |blk,|
-          blk == block
-        end
-      end
-
-      def delete_post_draw_proc(block)
-        @post_draw_procs.reject! do |blk,|
-          blk == block
-        end
-      end
-
-      def delete_pre_draw_proc_by_name(name)
-        @pre_draw_procs.reject! do |_, nm|
-          name === nm
-        end
-      end
-
-      def delete_post_draw_proc_by_name(name)
-        @post_draw_procs.reject! do |_, nm|
-          name === nm
-        end
-      end
-
-      def clear_pre_draw_procs
-        @pre_draw_procs = []
-      end
-
-      def clear_post_draw_procs
-        @post_draw_procs = []
-      end
-
-      def pre_draw_procs(name)
-        @pre_draw_procs.find_all do |_, nm|
-          name === nm
-        end
-      end
-
-      def post_draw_procs(name)
-        @post_draw_procs.find_all do |_, nm|
-          name === nm
-        end
-      end
-
-      def pre_draw_proc(name)
-        @pre_draw_procs.find do |_, nm|
-          name === nm
-        end
-      end
-
-      def post_draw_proc(name)
-        @post_draw_procs.find do |_, nm|
-          name === nm
-        end
       end
 
       def compile(canvas, x, y, w, h)
@@ -188,8 +127,6 @@ module Rabbit
       end
 
       def clear_theme
-        @pre_draw_procs = []
-        @post_draw_procs = []
         @width = @height = nil
         @centering_adjusted_width = nil
         @centering_adjusted_height = nil
@@ -197,6 +134,7 @@ module Rabbit
         @prop = default_prop
         clear_margin
         clear_padding
+        clear_draw_procs
         dirty!
       end
 
@@ -449,7 +387,7 @@ module Rabbit
       def _draw(canvas, x, y, w, h, simulation)
         (@pre_draw_procs +
            [method(:draw_element)] +
-           @post_draw_procs).each do |pro,|
+           @post_draw_procs.reverse).each do |pro,|
           x, y, w, h = pro.call(canvas, x, y, w, h, simulation)
         end
         [x, y, w, h]
