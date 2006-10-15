@@ -96,10 +96,6 @@ module Rabbit
           @context.scale(x, y)
         end
 
-        def reset_matrix
-          @context.identity_matrix
-        end
-
         def save_context
           @context.save
           super

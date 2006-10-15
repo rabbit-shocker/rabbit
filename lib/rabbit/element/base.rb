@@ -9,7 +9,7 @@ module Rabbit
       include Utils
 
       include DrawHook
-      def_draw_hooks :pre, :post
+      def_draw_hooks :pre, :post, :around
 
       attr_reader :x, :y, :w, :h
       attr_reader :px, :py, :pw, :ph
@@ -385,12 +385,24 @@ module Rabbit
       end
 
       def _draw(canvas, x, y, w, h, simulation)
-        (@pre_draw_procs +
+        _draw_rec(canvas, x, y, w, h, simulation, @around_draw_procs.size)
+      end
+
+      def _draw_rec(canvas, x, y, w, h, simulation, around_index)
+        if around_index.zero?
+          (@pre_draw_procs +
            [method(:draw_element)] +
            @post_draw_procs.reverse).each do |pro,|
-          x, y, w, h = pro.call(canvas, x, y, w, h, simulation)
+            x, y, w, h = pro.call(canvas, x, y, w, h, simulation)
+          end
+          [x, y, w, h]
+        else
+          pro, = @around_draw_procs[around_index - 1]
+          pro.call(canvas, x, y, w, h, simulation, Proc.new do |*args|
+            args << around_index - 1
+            _draw_rec(*args)
+          end)
         end
-        [x, y, w, h]
       end
 
       def _indent(str, width="  ")

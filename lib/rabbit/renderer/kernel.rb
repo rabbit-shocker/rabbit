@@ -29,15 +29,12 @@ module Rabbit
       def scale(x, y, params={})
       end
 
-      def reset_matrix
-      end
-
       def save_context
         if block_given?
           begin
             yield
           ensure
-            restore_matrix
+            restore_context
           end
         end
       end
