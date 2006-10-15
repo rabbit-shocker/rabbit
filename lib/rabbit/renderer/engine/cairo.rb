@@ -100,6 +100,15 @@ module Rabbit
           @context.identity_matrix
         end
 
+        def save_context
+          @context.save
+          super
+        end
+
+        def restore_context
+          @context.restore
+        end
+
         def draw_line(x1, y1, x2, y2, color=nil, params={})
           x1, y1 = from_screen(x1, y1)
           x2, y2 = from_screen(x2, y2)

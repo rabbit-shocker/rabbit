@@ -79,8 +79,29 @@ module Rabbit
         
         def index_mode_off
         end
-        
-        
+
+
+        def translate(x, y, params={})
+          @context.translate(x, y)
+        end
+
+        def rotate(angle, params={})
+          @context.rotate(angle)
+        end
+
+        def scale(x, y, params={})
+          @context.scale(x, y)
+        end
+
+        def save_context
+          @context.save
+          super
+        end
+
+        def restore_context
+          @context.restore
+        end
+
         def internal_draw_slide(slide, simulation)
           if simulation
             yield

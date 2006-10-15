@@ -32,6 +32,19 @@ module Rabbit
       def reset_matrix
       end
 
+      def save_context
+        if block_given?
+          begin
+            yield
+          ensure
+            restore_matrix
+          end
+        end
+      end
+
+      def restore_context
+      end
+
       def draw_slide(slide, simulation)
         unless simulation
           draw_rectangle(true, 0, 0, width, height, @background)
