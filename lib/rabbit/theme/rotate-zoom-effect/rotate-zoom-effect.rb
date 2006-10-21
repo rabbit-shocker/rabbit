@@ -19,7 +19,6 @@ def setup_rotate_zoom_effect_slide(slide)
               continue = (angle != last_angle and
                           canvas.current_slide == self)
               unless continue
-                translate(canvas, last_angle, last_scale_x, last_scale_y)
                 idle_id = nil
                 effected = true
               end

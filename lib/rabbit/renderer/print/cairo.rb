@@ -56,14 +56,8 @@ module Rabbit
         end
         
         def internal_draw_slide(slide, simulation)
-          if simulation
-            yield
-          else
-            @context.save do
-              yield
-            end
-            @context.show_page if @show_page
-          end
+          yield
+          @context.show_page if !simulation and @show_page
         end
 
         def internal_clip_slide(x=0, y=0, w=width, h=height)
