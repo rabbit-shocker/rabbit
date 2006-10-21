@@ -246,7 +246,7 @@ module Rabbit
       end
 
       def make_container(ary)
-          ElementContainer.new(self, ary)
+        ElementContainer.new(self, ary)
       end
 
       def to_container(obj)
