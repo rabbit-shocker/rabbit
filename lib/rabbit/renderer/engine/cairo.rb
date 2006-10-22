@@ -108,9 +108,8 @@ module Rabbit
         def draw_line(x1, y1, x2, y2, color=nil, params={})
           x1, y1 = from_screen(x1, y1)
           x2, y2 = from_screen(x2, y2)
-          color = make_color(color)
           @context.save do
-            set_color(color)
+            set_source(color, params)
             set_line_width(get_line_width(params))
             @context.stroke do
               @context.move_to(x1, y1)
@@ -121,9 +120,8 @@ module Rabbit
 
         def draw_rectangle(filled, x, y, w, h, color=nil, params={})
           x, y = from_screen(x, y)
-          color = make_color(color)
           @context.save do
-            set_color(color)
+            set_source(color, params)
             set_line_width(get_line_width(params))
             @context.rectangle(x, y, w, h)
             if filled
@@ -141,7 +139,7 @@ module Rabbit
           y_radius = params[:y_radius] || radius
 
           @context.save do
-            set_color(make_color(color))
+            set_source(color, params)
             set_line_width(get_line_width(params))
             @context.new_path
             @context.rounded_rectangle(x, y, w, h, x_radius, y_radius)
@@ -162,9 +160,8 @@ module Rabbit
         def draw_arc_by_radius(filled, x, y, r, a1, a2, color=nil, params={})
           x, y = from_screen(x, y)
           a1, a2 = convert_angle(a1, a2)
-          color = make_color(color)
           @context.save do
-            set_color(color)
+            set_source(color, params)
             set_line_width(get_line_width(params))
             args = [x, y, r, a1, a2]
             if filled
@@ -187,9 +184,8 @@ module Rabbit
 
         def draw_polygon(filled, points, color=nil, params={})
           return if points.empty?
-          color = make_color(color)
           @context.save do
-            set_color(color)
+            set_source(color, params)
             set_line_width(get_line_width(params))
             @context.move_to(*from_screen(*points.first))
             points[1..-1].each do |x, y|
@@ -206,9 +202,8 @@ module Rabbit
 
         def draw_layout(layout, x, y, color=nil, params={})
           x, y = from_screen(x, y)
-          color = make_color(color)
           @context.save do
-            set_color(color)
+            set_source(color, params)
             set_line_width(get_line_width(params))
             @context.move_to(x, y)
             @context.show_pango_layout(layout)
@@ -281,8 +276,35 @@ module Rabbit
           @background = make_color(@background_color)
         end
 
+        def set_source(color, params={})
+          pattern = params[:pattern]
+          set = false
+          if pattern
+            set = set_pattern(pattern)
+            color ||= Color.parse("#fff0") unless set
+          end
+          set_color(make_color(color)) unless set
+        end
+
+        def set_pattern(info)
+          pattern = nil
+          case info[:type]
+          when :radial
+            cx0, cy0, radius0, cx1, cy1, radius1 = info[:base]
+            cx0, cy0 = from_screen(cx0, cy0)
+            cx1, cy1 = from_screen(cx1, cy1)
+            pattern = ::Cairo::RadialPattern.new(cx0, cy0, radius0,
+                                                 cx1, cy1, radius1)
+            info[:color_stops].each do |rgba|
+              pattern.add_color_stop_rgba(*rgba)
+            end
+          end
+          @context.set_source(pattern) if pattern
+          !pattern.nil?
+        end
+
         def set_color(color)
-          @context.set_source_rgba(color.to_a)
+          @context.set_source_rgba(make_color(color).to_a)
         end
 
         def set_line_width(line_width)

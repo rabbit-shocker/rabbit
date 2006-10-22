@@ -46,16 +46,19 @@ module Rabbit
 
         def draw_line(x1, y1, x2, y2, color=nil, params={})
           gc = make_gc(color, params)
+          return if gc.nil?
           @gdk_drawable.draw_line(gc, x1, y1, x2, y2)
         end
 
         def draw_lines(points, color=nil, params={})
           gc = make_gc(color, params)
+          return if gc.nil?
           @gdk_drawable.draw_lines(gc, points)
         end
 
         def draw_rectangle(filled, x, y, w, h, color=nil, params={})
           gc = make_gc(color, params)
+          return if gc.nil?
           @gdk_drawable.draw_rectangle(gc, filled, x, y, w, h)
         end
 
@@ -111,6 +114,7 @@ module Rabbit
 
         def draw_arc(filled, x, y, w, h, a1, a2, color=nil, params={})
           gc = make_gc(color, params)
+          return if gc.nil?
           a1 *= 64
           a2 *= 64
           @gdk_drawable.draw_arc(gc, filled, x, y, w, h, a1, a2)
@@ -126,16 +130,19 @@ module Rabbit
 
         def draw_polygon(filled, points, color=nil, params={})
           gc = make_gc(color, params)
+          return if gc.nil?
           @gdk_drawable.draw_polygon(gc, filled, points)
         end
 
         def draw_layout(layout, x, y, color=nil, params={})
           gc = make_gc(color, params)
+          return if gc.nil?
           @gdk_drawable.draw_layout(gc, x, y, layout)
         end
 
         def draw_pixbuf(pixbuf, x, y, params={})
           gc = make_gc(params['color'], params)
+          return if gc.nil?
           args = [0, 0, x, y,
                   params['width'] || pixbuf.width,
                   params['height'] || pixbuf.height,
@@ -190,6 +197,7 @@ module Rabbit
         end
 
         def make_gc(color, params={})
+          return nil if params[:pattern] and color.nil?
           gc = internal_make_gc(color)
           gc.set_line_attributes(get_line_width(params, 1),
                                  Gdk::GC::LINE_SOLID,

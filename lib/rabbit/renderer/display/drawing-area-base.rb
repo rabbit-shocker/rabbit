@@ -8,6 +8,7 @@ require "rabbit/renderer/display/menu"
 require "rabbit/renderer/display/button-handler"
 require "rabbit/renderer/display/key-handler"
 require "rabbit/renderer/display/info"
+require "rabbit/renderer/display/spotlight"
 
 module Rabbit
   module Renderer
@@ -23,6 +24,7 @@ module Rabbit
         include KeyHandler
         include ButtonHandler
         include Info
+        include Spotlight
 
         def initialize(canvas)
           @caching = nil
@@ -282,6 +284,7 @@ module Rabbit
             super
             draw_graffiti
             draw_gesture
+            draw_spotlight
           end
           true
         end
@@ -344,12 +347,19 @@ module Rabbit
 
         def set_scroll_event
           @area.signal_connect("scroll_event") do |widget, event|
-            case event.direction
-            when Gdk::EventScroll::Direction::UP
-              @canvas.activate("PreviousSlide")
-            when Gdk::EventScroll::Direction::DOWN
-              @canvas.activate("NextSlide")
+            handled = call_hook_procs(@scroll_hook_procs, event)
+            unless handled
+              handled = true
+              case event.direction
+              when Gdk::EventScroll::Direction::UP
+                @canvas.activate("PreviousSlide")
+              when Gdk::EventScroll::Direction::DOWN
+                @canvas.activate("NextSlide")
+              else
+                handled = false
+              end
             end
+            handled
           end
         end
 
@@ -373,9 +383,7 @@ module Rabbit
         end
 
         def call_hook_procs(procs, *args)
-          procs.find do |proc|
-            proc.call(*args)
-          end
+          procs.any? {|proc| proc.call(*args)}
         end
       end
     end

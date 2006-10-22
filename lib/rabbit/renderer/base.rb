@@ -176,7 +176,15 @@ module Rabbit
       def clear_motion_notify_hook
         @motion_notify_hook_procs.clear
       end
-      
+
+      def add_scroll_hook(hook=Proc.new)
+        @scroll_hook_procs << hook
+      end
+
+      def clear_scroll_hook
+        @scroll_hook_procs.clear
+      end
+
       def add_button_press_hook(hook=Proc.new)
         @button_press_hook_procs << hook
       end
@@ -428,6 +436,7 @@ module Rabbit
 
       def init_hook_procs
         @motion_notify_hook_procs = []
+        @scroll_hook_procs = []
         @button_press_hook_procs = []
         @button_release_hook_procs = []
       end

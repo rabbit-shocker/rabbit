@@ -13,14 +13,14 @@ module Rabbit
         def init_gesture
           @gesture = Rabbit::Gesture::Handler.new
 
-          pressed_button = nil
-          first_motion = false
+          pressed_info = nil
           target_button = 3
+          target_event_type = Gdk::Event::Type::BUTTON_PRESS
+          target_info = [target_button, target_event_type]
 
           add_button_press_hook do |event|
-            pressed_button = event.button
-            first_motion = true
-            if event.button == target_button
+            pressed_info = [event.button, event.event_type]
+            if pressed_info == target_info
               x, y, w, h = @area.allocation.to_a
               @gesture.start(target_button, x + event.x, y + event.y, x, y)
             end
@@ -28,26 +28,27 @@ module Rabbit
           end
 
           add_button_release_hook do |event, last_button_press_event|
-            pressed_button = nil
+            pressed_info = nil
             if @gesture.processing? and event.button == target_button
-              restore_cursor(:gesture) unless first_motion
+              restore_cursor(:gesture) if @gesture.moved?
               queue_draw
+              moved = @gesture.moved?
               @gesture.button_release(event.x, event.y, width, height)
-              !first_motion
+              moved
             else
               false
             end
           end
 
           add_motion_notify_hook do |event|
-            if @gesture.processing? and pressed_button == target_button
-              if first_motion
+            if @gesture.processing? and pressed_info == target_info
+              unless @gesture.moved?
                 keep_cursor(:gesture)
                 update_cursor(:hand)
               end
+              first_move = !@gesture.moved?
               handled = @gesture.button_motion(event.x, event.y, width, height)
-              queue_draw if handled or first_motion
-              first_motion = false
+              queue_draw if handled or first_move
               @gesture.draw_last_locus(@drawable)
               true
             else
@@ -82,7 +83,7 @@ module Rabbit
         end
 
         def draw_gesture
-          @gesture.draw(@drawable) if gesturing?
+          @gesture.draw(@drawable) if gesturing? and @gesture.moved?
         end
       end
     end

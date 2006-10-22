@@ -45,8 +45,10 @@ module Rabbit
       attr_reader :name, :title, :description
       attr_reader :abstract
       attr_reader :dependencies, :parameters
+      attr_accessor :logger
 
       def initialize(theme_dir, type)
+        @logger = nil
         @theme_dir = theme_dir
         @type = type
         @name = File.basename(@theme_dir)
@@ -106,7 +108,12 @@ module Rabbit
       def parse_property
         file = property_file
         if File.exist?(file)
-          instance_eval(File.open(file) {|f| f.read}, file)
+          content = File.open(file) {|f| f.read}
+          begin
+            instance_eval(content, file)
+          rescue SyntaxError
+            @logger.warn($!) if @logger
+          end
         end
       end
     end

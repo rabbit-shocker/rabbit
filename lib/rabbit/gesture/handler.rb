@@ -105,6 +105,10 @@ module Rabbit
         draw_lines(@locus, @line_color, {:line_width => @line_width})
       end
 
+      def moved?
+        @locus.size >= 2
+      end
+
       private
       def perform_action
         act, block = action

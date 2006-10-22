@@ -66,17 +66,20 @@ module Rabbit
             unless release_event.state.mod1_mask?
               add_button_handler do
                 @canvas.activate("NextSlide")
+                true
               end
             end
           when 2, 4
             unless release_event.state.mod1_mask?
               add_button_handler do
                 @canvas.activate("PreviousSlide")
+                true
               end
             end
           when 3
             add_button_handler do
               popup_menu
+              true
             end
           end
         end
@@ -91,14 +94,16 @@ module Rabbit
                 @canvas.activate("ToggleIndexMode")
                 @canvas.activate("JumpTo") {index}
               end
+              true
+            else
+              false
             end
-            clear_button_handler
           end
         end
 
         def handle_button3_press(event, release_event)
           add_button_handler do
-            clear_button_handler
+            false
           end
         end
 
@@ -107,7 +112,9 @@ module Rabbit
         end
 
         def call_button_handler
-          @button_handler.pop.call until @button_handler.empty?
+          until @button_handler.empty?
+            clear_button_handler if @button_handler.pop.call
+          end
         end
 
         def start_button_handler
