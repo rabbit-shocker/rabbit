@@ -190,6 +190,22 @@ module Rabbit
     end
   end
 
+  class InvalidImageSizeError < Error
+    attr_reader :filename, :prop_name, :value
+    def initialize(filename, prop_name, value)
+      @filename = filename
+      @prop_name = prop_name
+      @value = value
+      params = {
+        :filename => filename,
+        :prop_name => prop_name,
+        :value => value,
+      }
+      super(_("invalid value of size property \"%{prop_name}\" " \
+              "of image \"%{filename}\": %{value}") % params)
+    end
+  end
+
   class ParseFinish < Error
   end
 

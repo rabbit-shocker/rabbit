@@ -25,7 +25,7 @@ module Rabbit
         end
         begin
           Element::Image.new(image_filename(visitor, uri), prop)
-        rescue ImageLoadError
+        rescue Error
           visitor.logger.warn($!.message)
           nil
         end

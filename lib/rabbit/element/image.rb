@@ -32,7 +32,11 @@ module Rabbit
            normalized_width normalized_height
            relative_width relative_height
           ).each do |name|
-          instance_variable_set("@#{name}", prop[name] && Integer(prop[name]))
+          begin
+            instance_variable_set("@#{name}", prop[name] && Integer(prop[name]))
+          rescue ArgumentError
+            raise InvalidImageSizeError.new(filename, name, prop[name])
+          end
         end
         resize(@width, @height)
       end
