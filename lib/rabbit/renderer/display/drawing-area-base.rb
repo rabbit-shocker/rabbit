@@ -9,6 +9,7 @@ require "rabbit/renderer/display/button-handler"
 require "rabbit/renderer/display/key-handler"
 require "rabbit/renderer/display/info"
 require "rabbit/renderer/display/spotlight"
+require "rabbit/renderer/display/magnifier"
 
 module Rabbit
   module Renderer
@@ -25,6 +26,7 @@ module Rabbit
         include ButtonHandler
         include Info
         include Spotlight
+        include Magnifier
 
         def initialize(canvas)
           @caching = nil
@@ -287,6 +289,13 @@ module Rabbit
             draw_spotlight
           end
           true
+        end
+
+        def draw_slide(slide, simulation, &block)
+          super do |*args|
+            block.call(*args)
+            magnify {block.call(*args)} unless simulation
+          end
         end
 
         def draw_current_slide_pixbuf(pixbuf)

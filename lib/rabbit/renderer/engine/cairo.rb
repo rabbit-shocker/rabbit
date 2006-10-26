@@ -111,10 +111,10 @@ module Rabbit
           @context.save do
             set_source(color, params)
             set_line_width(get_line_width(params))
-            @context.stroke do
-              @context.move_to(x1, y1)
-              @context.line_to(x2, y2)
-            end
+            @context.new_path
+            @context.move_to(x1, y1)
+            @context.line_to(x2, y2)
+            apply_cairo_action(false, params)
           end
         end
 
@@ -124,11 +124,7 @@ module Rabbit
             set_source(color, params)
             set_line_width(get_line_width(params))
             @context.rectangle(x, y, w, h)
-            if filled
-              @context.fill
-            else
-              @context.stroke
-            end
+            apply_cairo_action(filled, params)
           end
         end
 
@@ -143,11 +139,7 @@ module Rabbit
             set_line_width(get_line_width(params))
             @context.new_path
             @context.rounded_rectangle(x, y, w, h, x_radius, y_radius)
-            if filled
-              @context.fill
-            else
-              @context.stroke
-            end
+            apply_cairo_action(filled, params)
           end
         end
 
@@ -164,17 +156,11 @@ module Rabbit
             set_source(color, params)
             set_line_width(get_line_width(params))
             args = [x, y, r, a1, a2]
-            if filled
-              @context.fill do
-                @context.move_to(x, y)
-                @context.arc(*args)
-                @context.close_path
-              end
-            else
-              @context.stroke do
-                @context.arc(*args)
-              end
-            end
+            action, = cairo_action(filled, params)
+            @context.move_to(x, y) unless action == :stroke
+            @context.arc(*args)
+            @context.close_path unless action == :stroke
+            apply_cairo_action(filled, params)
           end
         end
 
@@ -192,11 +178,7 @@ module Rabbit
               @context.line_to(*from_screen(x, y))
             end
             @context.line_to(*from_screen(*points.first)) unless params[:opened]
-            if filled
-              @context.fill
-            else
-              @context.stroke
-            end
+            apply_cairo_action(filled, params)
           end
         end
 
@@ -320,6 +302,26 @@ module Rabbit
 
         def from_screen(x, y)
           [x.ceil, y.ceil]
+        end
+
+        def cairo_action(filled, params={})
+          if params[:clip]
+            [:clip, params[:clip]]
+          elsif filled
+            :fill
+          else
+            :stroke
+          end
+        end
+
+        def apply_cairo_action(filled, params={})
+          action, *other_info = cairo_action(filled, params)
+          @context.send(action)
+          case action
+          when :clip
+            block, = other_info
+            block.call if block
+          end
         end
       end
     end
