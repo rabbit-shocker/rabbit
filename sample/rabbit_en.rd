@@ -64,6 +64,7 @@ A presentation tool
   * organize screenshots
   * mouse gesture
   * spotlight
+  * magnifier
 
 = Not available
 
