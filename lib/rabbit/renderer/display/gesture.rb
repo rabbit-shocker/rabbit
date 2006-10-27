@@ -20,7 +20,7 @@ module Rabbit
 
           add_button_press_hook do |event|
             pressed_info = [event.button, event.event_type]
-            if pressed_info == target_info and event.state.zero?
+            if pressed_info == target_info and event.state.to_i.zero?
               x, y, w, h = @area.allocation.to_a
               @gesture.start(target_button, x + event.x, y + event.y, x, y)
             end
