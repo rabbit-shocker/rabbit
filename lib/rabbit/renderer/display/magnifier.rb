@@ -82,9 +82,9 @@ module Rabbit
           save_context do
             clip_block = Proc.new do
               draw_rectangle(true, 0, 0, width, height, @background)
-              translate(@magnifier_center_x, @magnifier_center_y)
-              scale(@magnifier_ratio, @magnifier_ratio)
-              translate(-@magnifier_center_x, -@magnifier_center_y)
+              translate_context(@magnifier_center_x, @magnifier_center_y)
+              scale_context(@magnifier_ratio, @magnifier_ratio)
+              translate_context(-@magnifier_center_x, -@magnifier_center_y)
               block.call
             end
             draw_rounded_rectangle(false, x, y, w, h, r, nil,

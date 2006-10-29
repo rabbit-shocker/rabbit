@@ -84,16 +84,33 @@ module Rabbit
           make_color(color).to_gdk_rgb
         end
 
-        def translate(x, y, params={})
+        def translate_context(x, y, params={})
           @context.translate(x, y)
         end
 
-        def rotate(angle, params={})
-          @context.rotate(angle)
+        def rotate_context(angle, params={})
+          @context.rotate(convert_angle(angle, 0)[0])
         end
 
-        def scale(x, y, params={})
+        def scale_context(x, y, params={})
           @context.scale(x, y)
+        end
+
+        def reflect_context(base, params={})
+          case base
+          when :y
+            matrix = make_matrix(-1, 0, 0,
+                                  0, 1, 0)
+          else
+            matrix = make_matrix(1,  0, 0,
+                                 0, -1, 0)
+          end
+          @context.transform(matrix)
+        end
+
+        def shear_context(x, y, params={})
+          @context.transform(make_matrix(1, x, 0,
+                                         y, 1, 0))
         end
 
         def save_context
@@ -322,6 +339,10 @@ module Rabbit
             block, = other_info
             block.call if block
           end
+        end
+
+        def make_matrix(xx, xy, x0, yx, yy, y0)
+          ::Cairo::Matrix.new(xx, yx, xy, yy, x0, y0)
         end
       end
     end

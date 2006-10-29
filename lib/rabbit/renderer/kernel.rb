@@ -20,13 +20,19 @@ module Rabbit
         end
       end
 
-      def translate(x, y, params={})
+      def translate_context(x, y, params={})
       end
 
-      def rotate(angle, params={})
+      def rotate_context(angle, params={})
       end
 
-      def scale(x, y, params={})
+      def scale_context(x, y, params={})
+      end
+
+      def reflect_context(base, params={})
+      end
+
+      def shear_context(x, y, params={})
       end
 
       def save_context

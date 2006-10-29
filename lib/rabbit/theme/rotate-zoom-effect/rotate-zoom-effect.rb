@@ -2,7 +2,7 @@ def setup_rotate_zoom_effect_slide(slide)
   class << slide
     def rotate_zoom_effect
       angle = 0
-      last_angle = 2 * Math::PI
+      last_angle = 360
       last_scale_x = 1
       last_scale_y = 1
       idle_id = nil
@@ -10,7 +10,7 @@ def setup_rotate_zoom_effect_slide(slide)
       add_around_draw_proc do |canvas, x, y, w, h, simulation, next_proc|
         canvas.save_context do
           if !simulation and !effected
-            angle = [angle + 0.05 * Math::PI, last_angle].min
+            angle = [angle + last_angle * 0.05, last_angle].min
             ratio = angle / last_angle
             scale_x = last_scale_x * ratio
             scale_y = last_scale_y * ratio

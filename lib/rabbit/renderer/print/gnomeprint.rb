@@ -81,16 +81,30 @@ module Rabbit
         end
 
 
-        def translate(x, y, params={})
+        def translate_context(x, y, params={})
           @context.translate(x, y)
         end
 
-        def rotate(angle, params={})
+        def rotate_context(angle, params={})
           @context.rotate(angle)
         end
 
-        def scale(x, y, params={})
+        def scale_context(x, y, params={})
           @context.scale(x, y)
+        end
+
+        def reflect_context(base, params={})
+          case base
+          when :y
+            matrix = [-1, 0, 0, 1, 0, 0]
+          else
+            matrix = [1, 0, 0, -1, 0, 0]
+          end
+          @context.concat(matrix)
+        end
+
+        def shear_context(x, y, params={})
+          @context.concat([1, y, x, 1, 0, 0])
         end
 
         def save_context
