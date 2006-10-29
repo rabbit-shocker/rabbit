@@ -23,7 +23,7 @@ module Rabbit
               add_button_handler do
                 if spotlighting?
                   Gtk.grab_remove(@area)
-                  Gdk.pointer_ungrab(event.time)
+                  Gdk.pointer_ungrab(Gdk::Event::CURRENT_TIME)
                 else
                   @spotlight_center_x = event.x
                   @spotlight_center_y = event.y
@@ -34,7 +34,7 @@ module Rabbit
                                    Gdk::Event::SCROLL_MASK |
                                    Gdk::Event::POINTER_MOTION_MASK,
                                    nil, nil,
-                                   event.time)
+                                   Gdk::Event::CURRENT_TIME)
                 end
                 motioned = false
                 @spotlighting = !@spotlighting
@@ -63,10 +63,10 @@ module Rabbit
               case event.direction
               when Gdk::EventScroll::Direction::UP
                 @spotlight_radius_ratio =
-                  [1, @spotlight_radius_ratio + 0.1].min
+                  [0.1, @spotlight_radius_ratio - 0.1].max
               when Gdk::EventScroll::Direction::DOWN
                 @spotlight_radius_ratio =
-                  [0.1, @spotlight_radius_ratio - 0.1].max
+                  [1, @spotlight_radius_ratio + 0.1].min
               end
               queue_draw
               true
