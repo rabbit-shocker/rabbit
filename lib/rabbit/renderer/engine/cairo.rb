@@ -297,6 +297,13 @@ module Rabbit
             info[:color_stops].each do |rgba|
               pattern.add_color_stop_rgba(*rgba)
             end
+          when :linear
+            x, y, w, h = info[:base]
+            x, y = from_screen(x, y)
+            pattern = ::Cairo::LinearPattern.new(x, y, w, h)
+            info[:color_stops].each do |rgba|
+              pattern.add_color_stop_rgba(*rgba)
+            end
           end
           @context.set_source(pattern) if pattern
           !pattern.nil?
