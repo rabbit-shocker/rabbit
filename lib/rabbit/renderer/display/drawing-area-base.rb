@@ -116,7 +116,6 @@ module Rabbit
 
         def index_mode_off
           super
-          update_title
         end
 
         def pre_toggle_index_mode
@@ -127,6 +126,7 @@ module Rabbit
         def post_toggle_index_mode
           @canvas.activate("ClearGraffiti")
           update_menu
+          update_title
           super
         end
 

@@ -99,11 +99,8 @@ module Rabbit
         end
       end
 
-      def initialize(rows)
-        super(_("Index"))
-        rows.each do |row|
-          add_element(row)
-        end
+      def title
+        _("Index")
       end
 
       def slide_number(canvas, x, y)
