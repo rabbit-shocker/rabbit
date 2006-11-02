@@ -56,11 +56,15 @@ module Rabbit
 
         def draw_slide(slide, simulation)
           internal_draw_slide(slide, simulation) do
-            unless simulation
-              internal_clip_slide
-              internal_draw_background
+            if simulation
+              yield
+            else
+              save_context do
+                internal_clip_slide
+                internal_draw_background
+                yield
+              end
             end
-            yield
           end
         end
       end

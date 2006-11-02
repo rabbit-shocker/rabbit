@@ -93,11 +93,13 @@ module Rabbit
             if simulation
               yield
             else
-              x, y = normalize(0, 0)
-              @print.internal_clip_slide(x, y, width, height)
-              @print.internal_draw_background(x, y, width, height)
-              yield
-              draw_rectangle(false, 0, 0, width, height, @black)
+              @print.save_context do
+                x, y = normalize(0, 0)
+                @print.internal_clip_slide(x, y, width, height)
+                @print.internal_draw_background(x, y, width, height)
+                yield
+                draw_rectangle(false, 0, 0, width, height, @black)
+              end
             end
           end
         end
@@ -118,7 +120,8 @@ module Rabbit
           @print.draw_rectangle(filled, x, y, w, h, color, params)
         end
 
-        def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil, params={})
+        def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil,
+                                   params={})
           x, y = normalize(x, y)
           @print.draw_rounded_rectangle(filled, x, y, w, h, radius,
                                         color, params)
@@ -159,7 +162,7 @@ module Rabbit
           @white = make_color("white")
           @black = make_color("black")
         end
-      
+
         def update_layout
           if @slides_per_page
             @layout = LayoutBase.make_layout(self)
@@ -169,7 +172,7 @@ module Rabbit
           @slide_width = nil
           @slide_height = nil
         end
-      
+
         def normalize_x(x)
           @layout.normalize_x(x)
         end
@@ -179,7 +182,7 @@ module Rabbit
           @layout.normalize_y(y)
         end
         alias ny normalize_y
-      
+
         def normalize(x, y)
           [nx(x), ny(y)]
         end
