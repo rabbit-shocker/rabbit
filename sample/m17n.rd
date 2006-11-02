@@ -12,7 +12,6 @@
   English, Hello
   German (Deutsch), Guten Tag / Grüß Gott
   French (français), Bonjour / Salut
-  Spanish (español), ¡Hola!
 
 = Europe (2)
 
@@ -20,11 +19,9 @@
 
   Language, Hello
 
+  Spanish (español), ¡Hola!
   Polish (język polski), Dzień dobry! Cześć!
   Czech (česky), Dobrý den
-  Estonian (eesti keel), Tere / Tervist
-  Finnish (Suomi), Hei
-  Maltese (il-Malti), Bonġu / Saħħa
 
 = Europe (3)
 
@@ -32,9 +29,9 @@
 
   Language, Hello
 
-  Esperanto, Saluton (Eĥoŝanĝo ĉiuĵaŭde)
-  Greek (ελληνικά), Γειά σας
-  Russian (русский), Здравствуйте!
+  Estonian (eesti keel), Tere / Tervist
+  Finnish (Suomi), Hei
+  Maltese (il-Malti), Bonġu / Saħħa
 
 = Europe (4)
 
@@ -42,6 +39,16 @@
 
   Language, Hello
 
+  Esperanto, Saluton (Eĥoŝanĝo ĉiuĵaŭde)
+  Greek (ελληνικά), Γειά σας
+
+= Europe (5)
+
+  # RT
+
+  Language, Hello
+
+  Russian (русский), Здравствуйте!
   Georgian (ქართული), გამარჯობათ!
 
 = Africa
@@ -73,8 +80,6 @@
   Hindi (हिंदी), नमस्ते / नमस्कार ।
   Bengali (বাংলা), নমস্কার
   Punjabi (ਪੰਜਾਬੀ), ਸਤਿ ਸ਼੍ਰੀ ਅਕਾਲ
-  Gujarati (ગુજરાતી), નમસ્તે
-  Tamil (தமிழ்), வணக்கம்
 
 = South/South-East Asia (2)
 
@@ -82,11 +87,9 @@
 
   Language, Hello
 
+  Gujarati (ગુજરાતી), નમસ્તે
+  Tamil (தமிழ்), வணக்கம்
   Telugu (తెలుగు), హలో
-  Kannada (ಕನ್ನಡ), ನಮಸ್ಕಾರ
-  Malayalam (മലയാളം), നമസ്കാരം
-  Myanmar (မ္ရန္‌မာ), မင္ဂလာပာ
-  Tibetan (བོད་སྐད་), བཀྲ་ཤིས་བདེ་ལེགས༎
 
 = South/South-East Asia (3)
 
@@ -94,8 +97,33 @@
 
   Language, Hello
 
+  Kannada (ಕನ್ನಡ), ನಮಸ್ಕಾರ
+  Malayalam (മലയാളം), നമസ്കാരം
+
+= South/South-East Asia (4)
+
+  # RT
+
+  Language, Hello
+
+  Myanmar (မ္ရန္‌မာ), မင္ဂလာပာ
+  Tibetan (བོད་སྐད་), བཀྲ་ཤིས་བདེ་ལེགས༎
+
+= South/South-East Asia (5)
+
+  # RT
+
+  Language, Hello
+
   Thai (ภาษาไทย), สวัสดีครับ / สวัสดีค่ะ
   Lao (ພາສາລາວ), ສະບາຍດີ / ຂໍໃຫ້ໂຊກດີ
+
+= South/South-East Asia (6)
+
+  # RT
+
+  Language, Hello
+
   Khmer (ខ្មៃរ), ជំរាបសួរ
   Vietnamese (Tiếng Việt), Chào bạn
 
