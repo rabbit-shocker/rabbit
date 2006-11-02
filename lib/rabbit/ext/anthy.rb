@@ -1,5 +1,6 @@
 begin
   require 'anthy'
+  Anthy.set_personality("")
 rescue LoadError
 end
 
