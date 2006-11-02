@@ -86,9 +86,6 @@ A presentation tool
 
   * can save slides as image
   * can save simple HTML for viewing images
-  * but ...
-    * organizing screenshots beautifully is the work of other tools
-    * ((<RAA:gallery>)), zphoto and so on
 
 = What about image?
 
@@ -260,7 +257,7 @@ What about?
   Heading 1, Heading 2
 
   content 1, content 2
-  very long content 3, veeeery loooooooooooooooooooooooooooong content 4
+  very long content 3, veeeery looooooooooooooooooooooong content 4
 
 = How to write theme
 
@@ -271,9 +268,6 @@ Ahh, I'll set up more better documents.
 
 = Key (basic)
 
-: Quit
-   q, Esc
-
 : Next page
    n, f, j, l, Spc, Ret, Tab, +, (('&DownArrow;')),
    (('&RightArrow;')), left click, ...
@@ -281,6 +275,11 @@ Ahh, I'll set up more better documents.
 : Previous page
    p, b, k, h, BS, Del, -, (('&UpArrow;')),
    (('&LeftArrow;')), center click, ...
+
+= Key (basic2)
+
+: Quit
+   q, Esc
 
 = Key (convenience)
 
