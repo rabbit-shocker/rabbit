@@ -298,7 +298,7 @@ Ahh, I'll set up more better documents.
 : Toggle index mode
    i
 
-: Go to the page in index mode
+: Go to the page
    double click
 
 = Key (feature)
