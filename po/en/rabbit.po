@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-09 22:14+0900\n"
+"POT-Creation-Date: 2006-11-03 11:13+0900\n"
 "PO-Revision-Date: 2006-07-02 16:53+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:424
+#: ../../lib/rabbit/renderer/base.rb:432
 msgid "%s does not support: %s"
 msgstr ""
 
-#: ../../lib/rabbit/theme/applier.rb:522 ../../lib/rabbit/theme/applier.rb:529
+#: ../../lib/rabbit/theme/applier.rb:532 ../../lib/rabbit/theme/applier.rb:539
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
 msgstr ""
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Add [PATH] to load path."
 msgstr ""
 
-#: ../../lib/rabbit/ext/anthy.rb:17
+#: ../../lib/rabbit/ext/anthy.rb:18
 msgid "Anthy isn't available"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Color of shadow."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:709 ../../bin/rabbit:456
+#: ../../lib/rabbit/canvas.rb:713 ../../bin/rabbit:456
 msgid "Comment"
 msgstr ""
 
@@ -349,7 +349,7 @@ msgid ""
 "that the hare will lose to the tortoise."
 msgstr ""
 
-#: ../../lib/rabbit/theme/entry.rb:87
+#: ../../lib/rabbit/theme/entry.rb:89
 msgid "Etc"
 msgstr ""
 
@@ -624,7 +624,7 @@ msgstr ""
 msgid "Print and exit."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:623
+#: ../../lib/rabbit/canvas.rb:627
 msgid "Processing..."
 msgstr ""
 
@@ -1260,7 +1260,7 @@ msgstr ""
 msgid "Undo graffiti"
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:526
+#: ../../lib/rabbit/canvas.rb:530
 msgid "Unknown action: %s"
 msgstr ""
 
@@ -1403,8 +1403,8 @@ msgstr ""
 msgid "can't find HTML template: %s"
 msgstr ""
 
-#: ../../lib/rabbit/renderer/print/cairo.rb:107
-#: ../../lib/rabbit/renderer/print/gnomeprint.rb:358
+#: ../../lib/rabbit/renderer/print/cairo.rb:101
+#: ../../lib/rabbit/renderer/print/gnomeprint.rb:393
 msgid "can't find printer for %s"
 msgstr ""
 
@@ -1477,6 +1477,12 @@ msgstr ""
 msgid "invalid source: %s"
 msgstr ""
 
+#: ../../lib/rabbit/rabbit.rb:204
+msgid ""
+"invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %"
+"{value}"
+msgstr ""
+
 #: ../../bin/rabbit-theme-manager:15
 msgid "ja"
 msgstr "Japanese"
@@ -1509,7 +1515,7 @@ msgstr ""
 msgid "port <%s> for XML-RPC is in use."
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:209
+#: ../../lib/rabbit/rabbit.rb:225
 msgid "print isn't supported"
 msgstr ""
 
@@ -1545,7 +1551,7 @@ msgstr ""
 msgid "tried tgif commands: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:203
+#: ../../lib/rabbit/rabbit.rb:219
 msgid "unknown cursor type: %s"
 msgstr ""
 

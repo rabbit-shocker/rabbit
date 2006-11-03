@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Rabbit 0.4.3\n"
+"Project-Id-Version: Rabbit 0.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-09 22:14+0900\n"
-"PO-Revision-Date: 2006-09-09 22:14+0900\n"
+"POT-Creation-Date: 2006-11-03 11:13+0900\n"
+"PO-Revision-Date: 2006-11-03 11:14+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:424
+#: ../../lib/rabbit/renderer/base.rb:432
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: ../../lib/rabbit/theme/applier.rb:522 ../../lib/rabbit/theme/applier.rb:529
+#: ../../lib/rabbit/theme/applier.rb:532 ../../lib/rabbit/theme/applier.rb:539
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
 msgstr "%sは非推奨です．代わりに%sを使ってください．"
@@ -84,7 +84,7 @@ msgstr "宣伝文。"
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: ../../lib/rabbit/ext/anthy.rb:17
+#: ../../lib/rabbit/ext/anthy.rb:18
 msgid "Anthy isn't available"
 msgstr "Anthyは利用できません"
 
@@ -168,7 +168,7 @@ msgstr "スタートとゴールの旗に表示される数字の色。"
 msgid "Color of shadow."
 msgstr "影の色。"
 
-#: ../../lib/rabbit/canvas.rb:709 ../../bin/rabbit:456
+#: ../../lib/rabbit/canvas.rb:713 ../../bin/rabbit:456
 msgid "Comment"
 msgstr "コメント"
 
@@ -381,7 +381,7 @@ msgstr ""
 "プレゼンテーションをおこなってウサギがカメに敗けてしまうことがないよう気をつ"
 "けてください。"
 
-#: ../../lib/rabbit/theme/entry.rb:87
+#: ../../lib/rabbit/theme/entry.rb:89
 msgid "Etc"
 msgstr "その他"
 
@@ -666,7 +666,7 @@ msgstr "印刷"
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: ../../lib/rabbit/canvas.rb:623
+#: ../../lib/rabbit/canvas.rb:627
 msgid "Processing..."
 msgstr "処理中です．．．"
 
@@ -1319,7 +1319,7 @@ msgstr "URI"
 msgid "Undo graffiti"
 msgstr "落書きを戻す"
 
-#: ../../lib/rabbit/canvas.rb:526
+#: ../../lib/rabbit/canvas.rb:530
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
 
@@ -1475,8 +1475,8 @@ msgstr "UTF-8から現在のロケールに変換できません: %s"
 msgid "can't find HTML template: %s"
 msgstr "HTML のテンプレートが見つかりません: %s"
 
-#: ../../lib/rabbit/renderer/print/cairo.rb:107
-#: ../../lib/rabbit/renderer/print/gnomeprint.rb:358
+#: ../../lib/rabbit/renderer/print/cairo.rb:101
+#: ../../lib/rabbit/renderer/print/gnomeprint.rb:393
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
@@ -1549,6 +1549,12 @@ msgstr "不正な動きです: %s"
 msgid "invalid source: %s"
 msgstr "不正なソースです: %s"
 
+#: ../../lib/rabbit/rabbit.rb:204
+msgid ""
+"invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %"
+"{value}"
+msgstr "画像\"%{filename}のサイズプロパティ%{prop_name}の値が不正です: %{value}"
+
 #: ../../bin/rabbit-theme-manager:15
 msgid "ja"
 msgstr "日本語"
@@ -1583,7 +1589,7 @@ msgstr "SOAP用ポート<%s>は使用中です．"
 msgid "port <%s> for XML-RPC is in use."
 msgstr "XML-RPC用ポート<%s>は使用中です．"
 
-#: ../../lib/rabbit/rabbit.rb:209
+#: ../../lib/rabbit/rabbit.rb:225
 msgid "print isn't supported"
 msgstr "印刷をサポートしていません"
 
@@ -1619,7 +1625,7 @@ msgstr "実行したgsコマンド名: %s"
 msgid "tried tgif commands: %s"
 msgstr "実行したtgifコマンド名: %s"
 
-#: ../../lib/rabbit/rabbit.rb:203
+#: ../../lib/rabbit/rabbit.rb:219
 msgid "unknown cursor type: %s"
 msgstr "未知のカーソルタイプ: %s"
 
