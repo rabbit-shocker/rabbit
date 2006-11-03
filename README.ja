@@ -788,15 +788,10 @@ Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>)
 
 === 1ページに複数枚のスライドが入ったPDFを作る
 
-以下のものを用意してください．
-
-  * ps2pdf
-
 XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）を
 作成する手順は以下の通りです．
 
-  % rabbit -p --slides-per-page 8 -o XXX.ps XXX.rd
-  % ps2pdf XXX.ps
+  % rabbit -p --slides-per-page 8 -o XXX_multi.pdf XXX.rd
 
 == 感謝
 

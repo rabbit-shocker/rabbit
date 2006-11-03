@@ -4,6 +4,39 @@
 
 $Id$
 
+== Changes 0.5.0 from 0.4.2
+
+  * fixed a bug related GtkGLExt loading. (KAKUTANI Shintaro)
+  * improved rabbit-mode.el. (Atsushi Takeda)
+  * updated documentation of emerge. (akapy)
+  * added documentation of MacPorts. (kimura wataru)
+  * added workaround for RSVG path resolving.
+  * (useless) Ruby/Anthy support.
+  * supported information window for multi display environment.
+  * use Rabbit/Rabbit Monospace font family preferentially.
+  * added affine transformation related APIs.
+    * canvas.rotate_context
+    * canvas.scale_context
+    * canvas.translate_context
+    * canvas.reflect_context
+    * canvas.shear_context
+  * added APIs to save drawing context.
+    * canvas.save_context
+    * canvas.restore_context
+  * supported "\n" to input new line in lightning-talk theme.
+  * added 'around' hook.
+  * added new themes.
+    * rotate-zoom-effect
+    * emphasize-keyword
+    * scroll-effect
+    * mirror-effect
+  * added spotlight function.
+    ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/spotlight/>))
+  * added magnifier function.
+    ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/magnifier/>))
+  * supported gradation.
+  * updated setup.rb to 3.4.1.
+
 == Changes 0.4.2 from 0.4.1
 
   * fixed a search regular expression bug. (nskj77)

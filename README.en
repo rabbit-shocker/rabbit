@@ -760,15 +760,10 @@ The `default' theme has more code. Please see it.
 
 === To make a PDF which has some slides per page
 
-You need the following:
-
-  * ps2pdf
-
 For example, we make XXX_multi.pdf which has 8 slides per
 page from XXX.rd.
 
-  % rabbit -p --slides-per-page 8 -o XXX.ps XXX.rd
-  % ps2pdf XXX.ps
+  % rabbit -p --slides-per-page 8 -o XXX_multi.pdf XXX.rd
 
 == Thanks
 
