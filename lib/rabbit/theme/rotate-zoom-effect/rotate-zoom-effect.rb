@@ -35,10 +35,10 @@ def setup_rotate_zoom_effect_slide(slide)
     def translate(canvas, angle, scale_x, scale_y)
       center_x = canvas.width / 2
       center_y = canvas.height / 2
-      canvas.translate(center_x, center_y)
-      canvas.rotate(angle)
-      canvas.translate(-center_x, -center_y)
-      canvas.scale(scale_x, scale_y)
+      canvas.translate_context(center_x, center_y)
+      canvas.rotate_context(angle)
+      canvas.translate_context(-center_x, -center_y)
+      canvas.scale_context(scale_x, scale_y)
     end
   end
 end

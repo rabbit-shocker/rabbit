@@ -14,7 +14,7 @@ def scroll_effect(target, options={})
       if !simulation and !effected
         slided_x ||= w
         slided_x = [slided_x - (w / 10), 0].max
-        canvas.translate(slided_x, 0)
+        canvas.translate_context(slided_x, 0)
         idle_id ||= Gtk.idle_add do
           continue = !slided_x.zero?
           unless continue
