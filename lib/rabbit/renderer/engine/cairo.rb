@@ -269,6 +269,10 @@ module Rabbit
           layout
         end
 
+        def create_pango_context
+          Pango::CairoFontMap.default.create_context
+        end
+
         private
         def init_engine_color
           @foreground = make_color("black")
