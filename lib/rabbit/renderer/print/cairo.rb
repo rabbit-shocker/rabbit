@@ -90,16 +90,20 @@ module Rabbit
         end
 
         def find_surface(filename)
+          args = [filename, @page_width, @page_height]
           case File.extname(filename)
           when /\.ps/i
-            ::Cairo::PSSurface.new(filename, @page_width, @page_height)
+            ::Cairo::PSSurface.new(*args)
           when /\.pdf/i
-            ::Cairo::PDFSurface.new(filename, @page_width, @page_height)
+            ::Cairo::PDFSurface.new(*args)
           when /\.svg/i
-            ::Cairo::SVGSurface.new(filename, @page_width, @page_height)
+            surface = ::Cairo::SVGSurface.new(*args)
+            surface.restrict_to_version(::Cairo::SVG_VERSION_1_2)
+            surface
           else
             @canvas.logger.warn(_("can't find printer for %s") % filename)
-            ::Cairo::PSSurface.new("default.ps", @page_width, @page_height)
+            args[0] = "default.ps"
+            ::Cairo::PSSurface.new(*args)
           end
         end
       end
