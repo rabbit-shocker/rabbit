@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-03 11:13+0900\n"
+"POT-Creation-Date: 2007-01-01 18:20+0900\n"
 "PO-Revision-Date: 2006-07-02 16:54+0900\n"
 "Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
 "Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
@@ -1443,8 +1443,7 @@ msgstr ""
 msgid "can't find HTML template: %s"
 msgstr "impossible de trouver une imprimante pour %s"
 
-#: ../../lib/rabbit/renderer/print/cairo.rb:101
-#: ../../lib/rabbit/renderer/print/gnomeprint.rb:393
+#: ../../lib/rabbit/renderer/print/cairo.rb:104
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
 
