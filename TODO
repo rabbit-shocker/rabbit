@@ -1,0 +1,5 @@
+* support GStreamer.
+* support GooCanvas.
+  * I'm waiting for GTK+ 2.10 on Debian.
+* support MeCab for clever wrapping.
+* support SilverCity or CodeRay.
