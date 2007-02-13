@@ -7,35 +7,34 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-01 18:20+0900\n"
-"PO-Revision-Date: 2006-07-02 16:54+0900\n"
-"Last-Translator: Vincent Isambart <isambart@netcourrier.com>\n"
-"Language-Team: Vincent Isambart <isambart@netcourrier.com>\n"
+"PO-Revision-Date: 2007-02-13 14:56+0900\n"
+"Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
+"Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../../lib/rabbit/renderer/base.rb:432
-#, fuzzy
 msgid "%s does not support: %s"
-msgstr "%s n'existe pas."
+msgstr "%s n'est pas supporté."
 
 #: ../../lib/rabbit/theme/applier.rb:532 ../../lib/rabbit/theme/applier.rb:539
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
-msgstr ""
+msgstr "%s est déprécié. Veuillez utiliser %s à la place."
 
 #: ../../lib/rabbit/image/pdf.rb:40
 msgid "%s page isn't exist in PDF"
-msgstr ""
+msgstr "La page %s n'existe pas dans le PDF."
 
 #: ../../lib/rabbit/info-window.rb:78
 msgid "%s: Information window"
-msgstr ""
+msgstr "%s: Fenêtre d'information"
 
 #: ../../bin/rabbit:100
 msgid "(ARGV: if no filename is given)"
-msgstr ""
+msgstr "(ARGV: si aucun fichier a été donné)"
 
 #: ../../lib/rabbit/theme/title-logo/property.rb:7
 #: ../../lib/rabbit/theme/headline-logo/property.rb:7
@@ -43,39 +42,38 @@ msgstr ""
 #: ../../lib/rabbit/theme/title-background-image/property.rb:8
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 msgid "(Must be specified.)"
-msgstr ""
+msgstr "(Doit être spécifié.)"
 
 #: ../../lib/rabbit/console.rb:67 ../../bin/rabbit:110 ../../bin/rabbit:116
 #: ../../bin/rabbit:263 ../../bin/rabbit:270 ../../bin/rabbit:277
 #: ../../bin/rabbit:284 ../../bin/rabbit:309 ../../bin/rabbit:316
 #: ../../bin/rabbit:323 ../../bin/rabbit:330 ../../bin/rabbit:466
 msgid "(auto)"
-msgstr ""
+msgstr "(auto)"
 
 #: ../../bin/rabbit:460
-#, fuzzy
 msgid "(default source)"
-msgstr "/Recharger le thème"
+msgstr "(source par défaut)"
 
 #: ../../bin/rabbit:241
 msgid "(landscape A4 height)"
-msgstr ""
+msgstr "(hauteur d'une page A4 paysage)"
 
 #: ../../bin/rabbit:247
 msgid "(landscape A4 size)"
-msgstr ""
+msgstr "(taille d'une page A4 paysage)"
 
 #: ../../bin/rabbit:234
 msgid "(landscape A4 width)"
-msgstr ""
+msgstr "(largeur d'une page A4 paysage)"
 
 #: ../../bin/rabbit:489
 msgid "3D"
-msgstr ""
+msgstr "3D"
 
 #: ../../lib/rabbit/theme/document.erb:10
 msgid "Abstract"
-msgstr ""
+msgstr "Grandes lignes"
 
 #: ../../lib/rabbit/theme/powered-by/property.rb:22
 msgid "Ad text."
@@ -83,78 +81,75 @@ msgstr ""
 
 #: ../../bin/rabbit:70 ../../bin/rabbit-theme-manager:27
 msgid "Add [PATH] to load path."
-msgstr ""
+msgstr "Ajout de [PATH] au chemin de chargement"
 
 #: ../../lib/rabbit/ext/anthy.rb:18
 msgid "Anthy isn't available"
-msgstr ""
+msgstr "Anthy n'est pas disponible"
 
 #: ../../bin/rabbit-theme-manager:125
-#, fuzzy
 msgid "Available commands: %s"
-msgstr "commandes gs essayées : %s"
+msgstr "Commandes disponibles: %s"
 
 #: ../../lib/rabbit/theme/title-background-color/property.rb:8
 msgid "Background color."
-msgstr ""
+msgstr "Couleur de fond."
 
 #: ../../lib/rabbit/theme/slide-background/property.rb:1
 msgid "Backward compatibility"
-msgstr ""
+msgstr "Compatibilité avec les versions précédentes"
 
 #: ../../lib/rabbit/theme/slide-background/property.rb:3
 msgid "Backward compatibility theme for ((<slide-background-image>))"
-msgstr ""
+msgstr "Thème pour compatibilité avec les versions précédentes pour ((<slide-background-image>))"
 
 #: ../../lib/rabbit/action/toggle.rb:23 ../../lib/rabbit/action/radio.rb:32
 msgid "Black out"
-msgstr ""
+msgstr "Fondu au noir"
 
 #: ../../lib/rabbit/theme/blue-circle/property.rb:2
 msgid "Blue Circle"
-msgstr ""
+msgstr "Cercle bleu"
 
 #: ../../lib/rabbit/theme/blue-circle/property.rb:3
-#, fuzzy
 msgid "Blue Circle theme"
-msgstr "/Recharger le thème"
+msgstr "Theme Cercle bleu"
 
 #: ../../lib/rabbit/theme/cozmixng/property.rb:2
 msgid "COZMIXNG"
-msgstr ""
+msgstr "COZMIXNG"
 
 #: ../../lib/rabbit/theme/cozmixng/property.rb:3
 msgid "COZMIXNG theme"
-msgstr ""
+msgstr "Theme COZMIXNG"
 
 #: ../../data/rabbit/image/cozmixng-images/property.rb:2
 msgid "COZMIXNGImage"
-msgstr ""
+msgstr "Image COZMIXNG"
 
 #: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:2
 msgid "COZMIXNGPoweredBy"
-msgstr ""
+msgstr "Powered by COZMIXNG"
 
 #: ../../lib/rabbit/action/basic.rb:150
 msgid "Cache all slides"
-msgstr ""
+msgstr "Mettre tous les slides en cache"
 
 #: ../../lib/rabbit/theme/document.erb:6
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #: ../../lib/rabbit/action/basic.rb:181
 msgid "Change graffiti color"
-msgstr ""
+msgstr "Changer la couleur de dessin main levée"
 
 #: ../../lib/rabbit/action/basic.rb:85
-#, fuzzy
 msgid "Change theme"
-msgstr "/Recharger le thème"
+msgstr "Changer de thème"
 
 #: ../../lib/rabbit/action/basic.rb:165
 msgid "Clear graffiti"
-msgstr ""
+msgstr "Effacer les dessins à main levée"
 
 #: ../../lib/rabbit/theme/clock/property.rb:3
 msgid "Clock toolkit, a text version"
