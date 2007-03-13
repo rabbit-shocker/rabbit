@@ -119,6 +119,13 @@
   (interactive "fimage file: ")
   (rabbit-insert-image-template-real file))
 
+(defun rabbit-insert-items ()
+  (interactive)
+  (let ((item (read-from-minibuffer "item: ")))
+    (unless (string-equal item "")
+      (insert (rabbit-block-indent (concat "* " item "\n")))
+      (rabbit-insert-items))))
+
 ;;; slide functions
 
 (defun rabbit-insert-slide (slide-title)
