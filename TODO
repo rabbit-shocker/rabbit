@@ -3,3 +3,4 @@
   * I'm waiting for GTK+ 2.10 on Debian.
 * support MeCab for clever wrapping.
 * support SilverCity or CodeRay.
+* [nori] write manpage (converted from something like RD or DocBook XML).
