@@ -143,6 +143,13 @@
   (interactive)
   (rabbit-fancall-with-current-point 'kill-ring-save))
 
+(defun rabbit-duplicate-slide ()
+  "copy a current slide and yank it as next slide."
+  (interactive)
+  (rabbit-copy-slide)
+  (rabbit-next-slide)
+  (yank))
+
 ;;; move functions
 
 (defun rabbit-next-slide ()
