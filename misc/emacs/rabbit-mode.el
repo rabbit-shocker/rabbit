@@ -134,9 +134,16 @@
   (insert (concat "= " slide-title "\n\n")))
 
 (defun rabbit-delete-slide ()
-  "delete a slide that cursor is on."
+  "delete a current slide."
   (interactive)
   (rabbit-fancall-with-current-point 'delete-region))
+
+(defun rabbit-copy-slide ()
+  "copy a current slide."
+  (interactive)
+  (rabbit-fancall-with-current-point 'kill-ring-save)
+  (rabbit-next-slide)
+  (yank))
 
 ;;; move functions
 
