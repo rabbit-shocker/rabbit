@@ -141,9 +141,7 @@
 (defun rabbit-copy-slide ()
   "copy a current slide."
   (interactive)
-  (rabbit-fancall-with-current-point 'kill-ring-save)
-  (rabbit-next-slide)
-  (yank))
+  (rabbit-fancall-with-current-point 'kill-ring-save))
 
 ;;; move functions
 
