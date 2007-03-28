@@ -17,40 +17,42 @@ def expand_ext_ref(str, table)
   end
 end
 
-File.open(File.join(*%W(lib rabbit ext entity)) + ".rb", "w") do |out|
+File.open(File.join(*%W(lib rabbit parser rd ext entity)) + ".rb", "w") do |out|
   out.print <<-HEADER
 require 'rabbit/element'
 
 module Rabbit
-  module Ext
-    module Entity
+  module Parser
+    class RD
+      module Ext
+        module Entity
 
-      include Element
+          include Element
 
-      class << self
-        def included(mod)
-          self.instance_methods.each do |meth|
-            mod.method_added(meth)
+          class << self
+            def included(mod)
+              self.instance_methods.each do |meth|
+                mod.method_added(meth)
+              end
+            end
           end
-        end
-      end
 
-      def ext_inline_verb_entity_reference(label, source, content, visitor)
-        label = label.to_s
-        return nil unless /^&([^;]+);(.*)$/ =~ label
-        return nil unless TABLE.include?($1)
+          def ext_inline_verb_entity_reference(label, source, content, visitor)
+            label = label.to_s
+            return nil unless /^&([^;]+);(.*)$/ =~ label
+            return nil unless TABLE.include?($1)
 
-        key = $1
-        rest = $2
-        if rest.empty?
-          Text.new(TABLE[key])
-        else
-          rest = visitor.apply_to_Verb(RD::Verb.new(rest))
-          TextContainer.new([Text.new(TABLE[key]), rest])
-        end
-      end
+            key = $1
+            rest = $2
+            if rest.empty?
+              Text.new(TABLE[key])
+            else
+              rest = visitor.apply_to_Verb(::RD::Verb.new(rest))
+              TextContainer.new([Text.new(TABLE[key]), rest])
+            end
+          end
 
-      TABLE = {
+          TABLE = {
 HEADER
 
       ext_param = {}
@@ -64,16 +66,17 @@ HEADER
           comment = $3.strip
           value = expand_ext_ref($2.gsub(/&#38;/, '&'), ext_param)
           out.print <<-ITEM
-        # #{comment}
-        #{key.dump} => #{value.dump},
+            # #{comment}
+            #{key.dump} => #{value.dump},
 ITEM
           # p [key, value, comment, name]
         end
       end
 
       out.print <<-FOOTER
-      }
-
+          }
+        end
+      end
     end
   end
 end
