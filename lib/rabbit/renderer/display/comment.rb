@@ -55,7 +55,7 @@ module Rabbit
             adjust_comment_view
             @comment_log.show
             @comment_view_frame.show
-            @comment_view_canvas.parse_rd(@canvas.comment_source)
+            @comment_view_canvas.parse(@canvas.comment_source)
             @comment_view_canvas.move_to_last
           end
           adjust_comment_frame
@@ -68,7 +68,7 @@ module Rabbit
             @comment_canvas.move_to_last
             @comment_log.reset(@comment_canvas)
             if @comment_view_frame.visible?
-              @comment_view_frame.parse_rd(source)
+              @comment_view_frame.parse(source)
               @comment_view_canvas.move_to_last
             end
           end
@@ -83,7 +83,7 @@ module Rabbit
         private
         def parse_comment(source)
           error_occurred = false
-          @comment_canvas.parse_rd(source) do |error|
+          @comment_canvas.parse(source) do |error|
             error_occurred = true
             if block_given?
               yield(error)
@@ -104,7 +104,7 @@ module Rabbit
         def init_comment
           init_comment_canvas
           init_comment_frame
-          @comment_canvas.parse_rd(@canvas.comment_source)
+          @comment_canvas.parse(@canvas.comment_source)
         end
 
         def init_comment_frame

@@ -75,10 +75,10 @@ module Rabbit
           @area.queue_draw
         end
 
-        def pre_parse_rd
+        def pre_parse
         end
 
-        def post_parse_rd
+        def post_parse
           clear_compiled_slides
         end
 

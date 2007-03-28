@@ -137,7 +137,7 @@ module Rabbit
           source.source = original_source.read
           source.base = original_source.base
         end
-        canvas.parse_rd(source)
+        canvas.parse(source)
       end
     end
 

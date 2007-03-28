@@ -9,7 +9,7 @@ require "rabbit/source"
 require "rabbit/renderer"
 require "rabbit/front"
 
-def parse(args=ARGV, logger=nil)
+def parse_args(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.theme = "default"
     options.theme_specified = false
@@ -530,7 +530,7 @@ def apply_theme_if_need(target, options)
   target.apply_theme(options.theme) if options.theme_specified
 end
 
-def parse_rd(target, options, logger, background=false)
+def parse(target, options, logger, background=false)
   source = make_source(options, ARGV, logger)
   source.base = options.base if options.base
   if background
@@ -538,7 +538,7 @@ def parse_rd(target, options, logger, background=false)
   else
     callback = nil
   end
-  target.parse_rd(source, callback)
+  target.parse(source, callback)
 end
 
 def setup_image_info(target, options)
@@ -642,7 +642,7 @@ def do_print(options, logger)
   setup_print_info(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
-  parse_rd(canvas, options, logger)
+  parse(canvas, options, logger)
   canvas.print
   canvas.quit
 rescue Rabbit::NoPrintSupportError
@@ -658,7 +658,7 @@ def do_save_as_image(options, logger)
   setup_paper_size(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
-  parse_rd(canvas, options, logger)
+  parse(canvas, options, logger)
   canvas.activate("ToggleIndexMode") if options.index_mode
   canvas.save_as_image
   canvas.quit
@@ -680,7 +680,7 @@ def do_display(options, logger)
   setup_3d_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
   apply_theme_if_need(frame, options)
-  parse_rd(frame, options, logger, !Rabbit::Utils.windows?)
+  parse(frame, options, logger, !Rabbit::Utils.windows?)
   frame.fullscreen if options.full_screen
   canvas.activate("ToggleIndexMode") if options.index_mode
 
@@ -705,7 +705,7 @@ def do_server(options, logger)
   setup_print_info(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
-  parse_rd(canvas, options, logger)
+  parse(canvas, options, logger)
 
   soap_server_thread = nil
   xmlrpc_server_thread = nil
@@ -733,7 +733,7 @@ def do_server(options, logger)
 end
 
 def main
-  options, logger = parse
+  options, logger = parse_args
 
   require "rabbit/canvas"
   GC.enable

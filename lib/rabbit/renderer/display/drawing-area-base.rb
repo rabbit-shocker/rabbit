@@ -94,12 +94,12 @@ module Rabbit
           update_menu
         end
 
-        def pre_parse_rd
+        def pre_parse
           super
           update_menu
         end
 
-        def post_parse_rd
+        def post_parse
           super
           clear_button_handler
           update_title

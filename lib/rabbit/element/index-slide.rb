@@ -17,7 +17,7 @@ module Rabbit
           maker.apply_theme(canvas.theme_name) if canvas.theme_name
 
           canvas.source_force_modified(true) do |source|
-            maker.parse_rd(source)
+            maker.parse(source)
           end
 
           thumbnails = []

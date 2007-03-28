@@ -307,13 +307,13 @@ module Rabbit
       apply_theme(@theme_name, &block)
     end
 
-    def parse_rd(source=nil, callback=nil, &block)
-      _parse_rd(source, Object.new.__id__, callback, &block)
+    def parse(source=nil, callback=nil, &block)
+      parse_rd(source, Object.new.__id__, callback, &block)
     end
 
     def reload_source(callback=nil, &block)
       if need_reload_source?
-        parse_rd(nil, callback, &block)
+        parse(nil, callback, &block)
       end
     end
 
@@ -584,14 +584,14 @@ module Rabbit
       end
     end
 
-    def _parse_rd(source, id, callback, &block)
+    def parse_rd(source, id, callback, &block)
       @parse_request_queue.push(id)
       @source = source || @source
       begin
         index = current_index
         keep_index do
-          @renderer.pre_parse_rd
-          __parse_rd
+          @renderer.pre_parse
+          _parse_rd
           set_current_index(index)
           reload_theme do
             if @parse_request_queue.last != id
@@ -599,7 +599,7 @@ module Rabbit
             end
             callback.call if callback
           end
-          @renderer.post_parse_rd
+          @renderer.post_parse
           index = current_index
         end
         set_current_index(index)
@@ -615,7 +615,7 @@ module Rabbit
       end
     end
 
-    def __parse_rd
+    def _parse_rd
       clear
       tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
       visitor = RD2RabbitVisitor.new(self)
