@@ -44,10 +44,20 @@ end
 module Rabbit
   module GetText
 
+    DOMAIN = "rabbit"
     module_function
     def bindtextdomain(path=nil, locale=nil, charset=nil)
       charset ||= "UTF-8"
-      ::GetText.bindtextdomain("rabbit", path, locale, charset)
+      ::GetText.bindtextdomain(DOMAIN, path, locale, charset)
+      if defined?(::GetText::TextDomainManager) and path
+        # workaround for Ruby-GetText >= 1.6.0 (or 1.5.0?)
+        textdomain = ::GetText::TextDomainManager.textdomain(DOMAIN)
+        locale_paths = ["#{path}/%{locale}/LC_MESSAGES/%{name}.mo",
+                        "#{path}/%{locale}/%{name}.mo"]
+        textdomain.locale_paths.concat(locale_paths)
+        locale ||= textdomain.current_locale || Locale.get
+        textdomain.set_locale(locale, true)
+      end
     end
     
     def _(msgid)
