@@ -209,6 +209,9 @@ module Rabbit
   class ParseFinish < Error
   end
 
+  class ParseError < Error
+  end
+
   class ApplyFinish < Error
   end
 

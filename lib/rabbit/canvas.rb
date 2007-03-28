@@ -329,7 +329,7 @@ module Rabbit
         end
         set_current_index(index)
       rescue ParseFinish
-      rescue Racc::ParseError
+      rescue ParseError
         if block_given?
           yield($!)
         else
