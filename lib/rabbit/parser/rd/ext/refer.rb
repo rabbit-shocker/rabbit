@@ -1,5 +1,5 @@
-require 'rabbit/ext/base'
-require 'rabbit/ext/image'
+require 'rabbit/parser/rd/ext/base'
+require 'rabbit/parser/rd/ext/image'
 
 module Rabbit
   module Ext

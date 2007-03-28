@@ -1,7 +1,7 @@
 require 'rabbit/utils'
-require 'rabbit/ext/base'
-require 'rabbit/ext/image'
-require 'rabbit/ext/entity'
+require 'rabbit/parser/rd/ext/base'
+require 'rabbit/parser/rd/ext/image'
+require 'rabbit/parser/rd/ext/entity'
 
 module Rabbit
   module Ext

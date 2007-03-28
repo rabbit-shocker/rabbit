@@ -2,12 +2,12 @@ require "tempfile"
 
 require 'rabbit/rabbit'
 require 'rabbit/utils'
-require 'rabbit/rt/rt2rabbit-lib'
-require 'rabbit/ext/base'
-require 'rabbit/ext/image'
-require 'rabbit/ext/enscript'
+require 'rabbit/parser/rd/rt/rt2rabbit-lib'
+require 'rabbit/parser/rd/ext/base'
+require 'rabbit/parser/rd/ext/image'
+require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/tgif'
-require 'rabbit/ext/anthy'
+require 'rabbit/parser/rd/ext/anthy'
 
 module Rabbit
   module Ext

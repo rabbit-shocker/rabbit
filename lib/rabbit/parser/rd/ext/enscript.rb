@@ -3,7 +3,7 @@ begin
 rescue LoadError
 end
 
-require 'rabbit/ext/block-verbatim'
+require 'rabbit/parser/rd/ext/block-verbatim'
 
 module Rabbit
   module Ext

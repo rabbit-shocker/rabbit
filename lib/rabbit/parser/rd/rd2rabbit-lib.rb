@@ -1,10 +1,10 @@
 require "forwardable"
 
-require 'rabbit/rd-visitor'
 require "rabbit/element"
-require "rabbit/ext/refer"
-require "rabbit/ext/inline-verbatim"
-require "rabbit/ext/block-verbatim"
+require 'rabbit/parser/rd/rd-visitor'
+require "rabbit/parser/rd/ext/refer"
+require "rabbit/parser/rd/ext/inline-verbatim"
+require "rabbit/parser/rd/ext/block-verbatim"
 
 module Rabbit
   class RD2RabbitVisitor < RDVisitor

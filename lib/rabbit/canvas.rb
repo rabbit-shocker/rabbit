@@ -6,7 +6,7 @@ require "rabbit/rabbit"
 require 'rabbit/frame'
 require 'rabbit/renderer'
 require 'rabbit/element'
-require "rabbit/rd2rabbit-lib"
+require "rabbit/parser/rd"
 require "rabbit/theme/manager"
 require "rabbit/front"
 require "rabbit/action"
@@ -308,7 +308,36 @@ module Rabbit
     end
 
     def parse(source=nil, callback=nil, &block)
-      parse_rd(source, Object.new.__id__, callback, &block)
+      id = Object.new.__id__
+      @parse_request_queue.push(id)
+      @source = source || @source
+      begin
+        index = current_index
+        keep_index do
+          @renderer.pre_parse
+          clear
+          Parser::RD.new(self, @source).parse
+          set_current_index(index)
+          reload_theme do
+            if @parse_request_queue.last != id
+              raise ParseFinish
+            end
+            callback.call if callback
+          end
+          @renderer.post_parse
+          index = current_index
+        end
+        set_current_index(index)
+      rescue ParseFinish
+      rescue Racc::ParseError
+        if block_given?
+          yield($!)
+        else
+          logger.warn($!.message)
+        end
+      ensure
+        @parse_request_queue.delete_if {|x| x == id}
+      end
     end
 
     def reload_source(callback=nil, &block)
@@ -582,44 +611,6 @@ module Rabbit
         end
         activate("ToggleIndexMode") if success and index_mode
       end
-    end
-
-    def parse_rd(source, id, callback, &block)
-      @parse_request_queue.push(id)
-      @source = source || @source
-      begin
-        index = current_index
-        keep_index do
-          @renderer.pre_parse
-          _parse_rd
-          set_current_index(index)
-          reload_theme do
-            if @parse_request_queue.last != id
-              raise ParseFinish
-            end
-            callback.call if callback
-          end
-          @renderer.post_parse
-          index = current_index
-        end
-        set_current_index(index)
-      rescue ParseFinish
-      rescue Racc::ParseError
-        if block_given?
-          yield($!)
-        else
-          logger.warn($!.message)
-        end
-      ensure
-        @parse_request_queue.delete_if {|x| x == id}
-      end
-    end
-
-    def _parse_rd
-      clear
-      tree = RD::RDTree.new("=begin\n#{@source.read}\n=end\n")
-      visitor = RD2RabbitVisitor.new(self)
-      visitor.visit(tree)
     end
 
     def process
