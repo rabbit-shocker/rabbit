@@ -18,7 +18,7 @@ module Rabbit
       end
 
       def title
-        @page.text.split(/\r?\n/, 2)[0] || super
+        (@page.text.split(/\r?\n/, 2)[0] || super).chomp
       end
     end
   end

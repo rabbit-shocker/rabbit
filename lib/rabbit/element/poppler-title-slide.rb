@@ -12,7 +12,7 @@ module Rabbit
       end
 
       def title
-        @document.title || super
+        (@document.title || super).chomp
       end
 
       def theme

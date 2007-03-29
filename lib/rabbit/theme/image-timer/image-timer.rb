@@ -24,6 +24,10 @@ end
 @image_timer_interval ||= 5
 @image_timer_space_ratio ||= 1.0 / 12.0
 
+@image_timer_margin_left ||= nil
+@image_timer_margin_right ||= nil
+@image_timer_margin_bottom ||= nil
+
 @image_time_auto_updating = false
 
 match(Slide) do |slides|
@@ -51,16 +55,20 @@ match(Slide) do |slides|
   base_y = nil
 
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
+    margin_left = @image_timer_margin_left || slide.margin_left
+    margin_right = @image_timer_margin_right || slide.margin_right
+    margin_bottom = @image_timer_margin_bottom || slide.margin_bottom
+
     if simulation
       image_height = canvas.height * @image_timer_space_ratio
       loader.resize(nil, image_height)
-      max_width = canvas.width - slide.margin_left
-      max_width = max_width - slide.margin_right - loader.width
-      base_y = canvas.height - slide.margin_bottom - loader.height
+      max_width = canvas.width - margin_left
+      max_width = max_width - margin_right - loader.width
+      base_y = canvas.height - margin_bottom - loader.height
     else
       rest_time = canvas.rest_time
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
-      base_x = slide.margin_left + max_width * ratio
+      base_x = margin_left + max_width * ratio
 
       loader.draw(canvas, base_x, base_y)
 
