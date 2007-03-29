@@ -209,10 +209,6 @@ Windowsでの依存ライブラリのインストールは
 
   % svn co http://www.cozmixng.org/repos/rabbit/trunk rabbit
 
-0.0.3より前のものはこちらです．
-
-  % svn co http://www.cozmixng.org/repos/ruby/rabbit/trunk rabbit
-
 == インストール
 
   # ruby setup.rb

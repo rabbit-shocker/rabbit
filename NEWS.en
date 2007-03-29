@@ -4,6 +4,16 @@
 
 $Id$
 
+== Changes 0.5.1 from 0.5.0: 2006-03-29
+
+  * supported PDF as input format.
+  * improved rabbit-mode.el. (Atsushi Takeda)
+    * rabbit-copy-slide: added
+    * rabbit-duplicate-slide: added
+  * updated messages in French. (Scritch)
+  * fixed a bug related font families on printing.
+  * removed libgnomeprint support.
+
 == Changes 0.5.0 from 0.4.2: 2006-11-03
 
   * fixed a bug related GtkGLExt loading. (KAKUTANI Shintaro)

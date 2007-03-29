@@ -206,10 +206,6 @@ libraries on Windows.
 
   % svn co http://www.cozmixng.org/repos/rabbit/trunk rabbit
 
-The old repository is here.
-
-  % svn co http://www.cozmixng.org/repos/ruby/rabbit/trunk rabbit
-
 == Install
 
   # ruby setup.rb
