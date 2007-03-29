@@ -38,21 +38,23 @@ opts.parse!(ARGV)
 version = `#{options.rabbit} --version`.chop
 
 def print(rabbit, rd, output, include_path, type)
-  system(rabbit,
-         "-I", include_path,
-         "-p",
-         "-o", output,
-         rd)
+  args = rabbit.split
+  args.concat(["-I", include_path,
+               "-p",
+               "-o", output,
+               rd])
+  system(*args)
   puts("finished #{rd}. (#{type})")
 end
 
 def print_index(rabbit, rd, output, include_path, type)
-  system(rabbit,
-         "-I", include_path,
-         "-p",
-         "-o", output,
-         "--slides-per-page", "8",
-         rd)
+  args = rabbit.split
+  args.concat(["-I", include_path,
+               "-p",
+               "-o", output,
+               "--slides-per-page", "8",
+               rd])
+  system(*args)
   puts("finished #{rd}. (index #{type})")
 end
 
