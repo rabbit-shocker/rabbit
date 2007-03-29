@@ -66,6 +66,11 @@ A presentation tool
   * spotlight
   * magnifier
 
+= More(('sup:5')) ...
+
+  * PDF viewer
+    * can read not only RD but also PDF
+
 = Not available
 
   * inline image
