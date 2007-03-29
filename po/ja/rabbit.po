@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-29 15:53+0900\n"
-"PO-Revision-Date: 2007-01-01 18:20+0900\n"
+"PO-Revision-Date: 2007-03-29 15:54+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -624,7 +624,7 @@ msgstr "保存した画像を閲覧するための索引用HTMLを出力しま�
 
 #: ../../lib/rabbit/theme/pdf/property.rb:2
 msgid "PDF"
-msgstr ""
+msgstr "PDF"
 
 #: ../../bin/rabbit:229
 msgid "Paper"
@@ -1145,7 +1145,7 @@ msgstr "テーマ"
 
 #: ../../lib/rabbit/theme/pdf/property.rb:3
 msgid "Theme for PDF"
-msgstr ""
+msgstr "PDF用のテーマ"
 
 #: ../../lib/rabbit/theme/clock/property.rb:1
 #: ../../lib/rabbit/theme/timer/property.rb:1
@@ -1643,6 +1643,5 @@ msgid "unlimited"
 msgstr "制限無し"
 
 #: ../../lib/rabbit/parser.rb:12
-#, fuzzy
 msgid "unsupported format. (supported: %s)"
-msgstr "%sはサポートしていません: %s"
+msgstr "サポートしていない形式です。（サポートしている形式: %s）"
