@@ -1,27 +1,12 @@
 require "gdk_pixbuf2"
 
+require "rabbit/utils"
+
 module Rabbit
   module ImageManipulable
 
     class Base
-
-      @@loaders = []
-
-      class << self
-        def unshift_loader(loader)
-          @@loaders.unshift(loader)
-        end
-
-        def push_loader(loader)
-          @@loaders.push(loader)
-        end
-
-        def find_loader(filename)
-          @@loaders.find do |loader|
-            loader.match?(filename)
-          end
-        end
-      end
+      extend ModuleLoader
 
       attr_reader :width, :height, :original_width, :original_height
 

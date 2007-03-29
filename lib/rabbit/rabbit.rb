@@ -212,6 +212,9 @@ module Rabbit
   class ParseError < Error
   end
 
+  class UnsupportedFormatError < Error
+  end
+
   class ApplyFinish < Error
   end
 

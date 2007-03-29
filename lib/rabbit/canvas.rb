@@ -6,7 +6,7 @@ require "rabbit/rabbit"
 require 'rabbit/frame'
 require 'rabbit/renderer'
 require 'rabbit/element'
-require "rabbit/parser/rd"
+require "rabbit/parser"
 require "rabbit/theme/manager"
 require "rabbit/front"
 require "rabbit/action"
@@ -316,7 +316,7 @@ module Rabbit
         keep_index do
           @renderer.pre_parse
           clear
-          Parser::RD.new(self, @source).parse
+          Parser.parse(self, @source)
           set_current_index(index)
           reload_theme do
             if @parse_request_queue.last != id
@@ -329,7 +329,7 @@ module Rabbit
         end
         set_current_index(index)
       rescue ParseFinish
-      rescue ParseError
+      rescue ParseError, UnsupportedFormatError
         if block_given?
           yield($!)
         else

@@ -1,11 +1,14 @@
-require "rabbit/parser/rd/rd2rabbit-lib"
+require "rabbit/parser/base"
 
 module Rabbit
   module Parser
-    class RD
-      def initialize(canvas, source)
-        @canvas = canvas
-        @source = source
+    class RD < Base
+
+      push_loader(self)
+      class << self
+        def match?(source)
+          /^= /.match(source.read)
+        end
       end
 
       def parse
@@ -47,3 +50,5 @@ module Rabbit
     end
   end
 end
+
+require "rabbit/parser/rd/rd2rabbit-lib"

@@ -1,0 +1,25 @@
+require 'rabbit/element/slide-element'
+require 'rabbit/element/poppler-page'
+
+module Rabbit
+  module Element
+    class PopplerSlide < Slide
+      def initialize(page)
+        @page = PopplerPage.new(page)
+        super(@page)
+      end
+
+      def headline
+        @page
+      end
+
+      def body
+        @page
+      end
+
+      def title
+        @page.text.split(/\r?\n/, 2)[0] || super
+      end
+    end
+  end
+end

@@ -390,4 +390,35 @@ module Rabbit
       NKF.nkf("-eW", str)
     end
   end
+
+  module ModuleLoader
+    LOADERS = {}
+
+    class << self
+      def extend_object(object)
+        super
+        LOADERS[object] = []
+      end
+    end
+
+    def loaders
+      LOADERS.find do |loader, value|
+        self.ancestors.find {|ancestor| ancestor == loader}
+      end[1]
+    end
+
+    def unshift_loader(loader)
+      loaders.unshift(loader)
+    end
+
+    def push_loader(loader)
+      loaders.push(loader)
+    end
+
+    def find_loader(*args)
+      loaders.find do |loader|
+        loader.match?(*args)
+      end
+    end
+  end
 end
