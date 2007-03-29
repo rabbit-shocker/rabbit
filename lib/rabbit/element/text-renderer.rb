@@ -258,6 +258,7 @@ module Rabbit
         unless compare.call(*@layout.pixel_size)
           loop do
             new_size = compute_next_font_size(size, scale)
+            break if new_size == size
             set_computed_font_size(new_size)
             compile(canvas, x, y, w, h)
             break if compare.call(*@layout.pixel_size)
