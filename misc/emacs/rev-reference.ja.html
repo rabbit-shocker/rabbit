@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>a</title>
+</head>
+<body>
+<h1><a name="label-0" id="label-0">逆引きRabbit-mode</a></h1><!-- RDLabel: "逆引きRabbit-mode" -->
+<p>$Id$</p>
+<h2><a name="label-1" id="label-1">目次</a></h2><!-- RDLabel: "目次" -->
+<h3><a name="label-2" id="label-2">Rabbitの操作</a></h3><!-- RDLabel: "Rabbitの操作" -->
+<ul>
+<li><a href="#label-7">EmacsからRabbitを起動する</a></li>
+</ul>
+<h3><a name="label-3" id="label-3">移動</a></h3><!-- RDLabel: "移動" -->
+<ul>
+<li><a href="#label-9">次のスライドへ移動する</a></li>
+<li><a href="#label-10">前のスライドへ移動する</a></li>
+</ul>
+<h3><a name="label-4" id="label-4">挿入</a></h3><!-- RDLabel: "挿入" -->
+<ul>
+<li><a href="#label-12">タイトルを挿入する</a></li>
+<li><a href="#label-13">画像のテンプレートを挿入する</a></li>
+<li><a href="#label-16">スライドを挿入する</a></li>
+<li><a href="#label-17">箇条書きを挿入する</a></li>
+</ul>
+<h3><a name="label-5" id="label-5">スライド操作</a></h3><!-- RDLabel: "スライド操作" -->
+<ul>
+<li><a href="#label-19">スライドを削除する</a></li>
+<li><a href="#label-20">スライドをコピーする</a></li>
+<li><a href="#label-21">スライドを複写する</a></li>
+</ul>
+<h2><a name="label-6" id="label-6">Rabbitの操作</a></h2><!-- RDLabel: "Rabbitの操作" -->
+<h3><a name="label-7" id="label-7">EmacsからRabbitを起動する</a></h3><!-- RDLabel: "EmacsからRabbitを起動する" -->
+<p>rabbit-run-rabbitを実行します．デフォルトのキーバインドはC-c C-rです．</p>
+<p>*Rabbit&lt;ファイル名&gt;*というバッファが作られ，Rabbitのメッセージが書き込
+まれます．</p>
+<h2><a name="label-8" id="label-8">移動</a></h2><!-- RDLabel: "移動" -->
+<h3><a name="label-9" id="label-9">次のスライドへ移動する</a></h3><!-- RDLabel: "次のスライドへ移動する" -->
+<p>rabbit-next-slideを実行します．デフォルトのキーバインドはM-nです．</p>
+<h3><a name="label-10" id="label-10">前のスライドへ移動する</a></h3><!-- RDLabel: "前のスライドへ移動する" -->
+<p>rabbit-previous-slideを実行します．デフォルトのキーバインドはM-pです．</p>
+<h2><a name="label-11" id="label-11">挿入</a></h2><!-- RDLabel: "挿入" -->
+<h3><a name="label-12" id="label-12">タイトルを挿入する</a></h3><!-- RDLabel: "タイトルを挿入する" -->
+<p>rabbit-insert-title-templateを実行します．デフォルトのキーバインドは
+C-c C-tです．</p>
+<p>プレゼンテーションのタイトルとメタデータを入力します．デフォルトのメタ
+データを変数に設定可能です．設定できるメタデータは</p>
+<ul>
+<li>rabbit-author(著者)</li>
+<li>rabbit-institution(所属)</li>
+<li>rabbit-theme(テーマ)</li>
+</ul>
+<p>です．</p>
+<h3><a name="label-13" id="label-13">画像のテンプレートを挿入する</a></h3><!-- RDLabel: "画像のテンプレートを挿入する" -->
+<p>画像サイズは割合で指定するのが便利だと思いますので，割合指定がデフォル
+トになっています．</p>
+<h4><a name="label-14" id="label-14">画像サイズを割合で指定する場合</a></h4><!-- RDLabel: "画像サイズを割合で指定する場合" -->
+<p>rabbit-insert-image-template-defaultを呼びます．デフォルトのキーバイン
+ドはC-c C-iです．</p>
+<p>画像ファイルのパス，キャプション，画像サイズの割合を入力します．ファイ
+ルパス以外は省略可能です．</p>
+<h4><a name="label-15" id="label-15">画像サイズの指定方法も決める場合</a></h4><!-- RDLabel: "画像サイズの指定方法も決める場合" -->
+<p>rabbit-insert-image-templateを呼びます．デフォルトのキーバインドはC-c iです．</p>
+<p>画像ファイルのパス，キャプション，サイズ指定の方法，サイズを入力します．
+ファイルパス以外は省略可能です．</p>
+<p>サイズ指定の方法は</p>
+<ul>
+<li>relative</li>
+<li>normalized</li>
+<li>pixel(幅と高さを指定)</li>
+</ul>
+<p>から選びます．</p>
+<h3><a name="label-16" id="label-16">スライドを挿入する</a></h3><!-- RDLabel: "スライドを挿入する" -->
+<p>rabbit-insert-slideを呼びます．デフォルトのキーバインドはC-c C-sです．</p>
+<h3><a name="label-17" id="label-17">箇条書きを挿入する</a></h3><!-- RDLabel: "箇条書きを挿入する" -->
+<p>rabbit-insert-itemsを呼びます．キーバインドは割り当てられていません．</p>
+<p>項目を入力していき，空文字を入力すると修了します．</p>
+<h2><a name="label-18" id="label-18">スライド操作</a></h2><!-- RDLabel: "スライド操作" -->
+<h3><a name="label-19" id="label-19">スライドを削除する</a></h3><!-- RDLabel: "スライドを削除する" -->
+<p>rabbit-delete-slideを実行します．デフォルトのキーバインドはC-c C-dです．</p>
+<h3><a name="label-20" id="label-20">スライドをコピーする</a></h3><!-- RDLabel: "スライドをコピーする" -->
+<p>rabbit-copy-slideを実行します．キーバインドは割り当てられていません．</p>
+<p>現在のスライドがキルリングに保存されます．</p>
+<h3><a name="label-21" id="label-21">スライドを複写する</a></h3><!-- RDLabel: "スライドを複写する" -->
+<p>rabbit-duplicate-slideを実行します．キーバインドは割り当てられていません．</p>
+<p>現在のスライドのコピーを，次のスライドとして挿入します．現在のスライド
+の内容を少しだけ変えたい場合に便利です．</p>
+
+</body>
+</html>
