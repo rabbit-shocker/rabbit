@@ -61,6 +61,9 @@ Rabbitのメッセージはバッファ*Rabbit<ファイル名>*に出力されます．
 
 画像のファイル名，キャプション，サイズを入力します．
 
+関連する変数
+  * rabbit-default-image-size-unit
+
 === rabbit-insert-slide(C-c C-s)
 
 スライドを挿入します．
@@ -125,6 +128,19 @@ rabbitの起動コマンドです．
 === rabbit-theme(rabbit)
 
 コマンドでテーマが指定されなかったときに使われるテーマです．
+
+=== rabbit-default-image-size-unit
+
+画像ファイルのテンプレートを挿入するときの，デフォルトのサイズ指定方法
+です．デフォルトは"relative"です．
+
+有効な値
+  * "relative"
+  * "normalized"
+  * "pixel"
+
+関連する関数
+  * rabbit-insert-image-template-default
 
 === Faces
 

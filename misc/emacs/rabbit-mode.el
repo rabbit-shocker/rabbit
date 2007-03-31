@@ -66,6 +66,9 @@
     ("normalized")
     ("pixel")))
 
+(defvar rabbit-default-image-size-unit
+  "relative")
+
 (defvar rabbit-image-size-unit-history nil)
 
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
@@ -88,7 +91,7 @@
 	(outbuf (rabbit-output-buffer)))
     (set-buffer outbuf)
     (if rabbit-running
-	(error "Rabbit is already running.")
+	(error "Rabbit is already running")
       (progn
 	(setq rabbit-running t)
 	(start-process "Rabbit" outbuf rabbit-command filename)
@@ -224,7 +227,7 @@ format if value is specified, otherwise return \"\"."
 (defun rabbit-buffer-filename ()
   "return file name relating current buffer."
   (or (buffer-file-name)
-      (error "This buffer is empty buffer.")))
+      (error "This buffer is empty buffer")))
 
 (defun rabbit-sentinel (proc state)
   (set-buffer (process-buffer proc))
@@ -238,16 +241,13 @@ format if value is specified, otherwise return \"\"."
 	 (buf (get-buffer-create bufname)))
     buf))
 
-(defun rabbit-default-image-size-unit ()
-  (caar rabbit-image-size-unit-table))
-
 (defun rabbit-read-size-unit ()
   "read what unit use for image size."
   (completing-read "image size unit: "
 		   rabbit-image-size-unit-table
                    nil t nil
                    'rabbit-image-size-unit-history
-                   (rabbit-default-image-size-unit)))
+                   rabbit-default-image-size-unit))
 
 (defun rabbit-filter (predicate lst)
   (let ((result '()))
@@ -279,7 +279,7 @@ format if value is specified, otherwise return \"\"."
                                             (file-relative-name filename)))
               ,(rabbit-read-block-property "caption")
               ,@(rabbit-read-size-value
-                 (or unit (rabbit-default-image-size-unit))))
+                 (or unit rabbit-default-image-size-unit)))
             "\n")
            "\n")))
 
