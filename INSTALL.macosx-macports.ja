@@ -32,12 +32,12 @@ MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウンロード、
 されます。MacPorts のコマンドを利用するために、環境変数 PATH に /opt/local/bin
 を追加します。
 
-（注記）2006/09/14 現在の最新版は 1.3.2 ですが、ディスクイメージ(.dmg)が
+（注記）2007/04/01 現在の最新版は 1.4.0 ですが、ディスクイメージ(.dmg)が
 配布されていません。1.3.1 をディスクイメージからインストールした上で、
 
   ~% sudo port selfupdate
 
-により、1.3.2 にアップグレードするほうが簡単にインストールできるでしょう。
+により、1.4.0 にアップグレードするほうが簡単にインストールできるでしょう。
 
 === MacPorts の設定
 
@@ -68,7 +68,7 @@ MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウンロード、
 正しく設定できたかを確認するために、Rabbit の Portfile の情報を出力してみます。
 
   ~% port info rb-rabbit
-  rb-rabbit 0.4.2, Revision 1, ruby/rb-rabbit
+  rb-rabbit 0.5.1, Revision 0, ruby/rb-rabbit
   {http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit}
   # 以下省略 #
 
@@ -139,7 +139,6 @@ X11 上で動作する Rabbit を利用するためには、DISPLAY 環境変数が設定されて
 
   ~% cd dports
   ~/dports% svn update
-  ~/dports% portindex
   ~/dports% sudo port upgrade rb-rabbit
 
 Rabbit だけをバージョンアップしたいときは、-n オプションを指定します。この
