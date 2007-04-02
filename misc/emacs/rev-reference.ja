@@ -1,8 +1,19 @@
 # -*- rd -*-
 
-= 逆引きRabbit-mode
+= README.ja
 
 $Id$
+
+== rabbit-mode.el
+
+Rabbitのソースファイル用のEmacsメジャーモードです．
+
+== インストール
+
+.emacsに以下を記述してください．
+
+  (autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
+  (add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\)$" . rabbit-mode))
 
 == 目次
 
@@ -26,6 +37,7 @@ $Id$
 
 === 設定
   * ((<画像テンプレートのデフォルトのサイズ指定方法を変える>))
+  * ((<rabbit-modeの変数>))
 
 == Rabbitの操作
 === EmacsからRabbitを起動する
@@ -124,3 +136,40 @@ rabbit-duplicate-slideを実行します．キーバインドは割り当てられていません．
   * "relative"
   * "normalized"
   * "pixel"
+
+== 変数
+  * rabbit-command
+    
+    Rabbitの起動コマンドです(デフォルトは"rabbit")．
+    
+  * rabbit-author
+    
+    著者名です．タイトルページのテンプレートで使われます(デフォルトはnil)．
+
+  * rabbit-institution
+
+    著者の所属です．タイトルページのテンプレートで使われます(デフォルトはnil)．
+
+  * rabbit-theme
+    
+    プレゼンテーションのテーマです(デフォルトは"rabbit")．
+
+  * rabbit-default-image-size-unit
+    
+    画像ファイルのテンプレート挿入で使われるデフォルトのサイズ指定方法です(デフォルトは"relative")．
+
+  * Faces
+
+    rabbit-modeの各faceです．
+
+    * rabbit-heading-face
+    * rabbit-emphasis-face
+    * rabbit-verbatim-face
+    * rabbit-term-face
+    * rabbit-footnote-face
+    * rabbit-link-face
+    * rabbit-code-face
+    * rabbit-description-face
+    * rabbit-keyboard-face
+    * rabbit-variable-face
+    * rabbit-comment-face
