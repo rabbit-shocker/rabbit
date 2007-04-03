@@ -1,4 +1,4 @@
-require 'rabbit/element/slide-element'
+require 'rabbit/element/slide'
 require 'rabbit/element/poppler-page'
 
 module Rabbit
