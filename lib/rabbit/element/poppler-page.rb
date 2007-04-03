@@ -13,7 +13,7 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
-          canvas.draw_poppler_page(@page, x, y)
+          canvas.draw_poppler_page(@page, x, y, "width" => w, "height" => h)
         end
         [x, y + height, w, h - height]
       end
