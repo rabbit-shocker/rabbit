@@ -47,6 +47,9 @@ module Rabbit
     DOMAIN = "rabbit"
     module_function
     def bindtextdomain(path=nil, locale=nil, charset=nil)
+      if Rabbit::Config.const_defined?(:GETTEXT_PATH)
+        path ||= Rabbit::Config::GETTEXT_PATH
+      end
       charset ||= "UTF-8"
       ::GetText.bindtextdomain(DOMAIN, path, locale, charset)
       if defined?(::GetText::TextDomainManager) and path
