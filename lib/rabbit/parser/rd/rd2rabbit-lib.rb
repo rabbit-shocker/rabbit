@@ -198,7 +198,7 @@ module Rabbit
         end
 
         def apply_to_Keyboard(element, content)
-          Keybord.new(content)
+          Keyboard.new(content)
         end
 
         def apply_to_Index(element, content)
