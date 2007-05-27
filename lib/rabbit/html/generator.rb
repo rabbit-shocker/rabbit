@@ -374,14 +374,14 @@ module Rabbit
 
       def toggle_mode_navi
         result = ''
+        args = [first_index]
         if outputting_index?
-          with_outputting_index(true) do
-            result << a_link(first_index, h(_("Slide")), !output_html?)
-          end
+          args.concat([h(_("Slide")), !output_html?])
         else
-          with_outputting_index(false) do
-            result << a_link(first_index, h(_("Index")), !output_index_html?)
-          end
+          args.concat([h(_("Index")), !output_index_html?])
+        end
+        with_outputting_index(!outputting_index?) do
+          result << a_link(*args)
         end
         unless result.empty?
           result = "<div class=\"toggle-mode\">\n#{result}\n</div>"
