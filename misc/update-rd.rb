@@ -41,7 +41,7 @@ def update_index(driver, prev_version, current_version)
 end
 
 if ARGV.size < 2
-  puts "#{$1} prev_version, current_version"
+  puts "Usage: #{$0} prev_version current_version"
   exit
 end
 
