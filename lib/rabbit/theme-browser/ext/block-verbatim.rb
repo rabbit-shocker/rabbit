@@ -1,11 +1,10 @@
-require 'rabbit/ext/base'
-require 'rabbit/ext/image'
+require 'rabbit/parser/rd'
 
 module Rabbit
   class ThemeBrowser
     module Ext
-      class BlockVerbatim < ::Rabbit::Ext::Base
-        include ::Rabbit::Ext::Image
+      class BlockVerbatim < Parser::RD::Ext::Base
+        include Parser::RD::Ext::Image
 
         def default_ext_block_verbatim(label, source, content, visitor)
           Proc.new do

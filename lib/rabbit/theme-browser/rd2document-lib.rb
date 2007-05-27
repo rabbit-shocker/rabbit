@@ -1,11 +1,11 @@
-require "rabbit/rd-visitor"
+require "rabbit/parser/rd"
 require "rabbit/element"
 require 'rabbit/theme-browser/tag'
 require 'rabbit/theme-browser/ext/block-verbatim'
 
 module Rabbit
   class ThemeBrowser
-    class RD2DocumentVisitor < RDVisitor
+    class RD2DocumentVisitor < Parser::RD::Visitor
       EXTENSIONS = {
         "block_verbatim" => Ext::BlockVerbatim,
       }
