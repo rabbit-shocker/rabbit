@@ -369,6 +369,10 @@ module Rabbit
         Utils.windows?
       end
 
+      def quartz?
+        Utils.quartz?
+      end
+
       def match(*paths, &block)
         dirty
         begin
