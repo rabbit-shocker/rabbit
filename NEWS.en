@@ -4,6 +4,16 @@
 
 $Id$
 
+== Changes 0.5.2 from 0.5.1: 2006-06-02
+
+  * updated documents
+    * rabbit-mode.el (Atsushi Takeda)
+    * MacPorts (kimura wataru)
+  * improved rabbit-mode.el (Atsushi Takeda)
+    * added rabbit-default-image-size-unit variable
+  * fixed bugs that causes start-up failure (reported by atzm)
+  * other minor fixes (reported by OBATA Akio)
+
 == Changes 0.5.1 from 0.5.0: 2006-03-29
 
   * supported PDF as input format.
