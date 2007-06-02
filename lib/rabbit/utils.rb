@@ -142,6 +142,14 @@ module Rabbit
       /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
     end
 
+    def quartz?
+      if Gdk.respond_to?(:windowing_quartz?)
+        Gdk.windowing_quartz?
+      else
+        !windows? and !Gdk.windowing_x11?
+      end
+    end
+
     def move_to(base, target)
       window = base.window
       screen = window.screen

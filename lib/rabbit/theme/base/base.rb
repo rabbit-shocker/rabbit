@@ -57,12 +57,16 @@
 @font_family = nil
 @monospace_font_family = nil
 
+@font_family = find_font_family("Rabbit")
+@monospace_font_family = find_font_family("Rabbit Monospace")
+
 if windows?
-  @font_family = "ms pgothic" if font_families.include?("ms pgothic")
-  @monospace_font_family = "ms gothic" if font_families.include?("ms gothic")
-else
-  @font_family = find_font_family("Rabbit")
-  @font_family ||= find_font_family("Sans")
-  @monospace_font_family = find_font_family("Rabbit Monospace")
-  @monospace_font_family ||= find_font_family("Monospace")
+  @font_family ||= find_font_family("ms pgothic")
+  @monospace_font_family ||= find_font_family("ms gothic")
+elsif quartz?
+  @font_family ||= find_font_family("Hiragino Kaku Gothic Pro")
+  @monospace_font_family ||= find_font_family("Osaka-Mono")
 end
+
+@font_family ||= find_font_family("Sans")
+@monospace_font_family ||= find_font_family("Monospace")
