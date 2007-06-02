@@ -61,8 +61,8 @@
 @monospace_font_family = find_font_family("Rabbit Monospace")
 
 if windows?
-  @font_family ||= find_font_family("ms pgothic")
-  @monospace_font_family ||= find_font_family("ms gothic")
+  @font_family ||= find_font_family("MS PGothic")
+  @monospace_font_family ||= find_font_family("MS Gothic")
 elsif quartz?
   @font_family ||= find_font_family("Hiragino Kaku Gothic Pro")
   @monospace_font_family ||= find_font_family("Osaka-Mono")
