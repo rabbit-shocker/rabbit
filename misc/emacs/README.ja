@@ -138,38 +138,40 @@ rabbit-duplicate-slideを実行します．キーバインドは割り当てられていません．
   * "pixel"
 
 == 変数
-  * rabbit-command
-    
-    Rabbitの起動コマンドです(デフォルトは"rabbit")．
-    
-  * rabbit-author
-    
-    著者名です．タイトルページのテンプレートで使われます(デフォルトはnil)．
 
-  * rabbit-institution
+: rabbit-command
 
-    著者の所属です．タイトルページのテンプレートで使われます(デフォルトはnil)．
+   Rabbitの起動コマンドです(デフォルトは"rabbit")．
 
-  * rabbit-theme
-    
-    プレゼンテーションのテーマです(デフォルトは"rabbit")．
+: rabbit-author
 
-  * rabbit-default-image-size-unit
-    
-    画像ファイルのテンプレート挿入で使われるデフォルトのサイズ指定方法です(デフォルトは"relative")．
+   著者名です．タイトルページのテンプレートで使われます(デフォルトはnil)．
 
-  * Faces
+: rabbit-institution
 
-    rabbit-modeの各faceです．
+   著者の所属です．タイトルページのテンプレートで使われます(デフォルトはnil)．
 
-    * rabbit-heading-face
-    * rabbit-emphasis-face
-    * rabbit-verbatim-face
-    * rabbit-term-face
-    * rabbit-footnote-face
-    * rabbit-link-face
-    * rabbit-code-face
-    * rabbit-description-face
-    * rabbit-keyboard-face
-    * rabbit-variable-face
-    * rabbit-comment-face
+: rabbit-theme
+
+   プレゼンテーションのテーマです(デフォルトは"rabbit")．
+
+: rabbit-default-image-size-unit
+
+   画像ファイルのテンプレート挿入で使われるデフォルトのサイズ
+   指定方法です(デフォルトは"relative")．
+
+: Faces
+
+   rabbit-modeの各faceです．
+
+     * rabbit-heading-face
+     * rabbit-emphasis-face
+     * rabbit-verbatim-face
+     * rabbit-term-face
+     * rabbit-footnote-face
+     * rabbit-link-face
+     * rabbit-code-face
+     * rabbit-description-face
+     * rabbit-keyboard-face
+     * rabbit-variable-face
+     * rabbit-comment-face
