@@ -24,7 +24,8 @@ def update_source(driver, src, name, page_name, log=nil)
   puts "committed #{name}"
 end
 
-def update_rd(driver, name, page_name=name, prefix=nil)
+def update_rd(driver, name, page_name=nil, prefix=nil)
+  page_name ||= name
   prefix ||= "Rabbit::"
   src = convert(File.read(name))
   src = yield(src, page_name, prefix) if block_given?
@@ -64,6 +65,7 @@ update_rd(*args) do |src, page_name, prefix|
 end
 
 [
+ ["INSTALL.macosx-macports.ja"],
  ["sample/rabbit.rd", "sample.ja"],
  ["sample/rabbit_en.rd", "sample.en"],
  ["sample/rabbit-implementation.rd", "Implementation.ja"],
