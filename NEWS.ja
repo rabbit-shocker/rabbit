@@ -4,76 +4,76 @@
 
 $Id$
 
-== 0.5.1����0.5.2���ѹ���: 2006-06-02
+== 0.5.1から0.5.2の変更点: 2006-06-02
 
-  * �ɥ�����Ȥι���
-    * rabbit-mode.el�����Ĥ����
-    * MacPorts����¼�����
-  * rabbit-mode.el�β��ɡ����Ĥ����
-    * rabbit-default-image-size-unit�ѿ����ɲ�
-  * ��ư�˼��Ԥ���Х��ν�����atzm����ˤ������
-  * ����¾���٤��ʽ����ʤ��Ф���ˤ������
+  * ドキュメントの更新
+    * rabbit-mode.el（武田くん）
+    * MacPorts（木村さん）
+  * rabbit-mode.elの改良（武田くん）
+    * rabbit-default-image-size-unit変数の追加
+  * 起動に失敗するバグの修正（atzmさんによる報告）
+  * その他、細かな修正（おばたんによる報告）
 
-== 0.5.0����0.5.1���ѹ���: 2006-03-29
+== 0.5.0から0.5.1の変更点: 2006-03-29
 
-  * ���ϥե����ޥåȤȤ���PDF���ݡ��Ȥ��ɲá�
-  * rabbit-mode.el�β��ɡ������Ĥ����
-    * rabbit-copy-slide: �ɲ�
-    * rabbit-duplicate-slide: �ɲ�
-  * �ե�󥹸�Υ�å������ι������ʥ�����������
-  * �������Υե����̾���Զ��ν�����
-  * libgnomeprint���ݡ��Ȥ��ѻߡ�
+  * 入力フォーマットとしてPDFサポートを追加。
+  * rabbit-mode.elの改良。（武田くん）
+    * rabbit-copy-slide: 追加
+    * rabbit-duplicate-slide: 追加
+  * フランス語のメッセージの更新。（スクリチくん）
+  * 印刷時のフォント名の不具合の修正。
+  * libgnomeprintサポートの廃止。
 
-== 0.4.2����0.5.0���ѹ���: 2006-11-03
+== 0.4.2から0.5.0の変更点: 2006-11-03
 
-  * GtkGLExt�Υ��������ߤΥХ��������ʤ������ˤ����
-  * rabbit-mode.el�β��ɡ������Ĥ����
-  * emerge�ط��Υɥ�����Ȥι������ʤ����Ԥ����
-  * MacPorts�ѤΥɥ�����Ȥ��ɲá��ʤ���餵���
-  * RSVG�Υѥ������б������ɲá�
-  * �����Ω���ʤ���Ruby/Anthy�Υ��ݡ��ȡ�
-  * �ޥ���ǥ����ץ쥤�Ѿ��󥦥���ɥ��Υ��ݡ��ȡ�
-  * �ե����̾��Rabbit/Rabbit Monospace�����ä��顤ͥ��Ū��
-    �Ȥ��褦�ˤ�����
-  * ���ե����Ѵ��Ϥ�API���ɲá�
+  * GtkGLExtのロード絡みのバグを修正．（かくたにさん）
+  * rabbit-mode.elの改良．（武田くん）
+  * emerge関係のドキュメントの更新．（あかぴさん）
+  * MacPorts用のドキュメントの追加．（きむらさん）
+  * RSVGのパス解決に対応策を追加．
+  * （役に立たない）Ruby/Anthyのサポート．
+  * マルチディスプレイ用情報ウィンドウのサポート．
+  * フォント名にRabbit/Rabbit Monospaceがあったら，優先的に
+    使うようにした．
+  * アフィン変換系のAPIの追加．
     * canvas.rotate_context
     * canvas.scale_context
     * canvas.translate_context
     * canvas.reflect_context
     * canvas.shear_context
-  * ����������¸���Ƥ���API���ɲá�
+  * 描画情報を保存しておくAPIの追加．
     * canvas.save_context
     * canvas.restore_context
-  * lightning-talk�ơ��ޤǤ�"\n"�ǲ��ԤǤ���褦�ˤ�����
-  * around�եå����ɲá�
-  * �������ơ��ޤ��ɲá�
+  * lightning-talkテーマでは"\n"で改行できるようにした．
+  * aroundフックの追加．
+  * 新しいテーマの追加．
     * rotate-zoom-effect
     * emphasize-keyword
     * scroll-effect
     * mirror-effect
-  * ���ݥåȥ饤�ȵ�ǽ���ɲá�
+  * スポットライト機能の追加．
     ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/spotlight/>))
-  * ������ǽ���ɲá�
+  * 虫眼鏡機能の追加．
     ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/magnifier/>))
-  * ����ǡ������Υ��ݡ��ȡ�
-  * setup.rb 3.4.1��Ȥ��褦���ѹ���
+  * グラデーションのサポート．
+  * setup.rb 3.4.1を使うように変更．
 
-== 0.4.1����0.4.2���ѹ���
+== 0.4.1から0.4.2の変更点
 
-  * ������������ɽ���ΥХ���������������
-  * �ɥ�����Ȥ�����������󡤤��������
-  * rabbit-mode.el���ɲá����Ĥ����
-  * HTML�����ΥХ��ν������ʤ������ˤ����
-  * ���ꥹ�β������ɲá���ī���व���
-  * rabbit-mode.l�ν������ʤߤ�ळ����id:wata_d�����
-  * �ⶶ�����ꥢ������ⶶ�᥽�åɤء�
-  * Ruby/Poppler���Ѥ���PDFɽ���Υ��ݡ��ȡ�
-  * OpenGL���ݡ��Ȥβ��ɡ�
-  * Rabrick�Ǥ�AJAX�򥵥ݡ��ȡ�
-  * �������ä򥵥ݡ��ȡ�
-  * ������Ѥ������
+  * 検索時の正規表現のバグを修正．（西川さん）
+  * ドキュメントを修正．（西川さん，きたさん）
+  * rabbit-mode.elの追加（武田くん）
+  * HTML生成のバグの修正．（かくたにさん）
+  * アリスの画像を追加．（朝日奈さん）
+  * rabbit-mode.lの修正．（みやむこさん，id:wata_dさん）
+  * 高橋エイリアスから高橋メソッドへ．
+  * Ruby/Popplerを用いたPDF表示のサポート．
+  * OpenGLサポートの改良．
+  * RabrickでのAJAXをサポート．
+  * 携帯電話をサポート．
+  * メモり使用を改善．
 
-=== ¾�Υ˥塼��
+=== 他のニュース
 
-  * ����餵��Mac OS X�Υѥå�������DarwinPorts�ѡˤ��äƤ���ޤ�����
+  * きむらさんがMac OS Xのパッケージ（DarwinPorts用）を作ってくれました．
 

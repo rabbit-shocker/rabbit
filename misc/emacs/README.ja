@@ -6,163 +6,163 @@ $Id$
 
 == rabbit-mode.el
 
-Rabbit�Υ������ե������Ѥ�Emacs�᥸�㡼�⡼�ɤǤ���
+Rabbitのソースファイル用のEmacsメジャーモードです．
 
-== ���󥹥ȡ���
+== インストール
 
-.emacs�˰ʲ��򵭽Ҥ��Ƥ���������
+.emacsに以下を記述してください．
 
   (autoload 'rabbit-mode "rabbit-mode" "major mode for Rabbit" t)
   (add-to-list 'auto-mode-alist '("\\.\\(rbt\\|rab\\)$" . rabbit-mode))
 
-== �ܼ�
+== 目次
 
-=== Rabbit�����
-  * ((<Emacs����Rabbit��ư����>))
+=== Rabbitの操作
+  * ((<EmacsからRabbitを起動する>))
 
-=== ��ư
-  * ((<���Υ��饤�ɤذ�ư����>))
-  * ((<���Υ��饤�ɤذ�ư����>))
+=== 移動
+  * ((<次のスライドへ移動する>))
+  * ((<前のスライドへ移動する>))
 
-=== ����
-  * ((<�����ȥ����������>))
-  * ((<�����Υƥ�ץ졼�Ȥ���������>))
-  * ((<���饤�ɤ���������>))
-  * ((<�վ�񤭤���������>))
+=== 挿入
+  * ((<タイトルを挿入する>))
+  * ((<画像のテンプレートを挿入する>))
+  * ((<スライドを挿入する>))
+  * ((<箇条書きを挿入する>))
 
-=== ���饤�����
-  * ((<���饤�ɤ�������>))
-  * ((<���饤�ɤ򥳥ԡ�����>))
-  * ((<���饤�ɤ�ʣ�̤���>))
+=== スライド操作
+  * ((<スライドを削除する>))
+  * ((<スライドをコピーする>))
+  * ((<スライドを複写する>))
 
-=== ����
-  * ((<�����ƥ�ץ졼�ȤΥǥե���ȤΥ�����������ˡ���Ѥ���>))
-  * ((<rabbit-mode���ѿ�>))
+=== 設定
+  * ((<画像テンプレートのデフォルトのサイズ指定方法を変える>))
+  * ((<rabbit-modeの変数>))
 
-== Rabbit�����
-=== Emacs����Rabbit��ư����
+== Rabbitの操作
+=== EmacsからRabbitを起動する
 
-rabbit-run-rabbit��¹Ԥ��ޤ����ǥե���ȤΥ����Х���ɤ�C-c C-r�Ǥ���
+rabbit-run-rabbitを実行します．デフォルトのキーバインドはC-c C-rです．
 
-(('*'))Rabbit<�ե�����̾>*�Ȥ����Хåե������졤Rabbit�Υ�å��������񤭹�
-�ޤ�ޤ���
+(('*'))Rabbit<ファイル名>*というバッファが作られ，Rabbitのメッセージが書き込
+まれます．
 
-== ��ư
-=== ���Υ��饤�ɤذ�ư����
+== 移動
+=== 次のスライドへ移動する
 
-rabbit-next-slide��¹Ԥ��ޤ����ǥե���ȤΥ����Х���ɤ�M-n�Ǥ���
+rabbit-next-slideを実行します．デフォルトのキーバインドはM-nです．
 
-=== ���Υ��饤�ɤذ�ư����
+=== 前のスライドへ移動する
 
-rabbit-previous-slide��¹Ԥ��ޤ����ǥե���ȤΥ����Х���ɤ�M-p�Ǥ���
+rabbit-previous-slideを実行します．デフォルトのキーバインドはM-pです．
 
-== ����
-=== �����ȥ����������
+== 挿入
+=== タイトルを挿入する
 
-rabbit-insert-title-template��¹Ԥ��ޤ����ǥե���ȤΥ����Х���ɤ�
-C-c C-t�Ǥ���
+rabbit-insert-title-templateを実行します．デフォルトのキーバインドは
+C-c C-tです．
 
-�ץ쥼��ơ������Υ����ȥ�ȥ᥿�ǡ��������Ϥ��ޤ����ǥե���ȤΥ᥿
-�ǡ������ѿ��������ǽ�Ǥ�������Ǥ���᥿�ǡ�����
+プレゼンテーションのタイトルとメタデータを入力します．デフォルトのメタ
+データを変数に設定可能です．設定できるメタデータは
 
-  * rabbit-author(����)
-  * rabbit-institution(��°)
-  * rabbit-theme(�ơ���)
+  * rabbit-author(著者)
+  * rabbit-institution(所属)
+  * rabbit-theme(テーマ)
 
-�Ǥ���
+です．
 
-=== �����Υƥ�ץ졼�Ȥ���������
+=== 画像のテンプレートを挿入する
 
-�����������ϳ��ǻ��ꤹ��Τ��������Ȼפ��ޤ��Τǡ������꤬�ǥե���
-�ȤˤʤäƤ��ޤ���
+画像サイズは割合で指定するのが便利だと思いますので，割合指定がデフォル
+トになっています．
 
-==== ��������������ǻ��ꤹ����
+==== 画像サイズを割合で指定する場合
 
-rabbit-insert-image-template-default��ƤӤޤ����ǥե���ȤΥ����Х���
-�ɤ�C-c C-i�Ǥ���
+rabbit-insert-image-template-defaultを呼びます．デフォルトのキーバイン
+ドはC-c C-iです．
 
-�����ե�����Υѥ�������ץ���󡤲����������γ������Ϥ��ޤ����ե���
-��ѥ��ʳ��Ͼ�ά��ǽ�Ǥ���
+画像ファイルのパス，キャプション，画像サイズの割合を入力します．ファイ
+ルパス以外は省略可能です．
 
-==== �����������λ�����ˡ�������
+==== 画像サイズの指定方法も決める場合
 
-rabbit-insert-image-template��ƤӤޤ����ǥե���ȤΥ����Х���ɤ�C-c i�Ǥ���
+rabbit-insert-image-templateを呼びます．デフォルトのキーバインドはC-c iです．
 
-�����ե�����Υѥ�������ץ���󡤥������������ˡ�������������Ϥ��ޤ���
-�ե�����ѥ��ʳ��Ͼ�ά��ǽ�Ǥ���
+画像ファイルのパス，キャプション，サイズ指定の方法，サイズを入力します．
+ファイルパス以外は省略可能です．
 
-�������������ˡ��
+サイズ指定の方法は
 
 * relative
 * normalized
-* pixel(���ȹ⤵�����)
+* pixel(幅と高さを指定)
 
-�������Ӥޤ���
+から選びます．
 
-=== ���饤�ɤ���������
+=== スライドを挿入する
 
-rabbit-insert-slide��ƤӤޤ����ǥե���ȤΥ����Х���ɤ�C-c C-s�Ǥ���
+rabbit-insert-slideを呼びます．デフォルトのキーバインドはC-c C-sです．
 
-=== �վ�񤭤���������
+=== 箇条書きを挿入する
 
-rabbit-insert-items��ƤӤޤ��������Х���ɤϳ�����Ƥ��Ƥ��ޤ���
+rabbit-insert-itemsを呼びます．キーバインドは割り当てられていません．
 
-���ܤ����Ϥ��Ƥ�������ʸ�������Ϥ���Ƚ�λ���ޤ���
+項目を入力していき，空文字を入力すると修了します．
 
-== ���饤�����
-=== ���饤�ɤ�������
+== スライド操作
+=== スライドを削除する
 
-rabbit-delete-slide��¹Ԥ��ޤ����ǥե���ȤΥ����Х���ɤ�C-c C-d�Ǥ���
+rabbit-delete-slideを実行します．デフォルトのキーバインドはC-c C-dです．
 
-=== ���饤�ɤ򥳥ԡ�����
+=== スライドをコピーする
 
-rabbit-copy-slide��¹Ԥ��ޤ��������Х���ɤϳ�����Ƥ��Ƥ��ޤ���
+rabbit-copy-slideを実行します．キーバインドは割り当てられていません．
 
-���ߤΥ��饤�ɤ������󥰤���¸����ޤ���
+現在のスライドがキルリングに保存されます．
 
-=== ���饤�ɤ�ʣ�̤���
+=== スライドを複写する
 
-rabbit-duplicate-slide��¹Ԥ��ޤ��������Х���ɤϳ�����Ƥ��Ƥ��ޤ���
+rabbit-duplicate-slideを実行します．キーバインドは割り当てられていません．
 
-���ߤΥ��饤�ɤΥ��ԡ��򡤼��Υ��饤�ɤȤ����������ޤ������ߤΥ��饤��
-�����Ƥ򾯤������Ѥ��������������Ǥ���
+現在のスライドのコピーを，次のスライドとして挿入します．現在のスライド
+の内容を少しだけ変えたい場合に便利です．
 
-=== �����ƥ�ץ졼�ȤΥǥե���ȤΥ�����������ˡ���Ѥ���
+=== 画像テンプレートのデフォルトのサイズ指定方法を変える
 
-�ѿ�rabbit-default-image-size-unit�˥�����������ˡ�򥻥åȤ��ޤ����ǥե�
-��Ȥ�"relative"�Ǥ���
+変数rabbit-default-image-size-unitにサイズ指定方法をセットします．デフォ
+ルトは"relative"です．
 
-ͭ������
+有効な値
   * "relative"
   * "normalized"
   * "pixel"
 
-== �ѿ�
+== 変数
 
 : rabbit-command
 
-   Rabbit�ε�ư���ޥ�ɤǤ�(�ǥե���Ȥ�"rabbit")��
+   Rabbitの起動コマンドです(デフォルトは"rabbit")．
 
 : rabbit-author
 
-   ����̾�Ǥ��������ȥ�ڡ����Υƥ�ץ졼�ȤǻȤ��ޤ�(�ǥե���Ȥ�nil)��
+   著者名です．タイトルページのテンプレートで使われます(デフォルトはnil)．
 
 : rabbit-institution
 
-   ���Ԥν�°�Ǥ��������ȥ�ڡ����Υƥ�ץ졼�ȤǻȤ��ޤ�(�ǥե���Ȥ�nil)��
+   著者の所属です．タイトルページのテンプレートで使われます(デフォルトはnil)．
 
 : rabbit-theme
 
-   �ץ쥼��ơ������Υơ��ޤǤ�(�ǥե���Ȥ�"rabbit")��
+   プレゼンテーションのテーマです(デフォルトは"rabbit")．
 
 : rabbit-default-image-size-unit
 
-   �����ե�����Υƥ�ץ졼�������ǻȤ���ǥե���ȤΥ�����
-   ������ˡ�Ǥ�(�ǥե���Ȥ�"relative")��
+   画像ファイルのテンプレート挿入で使われるデフォルトのサイズ
+   指定方法です(デフォルトは"relative")．
 
 : Faces
 
-   rabbit-mode�γ�face�Ǥ���
+   rabbit-modeの各faceです．
 
      * rabbit-heading-face
      * rabbit-emphasis-face
