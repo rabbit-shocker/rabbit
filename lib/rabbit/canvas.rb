@@ -199,6 +199,7 @@ module Rabbit
     def slide_title(index=current_index)
       return "" if slides.empty?
       slide = slides[index]
+      return title if slide.nil?
       if slide.is_a?(Element::TitleSlide)
         slide.title
       else
