@@ -32,7 +32,7 @@ end
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
-  stop_auto_reload_timer
+  stop_auto_redraw_timer
 
   break if @image_timer_uninstall
 
@@ -42,7 +42,7 @@ match(Slide) do |slides|
       canvas.start_timer(@image_timer_limit) if canvas.rest_time.nil?
       if @image_timer_auto_update && !@image_timer_auto_updating
         @image_timer_auto_updating = true
-        start_auto_reload_timer(@image_timer_interval)
+        start_auto_redraw_timer(@image_timer_interval)
       end
       slide.delete_post_draw_proc_by_name(init_proc_name)
     end

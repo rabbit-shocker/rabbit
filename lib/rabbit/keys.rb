@@ -140,7 +140,7 @@ module Rabbit
     end
 
     module Control
-      REDRAW_KEYS = [
+      CLEAR_SLIDE_KEYS = [
         Gdk::Keyval::GDK_l,
       ]
 

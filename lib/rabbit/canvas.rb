@@ -41,7 +41,7 @@ module Rabbit
     def_delegators(:@renderer, :page_margin_bottom, :page_margin_bottom=)
     def_delegators(:@renderer, :slides_per_page, :slides_per_page=)
     def_delegators(:@renderer, :font_families)
-    def_delegators(:@renderer, :redraw)
+    def_delegators(:@renderer, :redraw, :clear_slide)
     def_delegators(:@renderer, :cursor=, :filename, :filename=)
     def_delegators(:@renderer, :each_slide_pixbuf)
     def_delegators(:@renderer, :off_screen_canvas)
@@ -139,7 +139,7 @@ module Rabbit
       @quitted = false
       @parse_request_queue = []
       @apply_theme_request_queue = []
-      @auto_reload_timer = nil
+      @auto_redraw_timer = nil
       @output_html = false
       @rss_base_uri = true
       @migemo_dictionary_search_path = []
@@ -490,8 +490,8 @@ module Rabbit
       @processing
     end
 
-    def start_auto_reload_timer(interval)
-      stop_auto_reload_timer
+    def start_auto_redraw_timer(interval)
+      stop_auto_redraw_timer
       timer = GLib::Timeout.add(interval * 1000) do
         if quitted?
           false
@@ -500,17 +500,17 @@ module Rabbit
           true
         end
       end
-      @auto_reload_timer = timer
+      @auto_redraw_timer = timer
     end
 
-    def stop_auto_reload_timer
-      if @auto_reload_timer
+    def stop_auto_redraw_timer
+      if @auto_redraw_timer
         if GLib::Source.respond_to?(:remove)
-          GLib::Source.remove(@auto_reload_timer)
+          GLib::Source.remove(@auto_redraw_timer)
         else
-          Gtk.timeout_remove(@auto_reload_timer)
+          Gtk.timeout_remove(@auto_redraw_timer)
         end
-        @auto_reload_timer = nil
+        @auto_redraw_timer = nil
       end
     end
 
@@ -639,7 +639,7 @@ module Rabbit
     end
     
     def clear
-      stop_auto_reload_timer
+      stop_auto_redraw_timer
       clear_slides
       clear_index_slides
       modified

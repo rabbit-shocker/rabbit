@@ -111,6 +111,9 @@ module Rabbit
       def redraw
       end
 
+      def clear_slide
+      end
+
       def reset_adjustment
         @adjustment_x = 0
         @adjustment_y = 0

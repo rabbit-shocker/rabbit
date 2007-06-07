@@ -523,28 +523,33 @@ module Rabbit
         yield [to_container(targets), args]
       end
 
-      def start_auto_reload_timer(interval)
-        canvas.start_auto_reload_timer(interval)
+      def start_auto_redraw_timer(interval)
+        canvas.start_auto_redraw_timer(interval)
       end
-
-      def stop_auto_reload_timer
-        canvas.stop_auto_reload_timer
+      def stop_auto_redraw_timer
+        canvas.stop_auto_redraw_timer
       end
 
       # For backward compatibility
+      def start_auto_reload_timer(interval)
+        deprecated_method("start_auto_redraw_timer",
+                          "start_auto_reload_timer")
+        canvas.start_auto_redraw_timer(interval)
+      end
+      def stop_auto_reload_timer
+        deprecated_method("stop_auto_redraw_timer",
+                          "stop_auto_reload_timer")
+        canvas.stop_auto_redraw_timer
+      end
       def start_auto_reload_thread(interval)
-        format = _("%s is deprecated. Use %s instead.")
-        message = format % ["start_auto_reload_thread",
-                            "start_auto_reload_timer"]
-        warn(message)
-        start_auto_reload_timer(interval)
+        deprecated_method("start_auto_redraw_timer",
+                          "start_auto_reload_thread")
+        start_auto_redraw_timer(interval)
       end
       def stop_auto_reload_thread
-        format = _("%s is deprecated. Use %s instead.")
-        message = format % ["stop_auto_reload_thread",
-                            "stop_auto_reload_timer"]
-        warn(message)
-        stop_auto_reload_timer
+        deprecated_method("stop_auto_redraw_timer",
+                          "stop_auto_reload_thread")
+        stop_auto_redraw_timer
       end
 
       def dirtied
@@ -560,6 +565,12 @@ module Rabbit
 
       def disconnect_key(keyval, modifier=nil)
         canvas.disconnect_key(keyval, modifier)
+      end
+
+      def deprecated_method(current, deprecated)
+        format = _("%s is deprecated. Use %s instead.")
+        message = format % [deprecated, current]
+        warn(message)
       end
     end
   end

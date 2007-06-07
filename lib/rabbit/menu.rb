@@ -246,6 +246,7 @@ module Rabbit
         [:item, "Iconify"],
         [:separator],
         [:item, "Redraw"],
+        [:item, "ClearSlide"],
         [:item, "ReloadTheme"],
         [:menu, "ChangeTheme"],
         [:menu, "MergeTheme"],

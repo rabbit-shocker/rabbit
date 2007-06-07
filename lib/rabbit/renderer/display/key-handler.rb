@@ -207,9 +207,9 @@ module Rabbit
             @canvas.activate("UndoGraffiti")
           end
 
-          keys = Keys::Control::REDRAW_KEYS
+          keys = Keys::Control::CLEAR_SLIDE_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("Redraw")
+            @canvas.activate("ClearSlide")
           end
           keys = Keys::Control::PRINT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|

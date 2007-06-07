@@ -113,6 +113,14 @@ module Rabbit
       config[:stock_id] = Gtk::Stock::REFRESH
     end
 
+    def act_clear_slide(action, group, canvas)
+      canvas.clear_slide
+    end
+    def act_clear_slide_config(config, canvas)
+      config[:label] = N_("Clear slide")
+      config[:stock_id] = Gtk::Stock::REFRESH
+    end
+
     def update_theme_action_status(canvas)
       not_applying = !canvas.applying?
       canvas.action("ReloadTheme").sensitive = not_applying

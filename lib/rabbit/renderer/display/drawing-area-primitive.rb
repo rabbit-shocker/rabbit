@@ -50,8 +50,12 @@ module Rabbit
         alias original_height height
 
         def redraw
-          clear_compiled_slide
           @area.queue_draw
+        end
+
+        def clear_slide
+          clear_compiled_slide
+          redraw
         end
 
         def post_fullscreen
