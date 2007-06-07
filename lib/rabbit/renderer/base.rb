@@ -112,6 +112,8 @@ module Rabbit
       end
 
       def clear_slide
+        current = @canvas.current_slide
+        current.clear_waiting if current
       end
 
       def reset_adjustment

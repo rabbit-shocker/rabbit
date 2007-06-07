@@ -31,7 +31,7 @@ module Rabbit
       attr_accessor :default_padding_left, :default_padding_right
       attr_accessor :default_padding_top, :default_padding_bottom
 
-      attr_accessor :parent
+      attr_reader :parent, :visible
 
       def initialize
         @x = @y = @w = @h = nil
@@ -41,6 +41,15 @@ module Rabbit
         init_default_padding
         init_default_margin
         clear_theme
+      end
+
+      def parent=(parent)
+        @slide = nil
+        @parent = parent
+      end
+
+      def slide
+        @slide ||= _slide
       end
 
       def draw(simulation=false)
@@ -60,6 +69,10 @@ module Rabbit
 
       def dirty?
         @dirty
+      end
+
+      def wait(*args, &block)
+        slide.wait(self, *args, &block) if slide
       end
 
       def compile(canvas, x, y, w, h)
@@ -127,6 +140,8 @@ module Rabbit
       end
 
       def clear_theme
+        @slide = nil
+        @visible = true
         @width = @height = nil
         @centering_adjusted_width = nil
         @centering_adjusted_height = nil
@@ -318,6 +333,14 @@ module Rabbit
         padding_set(*extract_four_dimensions(params))
       end
 
+      def show(&block)
+        change_visible(true, &block)
+      end
+
+      def hide(&block)
+        change_visible(false, &block)
+      end
+
       protected
       def user_property=(prop)
         @user_property = prop
@@ -328,6 +351,26 @@ module Rabbit
       end
 
       private
+      def _slide
+        if @parent
+          @parent.slide
+        else
+          nil
+        end
+      end
+
+      def change_visible(value)
+        visible = @visible
+        @visible = value
+        if block_given?
+          begin
+            yield
+          ensure
+            @visible = visible
+          end
+        end
+      end
+
       def make_prop_value(name, *values)
         formatter_name = to_class_name(name)
         begin
@@ -385,21 +428,27 @@ module Rabbit
       end
 
       def _draw(canvas, x, y, w, h, simulation)
-        _draw_rec(canvas, x, y, w, h, simulation, @around_draw_procs.size)
+        around_draw_procs = @around_draw_procs.dup
+        around_draw_procs.concat(slide.waited_draw_procs(self))
+        _draw_rec(canvas, x, y, w, h, simulation, around_draw_procs)
       end
 
-      def _draw_rec(canvas, x, y, w, h, simulation, around_index)
-        if around_index.zero?
+      def _draw_rec(canvas, x, y, w, h, simulation, around_draw_procs)
+        if around_draw_procs.empty?
           (@pre_draw_procs +
            [method(:draw_element)] +
            @post_draw_procs.reverse).each do |pro,|
-            x, y, w, h = pro.call(canvas, x, y, w, h, simulation)
+            _simulation = simulation
+            _simulation = true unless @visible
+            x, y, w, h = pro.call(canvas, x, y, w, h, _simulation)
           end
           [x, y, w, h]
         else
-          pro, = @around_draw_procs[around_index - 1]
-          pro.call(canvas, x, y, w, h, simulation, Proc.new do |*args|
-            args << around_index - 1
+          _simulation = simulation
+          _simulation = true unless @visible
+          pro, = around_draw_procs.pop
+          pro.call(canvas, x, y, w, h, _simulation, Proc.new do |*args|
+            args << around_draw_procs
             _draw_rec(*args)
           end)
         end

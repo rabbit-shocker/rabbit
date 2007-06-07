@@ -54,6 +54,7 @@ module Rabbit
         end
 
         def clear_slide
+          super
           clear_compiled_slide
           redraw
         end
