@@ -236,6 +236,8 @@ module Rabbit
 #         [:item, "ToggleCommentFrame"],
 #         [:item, "ToggleCommentView"],
         [:separator],
+        [:item, "ToggleSpotlight"],
+        [:separator],
         [:menu, "JumpTo"],
         [:separator],
         [:item, "PreviousSlide"],

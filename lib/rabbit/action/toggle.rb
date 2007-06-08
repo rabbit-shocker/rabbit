@@ -71,5 +71,12 @@ module Rabbit
     def act_toggle_info_window_config(config, canvas)
       config[:label] = N_("Information window")
     end
+
+    def act_toggle_spotlight(action, group, canvas)
+      canvas.toggle_spotlight
+    end
+    def act_toggle_spotlight_config(config, canvas)
+      config[:label] = N_("Spotlight")
+    end
   end
 end

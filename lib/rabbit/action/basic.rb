@@ -79,7 +79,6 @@ module Rabbit
         entry, block = action.call(action, group, canvas)
         canvas.apply_theme(entry.name, &block)
       end
-      
     end
     def act_change_theme_config(config, canvas)
       config[:label] = N_("Change theme")

@@ -247,6 +247,9 @@ module Rabbit
       def toggle_info_window
       end
 
+      def toggle_spotlight
+      end
+
       def toggle_comment_frame
       end
 
