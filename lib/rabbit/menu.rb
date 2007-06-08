@@ -237,6 +237,7 @@ module Rabbit
 #         [:item, "ToggleCommentView"],
         [:separator],
         [:item, "ToggleSpotlight"],
+       [:item, "ToggleMagnifier"],
         [:separator],
         [:menu, "JumpTo"],
         [:separator],

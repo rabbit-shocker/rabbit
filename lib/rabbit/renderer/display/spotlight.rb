@@ -14,20 +14,12 @@ module Rabbit
 
         def toggle_spotlight
           if spotlighting?
-            Gtk.grab_add(@area)
-            Gdk.pointer_grab(@area.window, false,
-                             Gdk::Event::BUTTON_PRESS_MASK |
-                             Gdk::Event::BUTTON_RELEASE_MASK |
-                             Gdk::Event::SCROLL_MASK |
-                             Gdk::Event::POINTER_MOTION_MASK,
-                             nil, nil,
-                             Gdk::Event::CURRENT_TIME)
-            window, x, y, mask = @area.window.pointer
+            grab
+            x, y, mask = pointer
             @spotlight_center_x ||= x
             @spotlight_center_y ||= y
           else
-            Gtk.grab_remove(@area)
-            Gdk.pointer_ungrab(Gdk::Event::CURRENT_TIME)
+            ungrab
             @spotlight_center_x = nil
             @spotlight_center_y = nil
           end

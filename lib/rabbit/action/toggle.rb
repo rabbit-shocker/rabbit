@@ -78,5 +78,12 @@ module Rabbit
     def act_toggle_spotlight_config(config, canvas)
       config[:label] = N_("Spotlight")
     end
+
+    def act_toggle_magnifier(action, group, canvas)
+      canvas.toggle_magnifier
+    end
+    def act_toggle_magnifier_config(config, canvas)
+      config[:label] = N_("Magnifier")
+    end
   end
 end

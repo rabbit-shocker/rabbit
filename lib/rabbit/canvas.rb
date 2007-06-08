@@ -104,7 +104,8 @@ module Rabbit
     def_delegators(:@renderer, :graffiti_color, :graffiti_color=)
     def_delegators(:@renderer, :graffiti_line_width, :graffiti_line_width=)
 
-    def_delegators(:@renderer, :toggle_info_window, :toggle_spotlight)
+    def_delegators(:@renderer, :toggle_info_window)
+    def_delegators(:@renderer, :toggle_spotlight, :toggle_magnifier)
 
     def_delegators(:@renderer, :add_gesture_action)
 

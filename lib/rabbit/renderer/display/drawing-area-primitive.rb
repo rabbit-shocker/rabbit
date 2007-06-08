@@ -218,6 +218,27 @@ module Rabbit
         def queue_draw
           @area.queue_draw
         end
+
+        def grab
+          Gtk.grab_add(@area)
+          Gdk.pointer_grab(@area.window, false,
+                           Gdk::Event::BUTTON_PRESS_MASK |
+                           Gdk::Event::BUTTON_RELEASE_MASK |
+                           Gdk::Event::SCROLL_MASK |
+                           Gdk::Event::POINTER_MOTION_MASK,
+                           nil, nil,
+                           Gdk::Event::CURRENT_TIME)
+        end
+
+        def ungrab
+          Gtk.grab_remove(@area)
+          Gdk.pointer_ungrab(Gdk::Event::CURRENT_TIME)
+        end
+
+        def pointer
+          window, x, y, mask = @area.window.pointer
+          [x, y, mask]
+        end
       end
     end
   end

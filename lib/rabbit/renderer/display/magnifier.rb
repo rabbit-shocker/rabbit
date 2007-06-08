@@ -7,11 +7,29 @@ module Rabbit
           init_magnifier
         end
 
+        def attach_to(window)
+          super
+          magnifier_action.active = false
+        end
+
+        def toggle_magnifier
+          if magnifying?
+            grab
+            x, y, mask = pointer
+            @magnifier_center_x ||= x
+            @magnifier_center_y ||= y
+          else
+            @magnifier_center_x = nil
+            @magnifier_center_y = nil
+          end
+          queue_draw
+        end
+
         private
         def init_magnifier
-          @magnifying = false
-
           @magnifier_ratio = 1.5
+          @magnifier_center_x = nil
+          @magnifier_center_y = nil
 
           target_button = 3
           target_event_type = Gdk::Event::BUTTON_PRESS
@@ -20,10 +38,9 @@ module Rabbit
           add_button_press_hook do |event|
             if [event.button, event.event_type] == target_info and
                 event.state.control_mask?
-              @magnifying = true
               @magnifier_center_x = event.x
               @magnifier_center_y = event.y
-              queue_draw
+              magnifier_action.active = true
               true
             else
               false
@@ -32,8 +49,7 @@ module Rabbit
 
           add_button_release_hook do |event, last_event|
             if magnifying? and event.button == target_button
-              @magnifying = false
-              queue_draw
+              magnifier_action.active = false
               true
             else
               false
@@ -94,7 +110,11 @@ module Rabbit
         end
 
         def magnifying?
-          @magnifying
+          magnifier_action.active?
+        end
+
+        def magnifier_action
+          @canvas.action("ToggleMagnifier")
         end
       end
     end
