@@ -43,12 +43,20 @@ module Rabbit
         @waited_draw_procs = []
       end
 
-      def last?
-        @waited_draw_procs.size <= @drawing_index
+      def first?
+        @drawing_index.zero?
       end
 
-      def go_forward
-        @drawing_index += 1
+      def last?
+        @waited_draw_procs.size == @drawing_index
+      end
+
+      def move_to_next
+        @drawing_index += 1 unless last?
+      end
+
+      def move_to_previous
+        @drawing_index -= 1 unless first?
       end
 
       def wait(target, exact=false, &proc)

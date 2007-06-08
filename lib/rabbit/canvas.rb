@@ -415,7 +415,7 @@ module Rabbit
     def move_to_next_if_can
       slide = current_slide
       if slide and !slide.last?
-        slide.go_forward
+        slide.move_to_next
         activate("Redraw")
       else
         move_to_if_can(current_index + 1)
@@ -423,7 +423,13 @@ module Rabbit
     end
 
     def move_to_previous_if_can
-      move_to_if_can(current_index - 1)
+      slide = current_slide
+      if slide and !slide.first?
+        slide.move_to_previous
+        activate("Redraw")
+      else
+        move_to_if_can(current_index - 1)
+      end
     end
 
     def move_to_first
