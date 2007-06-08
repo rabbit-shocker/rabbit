@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-07 20:44+0900\n"
-"PO-Revision-Date: 2007-06-07 20:45+0900\n"
+"POT-Creation-Date: 2007-06-08 18:30+0900\n"
+"PO-Revision-Date: 2007-06-08 18:30+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:435
+#: ../../lib/rabbit/renderer/base.rb:440
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
@@ -37,11 +37,11 @@ msgstr "%s: 情報ウィンドウ"
 msgid "(ARGV: if no filename is given)"
 msgstr "(ARGV: ファイル名が与えられない場合)"
 
+#: ../../lib/rabbit/theme/title-background-color/property.rb:7
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 #: ../../lib/rabbit/theme/title-logo/property.rb:7
 #: ../../lib/rabbit/theme/headline-logo/property.rb:7
-#: ../../lib/rabbit/theme/title-background-color/property.rb:7
 #: ../../lib/rabbit/theme/title-background-image/property.rb:8
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 msgid "(Must be specified.)"
 msgstr "(指定しなければいけません。)"
 
@@ -132,7 +132,7 @@ msgstr "COZMIXNG 画像"
 msgid "COZMIXNGPoweredBy"
 msgstr "ぱわーどばいこずみくしんぐ"
 
-#: ../../lib/rabbit/action/basic.rb:158
+#: ../../lib/rabbit/action/basic.rb:157
 msgid "Cache all slides"
 msgstr "スライドをキャッシュ"
 
@@ -140,19 +140,19 @@ msgstr "スライドをキャッシュ"
 msgid "Category"
 msgstr "カテゴリ"
 
-#: ../../lib/rabbit/action/basic.rb:189
+#: ../../lib/rabbit/action/basic.rb:188
 msgid "Change graffiti color"
 msgstr "落書きの色を変える"
 
-#: ../../lib/rabbit/action/basic.rb:85
+#: ../../lib/rabbit/action/basic.rb:84
 msgid "Change theme"
 msgstr "テーマ変更"
 
-#: ../../lib/rabbit/action/basic.rb:173
+#: ../../lib/rabbit/action/basic.rb:172
 msgid "Clear graffiti"
 msgstr "落書きをクリア"
 
-#: ../../lib/rabbit/action/basic.rb:120
+#: ../../lib/rabbit/action/basic.rb:119
 msgid "Clear slide"
 msgstr "スライドをクリア"
 
@@ -172,7 +172,7 @@ msgstr "スタートとゴールの旗に表示される数字の色。"
 msgid "Color of shadow."
 msgstr "影の色。"
 
-#: ../../lib/rabbit/canvas.rb:705 ../../bin/rabbit:456
+#: ../../lib/rabbit/canvas.rb:712 ../../bin/rabbit:456
 msgid "Comment"
 msgstr "コメント"
 
@@ -389,7 +389,7 @@ msgstr ""
 msgid "Etc"
 msgstr "その他"
 
-#: ../../lib/rabbit/action/basic.rb:215
+#: ../../lib/rabbit/action/basic.rb:214
 msgid "Expand hole"
 msgstr "穴を広げる"
 
@@ -453,7 +453,7 @@ msgstr "進む"
 msgid "Go up"
 msgstr "上へ"
 
-#: ../../lib/rabbit/action/basic.rb:165
+#: ../../lib/rabbit/action/basic.rb:164
 msgid "Graffiti"
 msgstr "落書き"
 
@@ -474,17 +474,17 @@ msgid "Iconify"
 msgstr "最小化"
 
 #: ../../lib/rabbit/theme/image/property.rb:2
-#: ../../data/rabbit/image/rabbit-images/property.rb:1
-#: ../../data/rabbit/image/ruby-images/property.rb:1
 #: ../../data/rabbit/image/cozmixng-images/property.rb:1
+#: ../../data/rabbit/image/ruby-images/property.rb:1
+#: ../../data/rabbit/image/rabbit-images/property.rb:1
 msgid "Image"
 msgstr "画像"
 
+#: ../../lib/rabbit/theme/icon/property.rb:22
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 #: ../../lib/rabbit/theme/title-logo/property.rb:8
 #: ../../lib/rabbit/theme/headline-logo/property.rb:8
-#: ../../lib/rabbit/theme/icon/property.rb:22
 #: ../../lib/rabbit/theme/title-background-image/property.rb:9
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 msgid "Image file name."
 msgstr "画像ファイル名。"
 
@@ -573,8 +573,8 @@ msgstr "秒単位での制限時間。"
 msgid "Line width:"
 msgstr "線の太さ"
 
-#: ../../lib/rabbit/theme/icon/property.rb:18
 #: ../../lib/rabbit/theme/powered-by/property.rb:18
+#: ../../lib/rabbit/theme/icon/property.rb:18
 msgid "List of image file names."
 msgstr "画像ファイル名のリスト。"
 
@@ -586,11 +586,15 @@ msgstr ""
 "オブジェクトをタイトルスライドの中央に置きその周りにマージンを設定するだけ"
 "の、簡単な配置をします。"
 
+#: ../../lib/rabbit/action/toggle.rb:86
+msgid "Magnifier"
+msgstr "虫眼鏡"
+
 #: ../../bin/rabbit:258
 msgid "Margin"
 msgstr "余白"
 
-#: ../../lib/rabbit/action/basic.rb:95
+#: ../../lib/rabbit/action/basic.rb:94
 msgid "Merge theme"
 msgstr "テーマを追加"
 
@@ -602,7 +606,7 @@ msgstr "Migemo"
 msgid "Name"
 msgstr "名前"
 
-#: ../../lib/rabbit/action/basic.rb:222
+#: ../../lib/rabbit/action/basic.rb:221
 msgid "Narrow hole"
 msgstr "穴を狭める"
 
@@ -614,7 +618,7 @@ msgstr "次のスライド"
 msgid "Note: case insensitive."
 msgstr "注意: 大文字小文字は区別しません．"
 
-#: ../../lib/rabbit/action/basic.rb:141
+#: ../../lib/rabbit/action/basic.rb:140
 msgid "Now processing... Do you really quit?"
 msgstr "処理中です．．．本当に終了しますか？"
 
@@ -674,7 +678,7 @@ msgstr "印刷"
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: ../../lib/rabbit/canvas.rb:619
+#: ../../lib/rabbit/canvas.rb:626
 msgid "Processing..."
 msgstr "処理中です．．．"
 
@@ -758,7 +762,7 @@ msgstr "赤い枠のテーマ"
 msgid "RedFrame"
 msgstr "赤い枠"
 
-#: ../../lib/rabbit/action/basic.rb:112
+#: ../../lib/rabbit/action/basic.rb:111
 msgid "Redraw"
 msgstr "再表示"
 
@@ -766,11 +770,11 @@ msgstr "再表示"
 msgid "Reload"
 msgstr "再読み込み"
 
-#: ../../lib/rabbit/action/basic.rb:104
+#: ../../lib/rabbit/action/basic.rb:103
 msgid "Reload theme"
 msgstr "テーマの再読み込み"
 
-#: ../../lib/rabbit/action/basic.rb:207
+#: ../../lib/rabbit/action/basic.rb:206
 msgid "Reset adjustment"
 msgstr "ずれを直す"
 
@@ -818,19 +822,19 @@ msgstr "画像として保存"
 msgid "Save as image and exit."
 msgstr "画像として保存し終了します．"
 
-#: ../../lib/rabbit/action/basic.rb:238
+#: ../../lib/rabbit/action/basic.rb:237
 msgid "Search slide backward"
 msgstr "スライドを後方検索"
 
-#: ../../lib/rabbit/action/basic.rb:254
+#: ../../lib/rabbit/action/basic.rb:253
 msgid "Search slide backward next"
 msgstr "次のスライドを後方検索"
 
-#: ../../lib/rabbit/action/basic.rb:230
+#: ../../lib/rabbit/action/basic.rb:229
 msgid "Search slide forward"
 msgstr "スライドを前方検索"
 
-#: ../../lib/rabbit/action/basic.rb:246
+#: ../../lib/rabbit/action/basic.rb:245
 msgid "Search slide forward next"
 msgstr "次のスライドを前方検索"
 
@@ -1113,7 +1117,11 @@ msgstr "XML-RPCを使うかどうかを指定します．"
 msgid "Specify whether to use dRuby."
 msgstr "dRubyを使うかどうかを指定します．"
 
-#: ../../lib/rabbit/action/basic.rb:262
+#: ../../lib/rabbit/action/toggle.rb:79
+msgid "Spotlight"
+msgstr "スポットライト"
+
+#: ../../lib/rabbit/action/basic.rb:261
 msgid "Stop slide search"
 msgstr "スライド検索修了"
 
@@ -1133,17 +1141,17 @@ msgstr "テキストスライド番号"
 msgid "TextTimer"
 msgstr "テキストタイマー"
 
+#: ../../lib/rabbit/theme-browser/tree.rb:54
+#: ../../lib/rabbit/theme/red-frame/property.rb:1
 #: ../../lib/rabbit/theme/rabbit/property.rb:1
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/default/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:1
-#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
-#: ../../lib/rabbit/theme/pdf/property.rb:1
-#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
 #: ../../lib/rabbit/theme/blue-circle/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
-#: ../../lib/rabbit/theme/red-frame/property.rb:1
-#: ../../lib/rabbit/theme-browser/tree.rb:54
+#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
+#: ../../lib/rabbit/theme/pdf/property.rb:1
 msgid "Theme"
 msgstr "テーマ"
 
@@ -1151,8 +1159,8 @@ msgstr "テーマ"
 msgid "Theme for PDF"
 msgstr "PDF用のテーマ"
 
-#: ../../lib/rabbit/theme/timer/property.rb:1
 #: ../../lib/rabbit/theme/clock/property.rb:1
+#: ../../lib/rabbit/theme/timer/property.rb:1
 #: ../../lib/rabbit/theme/image-timer/property.rb:1
 msgid "Time"
 msgstr "時間"
@@ -1193,34 +1201,34 @@ msgstr "フルスクリーンモードに切替えます．"
 msgid "Toggle index mode."
 msgstr "一覧モードに切替えます．"
 
-#: ../../lib/rabbit/theme/title-logo/property.rb:1
 #: ../../lib/rabbit/theme/image/property.rb:1
-#: ../../lib/rabbit/theme/title-shadow/property.rb:1
-#: ../../lib/rabbit/theme/headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/icon/property.rb:1
-#: ../../lib/rabbit/theme/table/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/title-background-color/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
-#: ../../lib/rabbit/theme/slide-number/property.rb:1
-#: ../../lib/rabbit/theme/image-slide-number/property.rb:1
-#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
-#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
-#: ../../lib/rabbit/theme/default-description/property.rb:1
-#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/icon/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
-#: ../../lib/rabbit/theme/default-icon/property.rb:1
-#: ../../lib/rabbit/theme/title-background-image/property.rb:1
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/title-logo/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/title-shadow/property.rb:1
+#: ../../lib/rabbit/theme/default-description/property.rb:1
+#: ../../lib/rabbit/theme/headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/slide-number/property.rb:1
+#: ../../lib/rabbit/theme/table/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/title-background-image/property.rb:1
 msgid "Toolkit"
 msgstr "ツールキット"
 
@@ -1328,11 +1336,11 @@ msgstr "ピンク色の丸と多角形をアイコンとして用いるツール
 msgid "URI"
 msgstr "URI"
 
-#: ../../lib/rabbit/action/basic.rb:181
+#: ../../lib/rabbit/action/basic.rb:180
 msgid "Undo graffiti"
 msgstr "落書きを戻す"
 
-#: ../../lib/rabbit/canvas.rb:560
+#: ../../lib/rabbit/canvas.rb:567
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
 
@@ -1394,8 +1402,8 @@ msgstr ""
 msgid "Whether scrolling automatically or not."
 msgstr "自動スクロールするか否か。"
 
-#: ../../lib/rabbit/theme/title-logo/property.rb:19
 #: ../../lib/rabbit/theme/clock/property.rb:17
+#: ../../lib/rabbit/theme/title-logo/property.rb:19
 #: ../../lib/rabbit/theme/slide-number/property.rb:17
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:60
 #: ../../lib/rabbit/theme/show-frame/property.rb:12
@@ -1464,11 +1472,11 @@ msgstr "[上下],[左右]"
 msgid "[cited from `%s']"
 msgstr "[「%s」より引用]"
 
-#: ../../lib/rabbit/action/basic.rb:133
+#: ../../lib/rabbit/action/basic.rb:132
 msgid "_Quit"
 msgstr "終了(_Q)"
 
-#: ../../lib/rabbit/action/basic.rb:134
+#: ../../lib/rabbit/action/basic.rb:133
 msgid "_Quit with confirmation"
 msgstr "確認付き終了(_Q)"
 

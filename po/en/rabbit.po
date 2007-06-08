@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-07 20:44+0900\n"
+"POT-Creation-Date: 2007-06-08 18:30+0900\n"
 "PO-Revision-Date: 2007-01-01 18:21+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:435
+#: ../../lib/rabbit/renderer/base.rb:440
 msgid "%s does not support: %s"
 msgstr ""
 
@@ -37,11 +37,11 @@ msgstr ""
 msgid "(ARGV: if no filename is given)"
 msgstr ""
 
+#: ../../lib/rabbit/theme/title-background-color/property.rb:7
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 #: ../../lib/rabbit/theme/title-logo/property.rb:7
 #: ../../lib/rabbit/theme/headline-logo/property.rb:7
-#: ../../lib/rabbit/theme/title-background-color/property.rb:7
 #: ../../lib/rabbit/theme/title-background-image/property.rb:8
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 msgid "(Must be specified.)"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "COZMIXNGPoweredBy"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:158
+#: ../../lib/rabbit/action/basic.rb:157
 msgid "Cache all slides"
 msgstr ""
 
@@ -140,19 +140,19 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:189
+#: ../../lib/rabbit/action/basic.rb:188
 msgid "Change graffiti color"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:85
+#: ../../lib/rabbit/action/basic.rb:84
 msgid "Change theme"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:173
+#: ../../lib/rabbit/action/basic.rb:172
 msgid "Clear graffiti"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:120
+#: ../../lib/rabbit/action/basic.rb:119
 msgid "Clear slide"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Color of shadow."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:705 ../../bin/rabbit:456
+#: ../../lib/rabbit/canvas.rb:712 ../../bin/rabbit:456
 msgid "Comment"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgstr ""
 msgid "Etc"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:215
+#: ../../lib/rabbit/action/basic.rb:214
 msgid "Expand hole"
 msgstr ""
 
@@ -415,7 +415,7 @@ msgstr ""
 msgid "Go up"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:165
+#: ../../lib/rabbit/action/basic.rb:164
 msgid "Graffiti"
 msgstr ""
 
@@ -436,17 +436,17 @@ msgid "Iconify"
 msgstr ""
 
 #: ../../lib/rabbit/theme/image/property.rb:2
-#: ../../data/rabbit/image/rabbit-images/property.rb:1
-#: ../../data/rabbit/image/ruby-images/property.rb:1
 #: ../../data/rabbit/image/cozmixng-images/property.rb:1
+#: ../../data/rabbit/image/ruby-images/property.rb:1
+#: ../../data/rabbit/image/rabbit-images/property.rb:1
 msgid "Image"
 msgstr ""
 
+#: ../../lib/rabbit/theme/icon/property.rb:22
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 #: ../../lib/rabbit/theme/title-logo/property.rb:8
 #: ../../lib/rabbit/theme/headline-logo/property.rb:8
-#: ../../lib/rabbit/theme/icon/property.rb:22
 #: ../../lib/rabbit/theme/title-background-image/property.rb:9
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 msgid "Image file name."
 msgstr ""
 
@@ -535,8 +535,8 @@ msgstr ""
 msgid "Line width:"
 msgstr ""
 
-#: ../../lib/rabbit/theme/icon/property.rb:18
 #: ../../lib/rabbit/theme/powered-by/property.rb:18
+#: ../../lib/rabbit/theme/icon/property.rb:18
 msgid "List of image file names."
 msgstr ""
 
@@ -546,11 +546,15 @@ msgid ""
 "configuration for margins around them a little."
 msgstr ""
 
+#: ../../lib/rabbit/action/toggle.rb:86
+msgid "Magnifier"
+msgstr ""
+
 #: ../../bin/rabbit:258
 msgid "Margin"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:95
+#: ../../lib/rabbit/action/basic.rb:94
 msgid "Merge theme"
 msgstr ""
 
@@ -562,7 +566,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:222
+#: ../../lib/rabbit/action/basic.rb:221
 msgid "Narrow hole"
 msgstr ""
 
@@ -574,7 +578,7 @@ msgstr ""
 msgid "Note: case insensitive."
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:141
+#: ../../lib/rabbit/action/basic.rb:140
 msgid "Now processing... Do you really quit?"
 msgstr ""
 
@@ -632,7 +636,7 @@ msgstr ""
 msgid "Print and exit."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:619
+#: ../../lib/rabbit/canvas.rb:626
 msgid "Processing..."
 msgstr ""
 
@@ -716,7 +720,7 @@ msgstr ""
 msgid "RedFrame"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:112
+#: ../../lib/rabbit/action/basic.rb:111
 msgid "Redraw"
 msgstr ""
 
@@ -724,11 +728,11 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:104
+#: ../../lib/rabbit/action/basic.rb:103
 msgid "Reload theme"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:207
+#: ../../lib/rabbit/action/basic.rb:206
 msgid "Reset adjustment"
 msgstr ""
 
@@ -776,19 +780,19 @@ msgstr ""
 msgid "Save as image and exit."
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:238
+#: ../../lib/rabbit/action/basic.rb:237
 msgid "Search slide backward"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:254
+#: ../../lib/rabbit/action/basic.rb:253
 msgid "Search slide backward next"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:230
+#: ../../lib/rabbit/action/basic.rb:229
 msgid "Search slide forward"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:246
+#: ../../lib/rabbit/action/basic.rb:245
 msgid "Search slide forward next"
 msgstr ""
 
@@ -1060,7 +1064,11 @@ msgstr ""
 msgid "Specify whether to use dRuby."
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:262
+#: ../../lib/rabbit/action/toggle.rb:79
+msgid "Spotlight"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:261
 msgid "Stop slide search"
 msgstr ""
 
@@ -1080,17 +1088,17 @@ msgstr ""
 msgid "TextTimer"
 msgstr ""
 
+#: ../../lib/rabbit/theme-browser/tree.rb:54
+#: ../../lib/rabbit/theme/red-frame/property.rb:1
 #: ../../lib/rabbit/theme/rabbit/property.rb:1
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/default/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:1
-#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
-#: ../../lib/rabbit/theme/pdf/property.rb:1
-#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
 #: ../../lib/rabbit/theme/blue-circle/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
-#: ../../lib/rabbit/theme/red-frame/property.rb:1
-#: ../../lib/rabbit/theme-browser/tree.rb:54
+#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
+#: ../../lib/rabbit/theme/pdf/property.rb:1
 msgid "Theme"
 msgstr ""
 
@@ -1098,8 +1106,8 @@ msgstr ""
 msgid "Theme for PDF"
 msgstr ""
 
-#: ../../lib/rabbit/theme/timer/property.rb:1
 #: ../../lib/rabbit/theme/clock/property.rb:1
+#: ../../lib/rabbit/theme/timer/property.rb:1
 #: ../../lib/rabbit/theme/image-timer/property.rb:1
 msgid "Time"
 msgstr ""
@@ -1140,34 +1148,34 @@ msgstr ""
 msgid "Toggle index mode."
 msgstr ""
 
-#: ../../lib/rabbit/theme/title-logo/property.rb:1
 #: ../../lib/rabbit/theme/image/property.rb:1
-#: ../../lib/rabbit/theme/title-shadow/property.rb:1
-#: ../../lib/rabbit/theme/headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/icon/property.rb:1
-#: ../../lib/rabbit/theme/table/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/title-background-color/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
-#: ../../lib/rabbit/theme/slide-number/property.rb:1
-#: ../../lib/rabbit/theme/image-slide-number/property.rb:1
-#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
-#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
-#: ../../lib/rabbit/theme/default-description/property.rb:1
-#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/icon/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
-#: ../../lib/rabbit/theme/default-icon/property.rb:1
-#: ../../lib/rabbit/theme/title-background-image/property.rb:1
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/title-logo/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/title-shadow/property.rb:1
+#: ../../lib/rabbit/theme/default-description/property.rb:1
+#: ../../lib/rabbit/theme/headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/slide-number/property.rb:1
+#: ../../lib/rabbit/theme/table/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/title-background-image/property.rb:1
 msgid "Toolkit"
 msgstr ""
 
@@ -1269,11 +1277,11 @@ msgstr ""
 msgid "URI"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:181
+#: ../../lib/rabbit/action/basic.rb:180
 msgid "Undo graffiti"
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:560
+#: ../../lib/rabbit/canvas.rb:567
 msgid "Unknown action: %s"
 msgstr ""
 
@@ -1326,8 +1334,8 @@ msgstr ""
 msgid "Whether scrolling automatically or not."
 msgstr ""
 
-#: ../../lib/rabbit/theme/title-logo/property.rb:19
 #: ../../lib/rabbit/theme/clock/property.rb:17
+#: ../../lib/rabbit/theme/title-logo/property.rb:19
 #: ../../lib/rabbit/theme/slide-number/property.rb:17
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:60
 #: ../../lib/rabbit/theme/show-frame/property.rb:12
@@ -1392,11 +1400,11 @@ msgstr ""
 msgid "[cited from `%s']"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:133
+#: ../../lib/rabbit/action/basic.rb:132
 msgid "_Quit"
 msgstr ""
 
-#: ../../lib/rabbit/action/basic.rb:134
+#: ../../lib/rabbit/action/basic.rb:133
 msgid "_Quit with confirmation"
 msgstr ""
 
