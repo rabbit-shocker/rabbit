@@ -20,17 +20,21 @@ module Rabbit
           init_graffiti
         end
 
+        def attach_to(window)
+          super
+          graffiti_mode_action.active = false
+        end
+
         private
         def init_graffiti
           @graffiti = Rabbit::Graffiti::Processor.new
-          @graffiti_mode = false
 
           pressed_button = nil
           target_button = 1
 
           add_button_press_hook do |event|
             pressed_button = event.button
-            if @graffiti_mode and event.button == target_button
+            if graffiti_mode? and event.button == target_button
               @graffiti.button_press(event.x, event.y, width, height)
               true
             else
@@ -40,7 +44,7 @@ module Rabbit
 
           add_button_release_hook do |event, last_button_press_event|
             pressed_button = nil
-            if @graffiti_mode and event.button == target_button
+            if graffiti_mode? and event.button == target_button
               @graffiti.button_release(event.x, event.y, width, height)
               Action.update_graffiti_action_status(@canvas)
               true
@@ -50,7 +54,7 @@ module Rabbit
           end
 
           add_motion_notify_hook do |event|
-            if @graffiti_mode and
+            if graffiti_mode? and
                 @graffiti.dragging? and
                 pressed_button == target_button
               @graffiti.button_motion(event.x, event.y, width, height)
@@ -66,8 +70,12 @@ module Rabbit
           @graffiti.draw_all_segment(@drawable)
         end
 
+        def graffiti_mode_action
+          @canvas.action("ToggleGraffitiMode")
+        end
+
         def graffiti_mode?
-          @graffiti_mode
+          graffiti_mode_action.active?
         end
 
         def have_graffiti?
@@ -79,8 +87,7 @@ module Rabbit
         end
 
         def toggle_graffiti_mode
-          @graffiti_mode = !@graffiti_mode
-          if @graffiti_mode
+          if graffiti_mode?
             update_cursor(:pencil)
           else
             restore_cursor(nil)
