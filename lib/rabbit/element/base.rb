@@ -31,7 +31,7 @@ module Rabbit
       attr_accessor :default_padding_left, :default_padding_right
       attr_accessor :default_padding_top, :default_padding_bottom
 
-      attr_reader :parent, :visible
+      attr_reader :parent, :visible, :real_simulation
 
       def initialize
         @x = @y = @w = @h = nil
@@ -142,6 +142,7 @@ module Rabbit
       def clear_theme
         @slide = nil
         @visible = true
+        @real_simulation = true
         @width = @height = nil
         @centering_adjusted_width = nil
         @centering_adjusted_height = nil
@@ -438,19 +439,22 @@ module Rabbit
           (@pre_draw_procs +
            [method(:draw_element)] +
            @post_draw_procs.reverse).each do |pro,|
+            @real_simulation = simulation
             _simulation = simulation
             _simulation = true unless @visible
             x, y, w, h = pro.call(canvas, x, y, w, h, _simulation)
           end
           [x, y, w, h]
         else
+          @real_simulation = simulation
           _simulation = simulation
           _simulation = true unless @visible
           pro, = around_draw_procs.pop
-          pro.call(canvas, x, y, w, h, _simulation, Proc.new do |*args|
+          next_proc = Proc.new do |*args|
             args << around_draw_procs
             _draw_rec(*args)
-          end)
+          end
+          pro.call(canvas, x, y, w, h, _simulation, next_proc)
         end
       end
 
