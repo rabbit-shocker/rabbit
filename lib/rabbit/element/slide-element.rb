@@ -63,6 +63,10 @@ module Rabbit
         @waited_draw_procs << [target, exact, proc]
       end
 
+      def flush
+        @drawing_index = @waited_draw_procs.size
+      end
+
       def waited_draw_procs(target)
         procs = []
         candidates = @waited_draw_procs[0, @drawing_index]

@@ -332,7 +332,9 @@ module Rabbit
         canceled = false
         @canvas.slides.each_with_index do |slide, i|
           @canvas.move_to_if_can(i)
-          @canvas.current_slide.draw(@canvas)
+          current_slide = @canvas.current_slide
+          current_slide.flush
+          current_slide.draw(@canvas)
           if block and !block.call(i)
             canceled = true
             break

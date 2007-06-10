@@ -83,10 +83,18 @@ module Rabbit
         end
 
         def init_context
+          @context = create_context
+          super
+        end
+
+        def create_context
           surface = find_surface(filename)
           surface.set_fallback_resolution(@x_dpi, @y_dpi)
-          @context = ::Cairo::Context.new(surface)
-          super
+          ::Cairo::Context.new(surface)
+        end
+
+        def create_pango_context
+          create_context.create_pango_layout.context
         end
 
         def find_surface(filename)

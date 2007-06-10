@@ -362,6 +362,7 @@ module Rabbit
 
     def to_pixbuf(i)
       move_to_if_can(i)
+      current_slide.flush
       @renderer.to_pixbuf(current_slide)
     end
     
