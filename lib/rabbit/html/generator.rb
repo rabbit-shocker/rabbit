@@ -131,6 +131,7 @@ module Rabbit
       def save_environment
         @index_mode = @canvas.index_mode?
         @slide_size = @canvas.slide_size
+        @index_slide_size = 0
         if output_index_html?
           @canvas.with_index_mode(true) do
             @index_slide_size = @canvas.slide_size
