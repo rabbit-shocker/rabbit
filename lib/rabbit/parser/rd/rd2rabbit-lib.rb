@@ -37,7 +37,6 @@ module Rabbit
 
         def initialize(canvas)
           @canvas = canvas
-          @title_slide = false
 
           @slides = []
           @slide = nil
@@ -81,10 +80,8 @@ module Rabbit
           anchor = get_anchor(element)
           if element.level == 1
             if @slides.empty?
-              @title_slide = true
               @slide = TitleSlide.new(Title.new(title))
             else
-              @title_slide = false
               @slide = Slide.new(HeadLine.new(title))
             end
             @foot_texts << []
@@ -383,10 +380,6 @@ module Rabbit
             end
             slide << ftb
           end
-        end
-
-        def title_slide?
-          @title_slide
         end
       end
     end
