@@ -1,6 +1,7 @@
 require "forwardable"
 
 require "rabbit/element"
+require 'rabbit/parser/ext/text'
 require 'rabbit/parser/rd/visitor'
 require "rabbit/parser/rd/ext/refer"
 require "rabbit/parser/rd/ext/inline-verbatim"
@@ -14,6 +15,7 @@ module Rabbit
 
         include ::RD::MethodParse
         include Element
+        include Parser::Ext::Text
 
         SYSTEM_NAME = "RD2RabbitLVisitor"
         SYSTEM_VERSION = "0.0.2"
@@ -24,8 +26,6 @@ module Rabbit
         OUTPUT_SUFFIX = ""
         INCLUDE_SUFFIX = ["rabbit", "rb"]
 
-        METACHAR = { "<" => "&#60;", ">" => "&#62;", "&" => "&#38;" }
-
         EXTENSIONS = {
           "refer" => Ext::Refer,
           "inline_verbatim" => Ext::InlineVerbatim,
@@ -34,7 +34,7 @@ module Rabbit
 
         def_delegators(:@canvas, :logger, :full_path, :tmp_dir_name)
 
-
+        attr_reader :canvas
         def initialize(canvas)
           @canvas = canvas
 
@@ -240,7 +240,7 @@ module Rabbit
         end
 
         def apply_to_String(str)
-          meta_char_escape(str)
+          escape_meta_character(str)
         end
 
         def create_have_text_element(klass, content)
@@ -355,12 +355,6 @@ module Rabbit
           end
           term << Code.new(Text.new($POSTMATCH)) if $POSTMATCH
           term
-        end
-
-        def meta_char_escape(str)
-          str.gsub(/[<>&]/) do
-            METACHAR[$&]
-          end
         end
 
         def add_foot_text(num, foot_text)
