@@ -3,7 +3,7 @@ require 'English'
 module Rabbit
   module Parser
     module Ext
-      module Text
+      module Escape
         META_CHAR = {"<" => "&#60;", ">" => "&#62;", "&" => "&#38;"}
 
         module_function

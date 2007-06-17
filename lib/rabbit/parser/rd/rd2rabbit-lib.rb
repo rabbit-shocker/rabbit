@@ -1,7 +1,7 @@
 require "forwardable"
 
 require "rabbit/element"
-require 'rabbit/parser/ext/text'
+require 'rabbit/parser/ext/escape'
 require 'rabbit/parser/rd/visitor'
 require "rabbit/parser/rd/ext/refer"
 require "rabbit/parser/rd/ext/inline-verbatim"
@@ -15,7 +15,6 @@ module Rabbit
 
         include ::RD::MethodParse
         include Element
-        include Parser::Ext::Escape
 
         SYSTEM_NAME = "RD2RabbitLVisitor"
         SYSTEM_VERSION = "0.0.2"
@@ -240,7 +239,7 @@ module Rabbit
         end
 
         def apply_to_String(str)
-          escape_meta_character(str)
+          Parser::Ext::Escape.escape_meta_character(str)
         end
 
         def create_have_text_element(klass, content)
