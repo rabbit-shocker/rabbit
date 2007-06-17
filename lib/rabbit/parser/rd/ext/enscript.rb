@@ -5,18 +5,7 @@ module Rabbit
     class RD
       module Ext
         module Enscript
-          include Element
           include GetText
-
-          @@enscript_highlight = {}
-          enscript_highlight = []
-          begin
-            enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
-          rescue Errno::ENOENT => ignored
-          end
-          enscript_highlight.flatten.each do |name|
-            @@enscript_highlight[name.downcase] = name
-          end
 
           def enscript_block(label, lang, source, content, visitor)
             src, prop = parse_source(source)
