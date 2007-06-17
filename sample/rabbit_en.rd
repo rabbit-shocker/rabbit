@@ -70,6 +70,8 @@ A presentation tool
 
   * PDF viewer
     * can read not only RD but also PDF
+  * Wiki notation
+    * can write with Wiki notation
 
 = Not available
 
