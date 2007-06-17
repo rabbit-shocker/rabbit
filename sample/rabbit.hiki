@@ -1,6 +1,6 @@
 // To run with it without system install.
 //  % ruby -I./lib bin/rabbit -f sample/rabbit.hiki
-// $Id: rabbit.rd 863 2007-03-29 08:22:11Z kou $
+// $Id$
 
 ! Rabbit
 
