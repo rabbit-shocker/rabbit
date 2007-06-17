@@ -53,7 +53,7 @@ module Rabbit
 
       private
       def normalize_name(name)
-        name.gsub(/_/, "-")
+        name.gsub(/_/, "-").strip
       end
 
       def parse_time(str)
