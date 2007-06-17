@@ -1,4 +1,5 @@
 require 'rabbit/utils'
+require 'rabbit/parser/ext/inline'
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/entity'
@@ -11,6 +12,8 @@ module Rabbit
           extend Utils
           include Image
           include Entity
+
+          Inline = Parser::Ext::Inline
 
           def default_ext_inline_verbatim(label, source, content, visitor)
             Verbatim.new(Text.new(source))
@@ -41,7 +44,7 @@ module Rabbit
             else
               sub_text = visitor.apply_to_Verb(::RD::Verb.new(sub_text))
             end
-            Subscript.new(sub_text)
+            Inline.sub(sub_text)
           end
 
           def ext_inline_verb_sup(label, source, content, visitor)
@@ -53,21 +56,19 @@ module Rabbit
             else
               sup_text = visitor.apply_to_Verb(::RD::Verb.new(sup_text))
             end
-            Superscript.new(sup_text)
+            Inline.sup(sup_text)
           end
 
           def ext_inline_verb_note(label, source, content, visitor)
             label = label.to_s
             return nil unless /^note:(.*)$/ =~ label
-            Note.new(Text.new(visitor.apply_to_String($1)))
+            Inline.note(Text.new(visitor.apply_to_String($1)))
           end
 
           def ext_inline_verb_lang(label, source, content, visitor)
             label = label.to_s
             return nil unless /^lang:([a-z]{2,2}):(.*)$/ =~ label
-            text = Text.new(visitor.apply_to_String($2))
-            text.add_default_prop("lang", $1)
-            text
+            Inline.lang($1, Text.new(visitor.apply_to_String($2)))
           end
         end
       end
