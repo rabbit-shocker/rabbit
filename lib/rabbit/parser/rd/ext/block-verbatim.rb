@@ -3,9 +3,9 @@ require "tempfile"
 require 'rabbit/rabbit'
 require 'rabbit/utils'
 require 'rabbit/tgif'
-require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/rd/rt/rt2rabbit-lib'
 require 'rabbit/parser/rd/ext/base'
+require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/anthy'
 
@@ -15,11 +15,11 @@ module Rabbit
       module Ext
         class BlockVerbatim < Base
 
-          include Parser::Ext::Enscript
+          include Enscript
           include SystemRunner
           include Image
-          include GetText
           include Anthy
+          include GetText
 
           def default_ext_block_verbatim(label, source, content, visitor)
             content = visitor.apply_to_String(content.rstrip)
