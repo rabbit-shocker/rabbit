@@ -3,10 +3,10 @@ require "tempfile"
 require 'rabbit/rabbit'
 require 'rabbit/utils'
 require 'rabbit/tgif'
+require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/rd/rt/rt2rabbit-lib'
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
-require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/parser/rd/ext/anthy'
 
 module Rabbit
@@ -15,9 +15,9 @@ module Rabbit
       module Ext
         class BlockVerbatim < Base
 
+          include Parser::Ext::Enscript
           include SystemRunner
           include Image
-          include Enscript
           include GetText
           include Anthy
 

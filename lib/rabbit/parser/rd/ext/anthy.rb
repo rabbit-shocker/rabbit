@@ -1,11 +1,4 @@
-begin
-  require 'anthy'
-  Anthy.set_personality("")
-rescue LoadError
-end
-
-require 'rabbit/utils'
-require 'rabbit/parser/rd/ext/block-verbatim'
+require 'rabbit/parser/ext/anthy'
 
 module Rabbit
   module Parser
@@ -16,28 +9,13 @@ module Rabbit
           include GetText
 
           def anthy_hiragana_to_kanji(label, source, content, visitor)
-            unless defined?(::Anthy)
+            unless Parser::Ext::Anthy.available?
               visitor.logger.warn(_("Anthy isn't available"))
               return nil
             end
             src, prop = parse_source(source)
 
-            context = ::Anthy::Context.new
-            context.encoding = ::Anthy::EUC_JP_ENCODING
-            converted_src = ''
-            src.split(/(\s+)/m).each do |sentence|
-              if /\A\s+\z/m =~ sentence
-                converted_src << sentence
-                next
-              end
-              context.reset
-              context.string = Converter.to_eucjp_from_utf8(sentence)
-              context.stat.nr_segment.times do |i|
-                segment = context.segment(i, 0)
-                converted_src << Converter.to_utf8_from_eucjp(segment)
-              end
-            end
-
+            converted_src = Parser::Ext::Anthy.hiragana_to_kanji(src)
             tree = ::RD::RDTree.new("=begin\n#{converted_src}\n=end\n")
             elems = tree.root.children.collect do |child|
               child.accept(visitor)
