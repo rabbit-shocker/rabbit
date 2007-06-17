@@ -157,7 +157,7 @@ module Rabbit
         end
 
         def apply_to_DescListItem(element, term, description)
-          desc_term = DescriptionTerm.new(term)
+          desc_term = DescriptionTerm.new(Paragraph.new(term))
           desc_content = DescriptionContent.new
           apply_to_ListItem(element, description, desc_content)
           DescriptionListItem.new(desc_term, desc_content)
