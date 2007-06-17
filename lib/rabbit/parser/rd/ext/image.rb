@@ -13,6 +13,13 @@ module Rabbit
             return nil unless /^img:\s*(.+)$/ =~ label
             make_image(visitor.canvas, $1)
           end
+
+          def make_image_from_file(source, visitor)
+            src, prop = parse_source(source)
+            super(visitor.canvas, src) do |src_file_path|
+              [yield(src_file_path, prop), prop]
+            end
+          end
         end
       end
     end

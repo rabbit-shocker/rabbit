@@ -15,7 +15,6 @@ module Rabbit
     class RD
       module Ext
         class BlockVerbatim < Base
-
           include Image
           include Enscript
           include TeX

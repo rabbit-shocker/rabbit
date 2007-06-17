@@ -26,6 +26,24 @@ module Rabbit
           end
         end
 
+        def make_image_from_file(canvas, source)
+          src_file = Tempfile.new("rabbit-image-source")
+          src_file.open
+          src_file.print(source)
+          src_file.close
+          image_file = prop = nil
+          begin
+            image_file, prop = yield(src_file.path)
+          rescue ImageLoadError
+            canvas.logger.warn($!.message)
+          end
+          return nil if image_file.nil?
+          image = make_image(canvas, %Q[file://#{image_file.path}], prop)
+          return nil if image.nil?
+          image["_src"] = image_file # for protecting from GC
+          image
+        end
+
         module Private
           module_function
           def image_filename(canvas, uri)
