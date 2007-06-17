@@ -24,11 +24,16 @@ module Rabbit
         end
 
         module_function
-        def available?(lang)
-          @@enscript_highlight.has_key?(lang)
+        def check_availability(lang, logger)
+          if @@enscript_highlight.has_key?(lang)
+            true
+          else
+            logger.warn(_("enscript: unsupported language: %s") % lang)
+            false
+          end
         end
 
-        def highlight(text, lang, logger)
+        def highlight(lang, text, logger)
           src_file = Tempfile.new("rabbit-enscript")
           src_file.open
           src_file.print(text)
