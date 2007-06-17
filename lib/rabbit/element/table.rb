@@ -7,7 +7,7 @@ module Rabbit
       include ContainerElement
 
       attr_reader :caption
-      def initialize(prop)
+      def initialize(prop={})
         super()
         %w(caption).each do |name|
           instance_variable_set("@#{name}", prop[name])
