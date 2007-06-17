@@ -210,6 +210,7 @@ module Rabbit
 
     def_null_methods(:icon, :icon=, :set_icon)
     def_null_methods(:icon_list, :icon_list=, :set_icon_list)
+    def_null_methods(:update_title)
 
     def_null_methods(:fullscreen?, :quit)
 
