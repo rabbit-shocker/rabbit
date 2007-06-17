@@ -15,7 +15,7 @@ module Rabbit
 
         include ::RD::MethodParse
         include Element
-        include Parser::Ext::Text
+        include Parser::Ext::Escape
 
         SYSTEM_NAME = "RD2RabbitLVisitor"
         SYSTEM_VERSION = "0.0.2"
