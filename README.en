@@ -767,8 +767,11 @@ page from XXX.rd.
   * MoMo: She drow some pretty images.
   * MIYAMUKO: He wrote rabbit mode for xyzzy. He helps
     Rabbit works on Windows.
-  * zunda: He fixed EPS handling. He gives me an advise for
-    --margin. He makes a presentation with Rabbit.
+  * zunda:
+    * He fixed EPS handling.
+    * He gives me an advise for --margin.
+    * He makes a presentation with Rabbit.
+    * He updates INSTALL.win32.ja.
   * Vincent: He helps Rabbit works on Max OS X. He makes
     french messages.
   * sode: He wrote cool rabbit, pretty rabbit and pretty
@@ -798,3 +801,4 @@ page from XXX.rd.
   * kitaj: He pointed out minor miss in INSTALL.win32.en.
   * akapy: He wrote a document for emerge.
   * OBATA Akio: He makes pkgsrc package.
+  * Masao Mutoh: He updates INSTALL.win32.ja.

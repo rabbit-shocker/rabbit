@@ -6,10 +6,10 @@ $Id$
 
 == Install Ruby
 
-Install ruby 1.8.4. Use One-Click Installer for convenience.
+Install ruby 1.8.6. Use One-Click Installer for convenience.
 
-: ruby184-17_rc2.exe
-   ((<URL:http://rubyforge.org/frs/download.php/10286/ruby184-17_rc2.exe>))
+: ruby186-25.exe
+   ((<URL:http://rubyforge.org/frs/download.php/18566/ruby186-25.exe>))
 
 == Install RDTool
 
@@ -22,22 +22,14 @@ Extract the following archive and execute setup.rb to install.
 
 == Install Ruby/GTK2
 
-Extract the following archive and execute install.rb to install.
+Install the latest Ruby/GTK2 (including GTK+). The following
+URL will help you:
 
-: ruby-gtk2-0.15.0-1-i386-msvcrt-1.zip
-   ((<URL:http://prdownloads.sourceforge.net/ruby-gnome2/ruby-gtk2-0.15.0-1-i386-msvcrt-1.zip>))
-
-== Install GTK+ 2
-
-Install GTK+ 2 package of GLADE for Windows.
-
-: gtk-win32-2.8.18-rc1.exe
-   ((<URL:http://gladewin32.sourceforge.net/modules/wfdownloads/visit.php?lid=102>))
+((<URL:http://ruby-gnome2.sourceforge.jp/hiki.cgi?Install+Guide+for+Windows>))
 
 == Install Rabbit!!
 
 Execute install.bat.
-
 
 == Support EPS format
 
