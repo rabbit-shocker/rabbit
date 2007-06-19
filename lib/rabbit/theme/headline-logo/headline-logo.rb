@@ -16,7 +16,7 @@ match("**", HeadLine) do |heads|
       if simulation
         loader.resize(nil, head.height)
       else
-        loader.draw(canvas, w - loader.width, y)
+        loader.draw(canvas, x + w - loader.width, y)
       end
       [x, y, w, h]
     end
