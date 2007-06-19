@@ -183,9 +183,6 @@ Windowsでの依存ライブラリのインストールは
 
   * mimeTeX （RD中にTeXのソースを埋め込むために必要）
   * gs （EPSを読み込むために必要）
-  * libgnomeprint >= 2.8 （PS/PDFで出力するために必要）
-  * ((<RAA:ruby-gnome2>))の中のRuby/GnomePrint
-    （PS/PDFで出力するために必要）
   * ((<RAA:ruby-gnome2>))の中のRuby/RSVG
     （SVGを綺麗に拡大縮小するために必要）
   * ((<RAA:ruby-gettext>))（国際化されたメッセージを表示する
