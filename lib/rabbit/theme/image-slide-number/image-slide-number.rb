@@ -6,6 +6,10 @@ proc_name = "image-slide-number"
 @image_slide_number_show_text ||= false
 @image_slide_number_font_size ||= @xx_small_font_size
 @image_slide_number_text_color ||= "white"
+if !defined?(@image_slide_number_show_flag) or
+    @image_slide_number_show_flag.nil?
+  @image_slide_number_show_flag = true
+end
 @image_slide_number_flag_type ||= "rectangle"
 @image_slide_number_start_image ||= "start-flag.png"
 @image_slide_number_goal_image ||= "goal-flag.png"
@@ -69,21 +73,23 @@ match(Slide) do |slides|
       start_base_x = base_x
       goal_base_x = canvas.width - margin_right - goal_flag_width
 
-      if @image_slide_number_show_text
-        props = {
-          "flag_type" => @image_slide_number_flag_type,
-          "text" => "%0#{max_text_length}d" % canvas.current_index.to_s,
-          "text_attributes" => text_attributes,
-          "flag_color" => "red",
-        }
-        canvas.draw_flag(start_base_x, base_y, loader.height, props)
+      if @image_slide_number_show_flag
+        if @image_slide_number_show_text
+          props = {
+            "flag_type" => @image_slide_number_flag_type,
+            "text" => "%0#{max_text_length}d" % canvas.current_index.to_s,
+            "text_attributes" => text_attributes,
+            "flag_color" => "red",
+          }
+          canvas.draw_flag(start_base_x, base_y, loader.height, props)
 
-        props["text"] = (canvas.slide_size - 1).to_s
-        props["flag_color"] = "blue"
-        canvas.draw_flag(goal_base_x, base_y, loader.height, props)
-      else
-        start_loader.draw(canvas, start_base_x, base_y)
-        goal_loader.draw(canvas, goal_base_x, base_y)
+          props["text"] = (canvas.slide_size - 1).to_s
+          props["flag_color"] = "blue"
+          canvas.draw_flag(goal_base_x, base_y, loader.height, props)
+        else
+          start_loader.draw(canvas, start_base_x, base_y)
+          goal_loader.draw(canvas, goal_base_x, base_y)
+        end
       end
 
       if canvas.slide_size < 3
