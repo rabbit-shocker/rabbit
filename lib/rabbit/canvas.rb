@@ -598,6 +598,10 @@ module Rabbit
       @limit_time ? @limit_time - Time.now : nil
     end
 
+    def reset_timer
+      @limit_time = nil
+    end
+
     private
     def _apply_theme(name, id, &block)
       @theme_name = name if name
@@ -653,6 +657,7 @@ module Rabbit
     end
     
     def clear
+      reset_timer
       stop_auto_redraw_timer
       clear_slides
       clear_index_slides
