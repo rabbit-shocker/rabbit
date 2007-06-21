@@ -192,7 +192,7 @@ module Rabbit
       end
 
       def method_missing(meth, *args, &block)
-        each do |elem|
+        collect do |elem|
           if block
             proxy_block = Proc.new do |*block_args|
               block.call(elem, *block_args)
