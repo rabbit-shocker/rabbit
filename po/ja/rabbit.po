@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-08 18:30+0900\n"
-"PO-Revision-Date: 2007-06-08 18:30+0900\n"
+"POT-Creation-Date: 2007-06-23 10:20+0900\n"
+"PO-Revision-Date: 2007-06-23 10:25+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:440
+#: ../../lib/rabbit/renderer/base.rb:442
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
@@ -37,11 +37,11 @@ msgstr "%s: 情報ウィンドウ"
 msgid "(ARGV: if no filename is given)"
 msgstr "(ARGV: ファイル名が与えられない場合)"
 
-#: ../../lib/rabbit/theme/title-background-color/property.rb:7
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 #: ../../lib/rabbit/theme/title-logo/property.rb:7
 #: ../../lib/rabbit/theme/headline-logo/property.rb:7
+#: ../../lib/rabbit/theme/title-background-color/property.rb:7
 #: ../../lib/rabbit/theme/title-background-image/property.rb:8
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 msgid "(Must be specified.)"
 msgstr "(指定しなければいけません。)"
 
@@ -84,7 +84,8 @@ msgstr "宣伝文。"
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: ../../lib/rabbit/parser/rd/ext/anthy.rb:20
+#: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
+#: ../../lib/rabbit/parser/wiki/output.rb:368
 msgid "Anthy isn't available"
 msgstr "Anthyは利用できません"
 
@@ -172,7 +173,7 @@ msgstr "スタートとゴールの旗に表示される数字の色。"
 msgid "Color of shadow."
 msgstr "影の色。"
 
-#: ../../lib/rabbit/canvas.rb:712 ../../bin/rabbit:456
+#: ../../lib/rabbit/canvas.rb:724 ../../bin/rabbit:456
 msgid "Comment"
 msgstr "コメント"
 
@@ -191,6 +192,14 @@ msgstr "共通のオプション"
 #: ../../bin/rabbit:728
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
+
+#: ../../lib/rabbit/theme/day-white/property.rb:2
+msgid "Day White"
+msgstr "Day White"
+
+#: ../../lib/rabbit/theme/day-white/property.rb:3
+msgid "Day White theme"
+msgstr "Day Whiteテーマ"
 
 #: ../../lib/rabbit/theme/show-frame/property.rb:1
 msgid "Debug"
@@ -474,17 +483,17 @@ msgid "Iconify"
 msgstr "最小化"
 
 #: ../../lib/rabbit/theme/image/property.rb:2
-#: ../../data/rabbit/image/cozmixng-images/property.rb:1
-#: ../../data/rabbit/image/ruby-images/property.rb:1
 #: ../../data/rabbit/image/rabbit-images/property.rb:1
+#: ../../data/rabbit/image/ruby-images/property.rb:1
+#: ../../data/rabbit/image/cozmixng-images/property.rb:1
 msgid "Image"
 msgstr "画像"
 
-#: ../../lib/rabbit/theme/icon/property.rb:22
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 #: ../../lib/rabbit/theme/title-logo/property.rb:8
 #: ../../lib/rabbit/theme/headline-logo/property.rb:8
+#: ../../lib/rabbit/theme/icon/property.rb:22
 #: ../../lib/rabbit/theme/title-background-image/property.rb:9
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 msgid "Image file name."
 msgstr "画像ファイル名。"
 
@@ -513,7 +522,7 @@ msgid "Images related to Ruby"
 msgstr "Ruby 関連の画像"
 
 #: ../../lib/rabbit/element/index-slide.rb:103
-#: ../../lib/rabbit/html/generator.rb:381
+#: ../../lib/rabbit/html/generator.rb:382
 msgid "Index"
 msgstr "一覧"
 
@@ -573,8 +582,8 @@ msgstr "秒単位での制限時間。"
 msgid "Line width:"
 msgstr "線の太さ"
 
-#: ../../lib/rabbit/theme/powered-by/property.rb:18
 #: ../../lib/rabbit/theme/icon/property.rb:18
+#: ../../lib/rabbit/theme/powered-by/property.rb:18
 msgid "List of image file names."
 msgstr "画像ファイル名のリスト。"
 
@@ -613,6 +622,14 @@ msgstr "穴を狭める"
 #: ../../lib/rabbit/action/basic.rb:8
 msgid "Next slide"
 msgstr "次のスライド"
+
+#: ../../lib/rabbit/theme/night-black/property.rb:2
+msgid "Night Black"
+msgstr "Night Black"
+
+#: ../../lib/rabbit/theme/night-black/property.rb:3
+msgid "Night Black theme"
+msgstr "Night Blackテーマ"
 
 #: ../../lib/rabbit/console.rb:83 ../../bin/rabbit:98
 msgid "Note: case insensitive."
@@ -678,7 +695,7 @@ msgstr "印刷"
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: ../../lib/rabbit/canvas.rb:626
+#: ../../lib/rabbit/canvas.rb:637
 msgid "Processing..."
 msgstr "処理中です．．．"
 
@@ -962,7 +979,7 @@ msgstr "シンプル項目マーク"
 msgid "Size"
 msgstr "サイズ"
 
-#: ../../lib/rabbit/html/generator.rb:379
+#: ../../lib/rabbit/html/generator.rb:380
 msgid "Slide"
 msgstr "スライド"
 
@@ -1141,17 +1158,19 @@ msgstr "テキストスライド番号"
 msgid "TextTimer"
 msgstr "テキストタイマー"
 
-#: ../../lib/rabbit/theme-browser/tree.rb:54
-#: ../../lib/rabbit/theme/red-frame/property.rb:1
 #: ../../lib/rabbit/theme/rabbit/property.rb:1
-#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/default/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:1
-#: ../../lib/rabbit/theme/blue-circle/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
-#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/pdf/property.rb:1
+#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
+#: ../../lib/rabbit/theme/blue-circle/property.rb:1
+#: ../../lib/rabbit/theme/day-white/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
+#: ../../lib/rabbit/theme/red-frame/property.rb:1
+#: ../../lib/rabbit/theme/night-black/property.rb:1
+#: ../../lib/rabbit/theme-browser/tree.rb:54
 msgid "Theme"
 msgstr "テーマ"
 
@@ -1159,8 +1178,8 @@ msgstr "テーマ"
 msgid "Theme for PDF"
 msgstr "PDF用のテーマ"
 
-#: ../../lib/rabbit/theme/clock/property.rb:1
 #: ../../lib/rabbit/theme/timer/property.rb:1
+#: ../../lib/rabbit/theme/clock/property.rb:1
 #: ../../lib/rabbit/theme/image-timer/property.rb:1
 msgid "Time"
 msgstr "時間"
@@ -1201,34 +1220,34 @@ msgstr "フルスクリーンモードに切替えます．"
 msgid "Toggle index mode."
 msgstr "一覧モードに切替えます．"
 
+#: ../../lib/rabbit/theme/title-logo/property.rb:1
 #: ../../lib/rabbit/theme/image/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
-#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
-#: ../../lib/rabbit/theme/default-icon/property.rb:1
+#: ../../lib/rabbit/theme/title-shadow/property.rb:1
+#: ../../lib/rabbit/theme/headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/icon/property.rb:1
+#: ../../lib/rabbit/theme/table/property.rb:1
 #: ../../lib/rabbit/theme/title-background-color/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/icon/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/title-logo/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
-#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
-#: ../../lib/rabbit/theme/title-shadow/property.rb:1
-#: ../../lib/rabbit/theme/default-description/property.rb:1
-#: ../../lib/rabbit/theme/headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/slide-number/property.rb:1
-#: ../../lib/rabbit/theme/table/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/default-description/property.rb:1
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
+#: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/title-background-image/property.rb:1
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:1
 msgid "Toolkit"
 msgstr "ツールキット"
 
@@ -1340,7 +1359,7 @@ msgstr "URI"
 msgid "Undo graffiti"
 msgstr "落書きを戻す"
 
-#: ../../lib/rabbit/canvas.rb:567
+#: ../../lib/rabbit/canvas.rb:574
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
 
@@ -1402,8 +1421,8 @@ msgstr ""
 msgid "Whether scrolling automatically or not."
 msgstr "自動スクロールするか否か。"
 
-#: ../../lib/rabbit/theme/clock/property.rb:17
 #: ../../lib/rabbit/theme/title-logo/property.rb:19
+#: ../../lib/rabbit/theme/clock/property.rb:17
 #: ../../lib/rabbit/theme/slide-number/property.rb:17
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:60
 #: ../../lib/rabbit/theme/show-frame/property.rb:12
@@ -1496,7 +1515,7 @@ msgstr "UTF-8から現在のロケールに変換できません: %s"
 msgid "can't find HTML template: %s"
 msgstr "HTML のテンプレートが見つかりません: %s"
 
-#: ../../lib/rabbit/renderer/print/cairo.rb:104
+#: ../../lib/rabbit/renderer/print/cairo.rb:112
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
@@ -1533,15 +1552,15 @@ msgstr "デフォルトテーマ"
 msgid "en"
 msgstr "英語"
 
-#: ../../lib/rabbit/parser/rd/ext/enscript.rb:59
+#: ../../lib/rabbit/parser/ext/enscript.rb:58
 msgid "enscript: can't find HTree library"
 msgstr "ensciprt: HTreeライブラリが見付かりません"
 
-#: ../../lib/rabbit/parser/rd/ext/enscript.rb:111
+#: ../../lib/rabbit/parser/ext/enscript.rb:110
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
 
-#: ../../lib/rabbit/parser/rd/ext/enscript.rb:32
+#: ../../lib/rabbit/parser/ext/enscript.rb:31
 msgid "enscript: unsupported language: %s"
 msgstr "enscript: サポートしていない言語です: %s"
 
@@ -1552,6 +1571,10 @@ msgstr "フランス語"
 #: ../../bin/rabbit:726
 msgid "going to shutdown..."
 msgstr "終了中です．．．"
+
+#: ../../lib/rabbit/parser/wiki/output.rb:70
+msgid "horizontal rule is unsupported"
+msgstr "水平線はサポートしていません"
 
 #: ../../lib/rabbit/theme/image/property.rb:3
 msgid "image rendering"
@@ -1565,7 +1588,7 @@ msgstr "変更不能なソースタイプです: %s"
 msgid "invalid motion: %s"
 msgstr "不正な動きです: %s"
 
-#: ../../lib/rabbit/parser/rd/ext/block-verbatim.rb:205
+#: ../../lib/rabbit/parser/ext/tex.rb:99
 msgid "invalid source: %s"
 msgstr "不正なソースです: %s"
 
@@ -1657,3 +1680,7 @@ msgstr "制限無し"
 #: ../../lib/rabbit/parser.rb:12
 msgid "unsupported format. (supported: %s)"
 msgstr "サポートしていない形式です。（サポートしている形式: %s）"
+
+#: ../../lib/rabbit/parser/wiki/output.rb:279
+msgid "unsupported list type: %s"
+msgstr "サポートしていないリストの種類: %s"
