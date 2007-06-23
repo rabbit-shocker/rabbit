@@ -798,4 +798,9 @@ page from XXX.rd.
   * kitaj: He pointed out minor miss in INSTALL.win32.en.
   * akapy: He wrote a document for emerge.
   * OBATA Akio: He makes pkgsrc package.
-  * Masao Mutoh: He updates INSTALL.win32.ja.
+  * Masao Mutoh:
+    * He makes a presentation with Rabbit.
+    * He updates INSTALL.win32.ja.
+  * TADA Tadashi:
+    * He makes a presentation with Rabbit.
+    * He contributes his themes.
