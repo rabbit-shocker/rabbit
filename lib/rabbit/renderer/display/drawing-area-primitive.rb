@@ -151,6 +151,10 @@ module Rabbit
           set_configure_event_after
         end
 
+        def depth
+          @area.window.depth
+        end
+
         def set_realize
           @area.signal_connect_after("realize") do |widget|
             realized(widget)
