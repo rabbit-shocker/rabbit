@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 16:31+0900\n"
+"POT-Creation-Date: 2007-06-24 17:02+0900\n"
 "PO-Revision-Date: 2007-01-01 18:21+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -388,6 +388,12 @@ msgid ""
 "hare and a tortoise race like the fable of the hare and the tortoise. When "
 "doing so, however, note that you should make your presentation not so slowly "
 "that the hare will lose to the tortoise."
+msgstr ""
+
+#: ../../lib/rabbit/theme/mirror-effect/property.rb:1
+#: ../../lib/rabbit/theme/scroll-effect/property.rb:1
+#: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:1
+msgid "Effect"
 msgstr ""
 
 #: ../../lib/rabbit/theme/entry.rb:89
@@ -1241,27 +1247,49 @@ msgstr ""
 #: ../../lib/rabbit/theme/auto-slide/property.rb:1
 #: ../../lib/rabbit/theme/slide-number/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
+#: ../../lib/rabbit/theme/default-slide/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/default-title-slide/property.rb:1
 #: ../../lib/rabbit/theme/default-description/property.rb:1
+#: ../../lib/rabbit/theme/default-method-list/property.rb:1
 #: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/default-text/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/default-title-text/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
 #: ../../lib/rabbit/theme/color-circle/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
 #: ../../lib/rabbit/theme/default-icon/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
 #: ../../lib/rabbit/theme/title-background-image/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:1
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:1
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-common/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:1
 msgid "Toolkit"
 msgstr ""
 
