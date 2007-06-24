@@ -1,6 +1,4 @@
-include_theme("blue-circle-config")
-
-@foot_text_block_line_color = @blue_circle_blue
+@foot_text_block_line_color = @color_circle_color
 @foot_text_block_line_length_ratio = 0.8
 
 match("**", FootTextBlock) do

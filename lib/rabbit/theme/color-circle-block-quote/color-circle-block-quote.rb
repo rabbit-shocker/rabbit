@@ -1,13 +1,9 @@
-add_image_path("rabbit-images")
-
-include_theme("blue-circle-config")
-
-@block_quote_fill_color = "white"
-@block_quote_frame_color = @blue_circle_blue
+@block_quote_fill_color = @color_circle_background
+@block_quote_frame_color = @color_circle_color
 @block_quote_frame_width = 4
 
-@block_quote_open_quote_image = "open-quote-blue.png"
-@block_quote_close_quote_image = "close-quote-blue.png"
+@block_quote_open_quote_image = @color_circle_open_quote_image
+@block_quote_close_quote_image = @color_circle_close_quote_image
 
 include_theme("default-block-quote")
 
@@ -25,11 +21,11 @@ match(*(block_quote + (item_list_item * 1))) do |items|
 
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
-  
-  draw_mark(items, indent_width, mark_width, mark_height, name) do
-    |item, canvas, x, y, w, h|
+
+  args = [items, indent_width, mark_width, mark_height, name]
+  draw_mark(*args) do |item, canvas, x, y, w, h|
     x -= mark_space
-    canvas.draw_circle(true, x, y, w, h, @blue_circle_blue)
+    canvas.draw_circle(true, x, y, w, h, @color_circle_color)
   end
 
   space = @space * (3 / 4.0)

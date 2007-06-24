@@ -1,4 +1,4 @@
-@description_term_line_color = @blue_circle_blue
+@description_term_line_color = @color_circle_color
 
 match(Slide, Body, DescriptionList) do
   name = "description-list-indent"

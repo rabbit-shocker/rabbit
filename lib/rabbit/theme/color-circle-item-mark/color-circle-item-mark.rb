@@ -1,5 +1,3 @@
-include_theme("blue-circle-config")
-
 margin_left = canvas.width * 0.05
 
 slide_body = [Slide, Body]
@@ -20,7 +18,7 @@ match(*(slide_body + (item_list_item * 1))) do |items|
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
     x -= mark_space
-    canvas.draw_circle(true, x, y, w, h, @blue_circle_blue)
+    canvas.draw_circle(true, x, y, w, h, @color_circle_color)
   end
 
   space = @space * (3 / 4.0)
@@ -42,8 +40,8 @@ match(*(slide_body + (item_list_item * 2))) do |items|
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
     x -= mark_space
-    canvas.draw_circle(true, x, y, w, h, "white")
-    canvas.draw_circle(false, x, y, w, h, @blue_circle_blue, line_width)
+    canvas.draw_circle(true, x, y, w, h, @color_circle_background)
+    canvas.draw_circle(false, x, y, w, h, @color_circle_color, line_width)
   end
 
   space = @space * (3 / 4.0)
@@ -65,7 +63,7 @@ match(*(slide_body + (item_list_item * 3))) do |items|
   draw_mark(items, indent_width, mark_width, mark_height, name) do
     |item, canvas, x, y, w, h|
     x -= mark_space
-    canvas.draw_circle(true, x, y, w, h, @blue_circle_blue)
+    canvas.draw_circle(true, x, y, w, h, @color_circle_color)
   end
 
   space = @space * (3 / 4.0)

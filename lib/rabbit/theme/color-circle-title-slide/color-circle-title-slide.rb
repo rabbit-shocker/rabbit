@@ -1,7 +1,7 @@
-include_theme("blue-circle-common")
+include_theme("color-circle-common")
 
 match(TitleSlide) do |slides|
-  blue_circle_slide(slides, "title-slide")
+  color_circle_slide(slides, "title-slide")
 end
 
 match(TitleSlide, "*") do |elements|
@@ -15,7 +15,7 @@ match(TitleSlide, "*") do |elements|
 end
 
 match(TitleSlide, Title) do |titles|
-  blue_circle_title(titles, 'title')
+  color_circle_title(titles, 'title')
 end
 
 match(TitleSlide, Author) do |authors|

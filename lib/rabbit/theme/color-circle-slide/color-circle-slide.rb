@@ -1,11 +1,9 @@
-include_theme("blue-circle-common")
-
 match(Slide) do |slides|
-  blue_circle_slide(slides, "slide")
+  color_circle_slide(slides, "slide")
 end
 
 match(Slide, HeadLine) do |heads|
-  blue_circle_title(heads, 'headline')
+  color_circle_title(heads, 'headline')
 end
 
 match(Slide, Body) do |bodies|

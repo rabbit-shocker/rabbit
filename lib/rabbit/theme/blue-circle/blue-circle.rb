@@ -1,17 +1,14 @@
-set_graffiti_color("blue")
+@color_circle_foreground = "black"
+@color_circle_background = "white"
 
-include_theme("default-icon")
+@color_circle_color = "#6f95d1"
+@color_circle_light_color = "#d2e2ff"
+@color_circle_bright_color ="#dfecff"
 
-include_theme("image")
-include_theme("table")
+@color_circle_graffiti_color = "blue"
 
-include_theme("blue-circle-title-slide")
-include_theme("blue-circle-title-text")
-include_theme("blue-circle-slide")
-include_theme("blue-circle-text")
-include_theme("blue-circle-item-mark")
-include_theme("blue-circle-preformatted")
-include_theme("blue-circle-block-quote")
-include_theme("blue-circle-foot-text")
-include_theme("blue-circle-description")
-include_theme("blue-circle-method-list")
+add_image_path("rabbit-images")
+@color_circle_open_quote_image = "open-quote-blue.png"
+@color_circle_close_quote_image = "close-quote-blue.png"
+
+include_theme("color-circle")
