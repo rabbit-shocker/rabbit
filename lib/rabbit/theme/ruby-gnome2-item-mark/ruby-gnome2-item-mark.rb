@@ -1,5 +1,3 @@
-include_theme("ruby-gnome2-config")
-
 include_theme("default-item-mark")
 
 slide_body = [Slide, Body]
