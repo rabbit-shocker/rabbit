@@ -1,4 +1,4 @@
-@category = N_("Toolkit")
+@category = N_("Backward compatibility")
 @title = N_("Auto Slide")
-@abstract = N_("Toolkit to do slide show")
-@description = N_("Move to the next slide automatically.")
+@abstract = N_("Backward compatibility theme for ((<slide-show>))")
+@description = N_("See ((<slide-show>))")

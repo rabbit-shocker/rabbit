@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 17:02+0900\n"
+"POT-Creation-Date: 2007-06-24 17:36+0900\n"
 "PO-Revision-Date: 2007-01-01 18:21+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -20,6 +20,7 @@ msgstr ""
 msgid "%s does not support: %s"
 msgstr ""
 
+#: ../../lib/rabbit/theme/auto-slide/auto-slide.rb:1
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 #: ../../lib/rabbit/theme/applier.rb:571
 msgid "%s is deprecated. Use %s instead."
@@ -101,12 +102,17 @@ msgstr ""
 msgid "Background color."
 msgstr ""
 
+#: ../../lib/rabbit/theme/auto-slide/property.rb:1
 #: ../../lib/rabbit/theme/slide-background/property.rb:1
 msgid "Backward compatibility"
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-background/property.rb:3
 msgid "Backward compatibility theme for ((<slide-background-image>))"
+msgstr ""
+
+#: ../../lib/rabbit/theme/auto-slide/property.rb:3
+msgid "Backward compatibility theme for ((<slide-show>))"
 msgstr ""
 
 #: ../../lib/rabbit/theme/base/property.rb:2
@@ -613,7 +619,7 @@ msgstr ""
 msgid "Migemo"
 msgstr ""
 
-#: ../../lib/rabbit/theme/auto-slide/property.rb:4
+#: ../../lib/rabbit/theme/slide-show/property.rb:4
 msgid "Move to the next slide automatically."
 msgstr ""
 
@@ -871,6 +877,10 @@ msgstr ""
 msgid "See ((<slide-background-image>))"
 msgstr ""
 
+#: ../../lib/rabbit/theme/auto-slide/property.rb:4
+msgid "See ((<slide-show>))"
+msgstr ""
+
 #: ../../lib/rabbit/console.rb:82 ../../bin/rabbit:97
 msgid "Select from [%s]."
 msgstr ""
@@ -989,6 +999,10 @@ msgstr ""
 
 #: ../../lib/rabbit/html/generator.rb:380
 msgid "Slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-show/property.rb:2
+msgid "Slide Show"
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-background/property.rb:2
@@ -1244,7 +1258,6 @@ msgstr ""
 #: ../../lib/rabbit/theme/title-background-color/property.rb:1
 #: ../../lib/rabbit/theme/base/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
-#: ../../lib/rabbit/theme/auto-slide/property.rb:1
 #: ../../lib/rabbit/theme/slide-number/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
 #: ../../lib/rabbit/theme/default-slide/property.rb:1
@@ -1272,6 +1285,7 @@ msgstr ""
 #: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
 #: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
+#: ../../lib/rabbit/theme/slide-show/property.rb:1
 #: ../../lib/rabbit/theme/title-background-image/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
@@ -1371,7 +1385,7 @@ msgstr ""
 msgid "Toolkit to display slide numbers, an image version"
 msgstr ""
 
-#: ../../lib/rabbit/theme/auto-slide/property.rb:3
+#: ../../lib/rabbit/theme/slide-show/property.rb:3
 msgid "Toolkit to do slide show"
 msgstr ""
 
