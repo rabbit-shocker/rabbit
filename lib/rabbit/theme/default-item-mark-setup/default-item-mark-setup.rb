@@ -24,8 +24,8 @@ end
 
 def setup_default_item_mark(items, name, width, height, space_ratio, color,
                             options={})
-  option_value = Proc.new do |name, *args|
-    setup_default_item_mark_get_option_value(options, name, *args)
+  option_value = Proc.new do |option_name, *args|
+    setup_default_item_mark_get_option_value(options, option_name, *args)
   end
 
   mark_width = screen_x(width)
@@ -70,8 +70,8 @@ end
 
 def setup_default_enum_item_mark(items, name, indent, space_ratio, props,
                                  options={})
-  option_value = Proc.new do |name, *args|
-    setup_default_item_mark_get_option_value(options, name, *args)
+  option_value = Proc.new do |option_name, *args|
+    setup_default_item_mark_get_option_value(options, option_name, *args)
   end
 
   indent_width = screen_x(indent)
