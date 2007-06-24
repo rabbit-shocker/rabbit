@@ -648,6 +648,9 @@ inline verbatimとして記述します．詳しくはsample/rabbit.rdを見
 
 スライドの見た目はRDとは別に指定します．それがテーマです．
 
+テーマのテスト用のスライドがsample/theme-bench.rabにあるので
+活用してください。
+
 === 置き場所
 
 テーマはrubyの$LOAD_PATHから検索されます．新しくテーマを作成

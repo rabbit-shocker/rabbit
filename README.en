@@ -626,6 +626,9 @@ You can use it but should not use it in presentation.
 You specify look and feel of the slide regardless of RD.
 This is the theme.
 
+There is a slide for benchmarking your theme. It's
+sample/theme-bench_en.rab.
+
 === Where does place a theme?
 
 A theme is searched by using ruby's $LOAD_PATH. If you make
@@ -806,3 +809,4 @@ page from XXX.rd.
     * He contributes his themes.
     * He gives an idea that Rabbit provides a slide for
       benchmarking your theme.
+
