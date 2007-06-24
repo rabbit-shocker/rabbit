@@ -63,10 +63,19 @@ module Rabbit
           end
         end
 
-        attr_writer :foreground, :background, :background_image
+        attr_writer :foreground, :background
 
         def alpha_available?
           true
+        end
+
+        def background_image=(pixbuf)
+          surface = ::Cairo::ImageSurface.new(::Cairo::FORMAT_A1, 1, 1)
+          context = ::Cairo::Context.new(surface)
+          context.set_source_pixbuf(pixbuf)
+          @background_image = context.source
+          @background_image.extend = ::Cairo::EXTEND_REPEAT
+          pixbuf
         end
 
         def init_renderer(drawable)
@@ -126,8 +135,7 @@ module Rabbit
           super
           if @background_image
             @context.save do
-              @context.set_source_pixbuf(@background_image, 0, 0)
-              @context.source.extend = ::Cairo::EXTEND_REPEAT
+              @context.set_source(@background_image)
               @context.paint
             end
           end
