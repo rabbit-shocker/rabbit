@@ -51,11 +51,15 @@ module Rabbit
       def draw_slide(slide, simulation)
         unless simulation
           save_context
-          draw_rectangle(true, 0, 0, width, height, @background)
+          draw_background(slide)
         end
         yield
       ensure
         restore_context unless simulation
+      end
+
+      def draw_background(slide)
+        draw_rectangle(true, 0, 0, width, height, @background)
       end
 
       def draw_circle(filled, x, y, w, h, color=nil, params={})

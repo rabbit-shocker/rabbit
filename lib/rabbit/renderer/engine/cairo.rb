@@ -122,6 +122,17 @@ module Rabbit
           @context.restore
         end
 
+        def draw_background(slide)
+          super
+          if @background_image
+            @context.save do
+              @context.set_source_pixbuf(@background_image, 0, 0)
+              @context.source.extend = ::Cairo::EXTEND_REPEAT
+              @context.paint
+            end
+          end
+        end
+
         def draw_line(x1, y1, x2, y2, color=nil, params={})
           x1, y1 = from_screen(x1, y1)
           x2, y2 = from_screen(x2, y2)
