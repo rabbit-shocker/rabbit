@@ -20,8 +20,8 @@ end
 
 set_graffiti_color(@color_circle_graffiti_color)
 
-set_progress_foreground(@color_circle_bright_color)
-set_progress_background(@color_circle_color)
+set_progress_foreground(@color_circle_color)
+set_progress_background(@color_circle_bright_color)
 
 include_theme("default-icon")
 

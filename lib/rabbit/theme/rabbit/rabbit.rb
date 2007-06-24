@@ -10,15 +10,17 @@ else
 end
 # set_background_image("lavie.png")
 
-## pink base
+## orange(?) base
 # set_progress_foreground("#ff00da00d200")
-set_progress_foreground("#fffff3f3f711")
-set_progress_background("#ff00cc00ff00")
 # set_progress_background("#fd05f3f3fa0b")
 
+## pink base
+set_progress_foreground("#ff00cc00ff00")
+set_progress_background("#fffff3f3f711")
+
 ## green base
-# set_progress_foreground("#eb29f6f6df41")
-# set_progress_background("#eb29f6f6e535")
+# set_progress_foreground("#eb29f6f6e535")
+# set_progress_background("#eb29f6f6df41")
 
 set_graffiti_color("red")
 

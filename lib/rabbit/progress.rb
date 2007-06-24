@@ -53,11 +53,11 @@ module Rabbit
       style = @original_style.copy
       if @foreground
         rgb = @foreground.to_gdk_rgb
-        style.set_bg(Gtk::STATE_NORMAL, *rgb)
+        style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
       end
       if @background
         rgb = @background.to_gdk_rgb
-        style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
+        style.set_bg(Gtk::STATE_NORMAL, *rgb)
       end
       @bar.style = style
     end

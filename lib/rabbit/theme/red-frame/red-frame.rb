@@ -25,8 +25,8 @@ include_theme("default-block-quote")
 include_theme("simple-item-mark")
 include_theme("rabbit-icon")
 
-set_progress_foreground("#ffffeb29ffff")
-set_progress_background("#ffff00000000")
+set_progress_foreground("#ffff00000000")
+set_progress_background("#ffffeb29ffff")
 
 set_graffiti_color(color)
 
