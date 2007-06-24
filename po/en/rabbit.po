@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 12:14+0900\n"
+"POT-Creation-Date: 2007-06-24 16:31+0900\n"
 "PO-Revision-Date: 2007-01-01 18:21+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -89,6 +89,10 @@ msgstr ""
 msgid "Anthy isn't available"
 msgstr ""
 
+#: ../../lib/rabbit/theme/auto-slide/property.rb:2
+msgid "Auto Slide"
+msgstr ""
+
 #: ../../bin/rabbit-theme-manager:125
 msgid "Available commands: %s"
 msgstr ""
@@ -103,6 +107,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/slide-background/property.rb:3
 msgid "Backward compatibility theme for ((<slide-background-image>))"
+msgstr ""
+
+#: ../../lib/rabbit/theme/base/property.rb:2
+msgid "Base"
 msgstr ""
 
 #: ../../lib/rabbit/action/toggle.rb:23 ../../lib/rabbit/action/radio.rb:32
@@ -141,6 +149,10 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:2
+msgid "Centering Rabbit"
+msgstr ""
+
 #: ../../lib/rabbit/action/basic.rb:188
 msgid "Change graffiti color"
 msgstr ""
@@ -159,6 +171,18 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/clock/property.rb:3
 msgid "Clock toolkit, a text version"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/property.rb:2
+msgid "Color Circle"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:2
+msgid "Color Circle block quote"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-common/property.rb:2
+msgid "Color Circle common"
 msgstr ""
 
 #: ../../lib/rabbit/theme/title-background-color/property.rb:4
@@ -231,6 +255,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/default-title-slide/property.rb:2
 msgid "DefaultTitleSlide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/base/property.rb:3
+msgid "Define default variables"
 msgstr ""
 
 #: ../../lib/rabbit/theme/document.erb:21
@@ -432,6 +460,14 @@ msgstr ""
 msgid "Graffiti mode"
 msgstr ""
 
+#: ../../lib/rabbit/theme/green-circle/property.rb:2
+msgid "Green Circle"
+msgstr ""
+
+#: ../../lib/rabbit/theme/green-circle/property.rb:3
+msgid "Green Circle theme"
+msgstr ""
+
 #: ../../lib/rabbit/theme/headline-logo/property.rb:2
 msgid "HeadlineLogo"
 msgstr ""
@@ -571,6 +607,10 @@ msgstr ""
 msgid "Migemo"
 msgstr ""
 
+#: ../../lib/rabbit/theme/auto-slide/property.rb:4
+msgid "Move to the next slide automatically."
+msgstr ""
+
 #: ../../lib/rabbit/theme/document.erb:3
 msgid "Name"
 msgstr ""
@@ -669,6 +709,10 @@ msgstr ""
 msgid "Properties of the slide numbers, such as font family."
 msgstr ""
 
+#: ../../lib/rabbit/theme/color-circle-common/property.rb:3
+msgid "Provide common methods for Color Circle toolkit."
+msgstr ""
+
 #: ../../data/rabbit/image/cozmixng-images/property.rb:4
 msgid "Provides images related to COZMIXNG."
 msgstr ""
@@ -703,6 +747,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/lightning-rabbit/property.rb:3
 msgid "Rabbit theme with Lightning Talk theme"
+msgstr ""
+
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:3
+msgid "Rabbit theme with text centering."
 msgstr ""
 
 #: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:2
@@ -1089,6 +1137,10 @@ msgstr ""
 msgid "Stop slide search"
 msgstr ""
 
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:4
+msgid "Support itemization in quotation."
+msgstr ""
+
 #: ../../lib/rabbit/theme/table/property.rb:2
 msgid "Table"
 msgstr ""
@@ -1109,6 +1161,7 @@ msgstr ""
 #: ../../lib/rabbit/theme/default/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:1
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/pdf/property.rb:1
 #: ../../lib/rabbit/theme/lightning-simple/property.rb:1
@@ -1116,6 +1169,7 @@ msgstr ""
 #: ../../lib/rabbit/theme/day-white/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
 #: ../../lib/rabbit/theme/red-frame/property.rb:1
+#: ../../lib/rabbit/theme/green-circle/property.rb:1
 #: ../../lib/rabbit/theme/night-black/property.rb:1
 #: ../../lib/rabbit/theme-browser/tree.rb:54
 msgid "Theme"
@@ -1123,6 +1177,14 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/pdf/property.rb:3
 msgid "Theme for PDF"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/property.rb:4
+msgid "There are many colored circles in slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/base/property.rb:4
+msgid "This theme is always included at the first."
 msgstr ""
 
 #: ../../lib/rabbit/theme/timer/property.rb:1
@@ -1174,7 +1236,9 @@ msgstr ""
 #: ../../lib/rabbit/theme/icon/property.rb:1
 #: ../../lib/rabbit/theme/table/property.rb:1
 #: ../../lib/rabbit/theme/title-background-color/property.rb:1
+#: ../../lib/rabbit/theme/base/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
+#: ../../lib/rabbit/theme/auto-slide/property.rb:1
 #: ../../lib/rabbit/theme/slide-number/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
@@ -1188,6 +1252,7 @@ msgstr ""
 #: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/color-circle/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
@@ -1195,6 +1260,8 @@ msgstr ""
 #: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/title-background-image/property.rb:1
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-common/property.rb:1
 msgid "Toolkit"
 msgstr ""
 
@@ -1250,6 +1317,10 @@ msgid ""
 "Project"
 msgstr ""
 
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:3
+msgid "Toolkit to display itemization in quotation"
+msgstr ""
+
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:3
 msgid ""
 "Toolkit to display list items like ones in the website of the Ruby-GNOME2 "
@@ -1272,8 +1343,16 @@ msgstr ""
 msgid "Toolkit to display slide numbers, an image version"
 msgstr ""
 
+#: ../../lib/rabbit/theme/auto-slide/property.rb:3
+msgid "Toolkit to do slide show"
+msgstr ""
+
 #: ../../lib/rabbit/theme/default-title-slide/property.rb:3
 msgid "Toolkit to locate objects in the title slide in a simple way"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/property.rb:3
+msgid "Toolkit to make a theme that has colored circles"
 msgstr ""
 
 #: ../../lib/rabbit/theme/icon/property.rb:3
@@ -1566,6 +1645,10 @@ msgstr ""
 msgid "reloading ERB templates..."
 msgstr ""
 
+#: ../../lib/rabbit/theme/color-circle/color-circle.rb:16
+msgid "required variables aren't set: %s"
+msgstr ""
+
 #: ../../lib/rabbit/theme/table/property.rb:3
 msgid "table rendering"
 msgstr ""
@@ -1598,10 +1681,16 @@ msgstr ""
 msgid "unknown cursor type: %s"
 msgstr ""
 
-#: ../../lib/rabbit/theme/default-item-mark/default-item-mark.rb:35
+#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:65
+msgid ""
+"unknown enumeration item mark type: %s\n"
+"Numeric type is used as fallback"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:18
 msgid ""
 "unknown item mark type: %s\n"
-"Rectangle type is used for fallback"
+"Rectangle type is used as fallback"
 msgstr ""
 
 #: ../../lib/rabbit/info-window.rb:129
