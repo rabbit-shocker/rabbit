@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-23 10:20+0900\n"
-"PO-Revision-Date: 2007-06-23 10:25+0900\n"
+"POT-Creation-Date: 2007-06-24 09:29+0900\n"
+"PO-Revision-Date: 2007-06-24 09:30+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -672,8 +672,8 @@ msgid "Powered-by ad toolkit"
 msgstr "Powered-by 宣伝ツールキット"
 
 #: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:3
-msgid "Powered-by-Cozmixng ad toolkit"
-msgstr "Powered-by-Cozmixng 宣伝ツールキット"
+msgid "Powered-by-COZMIXNG ad toolkit"
+msgstr "Powered-by-COZMIXNG 宣伝ツールキット"
 
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:3
 msgid "Powered-by-Rabbit ad toolkit"

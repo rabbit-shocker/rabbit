@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-23 10:20+0900\n"
+"POT-Creation-Date: 2007-06-24 09:29+0900\n"
 "PO-Revision-Date: 2007-02-13 14:56+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -646,7 +646,7 @@ msgid "Powered-by ad toolkit"
 msgstr ""
 
 #: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:3
-msgid "Powered-by-Cozmixng ad toolkit"
+msgid "Powered-by-COZMIXNG ad toolkit"
 msgstr ""
 
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:3
