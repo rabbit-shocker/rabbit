@@ -4,7 +4,14 @@
 @default_enum_item1_mark_color ||= "#00ffff"
 @default_enum_item2_mark_color ||= "#ff00ff"
 
-def setup_default_item_mark(items, name, width, height, space_ratio, color)
+@default_item1_mark_type ||= "rectangle"
+@default_item2_mark_type ||= "rectangle"
+@default_item3_mark_type ||= "rectangle"
+@default_enum_item1_mark_type ||= "circle"
+@default_enum_item2_mark_type ||= "circle"
+
+def setup_default_item_mark(items, name, width, height, space_ratio, color,
+                            type=nil)
   mark_width = screen_x(width)
   mark_height = screen_y(height)
   indent_width = mark_width * 3
@@ -18,7 +25,12 @@ def setup_default_item_mark(items, name, width, height, space_ratio, color)
     if block_given?
       yield(item, canvas, x, y, w, h, color)
     else
-      canvas.draw_rectangle(true, x, y, w, h, color)
+      case type.to_s.downcase
+      when "circle"
+        canvas.draw_circle(true, x, y, w, h, color)
+      else
+        canvas.draw_rectangle(true, x, y, w, h, color)
+      end
     end
   end
 
@@ -53,39 +65,42 @@ item_list_item = [ItemList, ItemListItem]
 
 match(*(slide_body + (item_list_item * 1))) do |items|
   setup_default_item_mark(items, "item1", 2, 2, (3 / 4.0),
-                          @default_item1_mark_color)
+                          @default_item1_mark_color,
+                          @default_item1_mark_type)
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
   setup_default_item_mark(items, "item2", 1.5, 1.5, (2 / 4.0),
-                          @default_item2_mark_color)
+                          @default_item2_mark_color,
+                          @default_item2_mark_type)
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
   setup_default_item_mark(items, "item3", 1, 1, (1 / 4.0),
-                          @default_item3_mark_color)
+                          @default_item3_mark_color,
+                          @default_item3_mark_type)
 end
 
 
 enum_list_item = [EnumList, EnumListItem]
 
 match(*(slide_body + (enum_list_item * 1))) do |items|
-  setup_default_enum_item_mark(items, 1, 2, (3 / 4.0),
-                               "size" => @normal_font_size) do |item|
+  args = [items, 1, 2, (3 / 4.0), {"size" => @normal_font_size}]
+  setup_default_enum_item_mark(*args) do |item|
     "#{item.order}. "
   end
 end
 
 match(*(slide_body + (enum_list_item * 2))) do |items|
-  setup_default_enum_item_mark(items, 2, 1.5, (2 / 4.0),
-                               "size" => @small_font_size) do |item|
+  args = [items, 2, 1.5, (2 / 4.0), {"size" => @small_font_size}]
+  setup_default_enum_item_mark(*args) do |item|
     "#{(?a + item.order - 1).chr}. "
   end
 end
 
 match(*(slide_body + (enum_list_item * 3))) do |items|
-  setup_default_enum_item_mark(items, 3, 1, (1 / 4.0),
-                               "size" => @x_small_font_size) do |item|
+  args = [items, 3, 1, (1 / 4.0), {"size" => @x_small_font_size}]
+  setup_default_enum_item_mark(*args) do |item|
     "#{(?A + item.order - 1).chr}. "
   end
 end
@@ -93,10 +108,12 @@ end
 
 match(*(slide_body + enum_list_item + item_list_item)) do |items|
   setup_default_item_mark(items, "enum-item1", 1.5, 1.5, (2 / 4.0),
-                          @default_enum_item1_mark_color)
+                          @default_enum_item1_mark_color,
+                          @default_enum_item1_mark_type)
 end
 
 match(*(slide_body + enum_list_item + (item_list_item * 2))) do |items|
   setup_default_item_mark(items, "enum-item2", 1, 1, (1 / 4.0),
-                          @default_enum_item2_mark_color)
+                          @default_enum_item2_mark_color,
+                          @default_enum_item2_mark_type)
 end
