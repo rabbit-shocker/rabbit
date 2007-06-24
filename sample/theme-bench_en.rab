@@ -56,7 +56,7 @@ For benchmarking your theme
   # src = lavie.png
   # relative_height = 100
 
-= Image (with caption)
+= Image with caption
 
   # image
   # src = lavie.png
@@ -81,12 +81,18 @@ For benchmarking your theme
     end
   end
 
-= Quotation
+= Quotation with title
 
   # blockquote
   # title = The Matrix
   You take the ((*red pill*)), you stay in Wonderland and 
   I show you how deep the ((*rabbit-hole*)) goes.
+
+= Quotation with item.
+
+  # blockquote
+  Itemization in quotation
+    * Level 1
 
 = Table
 

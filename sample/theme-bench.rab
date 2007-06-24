@@ -56,7 +56,7 @@
   # src = lavie.png
   # relative_height = 100
 
-= 画像（見出し付き）
+= 画像: 見出し付き
 
   # image
   # src = lavie.png
@@ -81,12 +81,19 @@
     end
   end
 
-= 引用
+= 引用: タイトル付き
 
   # blockquote
   # title = The Matrix
   You take the ((*red pill*)), you stay in Wonderland and 
   I show you how deep the ((*rabbit-hole*)) goes.
+
+= 引用: 箇条書付き
+
+  # blockquote
+
+  引用中の箇条書き
+    * レベル1
 
 = 表
 
