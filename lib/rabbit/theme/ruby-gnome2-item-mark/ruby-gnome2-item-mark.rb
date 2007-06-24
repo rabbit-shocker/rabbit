@@ -1,12 +1,30 @@
 include_theme("default-item-mark")
 
+def setup_ruby_gnome2_item_paragraph(paragraphs, name, color, line_color,
+                                     space_ratio)
+  paragraphs.delete_pre_draw_proc_by_name(name)
+  paragraphs.delete_post_draw_proc_by_name(name)
+
+  paragraphs.prop_set("foreground", color)
+  space = @space * space_ratio
+
+  post_draw_proc = Proc.new do |paragraph, canvas, x, y, w, h, simulation|
+    unless simulation
+      canvas.draw_line(x, y + space, x + w, y + space, line_color)
+    end
+    [x, y, w, h]
+  end
+  paragraphs.add_post_draw_proc(name, &post_draw_proc)
+end
+
+
 slide_body = [Slide, Body]
 
 item_list_item = [ItemList, ItemListItem]
 
 match(*(slide_body + (item_list_item * 1))) do |items|
   name = "item1"
-  
+
   items.delete_pre_draw_proc_by_name(name)
   items.delete_post_draw_proc_by_name(name)
 
@@ -15,76 +33,33 @@ match(*(slide_body + (item_list_item * 1))) do |items|
 end
 
 match(*(slide_body + (item_list_item * 1) + [Paragraph])) do |paragraphs|
-  name = "item1-paragraph"
-
-  paragraphs.delete_pre_draw_proc_by_name(name)
-  paragraphs.delete_post_draw_proc_by_name(name)
-
-  paragraphs.prop_set("foreground", @ruby_gnome2_color)
-  space = @space * (3 / 8.0)
-
-  paragraphs.add_post_draw_proc(name) do |paragraph, canvas, x, y, w, h, simulation|
-    unless simulation
-      canvas.draw_line(x, y + space, x + w, y + space, @ruby_gnome2_line_color)
-    end
-    [x, y, w, h]
-  end
+  setup_ruby_gnome2_item_paragraph(paragraphs, "item1-paragraph",
+                                   @ruby_gnome2_color,
+                                   @ruby_gnome2_line_color,
+                                   (3 / 8.0))
 end
 
 match(*(slide_body + (item_list_item * 2))) do |items|
-  name = "item2"
-  
-  mark_width = screen_x(2)
-  mark_height = screen_y(2)
-  indent_width = mark_width * 3
-  color = "black"
-  
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-  
-  draw_mark(items, indent_width, mark_width, mark_height, name) do
-    |item, canvas, x, y, w, h|
-    x -= mark_width * 0.5
-    canvas.draw_circle(true, x, y, w, h, color)
+  compute_mark_space = Proc.new do |mark_width|
+    mark_width * 0.5
   end
+  setup_default_item_mark(items, "item2", 2, 2, (3 / 4.0),
+                          @ruby_gnome2_item_mark_color,
+                          "mark_space" => compute_mark_space,
+                          "type" => "circle")
 end
 
 match(*(slide_body + (item_list_item * 3))) do |items|
-  name = "item3"
-  
-  mark_width = screen_x(1.0)
-  mark_height = screen_y(1.0)
-  indent_width = mark_width * 3
-  color = "black"
-  
-  items.delete_pre_draw_proc_by_name(name)
-  items.delete_post_draw_proc_by_name(name)
-  
-  draw_mark(items, indent_width, mark_width, mark_height, name) do
-    |item, canvas, x, y, w, h|
-    x -= mark_width
-    canvas.draw_rectangle(true, x, y, w, h, color)
-  end
-
-  space = @space * (1 / 4.0)
-  items.margin_bottom = space
+  setup_default_item_mark(items, "item3", 1, 1, (1 / 4.0),
+                          @ruby_gnome2_item_mark_color,
+                          "type" => "rectangle")
 end
 
 enum_list_item = [EnumList, EnumListItem]
 
 match(*(slide_body + (enum_list_item * 1) + [Paragraph])) do |paragraphs|
-  name = "enum1-paragraph"
-  
-  paragraphs.delete_pre_draw_proc_by_name(name)
-  paragraphs.delete_post_draw_proc_by_name(name)
-
-  paragraphs.prop_set("foreground", @ruby_gnome2_color)
-  space = @space * (3 / 8.0)
-
-  paragraphs.add_post_draw_proc(name) do |paragraph, canvas, x, y, w, h, simulation|
-    unless simulation
-      canvas.draw_line(x, y + space, x + w, y + space, @ruby_gnome2_line_color)
-    end
-    [x, y, w, h]
-  end
+  setup_ruby_gnome2_item_paragraph(paragraphs, "enum1-paragraph",
+                                   @ruby_gnome2_color,
+                                   @ruby_gnome2_line_color,
+                                   (3 / 8.0))
 end

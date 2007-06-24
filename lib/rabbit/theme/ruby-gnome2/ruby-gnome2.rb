@@ -20,6 +20,7 @@ include_theme("title-logo")
 @ruby_gnome2_line_color ||= "#ff9999"
 @ruby_gnome2_frame_color ||= "#3399cc"
 @ruby_gnome2_fill_color ||= "#ddeeff"
+@ruby_gnome2_item_mark_color ||= "black"
 
 include_theme("ruby-gnome2-icon")
 include_theme("ruby-gnome2-slide")
