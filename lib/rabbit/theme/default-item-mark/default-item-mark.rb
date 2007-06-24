@@ -25,10 +25,16 @@ def setup_default_item_mark(items, name, width, height, space_ratio, color,
     if block_given?
       yield(item, canvas, x, y, w, h, color)
     else
+      type ||= "rectangle"
       case type.to_s.downcase
       when "circle"
         canvas.draw_circle(true, x, y, w, h, color)
+      when "rectangle"
+        canvas.draw_rectangle(true, x, y, w, h, color)
       else
+        format = _("unknown item mark type: %s\n" \
+                   "Rectangle type is used as fallback")
+        canvas.logger.warn(format % type.inspect)
         canvas.draw_rectangle(true, x, y, w, h, color)
       end
     end

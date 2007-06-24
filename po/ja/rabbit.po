@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 09:29+0900\n"
-"PO-Revision-Date: 2007-06-24 09:30+0900\n"
+"POT-Creation-Date: 2007-06-24 12:14+0900\n"
+"PO-Revision-Date: 2007-06-24 12:17+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -1672,6 +1672,14 @@ msgstr "実行したtgifコマンド名: %s"
 #: ../../lib/rabbit/rabbit.rb:225
 msgid "unknown cursor type: %s"
 msgstr "未知のカーソルタイプ: %s"
+
+#: ../../lib/rabbit/theme/default-item-mark/default-item-mark.rb:35
+msgid ""
+"unknown item mark type: %s\n"
+"Rectangle type is used as fallback"
+msgstr ""
+"未知の項目マークのタイプ: %s\n"
+"代わりに四角を使います。"
 
 #: ../../lib/rabbit/info-window.rb:129
 msgid "unlimited"

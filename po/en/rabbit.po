@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 09:29+0900\n"
+"POT-Creation-Date: 2007-06-24 12:14+0900\n"
 "PO-Revision-Date: 2007-01-01 18:21+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -1596,6 +1596,12 @@ msgstr ""
 
 #: ../../lib/rabbit/rabbit.rb:225
 msgid "unknown cursor type: %s"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark/default-item-mark.rb:35
+msgid ""
+"unknown item mark type: %s\n"
+"Rectangle type is used for fallback"
 msgstr ""
 
 #: ../../lib/rabbit/info-window.rb:129
