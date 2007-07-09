@@ -75,6 +75,7 @@ module Rabbit
 
       @jump_to_merge_id = @merge.new_merge_id
       @jump_to_actions = Gtk::ActionGroup.new("JumpToActions")
+      @jump_to_actions_keeper = [] # Workaround for > Ruby/GTK2 0.16
       @merge.insert_action_group(@jump_to_actions, 0)
       jump_to_path = "/popup/JumpTo"
       jump_to_action = canvas.action("JumpTo")
@@ -82,6 +83,7 @@ module Rabbit
       canvas.slides.each_with_index do |slide, i|
         action = make_jump_to_action(jump_to_action, slide.title, i)
         @jump_to_actions.add_action(action)
+        @jump_to_actions_keeper << action # Workaround for > Ruby/GTK2 0.16
         @merge.add_ui(@jump_to_merge_id, jump_to_path, action.name,
                       action.name, Gtk::UIManager::AUTO, false)
       end
