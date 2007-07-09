@@ -14,12 +14,12 @@ end
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
-  stop_auto_reload_timer
+  stop_auto_redraw_timer
 
   break if @clock_uninstall
 
   if @clock_auto_update
-    start_auto_reload_timer(1)
+    start_auto_redraw_timer(1)
   end
   
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
