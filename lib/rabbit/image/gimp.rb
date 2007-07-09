@@ -37,7 +37,7 @@ module Rabbit
                             "#{png_path}" "#{png_path}"))
   (gimp-image-delete image))
 EOC
-        args = %w(-i --batch-interpreter plug-in-script-fu-eval)
+        args = %w(-i)
         args.concat(["-b", command])
         args.concat(["-b", "(gimp-quit TRUE)"])
         if GIMP_COMMANDS.any? {|gimp| run(gimp, *args); File.exist?(png_path)}
