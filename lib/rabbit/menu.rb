@@ -56,13 +56,17 @@ module Rabbit
 
     def make_jump_to_action(jump_to_action, title, i)
       name = "JumpTo#{i}"
-      label = "#{i}: #{Utils.unescape_title(title)}"
+      label = "#{i}: #{escape_label(Utils.unescape_title(title))}"
       tooltip = _("Jump to the %dth slide") % i
       action = Gtk::Action.new(name, label, tooltip, nil)
       action.signal_connect("activate") do
         jump_to_action.activate {i}
       end
       action
+    end
+
+    def escape_label(label)
+      label.gsub(/_/, '__')
     end
 
     def update_jump_to_menu(canvas)
