@@ -4,6 +4,39 @@
 
 $Id$
 
+== Changes 0.5.3 from 0.5.2: 2006-08-04
+
+  * Theme related
+    * added Day White/Night Black themes (TADA Tadashi)
+    * added a slide for benchmarking theme (suggested by
+      TADA Tadashi)
+    * added Green Circle theme.
+    * renamed Auto Slide to Slide Show.
+    * clean-upped (codes of) theme.
+  * Documentation update
+    * INSTALL.win32 (Masao Mutoh, zunda）
+  * Bug fixes
+    * escaped '_' in page name for page name list in menu.
+      (reported by Shugo Maeda)
+    * fixed a GRClosure related problem. (akira yamada)
+    * fixed a crash bug when reloading source.
+    * fixed a bug that occurs with --output-html without
+      --output-index-html.
+    * fixed a bug that font configurations are ignored in
+      printing.
+  * improved GIMP support (akira yamada)
+  * removed libgnomeprint support.
+  * supported Wiki notation (HikiDoc).
+    (included hikidoc.rb only in this release)
+  * marked quality of PS/PDF output is enough.
+  * added a toggle Magnifier action to menu.
+  * added a toggle Spotlight action to menu.
+  * supported partial rendering.
+    (syntax in source is not supported yet）
+  * {start,stop}_reload_timer -> {start,stop}_redraw_timer
+    ({start,stop}_reload_timer are still available for
+    backward compatibility）
+
 == Changes 0.5.2 from 0.5.1: 2006-06-02
 
   * updated documents
