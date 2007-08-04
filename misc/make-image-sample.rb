@@ -27,17 +27,26 @@ end
 opts.parse!(ARGV)
 
 ARGV.each do |rd|
-  original_base_name = File.basename(rd, ".rd")
+  original_base_name = File.basename(rd, ".*")
   themes = [nil]
   case original_base_name
   when "rabbit"
     themes << "red-frame"
+  when "blue-circle"
+    themes << ["green-circle", :replace]
   when "lightning-talk"
     themes << "lightning-talk-with-contact"
   end
-  themes.each do |theme|
+  themes.each do |theme, option|
     base_name = original_base_name.dup
-    base_name << "-#{theme.sub(/^#{base_name}-/, '')}" if theme
+    if theme
+      case option
+      when :replace
+        base_name = theme
+      else
+        base_name << "-#{theme.sub(/^#{base_name}-/, '')}"
+      end
+    end
     output_dir = File.join(options.output_base, base_name)
     FileUtils.mkdir_p(output_dir)
     message = "processing #{rd}..."
