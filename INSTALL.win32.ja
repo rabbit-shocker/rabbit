@@ -55,7 +55,7 @@ install.bat を実行してください。
 (3) ruby コードを色づけする場合は、以下のコマンドで ruby.st もインストールする。
 
       > cd <Enscript のインストール先>\share\enscript\hl
-      > ruby -ropen-uri -e "puts open('http://rubyforge.org/cgi-bin/viewvc.cgi/support/ruby.st?view=co').read" > ruby.st
+      > ruby -ropen-uri -e "puts open('http://viewvc.rubyforge.mmmultiworks.com/cgi/viewvc.cgi/trunk/support/ruby.st?root=support&view=co').read" > ruby.st
 
 (4) ((<RAA:htree>)) をインストールする。
 
