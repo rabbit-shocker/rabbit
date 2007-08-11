@@ -88,10 +88,7 @@ module Rabbit
         end
 
         def depth
-          if @@depth.nil?
-            @@depth = ScreenInfo.screen_depth
-          end
-          @@depth
+          @@depth ||= ScreenInfo.screen_depth
         end
 
         def off_screen_renderer?
