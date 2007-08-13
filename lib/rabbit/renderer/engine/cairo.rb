@@ -50,12 +50,18 @@ module Rabbit
             Gdk.respond_to?(:cairo_available?) and Gdk.cairo_available?
           end
 
+          def available_with_gdk_pixbuf?
+            Gdk::Pixbuf.respond_to?(:cairo_available?) and
+              Gdk::Pixbuf.cairo_available?
+          end
+
           def available_with_pango?
             Pango.respond_to?(:cairo_available?) and Pango.cairo_available?
           end
 
           def priority
-            if available_with_gdk? and available_with_pango?
+            if available_with_gdk? and available_with_gdk_pixbuf? and
+                available_with_pango?
               100
             else
               -100
