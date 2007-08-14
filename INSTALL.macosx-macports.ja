@@ -77,8 +77,8 @@ MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウン�
 
   ~% sudo port install rb-rabbit
 
-glib や Gnome がインストールされていないときは、これらのインストールのために
-かなりの時間がかかります。
+glib や Gtk2 がインストールされていないときは、これらのインストールのために
+ある程度の時間がかかります。
 
 他にも以下の port をインストールするとよいでしょう。
 
@@ -92,6 +92,15 @@ glib や Gnome がインストールされていないときは、これらの�
 
 注) Ruby-GetText-Package が、すでに RubyGems からインストールされているときは
 rb-gettext のインストールは不要です。
+
+Rabbit のデフォルトの rb-gnome では、only_gtk2 というバリアントを指定して
+インストールされます。RSVG など、Ruby/Gnome の他の機能を利用したい場合には
+
+  ~% sudo port install rb-gnome -only_gtk2
+
+とすることで、Ruby/Gnome のすべてのライブラリを利用することができます。
+ただし、この場合は依存パッケージが多いために、数時間インストールに時間が
+かかります。
 
 == X11 環境に関する Tips
 
