@@ -5,6 +5,7 @@ require 'rabbit/parser/ext/image'
 require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/anthy'
+require 'rabbit/parser/ext/entity'
 
 module Rabbit
   module Parser

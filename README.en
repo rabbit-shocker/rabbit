@@ -805,7 +805,10 @@ page from XXX.rd.
     * He improved INSTALL.win32.en.
     * He improved a theme.
   * akapy: He wrote a document for emerge.
-  * OBATA Akio: He makes pkgsrc package.
+  * OBATA Akio:
+    * He makes pkgsrc package.
+    * He makes a presentation with Rabbit.
+    * He reports some bugs and also fixes them.
   * Masao Mutoh:
     * He makes a presentation with Rabbit.
     * He updates INSTALL.win32.ja.
