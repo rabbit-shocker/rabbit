@@ -204,8 +204,8 @@ module Rabbit
       end
 
       def to_filename_encoding(utf8_filename)
-        if GLib.respond_to?(:win32_locale_filename_from_utf8)
-          GLib.win32_locale_filename_from_utf8(utf8_filename)
+        if GLib.const_defined?(:Win32)
+          GLib::Win32.locale_filename_from_utf8(utf8_filename)
         else
           if Utils.windows?
             GLib.locale_from_utf8(utf8_filename)
