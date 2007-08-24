@@ -70,6 +70,7 @@ module Rabbit
         end
 
         def to_pixbufing(i)
+          Utils.process_pending_events
           true
         end
 

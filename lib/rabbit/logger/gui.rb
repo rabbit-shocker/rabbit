@@ -15,7 +15,7 @@ module Rabbit
         super(*[level].compact)
         @width = width
         @height = height
-        @start_gui_main_loop_automatically = true
+        @start_gui_main_loop_automatically = false
         init_dialog
       end
 
