@@ -51,7 +51,7 @@ module Rabbit
         end
 
         def filename
-          @filename ||= "#{GLib.filename_from_utf8(@canvas.title)}.ps"
+          @filename ||= "#{GLib.filename_from_utf8(@canvas.title)}.pdf"
         end
 
         def draw_slide(slide, simulation)

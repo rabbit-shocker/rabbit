@@ -213,7 +213,7 @@ def parse_args(args=ARGV, logger=nil)
 
     opts.on("-o", "--output-filename=FILENAME",
             _("Specify printed out filename as [FILENAME]."),
-            "(\#{%s}.ps)" % _("Title of slide")) do |f|
+            "(\#{%s}.pdf)" % _("Title of slide")) do |f|
       options.print_out_filename = f
     end
 
