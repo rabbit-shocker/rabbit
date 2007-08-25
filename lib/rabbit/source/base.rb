@@ -97,6 +97,9 @@ module Rabbit
       end
       
       def set_base(new_value)
+        if ::File::ALT_SEPARATOR
+          new_value = new_value.gsub(::File::ALT_SEPARATOR, ::File::SEPARATOR)
+        end
         @base = new_value
         @base_uri = parse_uri(@base)
         if @base_uri.nil? or @base_uri.scheme.nil?

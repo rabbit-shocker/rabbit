@@ -67,11 +67,12 @@ module Rabbit
             image_uri = canvas.full_path(GLib.filename_from_utf8(uri.to_s))
             filename = nil
 
-            if URI.parse(image_uri).scheme.nil?
-              filename = image_uri
-            else
+            begin
+              raise URI::InvalidURIError if URI.parse(image_uri).scheme.nil?
               filename = tmp_filename(canvas, image_uri)
               setup_image_file(canvas, image_uri, filename)
+            rescue URI::InvalidURIError
+              filename = image_uri
             end
 
             filename
