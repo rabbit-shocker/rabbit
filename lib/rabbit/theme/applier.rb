@@ -572,6 +572,18 @@ module Rabbit
         message = format % [deprecated, current]
         warn(message)
       end
+
+      def tag(name, attributes, content)
+        "<#{name} #{to_attrs(attributes)}>#{content}</#{name}>"
+      end
+
+      def span(attributes, content)
+        tag("span", attributes, content)
+      end
+
+      def entity(key)
+        Parser::Ext::Entity::TABLE[key]
+      end
     end
   end
 end

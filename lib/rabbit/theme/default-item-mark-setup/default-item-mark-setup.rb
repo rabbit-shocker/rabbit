@@ -14,6 +14,18 @@ def setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)
     canvas.draw_rectangle(true, x, y, w, h, color)
   when "circle"
     canvas.draw_circle(true, x, y, w, h, color)
+  when "check"
+    props = {
+      "font_family" => @font_family,
+      "weight" => "bold",
+      "foreground" => color,
+    }.merge(item.first.text_props)
+
+    layout = make_layout(span(props, entity("check")))
+    text_width, text_height = layout.pixel_size
+    canvas.draw_layout(layout,
+                       x - text_width / 2.0,
+                       y - text_height / 3.0)
   else
     format = _("unknown item mark type: %s\n" \
                "Rectangle type is used as fallback")
