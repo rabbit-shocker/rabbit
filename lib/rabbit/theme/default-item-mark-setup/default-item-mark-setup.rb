@@ -104,7 +104,7 @@ def setup_default_enum_item_mark(items, name, indent, space_ratio, props,
       type = option_value.call("type", item)
       enum_mark = setup_default_enum_item_mark_type(type, item)
     end
-    %Q[<span #{to_attrs(props)}>#{enum_mark}</span>]
+    span(props, enum_mark)
   end
 
   space = @space * space_ratio
