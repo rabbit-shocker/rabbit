@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.4.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 17:36+0900\n"
+"POT-Creation-Date: 2007-08-24 20:28+0900\n"
 "PO-Revision-Date: 2007-02-13 14:56+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:442
+#: ../../lib/rabbit/renderer/base.rb:443
 msgid "%s does not support: %s"
 msgstr "%s n'est pas supporté."
 
@@ -85,7 +85,7 @@ msgid "Add [PATH] to load path."
 msgstr "Ajout de [PATH] au chemin de chargement"
 
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
-#: ../../lib/rabbit/parser/wiki/output.rb:368
+#: ../../lib/rabbit/parser/wiki/output.rb:369
 msgid "Anthy isn't available"
 msgstr "Anthy n'est pas disponible"
 
@@ -226,7 +226,11 @@ msgstr ""
 msgid "Common options"
 msgstr ""
 
-#: ../../bin/rabbit:728
+#: ../../lib/rabbit/renderer/base.rb:130
+msgid "Creating a image for the %dth page"
+msgstr ""
+
+#: ../../bin/rabbit:724
 msgid "DRb.thread done."
 msgstr ""
 
@@ -1249,6 +1253,7 @@ msgstr ""
 #: ../../lib/rabbit/theme/timer/property.rb:1
 #: ../../lib/rabbit/theme/clock/property.rb:1
 #: ../../lib/rabbit/theme/image-timer/property.rb:1
+#: ../../lib/rabbit/theme/slide-show/property.rb:1
 #, fuzzy
 msgid "Time"
 msgstr "/Recharger le thème"
@@ -1326,7 +1331,6 @@ msgstr "/Mode index"
 #: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
 #: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
-#: ../../lib/rabbit/theme/slide-show/property.rb:1
 #: ../../lib/rabbit/theme/title-background-image/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
@@ -1667,11 +1671,11 @@ msgstr ""
 msgid "fr"
 msgstr ""
 
-#: ../../bin/rabbit:726
+#: ../../bin/rabbit:722
 msgid "going to shutdown..."
 msgstr ""
 
-#: ../../lib/rabbit/parser/wiki/output.rb:70
+#: ../../lib/rabbit/parser/wiki/output.rb:71
 msgid "horizontal rule is unsupported"
 msgstr ""
 
@@ -1801,7 +1805,7 @@ msgstr ""
 msgid "unsupported format. (supported: %s)"
 msgstr "%s n'est pas supporté."
 
-#: ../../lib/rabbit/parser/wiki/output.rb:279
+#: ../../lib/rabbit/parser/wiki/output.rb:280
 #, fuzzy
 msgid "unsupported list type: %s"
 msgstr "%s n'est pas supporté."

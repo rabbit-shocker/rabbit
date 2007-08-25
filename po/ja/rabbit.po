@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 17:36+0900\n"
-"PO-Revision-Date: 2007-06-24 17:36+0900\n"
+"POT-Creation-Date: 2007-08-24 20:28+0900\n"
+"PO-Revision-Date: 2007-08-24 20:28+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:442
+#: ../../lib/rabbit/renderer/base.rb:443
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
@@ -86,7 +86,7 @@ msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
-#: ../../lib/rabbit/parser/wiki/output.rb:368
+#: ../../lib/rabbit/parser/wiki/output.rb:369
 msgid "Anthy isn't available"
 msgstr "Anthyは利用できません"
 
@@ -219,7 +219,11 @@ msgstr "コメントビュー"
 msgid "Common options"
 msgstr "共通のオプション"
 
-#: ../../bin/rabbit:728
+#: ../../lib/rabbit/renderer/base.rb:130
+msgid "Creating a image for the %dth page"
+msgstr "%dページ目の画像を生成しています。"
+
+#: ../../bin/rabbit:724
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
 
@@ -1263,6 +1267,7 @@ msgstr "このテーマは常に一番始めに読み込まれます。"
 #: ../../lib/rabbit/theme/timer/property.rb:1
 #: ../../lib/rabbit/theme/clock/property.rb:1
 #: ../../lib/rabbit/theme/image-timer/property.rb:1
+#: ../../lib/rabbit/theme/slide-show/property.rb:1
 msgid "Time"
 msgstr "時間"
 
@@ -1338,7 +1343,6 @@ msgstr "一覧モードに切替えます．"
 #: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
 #: ../../lib/rabbit/theme/default-icon/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
-#: ../../lib/rabbit/theme/slide-show/property.rb:1
 #: ../../lib/rabbit/theme/title-background-image/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
@@ -1689,11 +1693,11 @@ msgstr "enscript: サポートしていない言語です: %s"
 msgid "fr"
 msgstr "フランス語"
 
-#: ../../bin/rabbit:726
+#: ../../bin/rabbit:722
 msgid "going to shutdown..."
 msgstr "終了中です．．．"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:70
+#: ../../lib/rabbit/parser/wiki/output.rb:71
 msgid "horizontal rule is unsupported"
 msgstr "水平線はサポートしていません"
 
@@ -1822,6 +1826,6 @@ msgstr "制限無し"
 msgid "unsupported format. (supported: %s)"
 msgstr "サポートしていない形式です。（サポートしている形式: %s）"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:279
+#: ../../lib/rabbit/parser/wiki/output.rb:280
 msgid "unsupported list type: %s"
 msgstr "サポートしていないリストの種類: %s"
