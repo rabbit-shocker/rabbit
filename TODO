@@ -1,3 +1,4 @@
+* support Cluter.
 * support GStreamer.
 * support MeCab for clever wrapping.
 * support SilverCity or CodeRay.
