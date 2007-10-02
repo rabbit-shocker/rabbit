@@ -91,8 +91,8 @@ module Rabbit
   end
 
   class TeXCanNotHandleError < ImageLoadWithExternalCommandError
-    def initialize(command)
-      super("TeX", command)
+    def initialize(command, additional_info=nil)
+      super("TeX", command, additional_info)
     end
   end
 

@@ -43,11 +43,15 @@ module Rabbit
 
         def make_image_by_mimeTeX(path, prop, logger)
           image_file = Tempfile.new("rabbit-image-mimetex")
-          command = ["mimetex.cgi", "-e", image_file.path, "-f", path]
-          if SystemRunner.run(*command)
+          args = ["-e", image_file.path, "-f", path]
+          commands = ["mimetex", "mimetex.cgi"]
+          if commands.any? {|command| SystemRunner.run(command, *args)}
             image_file
           else
-            raise TeXCanNotHandleError.new(command.join(" "))
+            format = _("tried mimeTeX commands: %s")
+            additional_info = format % commands.inspect
+            raise TeXCanNotHandleError.new("mimetex #{args.join(' ')}",
+                                           additional_info)
           end
         end
 
