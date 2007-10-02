@@ -560,6 +560,11 @@ with the following.
 
    Default is not use.
 
+: --show-native-window-id, --no-show-native-window-id
+   Specifies whether show window ID if available.
+
+   Default is not show.
+
 == How to write
 
 See sample/rabbit_en.rd.

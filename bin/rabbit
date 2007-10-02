@@ -60,6 +60,7 @@ def parse_args(args=ARGV, logger=nil)
     ].uniq
     options.migemo_dictionary_name = "migemo-dict"
     options.use_gl = false
+    options.show_native_window_id = false
 
 
     opts.banner = "#{opts.banner} [SOURCE_INFOS]"
@@ -493,6 +494,16 @@ def parse_args(args=ARGV, logger=nil)
             "(#{options.use_gl})") do |bool|
       options.use_gl = bool
     end
+
+    opts.separator ""
+    opts.separator _("Others")
+
+    opts.on("--[no-]show-native-window-id",
+            _("Show a native window ID of the Rabbit window if available."),
+            _("e.g. The ID is the ID of X resource on X window system."),
+            "(#{options.show_native_window_id})") do |bool|
+      options.show_native_window_id = bool
+    end
   end
 end
 
@@ -675,6 +686,10 @@ def do_display(options, logger)
   setup_migemo_info(canvas, options)
   setup_3d_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
+  native_window = frame.window.window
+  if options.show_native_window_id and native_window.respond_to?(:xid)
+    logger.info(_("Window ID: %d") % native_window.xid)
+  end
   apply_theme_if_need(frame, options)
   parse(frame, options, logger, !Rabbit::Utils.windows?)
   frame.fullscreen if options.full_screen

@@ -578,6 +578,11 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 
    デフォルトでは使いません．
 
+: --show-native-window-id, --no-show-native-window-id
+   もし可能であればウィンドウIDを表示するかどうかを指定します．
+
+   デフォルトでは表示しません。
+
 == Rabbit用RDの書き方
 
 基本的に((<RAA:rwiki>))のスライド拡張と同じです．具体的な
