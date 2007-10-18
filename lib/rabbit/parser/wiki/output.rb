@@ -228,6 +228,21 @@ module Rabbit
           @parent = @parent.parent
         end
 
+        def block_preformatted(contents, info)
+          lang = info ? info.downcase : nil
+          result = nil
+
+          if lang and Ext::Enscript.check_availability(lang, @canvas.logger)
+            result = Ext::Enscript.highlight(lang, contents, @canvas.logger)
+          end
+
+          if result
+            @parent << result
+          else
+            preformatted(text(contents))
+          end
+        end
+
         def preformatted(contents)
           @parent << PreformattedBlock.new(PreformattedText.new(contents))
         end

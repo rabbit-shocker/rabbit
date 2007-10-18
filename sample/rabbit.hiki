@@ -204,13 +204,12 @@ end
 
 どう？
 
-{{enscript("ruby", <<-EOF)
+<<< ruby
 # こんなかんじに
 def なり
   ますよ
 end
-EOF
-}}
+>>>
 
 どう？
 
