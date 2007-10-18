@@ -251,8 +251,9 @@ module Rabbit
           ref
         end
 
-        def image_hyperlink(uri)
-          Parser::Ext::Image.make_image(@canvas, uri) || Text.new(uri)
+        # inline image is not supported yet...
+        def image_hyperlink(uri, alt=nil)
+          Ext::Image.make_image(@canvas, uri, "caption" => alt) || Text.new(uri)
         end
 
         def strong(item)

@@ -125,6 +125,9 @@
 {{image("http://www.cozmixng.org/repos/images/cozmixchu.png",
         :caption => "こずみっくちゅー")}}
 
+// [[こずみっくちゅー|http://www.cozmixng.org/repos/images/cozmixchu.png]]
+// ↑の書式はまだ使えない
+
 ! 数式は？
 
 * 書式はTeX（っぽい）
