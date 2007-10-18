@@ -31,7 +31,7 @@ module Rabbit
           @foot_texts = []
         end
 
-        def output
+        def finish
           @slides.each do |slide|
             @canvas << slide
           end

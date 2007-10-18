@@ -14,7 +14,9 @@ module Rabbit
 
       include Element
       def parse
-        HikiDoc.new(RabbitOutput.new(@canvas)).compile(@source.read)
+        parser = HikiDoc.new(RabbitOutput.new(@canvas),
+                             :use_wiki_name => false)
+        parser.compile(@source.read)
       end
     end
   end
