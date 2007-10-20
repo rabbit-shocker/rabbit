@@ -222,6 +222,13 @@
 
 どう？
 
+= 引用
+
+  # blockquote
+  # title = The Matrix
+  You take the ((*red pill*)), you stay in Wonderland and 
+  I show you how deep the ((*rabbit-hole*)) goes.
+
 = 箇条書きは？
 
   (1) どう

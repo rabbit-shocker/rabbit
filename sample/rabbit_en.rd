@@ -228,6 +228,13 @@ What about?
 
 What about?
 
+= Quotation with title
+
+  # blockquote
+  # title = The Matrix
+  You take the ((*red pill*)), you stay in Wonderland and 
+  I show you how deep the ((*rabbit-hole*)) goes.
+
 = Itemization
 
   (1) What
