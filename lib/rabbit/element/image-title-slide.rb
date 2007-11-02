@@ -4,9 +4,10 @@ module Rabbit
   module Element
     class ImageTitleSlide < TitleSlide
 
-      def initialize(image_path)
+      def initialize(image_path, properties=nil)
         @image_path = image_path
-        super(Element::Image.new(image_path, {}))
+        properties ||= {:as_large_as_possible => true}
+        super(Element::Image.new(image_path, properties))
       end
 
       def theme

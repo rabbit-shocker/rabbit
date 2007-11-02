@@ -24,8 +24,11 @@ module Rabbit
         end
         %w(keep_scale keep_ratio).each do |name|
           unless prop[name].nil?
-            self.keep_ratio = (prop[name] == "true")
+            self.keep_ratio = true_value?(prop[name])
           end
+        end
+        %w(as_large_as_possible).each do |name|
+          instance_variable_set("@#{name}", true_value?(prop[name]))
         end
         %w(width height
            x_dither y_dither
@@ -100,6 +103,10 @@ module Rabbit
         super + @padding_top + @padding_bottom
       end
 
+      def as_large_as_possible?
+        @as_large_as_possible
+      end
+
       private
       def draw_image(canvas, x, y, w, h, simulation)
         unless simulation
@@ -111,12 +118,22 @@ module Rabbit
       def adjust_size(canvas, x, y, w, h)
         base_w = w
         base_h = (@oh || h) - @padding_top - @padding_bottom
-        nw = make_normalized_size(@normalized_width)
-        nh = make_normalized_size(@normalized_height)
-        rw = make_relative_size(@relative_width, base_w)
-        rh = make_relative_size(@relative_height, base_h)
-        iw = nw || rw
-        ih = nh || rh
+        if @as_large_as_possible
+          iw = base_w - x
+          ih = base_h - y
+          if iw.to_f / original_width > ih.to_f / original_height
+            iw = nil
+          else
+            ih = nil
+          end
+        else
+          nw = make_normalized_size(@normalized_width)
+          nh = make_normalized_size(@normalized_height)
+          rw = make_relative_size(@relative_width, base_w)
+          rh = make_relative_size(@relative_height, base_h)
+          iw = nw || rw
+          ih = nh || rh
+        end
         resize(iw, ih)
       end
 
@@ -126,6 +143,10 @@ module Rabbit
 
       def make_relative_size(size, parent_size)
         size && parent_size && ((size / 100.0) * parent_size).ceil
+      end
+
+      def true_value?(value)
+        value == true or value == "true"
       end
     end
   end
