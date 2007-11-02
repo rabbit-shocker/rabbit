@@ -56,7 +56,10 @@ module Rabbit
       def to_html(generator)
         src = generator.save_pixbuf(pixbuf, File.basename(@filename))
         html = "<img "
-        html << "title=\"#{generator.h(@caption)}\" " if @caption
+        if @caption
+          alt = generator.h(@caption)
+          html << "title=\"#{alt}\" alt=\"#{alt}\" "
+        end
         html << "src=\"#{src}\" />"
         html
       end

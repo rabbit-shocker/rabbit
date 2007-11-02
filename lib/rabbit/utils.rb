@@ -1,3 +1,4 @@
+require 'tempfile'
 require 'nkf'
 
 module Rabbit
@@ -436,6 +437,20 @@ module Rabbit
       loaders.find do |loader|
         loader.match?(*args)
       end
+    end
+  end
+
+  module TemporaryFile
+    module_function
+    def make(content=nil, prefix=nil)
+      base = ["rabbit", prefix].compact.join("-")
+      temp = Tempfile.new(base)
+      if content
+        temp.binmode
+        temp.print(content)
+        temp.close
+      end
+      yield temp
     end
   end
 end
