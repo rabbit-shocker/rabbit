@@ -37,7 +37,7 @@ module Rabbit
           end
         end
 
-        def container
+        def container(_for=nil)
           []
         end
 
