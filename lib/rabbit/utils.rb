@@ -33,7 +33,10 @@ module Rabbit
             unless silent
               STDERR.puts([Time.now - before, normalized_path].inspect)
             end
-          rescue LoadError
+          rescue LoadError, RuntimeError # Should be changed to Gtk::InitError?
+            if $!.is_a?(RuntimeError)
+              raise if /\ACannot open display:\s*\d*\z/ !~ $!.message
+            end
             unless silent
               STDERR.puts(path)
               STDERR.puts($!.message)
