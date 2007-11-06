@@ -135,7 +135,6 @@
   * 書式はTeX（っぽい）
   * バックエンド
     * LaTeX
-    * Tgif
     * mimeTeX
 
 = LaTeX
@@ -146,13 +145,6 @@
   $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 
   \LaTeX
-
-= Tgif
-
-  # Tgif
-  # relative_width = 80
-
-  large f(x)=int {-infty} x~e^{-t^2}d t
 
 = mimeTeX
 

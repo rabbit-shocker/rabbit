@@ -120,13 +120,7 @@ The above image author has copyright of his/her images.
 
 == Licence
 
-Ruby's (except lib/rabbit/tgif.rb and
-lib/rabbit/div/prototype.js). For more information see
-COPYING.
-
-lib/rabbit/tgif.rb is the same licence of
-((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)).
-For more information see COPYING-TGIFTOOLS.
+Ruby's. For more information see COPYING.
 
 lib/rabbit/div/prototype.js is MIT-style licence. For more
 information see ((<Prototype JavaScript

@@ -55,24 +55,6 @@ module Rabbit
           end
         end
 
-        def make_image_by_Tgif(path, prop, logger)
-          Tgif.init
-          tgif_file = Tempfile.new("rabbit-image-tgif")
-          File.open(path) do |f|
-            src = []
-            f.each_line do |line|
-              src << line.chomp
-            end
-            exp = parse_expression_for_Tgif(src.join(" "), prop, logger)
-            exp.set_pos(prop['x'] || 100, prop['y'] || 100)
-            tgif_file.open
-            tgif_file.print(Tgif::TgifObject.preamble)
-            tgif_file.print(exp.tgif_format)
-            tgif_file.close
-            tgif_file
-          end
-        end
-
         def make_latex_source(src, prop)
           latex = "\\documentclass[fleqn]{article}\n"
           latex << "\\usepackage[latin1]{inputenc}\n"
@@ -88,20 +70,6 @@ PREAMBLE
           latex << src
           latex << "\n\\end{document}\n"
           latex
-        end
-
-        def parse_expression_for_Tgif(src, prop, logger)
-          begin
-            token = Tgif::TokenList.new(src)
-            exp = Tgif::Expression.from_token(token, nil, prop['color'], logger)
-            if exp.is_a?(Tgif::TgifObject)
-              exp
-            else
-              raise Tgif::Error
-            end
-          rescue Tgif::Error
-            raise TeXCanNotHandleError.new(_("invalid source: %s") % src)
-          end
         end
       end
     end

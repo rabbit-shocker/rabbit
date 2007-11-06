@@ -137,7 +137,6 @@ You can use relative size.
   * TeX (like) format
   * backends
     * LaTeX
-    * Tgif
     * mimeTeX
 
 = LaTeX
@@ -148,13 +147,6 @@ You can use relative size.
   $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 
   \LaTeX
-
-= Tgif
-
-  # Tgif
-  # relative_width = 80
-
-  large f(x)=int {-infty} x~e^{-t^2}d t
 
 = mimeTeX
 

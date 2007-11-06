@@ -409,15 +409,6 @@ module Rabbit
             end
           end
           alias_method :mimetex, :mimeTeX
-
-          def Tgif(source, props={})
-            args = [@output.canvas, source]
-            Ext::Image.make_image_from_file(*args) do |src_file_path|
-              args = [src_file_path, props, @output.canvas]
-              [Ext::TeX.make_image_by_Tgif(*args), props]
-            end
-          end
-          alias_method :tgif, :Tgif
         end
       end
     end

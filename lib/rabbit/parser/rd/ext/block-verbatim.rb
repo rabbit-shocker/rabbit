@@ -2,7 +2,6 @@ require "tempfile"
 
 require 'rabbit/rabbit'
 require 'rabbit/utils'
-require 'rabbit/tgif'
 require 'rabbit/parser/rd/rt/rt2rabbit-lib'
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'

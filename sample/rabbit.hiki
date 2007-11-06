@@ -133,7 +133,6 @@
 * 書式はTeX（っぽい）
 * バックエンド
 ** LaTeX
-** Tgif
 ** mimeTeX
 
 ! LaTeX
@@ -144,11 +143,6 @@ $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 \LaTeX
 EOL
 }}
-
-! Tgif
-
-{{tgif('large f(x)=int {-infty} x~e^{-t^2}d t',
-       :relative_width => 80)}}
 
 ! mimeTeX
 

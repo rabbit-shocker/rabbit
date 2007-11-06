@@ -116,14 +116,8 @@ misc/emacs/
 
 == ライセンス
 
-プログラム，画像ともにRuby's（lib/rabbit/tgif.rbと
-lib/rabbit/div/prototype.jsを除く）です．詳しくはCOPYINGまた
+プログラム，画像ともにRuby'sです．詳しくはCOPYINGまた
 はCOPYING.jaを見てください．
-
-lib/rabbit/tgif.rbは
-((<Tgiftools|URL:http://homepage2.nifty.com/aito/tgiftools/>)) 
-と同じライセンスになります．詳しくはCOPYING-TGIFTOOLSまたは
-COPYING-TGIFTOOLS.jaを見てください．
 
 lib/rabbit/div/prototype.jsはMITスタイルのライセンスになります．
 詳しくは((<Prototype JavaScript
