@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-02 22:35+0900\n"
+"POT-Creation-Date: 2007-11-06 22:32+0900\n"
 "PO-Revision-Date: 2007-01-01 18:21+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Add [PATH] to load path."
 msgstr ""
 
-#: ../../lib/rabbit/parser/wiki/output.rb:369
+#: ../../lib/rabbit/parser/wiki/output.rb:385
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
 msgid "Anthy isn't available"
 msgstr ""
@@ -509,6 +509,10 @@ msgstr ""
 #: ../../lib/rabbit/theme/headline-logo/property.rb:8
 #: ../../lib/rabbit/theme/title-background-image/property.rb:9
 msgid "Image file name."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-viewer/property.rb:2
+msgid "Image viewer"
 msgstr ""
 
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:2
@@ -1190,6 +1194,7 @@ msgid "TextTimer"
 msgstr ""
 
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:1
+#: ../../lib/rabbit/theme/image-viewer/property.rb:1
 #: ../../lib/rabbit/theme/night-black/property.rb:1
 #: ../../lib/rabbit/theme/red-frame/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
@@ -1209,6 +1214,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/pdf/property.rb:3
 msgid "Theme for PDF"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-viewer/property.rb:3
+msgid "Theme for image viewer mode"
 msgstr ""
 
 #: ../../lib/rabbit/theme/color-circle/property.rb:4
@@ -1441,7 +1450,7 @@ msgstr ""
 msgid "Unknown command: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:103
+#: ../../lib/rabbit/rabbit.rb:95
 msgid "Unknown property: %s"
 msgstr ""
 
@@ -1564,11 +1573,11 @@ msgstr ""
 msgid "_Quit with confirmation"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:138
+#: ../../lib/rabbit/rabbit.rb:130
 msgid "can not be read: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:111
+#: ../../lib/rabbit/rabbit.rb:103
 msgid "can't allocate color: %s"
 msgstr ""
 
@@ -1576,7 +1585,7 @@ msgstr ""
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:173
+#: ../../lib/rabbit/rabbit.rb:165
 msgid "can't find HTML template: %s"
 msgstr ""
 
@@ -1584,7 +1593,7 @@ msgstr ""
 msgid "can't find printer for %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:181
+#: ../../lib/rabbit/rabbit.rb:173
 msgid "can't find theme RD template: %s"
 msgstr ""
 
@@ -1649,19 +1658,15 @@ msgstr ""
 msgid "image rendering"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:146
+#: ../../lib/rabbit/rabbit.rb:138
 msgid "immutable source type: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:189
+#: ../../lib/rabbit/rabbit.rb:181
 msgid "invalid motion: %s"
 msgstr ""
 
-#: ../../lib/rabbit/parser/ext/tex.rb:103
-msgid "invalid source: %s"
-msgstr ""
-
-#: ../../lib/rabbit/rabbit.rb:204
+#: ../../lib/rabbit/rabbit.rb:196
 msgid ""
 "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %"
 "{value}"
@@ -1679,15 +1684,15 @@ msgstr ""
 msgid "none (get from STDIN) or [FILE_NAMES]"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:130
+#: ../../lib/rabbit/rabbit.rb:122
 msgid "not a file: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:165
+#: ../../lib/rabbit/rabbit.rb:157
 msgid "not available interface: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:122
+#: ../../lib/rabbit/rabbit.rb:114
 msgid "not exist: %s"
 msgstr ""
 
@@ -1699,7 +1704,7 @@ msgstr ""
 msgid "port <%s> for XML-RPC is in use."
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:231
+#: ../../lib/rabbit/rabbit.rb:223
 msgid "print isn't supported"
 msgstr ""
 
@@ -1739,11 +1744,7 @@ msgstr ""
 msgid "tried mimeTeX commands: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:87
-msgid "tried tgif commands: %s"
-msgstr ""
-
-#: ../../lib/rabbit/rabbit.rb:225
+#: ../../lib/rabbit/rabbit.rb:217
 msgid "unknown cursor type: %s"
 msgstr ""
 
@@ -1767,6 +1768,6 @@ msgstr ""
 msgid "unsupported format. (supported: %s)"
 msgstr ""
 
-#: ../../lib/rabbit/parser/wiki/output.rb:280
+#: ../../lib/rabbit/parser/wiki/output.rb:296
 msgid "unsupported list type: %s"
 msgstr ""

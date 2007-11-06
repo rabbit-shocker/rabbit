@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-02 22:35+0900\n"
-"PO-Revision-Date: 2007-10-02 22:38+0900\n"
+"POT-Creation-Date: 2007-11-06 22:32+0900\n"
+"PO-Revision-Date: 2007-11-06 22:32+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -85,7 +85,7 @@ msgstr "宣伝文。"
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:369
+#: ../../lib/rabbit/parser/wiki/output.rb:385
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
 msgid "Anthy isn't available"
 msgstr "Anthyは利用できません"
@@ -548,6 +548,10 @@ msgstr "画像"
 #: ../../lib/rabbit/theme/title-background-image/property.rb:9
 msgid "Image file name."
 msgstr "画像ファイル名。"
+
+#: ../../lib/rabbit/theme/image-viewer/property.rb:2
+msgid "Image viewer"
+msgstr "画像ビューア"
 
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:2
 msgid "ImageSlideNumber"
@@ -1029,7 +1033,8 @@ msgstr "起動時に [THEME] を表示します．"
 
 #: ../../bin/rabbit:502
 msgid "Show a native window ID of the Rabbit window if available."
-msgstr "可能ならウィンドウシステムに依存したRabbitのウィンドウのIDを表示します。"
+msgstr ""
+"可能ならウィンドウシステムに依存したRabbitのウィンドウのIDを表示します。"
 
 #: ../../lib/rabbit/theme/show-frame/property.rb:4
 msgid "Show element frames useful for debug."
@@ -1243,6 +1248,7 @@ msgid "TextTimer"
 msgstr "テキストタイマー"
 
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:1
+#: ../../lib/rabbit/theme/image-viewer/property.rb:1
 #: ../../lib/rabbit/theme/night-black/property.rb:1
 #: ../../lib/rabbit/theme/red-frame/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
@@ -1263,6 +1269,10 @@ msgstr "テーマ"
 #: ../../lib/rabbit/theme/pdf/property.rb:3
 msgid "Theme for PDF"
 msgstr "PDF用のテーマ"
+
+#: ../../lib/rabbit/theme/image-viewer/property.rb:3
+msgid "Theme for image viewer mode"
+msgstr "画像ビューアモード用のテーマ"
 
 #: ../../lib/rabbit/theme/color-circle/property.rb:4
 msgid "There are many colored circles in slides."
@@ -1500,7 +1510,7 @@ msgstr "未知のアクション: %s"
 msgid "Unknown command: %s"
 msgstr "未知のコマンド: %s"
 
-#: ../../lib/rabbit/rabbit.rb:103
+#: ../../lib/rabbit/rabbit.rb:95
 msgid "Unknown property: %s"
 msgstr "未知のプロパティ: %s"
 
@@ -1636,11 +1646,11 @@ msgstr "終了(_Q)"
 msgid "_Quit with confirmation"
 msgstr "確認付き終了(_Q)"
 
-#: ../../lib/rabbit/rabbit.rb:138
+#: ../../lib/rabbit/rabbit.rb:130
 msgid "can not be read: %s"
 msgstr "読み込むことができません: %s"
 
-#: ../../lib/rabbit/rabbit.rb:111
+#: ../../lib/rabbit/rabbit.rb:103
 msgid "can't allocate color: %s"
 msgstr "色を割り当てることができません: %s"
 
@@ -1648,7 +1658,7 @@ msgstr "色を割り当てることができません: %s"
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr "UTF-8から現在のロケールに変換できません: %s"
 
-#: ../../lib/rabbit/rabbit.rb:173
+#: ../../lib/rabbit/rabbit.rb:165
 msgid "can't find HTML template: %s"
 msgstr "HTML のテンプレートが見つかりません: %s"
 
@@ -1656,7 +1666,7 @@ msgstr "HTML のテンプレートが見つかりません: %s"
 msgid "can't find printer for %s"
 msgstr "%sのためのプリンタが見付かりません．"
 
-#: ../../lib/rabbit/rabbit.rb:181
+#: ../../lib/rabbit/rabbit.rb:173
 msgid "can't find theme RD template: %s"
 msgstr "テーマ RD のテンプレートが見つかりません: %s"
 
@@ -1721,19 +1731,15 @@ msgstr "水平線はサポートしていません"
 msgid "image rendering"
 msgstr "画像表示"
 
-#: ../../lib/rabbit/rabbit.rb:146
+#: ../../lib/rabbit/rabbit.rb:138
 msgid "immutable source type: %s"
 msgstr "変更不能なソースタイプです: %s"
 
-#: ../../lib/rabbit/rabbit.rb:189
+#: ../../lib/rabbit/rabbit.rb:181
 msgid "invalid motion: %s"
 msgstr "不正な動きです: %s"
 
-#: ../../lib/rabbit/parser/ext/tex.rb:103
-msgid "invalid source: %s"
-msgstr "不正なソースです: %s"
-
-#: ../../lib/rabbit/rabbit.rb:204
+#: ../../lib/rabbit/rabbit.rb:196
 msgid ""
 "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %"
 "{value}"
@@ -1754,15 +1760,15 @@ msgstr ""
 "[何も指定しない(標準入力から読込)]か\n"
 "[ファイル名(複数可)]"
 
-#: ../../lib/rabbit/rabbit.rb:130
+#: ../../lib/rabbit/rabbit.rb:122
 msgid "not a file: %s"
 msgstr "ファイルではありません: %s"
 
-#: ../../lib/rabbit/rabbit.rb:165
+#: ../../lib/rabbit/rabbit.rb:157
 msgid "not available interface: %s"
 msgstr "利用可能なインターフェイスではありません: %s"
 
-#: ../../lib/rabbit/rabbit.rb:122
+#: ../../lib/rabbit/rabbit.rb:114
 msgid "not exist: %s"
 msgstr "存在しません: %s"
 
@@ -1774,7 +1780,7 @@ msgstr "SOAP用ポート<%s>は使用中です．"
 msgid "port <%s> for XML-RPC is in use."
 msgstr "XML-RPC用ポート<%s>は使用中です．"
 
-#: ../../lib/rabbit/rabbit.rb:231
+#: ../../lib/rabbit/rabbit.rb:223
 msgid "print isn't supported"
 msgstr "印刷をサポートしていません"
 
@@ -1814,11 +1820,7 @@ msgstr "実行したgsコマンド名: %s"
 msgid "tried mimeTeX commands: %s"
 msgstr "実行したmimeTeXコマンド名: %s"
 
-#: ../../lib/rabbit/rabbit.rb:87
-msgid "tried tgif commands: %s"
-msgstr "実行したtgifコマンド名: %s"
-
-#: ../../lib/rabbit/rabbit.rb:225
+#: ../../lib/rabbit/rabbit.rb:217
 msgid "unknown cursor type: %s"
 msgstr "未知のカーソルタイプ: %s"
 
@@ -1846,6 +1848,6 @@ msgstr "制限無し"
 msgid "unsupported format. (supported: %s)"
 msgstr "サポートしていない形式です。（サポートしている形式: %s）"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:280
+#: ../../lib/rabbit/parser/wiki/output.rb:296
 msgid "unsupported list type: %s"
 msgstr "サポートしていないリストの種類: %s"
