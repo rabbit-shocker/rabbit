@@ -10,6 +10,42 @@ Thread.abort_on_exception = true
 
 include Rabbit::GetText
 
+class OptionParser
+
+  class Switch
+    def summarize_as_roff(&block)
+      yield(to_s) # FIXME: do something useful.
+    end
+  end
+
+  class List
+    def summarize_as_roff(&block)
+      list.each do |opt|
+        if opt.respond_to?(:summarize_as_roff)
+          opt.summarize_as_roff(&block)
+        end
+        # FIXME: and otherwise process separators and banners...
+      end
+    end
+  end
+
+  # TODO: decide whether we show this option in the option summary.
+  Officious['roff'] = proc do |parser|
+    Switch::NoArgument.new do
+      puts parser.roff
+      exit
+    end
+  end
+
+  def roff
+    to = []
+    visit(:summarize_as_roff) do |l|
+      to << l + $/
+    end
+    to
+  end
+end
+
 module Rabbit
   module Console
     @@locale_dir_option_name = "--locale-dir"
