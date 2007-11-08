@@ -80,8 +80,7 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.separator ""
-    opts.separator _("Source")
+    opts.category _("Source")
 
     source_type_names = Rabbit::Source.types.collect do |x|
       Rabbit::Console.get_last_name(x).downcase
@@ -119,8 +118,7 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.separator ""
-    opts.separator _("Initial state")
+    opts.category _("Initial state")
 
     opts.on("-f", "--[no-]full-screen",
             _("Toggle full screen mode."),
@@ -135,8 +133,7 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.separator ""
-    opts.separator _("Size")
+    opts.category _("Size")
 
     opts.on("-w", "--width=WIDTH",
             Integer,
@@ -164,8 +161,7 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.separator ""
-    opts.separator _("Save")
+    opts.category _("Save")
 
     opts.on("-s", "--save-as-image",
             _("Save as image and exit.")) do
@@ -204,8 +200,7 @@ def parse_args(args=ARGV, logger=nil)
       options.rss_base_uri = uri
     end
 
-    opts.separator ""
-    opts.separator _("Print")
+    opts.category _("Print")
 
     opts.on("-p", "--print",
             _("Print and exit.")) do
@@ -226,8 +221,7 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.separator ""
-    opts.separator _("Paper")
+    opts.category _("Paper")
 
     opts.on("--paper-width=WIDTH",
             Integer,
@@ -255,8 +249,7 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.separator ""
-    opts.separator _("Margin")
+    opts.category _("Margin")
 
     opts.on("--margin-left=MARGIN",
             Integer,
@@ -346,8 +339,7 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
 
-    opts.separator ""
-    opts.separator _("dRuby")
+    opts.category _("dRuby")
     
     opts.on("--[no-]use-druby",
             _("Specify whether to use dRuby."),
@@ -367,8 +359,7 @@ def parse_args(args=ARGV, logger=nil)
       options.output_druby_uri = bool
     end
     
-    opts.separator ""
-    opts.separator _("SOAP")
+    opts.category _("SOAP")
     
     opts.on("--[no-]use-soap",
             _("Specify whether to use SOAP."),
@@ -394,8 +385,7 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
     
-    opts.separator ""
-    opts.separator _("XML-RPC")
+    opts.category _("XML-RPC")
     
     opts.on("--[no-]use-xmlrpc",
             _("Specify whether to use XML-RPC."),
@@ -421,8 +411,7 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
     
-    opts.separator ""
-    opts.separator _("Server")
+    opts.category _("Server")
     
     opts.on("--[no-]server",
             _("Specify whether to run as server."),
@@ -430,8 +419,7 @@ def parse_args(args=ARGV, logger=nil)
       options.server = bool
     end
 
-    opts.separator ""
-    opts.separator _("Public level")
+    opts.category _("Public level")
 
     levels = Rabbit::Front::PublicLevel.constants.sort_by do |const|
       Rabbit::Front::PublicLevel.const_get(const)
@@ -453,8 +441,7 @@ def parse_args(args=ARGV, logger=nil)
       options.public_level = level
     end
 
-    opts.separator ""
-    opts.separator _("Comment")
+    opts.category _("Comment")
     
     opts.on("--comment-source=FILE",
             _("Specify initial comment source."),
@@ -468,8 +455,7 @@ def parse_args(args=ARGV, logger=nil)
       options.comment_encoding = encoding
     end
 
-    opts.separator ""
-    opts.separator _("Migemo")
+    opts.category _("Migemo")
 
     search_path = options.migemo_dictionary_search_path.join(', ')
     opts.on("--migemo-dictionary-search-path=PATH1,PATH2,...",
@@ -486,8 +472,7 @@ def parse_args(args=ARGV, logger=nil)
       options.migemo_dictionary_name = name
     end
 
-    opts.separator ""
-    opts.separator _("3D")
+    opts.category _("3D")
 
     opts.on("--[no-]use-gl",
             _("Specify whether to use OpenGL if available."),
@@ -495,8 +480,7 @@ def parse_args(args=ARGV, logger=nil)
       options.use_gl = bool
     end
 
-    opts.separator ""
-    opts.separator _("Others")
+    opts.category _("Others")
 
     opts.on("--[no-]show-native-window-id",
             _("Show a native window ID of the Rabbit window if available."),

@@ -11,6 +11,19 @@ Thread.abort_on_exception = true
 include Rabbit::GetText
 
 class OptionParser
+  class Category
+    def initialize(str)
+      @name = str
+    end
+
+    def summarize(*args, &block)
+      yield("\n#{@name}")
+    end
+
+    def summarize_as_roff(&block)
+      yield(".SH #{@name}")
+    end
+  end
 
   class Switch
     def summarize_as_roff(&block)
@@ -43,6 +56,10 @@ class OptionParser
       to << l + $/
     end
     to
+  end
+
+  def category(str)
+    top.append(Category.new(str), nil, nil)
   end
 end
 
