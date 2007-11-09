@@ -17,11 +17,12 @@ class OptionParser
     end
 
     def summarize(*args, &block)
-      yield("\n#{@name}")
+      yield('')
+      yield(@name)
     end
 
     def summarize_as_roff(&block)
-      yield(".SH #{@name}")
+      yield(".SH #{::OptionParser.roff_escape(@name)}")
     end
   end
 
