@@ -56,8 +56,18 @@ class OptionParser
     end
   end
 
+  # TODO: make this option user-visible after implementing all.
+  Officious['man'] = proc do |parser|
+    Switch::NoArgument.new do
+      IO.popen('man -l -', 'w') do |io|
+        io.puts parser.roff
+      end
+      exit
+    end
+  end
+
   def roff
-    to = []
+    to = [%[.TH #{self.class.roff_escape(program_name.upcase)} "1"]]
     visit(:summarize_as_roff) do |l|
       to << l + $/
     end
