@@ -29,6 +29,7 @@ class OptionParser
   class Switch
     def summarize_as_roff(&block)
       opt_str = [@short, @long].flatten.join(', ')
+      opt_str << arg if arg
       yield('.TP')
       yield(%[.B "#{::OptionParser.roff_escape(opt_str)}"])
       desc.each do |d|
