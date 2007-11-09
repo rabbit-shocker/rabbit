@@ -27,7 +27,12 @@ class OptionParser
 
   class Switch
     def summarize_as_roff(&block)
-      yield(to_s) # FIXME: do something useful.
+      opt_str = [@short, @long].flatten.join(', ')
+      yield('.TP')
+      yield(%[.B "#{::OptionParser.roff_escape(opt_str)}"])
+      desc.each do |d|
+        yield(::OptionParser.roff_escape(d))
+      end
     end
   end
 
@@ -60,6 +65,11 @@ class OptionParser
 
   def category(str)
     top.append(Category.new(str), nil, nil)
+  end
+
+  def self.roff_escape(str)
+    str.gsub(/[-\\]/, '\\\\\\&').gsub(/^[.']/, '\\&') # '
+    # TODO: taken over from rd2man-lib.rb, necessary to be confirmed
   end
 end
 
