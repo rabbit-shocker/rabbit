@@ -28,17 +28,20 @@ class OptionParser
 
   class Switch
     def summarize_as_roff(&block)
+      var = nil
       opt_str = [@short, @long].flatten.collect {|s|
                   "\\fB#{::OptionParser.roff_escape(s)}\\fR"
                 }.join(', ')
       opt_str << arg.sub(/\A([=\s\[]*)(.+)([\s\]]*)\z/) {
-        @var = $2
+        var = $2
         "#{$1}\\fI#{$2}\\fR#{$3}"
       } if arg
       yield('.TP')
       yield(opt_str)
       desc.each do |d|
-        yield(::OptionParser.roff_escape(d))
+        d_str = ::OptionParser.roff_escape(d)
+        d_str.gsub!(var) { "\\fI#{var}\\fR" } if var
+        yield(d_str)
       end
     end
   end
