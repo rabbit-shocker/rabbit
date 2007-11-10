@@ -32,7 +32,7 @@ class OptionParser
       opt_str = [@short, @long].flatten.collect {|s|
                   "\\fB#{::OptionParser.roff_escape(s)}\\fR"
                 }.join(', ')
-      opt_str << arg.sub(/\A([=\s\[]*)(.+)([\s\]]*)\z/) {
+      opt_str << arg.sub(/\A([=\s\[]*)(.+?)([\s\]]*)\z/) {
         var = $2
         "#{$1}\\fI#{$2}\\fR#{$3}"
       } if arg
