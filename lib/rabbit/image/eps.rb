@@ -27,6 +27,7 @@ module Rabbit
               end
             end
           end
+          false
         end
       end
       

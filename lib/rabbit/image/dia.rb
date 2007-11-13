@@ -17,8 +17,8 @@ module Rabbit
       class << self
         def match?(filename)
           File.open(filename) do |f|
-            if /^<\?xml/ =~ f.readline and
-                /http:\/\/www\.lysator\.liu\.se\/~alla\/dia\// =~ f.readline
+            if /^<\?xml/ =~ f.gets and
+                /http:\/\/www\.lysator\.liu\.se\/~alla\/dia\// =~ f.gets
               true
             else
               false
