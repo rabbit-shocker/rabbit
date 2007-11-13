@@ -28,9 +28,7 @@ module Rabbit
         begin
           @uri.open do |f|
             @last_modified = f.last_modified
-            x = f.read
-            ::File.open("/tmp/xxx", "w") {|zzz| zzz.print(x)}
-            x
+            f.read
           end
         rescue
           @logger.error($!.message)
