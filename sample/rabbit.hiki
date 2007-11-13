@@ -162,11 +162,6 @@ EOL
 {{image('spiral.svg',
         :relative_height => 100)}}
 
-! TgifでもOK
-
-{{image('rabbit-balloon.obj',
-        :relative_height => 100)}}
-
 ! DiaでもOK
 
 {{image('rabbit.dia',

@@ -169,12 +169,6 @@
   # src = spiral.svg
   # relative_height = 100
 
-= TgifでもOK
-
-  # image
-  # src = rabbit-balloon.obj
-  # relative_height = 100
-
 = DiaでもOK
 
   # image
