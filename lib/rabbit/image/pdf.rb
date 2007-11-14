@@ -13,7 +13,8 @@ module Rabbit
       class << self
         def match?(filename)
           File.open(filename) do |f|
-            /\A%PDF-1\.\d\z/ =~ f.readline.chomp
+            line = f.gets
+            line and /\A%PDF-1\.\d\z/ =~ line.chomp
           end
         end
       end
