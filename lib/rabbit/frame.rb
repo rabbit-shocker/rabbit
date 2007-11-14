@@ -120,6 +120,7 @@ module Rabbit
       @window.resize(width, height)
       @window.set_app_paintable(true)
       set_window_signal
+      setup_dnd
       @canvas.attach_to(self, @window)
     end
 
@@ -157,6 +158,26 @@ module Rabbit
         if main_window? and Gtk.main_level > 0
           Gtk.main_quit
         end
+      end
+    end
+
+    def setup_dnd
+      Gtk::Drag.dest_set(@window,
+                         Gtk::Drag::DEST_DEFAULT_ALL,
+                         [["text/uri-list", 0, 0]],
+                         Gdk::DragContext::ACTION_COPY)
+      @window.signal_connect("drag-data-received") do |*args|
+        widget, context, x, y, selection_data, info, time = args
+        uri = selection_data.data.chomp
+        Gtk.idle_add do
+          parse(Source::URI.new(nil, logger, uri))
+          false
+        end
+        Gtk::Drag.finish(context, true, false, time)
+      end
+
+      @window.signal_connect("drag-drop") do |widget, context, x, y, time|
+        true
       end
     end
 
