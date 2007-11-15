@@ -22,6 +22,7 @@ Subversion は、MacPorts のインストール後に
 
 としてインストールするか、((<URL:http://metissian.com/projects/macosx/subversion/>))
 で公開されているバイナリパッケージを利用してインストールするのが簡単です。
+また、Mac OS X 10.5 (Leopard) では、Subversion がインストールされていますので、自分で用意する必要はありません。
 
 == MacPorts のインストール
 
@@ -111,21 +112,6 @@ Rabbit のデフォルトの rb-gnome では、only_gtk2 というバリアン�
 
 X11.app が起動していなければ、rabbit は実行できません。X11.app は 
 /システム/ユーティリティ/X11.app にあります。
-
-=== フォントの設定
-
-X11 で Mac OS X に付属するフォントを利用できるようにするために、
-/opt/local/etc/fonts/local.conf ファイルを以下の内容で作成します。
-
-  <?xml version="1.0"?>
-  <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-  <fontconfig>
-    <dir>/Library/Fonts</dir>
-    <dir>/Network/Library/Fonts</dir>
-    <dir>/System/Library/Fonts</dir>
-    <dir>/usr/local/share/fonts</dir>
-    <dir>/opt/local/share/fonts</dir>
-  </fontconfig>
 
 === DISPLAY 環境変数
 
