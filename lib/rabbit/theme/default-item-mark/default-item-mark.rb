@@ -5,14 +5,14 @@ include_theme("default-item-mark-setup")
 @default_item3_mark_color ||= "red"
 @default_enum_item1_mark_color ||= "#00ffff"
 @default_enum_item2_mark_color ||= "#ff00ff"
-@default_desc_item1_mark_color ||= "#ff9933"
+@default_description_item1_mark_color ||= "#ff9933"
 
 @default_item1_mark_type ||= "rectangle"
 @default_item2_mark_type ||= "rectangle"
 @default_item3_mark_type ||= "rectangle"
 @default_enum_item1_mark_type ||= "circle"
 @default_enum_item2_mark_type ||= "circle"
-@default_desc_item1_mark_type ||= "check"
+@default_description_item1_mark_type ||= "check"
 
 slide_body = [Slide, Body]
 
@@ -74,7 +74,7 @@ end
 desc_list_content = [DescriptionList, DescriptionListItem, DescriptionContent]
 
 match(*(slide_body + desc_list_content + item_list_item)) do |items|
-  setup_default_item_mark(items, "desc-item1", 1.5, 1.5, (2 / 4.0),
-                          @default_desc_item1_mark_color,
-                          "type" => @default_desc_item1_mark_type)
+  setup_default_item_mark(items, "description-item1", 1.5, 1.5, (2 / 4.0),
+                          @default_description_item1_mark_color,
+                          "type" => @default_description_item1_mark_type)
 end
