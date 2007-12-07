@@ -323,15 +323,15 @@ module Rabbit
             cx1, cy1 = from_screen(cx1, cy1)
             pattern = ::Cairo::RadialPattern.new(cx0, cy0, radius0,
                                                  cx1, cy1, radius1)
-            info[:color_stops].each do |rgba|
-              pattern.add_color_stop_rgba(*rgba)
+            info[:color_stops].each do |offset, r, g, b, a|
+              pattern.add_color_stop_rgba(offset, r, g, b, a)
             end
           when :linear
             x, y, w, h = info[:base]
             x, y = from_screen(x, y)
             pattern = ::Cairo::LinearPattern.new(x, y, w, h)
-            info[:color_stops].each do |rgba|
-              pattern.add_color_stop_rgba(*rgba)
+            info[:color_stops].each do |offset, r, g, b, a|
+              pattern.add_color_stop_rgba(offset, r, g, b, a)
             end
           end
           @context.set_source(pattern) if pattern
