@@ -1,7 +1,7 @@
 proc_name = "title-logo"
 
 if @title_logo_image.nil?
-  theme_exit("must specify @title_logo_image!!")
+  theme_exit(_("must specify %s!!!") % "@title_logo_image")
 end
 
 @title_logo_position ||= :right
