@@ -5,14 +5,14 @@ include_theme("default-item-mark-setup")
 @default_item3_mark_color ||= "red"
 @default_enum_item1_mark_color ||= "#00ffff"
 @default_enum_item2_mark_color ||= "#ff00ff"
-@default_desc_item1_mark_color ||= "green"
+@default_desc_item1_mark_color ||= "#ff9933"
 
 @default_item1_mark_type ||= "rectangle"
 @default_item2_mark_type ||= "rectangle"
 @default_item3_mark_type ||= "rectangle"
 @default_enum_item1_mark_type ||= "circle"
 @default_enum_item2_mark_type ||= "circle"
-@default_desc_item1_mark_type ||= "rectangle"
+@default_desc_item1_mark_type ||= "check"
 
 slide_body = [Slide, Body]
 
