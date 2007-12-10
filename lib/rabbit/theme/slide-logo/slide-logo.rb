@@ -5,8 +5,8 @@ if @slide_logo_image.nil?
 end
 
 @slide_logo_position ||= :right
-@slide_logo_width ||= canvas.width / 3.0
-@slide_logo_height ||= nil
+@slide_logo_width ||= nil
+@slide_logo_height ||= canvas.height * 0.1
 
 match(SlideElement) do
   delete_pre_draw_proc_by_name(name)
