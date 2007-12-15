@@ -69,7 +69,13 @@ ARGV.each do |rd|
     args.concat(["-t", theme]) if theme
     args << rd
 
-    system(*(options.rabbit.split + args))
+    begin
+      lang = ENV["LANG"]
+      ENV["LANG"] = "C" if /\ben\b/ =~ base_name
+      system(*(options.rabbit.split + args))
+    ensure
+      ENV["LANG"] = lang
+    end
     message = "finished #{rd}."
     message << " (#{theme})" if theme
     puts(message)

@@ -10,26 +10,33 @@ options = OpenStruct.new
 options.rabbit = "bin/rabbit"
 options.output_base = "/tmp/rabbit-print"
 options.lang_suffixes = ["", "_en"]
+options.locale_dir = "data/locale"
 
 opts = OptionParser.new do |opts|
   opts.banner = "#{opts.banner} RD_FILES"
 
-  opts.on("--rabbit [RABBIT]",
+  opts.on("--rabbit=RABBIT",
           "rabbit path",
           "(#{options.rabbit})") do |rabbit|
     options.rabbit = rabbit
   end
 
-  opts.on("--output-base [BASE]",
+  opts.on("--output-base=BASE",
           "output base directory",
           "(#{options.output_base})") do |base|
     options.output_base = base
   end
 
-  opts.on("--lang_suffixes [SUFFIX,SUFFIX,...]",
+  opts.on("--lang_suffixes=SUFFIX,SUFFIX,...",
           Array,
           "([#{options.lang_suffixes.join(', ')}])") do |suffixes|
     options.lang_suffixes = suffixes
+  end
+
+  opts.on("--locale-dir=DIR",
+          "locale directory",
+          "(#{options.locale_dir})") do |dir|
+    options.locale_dir = dir
   end
 end
 
@@ -37,9 +44,10 @@ opts.parse!(ARGV)
 
 version = `#{options.rabbit} --version`.chop
 
-def print(rabbit, rd, output, include_path, type)
+def print(rabbit, locale_dir, rd, output, include_path, type)
   args = rabbit.split
-  args.concat(["-I", include_path,
+  args.concat(["--locale-dir", locale_dir,
+               "-I", include_path,
                "-p",
                "-o", output,
                rd])
@@ -47,9 +55,10 @@ def print(rabbit, rd, output, include_path, type)
   puts("finished #{rd}. (#{type})")
 end
 
-def print_index(rabbit, rd, output, include_path, type)
+def print_index(rabbit, locale_dir, rd, output, include_path, type)
   args = rabbit.split
-  args.concat(["-I", include_path,
+  args.concat(["--locale-dir", locale_dir,
+               "-I", include_path,
                "-p",
                "-o", output,
                "--slides-per-page", "8",
@@ -71,9 +80,16 @@ ARGV.each do |rd|
     index_ps = File.join(output_dir, "#{base_name}#{lang}_index_#{version}.ps")
     index_pdf = index_ps.gsub(/\.ps\z/, ".pdf")
 
-    print(options.rabbit, target_rd, ps, base_dir, "PS")
-    print(options.rabbit, target_rd, pdf, base_dir, "PDF")
-    print_index(options.rabbit, target_rd, index_ps, base_dir, "PS")
-    print_index(options.rabbit, target_rd, index_pdf, base_dir, "PDF")
+    args = [options.rabbit, options.locale_dir, target_rd]
+    begin
+      lang = ENV["LANG"]
+      ENV["LANG"] = "C" if /\ben\b/ =~ base_name
+      print(*(args + [ps, base_dir, "PS"]))
+      print(*(args + [pdf, base_dir, "PDF"]))
+      print_index(*(args + [index_ps, base_dir, "PS"]))
+      print_index(*(args + [index_pdf, base_dir, "PDF"]))
+    ensure
+      ENV["LANG"] = lang
+    end
   end
 end
