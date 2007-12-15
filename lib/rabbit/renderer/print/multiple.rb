@@ -1,5 +1,6 @@
 require "forwardable"
 
+require 'rabbit/renderer/kernel'
 require "rabbit/renderer/print/base"
 require "rabbit/renderer/print/layout"
 
