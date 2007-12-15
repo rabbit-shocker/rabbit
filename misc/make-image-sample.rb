@@ -7,20 +7,27 @@ require "fileutils"
 options = OpenStruct.new
 options.rabbit = "bin/rabbit"
 options.output_base = "/tmp/rabbit"
+options.locale_dir = "data/locale"
 
 opts = OptionParser.new do |opts|
   opts.banner = "#{opts.banner} RD_FILES"
 
-  opts.on("--rabbit [RABBIT]",
+  opts.on("--rabbit=RABBIT",
           "rabbit path",
           "(#{options.rabbit})") do |rabbit|
     options.rabbit = rabbit
   end
 
-  opts.on("--output-base [BASE]",
+  opts.on("--output-base=BASE",
           "output base directory",
           "(#{options.output_base})") do |base|
     options.output_base = base
+  end
+
+  opts.on("--locale-dir=DIR",
+          "locale directory",
+          "(#{options.locale_dir})") do |dir|
+    options.locale_dir = dir
   end
 end
 
@@ -57,6 +64,7 @@ ARGV.each do |rd|
       "-b", File.join(output_dir, base_name),
       "-i", "jpg",
       "-I", File.dirname(rd),
+      "--locale-dir", options.locale_dir
     ]
     args.concat(["-t", theme]) if theme
     args << rd
