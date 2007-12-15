@@ -4,7 +4,7 @@
 
 $Id$
 
-== Changes 0.5.3 from 0.5.2: 2006-08-04
+== Changes 0.5.3 from 0.5.2: 2007-08-04
 
   * Theme related
     * added Day White/Night Black themes (TADA Tadashi)
@@ -37,7 +37,7 @@ $Id$
     ({start,stop}_reload_timer are still available for
     backward compatibility）
 
-== Changes 0.5.2 from 0.5.1: 2006-06-02
+== Changes 0.5.2 from 0.5.1: 2007-06-02
 
   * updated documents
     * rabbit-mode.el (Atsushi Takeda)
@@ -47,7 +47,7 @@ $Id$
   * fixed bugs that causes start-up failure (reported by atzm)
   * other minor fixes (reported by OBATA Akio)
 
-== Changes 0.5.1 from 0.5.0: 2006-03-29
+== Changes 0.5.1 from 0.5.0: 2007-03-29
 
   * supported PDF as input format.
   * improved rabbit-mode.el. (Atsushi Takeda)
