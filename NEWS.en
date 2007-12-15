@@ -4,6 +4,34 @@
 
 $Id$
 
+== Changes 0.5.4 from 0.5.3: 2007-12-15
+
+  * Documentation update
+    * fixed ruby.st's URL (kitaj)
+    * updated document of MacPorts (kimura wataru)
+  * Theme related
+    * added some color configuration to night-black theme
+    * added slide-logo theme
+    * added slide-footer theme
+  * Bug fixes
+    * fixed cairo backend availability check
+    * fixed Wiki parser loading bug (reported by OBATA Akio)
+    * suppressed warnings on Windows
+    * fixed "/" handling on Windows (JunichiNakai, OBATA Akio)
+  * logged progress in background (suggested by OBATA Akio)
+  * changed default print format to PDF
+  * supported "check" for itemize mark
+  * added --show-native-window-id option
+  * supported <<< LANG\n...\n>>> with Wiki parser
+  * added block quote sample
+  * supported an image file as source (Rabbit can be an image viewer)
+  * added as_large_as_possible image size option
+  * removed config.rb on 'setup.rb clean' (Kobayashi Noritada)
+  * removed Tgif support
+  * added --man option (Kobayashi Noritada)
+  * supported slideshare.net as source
+  * supported DnD
+
 == Changes 0.5.3 from 0.5.2: 2007-08-04
 
   * Theme related
