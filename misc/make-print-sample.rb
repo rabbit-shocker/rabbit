@@ -83,7 +83,7 @@ ARGV.each do |rd|
     args = [options.rabbit, options.locale_dir, target_rd]
     begin
       original_lang = ENV["LANG"]
-      ENV["LANG"] = "C" if /[\b_]en[\b_]/ =~ lang
+      ENV["LANG"] = "C" if /_en\b/ =~ lang
       print(*(args + [ps, base_dir, "PS"]))
       print(*(args + [pdf, base_dir, "PDF"]))
       print_index(*(args + [index_ps, base_dir, "PS"]))

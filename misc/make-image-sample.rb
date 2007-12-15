@@ -71,7 +71,7 @@ ARGV.each do |rd|
 
     begin
       lang = ENV["LANG"]
-      ENV["LANG"] = "C" if /[\b_]en[\b_]/ =~ base_name
+      ENV["LANG"] = "C" if /_en\b/ =~ base_name
       system(*(options.rabbit.split + args))
     ensure
       ENV["LANG"] = lang
