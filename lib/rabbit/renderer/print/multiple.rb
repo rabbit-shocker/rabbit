@@ -1,6 +1,6 @@
 require "forwardable"
 
-require "rabbit/renderer/print"
+require "rabbit/renderer/print/base"
 require "rabbit/renderer/print/layout"
 
 module Rabbit
