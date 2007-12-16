@@ -11,6 +11,18 @@ class RabbitUtilsTest < Test::Unit::TestCase
                        [1, 2, 3])
   end
 
+  def test_parse_four_way
+    assert_four_way([1, 1, 1, 1], %w(1))
+    assert_four_way([1, 2, 1, 2], %w(1 2))
+    assert_four_way([1, 2, 3, 2], %w(1 2 3))
+    assert_four_way([1, 2, 3, 4], %w(1 2 3 4))
+
+    assert_invalid_four_way([])
+    assert_invalid_four_way(%w(1 2 3 4 5))
+    assert_invalid_four_way(%w(a))
+    assert_invalid_four_way(%w(1.0))
+  end
+
   private
   def assert_combination(expected, elements)
     _wrap_assertion do
@@ -22,5 +34,17 @@ class RabbitUtilsTest < Test::Unit::TestCase
 
   def normalize_combination_results(results)
     results.collect {|result| result.sort}.sort
+  end
+
+  def assert_four_way(expected, input)
+    _wrap_assertion do
+      assert_equal(expected, Rabbit::Utils.parse_four_way(input))
+    end
+  end
+
+  def assert_invalid_four_way(input)
+    _wrap_assertion do
+      assert_raises(ArgumentError) {Rabbit::Utils.parse_four_way(input)}
+    end
   end
 end
