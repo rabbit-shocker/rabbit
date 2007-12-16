@@ -1,4 +1,9 @@
-require "hikidoc"
+begin
+  require "hikidoc"
+rescue LoadError
+  require "rubygems"
+  require "hikidoc"
+end
 
 require "rabbit/parser/base"
 
