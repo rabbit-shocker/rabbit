@@ -287,7 +287,7 @@ def parse_args(args=ARGV, logger=nil)
             Array,
             _("Set margin for slides per page mode print.")) do |margins|
       begin
-        top, right, bottom, left = Utils.parse_four_dimensions(margins)
+        top, right, bottom, left = Rabbit::Utils.parse_four_way(margins)
         options.margin_top = top
         options.margin_right = right
         options.margin_bottom = bottom
