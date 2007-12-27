@@ -61,5 +61,3 @@ slide_body = [Slide, Body]
 
 include_theme("rabbit-item-mark")
 include_theme("rabbit-block-quote")
-
-include_theme("windows-adjust")

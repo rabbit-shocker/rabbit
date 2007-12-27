@@ -53,6 +53,3 @@ match(Slide) do |slides|
     end
   end
 end
-
-include_theme("windows-adjust")
-

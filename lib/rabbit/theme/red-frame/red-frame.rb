@@ -94,5 +94,3 @@ match(Slide, HeadLine) do |heads|
     [x, y, w, h]
   end
 end
-
-include_theme("windows-adjust")
