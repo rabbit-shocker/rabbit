@@ -59,11 +59,6 @@ module Rabbit
             make_image_by_mimeTeX(source, visitor)
           end
 
-          def ext_block_verb_Tgif(label, source, content, visitor)
-            return nil unless /^Tgif$/i =~ label
-            make_image_by_Tgif(source, visitor)
-          end
-
           def ext_block_verb_rt(label, source, content, visitor)
             return nil unless /^rt$/i =~ label
             rt_visitor = RT2RabbitVisitor.new(visitor)

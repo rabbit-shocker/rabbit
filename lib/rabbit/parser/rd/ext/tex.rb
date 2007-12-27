@@ -17,12 +17,6 @@ module Rabbit
                                                      visitor)
             end
           end
-
-          def make_image_by_Tgif(source, visitor)
-            make_image_from_file(source, visitor) do |src_file_path, prop|
-              Parser::Ext::TeX.make_image_by_Tgif(src_file_path, prop, visitor)
-            end
-          end
         end
       end
     end
