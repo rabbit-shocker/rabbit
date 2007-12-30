@@ -23,7 +23,7 @@ module Rabbit
         rescue ThemeExit
           logger.info($!.message) if $!.have_message?
         rescue StandardError, LoadError, SyntaxError
-          logger.warn($!)
+          logger.warning($!)
         end
       end
     

@@ -6,7 +6,7 @@ module Rabbit
     module Severity
       DEBUG = 0
       INFO = 1
-      WARN = 2
+      WARNING = 2
       ERROR = 3
       FATAL = 4
       UNKNOWN = 5
@@ -16,8 +16,7 @@ module Rabbit
       include Severity
       include GetText
 
-      attr_accessor :webrick_mode
-      
+      attr_accessor :level, :webrick_mode
       def initialize(level=INFO, prog_name=nil)
         @level = level
         @prog_name = prog_name
@@ -26,7 +25,7 @@ module Rabbit
       
       def debug?; @level <= DEBUG; end
       def info?; @level <= INFO; end
-      def warn?; @level <= WARN; end
+      def warning?; @level <= WARNING; end
       def error?; @level <= ERROR; end
       def fatal?; @level <= FATAL; end
       def unknown?; @level <= UNKNOWN; end
@@ -39,10 +38,11 @@ module Rabbit
         log(INFO, message_or_error, &block)
       end
       
-      def warn(message_or_error=nil, &block)
-        log(WARN, message_or_error, &block)
+      def warning(message_or_error=nil, &block)
+        log(WARNING, message_or_error, &block)
       end
-      
+      alias_method(:warn, :warning) # for backward compatibility
+
       def error(message_or_error=nil, &block)
         log(ERROR, message_or_error, &block)
       end

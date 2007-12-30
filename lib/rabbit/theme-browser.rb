@@ -88,7 +88,7 @@ module Rabbit
       loader = ImageLoader.new(file)
       @window.icon_list = [loader.pixbuf]
     rescue LoadError
-      @logger.warn($!)
+      @logger.warning($!)
     end
     
     def init_notebook

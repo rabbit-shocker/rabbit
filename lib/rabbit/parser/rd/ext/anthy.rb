@@ -10,7 +10,7 @@ module Rabbit
 
           def anthy_hiragana_to_kanji(label, source, content, visitor)
             unless Parser::Ext::Anthy.available?
-              visitor.logger.warn(_("Anthy isn't available"))
+              visitor.logger.warning(_("Anthy isn't available"))
               return nil
             end
             src, prop = parse_source(source)

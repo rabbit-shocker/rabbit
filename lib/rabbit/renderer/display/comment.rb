@@ -88,7 +88,7 @@ module Rabbit
             if block_given?
               yield(error)
             else
-              @comment_canvas.logger.warn(error)
+              @comment_canvas.logger.warning(error)
             end
           end
           error_occurred

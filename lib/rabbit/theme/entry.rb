@@ -112,7 +112,7 @@ module Rabbit
           begin
             instance_eval(content, file)
           rescue SyntaxError
-            @logger.warn($!) if @logger
+            @logger.warning($!) if @logger
           end
         end
       end

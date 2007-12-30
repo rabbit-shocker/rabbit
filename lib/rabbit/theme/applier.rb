@@ -212,8 +212,9 @@ module Rabbit
 
       extend Forwardable
 
-      logger_methods = [:debug, :info, :warn, :error, :fatal, :unknown]
+      logger_methods = [:debug, :info, :warning, :error, :fatal, :unknown]
       def_delegators(:logger, *logger_methods)
+      def_delegators(:logger, :warn) # for backward compatibility
       private *logger_methods
 
       def_delegators(:canvas, :make_layout)
@@ -570,7 +571,7 @@ module Rabbit
       def deprecated_method(current, deprecated)
         format = _("%s is deprecated. Use %s instead.")
         message = format % [deprecated, current]
-        warn(message)
+        warning(message)
       end
 
       def tag(name, attributes, content)

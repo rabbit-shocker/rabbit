@@ -267,6 +267,15 @@ module Rabbit
         [:separator],
         [:item, "ResetAdjustment"],
         [:separator],
+        [:menu, "LogLevel",
+          [:item, "RadioLogLevelDebug"],
+          [:item, "RadioLogLevelInfo"],
+          [:item, "RadioLogLevelWarning"],
+          [:item, "RadioLogLevelError"],
+          [:item, "RadioLogLevelFatal"],
+          [:item, "RadioLogLevelUnknown"],
+        ],
+        [:separator],
         [:item, "Quit"],
       ]
     end

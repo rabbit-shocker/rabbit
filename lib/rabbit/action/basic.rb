@@ -268,5 +268,11 @@ module Rabbit
       canvas.action("SearchSlideBackwardNext").sensitive = canvas.searching?
       canvas.action("StopSlideSearch").sensitive = canvas.searching?
     end
+
+    def act_log_level(action, group, canvas)
+    end
+    def act_log_level_config(config, canvas)
+      config[:label] = N_("Log Level")
+    end
   end
 end

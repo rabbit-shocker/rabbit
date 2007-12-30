@@ -29,7 +29,7 @@ def setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)
   else
     format = _("unknown item mark type: %s\n" \
                "Rectangle type is used as fallback")
-    canvas.logger.warn(format % type.inspect)
+    canvas.logger.warning(format % type.inspect)
     setup_default_item_mark_type("rectangle")
   end
 end

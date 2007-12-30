@@ -54,7 +54,7 @@ module Rabbit
             end
           end
           unless save_rss
-            @canvas.logger.warn(_("can't generate RSS"))
+            @canvas.logger.warning(_("can't generate RSS"))
           end
         end
       end

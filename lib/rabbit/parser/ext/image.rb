@@ -21,7 +21,7 @@ module Rabbit
           begin
             Element::Image.new(Private.image_filename(canvas, uri), prop)
           rescue Error
-            canvas.logger.warn($!.message)
+            canvas.logger.warning($!.message)
             nil
           end
         end
@@ -35,7 +35,7 @@ module Rabbit
           begin
             image_file, prop = yield(src_file.path)
           rescue ImageLoadError
-            canvas.logger.warn($!.message)
+            canvas.logger.warning($!.message)
           end
           return nil if image_file.nil?
           image = make_image(canvas, %Q[file://#{image_file.path}], prop)
@@ -92,7 +92,7 @@ module Rabbit
                 end
               end
             rescue SocketError, OpenURI::HTTPError
-              canvas.logger.warn("#{$!.message}: #{uri}")
+              canvas.logger.warning("#{$!.message}: #{uri}")
             end
           end
         end
