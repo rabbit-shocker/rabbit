@@ -127,7 +127,6 @@ module Rabbit
         pre_to_pixbuf(canvas.slide_size)
         canceled = false
         canvas.slides.each_with_index do |slide, i|
-          @canvas.logger.info(_("Creating a image for the %dth page") % i)
           if !to_pixbufing(i) or !yield(slide, canvas.to_pixbuf(i), i)
             canceled = true
             break
