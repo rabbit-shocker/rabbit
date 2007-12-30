@@ -4,14 +4,29 @@ module Rabbit
   module Logger
 
     module Severity
+      include GetText
+      extend GetText
+
       DEBUG = 0
       INFO = 1
       WARNING = 2
       ERROR = 3
       FATAL = 4
       UNKNOWN = 5
+
+      module_function
+      def name(level)
+        {
+          DEBUG => _("DEBUG"),
+          INFO => _("INFO"),
+          WARNING => _("WARNING"),
+          ERROR => _("ERROR"),
+          FATAL => _("FATAL"),
+          UNKNOWN => _("UNKNOWN"),
+        }[level]
+      end
     end
-    
+
     module Base
       include Severity
       include GetText
@@ -74,15 +89,8 @@ module Rabbit
       alias add log
 
       private
-      def severity_name(severity)
-        name = Severity.constants.find do |name|
-          Severity.const_get(name) == severity
-        end
-        name || "ANY"
-      end
-      
       def format_severity(severity)
-        "[#{severity_name(severity)}]"
+        "[#{Severity.name(severity)}]"
       end
 
       def format_datetime(datetime)

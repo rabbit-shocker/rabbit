@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-30 11:55+0900\n"
+"POT-Creation-Date: 2007-12-30 12:02+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -230,6 +230,10 @@ msgstr ""
 msgid "Creating a image for the %dth page"
 msgstr ""
 
+#: ../../lib/rabbit/logger/base.rb:20
+msgid "DEBUG"
+msgstr ""
+
 #: ../../bin/rabbit:723
 msgid "DRb.thread done."
 msgstr ""
@@ -413,6 +417,10 @@ msgid ""
 "that the hare will lose to the tortoise."
 msgstr ""
 
+#: ../../lib/rabbit/logger/base.rb:23
+msgid "ERROR"
+msgstr ""
+
 #: ../../lib/rabbit/theme/mirror-effect/property.rb:1
 #: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:1
 #: ../../lib/rabbit/theme/scroll-effect/property.rb:1
@@ -429,6 +437,10 @@ msgstr ""
 
 #: ../../lib/rabbit/action/basic.rb:214
 msgid "Expand hole"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:24
+msgid "FATAL"
 msgstr ""
 
 #: ../../lib/rabbit/action/radio.rb:68
@@ -510,6 +522,10 @@ msgstr "Theme Cercle bleu"
 
 #: ../../lib/rabbit/theme/headline-logo/property.rb:2
 msgid "HeadlineLogo"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:21
+msgid "INFO"
 msgstr ""
 
 #: ../../lib/rabbit/theme/icon/property.rb:2
@@ -1493,6 +1509,10 @@ msgstr ""
 msgid "Toolkit to use pink circle and polygon as icons"
 msgstr ""
 
+#: ../../lib/rabbit/logger/base.rb:25
+msgid "UNKNOWN"
+msgstr ""
+
 #: ../../lib/rabbit/source/uri.rb:25
 msgid "URI"
 msgstr ""
@@ -1537,6 +1557,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/default-icon/property.rb:4
 msgid "Uses pink circle and polygon as icons."
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:22
+msgid "WARNING"
 msgstr ""
 
 #: ../../lib/rabbit/action/radio.rb:58
