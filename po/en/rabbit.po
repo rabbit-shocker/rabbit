@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-15 20:05+0900\n"
+"POT-Creation-Date: 2007-12-30 11:55+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
-"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
+"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
+"<nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +20,7 @@ msgstr ""
 msgid "%s does not support: %s"
 msgstr ""
 
-#: ../../lib/rabbit/theme/applier.rb:571
+#: ../../lib/rabbit/theme/applier.rb:572
 #: ../../lib/rabbit/theme/auto-slide/auto-slide.rb:1
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
@@ -234,6 +235,7 @@ msgstr ""
 msgid "Day White theme"
 msgstr ""
 
+#: ../../lib/rabbit/action/radio.rb:48
 #: ../../lib/rabbit/theme/show-frame/property.rb:1
 msgid "Debug"
 msgstr ""
@@ -405,12 +407,20 @@ msgstr ""
 msgid "Effect"
 msgstr ""
 
+#: ../../lib/rabbit/action/radio.rb:63
+msgid "Error"
+msgstr ""
+
 #: ../../lib/rabbit/theme/entry.rb:89
 msgid "Etc"
 msgstr ""
 
 #: ../../lib/rabbit/action/basic.rb:214
 msgid "Expand hole"
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:68
+msgid "Fatal"
 msgstr ""
 
 #: ../../lib/rabbit/theme/image-timer/property.rb:38
@@ -547,6 +557,10 @@ msgstr ""
 msgid "Index mode"
 msgstr ""
 
+#: ../../lib/rabbit/action/radio.rb:53
+msgid "Info"
+msgstr ""
+
 #: ../../lib/rabbit/action/toggle.rb:72
 msgid "Information window"
 msgstr ""
@@ -608,6 +622,10 @@ msgstr ""
 msgid ""
 "Locates objects in the title slide simply by centering them and by making "
 "configuration for margins around them a little."
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:275
+msgid "Log Level"
 msgstr ""
 
 #: ../../lib/rabbit/action/toggle.rb:86
@@ -1441,6 +1459,10 @@ msgstr ""
 msgid "Undo graffiti"
 msgstr ""
 
+#: ../../lib/rabbit/action/radio.rb:73
+msgid "Unknown"
+msgstr ""
+
 #: ../../lib/rabbit/canvas.rb:574
 msgid "Unknown action: %s"
 msgstr ""
@@ -1471,6 +1493,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/default-icon/property.rb:4
 msgid "Uses pink circle and polygon as icons."
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:58
+msgid "Warning"
 msgstr ""
 
 #: ../../bin/rabbit:89

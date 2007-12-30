@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-15 20:05+0900\n"
-"PO-Revision-Date: 2007-12-15 20:07+0900\n"
+"POT-Creation-Date: 2007-12-30 11:55+0900\n"
+"PO-Revision-Date: 2007-12-30 11:56+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
-"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
+"Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
+"<nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +20,7 @@ msgstr ""
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: ../../lib/rabbit/theme/applier.rb:571
+#: ../../lib/rabbit/theme/applier.rb:572
 #: ../../lib/rabbit/theme/auto-slide/auto-slide.rb:1
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
@@ -234,6 +235,7 @@ msgstr "Day White"
 msgid "Day White theme"
 msgstr "Day Whiteテーマ"
 
+#: ../../lib/rabbit/action/radio.rb:48
 #: ../../lib/rabbit/theme/show-frame/property.rb:1
 msgid "Debug"
 msgstr "デバッグ"
@@ -437,6 +439,10 @@ msgstr ""
 msgid "Effect"
 msgstr "効果"
 
+#: ../../lib/rabbit/action/radio.rb:63
+msgid "Error"
+msgstr "エラー"
+
 #: ../../lib/rabbit/theme/entry.rb:89
 msgid "Etc"
 msgstr "その他"
@@ -444,6 +450,10 @@ msgstr "その他"
 #: ../../lib/rabbit/action/basic.rb:214
 msgid "Expand hole"
 msgstr "穴を広げる"
+
+#: ../../lib/rabbit/action/radio.rb:68
+msgid "Fatal"
+msgstr "致命的"
 
 #: ../../lib/rabbit/theme/image-timer/property.rb:38
 msgid ""
@@ -585,6 +595,10 @@ msgstr "一覧"
 msgid "Index mode"
 msgstr "一覧モード"
 
+#: ../../lib/rabbit/action/radio.rb:53
+msgid "Info"
+msgstr "情報"
+
 #: ../../lib/rabbit/action/toggle.rb:72
 msgid "Information window"
 msgstr "情報ウィンドウ"
@@ -649,6 +663,10 @@ msgid ""
 msgstr ""
 "オブジェクトをタイトルスライドの中央に置きその周りにマージンを設定するだけ"
 "の、簡単な配置をします。"
+
+#: ../../lib/rabbit/action/basic.rb:275
+msgid "Log Level"
+msgstr "ログレベル"
 
 #: ../../lib/rabbit/action/toggle.rb:86
 msgid "Magnifier"
@@ -1501,6 +1519,10 @@ msgstr "URI"
 msgid "Undo graffiti"
 msgstr "落書きを戻す"
 
+#: ../../lib/rabbit/action/radio.rb:73
+msgid "Unknown"
+msgstr "未知"
+
 #: ../../lib/rabbit/canvas.rb:574
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
@@ -1532,6 +1554,10 @@ msgstr "ピンク色の丸をアイコンとして用います。"
 #: ../../lib/rabbit/theme/default-icon/property.rb:4
 msgid "Uses pink circle and polygon as icons."
 msgstr "ピンク色の丸と多角形をアイコンとして用います。"
+
+#: ../../lib/rabbit/action/radio.rb:58
+msgid "Warning"
+msgstr "警告"
 
 #: ../../bin/rabbit:89
 msgid ""
