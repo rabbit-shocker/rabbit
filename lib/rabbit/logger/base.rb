@@ -4,7 +4,6 @@ module Rabbit
   module Logger
 
     module Severity
-      include GetText
       extend GetText
 
       DEBUG = 0
@@ -14,16 +13,29 @@ module Rabbit
       FATAL = 4
       UNKNOWN = 5
 
-      module_function
-      def name(level)
-        {
-          DEBUG => _("DEBUG"),
-          INFO => _("INFO"),
-          WARNING => _("WARNING"),
-          ERROR => _("ERROR"),
-          FATAL => _("FATAL"),
-          UNKNOWN => _("UNKNOWN"),
-        }[level]
+      MARK_TABLE = {
+        DEBUG => N_("DEBUG"),
+        INFO => N_("INFO"),
+        WARNING => N_("WARNING"),
+        ERROR => N_("ERROR"),
+        FATAL => N_("FATAL"),
+        UNKNOWN => N_("UNKNOWN"),
+      }
+
+      class << self
+        def names
+          MARK_TABLE.sort_by {|key, _| key}.collect {|_, value| value.downcase}
+        end
+
+        def name(level)
+          MARK_TABLE[level].downcase
+        end
+
+        def level(name)
+          MARK_TABLE.find do |key, value|
+            value.downcase == name.downcase
+          end[0]
+        end
       end
     end
 
@@ -90,7 +102,7 @@ module Rabbit
 
       private
       def format_severity(severity)
-        "[#{Severity.name(severity)}]"
+        "[#{_(Severity::MARK_TABLE[severity])}]"
       end
 
       def format_datetime(datetime)

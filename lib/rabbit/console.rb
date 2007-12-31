@@ -163,7 +163,6 @@ module Rabbit
               logger_type_names,
               _("Specify logger type as [TYPE]."),
               _("Select from [%s].") % logger_type_names.join(', '),
-              _("Note: case insensitive."),
               "(#{get_last_name(options.logger.class)})") do |logger_type|
         logger_class = Rabbit::Logger.types.find do |t|
           get_last_name(t).downcase == logger_type.downcase
@@ -174,6 +173,15 @@ module Rabbit
         else
           options.logger = logger_class.new
         end
+      end
+
+      level_names = Logger::Severity.names
+      opts.on("--log-level=LEVEL",
+              level_names,
+              _("Specify log level as [LEVEL]."),
+              _("Select from [%s].") % level_names.join(', '),
+              "(#{Logger::Severity.name(options.logger.level)})") do |name|
+        options.logger.level = Logger::Severity.level(name)
       end
 
       opts.separator ""
