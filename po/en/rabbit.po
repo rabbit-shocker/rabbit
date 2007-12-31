@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-30 12:02+0900\n"
+"POT-Creation-Date: 2007-12-31 15:10+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:443
+#: ../../lib/rabbit/renderer/base.rb:442
 msgid "%s does not support: %s"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "(Must be specified.)"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:150 ../../bin/rabbit:110 ../../bin/rabbit:116
+#: ../../lib/rabbit/console.rb:69 ../../bin/rabbit:110 ../../bin/rabbit:116
 #: ../../bin/rabbit:257 ../../bin/rabbit:264 ../../bin/rabbit:271
 #: ../../bin/rabbit:278 ../../bin/rabbit:303 ../../bin/rabbit:310
 #: ../../bin/rabbit:317 ../../bin/rabbit:324 ../../bin/rabbit:454
@@ -215,15 +215,15 @@ msgstr ""
 msgid "Comment view"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:140
+#: ../../lib/rabbit/console.rb:59
 msgid "Common options"
 msgstr ""
 
-#: ../../lib/rabbit/renderer/base.rb:130
+#: ../../lib/rabbit/html/generator.rb:46
 msgid "Creating a image for the %dth page"
 msgstr ""
 
-#: ../../lib/rabbit/logger/base.rb:20
+#: ../../lib/rabbit/logger/base.rb:17
 msgid "DEBUG"
 msgstr ""
 
@@ -405,7 +405,7 @@ msgid ""
 "that the hare will lose to the tortoise."
 msgstr ""
 
-#: ../../lib/rabbit/logger/base.rb:23
+#: ../../lib/rabbit/logger/base.rb:20
 msgid "ERROR"
 msgstr ""
 
@@ -427,7 +427,7 @@ msgstr ""
 msgid "Expand hole"
 msgstr ""
 
-#: ../../lib/rabbit/logger/base.rb:24
+#: ../../lib/rabbit/logger/base.rb:21
 msgid "FATAL"
 msgstr ""
 
@@ -509,7 +509,7 @@ msgstr ""
 msgid "HeadlineLogo"
 msgstr ""
 
-#: ../../lib/rabbit/logger/base.rb:21
+#: ../../lib/rabbit/logger/base.rb:18
 msgid "INFO"
 msgstr ""
 
@@ -565,7 +565,7 @@ msgid "Images related to Ruby"
 msgstr ""
 
 #: ../../lib/rabbit/element/index-slide.rb:103
-#: ../../lib/rabbit/html/generator.rb:382
+#: ../../lib/rabbit/html/generator.rb:384
 msgid "Index"
 msgstr ""
 
@@ -684,7 +684,7 @@ msgstr ""
 msgid "Night Black theme"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:166 ../../bin/rabbit:98
+#: ../../bin/rabbit:98
 msgid "Note: case insensitive."
 msgstr ""
 
@@ -926,7 +926,8 @@ msgstr ""
 msgid "See ((<slide-show>))"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:165 ../../bin/rabbit:97
+#: ../../lib/rabbit/console.rb:84 ../../lib/rabbit/console.rb:101
+#: ../../bin/rabbit:97
 msgid "Select from [%s]."
 msgstr ""
 
@@ -1026,11 +1027,11 @@ msgstr ""
 msgid "Show element frames useful for debug."
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:183
+#: ../../lib/rabbit/console.rb:110
 msgid "Show this message."
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:187
+#: ../../lib/rabbit/console.rb:114
 msgid "Show version."
 msgstr ""
 
@@ -1046,7 +1047,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: ../../lib/rabbit/html/generator.rb:380
+#: ../../lib/rabbit/html/generator.rb:382
 msgid "Slide"
 msgstr ""
 
@@ -1122,11 +1123,15 @@ msgstr ""
 msgid "Specify initial comment source."
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:149
+#: ../../lib/rabbit/console.rb:68
 msgid "Specify locale dir as [DIR]."
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:164
+#: ../../lib/rabbit/console.rb:100
+msgid "Specify log level as [LEVEL]."
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:83
 msgid "Specify logger type as [TYPE]."
 msgstr ""
 
@@ -1241,7 +1246,7 @@ msgstr ""
 #: ../../lib/rabbit/theme/green-circle/property.rb:1
 #: ../../lib/rabbit/theme/lightning-simple/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng/property.rb:1
-#: ../../lib/rabbit/theme-browser/tree.rb:54
+#: ../../lib/rabbit/theme-browser/tree.rb:54 ../../bin/rabbit:68
 msgid "Theme"
 msgstr ""
 
@@ -1467,7 +1472,7 @@ msgstr ""
 msgid "Toolkit to use pink circle and polygon as icons"
 msgstr ""
 
-#: ../../lib/rabbit/logger/base.rb:25
+#: ../../lib/rabbit/logger/base.rb:22
 msgid "UNKNOWN"
 msgstr ""
 
@@ -1495,7 +1500,7 @@ msgstr ""
 msgid "Unknown property: %s"
 msgstr ""
 
-#: ../../lib/rabbit/console.rb:125
+#: ../../lib/rabbit/console.rb:44
 msgid "Usage: %s [options]"
 msgstr ""
 
@@ -1515,7 +1520,7 @@ msgstr ""
 msgid "Uses pink circle and polygon as icons."
 msgstr ""
 
-#: ../../lib/rabbit/logger/base.rb:22
+#: ../../lib/rabbit/logger/base.rb:19
 msgid "WARNING"
 msgstr ""
 
@@ -1654,7 +1659,7 @@ msgstr ""
 msgid "can't find theme RD template: %s"
 msgstr ""
 
-#: ../../lib/rabbit/html/generator.rb:57
+#: ../../lib/rabbit/html/generator.rb:59
 msgid "can't generate RSS"
 msgstr ""
 
