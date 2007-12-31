@@ -65,7 +65,7 @@ def parse_args(args=ARGV, logger=nil)
 
     opts.banner = "#{opts.banner} [SOURCE_INFOS]"
 
-    opts.separator ""
+    opts.category _("Theme")
 
     opts.on("-I", "--include=PATH",
             _("Add [PATH] to load path.")) do |path|
