@@ -122,12 +122,12 @@ X11 上で動作する Rabbit を利用するためには、DISPLAY 環境変数
 
 == Rabbit をバージョンアップする
 
-最新の Portfile を Subversion リポジトリから入手したうえで、port upgrade 
-コマンドにより、Rabbit を最新のバージョンに更新することができます。
+port sync コマンドで Portfile を Subversion リポジトリと同期したうえで、
+port upgrade コマンドにより、Rabbit を最新のバージョンに更新することが
+できます。
 
-  ~% cd dports
-  ~/dports% svn update
-  ~/dports% sudo port upgrade rb-rabbit
+  ~% sudo port sync
+  ~% sudo port upgrade rb-rabbit
 
 Rabbit だけをバージョンアップしたいときは、-n オプションを指定します。この
 オプションの指定により、関連するソフトウェアは更新せずに Rabbit だけを更新
