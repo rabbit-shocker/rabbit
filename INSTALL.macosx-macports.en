@@ -67,8 +67,8 @@ You can install these ports to make rabbit more better.
 * htree (rb-htree) - enable syntax coloring
 * Ruby-GetText-Package (rb-gettext) - enable I18N message catalogs
 
-  ~% sudo port install rb-htree
-  ~% sudo port install rb-gettext
+    ~% sudo port install rb-htree
+    ~% sudo port install rb-gettext
 
 == tips for X11 environment
 
