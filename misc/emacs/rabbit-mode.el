@@ -198,7 +198,7 @@
 (defun rabbit-metadata-string-template (metadata value)
   (concat ": " metadata "\n"
           (rabbit-block-indent " ") value "\n"))
-    
+
 (defun rabbit-read-property (key)
   "read `key' value from minibuf and return string as \"key = value\"
 format if value is specified, otherwise return \"\"."
