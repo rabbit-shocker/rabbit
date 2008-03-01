@@ -4,6 +4,20 @@
 
 $Id$
 
+== Changes 0.5.5 from 0.5.4: 2008-03-01
+
+  * Bug fixes
+    * fixed tests (reported by OBATA Akio)
+    * fixed --margin option
+  * supported HikiDoc installed by RubyGems
+  * removed Tgif related files (reported by OBATA Akio)
+  * removed needless windows-adjust theme
+  * stopped to show progress message when index page is generating
+  * added --log-level option
+  * added document for MacPorts
+  * rabbit-mode.el:
+    * removed a needless variable.
+
 == Changes 0.5.4 from 0.5.3: 2007-12-15
 
   * Documentation update
