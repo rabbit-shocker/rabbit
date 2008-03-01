@@ -28,7 +28,7 @@ module Rabbit
           if @@enscript_highlight.has_key?(lang)
             true
           else
-            logger.warning(_("enscript: unsupported language: %s") % lang)
+            logger.warn(_("enscript: unsupported language: %s") % lang)
             false
           end
         end
@@ -55,7 +55,7 @@ module Rabbit
 
         def html_to_rabbit(html, logger)
           unless defined?(HTree)
-            logger.warning(_("enscript: can't find HTree library"))
+            logger.warn(_("enscript: can't find HTree library"))
             return nil
           end
           tree = HTree(extract_newline_around_pre(html))
@@ -108,7 +108,7 @@ module Rabbit
             text
           else
             format = _("enscript: unsupported element name: %s")
-            logger.warning(format % element.qualified_name)
+            logger.warn(format % element.qualified_name)
             nil
           end
         end

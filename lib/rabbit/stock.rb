@@ -24,7 +24,7 @@ module Rabbit
         factory.add(RABBIT.to_s, Gtk::IconSet.new(loader.pixbuf))
         factory.add_default
       rescue LoadError
-        canvas.logger.warning($!)
+        canvas.logger.warn($!)
       end
     end
   end

@@ -68,7 +68,7 @@ module Rabbit
         end
 
         def hrule
-          @canvas.logger.warning(_("horizontal rule is unsupported")) if @parent
+          @canvas.logger.warn(_("horizontal rule is unsupported")) if @parent
         end
 
         def list_begin
@@ -293,20 +293,20 @@ module Rabbit
 
         private
         def unsupported_list_type(type)
-          @canvas.logger.warning(_("unsupported list type: %s") % type)
+          @canvas.logger.warn(_("unsupported list type: %s") % type)
         end
 
         def evaluate_inline_plugin(src)
           InlinePlugin.new(self).instance_eval(src, "(inline plugin)")
         rescue
-          @canvas.logger.warning($!)
+          @canvas.logger.warn($!)
           nil
         end
 
         def evaluate_block_plugin(src)
           BlockPlugin.new(self).instance_eval(src, "(block plugin)")
         rescue
-          @canvas.logger.warning($!)
+          @canvas.logger.warn($!)
           nil
         end
 
@@ -382,7 +382,7 @@ module Rabbit
 
           def anthy(source)
             unless Ext::Anthy.available?
-              @output.canvas.logger.warning(_("Anthy isn't available"))
+              @output.canvas.logger.warn(_("Anthy isn't available"))
               return nil
             end
 

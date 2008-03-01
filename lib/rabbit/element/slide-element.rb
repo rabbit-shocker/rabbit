@@ -23,7 +23,7 @@ module Rabbit
             draw(canvas, true)
             draw(canvas, false)
           rescue StandardError, LoadError
-            canvas.logger.warning($!)
+            canvas.logger.warn($!)
           end
         else
           canvas.draw_slide(self, simulation) do

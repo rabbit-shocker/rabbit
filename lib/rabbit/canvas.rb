@@ -335,7 +335,7 @@ module Rabbit
         if block_given?
           yield($!)
         else
-          logger.warning($!.message)
+          logger.warn($!.message)
         end
       ensure
         @parse_request_queue.delete_if {|x| x == id}
@@ -538,7 +538,7 @@ module Rabbit
         if block_given?
           yield(error)
         else
-          logger.warning(error)
+          logger.warn(error)
         end
         return false
       end
@@ -571,7 +571,7 @@ module Rabbit
       if act
         act
       else
-        logger.warning(_("Unknown action: %s") % name)
+        logger.warn(_("Unknown action: %s") % name)
         false
       end
     end

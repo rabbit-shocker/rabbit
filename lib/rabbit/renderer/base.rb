@@ -441,7 +441,7 @@ module Rabbit
       def not_support_method(name)
         format = _("%s does not support: %s")
         msg = format % [self.class.name, name]
-        @canvas.logger.warning(msg)
+        @canvas.logger.warn(msg)
       end
 
       def init_hook_procs
