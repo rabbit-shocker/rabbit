@@ -1,8 +1,8 @@
 ;;; -*- mode: Emacs-Lisp; indent-tabs-mode: nil -*-
 ;;; rabbit-mode.el
 ;;  Emacs major mode for Rabbit
-;;; Copyright (c) 2006 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
-;;; $Date$
+;;; Copyright (c) 2006 - 2008 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
+;;; $Id$
 
 (require 'cl)
 (require 'rd-mode)
