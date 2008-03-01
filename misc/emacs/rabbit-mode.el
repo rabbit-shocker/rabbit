@@ -72,8 +72,6 @@
 (defvar rabbit-image-size-unit-history nil)
 
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
-  (setq-default rabbit-running nil)
-  (make-variable-buffer-local 'rabbit-running)
   (setq comment-start "#")
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '((rabbit-font-lock-keywords) t nil))
@@ -90,12 +88,10 @@
   (let ((filename (rabbit-buffer-filename))
 	(outbuf (rabbit-output-buffer)))
     (set-buffer outbuf)
-    (if rabbit-running
-	(error "Rabbit is already running")
+    (if (get-buffer-process outbuf)
+        (error "Rabbit is already running")
       (progn
-	(setq rabbit-running t)
 	(start-process "Rabbit" outbuf rabbit-command filename)
-	(set-process-sentinel (get-buffer-process outbuf) 'rabbit-sentinel)
         (if (one-window-p)
             (set-window-buffer (split-window) outbuf)
           (set-window-buffer (previous-window) outbuf))))))
@@ -228,10 +224,6 @@ format if value is specified, otherwise return \"\"."
   "return file name relating current buffer."
   (or (buffer-file-name)
       (error "This buffer is empty buffer")))
-
-(defun rabbit-sentinel (proc state)
-  (set-buffer (process-buffer proc))
-  (setq rabbit-running nil))
 
 (defun rabbit-output-buffer ()
   "return buffer for rabbit output."
