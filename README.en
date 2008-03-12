@@ -189,7 +189,6 @@ libraries on Windows.
 
 === Included libraries
 
-  * ((<RAA:rttool>)) altered: same as including ((<RAA:rwiki>)).
   * SOAP interface of ((<RAA:rwiki>)).
 
 == Download

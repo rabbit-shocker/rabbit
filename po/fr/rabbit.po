@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-31 15:10+0900\n"
+"POT-Creation-Date: 2008-03-12 22:33+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -814,6 +814,11 @@ msgstr ""
 #: ../../bin/rabbit:198
 msgid "RSS is generated only when HTML is output."
 msgstr ""
+
+#: ../../lib/rabbit/parser/rd/ext/block-verbatim.rb:68
+#, fuzzy
+msgid "RTtool isn't available"
+msgstr "Anthy n'est pas disponible"
 
 #: ../../lib/rabbit/theme/rabbit/property.rb:2 ../../lib/rabbit/stock.rb:17
 #, fuzzy

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-31 15:10+0900\n"
-"PO-Revision-Date: 2007-12-31 15:10+0900\n"
+"POT-Creation-Date: 2008-03-12 22:33+0900\n"
+"PO-Revision-Date: 2008-03-12 22:33+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -88,7 +88,7 @@ msgstr "[PATH]をロードパスに追加します．"
 #: ../../lib/rabbit/parser/wiki/output.rb:385
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
 msgid "Anthy isn't available"
-msgstr "Anthyは利用できません"
+msgstr "Anthyが利用できません"
 
 #: ../../lib/rabbit/theme/auto-slide/property.rb:2
 msgid "Auto Slide"
@@ -831,6 +831,10 @@ msgstr "公開レベル"
 #: ../../bin/rabbit:198
 msgid "RSS is generated only when HTML is output."
 msgstr "RSS は、HTML が出力されるときだけ生成されます。"
+
+#: ../../lib/rabbit/parser/rd/ext/block-verbatim.rb:68
+msgid "RTtool isn't available"
+msgstr "RTtoolが利用できません"
 
 #: ../../lib/rabbit/theme/rabbit/property.rb:2 ../../lib/rabbit/stock.rb:17
 msgid "Rabbit"

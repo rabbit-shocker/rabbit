@@ -2,7 +2,10 @@ require "tempfile"
 
 require 'rabbit/rabbit'
 require 'rabbit/utils'
-require 'rabbit/parser/rd/rt/rt2rabbit-lib'
+begin
+  require 'rabbit/parser/rd/rt/rt2rabbit-lib'
+rescue LoadError
+end
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/enscript'
@@ -61,6 +64,10 @@ module Rabbit
 
           def ext_block_verb_rt(label, source, content, visitor)
             return nil unless /^rt$/i =~ label
+            unless defined?(RT2RabbitVisitor)
+              visitor.logger.warn(_("RTtool isn't available"))
+              return nil
+            end
             rt_visitor = RT2RabbitVisitor.new(visitor)
             rt_visitor.visit(RT::RTParser.parse(content))
           end
