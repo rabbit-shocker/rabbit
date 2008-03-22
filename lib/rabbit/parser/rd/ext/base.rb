@@ -55,7 +55,7 @@ module Rabbit
             prop = {}
             in_src = false
             src = ""
-            source.each do |line|
+            source.each_line do |line|
               if in_src
                 src << line
               else
