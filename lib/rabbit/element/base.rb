@@ -319,7 +319,7 @@ module Rabbit
       end
 
       def margin_with(params)
-        margin_set(*extract_four_way(params))
+        margin_set(params)
       end
 
       def padding_set(*values)
@@ -459,9 +459,11 @@ module Rabbit
       end
 
       def _indent(str, width="  ")
-        str.collect do |x|
-          width + x
-        end.join("")
+        result = ""
+        str.each_line do |line|
+          result << width + line
+        end
+        result
       end
     end
   end
