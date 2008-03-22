@@ -16,7 +16,11 @@ module Rabbit
         @@enscript_highlight = {}
         enscript_highlight = []
         begin
-          enscript_highlight = `enscript --help-highlight`.scan(/^Name: (\w+)/)
+          enscript_highlight = `enscript --help-highlight`
+          if enscript_highlight.respond_to?(:encode)
+            enscript_highlight = enscript_highlight.encode("UTF-8", "ISO-8859-1")
+          end
+          enscript_highlight = enscript_highlight.scan(/^Name: (\w+)/)
         rescue Errno::ENOENT => ignored
         end
         enscript_highlight.flatten.each do |name|
