@@ -24,6 +24,8 @@ module Rabbit
               false
             end
           end
+        rescue ArgumentError
+          false
         end
       end
 

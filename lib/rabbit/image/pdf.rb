@@ -16,6 +16,8 @@ module Rabbit
             line = f.gets
             line and /\A%PDF-1\.\d\z/ =~ line.chomp
           end
+        rescue ArgumentError
+          false
         end
       end
 

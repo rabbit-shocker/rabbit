@@ -28,6 +28,8 @@ module Rabbit
             end
           end
           false
+        rescue ArgumentError
+          false
         end
       end
       
