@@ -66,13 +66,16 @@ end
 
 def setup_default_enum_item_mark_type(type, item)
   type ||= "numeric"
-  case type.to_s.downcase.gsub(/_/, '-')
+  normalized_type = type.to_s.downcase.gsub(/_/, '-')
+  case normalized_type
   when "numeric"
     "#{item.order}. "
-  when "lower-case"
-    "#{(?a + item.order - 1).chr}. "
-  when "upper-case"
-    "#{(?A + item.order - 1).chr}. "
+  when "lower-case", "upper-case"
+    mark = normalized_type == "lower-case" ? "a" : "A"
+    (item.order - 1).times do
+      mark = mark.succ
+    end
+    "#{mark}. "
   else
     format = _("unknown enumeration item mark type: %s\n" \
                "Numeric type is used as fallback")
