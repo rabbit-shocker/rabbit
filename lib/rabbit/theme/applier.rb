@@ -9,7 +9,7 @@ require 'rabbit/renderer/color'
 
 module Rabbit
   module Theme
-    class ElementContainer < DelegateClass(Array)
+    class ElementContainer < Array
       def initialize(applier, ary)
         @applier = applier
         super(ary)
@@ -376,8 +376,11 @@ module Rabbit
 
       def match(*paths, &block)
         dirty
+        targets = _match(slides, *paths)
+        return if targets.empty?
+
         begin
-          @current_target = make_container(_match(slides, *paths))
+          @current_target = make_container(targets)
           block.call(@current_target)
         ensure
           @current_target = nil
