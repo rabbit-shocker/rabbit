@@ -424,7 +424,7 @@ def parse_args(args=ARGV, logger=nil)
     levels = Rabbit::Front::PublicLevel.constants.sort_by do |const|
       Rabbit::Front::PublicLevel.const_get(const)
     end.collect do |const|
-      const.downcase.gsub(/_/, "-")
+      const.to_s.downcase.gsub(/_/, "-")
     end
     messages = [_("Specify public level.")]
     messages << _("Select from the following:")
