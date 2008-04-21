@@ -399,6 +399,7 @@ module Rabbit
         last_path_index = paths.size - 1
         paths.each_with_index do |path, i|
           current = _match_with_cache(current, path, i == last_path_index) do
+            current = ignore_wait_block(current) unless i == last_path_index
             if path.nil?
               slides
             elsif path == "**"
@@ -448,6 +449,16 @@ module Rabbit
           end
         else
           []
+        end
+      end
+
+      def ignore_wait_block(elements)
+        elements.inject([]) do |result, element|
+          if element.is_a?(WaitBlock)
+            result + ignore_wait_block(element.elements)
+          else
+            result + [element]
+          end
         end
       end
 

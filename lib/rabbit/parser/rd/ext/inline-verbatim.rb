@@ -70,6 +70,12 @@ module Rabbit
             return nil unless /^lang:([a-z]{2,2}):(.*)$/ =~ label
             Inline.lang($1, Text.new(visitor.apply_to_String($2)))
           end
+
+          def ext_inline_verb_wait(label, source, content, visitor)
+            label = label.to_s
+            return nil unless /^wait$/ =~ label
+            WaitTag.new
+          end
         end
       end
     end

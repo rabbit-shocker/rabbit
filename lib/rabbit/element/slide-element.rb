@@ -60,12 +60,8 @@ module Rabbit
         @drawing_index -= 1 unless first?
       end
 
-      def append_default_wait_proc(target, exact=false, &proc)
+      def register_default_wait_proc(target, exact=false, &proc)
         @default_waited_draw_procs << [target, exact, proc]
-      end
-
-      def prepend_default_wait_proc(target, exact=false, &proc)
-        @default_waited_draw_procs.unshift([target, exact, proc])
       end
 
       def register_wait_proc(target, exact=false, &proc)

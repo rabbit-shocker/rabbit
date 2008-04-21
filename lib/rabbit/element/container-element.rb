@@ -12,6 +12,7 @@ module Rabbit
       attr_reader :elements
 
       def_delegators(:@elements, :[], :empty?, :each, :first, :last)
+      def_delegators(:@elements, :size, :length)
 
       def initialize(elems=[])
         @elements = []
@@ -33,6 +34,13 @@ module Rabbit
         @elements.unshift(element)
         element.parent = self
         dirty!
+      end
+
+      def delete(element)
+        return if @elements.delete(element).nil?
+        element.parent = nil
+        dirty!
+        element
       end
 
       def text
@@ -219,6 +227,10 @@ module Rabbit
           self_info = "<#{self.class.name}>"
         end
         self_info + (elem_info.empty? ? "" : "\n") + elem_info
+      end
+
+      def have_wait_tag?
+        @elements.any? {|element| element.have_wait_tag?}
       end
     end
   end

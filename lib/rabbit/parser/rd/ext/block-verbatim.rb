@@ -89,13 +89,7 @@ module Rabbit
             tree = ::RD::RDTree.new("=begin\n#{src}\n=end\n")
 
             wait_block = WaitBlock.new
-            slide = visitor.slide
-            slide.append_default_wait_proc(slide) do |*args|
-              wait_block.show do
-                next_proc = args.pop
-                next_proc.call(*args)
-              end
-            end
+            visitor.register_pause(wait_block)
 
             tree.root.children.each do |child|
               wait_block << child.accept(visitor)

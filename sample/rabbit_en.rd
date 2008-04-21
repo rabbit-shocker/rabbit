@@ -73,6 +73,15 @@ A presentation tool
   * Wiki notation
     * can write with Wiki notation
 
+= More(('sup:6')) ...
+
+  * pause
+      # wait
+        * not visible
+        * visible with the above item
+  * (('wait'))visible in the next step
+  * (('wait'))visible in the last step
+
 = Not available
 
   * inline image

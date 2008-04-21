@@ -82,6 +82,10 @@ module Rabbit
         slide.register_wait_proc(self, *args, &block) if slide
       end
 
+      def have_wait_tag?
+        false
+      end
+
       def compile(canvas, x, y, w, h)
         @base_x, @base_y, @base_w, @base_h = x, y, w, h
         @px, @py, @pw, @ph = @x, @y, @w, @h
@@ -222,7 +226,7 @@ module Rabbit
       end
 
       def init_default_visible
-        @default_visible = true
+        @default_visible = !have_wait_tag?
       end
 
       def clear_padding
@@ -452,14 +456,14 @@ module Rabbit
            @post_draw_procs.reverse).each do |pro,|
             @real_simulation = simulation
             _simulation = simulation
-            _simulation = true unless @visible
+            _simulation = true unless visible?
             x, y, w, h = pro.call(canvas, x, y, w, h, _simulation)
           end
           [x, y, w, h]
         else
           @real_simulation = simulation
           _simulation = simulation
-          _simulation = true unless @visible
+          _simulation = true unless visible?
           pro, = around_draw_procs.pop
           next_proc = Proc.new do |*args|
             args << around_draw_procs

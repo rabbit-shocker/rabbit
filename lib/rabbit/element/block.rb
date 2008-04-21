@@ -45,8 +45,8 @@ module Rabbit
     class WaitBlock
       include ContainerElement
 
-      def init_default_visible
-        @default_visible = false
+      def have_wait_tag?
+        true
       end
     end
   end

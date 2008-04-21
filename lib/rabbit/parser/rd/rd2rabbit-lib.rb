@@ -33,13 +33,15 @@ module Rabbit
 
         def_delegators(:@canvas, :logger, :full_path, :tmp_dir_name)
 
-        attr_reader :canvas, :slide
+        attr_reader :canvas
         def initialize(canvas)
           @canvas = canvas
 
           @slides = []
           @slide = nil
           @index = {}
+
+          @pause_targets = {}
 
           init_extensions
           super()
@@ -49,6 +51,16 @@ module Rabbit
           prepare_labels(tree, "label-")
           prepare_footnotes(tree)
           super(tree)
+        end
+
+        def register_pause(target)
+          @pause_targets[@slide] ||= []
+          @pause_targets[@slide] << target
+        end
+
+        def unregister_pause(target)
+          @pause_targets[@slide] ||= []
+          @pause_targets[@slide].delete(target)
         end
 
         def apply_to_DocumentElement(element, contents)
@@ -72,6 +84,7 @@ module Rabbit
               target << content if display
             end
           end
+          burn_out_pause_targets
           burn_out_foot_texts
         end
 
@@ -103,7 +116,9 @@ module Rabbit
         end
 
         def apply_to_TextBlock(element, content)
-          Paragraph.new(content)
+          paragraph = Paragraph.new(content)
+          register_pause(paragraph) if paragraph.have_wait_tag?
+          paragraph
         end
 
         def apply_to_Verbatim(element)
@@ -172,6 +187,16 @@ module Rabbit
         def apply_to_ListItem(element, contents, item)
           contents.each do |content|
             item << content
+          end
+          if contents.size == 1 and contents.first.first.is_a?(WaitTag)
+            content = contents.first
+            content.default_visible = true
+            content.clear_theme
+            unregister_pause(content)
+
+            item.default_visible = false
+            item.clear_theme
+            register_pause(item)
           end
           item
         end
@@ -361,6 +386,19 @@ module Rabbit
             raise ArgumentError, "[BUG] footnote ##{num} isn't here."
           end
           @foot_texts.last << [foot_text, num - 1]
+        end
+
+        def burn_out_pause_targets
+          @slides.each do |slide|
+            (@pause_targets[slide] || []).each do |target|
+              slide.register_default_wait_proc(target.parent) do |*args|
+                target.show do
+                  next_proc = args.pop
+                  next_proc.call(*args)
+                end
+              end
+            end
+          end
         end
 
         def burn_out_foot_texts
