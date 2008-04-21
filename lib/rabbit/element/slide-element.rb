@@ -59,7 +59,7 @@ module Rabbit
         @drawing_index -= 1 unless first?
       end
 
-      def wait(target, exact=false, &proc)
+      def register_wait_proc(target, exact=false, &proc)
         @waited_draw_procs << [target, exact, proc]
       end
 

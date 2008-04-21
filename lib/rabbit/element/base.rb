@@ -72,7 +72,7 @@ module Rabbit
       end
 
       def wait(*args, &block)
-        slide.wait(self, *args, &block) if slide
+        slide.register_wait_proc(self, *args, &block) if slide
       end
 
       def compile(canvas, x, y, w, h)
