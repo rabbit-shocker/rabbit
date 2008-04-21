@@ -70,7 +70,7 @@ module Rabbit
       def waited_draw_procs(target)
         procs = []
         candidates = @waited_draw_procs[0, @drawing_index]
-        candidates = candidates.each_with_index do |(t, exact, proc), i|
+        candidates.each_with_index do |(t, exact, proc), i|
           next unless target == t
           if exact
             procs << proc if i == @drawing_index - 1
