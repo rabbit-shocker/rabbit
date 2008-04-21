@@ -4,6 +4,12 @@
 
 $Id$
 
+== Changes 0.5.6 from 0.5.5: 2008-04-21
+
+  * removed RTtool
+  * supported Ruby 1.9 a bit
+  * supported pause
+
 == Changes 0.5.5 from 0.5.4: 2008-03-01
 
   * Bug fixes
