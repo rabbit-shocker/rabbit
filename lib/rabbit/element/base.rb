@@ -31,7 +31,9 @@ module Rabbit
       attr_accessor :default_padding_left, :default_padding_right
       attr_accessor :default_padding_top, :default_padding_bottom
 
-      attr_reader :parent, :visible, :real_simulation
+      attr_accessor :default_visible
+
+      attr_reader :parent, :real_simulation
 
       def initialize
         @x = @y = @w = @h = nil
@@ -40,12 +42,17 @@ module Rabbit
         @default_prop = {}
         init_default_padding
         init_default_margin
+        init_default_visible
         clear_theme
       end
 
       def parent=(parent)
         @slide = nil
         @parent = parent
+      end
+
+      def visible?
+        @visible
       end
 
       def slide
@@ -141,7 +148,7 @@ module Rabbit
 
       def clear_theme
         @slide = nil
-        @visible = true
+        @visible = @default_visible
         @real_simulation = true
         @width = @height = nil
         @centering_adjusted_width = nil
@@ -212,6 +219,10 @@ module Rabbit
         @default_margin_right = 0
         @default_margin_top = 0
         @default_margin_bottom = 0
+      end
+
+      def init_default_visible
+        @default_visible = true
       end
 
       def clear_padding

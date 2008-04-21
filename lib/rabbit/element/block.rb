@@ -41,5 +41,13 @@ module Rabbit
         "<p>\n#{super}\n</p>"
       end
     end
+
+    class WaitBlock
+      include ContainerElement
+
+      def init_default_visible
+        @default_visible = false
+      end
+    end
   end
 end

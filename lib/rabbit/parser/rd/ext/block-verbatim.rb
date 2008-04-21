@@ -81,6 +81,24 @@ module Rabbit
             end
             BlockQuote.new(elems, prop)
           end
+
+          def ext_block_verb_wait(label, source, content, visitor)
+            return nil unless /^wait$/i =~ label
+            src, prop = parse_source(source)
+            tree = ::RD::RDTree.new("=begin\n#{src}\n=end\n")
+            elems = tree.root.children.collect do |child|
+              child.accept(visitor)
+            end
+            wait_block = WaitBlock.new(elems)
+            slide = visitor.slide
+            slide.prepend_default_wait_proc(slide) do |*args|
+              wait_block.show do
+                next_proc = args.pop
+                next_proc.call(*args)
+              end
+            end
+            wait_block
+          end
         end
       end
     end

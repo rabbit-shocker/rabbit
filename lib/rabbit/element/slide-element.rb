@@ -6,6 +6,7 @@ module Rabbit
       include ContainerElement
 
       def initialize(title_element)
+        @default_waited_draw_procs = []
         super(title_element)
       end
 
@@ -40,7 +41,7 @@ module Rabbit
       def clear_theme
         super
         clear_waiting
-        @waited_draw_procs = []
+        @waited_draw_procs = @default_waited_draw_procs.dup
       end
 
       def first?
@@ -57,6 +58,14 @@ module Rabbit
 
       def move_to_previous
         @drawing_index -= 1 unless first?
+      end
+
+      def append_default_wait_proc(target, exact=false, &proc)
+        @default_waited_draw_procs << [target, exact, proc]
+      end
+
+      def prepend_default_wait_proc(target, exact=false, &proc)
+        @default_waited_draw_procs.unshift([target, exact, proc])
       end
 
       def register_wait_proc(target, exact=false, &proc)

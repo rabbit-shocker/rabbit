@@ -33,7 +33,7 @@ module Rabbit
 
         def_delegators(:@canvas, :logger, :full_path, :tmp_dir_name)
 
-        attr_reader :canvas
+        attr_reader :canvas, :slide
         def initialize(canvas)
           @canvas = canvas
 
