@@ -29,10 +29,12 @@ module Rabbit
       def update_size
         png_file = Tempfile.new("rabbit-loader-gimp-png")
         png_path = png_file.path
+        clip_to_image = 1
+        merge_type = clip_to_image
         command = <<-EOC
 (let ((image (car (gimp-file-load RUN-NONINTERACTIVE
                                   "#{@filename}" "#{@filename}"))))
-  (let ((layer (car (gimp-image-merge-visible-layers image 0))))
+  (let ((layer (car (gimp-image-merge-visible-layers image #{merge_type}))))
     (file-png-save-defaults RUN-NONINTERACTIVE image layer
                             "#{png_path}" "#{png_path}"))
   (gimp-image-delete image))
