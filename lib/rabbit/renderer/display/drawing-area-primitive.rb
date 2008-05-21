@@ -146,7 +146,7 @@ module Rabbit
         def init_drawing_area
           @area = Gtk::DrawingArea.new
           @area.can_focus = true
-          set_realize
+          set_map
           set_expose_event
           set_configure_event_after
         end
@@ -155,13 +155,13 @@ module Rabbit
           @area.window.depth
         end
 
-        def set_realize
-          @area.signal_connect_after("realize") do |widget|
-            realized(widget)
+        def set_map
+          @area.signal_connect_after("map") do |widget|
+            mapped(widget)
           end
         end
 
-        def realized(widget)
+        def mapped(widget)
           @drawable = widget.window
           init_renderer(@drawable)
         end
