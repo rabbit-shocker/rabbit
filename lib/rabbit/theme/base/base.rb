@@ -66,6 +66,7 @@ if windows?
 elsif quartz?
   @font_family ||= find_font_family("Hiragino Kaku Gothic Pro")
   @monospace_font_family ||= find_font_family("Osaka-Mono")
+  @monospace_font_family ||= find_font_family("Osaka")
 end
 
 @font_family ||= find_font_family("Sans")
