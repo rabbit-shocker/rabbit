@@ -641,11 +641,6 @@ module Rabbit
         @processing = true
         Action.update_status(self)
         yield
-      rescue Exception
-        puts $!.class
-        puts $!
-        puts $@
-        raise
       ensure
         @processing = false
         Action.update_status(self)

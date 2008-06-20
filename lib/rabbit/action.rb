@@ -80,7 +80,9 @@ module Rabbit
             config[:accelerator],
             config[:tooltip],
             Proc.new do |group, act|
-              callback.call(act, group, canvas)
+              guard(canvas) do
+                callback.call(act, group, canvas)
+              end
             end
           ]
           result << config[:is_active] if toggle
@@ -111,8 +113,18 @@ module Rabbit
 
           callback = method(action)
           group.add_radio_actions(gtk_actions, default_value) do |act, current|
-            callback.call(act, current, group, canvas)
+            guard(canvas) do
+              callback.call(act, current, group, canvas)
+            end
           end
+        end
+      end
+
+      def guard(canvas)
+        begin
+          yield
+        rescue Exception
+          canvas.logger.warn($!)
         end
       end
     end
