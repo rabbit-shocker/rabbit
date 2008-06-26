@@ -87,18 +87,18 @@ module Rabbit
           super
         end
 
-        def create_context
-          surface = find_surface(filename)
+        def create_context(output=nil)
+          surface = find_surface(filename, output)
           surface.set_fallback_resolution(@x_dpi, @y_dpi)
           ::Cairo::Context.new(surface)
         end
 
         def create_pango_context
-          create_context.create_pango_layout.context
+          create_context(StringIO.new).create_pango_layout.context
         end
 
-        def find_surface(filename)
-          args = [filename, @page_width, @page_height]
+        def find_surface(filename, output=nil)
+          args = [output || filename, @page_width, @page_height]
           case File.extname(filename)
           when /\.ps/i
             ::Cairo::PSSurface.new(*args)
