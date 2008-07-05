@@ -63,7 +63,12 @@ module Rabbit
         def handle_button_press(event, release_event)
           case event.button
           when 1, 5
-            unless release_event.state.mod1_mask?
+            if release_event.state.control_mask?
+              add_button_handler do
+                popup_menu
+                true
+              end
+            elsif !release_event.state.mod1_mask?
               add_button_handler do
                 @canvas.activate("NextSlide")
                 true
