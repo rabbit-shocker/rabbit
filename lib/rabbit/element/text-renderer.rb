@@ -21,6 +21,9 @@ module Rabbit
       end
 
       def align=(new_value)
+        if new_value.is_a?(String)
+          new_value = Pango::Layout.const_get("ALIGN_#{new_value.to_s.upcase}")
+        end
         dirty! if @align != new_value
         @align = new_value
       end
