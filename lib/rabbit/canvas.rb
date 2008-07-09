@@ -417,20 +417,30 @@ module Rabbit
       slide = current_slide
       if slide and !slide.last?
         slide.move_to_next
+        Action.update_status(self)
         activate("Redraw")
       else
-        move_to_if_can(current_index + 1)
+        move_to_next_slide_if_can
       end
+    end
+
+    def move_to_next_slide_if_can
+      move_to_if_can(current_index + 1)
     end
 
     def move_to_previous_if_can
       slide = current_slide
       if slide and !slide.first?
         slide.move_to_previous
+        Action.update_status(self)
         activate("Redraw")
       else
-        move_to_if_can(current_index - 1)
+        move_to_previous_slide_if_can
       end
+    end
+
+    def move_to_previous_slide_if_can
+      move_to_if_can(current_index - 1)
     end
 
     def move_to_first
@@ -490,10 +500,18 @@ module Rabbit
       0 < current_index
     end
 
+    def have_previous?
+      have_previous_slide? or (current_slide and !current_slide.first?)
+    end
+
     def have_next_slide?
       slide_size - 1 > current_index
     end
-    
+
+    def have_next?
+      have_next_slide? or (current_slide and !current_slide.last?)
+    end
+
     def cache_all_slides
       process do
         @renderer.cache_all_slides

@@ -1,8 +1,24 @@
 module Rabbit
   module Action
     module_function
-    def act_next_slide(action, group, canvas)
+    def act_next(action, group, canvas)
       canvas.move_to_next_if_can
+    end
+    def act_next_config(config, canvas)
+      config[:label] = N_("Next")
+      config[:stock_id] = Gtk::Stock::GO_FORWARD
+    end
+
+    def act_previous(action, group, canvas)
+      canvas.move_to_previous_if_can
+    end
+    def act_previous_config(config, canvas)
+      config[:label] = N_("Previous")
+      config[:stock_id] = Gtk::Stock::GO_BACK
+    end
+
+    def act_next_slide(action, group, canvas)
+      canvas.move_to_next_slide_if_can
     end
     def act_next_slide_config(config, canvas)
       config[:label] = N_("Next slide")
@@ -10,7 +26,7 @@ module Rabbit
     end
 
     def act_previous_slide(action, group, canvas)
-      canvas.move_to_previous_if_can
+      canvas.move_to_previous_slide_if_can
     end
     def act_previous_slide_config(config, canvas)
       config[:label] = N_("Previous slide")
@@ -44,6 +60,8 @@ module Rabbit
     end
 
     def update_move_slide_action_status(canvas)
+      canvas.action("Previous").sensitive = canvas.have_previous?
+      canvas.action("Next").sensitive = canvas.have_next?
       canvas.action("PreviousSlide").sensitive = canvas.have_previous_slide?
       canvas.action("NextSlide").sensitive = canvas.have_next_slide?
       canvas.action("FirstSlide").sensitive = !canvas.first_slide?

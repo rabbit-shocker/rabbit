@@ -60,9 +60,9 @@ module Rabbit
         def init_gesture_actions
           @gesture.clear_actions
           bg_proc = Utils.process_pending_events_proc
-          add_gesture_action(%w(R), "NextSlide")
+          add_gesture_action(%w(R), "Next")
           add_gesture_action(%w(R L), "LastSlide")
-          add_gesture_action(%w(L), "PreviousSlide")
+          add_gesture_action(%w(L), "Previous")
           add_gesture_action(%w(L R), "FirstSlide")
           add_gesture_action(%w(U), "Quit")
 

@@ -98,11 +98,11 @@ module Rabbit
           end
           keys = Keys::MOVE_TO_NEXT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("NextSlide")
+            @canvas.activate("Next")
           end
           keys = Keys::MOVE_TO_PREVIOUS_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("PreviousSlide")
+            @canvas.activate("Previous")
           end
           keys = Keys::MOVE_TO_FIRST_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
@@ -234,6 +234,15 @@ module Rabbit
           keys = Keys::Control::STOP_SLIDE_SEARCH_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("StopSlideSearch")
+          end
+
+          keys = Keys::MOVE_TO_NEXT_KEYS
+          set_keys(keys, mod) do |group, obj, val, modifier|
+            @canvas.activate("NextSlide")
+          end
+          keys = Keys::MOVE_TO_PREVIOUS_KEYS
+          set_keys(keys, mod) do |group, obj, val, modifier|
+            @canvas.activate("PreviousSlide")
           end
         end
 

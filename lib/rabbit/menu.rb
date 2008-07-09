@@ -247,6 +247,8 @@ module Rabbit
         [:separator],
         [:menu, "JumpTo"],
         [:separator],
+        [:item, "Previous"],
+        [:item, "Next"],
         [:item, "PreviousSlide"],
         [:item, "NextSlide"],
         [:item, "FirstSlide"],
