@@ -18,6 +18,11 @@ end
 
 
 slide_body = [Slide, Body]
+
+match(*(slide_body + [DescriptionList])) do
+  margin_with(:top => @space)
+end
+
 desc_list_item = [DescriptionList, DescriptionListItem]
 
 match(*(slide_body + desc_list_item)) do
