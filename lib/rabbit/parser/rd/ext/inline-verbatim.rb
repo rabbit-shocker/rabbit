@@ -62,7 +62,13 @@ module Rabbit
           def ext_inline_verb_note(label, source, content, visitor)
             label = label.to_s
             return nil unless /^note:(.*)$/ =~ label
-            Inline.note(Text.new(visitor.apply_to_String($1)))
+            target = $1
+            if /^\w+:/ =~ target
+              target = visitor.apply_to_Verb(::RD::Verb.new(target))
+            else
+              target = Text.new(visitor.apply_to_String(target))
+            end
+            Inline.note(target)
           end
 
           def ext_inline_verb_lang(label, source, content, visitor)
