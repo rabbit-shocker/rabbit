@@ -26,4 +26,3 @@ match(Slide) do |slides|
     [x, y, w, h]
   end
 end
-

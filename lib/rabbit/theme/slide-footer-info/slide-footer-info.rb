@@ -1,6 +1,7 @@
 name = "slide-footer-info"
 
 @slide_footer_info_line_color ||= "#666"
+@slide_footer_info_line_width ||= screen_y(0.1)
 @slide_footer_info_line_params ||= {
   :pattern => {
     :base => [0, 0, canvas.width, 0],
@@ -24,28 +25,41 @@ match(SlideElement) do
 
   add_pre_draw_proc(name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
-      bottom = canvas.height * 0.95
+      bottom = canvas.height - @margin_bottom
+      line_width = {:line_width => @slide_footer_info_line_width}
       canvas.draw_line(0, bottom, canvas.width, bottom,
                        @slide_footer_info_line_color,
-                       @slide_footer_info_line_params)
+                       @slide_footer_info_line_params.merge(line_width))
 
-      bottom = canvas.height * 0.96
       props = {
         "font_family" => @font_family,
         "size" => @slide_footer_info_text_size,
         "color" => @slide_footer_info_text_color,
       }
-
+      left_layout = right_layout = nil
       if @slide_footer_info_left_text
-        layout = make_layout(span(props, @slide_footer_info_left_text))
-        canvas.draw_layout(layout, @slide_footer_info_x_margin, bottom)
+        left_layout = make_layout(span(props, @slide_footer_info_left_text))
+      end
+      if @slide_footer_info_right_text
+        right_layout = make_layout(span(props, @slide_footer_info_right_text))
       end
 
-      if @slide_footer_info_right_text
-        layout = make_layout(span(props, @slide_footer_info_right_text))
-        text_width, text_height = layout.pixel_size
-        right_text_x = canvas.width - text_width - @slide_footer_info_x_margin
-        canvas.draw_layout(layout, right_text_x, bottom)
+      layouts = [left_layout, right_layout].compact
+      unless layouts.empty?
+        bottom_space = @margin_bottom - @slide_footer_info_line_width
+        max_height = layouts.collect {|layout| layout.pixel_size[1]}.max
+        bottom_space -= (bottom_space - max_height) / 2
+        bottom = canvas.height - bottom_space
+
+        if left_layout
+          canvas.draw_layout(left_layout, @slide_footer_info_x_margin, bottom)
+        end
+
+        if right_layout
+          text_width, text_height = right_layout.pixel_size
+          right_text_x = canvas.width - text_width - @slide_footer_info_x_margin
+          canvas.draw_layout(right_layout, right_text_x, bottom)
+        end
       end
     end
     [x, y, w, h]
