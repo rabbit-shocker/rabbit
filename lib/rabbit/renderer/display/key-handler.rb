@@ -253,6 +253,11 @@ module Rabbit
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("ResetAdjustment")
           end
+
+          keys = Keys::Alt::RESET_TIMER_KEYS
+          set_keys(keys, mod) do |group, obj, val, modifier|
+            @canvas.activate("ResetTimer")
+          end
         end
 
         def set_key_press_event(widget)

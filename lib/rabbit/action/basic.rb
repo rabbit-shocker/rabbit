@@ -135,7 +135,7 @@ module Rabbit
     end
     def act_clear_slide_config(config, canvas)
       config[:label] = N_("Clear slide")
-      config[:stock_id] = Gtk::Stock::REFRESH
+      config[:stock_id] = Gtk::Stock::CLEAR
     end
 
     def update_theme_action_status(canvas)
@@ -222,6 +222,14 @@ module Rabbit
     end
     def act_reset_adjustment_config(config, canvas)
       config[:label] = N_("Reset adjustment")
+      config[:stock_id] = Gtk::Stock::CLEAR
+    end
+
+    def act_reset_timer(action, group, canvas)
+      canvas.reset_timer
+    end
+    def act_reset_timer_config(config, canvas)
+      config[:label] = N_("Reset timer")
       config[:stock_id] = Gtk::Stock::CLEAR
     end
 

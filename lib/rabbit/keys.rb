@@ -181,6 +181,10 @@ module Rabbit
       RESET_ADJUSTMENT_KEYS = [
         Gdk::Keyval::GDK_a,
       ]
+
+      RESET_TIMER_KEYS = [
+        Gdk::Keyval::GDK_t,
+      ]
     end
   end
 end
