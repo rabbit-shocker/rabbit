@@ -670,13 +670,13 @@ def do_display(options, logger)
   setup_migemo_info(canvas, options)
   setup_3d_info(canvas, options)
   frame.init_gui(options.width, options.height, true)
+  frame.fullscreen if options.full_screen
   native_window = frame.window.window
   if options.show_native_window_id and native_window.respond_to?(:xid)
     logger.info(_("Window ID: %d") % native_window.xid)
   end
   apply_theme_if_need(frame, options)
   parse(frame, options, logger, !Rabbit::Utils.windows?)
-  frame.fullscreen if options.full_screen
   canvas.activate("ToggleIndexMode") if options.index_mode
 
   front = make_front(canvas, options)
