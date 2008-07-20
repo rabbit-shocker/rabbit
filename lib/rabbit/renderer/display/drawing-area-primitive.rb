@@ -163,7 +163,6 @@ module Rabbit
 
         def mapped(widget)
           @drawable = widget.window
-          init_renderer(@drawable)
         end
 
         def set_expose_event
@@ -216,6 +215,7 @@ module Rabbit
 
         def compile_slide(slide)
           @compiled_slides[slide] = true
+          init_renderer(@drawable)
           slide.draw(@canvas, true)
         end
 
