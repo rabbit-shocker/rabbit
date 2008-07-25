@@ -16,3 +16,12 @@ match(Slide, HeadLine) do
     [x, y, w, h]
   end
 end
+
+match(Slide, Body) do |bodies|
+  bodies.each do |body|
+    unless body.elements.any? {|element| element.is_a?(Image)}
+      body.margin_with(:left => @body_margin_left,
+                       :right => @body_margin_right)
+    end
+  end
+end

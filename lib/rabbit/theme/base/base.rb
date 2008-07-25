@@ -17,6 +17,9 @@
 @margin_top = screen_y(3)
 @margin_bottom = screen_y(3)
 
+@body_margin_left = screen_x(3)
+@body_margin_right = screen_x(3)
+
 @table_frame_color = "#55003dff0eff"
 @table_fill_color = "#fcfae2"
 
