@@ -9,19 +9,20 @@ end
 
 def setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)
   type ||= "rectangle"
-  case type.to_s.downcase
+  normalized_type = type.to_s.downcase
+  case normalized_type
   when "rectangle"
     canvas.draw_rectangle(true, x, y, w, h, color)
   when "circle"
     canvas.draw_circle(true, x, y, w, h, color)
-  when "check"
+  when "check", "dash"
     props = {
       "font_family" => @font_family,
       "weight" => "bold",
       "foreground" => color,
     }.merge(item.first.text_props)
 
-    layout = make_layout(span(props, entity("check")))
+    layout = make_layout(span(props, entity(normalized_type)))
     text_width, text_height = layout.pixel_size
     canvas.draw_layout(layout,
                        x - text_width / 2.0,
