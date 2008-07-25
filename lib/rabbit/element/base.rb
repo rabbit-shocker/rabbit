@@ -150,6 +150,12 @@ module Rabbit
         false
       end
 
+      def substitute_newline
+        substitute_text do |text|
+          text.gsub(/(\\)?\\n/) {$1 ? "\\n" : "\n"}
+        end
+      end
+
       def clear_theme
         @slide = nil
         @visible = @default_visible

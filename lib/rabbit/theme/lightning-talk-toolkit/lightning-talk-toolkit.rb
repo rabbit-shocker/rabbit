@@ -150,12 +150,6 @@ def setup_lightning_talk_headline(head)
     alias lightning_talk takahashi
 
     private
-    def substitute_newline
-      substitute_text do |text|
-        text.gsub(/(\\)?\\n/) {$1 ? "\\n" : "\n"}
-      end
-    end
-
     def lightning_talk_as_large_as_possible(params)
       proc_name = params[:proc_name]
       as_large_as_possible(proc_name)
