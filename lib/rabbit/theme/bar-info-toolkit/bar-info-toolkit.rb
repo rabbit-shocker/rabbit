@@ -21,9 +21,9 @@ match(SlideElement) do |slides|
 
           base_y = options[:y] || (canvas.height - @margin_bottom)
           if text_position == :lower
-            bar_y = base_y + line_width / 2
+            bar_y = base_y + (line_width / 2.0).floor
           else
-            bar_y = base_y - line_width / 2
+            bar_y = base_y - (line_width / 2.0).ceil
           end
 
           line_width_params = {:line_width => line_width}
