@@ -18,6 +18,7 @@ name = "slide-footer-info"
 @slide_footer_info_x_margin ||= screen_x(1)
 @slide_footer_info_text_color ||= "#666"
 @slide_footer_info_text_over_line ||= false
+@slide_footer_info_base_y ||= canvas.height - @margin_bottom
 
 include_theme("bar-info-toolkit")
 
@@ -37,5 +38,5 @@ match(SlideElement) do
                 :text_size => @slide_footer_info_text_size,
                 :text_color => @slide_footer_info_text_color,
                 :x_margin => @slide_footer_info_x_margin,
-                :y => canvas.height - @margin_bottom)
+                :y => @slide_footer_info_base_y)
 end
