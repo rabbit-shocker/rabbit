@@ -45,13 +45,14 @@ match(SlideElement) do |slides|
 
           layouts = [left_layout, right_layout].compact
           unless layouts.empty?
-            text_space = base_y
             max_height = layouts.collect {|layout| layout.pixel_size[1]}.max
             if text_position == :lower
+              text_space = canvas.height - base_y
               text_space -= line_width unless text_over_line
               text_space -= (text_space - max_height) / 2
               text_base_y = canvas.height - text_space
             else
+              text_space = base_y
               text_space -= line_width unless text_over_line
               text_space -= (text_space - max_height) / 2
               text_base_y = base_y - text_space
