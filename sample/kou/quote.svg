@@ -2,22 +2,31 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="64pt"
    height="50pt"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.43"
+   inkscape:version="0.46"
    version="1.0"
    sodipodi:docbase="/.amd_mnt/home/host/nfs/home/kono/kou/work/rd/master-thesis"
-   sodipodi:docname="quote.svg">
+   sodipodi:docname="quote.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
-     id="defs4" />
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 31.25 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="80 : 31.25 : 1"
+       inkscape:persp3d-origin="40 : 20.833333 : 1"
+       id="perspective15" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,14 +35,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.2866949"
-     inkscape:cx="106.72821"
+     inkscape:cx="7.8219071"
      inkscape:cy="84.225431"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="771"
-     inkscape:window-height="541"
+     inkscape:window-width="843"
+     inkscape:window-height="671"
      inkscape:window-x="8"
-     inkscape:window-y="47" />
+     inkscape:window-y="47"
+     showgrid="false" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -51,11 +61,14 @@
      id="layer1">
     <text
        xml:space="preserve"
-       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#dfecff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
+       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#458cff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        x="45.19878"
        y="60.068813"
        id="text2192"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="206.86398"><tspan
          sodipodi:role="line"
          id="tspan2198"
          x="45.19878"
@@ -65,8 +78,11 @@
        id="text2200"
        y="60.068813"
        x="57.198765"
-       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#dfecff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
-       xml:space="preserve"><tspan
+       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#458cff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
+       xml:space="preserve"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="206.86398"><tspan
          y="60.068813"
          x="57.198765"
          id="tspan2202"
@@ -76,19 +92,25 @@
        id="text2204"
        y="60.033108"
        x="7.5053158"
-       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#dfecff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
-       xml:space="preserve"><tspan
+       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#458cff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
+       xml:space="preserve"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="206.86398"><tspan
          sodipodi:role="line"
          id="tspan2208"
          x="7.5053158"
          y="60.033108">‘</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#dfecff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
+       style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#458cff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        x="19.505316"
        y="60.033108"
        id="text2210"
-       sodipodi:linespacing="125%"><tspan
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="206.86398"><tspan
          y="60.033108"
          x="19.505316"
          id="tspan2212"
