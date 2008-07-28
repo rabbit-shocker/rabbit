@@ -324,8 +324,8 @@ module Rabbit
         canvas.background_image = loader.pixbuf
       end
 
-      def set_progress_foreground(color)
-        canvas.progress_foreground = canvas.make_color(color)
+      def set_progress_foreground(*color)
+        canvas.progress_foreground = canvas.make_color(*color)
       end
 
       def set_progress_background(color)

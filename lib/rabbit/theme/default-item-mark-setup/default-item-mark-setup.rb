@@ -19,7 +19,7 @@ def setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)
     props = {
       "font_family" => @font_family,
       "weight" => "bold",
-      "foreground" => color,
+      "foreground" => canvas.make_color(color).to_gdk_format,
     }.merge(item.first.text_props)
 
     layout = make_layout(span(props, entity(normalized_type)))

@@ -21,6 +21,8 @@ module Rabbit
         HEX = "(?i:[a-z0-9])"
         def parse(spec)
           case spec
+          when Array
+            new(*spec)
           when /\A\#(#{HEX})(#{HEX})(#{HEX})(#{HEX})?\z/
             new(*normalize($1, $2, $3, $4, 16 ** 1 - 1))
           when /\A\#(#{HEX}{2})(#{HEX}{2})(#{HEX}{2})(#{HEX}{2})?\z/
@@ -61,7 +63,7 @@ module Rabbit
       end
 
       def to_gdk_rgba
-        [red, green, blue, alpha].collect do |color|
+        [red, green, blue, alpha || 1.0].collect do |color|
           (color * GDK_COLOR_NORMALIZE).truncate
         end
       end
