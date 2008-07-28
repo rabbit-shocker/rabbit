@@ -1,3 +1,5 @@
+@default_emphasis_color ||= "red"
+
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
   heads.prop_set("weight", "bold")
@@ -13,7 +15,7 @@ match("**", Paragraph) do |texts|
 end
 
 match("**", Emphasis) do |texts|
-  texts.prop_set("foreground", "red")
+  texts.prop_set("foreground", @default_emphasis_color)
   texts.prop_set("weight", "bold")
 end
 

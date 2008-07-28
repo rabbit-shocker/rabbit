@@ -1,11 +1,12 @@
 include_theme("default-item-mark-setup")
 
-@default_item1_mark_color ||= "green"
-@default_item2_mark_color ||= "blue"
-@default_item3_mark_color ||= "red"
-@default_enum_item1_mark_color ||= "#00ffff"
-@default_enum_item2_mark_color ||= "#ff00ff"
+@default_item1_mark_color ||= "#000"
+@default_item2_mark_color ||= "#333"
+@default_item3_mark_color ||= "#666"
+@default_enum_item1_mark_color ||= "#333"
+@default_enum_item2_mark_color ||= "#666"
 @default_description_item1_mark_color ||= "#ff9933"
+@default_block_quote_item1_mark_color ||= "#ff9933"
 
 @default_item1_mark_type ||= "rectangle"
 @default_item2_mark_type ||= "rectangle"
@@ -13,6 +14,7 @@ include_theme("default-item-mark-setup")
 @default_enum_item1_mark_type ||= "circle"
 @default_enum_item2_mark_type ||= "circle"
 @default_description_item1_mark_type ||= "check"
+@default_block_quote_item1_mark_type ||= "check"
 
 slide_body = [Slide, Body]
 
@@ -77,4 +79,14 @@ match(*(slide_body + desc_list_content + item_list_item)) do |items|
   setup_default_item_mark(items, "description-item1", 1.5, 1.5, (2 / 4.0),
                           @default_description_item1_mark_color,
                           "type" => @default_description_item1_mark_type)
+end
+
+
+block_quote = [BlockQuote]
+item_list_item = [ItemList, ItemListItem]
+
+match(*(slide_body + block_quote + (item_list_item * 1))) do |items|
+  setup_default_item_mark(items, "block-quote-item1", 1.5, 1.5, (2 / 4.0),
+                          @default_block_quote_item1_mark_color,
+                          "type" => @default_block_quote_item1_mark_type)
 end

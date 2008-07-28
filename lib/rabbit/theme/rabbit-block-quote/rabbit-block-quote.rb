@@ -14,4 +14,3 @@ match(*(block_quote + (item_list_item * 1))) do |items|
 
   draw_image_mark(items, "red-item.png", name)
 end
-
