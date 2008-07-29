@@ -342,6 +342,14 @@ module Rabbit
             super(lang, @private.pack(text, *rest))
           end
 
+          def br
+            Text.new("\n")
+          end
+
+          def wait
+            WaitTag.new
+          end
+
           class Private
             include Element
             def initialize(output)
