@@ -1,8 +1,8 @@
 add_image_path("clear-blue-images")
 
 base_color = "#458cff"
-base_dark_background_color = "#ddddff"
-base_background_color = "#e9e9ff"
+base_dark_background_color = "#e9ffff"
+base_background_color = "#ffffff"
 
 set_graffiti_color("#{base_color}99")
 set_graffiti_line_width(30)
