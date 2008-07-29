@@ -1,3 +1,5 @@
+@default_headline_line_color ||= "#ff9933"
+
 match(Slide) do
   margin_set(@margin_top, @margin_right, @margin_bottom, @margin_left)
 end
@@ -11,7 +13,8 @@ match(Slide, HeadLine) do
   margin_with(:bottom => space * 3)
   add_post_draw_proc(name) do |text, canvas, x, y, w, h, simulation|
     unless simulation
-      canvas.draw_line(x, y + space, x + w, y + space, "#ff9933")
+      canvas.draw_line(x, y + space, x + w, y + space,
+                       @default_headline_line_color)
     end
     [x, y, w, h]
   end

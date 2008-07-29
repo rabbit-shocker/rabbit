@@ -1,4 +1,4 @@
-@foot_text_block_line_color ||= "#33ff33"
+@foot_text_block_line_color ||= "#ff9933"
 @foot_text_block_line_width ||= 1
 @foot_text_block_line_length_ratio ||= 0.5
 
