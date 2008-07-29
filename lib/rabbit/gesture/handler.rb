@@ -7,8 +7,6 @@ require 'rabbit/gesture/processor'
 module Rabbit
   module Gesture
     class Handler
-      include Renderer::Engine.renderer_module
-
       DEFAULT_BACK_COLOR = Renderer::Color.parse("#3333337f")
       DEFAULT_LINE_COLOR = Renderer::Color.parse("#f00f")
       DEFAULT_NEXT_COLOR = Renderer::Color.parse("#0f0c")
@@ -69,40 +67,34 @@ module Rabbit
         @processor.update_position(new_x, new_y)
       end
 
-      def draw_last_locus(drawable)
+      def draw_last_locus(renderer)
         if @locus.size >= 2
-          init_renderer(drawable)
           x1, y1 = @locus[-2]
           x2, y2 = @locus[-1]
           args = [x1, y1, x2, y2, @line_color, {:line_width => @line_width}]
-          draw_line(*args)
+          renderer.draw_line(*args)
         end
       end
 
-      def draw(drawable)
-        init_renderer(drawable)
-
+      def draw(renderer)
         if @back_color.alpha == 1.0 or
-            (@back_color.alpha < 1.0 and alpha_available?)
-          args = [true, 0, 0, *drawable.size]
+            (@back_color.alpha < 1.0 and renderer.alpha_available?)
+          args = [true, 0, 0, renderer.width, renderer.height]
           args << @back_color
-          draw_rectangle(*args)
+          renderer.draw_rectangle(*args)
         end
 
-        draw_available_marks(next_available_motions)
+        draw_available_marks(renderer, next_available_motions)
 
         act, = action
-        if act
-          draw_mark(act, *@processor.position)
-        end
+        draw_mark(renderer, act, *@processor.position) if act
 
-        draw_locus(drawable)
+        draw_locus(renderer)
       end
 
-      def draw_locus(drawable)
+      def draw_locus(renderer)
         return if @locus.empty?
-        init_renderer(drawable)
-        draw_lines(@locus, @line_color, {:line_width => @line_width})
+        renderer.draw_lines(@locus, @line_color, {:line_width => @line_width})
       end
 
       def moved?
@@ -156,28 +148,28 @@ module Rabbit
         not action.nil?
       end
 
-      def draw_mark(act, x=nil, y=nil, radius=nil)
+      def draw_mark(renderer, act, x=nil, y=nil, radius=nil)
         x ||= @processor.position[0]
         y ||= @processor.position[1]
         radius ||= @processor.threshold / 2.0
-        draw_circle_by_radius(true, x, y, radius, @current_color)
-        draw_action_image(act, x, y)
+        renderer.draw_circle_by_radius(true, x, y, radius, @current_color)
+        draw_action_image(renderer, act, x, y)
       end
 
-      def draw_action_image(act, x, y)
+      def draw_action_image(renderer, act, x, y)
         icon = nil
         icon = act.create_icon(Gtk::IconSize::DIALOG) if act
         if icon
           pixbuf = icon.render_icon(icon.stock, icon.icon_size, act.name)
           x -= pixbuf.width / 2.0
           y -= pixbuf.height / 2.0
-          draw_pixbuf(pixbuf, x, y)
+          renderer.draw_pixbuf(pixbuf, x, y)
         elsif block_given?
           yield
         end
       end
 
-      def draw_available_marks(infos)
+      def draw_available_marks(renderer, infos)
         infos.each do |motion, act|
           args = [motion, %w(R), %w(L), %w(UR LR), %w(UL LL)]
           adjust_x = calc_position_ratio(*args)
@@ -188,12 +180,12 @@ module Rabbit
           x, y = @processor.position
           center_x = x + threshold * adjust_x
           center_y = y + threshold * adjust_y
-          draw_action_image(act, center_x, center_y) do
+          draw_action_image(renderer, act, center_x, center_y) do
             angle = @processor.skew_threshold_angle
             base_angle = calc_position_angle(motion) - angle
             args = [false, x, y, threshold, base_angle, angle * 2]
             args.concat([@next_color, {:line_width => @next_width}])
-            draw_arc_by_radius(*args)
+            renderer.draw_arc_by_radius(*args)
           end
         end
       end

@@ -58,7 +58,9 @@ module Rabbit
                 @graffiti.dragging? and
                 pressed_button == target_button
               @graffiti.button_motion(event.x, event.y, width, height)
-              @graffiti.draw_last_segment(@drawable)
+              init_renderer(@drawable)
+              @graffiti.draw_last_segment(self)
+              finish_renderer
               true
             else
               false
@@ -67,7 +69,7 @@ module Rabbit
         end
 
         def draw_graffiti
-          @graffiti.draw_all_segment(@drawable)
+          @graffiti.draw_all_segment(self)
         end
 
         def graffiti_mode_action

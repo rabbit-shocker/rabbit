@@ -91,6 +91,7 @@ module Rabbit
 
         def finish_renderer
           @context.destroy if @context.respond_to?(:destroy)
+          @context = nil
         end
 
         def init_context

@@ -49,7 +49,9 @@ module Rabbit
               first_move = !@gesture.moved?
               handled = @gesture.button_motion(event.x, event.y, width, height)
               queue_draw if handled or first_move
-              @gesture.draw_last_locus(@drawable)
+              init_renderer(@drawable)
+              @gesture.draw_last_locus(self)
+              finish_renderer
               true
             else
               false
@@ -83,7 +85,7 @@ module Rabbit
         end
 
         def draw_gesture
-          @gesture.draw(@drawable) if gesturing? and @gesture.moved?
+          @gesture.draw(self) if gesturing? and @gesture.moved?
         end
       end
     end

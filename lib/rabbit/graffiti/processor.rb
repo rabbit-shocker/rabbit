@@ -9,8 +9,6 @@ module Rabbit
       DEFAULT_COLOR = Renderer::Color.parse("black")
       DEFAULT_LINE_WIDTH = 3
 
-      include Renderer::Engine.renderer_module
-
       attr_accessor :color, :line_width
       def initialize(default_config={})
         @default_color = default_config["color"] || DEFAULT_COLOR
@@ -44,30 +42,30 @@ module Rabbit
         end
       end
       
-      def draw_last_segment(drawable)
+      def draw_last_segment(renderer)
         points = @segments.last
         if points.size >= 2
-          init_renderer(drawable)
-          width, height = drawable.size
+          width = renderer.width
+          height = renderer.height
           prev, current = points[-2..-1]
           prev_x, prev_y = prev
           x, y = current
-          draw_line(prev_x * width, prev_y * height,
-                    x * width, y * height,
-                    @color, {:line_width => @line_width})
+          renderer.draw_line(prev_x * width, prev_y * height,
+                             x * width, y * height,
+                             @color, {:line_width => @line_width})
         end
       end
       
-      def draw_all_segment(drawable)
+      def draw_all_segment(renderer)
         return if @segments.empty?
-        init_renderer(drawable)
         args = [@color, {:line_width => @line_width, :opened => true}]
-        width, height = drawable.size
+        width = renderer.width
+        height = renderer.height
         @segments.each do |points|
           converted_points = points.collect do |x, y|
             [x * width, y * height]
           end
-          draw_lines(converted_points, *args)
+          renderer.draw_lines(converted_points, *args)
         end
       end
       
