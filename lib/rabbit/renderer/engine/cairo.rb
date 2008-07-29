@@ -89,6 +89,10 @@ module Rabbit
           init_context
         end
 
+        def finish_renderer
+          @context.destroy if @context.respond_to?(:destroy)
+        end
+
         def init_context
           set_line_width(1)
           @context.line_cap = ::Cairo::LINE_CAP_ROUND

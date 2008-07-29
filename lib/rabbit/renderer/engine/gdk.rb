@@ -18,6 +18,10 @@ module Rabbit
           @gdk_drawable = drawable
         end
 
+        def finish_renderer
+          @gdk_drawable = nil
+        end
+
         def alpha_available?
           false
         end

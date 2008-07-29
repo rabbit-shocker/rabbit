@@ -132,11 +132,6 @@ module Rabbit
           true
         end
 
-        def draw_slide(slide, simulation)
-          init_renderer(@drawable) unless simulation
-          super
-        end
-
         private
         def init_dpi
           @x_dpi = ScreenInfo.screen_x_resolution
@@ -167,7 +162,10 @@ module Rabbit
 
         def set_expose_event
           @area.signal_connect("expose_event") do |widget, event|
-            exposed(widget, event)
+            init_renderer(@drawable)
+            result = exposed(widget, event)
+            finish_renderer
+            result
           end
         end
 
@@ -215,7 +213,6 @@ module Rabbit
 
         def compile_slide(slide)
           @compiled_slides[slide] = true
-          init_renderer(@drawable)
           slide.draw(@canvas, true)
         end
 
