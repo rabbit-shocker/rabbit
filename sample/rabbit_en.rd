@@ -15,114 +15,109 @@
 : theme
    rabbit
 
-= What's this?
+= Rabbit
 
 A presentation tool
 
-  * written by Ruby
-  * used GTK+ 2
-    * because I want to do
-      * OK?
+  * Language: Ruby
+  * Backends: GTK+ 2/cairo
+  * Env.: PC-UNIX/Win/Mac
+  * Format: RD/Wiki/PDF
+  * View: Ruby(('note:(separated with format)'))
 
-= Features
+= Features: Display (1)
 
-  * source is RD
-  * align with RWiki
-    * edit source on the RWiki
-    * when presentation, source is directory from RWiki
-  * isolate RD and look and feel
-
-= Available(('sup:up')) things(('sub:down'))
-
-  * do (('del:not')) ((*emphasis*))
-  * sub(('sub:script')) and super(('sup:script'))
-  * mathematical characters (('&Sigma;'))(('&sum;sub:i=0'))
-  * display image
-
-= More available things
-
-  * auto reload modified source
-  * reload theme
-  * auto generation of index page
-  * right click menu
-
-= More more ...
-
-  * screenshot on the off screen
-  * Internationalized message
-  * PS/PDF output ((-but quality is ...-))
-
-= More more more ...
-
+  * ((*Emphasis*))/(('del:Deletion'))
+  * Sub(('sub:script'))/Super(('sup:script'))
+  * Math characters: (('&sum;'))(('sub:i=0'))(('&sum;sub:i=0'))
+  * Colorized source
   * Table
-  * colorize source
-  * funny themes
-  * graffiti on the slide
 
-= More(('sup:4')) ...
+= Features: Display (2)
 
-  * organize screenshots
-  * mouse gesture
-  * spotlight
-  * magnifier
+  * Interesting theme
+  * Image
+    * Many supported formats
+    * PNG/JPEG/.../PDF/EPS/SVG
+  * Folding long lines
 
-= More(('sup:5')) ...
+= Features: UI (1)
 
-  * PDF viewer
-    * can read not only RD but also PDF
-  * Wiki notation
-    * can write with Wiki notation
+  * Rich key bindings
+  * Context menu
+  * Mouse gesture
+  * Spotlight
+  * Magnifier
 
-= More(('sup:6')) ...
+= Features: UI (2)
 
-  * pause
-      # wait
-        * not visible
-        * visible with the above item
-  * (('wait'))visible in the next step
-  * (('wait'))visible in the last step
+  * Index page
+  * Graffiti
+  * (('wait'))Pause
+  * (('wait'))I18N
+  * Search
 
-= Not available
+= Features: UI (3)
 
-  * inline image
-  * jump to the link
+  * Whiteout/Blackout
+  * Rabbit hole
+    * Make a hole in a slide
+  * Visualize remaining time
+    * The Tortoise and the Hare
+
+= Features: Input
+
+  * File
+  * Standard input
+  * HTTP
+  * RWiki
+  * Hiki
+
+= Features: Format
+
+  * RD
+  * Wiki(Hiki)
+  * PDF
+    * (('&RightArrow;'))PDF viewer
+
+= Features: Output
+
+  * Images
+  * Images + HTML
+  * PS/PDF
+  * PS/PDF for print
+    * slides/page
+
+= Features: Creating
+
+  * Auto source reload
+  * Theme reload
+  * Change theme
 
 = ToDo
 
-  * handle sound
-  * handle 3D (I wish there were a library of X3D)
-    * now OpenGL is supported
+  * Inline image
+  * Jump to a link
+  * Sound
+  * Video
+  * 3D
 
-= Call on
+= Image
 
-  * cool themes
-  * great documents
+  # image
+  # src = lavie.png
+  # caption = Lavie
+  # keep_ratio = true
+  # width = 100
+  # height = 100
+#  # normalized_width = 50
+#  # normalized_height = 50
+#  # relative_width = 100
+#  # relative_height = 50
 
-= Save slides
+= Image size
 
-  * can save slides as image
-  * can save simple HTML for viewing images
-
-= What about image?
-
-  * OK, if it is not inline
-
-    resizable
-
-      # image
-      # src = lavie.png
-      # caption = Lavie
-      # keep_ratio = true
-      # width = 100
-      # height = 100
-#      # normalized_width = 50
-#      # normalized_height = 50
-#      # relative_width = 100
-#      # relative_height = 50
-
-= What about image size?
-
-You can use relative size.
+Relative size is available
 
   # image
   # src = usagi.png
@@ -133,18 +128,18 @@ You can use relative size.
 #  # relative_width = 100
   # relative_height = 50
 
-= Image not in local?
+= External image
 
-  * external URL is OK
+Download an image at the URL
 
-      # image
-      # src = http://www.cozmixng.org/repos/images/cozmixchu.png
-      # caption = COZMIX Chu
+  # image
+  # src = http://www.cozmixng.org/repos/images/cozmixchu.png
+  # caption = COZMIX Chu
 
-= Mathematical expressions?
+= Math. expressions
 
-  * TeX (like) format
-  * backends
+  * TeX (('note:(like)')) format
+  * Backends
     * LaTeX
     * mimeTeX
 
@@ -164,89 +159,83 @@ You can use relative size.
 
   \Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt
 
-= Or use EPS
+= EPS
 
-  * set up EPS before presentation
-    * but need gs
+Create EPS on ahead((-need gs-))
 
   # image
   # src = equation.eps
   # keep_ratio = true
   # relative_width = 80
 
-= SVG is OK, too
+= SVG
 
   # image
   # src = spiral.svg
   # keep_ratio = true
   # relative_height = 100
 
-= Dia is OK, too
+= Dia
 
   # image
   # src = rabbit.dia
   # relative_width = 90
 
-= GIMP is OK, too
+= GIMP
 
   # image
   # src = rabbit.xcf
   # relative_height = 100
 
-= Wrap word
+= Folding
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
 
-= Source code
+= Source
 
-What about?
+The following is the source:
 
-  like
-  this
-  def It's
-    OK?
+  # comment
+  def method_name
+    body
   end
 
-What about?
+The above is the source.
 
-= May be added color
+= Source: colorized
 
-What about?
+The following is the source:
 
   # enscript ruby
-  like
-  this
-  def It's
-    OK?
+  # comment
+  def method_name
+    body
   end
 
-What about?
+The above is the source.
 
-= Quotation with title
+= Quotation
 
   # blockquote
   # title = The Matrix
   You take the ((*red pill*)), you stay in Wonderland and 
   I show you how deep the ((*rabbit-hole*)) goes.
 
-= Itemization
+= Enumeration
 
-  (1) What
+  (1) Level 1-1
 
-  (1) about
+      (1) Level 2-1
 
-      (1) What What What
+          (1) Level 3-1
 
-          (1) Once
+          (1) Level 3-2
 
-          (1) More
+      (1) Level 2-2
 
-      (1) What about?
+  (1) Level 1-2
 
-  (1) ?
-
-
-= List with label
+= Labeled list
 
 : Rabbit
    USAGI
@@ -267,41 +256,33 @@ What about?
   content 1, content 2
   very long content 3, veeeery looooooooooooooooooooooong content 4
 
-= How to write theme
-
---- Rabbit::Theme#match(*path, &block)
-     Specify elements applied theme by path
-
-Ahh, I'll set up more better documents.
-
-= Key (basic)
+= Op.: Move
 
 : Next page
-   n, f, j, l, Spc, Ret, Tab, +, (('&DownArrow;')),
-   (('&RightArrow;')), left click, ...
+   Keys mean the next or left click
+
+   n, f, j, l, Space, Return, +, (('&DownArrow;')),
+   (('&RightArrow;')), ...
 
 : Previous page
-   p, b, k, h, BS, Del, -, (('&UpArrow;')),
-   (('&LeftArrow;')), center click, ...
+   Keys mean the prev. or center click
 
-= Key (basic2)
+   p, b, k, h, BS, Delete, -, (('&UpArrow;')),
+   (('&LeftArrow;')), ...
 
-: Quit
-   q, Esc
-
-= Key (convenience)
+= Op.: Advanced move
 
 : Go to title page
    a, 0, <, Home
 : Go to n page
-   1-9. +Ctrl is +10, +Alt is +20
+   1-9. +Ctrl = +10, +Alt = +20
 : Go to last page
    e, $, >, End
 
-= Key (presentation)
+= Op.: On stage (1)
 
 : Toggle full screen
-   F5, F10, F11
+   F5, F10, F11, mouse gesture(('&DownArrow;'))(('&UpArrow;'))
 
 : Toggle index mode
    i
@@ -309,19 +290,27 @@ Ahh, I'll set up more better documents.
 : Go to the page
    double click
 
-= Key (feature)
+= Op.: On stage (2)
+
+: Cache all slides
+   c
+
+: Toggle info window
+   I
+
+= Op.: Save
 
 : Screenshot
-   save each page as image
+   Save each page as image
 
    s
 
 : Print
-   print each page as PS/PDF
+   Print each page as PS/PDF
 
    Ctrl+p
 
-= Key (draw)
+= Op.: Display
 
 : Redraw
    Ctrl+l
@@ -332,15 +321,15 @@ Ahh, I'll set up more better documents.
 : Reset slide adjustment
    Alt+a
 
-= Key (hole)
+= Op.: Hole
 
-: Expand hole
+: Expand the hole
    E
 
-: Narrow hole
+: Narrow the hole
    N
 
-= Key (search)
+= Op.: Search
 
 : Search forward
    C-s, /
@@ -351,17 +340,18 @@ Ahh, I'll set up more better documents.
 : Quit search
    C-g
 
-= Key (etc)
+= Op.: Quit
+
+: Quit
+   q, Esc
 
 : Iconify
    z
 
-: Cache all slides
-   c
+= Conclusion
 
-: Toggle information window
-   I
-
-= Finish
-
-What about this?
+  * A presentation tool
+  * Multi platform
+  * Features/UI: High & Unique
+  * Emphasize keybord
+    * UI/text based source
