@@ -43,6 +43,8 @@ ARGV.each do |rd|
     themes << ["green-circle", :replace]
   when "lightning-talk"
     themes << "lightning-talk-with-contact"
+  when "theme-bench", "theme-bench_en"
+    themes.concat(["blue-bar", "clear-blue"])
   end
   themes.each do |theme, option|
     base_name = original_base_name.dup
