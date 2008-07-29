@@ -15,11 +15,14 @@ module Rabbit
         end
 
         def init_renderer(drawable)
+          @gdk_drawables ||= []
           @gdk_drawable = drawable
+          @gdk_drawables.push(@gdk_drawable)
         end
 
         def finish_renderer
-          @gdk_drawable = nil
+          @gdk_drawables.pop
+          @gdk_drawable = @gdk_drawables.pop
         end
 
         def alpha_available?

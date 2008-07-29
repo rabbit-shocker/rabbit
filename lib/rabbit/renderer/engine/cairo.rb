@@ -85,13 +85,16 @@ module Rabbit
         end
 
         def init_renderer(drawable)
+          @contexts ||= []
           @context = drawable.create_cairo_context
+          @contexts.push(@context)
           init_context
         end
 
         def finish_renderer
+          @contexts.pop
           @context.destroy if @context.respond_to?(:destroy)
-          @context = nil
+          @context = @contexts.pop
         end
 
         def init_context
