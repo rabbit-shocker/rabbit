@@ -4,6 +4,40 @@
 
 $Id$
 
+== Changes 0.5.7 from 0.5.6: 2008-07-21
+
+  * Bug fixes
+    * fixed broken PDF generation
+  * Improvements
+    * supported GTK+/Quartz (Mac OS X native UI)
+    * supported context menu with Control + left click
+      (suggested by OBATA Akio)
+    * align = XXX accepts :right or "left" too
+    * supported nested labels in (('note:XXX:YYY:...')) form
+    * added "Next" and "Previous" actions that consider pause.
+    * added "ResetTimer" action
+    * do fullscreen as first as possible when --fullscreen
+      command line option is specified
+    * supported {{wait}} and {{br}} markup on Wiki format
+    * fixed dirty sample slide
+  * Theme
+    * added body margin
+    * added "dash" item mark
+    * stopped to use vivid colors for list item mark
+    * added properties
+    * added new themes:
+      * newline-in-title: supports '\n' newline notation
+      * edge-info-toolkit: displays information at the edge
+        of slide
+      * slide-header-info: displays information at the header
+        of slide
+      * slide-footer-info: displays information at the footer
+        of slide
+      * footer-logo: displays logo image at the footer of slide
+      * blue-bar: a theme that displays bars at the top and
+        bottom of slide
+      * clear-blue: clear blue theme
+
 == Changes 0.5.6 from 0.5.5: 2008-04-21
 
   * removed RTtool
