@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-12 22:33+0900\n"
-"PO-Revision-Date: 2008-03-12 22:33+0900\n"
+"POT-Creation-Date: 2008-07-30 21:30+0900\n"
+"PO-Revision-Date: 2008-07-30 21:45+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -20,13 +20,13 @@ msgstr ""
 msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
-#: ../../lib/rabbit/theme/applier.rb:572
+#: ../../lib/rabbit/theme/applier.rb:586
 #: ../../lib/rabbit/theme/auto-slide/auto-slide.rb:1
 #: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
 msgstr "%sは非推奨です．代わりに%sを使ってください．"
 
-#: ../../lib/rabbit/image/pdf.rb:41
+#: ../../lib/rabbit/image/pdf.rb:43
 msgid "%s page isn't exist in PDF"
 msgstr "PDFの中に%sページはありません"
 
@@ -38,7 +38,9 @@ msgstr "%s: 情報ウィンドウ"
 msgid "(ARGV: if no filename is given)"
 msgstr "(ARGV: ファイル名が与えられない場合)"
 
+#: ../../lib/rabbit/theme/footer-logo/property.rb:7
 #: ../../lib/rabbit/theme/title-logo/property.rb:7
+#: ../../lib/rabbit/theme/slide-logo/property.rb:7
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:7
 #: ../../lib/rabbit/theme/title-background-color/property.rb:7
 #: ../../lib/rabbit/theme/headline-logo/property.rb:7
@@ -73,6 +75,10 @@ msgstr "(横置きA4の幅)"
 msgid "3D"
 msgstr "3D"
 
+#: ../../lib/rabbit/theme/comment/property.rb:3
+msgid "A theme for comment window"
+msgstr ""
+
 #: ../../lib/rabbit/theme/document.erb:10
 msgid "Abstract"
 msgstr "概要"
@@ -85,7 +91,7 @@ msgstr "宣伝文。"
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:385
+#: ../../lib/rabbit/parser/wiki/output.rb:393
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
 msgid "Anthy isn't available"
 msgstr "Anthyが利用できません"
@@ -115,13 +121,48 @@ msgstr "((<slide-background-image>))のための後方互換性のテーマ"
 msgid "Backward compatibility theme for ((<slide-show>))"
 msgstr "((<slide-show>))のための後方互換性のテーマ"
 
+#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:2
+msgid "Bar Info Toolkit"
+msgstr "情報バーツールキット"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:8
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:8
+msgid "Bar color."
+msgstr "バーの色。"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:16
+msgid ""
+"Bar fill pattern. @slide_footer_info_line_color is overridden by this "
+"parameter."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:16
+msgid ""
+"Bar fill pattern. @slide_header_info_line_color is overridden by this "
+"parameter."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:12
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:12
+msgid "Bar width."
+msgstr ""
+
 #: ../../lib/rabbit/theme/base/property.rb:2
 msgid "Base"
 msgstr "基本"
 
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:37
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:37
+msgid "Base y-axis position to stroke bar."
+msgstr ""
+
 #: ../../lib/rabbit/action/radio.rb:32 ../../lib/rabbit/action/toggle.rb:23
 msgid "Black out"
 msgstr "ブラックアウト"
+
+#: ../../lib/rabbit/theme/blue-bar/property.rb:2
+msgid "Blue Bar"
+msgstr "青いバー"
 
 #: ../../lib/rabbit/theme/blue-circle/property.rb:2
 msgid "Blue Circle"
@@ -130,6 +171,14 @@ msgstr "青い円"
 #: ../../lib/rabbit/theme/blue-circle/property.rb:3
 msgid "Blue Circle theme"
 msgstr "青い円のテーマ"
+
+#: ../../lib/rabbit/theme/blue-bar/property.rb:3
+msgid "Blue bar theme"
+msgstr "青いバーのテーマ"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:20
+msgid "Bottom margin of an image."
+msgstr ""
 
 #: ../../lib/rabbit/theme/cozmixng/property.rb:2
 msgid "COZMIXNG"
@@ -147,7 +196,7 @@ msgstr "COZMIXNG 画像"
 msgid "COZMIXNGPoweredBy"
 msgstr "ぱわーどばいこずみくしんぐ"
 
-#: ../../lib/rabbit/action/basic.rb:157
+#: ../../lib/rabbit/action/basic.rb:175
 msgid "Cache all slides"
 msgstr "スライドをキャッシュ"
 
@@ -159,19 +208,31 @@ msgstr "カテゴリ"
 msgid "Centering Rabbit"
 msgstr "中央揃えRabbit"
 
-#: ../../lib/rabbit/action/basic.rb:188
+#: ../../lib/rabbit/action/basic.rb:206
 msgid "Change graffiti color"
 msgstr "落書きの色を変える"
 
-#: ../../lib/rabbit/action/basic.rb:84
+#: ../../lib/rabbit/action/basic.rb:102
 msgid "Change theme"
 msgstr "テーマ変更"
 
-#: ../../lib/rabbit/action/basic.rb:172
+#: ../../lib/rabbit/theme/clear-blue/property.rb:2
+msgid "Clear Blue"
+msgstr "きれいな青"
+
+#: ../../data/rabbit/image/clear-blue-images/property.rb:2
+msgid "Clear Blue Image"
+msgstr "きれいな青の画像"
+
+#: ../../lib/rabbit/theme/clear-blue/property.rb:3
+msgid "Clear blue theme"
+msgstr "きれいな青のテーマ"
+
+#: ../../lib/rabbit/action/basic.rb:190
 msgid "Clear graffiti"
 msgstr "落書きをクリア"
 
-#: ../../lib/rabbit/action/basic.rb:119
+#: ../../lib/rabbit/action/basic.rb:137
 msgid "Clear slide"
 msgstr "スライドをクリア"
 
@@ -183,9 +244,45 @@ msgstr "時計ツールキット (テキストバージョン)"
 msgid "Color Circle"
 msgstr "色付きの円"
 
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:2
+msgid "Color Circle Description"
+msgstr "色付きの円の説明"
+
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:2
+msgid "Color Circle Foot Text"
+msgstr "色付きの円の脚注テキスト"
+
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:2
+msgid "Color Circle Item Mark"
+msgstr "色付きの円の項目マーク"
+
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:2
+msgid "Color Circle Method List"
+msgstr "色付きの円のメソッドリスト"
+
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:2
+msgid "Color Circle Preformatted"
+msgstr "色付きの円の整形済みテキスト"
+
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:2
+msgid "Color Circle Slide"
+msgstr "色付きの円のスライド"
+
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:2
+msgid "Color Circle Text"
+msgstr "色付きの円テキスト"
+
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:2
+msgid "Color Circle Title Slide"
+msgstr "色付きの円のタイトルスライド"
+
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:2
+msgid "Color Circle Title text"
+msgstr "色付きの円のタイトルテキスト"
+
 #: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:2
 msgid "Color Circle block quote"
-msgstr "色付きの円のブロック引用"
+msgstr "色付きの円の引用ブロック"
 
 #: ../../lib/rabbit/theme/color-circle-common/property.rb:2
 msgid "Color Circle common"
@@ -203,7 +300,8 @@ msgstr "スタートとゴールの旗に表示される数字の色。"
 msgid "Color of shadow."
 msgstr "影の色。"
 
-#: ../../lib/rabbit/canvas.rb:724 ../../bin/rabbit:444
+#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:737
+#: ../../bin/rabbit:444
 msgid "Comment"
 msgstr "コメント"
 
@@ -218,6 +316,18 @@ msgstr "コメントビュー"
 #: ../../lib/rabbit/console.rb:59
 msgid "Common options"
 msgstr "共通のオプション"
+
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:1
+msgid "Convenience"
+msgstr "便利"
+
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:3
+msgid ""
+"Convenience '\n"
+"' newline notation."
+msgstr ""
+"便利な'\n"
+"'改行記法。"
 
 #: ../../lib/rabbit/html/generator.rb:46
 msgid "Creating a image for the %dth page"
@@ -251,6 +361,38 @@ msgstr "要素の枠を表示するデバッグ用ツールキット"
 #: ../../lib/rabbit/theme/default/property.rb:2
 msgid "Default"
 msgstr "デフォルト"
+
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:2
+msgid "Default Block Quote"
+msgstr "デフォルト引用ブロック"
+
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:2
+msgid "Default Foot Text"
+msgstr "デフォルト脚注テキスト"
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:2
+msgid "Default Item Mark Setup"
+msgstr "デフォルト項目マークセットアップ"
+
+#: ../../lib/rabbit/theme/default-method-list/property.rb:2
+msgid "Default Method List"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:2
+msgid "Default Preformatted"
+msgstr "デフォルト整形済みテキスト"
+
+#: ../../lib/rabbit/theme/default-slide/property.rb:2
+msgid "Default Slide"
+msgstr "デフォルトスライド"
+
+#: ../../lib/rabbit/theme/default-text/property.rb:2
+msgid "Default Text"
+msgstr "デフォルトテキスト"
+
+#: ../../lib/rabbit/theme/default-title-text/property.rb:2
+msgid "Default Title Text"
+msgstr "デフォルトタイトルテキスト"
 
 #: ../../lib/rabbit/theme/document.erb:31
 msgid "Default: "
@@ -320,21 +462,29 @@ msgstr "スライドの背景として画像を表示します。"
 msgid "Displays an image as a background of the title slide."
 msgstr "タイトルスライドの背景として画像を表示します。"
 
+#: ../../lib/rabbit/theme/footer-logo/property.rb:4
+msgid "Displays an image as a logo at the footer of slides."
+msgstr "スライドの下部に画像をロゴとして表示します。"
+
 #: ../../lib/rabbit/theme/headline-logo/property.rb:4
 msgid "Displays an image as a logo at the headlines of slides."
-msgstr "スライドの見出しで画像をロゴとして表示します。"
+msgstr "スライドの見出しに画像をロゴとして表示します。"
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:4
+msgid "Displays an image as a logo at the top of all slides."
+msgstr "すべてのスライドの上部に画像をロゴとして表示します。"
 
 #: ../../lib/rabbit/theme/title-logo/property.rb:4
 msgid "Displays an image as a logo in the title slide."
-msgstr "タイトルスライドで画像をロゴとして表示します。"
+msgstr "タイトルスライドに画像をロゴとして表示します。"
+
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:3
+msgid "Displays block quote text with frame."
+msgstr "枠付きで引用テキストブロックを表示します。"
 
 #: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:4
 msgid "Displays colorful balls at the head of list items."
 msgstr "リスト項目の頭にカラフルなボールを表示します。"
-
-#: ../../lib/rabbit/theme/default-item-mark/property.rb:5
-msgid "Displays colorful squares and circles at the head of list items."
-msgstr "リスト項目の頭にカラフルな四角や丸を表示します。"
 
 #: ../../lib/rabbit/theme/clock/property.rb:4
 msgid "Displays current time with text."
@@ -352,6 +502,18 @@ msgstr ""
 msgid "Displays description-list items with orange underlines."
 msgstr "説明文リスト項目にオレンジ色の下線をつけて表示します。"
 
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:3
+msgid "Displays foot text at the footer of slide with Ruby-GNOME2 style."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:3
+msgid "Displays foot text at the footer of slide."
+msgstr "スライド下部に脚注テキストを表示します。"
+
+#: ../../lib/rabbit/theme/default-slide/property.rb:3
+msgid "Displays headline with bar."
+msgstr "見出しをバー付きで表示します。"
+
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:5
 msgid ""
 "Displays headlines like ones in the website of the Ruby-GNOME2 Project; i.e. "
@@ -361,6 +523,14 @@ msgstr ""
 "Ruby-GNOME2 プロジェクトのウェブサイトの見出しのように見出しを表示します。す"
 "なわち、項目のテキストを白色にし、ピンク色の枠の暗赤色の箱の中に入れて表示し"
 "ます。"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:4
+msgid "Displays information with a bar at the footer of slides."
+msgstr "スライドの下部にバー付きで情報を表示します。"
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:4
+msgid "Displays information with a bar at the header of slides."
+msgstr "スライドの上部にバー付きで情報を表示します。"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:5
 msgid ""
@@ -372,6 +542,18 @@ msgstr ""
 "すなわち、第 1 レベルの項目のテキストは青色にして下線をつけ、第 2 レベルと第 "
 "3 レベルの項目には黒い四角と丸のマークをつけます。"
 
+#: ../../lib/rabbit/theme/default-method-list/property.rb:3
+msgid "Displays method description with indent."
+msgstr "メソッドの説明をインデント付きで表示します。"
+
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:3
+msgid "Displays preformatted text with Ruby-GNOME2 style."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:3
+msgid "Displays preformatted text with frame."
+msgstr "枠付きで整形済みテキストを表示します。"
+
 #: ../../lib/rabbit/theme/powered-by/property.rb:4
 msgid ""
 "Displays programs the presentation slides are powered by (or displays some "
@@ -381,6 +563,10 @@ msgstr ""
 "タイトルスライドと最終スライドの下部に、プレゼンテーションスライドを駆動して"
 "いるプログラム (あるいは何かその他の宣伝) を表示します。宣伝として、画像とテ"
 "キストのどちらか一方または両方が使えます。"
+
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:3
+msgid "Displays quotation block with quote mark in frame."
+msgstr ""
 
 #: ../../lib/rabbit/theme/title-shadow/property.rb:4
 msgid "Displays shadows behind the title string in the title slide."
@@ -393,6 +579,14 @@ msgstr "リスト項目の頭にシンプルな黒い丸を表示します。"
 #: ../../lib/rabbit/theme/slide-number/property.rb:4
 msgid "Displays slide numbers with text at the bottom of the slides."
 msgstr "スライド下部にテキストでスライド番号を表示します。"
+
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:3
+msgid "Displays slides with Ruby-GNOME2 style."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:4
+msgid "Displays squares at the head of list items."
+msgstr "リスト項目の頭にカラフルなボールを表示します。"
 
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:4
 msgid ""
@@ -447,6 +641,18 @@ msgstr "エラー"
 msgid "Effect"
 msgstr "効果"
 
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:2
+msgid "Emphasize Keyword"
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:4
+msgid ""
+"Enable '\n"
+"' notation to insert newline in title."
+msgstr ""
+"タイトルで改行を挿入する'\n"
+"'記法を有効にする。"
+
 #: ../../lib/rabbit/action/radio.rb:63
 msgid "Error"
 msgstr "エラー"
@@ -455,7 +661,7 @@ msgstr "エラー"
 msgid "Etc"
 msgstr "その他"
 
-#: ../../lib/rabbit/action/basic.rb:214
+#: ../../lib/rabbit/action/basic.rb:240
 msgid "Expand hole"
 msgstr "穴を広げる"
 
@@ -491,9 +697,13 @@ msgstr "ゴールの旗として使われる画像のファイル名。"
 msgid "File name of an image used as the start flag."
 msgstr "スタートの旗として使われる画像のファイル名。"
 
-#: ../../lib/rabbit/action/basic.rb:24
+#: ../../lib/rabbit/action/basic.rb:40
 msgid "First slide"
 msgstr "最初のスライド"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:2
+msgid "Footer Logo"
+msgstr "下部のロゴ"
 
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:46
 msgid ""
@@ -527,7 +737,7 @@ msgstr "進む"
 msgid "Go up"
 msgstr "上へ"
 
-#: ../../lib/rabbit/action/basic.rb:164
+#: ../../lib/rabbit/action/basic.rb:182
 msgid "Graffiti"
 msgstr "落書き"
 
@@ -555,18 +765,21 @@ msgstr "情報"
 msgid "Icon"
 msgstr "アイコン"
 
-#: ../../lib/rabbit/action/basic.rb:73
+#: ../../lib/rabbit/action/basic.rb:91
 msgid "Iconify"
 msgstr "最小化"
 
 #: ../../lib/rabbit/theme/image/property.rb:2
 #: ../../data/rabbit/image/cozmixng-images/property.rb:1
 #: ../../data/rabbit/image/ruby-images/property.rb:1
+#: ../../data/rabbit/image/clear-blue-images/property.rb:1
 #: ../../data/rabbit/image/rabbit-images/property.rb:1
 msgid "Image"
 msgstr "画像"
 
+#: ../../lib/rabbit/theme/footer-logo/property.rb:8
 #: ../../lib/rabbit/theme/title-logo/property.rb:8
+#: ../../lib/rabbit/theme/slide-logo/property.rb:8
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:8
 #: ../../lib/rabbit/theme/icon/property.rb:22
 #: ../../lib/rabbit/theme/headline-logo/property.rb:8
@@ -574,9 +787,21 @@ msgstr "画像"
 msgid "Image file name."
 msgstr "画像ファイル名。"
 
+#: ../../lib/rabbit/theme/slide-logo/property.rb:20
+msgid "Image height."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:12
+msgid "Image position. :right or :left."
+msgstr ""
+
 #: ../../lib/rabbit/theme/image-viewer/property.rb:2
 msgid "Image viewer"
 msgstr "画像ビューア"
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:16
+msgid "Image width."
+msgstr "画像の幅。"
 
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:2
 msgid "ImageSlideNumber"
@@ -589,6 +814,10 @@ msgstr "画像タイマー"
 #: ../../lib/rabbit/theme-browser/document.rb:110
 msgid "Images"
 msgstr "画像"
+
+#: ../../data/rabbit/image/clear-blue-images/property.rb:3
+msgid "Images related to ((<clear-blue>)) theme"
+msgstr "((<clear-blue>))テーマ関連の画像"
 
 #: ../../data/rabbit/image/cozmixng-images/property.rb:3
 msgid "Images related to COZMIXNG"
@@ -623,7 +852,7 @@ msgstr "情報ウィンドウ"
 msgid "Initial state"
 msgstr "初期状態"
 
-#: ../../lib/rabbit/action/basic.rb:42
+#: ../../lib/rabbit/action/basic.rb:58
 msgid "Jump to"
 msgstr "ジャンプ"
 
@@ -631,7 +860,7 @@ msgstr "ジャンプ"
 msgid "Jump to the %dth slide"
 msgstr "%d番目のスライドへジャンプ"
 
-#: ../../lib/rabbit/action/basic.rb:32
+#: ../../lib/rabbit/action/basic.rb:48
 msgid "Last slide"
 msgstr "最後のスライド"
 
@@ -680,7 +909,7 @@ msgstr ""
 "オブジェクトをタイトルスライドの中央に置きその周りにマージンを設定するだけ"
 "の、簡単な配置をします。"
 
-#: ../../lib/rabbit/action/basic.rb:275
+#: ../../lib/rabbit/action/basic.rb:301
 msgid "Log Level"
 msgstr "ログレベル"
 
@@ -692,13 +921,17 @@ msgstr "虫眼鏡"
 msgid "Margin"
 msgstr "余白"
 
-#: ../../lib/rabbit/action/basic.rb:94
+#: ../../lib/rabbit/action/basic.rb:112
 msgid "Merge theme"
 msgstr "テーマを追加"
 
 #: ../../bin/rabbit:458
 msgid "Migemo"
 msgstr "Migemo"
+
+#: ../../lib/rabbit/theme/mirror-effect/property.rb:2
+msgid "Mirror Effect"
+msgstr "鏡の効果"
 
 #: ../../lib/rabbit/theme/slide-show/property.rb:4
 msgid "Move to the next slide automatically."
@@ -708,11 +941,19 @@ msgstr "自動的に次のスライドに移動します。"
 msgid "Name"
 msgstr "名前"
 
-#: ../../lib/rabbit/action/basic.rb:221
+#: ../../lib/rabbit/action/basic.rb:247
 msgid "Narrow hole"
 msgstr "穴を狭める"
 
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:2
+msgid "Newline in Title"
+msgstr "タイトルでの改行"
+
 #: ../../lib/rabbit/action/basic.rb:8
+msgid "Next"
+msgstr "次"
+
+#: ../../lib/rabbit/action/basic.rb:24
 msgid "Next slide"
 msgstr "次のスライド"
 
@@ -728,7 +969,7 @@ msgstr "Night Blackテーマ"
 msgid "Note: case insensitive."
 msgstr "注意: 大文字小文字は区別しません．"
 
-#: ../../lib/rabbit/action/basic.rb:140
+#: ../../lib/rabbit/action/basic.rb:158
 msgid "Now processing... Do you really quit?"
 msgstr "処理中です．．．本当に終了しますか？"
 
@@ -781,10 +1022,14 @@ msgid "PoweredBy"
 msgstr "PoweredBy"
 
 #: ../../lib/rabbit/action/basic.rb:16
+msgid "Previous"
+msgstr "前"
+
+#: ../../lib/rabbit/action/basic.rb:32
 msgid "Previous slide"
 msgstr "前のスライド"
 
-#: ../../lib/rabbit/action/basic.rb:65 ../../bin/rabbit:203
+#: ../../lib/rabbit/action/basic.rb:83 ../../bin/rabbit:203
 msgid "Print"
 msgstr "印刷"
 
@@ -792,7 +1037,7 @@ msgstr "印刷"
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: ../../lib/rabbit/canvas.rb:637
+#: ../../lib/rabbit/canvas.rb:655
 msgid "Processing..."
 msgstr "処理中です．．．"
 
@@ -812,6 +1057,28 @@ msgstr "フォントファミリーなどの、スライド番号の属性。"
 msgid "Provide common methods for Color Circle toolkit."
 msgstr "色付きの円ツールキットでの共通のメソッドを定義します。"
 
+#: ../../lib/rabbit/theme/mirror-effect/property.rb:3
+msgid "Provide mirror_effect method that flips content."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:3
+msgid "Provide rotate_zoom_effect method that rotates and zooms content."
+msgstr ""
+
+#: ../../lib/rabbit/theme/scroll-effect/property.rb:3
+msgid "Provide scroll_effect method that scrolls content."
+msgstr ""
+
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:3
+msgid ""
+"Provides emphasize_keyword method that markups specified keyword as emphasis "
+"text."
+msgstr ""
+
+#: ../../data/rabbit/image/clear-blue-images/property.rb:4
+msgid "Provides images related to ((<clear-blue>)) theme."
+msgstr "((<clear-blue>))テーマに関連した画像を提供します。"
+
 #: ../../data/rabbit/image/cozmixng-images/property.rb:4
 msgid "Provides images related to COZMIXNG."
 msgstr "COZMIXNG に関連した画像を提供します。"
@@ -823,6 +1090,10 @@ msgstr "Rabbit に関連した画像を提供します。"
 #: ../../data/rabbit/image/ruby-images/property.rb:4
 msgid "Provides images related to Ruby."
 msgstr "Ruby に関連した画像を提供します。"
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:3
+msgid "Provides methods to set item mark style up."
+msgstr ""
 
 #: ../../bin/rabbit:422
 msgid "Public level"
@@ -839,6 +1110,10 @@ msgstr "RTtoolが利用できません"
 #: ../../lib/rabbit/theme/rabbit/property.rb:2 ../../lib/rabbit/stock.rb:17
 msgid "Rabbit"
 msgstr "Rabbit"
+
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:2
+msgid "Rabbit Block Quote"
+msgstr "Rabbit: 引用ブロック"
 
 #: ../../lib/rabbit/logger/gui.rb:72
 msgid "Rabbit Error Dialog"
@@ -858,27 +1133,27 @@ msgstr "テキストの中央揃え付きRabbitテーマ"
 
 #: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:2
 msgid "RabbitHeadlineLogo"
-msgstr "Rabbit 見出しロゴ"
+msgstr "Rabbit: 見出しロゴ"
 
 #: ../../lib/rabbit/theme/rabbit-icon/property.rb:2
 msgid "RabbitIcon"
-msgstr "Rabbit アイコン"
+msgstr "Rabbit: アイコン"
 
 #: ../../data/rabbit/image/rabbit-images/property.rb:2
 msgid "RabbitImage"
-msgstr "Rabbit 画像"
+msgstr "Rabbit: 画像"
 
 #: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:2
 msgid "RabbitItemMark"
-msgstr "Rabbit 項目マーク"
+msgstr "Rabbit: 項目マーク"
 
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:2
 msgid "RabbitPoweredBy"
-msgstr "RabbitPoweredBy"
+msgstr "Rabbit: PoweredBy"
 
 #: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:2
 msgid "RabbitTitleLogo"
-msgstr "Rabbit タイトルロゴ"
+msgstr "Rabbit: タイトルロゴ"
 
 #: ../../lib/rabbit/theme/red-frame/property.rb:3
 msgid "Red frame theme"
@@ -888,7 +1163,7 @@ msgstr "赤い枠のテーマ"
 msgid "RedFrame"
 msgstr "赤い枠"
 
-#: ../../lib/rabbit/action/basic.rb:111
+#: ../../lib/rabbit/action/basic.rb:129
 msgid "Redraw"
 msgstr "再表示"
 
@@ -896,17 +1171,41 @@ msgstr "再表示"
 msgid "Reload"
 msgstr "再読み込み"
 
-#: ../../lib/rabbit/action/basic.rb:103
+#: ../../lib/rabbit/action/basic.rb:121
 msgid "Reload theme"
 msgstr "テーマの再読み込み"
 
-#: ../../lib/rabbit/action/basic.rb:206
+#: ../../lib/rabbit/action/basic.rb:224
 msgid "Reset adjustment"
 msgstr "ずれを直す"
+
+#: ../../lib/rabbit/action/basic.rb:232
+msgid "Reset timer"
+msgstr "タイマーをリセット"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:16
+msgid "Right margin of an image."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:2
+msgid "Rotate Zoom Effect"
+msgstr ""
 
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:2
 msgid "Ruby-GNOME2"
 msgstr "Ruby-GNOME2"
+
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:2
+msgid "Ruby-GNOME2 Foot Text"
+msgstr "Ruby-GNOME2: 脚注テキスト"
+
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:2
+msgid "Ruby-GNOME2 Preformatted"
+msgstr "Ruby-GNOME2: 整形済みテキスト"
+
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:2
+msgid "Ruby-GNOME2 Slide"
+msgstr "Ruby-GNOME2: スライド"
 
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:3
 msgid "Ruby-GNOME2 theme"
@@ -914,23 +1213,23 @@ msgstr "Ruby-GNOME2テーマ"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:2
 msgid "RubyGNOME2Description"
-msgstr "Ruby-GNOME2 説明文"
+msgstr "Ruby-GNOME2: 説明文"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:2
 msgid "RubyGNOME2Headline"
-msgstr "Ruby-GNOME2 見出し"
+msgstr "Ruby-GNOME2: 見出し"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:2
 msgid "RubyGNOME2Icon"
-msgstr "Ruby-GNOME2 アイコン"
+msgstr "Ruby-GNOME2: アイコン"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:2
 msgid "RubyGNOME2ItemMark"
-msgstr "Ruby-GNOME2 項目マーク"
+msgstr "Ruby-GNOME2: 項目マーク"
 
 #: ../../data/rabbit/image/ruby-images/property.rb:2
 msgid "RubyImage"
-msgstr "Ruby 画像"
+msgstr "Ruby: 画像"
 
 #: ../../bin/rabbit:362
 msgid "SOAP"
@@ -940,7 +1239,7 @@ msgstr "SOAP"
 msgid "Save"
 msgstr "保存"
 
-#: ../../lib/rabbit/action/basic.rb:57
+#: ../../lib/rabbit/action/basic.rb:75
 msgid "Save as image"
 msgstr "画像として保存"
 
@@ -948,19 +1247,23 @@ msgstr "画像として保存"
 msgid "Save as image and exit."
 msgstr "画像として保存し終了します．"
 
-#: ../../lib/rabbit/action/basic.rb:237
+#: ../../lib/rabbit/theme/scroll-effect/property.rb:2
+msgid "Scroll Effect"
+msgstr "スクロール効果"
+
+#: ../../lib/rabbit/action/basic.rb:263
 msgid "Search slide backward"
 msgstr "スライドを後方検索"
 
-#: ../../lib/rabbit/action/basic.rb:253
+#: ../../lib/rabbit/action/basic.rb:279
 msgid "Search slide backward next"
 msgstr "次のスライドを後方検索"
 
-#: ../../lib/rabbit/action/basic.rb:229
+#: ../../lib/rabbit/action/basic.rb:255
 msgid "Search slide forward"
 msgstr "スライドを前方検索"
 
-#: ../../lib/rabbit/action/basic.rb:245
+#: ../../lib/rabbit/action/basic.rb:271
 msgid "Search slide forward next"
 msgstr "次のスライドを前方検索"
 
@@ -1061,6 +1364,14 @@ msgstr ""
 msgid "Set window width to [WIDTH]."
 msgstr "ウィンドウの幅を[WIDTH]にします．"
 
+#: ../../lib/rabbit/theme/default-text/property.rb:3
+msgid "Sets default text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-title-text/property.rb:3
+msgid "Sets default title text style up."
+msgstr ""
+
 #: ../../lib/rabbit/action/radio.rb:37
 msgid "Show"
 msgstr "表示"
@@ -1101,6 +1412,15 @@ msgstr "サイズ"
 #: ../../lib/rabbit/html/generator.rb:382
 msgid "Slide"
 msgstr "スライド"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:2
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:2
+msgid "Slide Footer Info"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:2
+msgid "Slide Logo"
+msgstr "スライドロゴ"
 
 #: ../../lib/rabbit/theme/slide-show/property.rb:2
 msgid "Slide Show"
@@ -1265,7 +1585,7 @@ msgstr "dRubyを使うかどうかを指定します．"
 msgid "Spotlight"
 msgstr "スポットライト"
 
-#: ../../lib/rabbit/action/basic.rb:261
+#: ../../lib/rabbit/action/basic.rb:287
 msgid "Stop slide search"
 msgstr "スライド検索修了"
 
@@ -1276,6 +1596,16 @@ msgstr "引用中での箇条書きをサポートします。"
 #: ../../lib/rabbit/theme/table/property.rb:2
 msgid "Table"
 msgstr "表"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:29
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:29
+msgid "Text color."
+msgstr "テキストの色。"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:21
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:21
+msgid "Text size."
+msgstr "テキストの大きさ。"
 
 #: ../../lib/rabbit/theme/clock/property.rb:2
 msgid "TextClock"
@@ -1297,7 +1627,10 @@ msgstr "テキストタイマー"
 #: ../../lib/rabbit/theme/rabbit/property.rb:1
 #: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
+#: ../../lib/rabbit/theme/blue-bar/property.rb:1
 #: ../../lib/rabbit/theme/day-white/property.rb:1
+#: ../../lib/rabbit/theme/clear-blue/property.rb:1
+#: ../../lib/rabbit/theme/comment/property.rb:1
 #: ../../lib/rabbit/theme/blue-circle/property.rb:1
 #: ../../lib/rabbit/theme/pdf/property.rb:1
 #: ../../lib/rabbit/theme/default/property.rb:1
@@ -1367,6 +1700,7 @@ msgstr "フルスクリーンモードに切替えます．"
 msgid "Toggle index mode."
 msgstr "一覧モードに切替えます．"
 
+#: ../../lib/rabbit/theme/footer-logo/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-title-text/property.rb:1
 #: ../../lib/rabbit/theme/title-logo/property.rb:1
@@ -1378,11 +1712,14 @@ msgstr "一覧モードに切替えます．"
 #: ../../lib/rabbit/theme/default-title-text/property.rb:1
 #: ../../lib/rabbit/theme/default-description/property.rb:1
 #: ../../lib/rabbit/theme/default-text/property.rb:1
+#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/default-method-list/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-common/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
+#: ../../lib/rabbit/theme/slide-logo/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:1
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:1
 #: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
 #: ../../lib/rabbit/theme/default-slide/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:1
@@ -1405,6 +1742,7 @@ msgstr "一覧モードに切替えます．"
 #: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/title-background-color/property.rb:1
 #: ../../lib/rabbit/theme/headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:1
 #: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:1
 #: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
@@ -1446,19 +1784,23 @@ msgstr "タイトルスライドの背景として画像を表示するツール
 
 #: ../../lib/rabbit/theme/headline-logo/property.rb:3
 msgid "Toolkit to display an image as a logo at the headlines"
-msgstr "見出しで画像をロゴとして表示するためのツールキット"
+msgstr "見出しに画像をロゴとして表示するためのツールキット"
 
 #: ../../lib/rabbit/theme/title-logo/property.rb:3
 msgid "Toolkit to display an image as a logo in the title slide"
-msgstr "タイトルスライドで画像をロゴとして表示するためのツールキット"
+msgstr "タイトルスライドに画像をロゴとして表示するためのツールキット"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:3
+msgid "Toolkit to display an image as logo at the footer"
+msgstr "フッターに画像をロゴとして表示するためのツールキット"
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:3
+msgid "Toolkit to display an image as logo at the top"
+msgstr "上部に画像をロゴとして表示するためのツールキット"
 
 #: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:3
 msgid "Toolkit to display colorful balls as list item marks"
 msgstr "リスト項目のマークとしてカラフルなボールを表示するツールキット"
-
-#: ../../lib/rabbit/theme/default-item-mark/property.rb:3
-msgid "Toolkit to display colorful squares and circles as list item marks"
-msgstr "リスト項目のマークとしてカラフルな四角や丸を表示するツールキット"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:3
 msgid ""
@@ -1479,6 +1821,14 @@ msgid ""
 msgstr ""
 "Ruby-GNOME2 プロジェクトのウェブサイトの見出しのように見出しを表示するツール"
 "キット"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:3
+msgid "Toolkit to display information at the footer"
+msgstr "フッターに情報を表示するツールキット"
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:3
+msgid "Toolkit to display information at the header"
+msgstr "ヘッダーに情報を表示するツールキット"
 
 #: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:3
 msgid "Toolkit to display itemization in quotation"
@@ -1508,6 +1858,10 @@ msgstr "スライド番号表示ツールキット (テキストバージョン)
 msgid "Toolkit to display slide numbers, an image version"
 msgstr "スライド番号表示ツールキット (画像バージョン)"
 
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:3
+msgid "Toolkit to display squares as list item marks"
+msgstr "リスト項目のマークとして四角をを表示するツールキット"
+
 #: ../../lib/rabbit/theme/slide-show/property.rb:3
 msgid "Toolkit to do slide show"
 msgstr "スライドショーをするためのツールキット"
@@ -1519,6 +1873,42 @@ msgstr "タイトルスライドにオブジェクトを簡単に配置するツ
 #: ../../lib/rabbit/theme/color-circle/property.rb:3
 msgid "Toolkit to make a theme that has colored circles"
 msgstr "色付きの円を持つテーマを作るためのツールキットです。"
+
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's description-list style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's foot text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's item marks style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's method-list style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's preformatted text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's slide style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's title slide style up."
+msgstr "((<color-circle>))テーマのタイトルスライドスタイルを設定するツールキット"
+
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's title text style up."
+msgstr ""
 
 #: ../../lib/rabbit/theme/icon/property.rb:3
 msgid "Toolkit to specify an image or images as icons"
@@ -1544,7 +1934,7 @@ msgstr "未知"
 msgid "URI"
 msgstr "URI"
 
-#: ../../lib/rabbit/action/basic.rb:180
+#: ../../lib/rabbit/action/basic.rb:198
 msgid "Undo graffiti"
 msgstr "落書きを戻す"
 
@@ -1552,7 +1942,7 @@ msgstr "落書きを戻す"
 msgid "Unknown"
 msgstr "未知"
 
-#: ../../lib/rabbit/canvas.rb:574
+#: ../../lib/rabbit/canvas.rb:592
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
 
@@ -1618,9 +2008,25 @@ msgstr ""
 "@image_slide_number_goal_image|)) で指定された画像ファイルが旗として用いられ"
 "ます。"
 
+#: ../../lib/rabbit/theme/footer-logo/property.rb:12
+msgid "Whether keep ratio of an image or not."
+msgstr ""
+
 #: ../../lib/rabbit/theme/image-timer/property.rb:30
 msgid "Whether scrolling automatically or not."
-msgstr "自動スクロールするか否か。"
+msgstr "自動スクロールするかどうか。"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:33
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:33
+msgid "Whether show a text over line or not."
+msgstr "線の上にテキストを表示するかどうか。"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:24
+#: ../../lib/rabbit/theme/slide-logo/property.rb:24
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:41
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:41
+msgid "Whether uninstall this theme or not."
+msgstr "このテーマをアンインストールするかどうか。"
 
 #: ../../lib/rabbit/theme/title-logo/property.rb:19
 #: ../../lib/rabbit/theme/clock/property.rb:17
@@ -1642,7 +2048,7 @@ msgstr "画像の位置を自動更新するか否か。"
 msgid "White out"
 msgstr "ホワイトアウト"
 
-#: ../../bin/rabbit:675
+#: ../../bin/rabbit:676
 msgid "Window ID: %d"
 msgstr "ウィンドウID: %d"
 
@@ -1704,11 +2110,11 @@ msgstr "[USER_ID]"
 msgid "[cited from `%s']"
 msgstr "[「%s」より引用]"
 
-#: ../../lib/rabbit/action/basic.rb:132
+#: ../../lib/rabbit/action/basic.rb:150
 msgid "_Quit"
 msgstr "終了(_Q)"
 
-#: ../../lib/rabbit/action/basic.rb:133
+#: ../../lib/rabbit/action/basic.rb:151
 msgid "_Quit with confirmation"
 msgstr "確認付き終了(_Q)"
 
@@ -1769,15 +2175,15 @@ msgstr "例えば、Xウィンドウシステム上ではXリソースのIDに�
 msgid "en"
 msgstr "英語"
 
-#: ../../lib/rabbit/parser/ext/enscript.rb:58
+#: ../../lib/rabbit/parser/ext/enscript.rb:62
 msgid "enscript: can't find HTree library"
 msgstr "ensciprt: HTreeライブラリが見付かりません"
 
-#: ../../lib/rabbit/parser/ext/enscript.rb:110
+#: ../../lib/rabbit/parser/ext/enscript.rb:114
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
 
-#: ../../lib/rabbit/parser/ext/enscript.rb:31
+#: ../../lib/rabbit/parser/ext/enscript.rb:35
 msgid "enscript: unsupported language: %s"
 msgstr "enscript: サポートしていない言語です: %s"
 
@@ -1871,6 +2277,10 @@ msgstr "表の表示"
 msgid "text version timer"
 msgstr "テキストーバージョンのタイマー"
 
+#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:3
+msgid "tool kit for bar info"
+msgstr ""
+
 #: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
 msgid "tool kit for lightning talk slide"
 msgstr "ライトニングトークスライド用ツールキット"
@@ -1895,7 +2305,7 @@ msgstr "実行したmimeTeXコマンド名: %s"
 msgid "unknown cursor type: %s"
 msgstr "未知のカーソルタイプ: %s"
 
-#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:77
+#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:81
 msgid ""
 "unknown enumeration item mark type: %s\n"
 "Numeric type is used as fallback"
@@ -1903,7 +2313,7 @@ msgstr ""
 "未知の順序つきリスト項目マークのタイプ: %s\n"
 "代わりに数値タイプを使います。"
 
-#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:30
+#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:31
 msgid ""
 "unknown item mark type: %s\n"
 "Rectangle type is used as fallback"
@@ -1922,3 +2332,13 @@ msgstr "サポートしていない形式です。（サポートしている形
 #: ../../lib/rabbit/parser/wiki/output.rb:296
 msgid "unsupported list type: %s"
 msgstr "サポートしていないリストの種類: %s"
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:15
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:15
+msgid "white <-> black gradation"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:25
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:25
+msgid "x-axis margin."
+msgstr "X方向の余白。"
