@@ -19,8 +19,7 @@
 
 A presentation tool
 
-  * Language: Ruby
-  * Backends: GTK+ 2/cairo
+  * Impl.: Ruby/GTK+ 2/cairo
   * Env.: PC-UNIX/Win/Mac
   * Format: RD/Wiki/PDF
   * View: Ruby(('note:(separated with format)'))
@@ -31,15 +30,20 @@ A presentation tool
   * Sub(('sub:script'))/Super(('sup:script'))
   * Math characters: (('&sum;'))(('sub:i=0'))(('&sum;sub:i=0'))
   * Colorized source
-  * Table
 
 = Features: Display (2)
 
+  * Table
   * Interesting theme
   * Image
     * Many supported formats
     * PNG/JPEG/.../PDF/EPS/SVG
+
+= Features: Display (3)
+
   * Folding long lines
+  * Colorized source
+  * Big text
 
 = Features: UI (1)
 
@@ -268,13 +272,13 @@ The above is the source.
 : Next page
    Keys mean the next or left click
 
-   n, f, j, l, Space, Return, +, (('&DownArrow;')),
+   n, f, j, l, Spc, Ret, +, (('&DownArrow;')),
    (('&RightArrow;')), ...
 
 : Previous page
    Keys mean the prev. or center click
 
-   p, b, k, h, BS, Delete, -, (('&UpArrow;')),
+   p, b, k, h, BS, Del, -, (('&UpArrow;')),
    (('&LeftArrow;')), ...
 
 = Op.: Advanced move
@@ -289,7 +293,7 @@ The above is the source.
 = Op.: On stage (1)
 
 : Toggle full screen
-   F5, F10, F11, mouse gesture(('&DownArrow;'))(('&UpArrow;'))
+   F5, F10, F11, gesture(('&DownArrow;'))(('&UpArrow;'))
 
 : Toggle index mode
    i

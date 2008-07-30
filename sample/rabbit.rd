@@ -19,8 +19,7 @@
 
 プレゼンテーションツール
 
-  * 言語: Ruby
-  * バックエンド: GTK+ 2/cairo
+  * 実装: Ruby/GTK+ 2/cairo
   * 動作: PC-UNIX/Win/Mac
   * 書式: RD/Wiki/PDF
   * 見た目: Ruby(('note:（ソースと分離）'))
@@ -31,15 +30,20 @@
   * 下付き(('sub:文字'))・上付き(('sup:文字'))
   * 数式記号: (('&sum;'))(('sub:i=0'))(('&sum;sub:i=0'))
   * ソースの色付け
-  * 表
 
 = 機能: 表示（2）
 
+  * 表
   * おもしろテーマ
   * 画像
     * 対応フォーマット多数
     * PNG/JPEG/.../PDF/EPS/SVG
+
+= 機能: 表示（3）
+
   * 長い行の折り畳み
+  * ソースの色付け
+  * 大きな文字
 
 = 機能: UI（1）
 
@@ -132,7 +136,7 @@
 #  # normalized_width = 50
 #  # normalized_height = 50
 #  # relative_width = 100
-  # relative_height = 50
+  # relative_height = 80
 
 = 外部画像
 
@@ -263,29 +267,24 @@ URL先の画像をダウンロード
 
 = Anthy
 
-ひらがなをかんじにへんかんできます．
-
-いみもつかいみちもないです．
-
+ひらがなをかんじにへんかんできます。
 
 ((*変換後:*))
 
   # anthy
-  ひらがなをかんじにへんかんできます．
-
-  いみもつかいみちもないです．
+  ひらがなをかんじにへんかんできます。
 
 = 操作: 移動
 
 : 次ページ
    次に進みそうなキー/左クリック
 
-   n, f, j, l, Space, Return, +, (('&DownArrow;')), (('&RightArrow;')), ...
+   n, f, j, l, Spc, Ret, +, (('&DownArrow;')), (('&RightArrow;')), ...
 
 : 前ページ
-   前に進みそうなキー/真ん中クリック
+   前に進みそうなキー/中クリック
 
-   p, b, k, h, BS, Delete, -, (('&UpArrow;')), (('&LeftArrow;')), ...
+   p, b, k, h, BS, Del, -, (('&UpArrow;')), (('&LeftArrow;')), ...
 
 = 操作: 高度な移動
 
@@ -301,7 +300,7 @@ URL先の画像をダウンロード
 = 操作: 本番用（1）
 
 : フルスクリーン切替え
-   F5, F10, F11, マウスジェスチャ(('&DownArrow;'))(('&UpArrow;'))
+   F5, F10, F11, ジェスチャ(('&DownArrow;'))(('&UpArrow;'))
 
 : 一覧モード切替え
    i
