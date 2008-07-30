@@ -137,7 +137,7 @@ Relative size is available
 #  # normalized_width = 50
 #  # normalized_height = 50
 #  # relative_width = 100
-  # relative_height = 50
+  # relative_height = 80
 
 = External image
 
