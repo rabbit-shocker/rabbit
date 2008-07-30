@@ -4,11 +4,11 @@ match(SlideElement) do |slides|
     make_formatted_layout = Proc.new do |props, text|
       make_layout(span(props, text))
     end
-    singleton_class.send(:define_method, :draw_bar_info) do |options|
-      name = options[:name] || "bar-info"
+    singleton_class.send(:define_method, :draw_edge_info) do |options|
+      name = options[:name] || "edge-info"
       add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
-          line_width = options[:bar_line_width] || screen_y(0.1)
+          line_width = options[:line_width] || screen_y(0.1)
           line_color = options[:line_color] || "#666"
           line_params = options[:line_params] || {}
           left_text = options[:left_text]
@@ -21,13 +21,13 @@ match(SlideElement) do |slides|
 
           base_y = options[:y] || (canvas.height - @margin_bottom)
           if text_position == :lower
-            bar_y = base_y + (line_width / 2.0).floor
+            line_y = base_y + (line_width / 2.0).floor
           else
-            bar_y = base_y - (line_width / 2.0).ceil
+            line_y = base_y - (line_width / 2.0).ceil
           end
 
           line_width_params = {:line_width => line_width}
-          canvas.draw_line(0, bar_y, canvas.width, bar_y,
+          canvas.draw_line(0, line_y, canvas.width, line_y,
                            line_color, line_params.merge(line_width_params))
 
           props = {
