@@ -70,8 +70,8 @@ A presentation tool
   * File
   * Standard input
   * HTTP
-  * RWiki
-  * Hiki
+  * RWiki/Hiki
+  * SlideShare
 
 = Features: Format
 
@@ -87,6 +87,13 @@ A presentation tool
   * PS/PDF
   * PS/PDF for print
     * slides/page
+
+= Features: Ext. API
+
+  * HTTP
+  * dRuby
+  * XML-RPC
+  * SOAP
 
 = Features: Creating
 

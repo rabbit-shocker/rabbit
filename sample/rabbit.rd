@@ -71,8 +71,8 @@
   * ファイル
   * 標準入力
   * HTTP
-  * RWiki
-  * Hiki
+  * RWiki/Hiki
+  * SlideShare
 
 = 機能: 入力書式
 
@@ -88,6 +88,13 @@
   * PS/PDF
   * 印刷用PS/PDF
     * nスライド/ページ
+
+= 機能: 外部API
+
+  * HTTP
+  * dRuby
+  * XML-RPC
+  * SOAP
 
 = 機能: 作成支援
 
