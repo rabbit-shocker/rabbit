@@ -3,7 +3,6 @@ proc_name = "footer-logo"
 if @footer_logo_image.nil?
   theme_exit("must specify @footer_logo_image!!")
 end
-@footer_logo_keep_ratio ||= nil
 @footer_logo_keep_ratio = true if @footer_logo_keep_ratio.nil?
 @footer_logo_margin_right ||= @margin_right
 @footer_logo_margin_bottom ||= @margin_bottom + screen_y(1)
