@@ -37,14 +37,16 @@ ARGV.each do |rd|
   original_base_name = File.basename(rd, ".*")
   themes = [nil]
   case original_base_name
-  when "rabbit"
-    themes << "red-frame"
   when "blue-circle"
     themes << ["green-circle", :replace]
   when "lightning-talk"
     themes << "lightning-talk-with-contact"
   when "theme-bench", "theme-bench_en"
-    themes.concat(["blue-bar", "clear-blue"])
+    themes.concat([
+                   "red-frame", "blue-bar", "clear-blue", "green-circle",
+                   "ruby-gnome2", "lightning-rabbit",
+                   "day-white", "night-black", "cozmixng",
+                  ])
   end
   themes.each do |theme, option|
     base_name = original_base_name.dup
