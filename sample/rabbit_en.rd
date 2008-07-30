@@ -270,13 +270,13 @@ The above is the source.
 = Op.: Move
 
 : Next page
-   Keys mean the next or left click
+   Keys mean the next/Left click
 
    n, f, j, l, Spc, Ret, +, (('&DownArrow;')),
    (('&RightArrow;')), ...
 
 : Previous page
-   Keys mean the prev. or center click
+   Keys mean the prev./Center click
 
    p, b, k, h, BS, Del, -, (('&UpArrow;')),
    (('&LeftArrow;')), ...
@@ -293,13 +293,13 @@ The above is the source.
 = Op.: On stage (1)
 
 : Toggle full screen
-   F5, F10, F11, gesture(('&DownArrow;'))(('&UpArrow;'))
+   F5, F10, F11, Gesture(('&DownArrow;'))(('&UpArrow;'))
 
 : Toggle index mode
    i
 
 : Go to the page
-   double click
+   Double click
 
 = Op.: On stage (2)
 
@@ -363,6 +363,6 @@ The above is the source.
 
   * A presentation tool
   * Multi platform
-  * Features/UI: High & Unique
+  * Feat./UI: High & Unique
   * Emphasize keybord
     * UI/text based source
