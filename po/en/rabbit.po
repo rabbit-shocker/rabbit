@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-30 21:47+0900\n"
+"POT-Creation-Date: 2008-07-30 22:14+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -119,10 +119,6 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/auto-slide/property.rb:3
 msgid "Backward compatibility theme for ((<slide-show>))"
-msgstr ""
-
-#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:2
-msgid "Bar Info Toolkit"
 msgstr ""
 
 #: ../../lib/rabbit/theme/base/property.rb:2
@@ -481,7 +477,7 @@ msgid "Displays foot text at the footer of slide."
 msgstr ""
 
 #: ../../lib/rabbit/theme/default-slide/property.rb:3
-msgid "Displays headline with bar."
+msgid "Displays headline with line."
 msgstr ""
 
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:5
@@ -497,6 +493,10 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:4
 msgid "Displays information with a line at the header of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:3
+msgid "Displays information with line at the edge of slide."
 msgstr ""
 
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:5
@@ -541,6 +541,10 @@ msgstr ""
 msgid "Displays slide numbers with text at the bottom of the slides."
 msgstr ""
 
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
+msgid "Displays slides for lightning talk"
+msgstr ""
+
 #: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:3
 msgid "Displays slides with Ruby-GNOME2 style."
 msgstr ""
@@ -577,6 +581,10 @@ msgstr ""
 
 #: ../../lib/rabbit/logger/base.rb:20
 msgid "ERROR"
+msgstr ""
+
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:2
+msgid "Edge Info Toolkit"
 msgstr ""
 
 #: ../../lib/rabbit/theme/mirror-effect/property.rb:1
@@ -835,14 +843,14 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:16
 msgid ""
-"Line fill pattern. @slide_footer_info_line_color is overridden by this "
-"parameter."
+"Line fill pattern. @slide_footer_info_line_color is ignored if this "
+"parameter is specified."
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:16
 msgid ""
-"Line fill pattern. @slide_header_info_line_color is overridden by this "
-"parameter."
+"Line fill pattern. @slide_header_info_line_color is ignored if this "
+"parameter is specified."
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:12
@@ -1649,12 +1657,12 @@ msgstr ""
 #: ../../lib/rabbit/theme/emphasize-keyword/property.rb:1
 #: ../../lib/rabbit/theme/default-foot-text/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/default-title-slide/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
 #: ../../lib/rabbit/theme/default-title-text/property.rb:1
 #: ../../lib/rabbit/theme/default-description/property.rb:1
 #: ../../lib/rabbit/theme/default-text/property.rb:1
-#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/default-method-list/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-common/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
@@ -2195,14 +2203,6 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/timer/property.rb:3
 msgid "text version timer"
-msgstr ""
-
-#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:3
-msgid "tool kit for bar info"
-msgstr ""
-
-#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
-msgid "tool kit for lightning talk slide"
 msgstr ""
 
 #: ../../lib/rabbit/rabbit.rb:71

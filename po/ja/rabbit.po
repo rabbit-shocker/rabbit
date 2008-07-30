@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-30 21:47+0900\n"
-"PO-Revision-Date: 2008-07-30 22:06+0900\n"
+"POT-Creation-Date: 2008-07-30 22:14+0900\n"
+"PO-Revision-Date: 2008-07-30 22:17+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -121,10 +121,6 @@ msgstr "((<slide-background-image>))のための後方互換性のテーマ"
 msgid "Backward compatibility theme for ((<slide-show>))"
 msgstr "((<slide-show>))のための後方互換性のテーマ"
 
-#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:2
-msgid "Bar Info Toolkit"
-msgstr "情報バーツールキット"
-
 #: ../../lib/rabbit/theme/base/property.rb:2
 msgid "Base"
 msgstr "基本"
@@ -200,7 +196,7 @@ msgstr "きれいな青"
 
 #: ../../data/rabbit/image/clear-blue-images/property.rb:2
 msgid "Clear Blue Image"
-msgstr "きれいな青の画像"
+msgstr "きれいな青: 画像"
 
 #: ../../lib/rabbit/theme/clear-blue/property.rb:3
 msgid "Clear blue theme"
@@ -489,8 +485,8 @@ msgid "Displays foot text at the footer of slide."
 msgstr "スライドフッターに脚注テキストを表示します。"
 
 #: ../../lib/rabbit/theme/default-slide/property.rb:3
-msgid "Displays headline with bar."
-msgstr "見出しをバー付きで表示します。"
+msgid "Displays headline with line."
+msgstr "見出しを線付きで表示します。"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:5
 msgid ""
@@ -509,6 +505,10 @@ msgstr "スライドのフッターに線付きで情報を表示します。"
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:4
 msgid "Displays information with a line at the header of slides."
 msgstr "スライドの上部に線付きで情報を表示します。"
+
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:3
+msgid "Displays information with line at the edge of slide."
+msgstr "スライドの端に線付きで情報を表示します。"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:5
 msgid ""
@@ -557,6 +557,10 @@ msgstr "リスト項目の頭にシンプルな黒い丸を表示します。"
 #: ../../lib/rabbit/theme/slide-number/property.rb:4
 msgid "Displays slide numbers with text at the bottom of the slides."
 msgstr "スライド下部にテキストでスライド番号を表示します。"
+
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
+msgid "Displays slides for lightning talk"
+msgstr "ライトニングトーク用にスライドを表示します。"
 
 #: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:3
 msgid "Displays slides with Ruby-GNOME2 style."
@@ -612,6 +616,10 @@ msgstr ""
 #: ../../lib/rabbit/logger/base.rb:20
 msgid "ERROR"
 msgstr "エラー"
+
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:2
+msgid "Edge Info Toolkit"
+msgstr "すみっこ情報ツールキット"
 
 #: ../../lib/rabbit/theme/mirror-effect/property.rb:1
 #: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:1
@@ -877,15 +885,19 @@ msgstr "線の色。"
 
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:16
 msgid ""
-"Line fill pattern. @slide_footer_info_line_color is overridden by this "
-"parameter."
-msgstr "線の塗りつぶしパターン。このパラメータが指定されると@slide_footer_info_line_colorは無視されます。"
+"Line fill pattern. @slide_footer_info_line_color is ignored if this "
+"parameter is specified."
+msgstr ""
+"線の塗りつぶしパターン。このパラメータが指定されると"
+"@slide_footer_info_line_colorは無視されます。"
 
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:16
 msgid ""
-"Line fill pattern. @slide_header_info_line_color is overridden by this "
-"parameter."
-msgstr "線の塗りつぶしパターン。このパラメータが指定されると@slide_header_info_line_colorは無視されます。"
+"Line fill pattern. @slide_header_info_line_color is ignored if this "
+"parameter is specified."
+msgstr ""
+"線の塗りつぶしパターン。このパラメータが指定されると"
+"@slide_header_info_line_colorは無視されます。"
 
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:12
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:12
@@ -1073,7 +1085,9 @@ msgstr "内容をスクロールするscroll_effectメソッドを提供しま�
 msgid ""
 "Provides emphasize_keyword method that markups specified keyword as emphasis "
 "text."
-msgstr "指定したキーワードを強調テキストとしてマークアップするemphasize_keywordメソッドを提供します。"
+msgstr ""
+"指定したキーワードを強調テキストとしてマークアップするemphasize_keywordメソッ"
+"ドを提供します。"
 
 #: ../../data/rabbit/image/clear-blue-images/property.rb:4
 msgid "Provides images related to ((<clear-blue>)) theme."
@@ -1707,12 +1721,12 @@ msgstr "一覧モードに切替えます．"
 #: ../../lib/rabbit/theme/emphasize-keyword/property.rb:1
 #: ../../lib/rabbit/theme/default-foot-text/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/default-title-slide/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
 #: ../../lib/rabbit/theme/default-title-text/property.rb:1
 #: ../../lib/rabbit/theme/default-description/property.rb:1
 #: ../../lib/rabbit/theme/default-text/property.rb:1
-#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/default-method-list/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-common/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
@@ -1876,39 +1890,52 @@ msgstr "色付きの円を持つテーマを作るためのツールキットで
 
 #: ../../lib/rabbit/theme/color-circle-description/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's description-list style up."
-msgstr "((<color-circle>))テーマの説明リストのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマの説明リストのスタイルを設定するツールキットです。"
 
 #: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's foot text style up."
-msgstr "((<color-circle>))テーマの脚注テキストのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマの脚注テキストのスタイルを設定するツールキットです。"
 
 #: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's item marks style up."
-msgstr "((<color-circle>))テーマの項目マークのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマの項目マークのスタイルを設定するツールキットです。"
 
 #: ../../lib/rabbit/theme/color-circle-method-list/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's method-list style up."
-msgstr "((<color-circle>))テーマのメソッドリストのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマのメソッドリストのスタイルを設定するツールキットで"
+"す。"
 
 #: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's preformatted text style up."
-msgstr "((<color-circle>))テーマの整形済みテキストのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマの整形済みテキストのスタイルを設定するツールキットで"
+"す。"
 
 #: ../../lib/rabbit/theme/color-circle-slide/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's slide style up."
-msgstr "((<color-circle>))テーマのスライドのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマのスライドのスタイルを設定するツールキットです。"
 
 #: ../../lib/rabbit/theme/color-circle-text/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's text style up."
-msgstr "((<color-circle>))テーマのタイトルテキストのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマのタイトルテキストのスタイルを設定するツールキットで"
+"す。"
 
 #: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's title slide style up."
-msgstr "((<color-circle>))テーマのタイトルスライドのスタイルを設定するツールキット"
+msgstr ""
+"((<color-circle>))テーマのタイトルスライドのスタイルを設定するツールキット"
 
 #: ../../lib/rabbit/theme/color-circle-title-text/property.rb:3
 msgid "Toolkit to set ((<color-circle>)) theme's title text style up."
-msgstr "((<color-circle>))テーマのタイトルテキストのスタイルを設定するツールキットです。"
+msgstr ""
+"((<color-circle>))テーマのタイトルテキストのスタイルを設定するツールキットで"
+"す。"
 
 #: ../../lib/rabbit/theme/icon/property.rb:3
 msgid "Toolkit to specify an image or images as icons"
@@ -2276,14 +2303,6 @@ msgstr "表の表示"
 #: ../../lib/rabbit/theme/timer/property.rb:3
 msgid "text version timer"
 msgstr "テキストーバージョンのタイマー"
-
-#: ../../lib/rabbit/theme/bar-info-toolkit/property.rb:3
-msgid "tool kit for bar info"
-msgstr ""
-
-#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
-msgid "tool kit for lightning talk slide"
-msgstr "ライトニングトークスライド用ツールキット"
 
 #: ../../lib/rabbit/rabbit.rb:71
 msgid "tried dia commands: %s"
