@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-30 21:30+0900\n"
+"POT-Creation-Date: 2008-07-30 21:47+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -130,36 +130,13 @@ msgstr ""
 msgid "Bar Info Toolkit"
 msgstr ""
 
-#: ../../lib/rabbit/theme/slide-footer-info/property.rb:8
-#: ../../lib/rabbit/theme/slide-header-info/property.rb:8
-#, fuzzy
-msgid "Bar color."
-msgstr "Couleur de fond."
-
-#: ../../lib/rabbit/theme/slide-footer-info/property.rb:16
-msgid ""
-"Bar fill pattern. @slide_footer_info_line_color is overridden by this "
-"parameter."
-msgstr ""
-
-#: ../../lib/rabbit/theme/slide-header-info/property.rb:16
-msgid ""
-"Bar fill pattern. @slide_header_info_line_color is overridden by this "
-"parameter."
-msgstr ""
-
-#: ../../lib/rabbit/theme/slide-footer-info/property.rb:12
-#: ../../lib/rabbit/theme/slide-header-info/property.rb:12
-msgid "Bar width."
-msgstr ""
-
 #: ../../lib/rabbit/theme/base/property.rb:2
 msgid "Base"
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:37
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:37
-msgid "Base y-axis position to stroke bar."
+msgid "Base y-axis position to stroke line."
 msgstr ""
 
 #: ../../lib/rabbit/action/radio.rb:32 ../../lib/rabbit/action/toggle.rb:23
@@ -547,11 +524,11 @@ msgid ""
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:4
-msgid "Displays information with a bar at the footer of slides."
+msgid "Displays information with a line at the footer of slides."
 msgstr ""
 
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:4
-msgid "Displays information with a bar at the header of slides."
+msgid "Displays information with a line at the header of slides."
 msgstr ""
 
 #: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:5
@@ -892,6 +869,29 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/image-timer/property.rb:21
 msgid "Limit time by second."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:8
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:8
+#, fuzzy
+msgid "Line color."
+msgstr "Couleur de fond."
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:16
+msgid ""
+"Line fill pattern. @slide_footer_info_line_color is overridden by this "
+"parameter."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:16
+msgid ""
+"Line fill pattern. @slide_header_info_line_color is overridden by this "
+"parameter."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:12
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:12
+msgid "Line width."
 msgstr ""
 
 #: ../../lib/rabbit/graffiti/config-dialog.rb:48

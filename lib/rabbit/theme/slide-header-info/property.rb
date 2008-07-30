@@ -14,7 +14,7 @@
   "@slide_header_info_line_pattern" => {
     :default => N_("white <-> black gradation"),
     :description => N_("Line fill pattern. @slide_header_info_line_color " \
-                       "is overridden by this parameter."),
+                       "is ignored if this parameter is specified."),
   },
   "@slide_header_info_text_size" => {
     :default => "screen_size(1.5 * Pango::SCALE)",
