@@ -12,9 +12,9 @@
 : allotted-time
    10m
 
-= What is this slides?
+= What is this?
 
-For benchmarking your theme
+For benchmarking
 
   * includes basic elements
 
@@ -120,7 +120,7 @@ For benchmarking your theme
 
 New themes are welcome
 
-  * NO NEED COMPLETENESS
+  * (('del:COMPLETENESS'))
     * OK: unsupported elements
     * e.g. composite list
 
