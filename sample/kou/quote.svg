@@ -34,9 +34,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.2866949"
-     inkscape:cx="7.8219071"
-     inkscape:cy="84.225431"
+     inkscape:zoom="14.557291"
+     inkscape:cx="63.444824"
+     inkscape:cy="48.92548"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:window-width="843"
@@ -115,5 +115,27 @@
          x="19.505316"
          id="tspan2212"
          sodipodi:role="line">‘</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:0.49803922;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2387"
+       width="22.531664"
+       height="16.967442"
+       x="10.71628"
+       y="7.1325555"
+       rx="8.6315794"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-xdpi="292.48132"
+       inkscape:export-ydpi="292.48132" />
+    <rect
+       inkscape:export-ydpi="292.48132"
+       inkscape:export-xdpi="292.48132"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       rx="8.6315794"
+       y="7.1325555"
+       x="48.416"
+       height="16.967442"
+       width="22.531664"
+       id="rect2393"
+       style="fill:none;fill-opacity:0.49803922;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>
