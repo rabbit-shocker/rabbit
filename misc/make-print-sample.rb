@@ -75,9 +75,9 @@ ARGV.each do |rd|
   options.lang_suffixes.each do |lang|
     base_dir = File.dirname(rd)
     target_rd = File.join(base_dir, "#{base_name}#{lang}.rd")
-    ps = File.join(output_dir, "#{base_name}#{lang}_#{version}.ps")
+    ps = File.join(output_dir, "#{base_name}#{lang}-#{version}.ps")
     pdf = ps.gsub(/\.ps\z/, ".pdf")
-    index_ps = File.join(output_dir, "#{base_name}#{lang}_index_#{version}.ps")
+    index_ps = File.join(output_dir, "#{base_name}#{lang}-index-#{version}.ps")
     index_pdf = index_ps.gsub(/\.ps\z/, ".pdf")
 
     args = [options.rabbit, options.locale_dir, target_rd]
