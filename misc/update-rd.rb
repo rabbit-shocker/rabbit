@@ -68,7 +68,7 @@ end
  ["INSTALL.macosx-macports.ja"],
  ["INSTALL.macosx-macports.en"],
  ["sample/rabbit.rd", "sample.ja"],
- ["sample/rabbit_en.rd", "sample.en"],
+ ["sample/rabbit-en.rd", "sample.en"],
  ["sample/rabbit-implementation.rd", "Implementation.ja"],
  ["sample/can_rabbit.rd", "CanRabbit.ja"],
 ].each do |name, page_name, prefix|

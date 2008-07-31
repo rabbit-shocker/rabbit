@@ -1,5 +1,5 @@
 # To run with it without system install.
-#  % ruby -I./lib bin/rabbit -f sample/rabbit_en.rd 
+#  % ruby -I./lib bin/rabbit -f sample/rabbit-en.rd
 # $Id$
 
 = Rabbit(en)
