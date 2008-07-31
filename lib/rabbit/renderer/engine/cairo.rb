@@ -94,7 +94,7 @@ module Rabbit
         def finish_renderer
           @contexts.pop
           @context.destroy if @context.respond_to?(:destroy)
-          @context = @contexts.pop
+          @context = @contexts.last
         end
 
         def init_context
