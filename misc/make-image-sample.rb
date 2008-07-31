@@ -41,9 +41,10 @@ ARGV.each do |rd|
     themes << ["green-circle", :replace]
   when "lightning-talk"
     themes << "lightning-talk-with-contact"
-  when "theme-bench", "theme-bench_en"
+  when "theme-bench", "theme-bench-en"
     themes.concat([
-                   "red-frame", "blue-bar", "clear-blue", "green-circle",
+                   "red-frame", "blue-bar", "clear-blue",
+                   "blue-circle", "green-circle",
                    "ruby-gnome2", "lightning-rabbit",
                    "day-white", "night-black", "cozmixng",
                   ])
@@ -75,7 +76,7 @@ ARGV.each do |rd|
 
     begin
       lang = ENV["LANG"]
-      ENV["LANG"] = "C" if /_en\b/ =~ base_name
+      ENV["LANG"] = "C" if /-en\b/ =~ base_name
       system(*(options.rabbit.split + args))
     ensure
       ENV["LANG"] = lang
