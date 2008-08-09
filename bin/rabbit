@@ -645,6 +645,7 @@ rescue Rabbit::NoPrintSupportError
 end
 
 def do_save_as_image(options, logger)
+  Rabbit::Renderer::Pixmap.init
   Rabbit.gui_init
   
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
@@ -660,6 +661,7 @@ def do_save_as_image(options, logger)
 end
 
 def do_display(options, logger)
+  Rabbit::Renderer::Display.init
   Rabbit.gui_init
 
   canvas = make_canvas(options, logger, Rabbit::Renderer::Display)
