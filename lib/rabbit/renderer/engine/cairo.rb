@@ -85,22 +85,26 @@ module Rabbit
         end
 
         def init_renderer(drawable)
-          @contexts ||= []
-          @context = drawable.create_cairo_context
-          @contexts.push(@context)
-          init_context
+          init_context(drawable.create_cairo_context)
         end
 
         def finish_renderer
-          @contexts.pop
-          @context.destroy if @context.respond_to?(:destroy)
-          @context = @contexts.last
+          finish_context
         end
 
-        def init_context
+        def init_context(context)
+          @context = context
+          @contexts ||= []
+          @contexts.push(@context)
           set_line_width(1)
           @context.line_cap = ::Cairo::LINE_CAP_ROUND
           @context.line_join = ::Cairo::LINE_JOIN_ROUND
+        end
+
+        def finish_context
+          @contexts.pop
+          @context.destroy if @context.respond_to?(:destroy)
+          @context = @contexts.last
         end
 
         def to_gdk_rgb(color)
