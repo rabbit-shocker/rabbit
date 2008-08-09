@@ -25,10 +25,6 @@ module Rabbit
     end
   end
 
-  add_gui_init_proc do
-    Gtk.init
-  end
-
   class Error < StandardError
     include GetText
   end
