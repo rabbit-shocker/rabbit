@@ -174,6 +174,10 @@ module Rabbit
         end.compact.join(" ")
       end
 
+      def call_hook_procs(procs, *args)
+        procs.any? {|proc| proc.call(*args)}
+      end
+
       def add_motion_notify_hook(hook=Proc.new)
         @motion_notify_hook_procs << hook
       end

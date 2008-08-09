@@ -720,9 +720,10 @@ module Rabbit
     end
 
     def move_to(index)
+      old_index = current_index
       set_current_index(index)
       Action.update_status(self)
-      @renderer.post_move(current_index)
+      @renderer.post_move(old_index, current_index)
     end
 
     def init_comment(comment_source, comment_encoding)

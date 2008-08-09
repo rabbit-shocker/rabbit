@@ -71,7 +71,7 @@ module Rabbit
           end
         end
 
-        def post_move(index)
+        def post_move(old_index, index)
           update_title
           reset_adjustment
           clear_graffiti
@@ -389,10 +389,6 @@ module Rabbit
           result = dialog.run
           dialog.destroy
           result
-        end
-
-        def call_hook_procs(procs, *args)
-          procs.any? {|proc| proc.call(*args)}
         end
       end
     end

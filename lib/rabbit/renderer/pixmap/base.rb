@@ -28,7 +28,7 @@ module Rabbit
         def post_apply_theme
         end
 
-        def post_move(index)
+        def post_move(old_index, index)
         end
 
         def pre_parse

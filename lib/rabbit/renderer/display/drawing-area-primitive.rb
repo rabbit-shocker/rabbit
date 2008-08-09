@@ -49,6 +49,10 @@ module Rabbit
         end
         alias original_height height
 
+        def widget
+          @area
+        end
+
         def redraw
           @area.queue_draw
         end
@@ -76,7 +80,7 @@ module Rabbit
           @area.queue_draw
         end
 
-        def post_move(index)
+        def post_move(old_index, index)
           @area.queue_draw
         end
 
