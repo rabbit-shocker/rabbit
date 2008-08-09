@@ -120,14 +120,14 @@ module Rabbit
       def build_rotmatrix
         m = []
         m << [1.0 - 2.0 * (self[1] * self[1] + self[2] * self[2]),
-          2.0 * (self[0] * self[1] - self[2] * self[3]),
-          2.0 * (self[2] * self[0] + self[1] * self[3]), 0.0]
-        m << [2.0 * (self[0] * self[1] + self[2] * self[3]), 
-          1.0 - 2.0 * (self[2] * self[2] + self[0] * self[0]),
-          2.0 * (self[1] * self[2] - self[0] * self[3]), 0.0]
+              2.0 * (self[0] * self[1] - self[2] * self[3]),
+              2.0 * (self[2] * self[0] + self[1] * self[3]), 0.0]
+        m << [2.0 * (self[0] * self[1] + self[2] * self[3]),
+              1.0 - 2.0 * (self[2] * self[2] + self[0] * self[0]),
+              2.0 * (self[1] * self[2] - self[0] * self[3]), 0.0]
         m << [2.0 * (self[2] * self[0] - self[1] * self[3]),
-          2.0 * (self[1] * self[2] + self[0] * self[3]),
-          1.0 - 2.0 * (self[1] * self[1] + self[0] * self[0]), 0.0]
+              2.0 * (self[1] * self[2] + self[0] * self[3]),
+              1.0 - 2.0 * (self[1] * self[1] + self[0] * self[0]), 0.0]
         m << [0.0, 0.0, 0.0, 1.0]
         m
       end
