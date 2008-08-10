@@ -248,6 +248,10 @@ module Rabbit
         @white_out = false
       end
 
+      def hiding?
+        @black_out or @white_out
+      end
+
       def toggle_info_window
       end
 

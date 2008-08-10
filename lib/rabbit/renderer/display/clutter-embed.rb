@@ -84,7 +84,7 @@ module Rabbit
           actor = @actors[old_index]
           actor.hide if actor
           actor = @actors[index]
-          if actor
+          if actor and !hiding?
             actor.show
             actor.raise_top
             @embed.queue_draw
@@ -123,19 +123,28 @@ module Rabbit
           restore_cursor(:index)
         end
 
-        def make_layout(text)
-          attrs, text = Pango.parse_markup(text)
-          layout = create_pango_layout(text)
-          layout.set_attributes(attrs)
-          layout
+        def toggle_white_out
+          super
+          if @white_out
+            @stage.color = Clutter::Color.parse("white")
+            current_actor.hide
+          else
+            reset_stage_color
+            current_actor.show
+          end
+          redraw
         end
 
-        def create_pango_context
-          @embed.create_pango_context
-        end
-
-        def create_pango_layout(text)
-          @embed.create_pango_layout(text)
+        def toggle_black_out
+          super
+          if @black_out
+            @stage.color = Clutter::Color.parse("black")
+            current_actor.hide
+          else
+            reset_stage_color
+            current_actor.show
+          end
+          redraw
         end
 
         def display?
@@ -160,7 +169,7 @@ module Rabbit
           @embed = Clutter::GtkEmbed.new
           @embed.can_focus = true
           @stage = @embed.stage
-          @stage.color = Clutter::Color.parse("black")
+          reset_stage_color
           set_map
           set_configure_event_after
 
@@ -174,6 +183,10 @@ module Rabbit
           set_button_event(@embed)
           set_motion_notify_event
           set_scroll_event
+        end
+
+        def reset_stage_color
+          @stage.color = Clutter::Color.parse("black")
         end
 
         def depth
@@ -317,7 +330,6 @@ module Rabbit
             index = i || @canvas.current_index
             actor = @actors[index]
             if actor.nil?
-              x, y, width, height = @embed.allocation.to_a
               actor = Clutter::Cairo.new(width, height)
               context = actor.create
               init_context(context)
@@ -325,7 +337,7 @@ module Rabbit
               finish_context
               @actors[index] = actor
               @stage.add(actor)
-              if i.nil?
+              if i.nil? and !hiding?
                 actor.show
                 redraw
               else

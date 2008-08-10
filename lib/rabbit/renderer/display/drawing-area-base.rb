@@ -195,13 +195,11 @@ module Rabbit
 
         def toggle_white_out
           super
-          update_menu
           @area.queue_draw
         end
 
         def toggle_black_out
           super
-          update_menu
           @area.queue_draw
         end
 

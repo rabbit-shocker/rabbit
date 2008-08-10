@@ -52,6 +52,31 @@ module Rabbit
           @window = nil
         end
 
+        def toggle_white_out
+          super
+          update_menu
+        end
+
+        def toggle_black_out
+          super
+          update_menu
+        end
+
+        def make_layout(text)
+          attrs, text = Pango.parse_markup(text)
+          layout = create_pango_layout(text)
+          layout.set_attributes(attrs)
+          layout
+        end
+
+        def create_pango_context
+          widget.create_pango_context
+        end
+
+        def create_pango_layout(text)
+          widget.create_pango_layout(text)
+        end
+
         private
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|

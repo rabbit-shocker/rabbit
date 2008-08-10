@@ -97,21 +97,6 @@ module Rabbit
           restore_cursor(:index)
         end
 
-        def make_layout(text)
-          attrs, text = Pango.parse_markup(text)
-          layout = create_pango_layout(text)
-          layout.set_attributes(attrs)
-          layout
-        end
-
-        def create_pango_context
-          @area.create_pango_context
-        end
-
-        def create_pango_layout(text)
-          @area.create_pango_layout(text)
-        end
-
         def display?
           true
         end
