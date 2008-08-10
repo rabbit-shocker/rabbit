@@ -34,33 +34,6 @@ module Rabbit
           super
         end
 
-        def attach_to(window)
-          super
-          init_menu
-          init_gesture_actions
-          @hbox = Gtk::HBox.new
-          @vbox = Gtk::VBox.new
-          @vbox.pack_start(@area, true, true, 0)
-          @hbox.pack_end(@vbox, true, true, 0)
-          @window.add(@hbox)
-          @hbox.show
-          @vbox.show
-          attach_menu
-          attach_key
-          set_configure_event
-        end
-
-        def detach
-          detach_key
-          detach_menu
-          unless @window.destroyed?
-            @window.remove(@hbox)
-            @window.signal_handler_disconnect(@configure_signal_id)
-          end
-          @window = @hbox = @vbox = nil
-          super
-        end
-
         def post_apply_theme
           if @need_reload_theme
             @need_reload_theme = false
@@ -241,6 +214,21 @@ module Rabbit
         end
 
         private
+        def add_widget_to_window(window)
+          @hbox = Gtk::HBox.new
+          @vbox = Gtk::VBox.new
+          @vbox.pack_start(@area, true, true, 0)
+          @hbox.pack_end(@vbox, true, true, 0)
+          window.add(@hbox)
+          @hbox.show
+          @vbox.show
+        end
+
+        def remove_widget_from_window(window)
+          window.remove(@hbox)
+          @hbox = @vbox = nil
+        end
+
         def update_title
           @canvas.update_title(@canvas.slide_title)
         end
@@ -370,14 +358,6 @@ module Rabbit
             end
             handled
           end
-        end
-
-        def set_configure_event
-          id = @window.signal_connect("configure_event") do |widget, event|
-            configured(event.x, event.y, event.width, event.height)
-            false
-          end
-          @configure_signal_id = id
         end
 
         def confirm_dialog(message)

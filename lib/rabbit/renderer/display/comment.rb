@@ -11,14 +11,6 @@ module Rabbit
           init_comment_log
         end
 
-        def attach_to(window)
-          super
-          @vbox.pack_end(@comment_log.widget, false, false, 0)
-          init_comment_view_canvas
-          init_comment_view_frame
-          @hbox.pack_start(@comment_view_frame.window, false, false, 0)
-        end
-
         def showing_comment_frame?
           @comment_frame and @comment_frame.visible?
         end
@@ -81,6 +73,14 @@ module Rabbit
         end
 
         private
+        def add_widget_to_window(window)
+          super
+          @vbox.pack_end(@comment_log.widget, false, false, 0)
+          init_comment_view_canvas
+          init_comment_view_frame
+          @hbox.pack_start(@comment_view_frame.window, false, false, 0)
+        end
+
         def parse_comment(source)
           error_occurred = false
           @comment_canvas.parse(source) do |error|

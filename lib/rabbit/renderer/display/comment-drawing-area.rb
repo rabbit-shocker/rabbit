@@ -51,12 +51,6 @@ module Rabbit
           @direction = :right
         end
 
-        def attach_to(window)
-          @window = window
-          @window.add(@area)
-          @area.show
-        end
-
         def clear_keys
         end
 
@@ -102,6 +96,30 @@ module Rabbit
         end
 
         private
+        def add_widget_to_window(window)
+          window.add(@area)
+        end
+
+        def remove_widget_from_window(window)
+          window.remove(@area)
+        end
+
+        def attach_menu(window)
+          # do nothing
+        end
+
+        def detach_menu(window)
+          # do nothing
+        end
+
+        def attach_key(window)
+          # do nothing
+        end
+
+        def detach_key(window)
+          # do nothing
+        end
+
         def init_drawing_area
           super
           @area.can_focus = false

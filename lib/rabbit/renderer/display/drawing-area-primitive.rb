@@ -25,22 +25,16 @@ module Rabbit
 
         def attach_to(window)
           init_gl(@area)
-          @area.show
-          @window = window
+          super
         end
 
         def detach
           finalize_gl
-          @area.hide
-          @window = nil
+          super
         end
 
         def widget
           @area
-        end
-
-        def redraw
-          @area.queue_draw
         end
 
         def clear_slide

@@ -56,34 +56,8 @@ module Rabbit
           init_clutter_embed
         end
 
-        def attach_to(window)
-          @window = window
-          @window.add(@embed)
-          @embed.show
-
-          init_menu
-          init_gesture_actions
-          attach_menu
-          attach_key
-        end
-
-        def detach
-          detach_key
-          detach_menu
-          unless @window.destroyed?
-            @window.remove(@embed)
-          end
-
-          @embed.hide
-          @window = nil
-        end
-
         def widget
           @embed
-        end
-
-        def redraw
-          @embed.queue_draw
         end
 
         def clear_slide
@@ -107,8 +81,11 @@ module Rabbit
         end
 
         def post_move(old_index, index)
+          actor = @actors[old_index]
+          actor.hide if actor
           actor = @actors[index]
           if actor
+            actor.show
             actor.raise_top
             @embed.queue_draw
           end
@@ -166,6 +143,14 @@ module Rabbit
         end
 
         private
+        def add_widget_to_window(window)
+          window.add(@embed)
+        end
+
+        def remove_widget_from_window(window)
+          window.remove(@embed)
+        end
+
         def init_dpi
           @x_dpi = ScreenInfo.screen_x_resolution
           @y_dpi = ScreenInfo.screen_y_resolution
@@ -175,6 +160,7 @@ module Rabbit
           @embed = Clutter::GtkEmbed.new
           @embed.can_focus = true
           @stage = @embed.stage
+          @stage.color = Clutter::Color.parse("black")
           set_map
           set_configure_event_after
 
@@ -320,7 +306,10 @@ module Rabbit
         end
 
         def recreate_actors
-          return if @recreate_id
+          if @recreate_id
+            GLib::Source.remove(@recreate_id)
+            @recreate_id = nil
+          end
           i = nil
           @actors = []
           @stage.remove_all
@@ -337,11 +326,11 @@ module Rabbit
               @actors[index] = actor
               @stage.add(actor)
               if i.nil?
+                actor.show
                 redraw
               else
-                actor.lower_bottom
+                actor.hide
               end
-              actor.show
             end
             i = -1 if i.nil?
             i += 1

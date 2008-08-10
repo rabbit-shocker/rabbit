@@ -17,12 +17,12 @@ module Rabbit
           @menu.popup(0, Gtk.current_event_time)
         end
 
-        def attach_menu
-          @menu.attach(@window)
+        def attach_menu(window)
+          @menu.attach(window)
         end
 
-        def detach_menu
-          @menu.detach(@window)
+        def detach_menu(window)
+          @menu.detach(window)
         end
       end
     end
