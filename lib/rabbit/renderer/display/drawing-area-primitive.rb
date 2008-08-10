@@ -35,20 +35,6 @@ module Rabbit
           @window = nil
         end
 
-        def width
-          if @drawable
-            @drawable.size[0]
-          end
-        end
-        alias original_width width
-
-        def height
-          if @drawable
-            @drawable.size[1]
-          end
-        end
-        alias original_height height
-
         def widget
           @area
         end

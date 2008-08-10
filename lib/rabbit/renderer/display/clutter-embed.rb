@@ -27,7 +27,7 @@ module Rabbit
       class ClutterEmbed
         class << self
           def priority
-            1000
+            200
           end
         end
 
@@ -78,35 +78,16 @@ module Rabbit
           @window = nil
         end
 
-        def width
-          if @embed
-            @embed.allocation.to_a[2]
-          else
-            nil
-          end
-        end
-        alias original_width width
-
-        def height
-          if @embed
-            @embed.allocation.to_a[3]
-          else
-            nil
-          end
-        end
-        alias original_height height
-
         def widget
           @embed
         end
 
         def redraw
-          recreate_actors
+          @embed.queue_draw
         end
 
         def clear_slide
           super
-          clear_compiled_slide
           redraw
         end
 
@@ -126,10 +107,11 @@ module Rabbit
         end
 
         def post_move(old_index, index)
-          actor = @actors[old_index]
-          @stage.remove(actor) if actor
           actor = @actors[index]
-          @stage.add(actor) if actor
+          if actor
+            actor.raise_top
+            @embed.queue_draw
+          end
         end
 
         def pre_parse
@@ -353,12 +335,15 @@ module Rabbit
               draw_nth_slide(i)
               finish_context
               @actors[index] = actor
-            end
-            if i.nil?
               @stage.add(actor)
-              i = -1
+              if i.nil?
+                redraw
+              else
+                actor.lower_bottom
+              end
+              actor.show
             end
-            actor.show
+            i = -1 if i.nil?
             i += 1
             finish = i < @canvas.slide_size
             if finish
