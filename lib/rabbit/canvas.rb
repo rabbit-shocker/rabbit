@@ -286,6 +286,7 @@ module Rabbit
     end
 
     def <<(slide)
+      slide.index = slides.size
       slides << slide
     end
 

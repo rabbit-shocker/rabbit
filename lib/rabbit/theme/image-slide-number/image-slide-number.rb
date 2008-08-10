@@ -77,7 +77,7 @@ match(Slide) do |slides|
         if @image_slide_number_show_text
           props = {
             "flag_type" => @image_slide_number_flag_type,
-            "text" => "%0#{max_text_length}d" % canvas.current_index.to_s,
+            "text" => "%0#{max_text_length}d" % slide.index,
             "text_attributes" => text_attributes,
             "flag_color" => "red",
           }
@@ -95,7 +95,7 @@ match(Slide) do |slides|
       if canvas.slide_size < 3
         ratio = 1
       else
-        ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
+        ratio = (slide.index - 1.0) / (canvas.slide_size - 2.0)
       end
       current_base_x = base_x + max_width * ratio
       loader.draw(canvas, current_base_x, base_y)

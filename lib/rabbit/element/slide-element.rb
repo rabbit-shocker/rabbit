@@ -5,7 +5,9 @@ module Rabbit
     module SlideElement
       include ContainerElement
 
+      attr_accessor :index
       def initialize(title_element)
+        @index = -1
         @default_waited_draw_procs = []
         super(title_element)
       end

@@ -14,7 +14,7 @@ match(Slide) do |slides|
   
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
-      text = Text.new("#{canvas.current_index}/#{canvas.slide_size - 1}")
+      text = Text.new("#{slide.index}/#{canvas.slide_size - 1}")
       text.font @slide_number_props
       text.align = Pango::Layout::ALIGN_RIGHT
       text.compile(canvas, x, y, w, h)

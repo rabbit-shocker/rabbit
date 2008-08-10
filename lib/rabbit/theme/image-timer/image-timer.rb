@@ -76,13 +76,13 @@ match(Slide) do |slides|
         if canvas.slide_size < 3
           slide_ratio = 1
         else
-          slide_ratio = (canvas.current_index - 1.0) / (canvas.slide_size - 2.0)
-          next_slide_ratio = (canvas.current_index) / (canvas.slide_size - 2.0)
+          slide_ratio = (slide.index - 1.0) / (canvas.slide_size - 2.0)
+          next_slide_ratio = (slide.index) / (canvas.slide_size - 2.0)
         end
 
         if ratio > slide_ratio and !canvas.last_slide? and
-            (canvas.current_index > 1 or
-               (canvas.current_index == 1 and ratio > next_slide_ratio))
+            (slide.index > 1 or
+             (slide.index == 1 and ratio > next_slide_ratio))
           auto_scroll_ratio = next_slide_ratio - slide_ratio
           auto_scroll_ratio *= @image_timer_interval
           case @image_timer_auto_scroll_direction
