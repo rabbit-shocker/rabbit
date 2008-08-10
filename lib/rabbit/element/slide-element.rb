@@ -41,7 +41,7 @@ module Rabbit
       end
 
       def clear_transition
-        @transition = :small_and_slide_out
+        @transition = nil
       end
 
       def clear_theme

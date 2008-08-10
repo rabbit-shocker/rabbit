@@ -57,15 +57,15 @@ module Rabbit
 
         def post_apply_theme
           clear_compiled_slides
-          @area.queue_draw
+          queue_draw
         end
 
         def post_move(old_index, index)
-          @area.queue_draw
+          queue_draw
         end
 
         def post_move_in_slide(old_index, index)
-          @area.queue_draw
+          queue_draw
         end
 
         def pre_parse
@@ -79,7 +79,7 @@ module Rabbit
         end
 
         def post_toggle_index_mode
-          @area.queue_draw
+          queue_draw
         end
 
         def pre_to_pixbuf(slide_size)
@@ -169,7 +169,6 @@ module Rabbit
         def reload_theme(&callback)
           callback ||= Utils.process_pending_events_proc
           @canvas.activate("ReloadTheme", &callback)
-          clear_compiled_slides
         end
 
         def clear_compiled_slide(slide=nil)
@@ -187,10 +186,6 @@ module Rabbit
         def compile_slide(slide)
           @compiled_slides[slide] = true
           slide.draw(@canvas, true)
-        end
-
-        def queue_draw
-          @area.queue_draw
         end
 
         def grab

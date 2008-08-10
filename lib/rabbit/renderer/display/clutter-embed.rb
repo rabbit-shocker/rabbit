@@ -81,6 +81,9 @@ module Rabbit
         end
 
         def post_move(old_index, index)
+          update_title
+          update_menu
+
           old_actor = retrieve_actor(old_index)
           old_actor.hide if old_actor
           actor = retrieve_actor(index)
@@ -92,8 +95,6 @@ module Rabbit
               transition_method = "transition_#{transition}"
               if transition and respond_to?(transition_method, true)
                 send(transition_method, old_actor, actor, old_index, index)
-              else
-                @embed.queue_draw
               end
             end
           end
@@ -106,7 +107,6 @@ module Rabbit
           if actor and !hiding?
             actor.show
             actor.raise_top
-            @embed.queue_draw
           end
         end
 
@@ -114,6 +114,13 @@ module Rabbit
         end
 
         def post_parse
+          clear_button_handler
+          update_title
+          update_menu
+          if @need_reload_theme
+            @need_reload_theme = false
+            reload_theme
+          end
         end
 
         def pre_toggle_index_mode
@@ -168,6 +175,15 @@ module Rabbit
 
         def display?
           true
+        end
+
+        def reload_theme(&callback)
+          if @canvas.applying?
+            @need_reload_theme = true
+          else
+            callback ||= Utils.process_pending_events_proc
+            @canvas.activate("ReloadTheme", &callback)
+          end
         end
 
         private
@@ -234,6 +250,11 @@ module Rabbit
           end
         end
 
+        def configured(x, y, w, h)
+          super
+          @stage.remove_all
+        end
+
         def set_configure_event_after
           @embed.signal_connect_after("configure_event") do |widget, event|
             configured_after(widget, event)
@@ -241,7 +262,7 @@ module Rabbit
         end
 
         def configured_after(widget, event)
-          recreate_actors
+          reload_theme if @drawable
           false
         end
 
@@ -392,7 +413,8 @@ module Rabbit
               current_index_in_slide = index_in_slide == slide.drawing_index
               if index.nil? and current_index_in_slide and !hiding?
                 actor.show
-                redraw
+                actor.raise_top
+                Utils.process_pending_events_proc.call
               else
                 actor.hide
               end
@@ -411,14 +433,9 @@ module Rabbit
 
             unless have_next
               @recreate_id = nil
-              @embed.queue_draw
             end
             have_next
           end
-        end
-
-        def queue_draw
-          @embed.queue_draw
         end
 
         def grab

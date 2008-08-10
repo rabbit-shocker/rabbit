@@ -227,10 +227,6 @@ module Rabbit
           @hbox = @vbox = nil
         end
 
-        def update_title
-          @canvas.update_title(@canvas.slide_title)
-        end
-
         def init_drawing_area
           super
           event_mask = Gdk::Event::BUTTON_PRESS_MASK

@@ -77,6 +77,10 @@ module Rabbit
           widget.create_pango_layout(text)
         end
 
+        def update_title
+          @canvas.update_title(@canvas.slide_title)
+        end
+
         private
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
@@ -87,6 +91,10 @@ module Rabbit
         end
 
         def configured(x, y, w, h)
+        end
+
+        def queue_draw
+          widget.queue_draw
         end
       end
     end
