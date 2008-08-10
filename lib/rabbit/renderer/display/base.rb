@@ -52,12 +52,12 @@ module Rabbit
           @window = nil
         end
 
-        def toggle_white_out
+        def toggle_whiteout
           super
           update_menu
         end
 
-        def toggle_black_out
+        def toggle_blackout
           super
           update_menu
         end

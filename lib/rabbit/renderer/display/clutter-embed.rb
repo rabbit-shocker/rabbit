@@ -123,9 +123,9 @@ module Rabbit
           restore_cursor(:index)
         end
 
-        def toggle_white_out
+        def toggle_whiteout
           super
-          if @white_out
+          if whiteouting?
             @stage.color = Clutter::Color.parse("white")
             current_actor.hide
           else
@@ -135,9 +135,9 @@ module Rabbit
           redraw
         end
 
-        def toggle_black_out
+        def toggle_blackout
           super
-          if @black_out
+          if blackouting?
             @stage.color = Clutter::Color.parse("black")
             current_actor.hide
           else

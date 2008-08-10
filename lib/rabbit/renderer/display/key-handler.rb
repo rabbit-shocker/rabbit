@@ -163,11 +163,11 @@ module Rabbit
 
           keys = Keys::Shift::WHITE_OUT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("ToggleWhiteOut")
+            @canvas.activate("ToggleWhiteout")
           end
           keys = Keys::Shift::BLACK_OUT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("ToggleBlackOut")
+            @canvas.activate("ToggleBlackout")
           end
           keys = Keys::Shift::TOGGLE_COMMENT_VIEW_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|

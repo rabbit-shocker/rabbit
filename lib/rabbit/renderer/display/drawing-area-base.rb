@@ -193,12 +193,12 @@ module Rabbit
           end
         end
 
-        def toggle_white_out
+        def toggle_whiteout
           super
           @area.queue_draw
         end
 
-        def toggle_black_out
+        def toggle_blackout
           super
           @area.queue_draw
         end
@@ -262,10 +262,10 @@ module Rabbit
         def exposed(widget, event)
           reload_source unless @caching
 
-          if @white_out
+          if whiteouting?
             @drawable.draw_rectangle(@white, true, 0, 0,
                                      original_width, original_height)
-          elsif @black_out
+          elsif blackouting?
             @drawable.draw_rectangle(@black, true, 0, 0,
                                      original_width, original_height)
           else

@@ -9,34 +9,34 @@ module Rabbit
     def act_radio_blank(action, current, group, canvas)
       case @@radio_blank_values.rassoc(current.value)[0]
       when :white
-        canvas.toggle_white_out
+        canvas.toggle_whiteout
       when :black
-        canvas.toggle_black_out
+        canvas.toggle_blackout
       when :show
-        if canvas.white_outing?
-          canvas.toggle_white_out
-        elsif canvas.black_outing?
-          canvas.toggle_black_out
+        if canvas.whiteouting?
+          canvas.toggle_whiteout
+        elsif canvas.blackouting?
+          canvas.toggle_blackout
         end
       else
         p "????"
       end
     end
 
-    def act_radio_blank_white_out_config(config, canvas)
-      config[:label] = N_("White out")
+    def act_radio_blank_whiteout_config(config, canvas)
+      config[:label] = N_("Whiteout")
       config[:value] = @@radio_blank_values.assoc(:white)[1]
-      config[:default] = canvas.white_outing?
+      config[:default] = canvas.whiteouting?
     end
-    def act_radio_blank_black_out_config(config, canvas)
-      config[:label] = N_("Black out")
+    def act_radio_blank_blackout_config(config, canvas)
+      config[:label] = N_("Blackout")
       config[:value] = @@radio_blank_values.assoc(:black)[1]
-      config[:default] = canvas.black_outing?
+      config[:default] = canvas.blackouting?
     end
     def act_radio_blank_show_config(config, canvas)
       config[:label] = N_("Show")
       config[:value] = @@radio_blank_values.assoc(:show)[1]
-      config[:default] = !canvas.white_outing? && !canvas.black_outing?
+      config[:default] = !canvas.whiteouting? && !canvas.blackouting?
     end
 
 

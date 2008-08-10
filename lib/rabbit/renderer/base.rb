@@ -53,8 +53,8 @@ module Rabbit
         @page_margin_right = nil
         @page_margin_top = nil
         @page_margin_bottom = nil
-        @white_out = false
-        @black_out = false
+        @whiteout = false
+        @blackout = false
         @list_id = 0
         @adjustment_x = 0
         @adjustment_y = 0
@@ -230,26 +230,26 @@ module Rabbit
         clear_gesture_actions
       end
 
-      def white_outing?
-        @white_out
+      def whiteouting?
+        @whiteout
       end
 
-      def black_outing?
-        @black_out
+      def blackouting?
+        @blackout
       end
 
-      def toggle_white_out
-        @black_out = false
-        @white_out = !@white_out
+      def toggle_whiteout
+        @blackout = false
+        @whiteout = !@whiteout
       end
 
-      def toggle_black_out
-        @black_out = !@black_out
-        @white_out = false
+      def toggle_blackout
+        @blackout = !@blackout
+        @whiteout = false
       end
 
       def hiding?
-        @black_out or @white_out
+        @blackout or @whiteout
       end
 
       def toggle_info_window

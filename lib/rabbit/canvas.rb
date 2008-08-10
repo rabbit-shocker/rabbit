@@ -85,8 +85,8 @@ module Rabbit
     def_delegators(:@renderer, :display?, :printable?)
     def_delegators(:@renderer, :x_dpi, :y_dpi)
     
-    def_delegators(:@renderer, :white_outing?, :black_outing?)
-    def_delegators(:@renderer, :toggle_white_out, :toggle_black_out)
+    def_delegators(:@renderer, :whiteouting?, :blackouting?)
+    def_delegators(:@renderer, :toggle_whiteout, :toggle_blackout)
 
     def_delegators(:@renderer, :showing_comment_frame?, :showing_comment_view?)
     def_delegators(:@renderer, :toggle_comment_frame, :toggle_comment_view)
