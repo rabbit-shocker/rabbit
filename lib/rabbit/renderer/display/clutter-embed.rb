@@ -81,13 +81,21 @@ module Rabbit
         end
 
         def post_move(old_index, index)
-          actor = retrieve_actor(old_index)
-          actor.hide if actor
+          old_actor = retrieve_actor(old_index)
+          old_actor.hide if old_actor
           actor = retrieve_actor(index)
           if actor and !hiding?
             actor.show
             actor.raise_top
-            @embed.queue_draw
+            if old_actor
+              transition = @canvas.slides[index].transition
+              transition_method = "transition_#{transition}"
+              if transition and respond_to?(transition_method, true)
+                send(transition_method, old_actor, actor, old_index, index)
+              else
+                @embed.queue_draw
+              end
+            end
           end
         end
 
@@ -270,7 +278,7 @@ module Rabbit
               w = width.to_f
               h = height.to_f
 
-              actor = current__actor
+              actor = current_actor
               if state.control_mask?
                 scale += (y - prev_y) / (h / 4)
                 actor.x = (actor.width / 2) * (1 - scale)
@@ -281,9 +289,19 @@ module Rabbit
                 angle_y, = actor.get_rotation(Clutter::Y_AXIS)
                 angle_z, = actor.get_rotation(Clutter::Z_AXIS)
 
-                angle_x += y - prev_y
-                angle_y += prev_x - x
-                angle_z += (prev_x - x) - (y - prev_y)
+                delta_x = prev_x - x
+                delta_y = y - prev_y
+                if delta_x.abs < 3 or delta_y.abs < 3
+                  if delta_y.abs > delta_x.abs
+                    angle_x += delta_y
+                  else
+                    angle_y += delta_x
+                  end
+                else
+                  delta_z = Math.sqrt(delta_x ** 2 + delta_y ** 2)
+                  delta_z *= (delta_x / delta_x) * (delta_y / delta_y)
+                  angle_z += delta_z
+                end
 
                 actor.set_rotation(Clutter::X_AXIS, angle_x,
                                    0,
@@ -292,6 +310,10 @@ module Rabbit
                 actor.set_rotation(Clutter::Y_AXIS, angle_y,
                                    actor.width * axis_x,
                                    0,
+                                   0)
+                actor.set_rotation(Clutter::Z_AXIS, angle_z,
+                                   actor.width * axis_x,
+                                   actor.height * axis_y,
                                    0)
               else
                 processed = false
@@ -418,6 +440,61 @@ module Rabbit
         def pointer
           window, x, y, mask = @embed.window.pointer
           [x, y, mask]
+        end
+
+        def transition_turn_over(old_actor, actor, old_index, index)
+          old_actor.show
+          old_actor.raise_top
+
+          n = 90
+          if old_index > index
+            angle_sign = -1
+            x = old_actor.width
+          else
+            angle_sign = 1
+            x = 0
+          end
+          GLib::Timeout.add(1000 / n) do
+            angle = (n - 90) * angle_sign
+            old_actor.set_rotation(Clutter::Y_AXIS, angle, x, 0, 0)
+            n -= 1
+            if n.zero?
+              old_actor.hide
+              old_actor.set_rotation(Clutter::Y_AXIS, 0, 0, 0, 0)
+              actor.show
+            end
+            not n.zero?
+          end
+        end
+
+        def transition_small_and_slide_out(old_actor, actor, old_index, index)
+          old_actor.show
+          old_actor.raise_top
+
+          n = 180
+          half = 90
+          scale = 1
+          GLib::Timeout.add(1000 / n) do
+            if n > half
+              old_actor.x = (old_actor.width / 2) * (1 - scale)
+              old_actor.y = (old_actor.height / 2) * (1 - scale)
+              old_actor.set_scale(scale, scale)
+              scale -= 0.5 / half
+            else
+              delta = old_actor.width / half
+              delta *= -1 if old_index < index
+              old_actor.x += delta
+            end
+            n -= 1
+            if n.zero?
+              old_actor.hide
+              old_actor.x = 0
+              old_actor.y = 0
+              old_actor.set_scale(1, 1)
+              actor.show
+            end
+            not n.zero?
+          end
         end
       end
     end

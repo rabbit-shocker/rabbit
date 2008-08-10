@@ -5,10 +5,9 @@ module Rabbit
     module SlideElement
       include ContainerElement
 
-      attr_accessor :index, :drawing_index
+      attr_accessor :index, :drawing_index, :transition
       def initialize(title_element)
         @index = -1
-        @drawing_index = 0
         @default_waited_draw_procs = []
         super(title_element)
       end
@@ -41,9 +40,14 @@ module Rabbit
         @drawing_index = 0
       end
 
+      def clear_transition
+        @transition = :small_and_slide_out
+      end
+
       def clear_theme
         super
         clear_waiting
+        clear_transition
         @waited_draw_procs = @default_waited_draw_procs.dup
       end
 
