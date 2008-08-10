@@ -186,6 +186,23 @@ module Rabbit
           end
         end
 
+        def reset_adjustment
+          super
+          @actors.each do |slide_actors|
+            slide_actors.each do |actor|
+              actor.x = 0
+              actor.y = 0
+              actor.set_scale(1, 1)
+              actor.set_rotation(Clutter::X_AXIS, 0, 0, 0, 0)
+              actor.set_rotation(Clutter::Y_AXIS, 0, 0, 0, 0)
+              actor.set_rotation(Clutter::Z_AXIS, 0, 0, 0, 0)
+            end
+          end
+        end
+
+        def cache_all_slides
+        end
+
         private
         def add_widget_to_window(window)
           window.add(@embed)
