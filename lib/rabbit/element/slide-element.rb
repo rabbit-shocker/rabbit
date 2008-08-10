@@ -5,9 +5,10 @@ module Rabbit
     module SlideElement
       include ContainerElement
 
-      attr_accessor :index
+      attr_accessor :index, :drawing_index
       def initialize(title_element)
         @index = -1
+        @drawing_index = 0
         @default_waited_draw_procs = []
         super(title_element)
       end
@@ -46,12 +47,12 @@ module Rabbit
         @waited_draw_procs = @default_waited_draw_procs.dup
       end
 
-      def first?
-        @drawing_index.zero?
+      def first?(index=nil)
+        (index || @drawing_index).zero?
       end
 
-      def last?
-        @waited_draw_procs.size == @drawing_index
+      def last?(index=nil)
+        @waited_draw_procs.size == (index || @drawing_index)
       end
 
       def move_to_next

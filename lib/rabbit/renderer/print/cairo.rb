@@ -55,6 +55,9 @@ module Rabbit
         def post_move(old_index, index)
         end
         
+        def post_move_in_slide(old_index, index)
+        end
+
         def internal_draw_slide(slide, simulation)
           yield
           @context.show_page if !simulation and @show_page

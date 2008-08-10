@@ -23,7 +23,7 @@ module Rabbit
         def_delegators(:@print, :width, :height)
         
         def_delegators(:@print, :pre_print, :post_print, :post_apply_theme)
-        def_delegators(:@print, :post_move, :post_iconify)
+        def_delegators(:@print, :post_move, :post_move_in_slide, :post_iconify)
         def_delegators(:@print, :post_fullscreen, :post_unfullscreen)
         def_delegators(:@print, :pre_parse, :post_parse)
         def_delegators(:@print, :post_toggle_index_mode)

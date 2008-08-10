@@ -31,6 +31,9 @@ module Rabbit
         def post_move(old_index, index)
         end
 
+        def post_move_in_slide(old_index, index)
+        end
+
         def pre_parse
         end
 

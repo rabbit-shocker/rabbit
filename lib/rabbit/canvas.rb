@@ -417,9 +417,10 @@ module Rabbit
     def move_to_next_if_can
       slide = current_slide
       if slide and !slide.last?
+        old_index = slide.drawing_index
         slide.move_to_next
         Action.update_status(self)
-        activate("Redraw")
+        @renderer.post_move_in_slide(old_index, slide.drawing_index)
       else
         move_to_next_slide_if_can
       end
@@ -432,9 +433,10 @@ module Rabbit
     def move_to_previous_if_can
       slide = current_slide
       if slide and !slide.first?
+        old_index = slide.drawing_index
         slide.move_to_previous
         Action.update_status(self)
-        activate("Redraw")
+        @renderer.post_move_in_slide(old_index, slide.drawing_index)
       else
         move_to_previous_slide_if_can
       end

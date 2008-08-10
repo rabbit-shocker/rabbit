@@ -81,9 +81,20 @@ module Rabbit
         end
 
         def post_move(old_index, index)
-          actor = @actors[old_index]
+          actor = retrieve_actor(old_index)
           actor.hide if actor
-          actor = @actors[index]
+          actor = retrieve_actor(index)
+          if actor and !hiding?
+            actor.show
+            actor.raise_top
+            @embed.queue_draw
+          end
+        end
+
+        def post_move_in_slide(old_index, index)
+          actor = retrieve_actor(nil, old_index)
+          actor.hide if actor
+          actor = retrieve_actor(nil, index)
           if actor and !hiding?
             actor.show
             actor.raise_top
@@ -193,12 +204,18 @@ module Rabbit
           @embed.window.depth
         end
 
-        def draw_nth_slide(i=nil)
-          i ||= @canvas.current_index
-          slide = @canvas.slides[i]
+        def draw_nth_slide(index=nil, index_in_slide=nil)
+          index ||= @canvas.current_index
+          slide = @canvas.slides[index]
           if slide
-            slide.draw(@canvas, true)
-            slide.draw(@canvas, false)
+            old_index_in_slide = slide.drawing_index
+            slide.drawing_index = index_in_slide if index_in_slide
+            begin
+              slide.draw(@canvas, true)
+              slide.draw(@canvas, false)
+            ensure
+              slide.drawing_index = old_index_in_slide
+            end
           end
         end
 
@@ -253,7 +270,7 @@ module Rabbit
               w = width.to_f
               h = height.to_f
 
-              actor = current_actor
+              actor = current__actor
               if state.control_mask?
                 scale += (y - prev_y) / (h / 4)
                 actor.x = (actor.width / 2) * (1 - scale)
@@ -314,8 +331,16 @@ module Rabbit
           end
         end
 
+        def retrieve_actor(index=nil, index_in_slide=nil)
+          index ||= index || @canvas.current_index
+          slide_actors = @actors[index]
+          return nil if slide_actors.nil?
+          slide = @canvas.slides[index]
+          slide_actors[index_in_slide || slide.drawing_index]
+        end
+
         def current_actor
-          @actors[@canvas.current_index]
+          retrieve_actor
         end
 
         def recreate_actors
@@ -323,35 +348,50 @@ module Rabbit
             GLib::Source.remove(@recreate_id)
             @recreate_id = nil
           end
-          i = nil
+
+          index = nil
+          index_in_slide = 0
           @actors = []
           @stage.remove_all
           @recreate_id = GLib::Idle.add do
-            index = i || @canvas.current_index
-            actor = @actors[index]
+            i = index || @canvas.current_index
+            slide_actors = @actors[i] || []
+            actor = slide_actors[index_in_slide]
+            slide = @canvas.slides[i]
             if actor.nil?
               actor = Clutter::Cairo.new(width, height)
               context = actor.create
               init_context(context)
-              draw_nth_slide(i)
+              draw_nth_slide(i, index_in_slide)
               finish_context
-              @actors[index] = actor
+              @actors[i] ||= []
+              @actors[i][index_in_slide] = actor
               @stage.add(actor)
-              if i.nil? and !hiding?
+              current_index_in_slide = index_in_slide == slide.drawing_index
+              if index.nil? and current_index_in_slide and !hiding?
                 actor.show
                 redraw
               else
                 actor.hide
               end
             end
-            i = -1 if i.nil?
-            i += 1
-            finish = i < @canvas.slide_size
-            if finish
+
+            slide = @canvas.slides[i]
+            if slide and slide.last?(index_in_slide)
+              index = -1 if index.nil?
+              index += 1
+              index_in_slide = 0
+              have_next = index < @canvas.slide_size
+            else
+              index_in_slide += 1
+              have_next = true
+            end
+
+            unless have_next
               @recreate_id = nil
               @embed.queue_draw
             end
-            finish
+            have_next
           end
         end
 

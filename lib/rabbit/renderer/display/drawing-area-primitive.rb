@@ -64,6 +64,10 @@ module Rabbit
           @area.queue_draw
         end
 
+        def post_move_in_slide(old_index, index)
+          @area.queue_draw
+        end
+
         def pre_parse
         end
 
