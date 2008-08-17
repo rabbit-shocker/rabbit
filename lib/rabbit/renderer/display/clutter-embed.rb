@@ -223,6 +223,7 @@ module Rabbit
           @stage = @embed.stage
           reset_stage_color
           set_map
+          set_expose_event
           set_configure_event_after
 
           event_mask = Gdk::Event::BUTTON_PRESS_MASK
@@ -263,6 +264,13 @@ module Rabbit
         def set_map
           @embed.signal_connect("map") do |widget, event|
             @drawable = widget.window
+            false
+          end
+        end
+
+        def set_expose_event
+          @embed.signal_connect("expose-event") do |widget, event|
+            reload_source
             false
           end
         end
