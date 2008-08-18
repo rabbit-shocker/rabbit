@@ -1,4 +1,4 @@
-include_theme("newline-in-title")
+include_theme("newline-in-slides")
 
 @lightning_talk_proc_name = "lightning-blue-bar"
 @lightning_talk_as_large_as_possible = true
