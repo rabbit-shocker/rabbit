@@ -89,7 +89,7 @@ match(Slide, Body) do |bodies|
   end
 end
 
-@slide_logo_image = "clear-blue-headline-background.png"
+@slide_logo_image ||= "clear-blue-headline-background.png"
 include_theme("slide-logo")
 
 @icon_images = ["clear-blue-icon.png"]
