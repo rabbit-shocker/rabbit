@@ -19,6 +19,7 @@ module Rabbit
             @magnifier_center_x ||= x
             @magnifier_center_y ||= y
           else
+            ungrab
             @magnifier_center_x = nil
             @magnifier_center_y = nil
           end
