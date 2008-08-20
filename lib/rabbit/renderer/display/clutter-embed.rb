@@ -203,6 +203,62 @@ module Rabbit
         def cache_all_slides
         end
 
+        def update_comment(source, &block)
+          comment = @canvas.comments.last
+
+          color = Clutter::Color.new(rand(256), rand(256), rand(256),
+                                     128 + rand(128))
+          actor = Clutter::Label.new("Sans 72", comment, color)
+          actor.x = @canvas.width
+          actor.y = (@canvas.height / 2.0) * rand
+          actor.show
+          @stage.add(actor)
+
+          n = 150 + rand(150)
+          delta = (@canvas.width + actor.width) / n.to_f
+
+          do_rotate = rand(3).zero?
+          x_axis = actor.x
+          y_axis = actor.y + actor.height / 2.0
+          if do_rotate
+            actor.set_rotation(Clutter::X_AXIS, rand(360), 0, y_axis, 0)
+            actor.set_rotation(Clutter::Y_AXIS, rand(360), x_axis, 0, 0)
+            actor.set_rotation(Clutter::Z_AXIS, rand(360), x_axis, y_axis, 0)
+          end
+          do_scale = rand(3).zero?
+          if do_scale
+            x_sign = 1
+            y_sign = 1
+            actor.set_scale(-2 + rand(5), -2 + rand(5))
+          end
+          GLib::Timeout.add(1000 / 50) do
+            actor.raise_top
+            actor.x -= delta
+            if do_rotate
+              x_angle, x_x, x_y, x_z = actor.get_rotation(Clutter::X_AXIS)
+              y_angle, y_x, y_y, y_z = actor.get_rotation(Clutter::Y_AXIS)
+              z_angle, z_x, z_y, z_z = actor.get_rotation(Clutter::Z_AXIS)
+              x_angle = (x_angle + rand(5)) % 360
+              y_angle = (y_angle + rand(5)) % 360
+              z_angle = (z_angle + rand(5)) % 360
+              x_axis = actor.x
+              actor.set_rotation(Clutter::X_AXIS, x_angle, 0, y_axis, 0)
+              actor.set_rotation(Clutter::Y_AXIS, y_angle, x_axis, 0, 0)
+              actor.set_rotation(Clutter::Z_AXIS, z_angle, x_axis, y_axis, 0)
+            end
+            if do_scale
+              x_scale, y_scale = actor.scale
+              x_sign *= -1 if x_scale.abs > 2
+              y_sign *= -1 if y_scale.abs > 2
+              actor.set_scale(x_scale + (0.1 * x_sign),
+                              y_scale + (0.1 * y_sign))
+            end
+            n -= 1
+            @stage.remove(actor) if n.zero?
+            not n.zero?
+          end
+        end
+
         private
         def add_widget_to_window(window)
           window.add(@embed)
@@ -277,7 +333,7 @@ module Rabbit
 
         def configured(x, y, w, h)
           super
-          @stage.remove_all
+          recreate_actors
         end
 
         def set_configure_event_after
