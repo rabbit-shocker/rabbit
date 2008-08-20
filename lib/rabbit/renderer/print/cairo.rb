@@ -35,7 +35,7 @@ module Rabbit
 
         def pre_print(slide_size)
           super
-          init_context
+          init_context(create_context)
         end
 
         def post_print(canceled)
@@ -83,11 +83,6 @@ module Rabbit
           super
           @foreground = make_color("black")
           @background = make_color(@background_color)
-        end
-
-        def init_context
-          @context = create_context
-          super
         end
 
         def create_context(output=nil)
