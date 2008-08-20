@@ -28,6 +28,7 @@ match("**", PreformattedBlock) do |blocks|
 
   blocks.wrap_mode = false
 
+  blocks.margin_top = @space
   blocks.margin_bottom = @space
 
   blocks.keep_in_size
