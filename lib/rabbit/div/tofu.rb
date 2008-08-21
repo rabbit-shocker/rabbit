@@ -175,8 +175,8 @@ module Rabbit
       end
 
       def do_comment(context, params)
-        comment = params[comment_param_name]
-        rabbit.append_comment(comment) do |error|
+        comment, = params[comment_param_name]
+        rabbit.append_comment(comment.to_s) do |error|
           @error_message = error.message
         end
         if ajax?(params)
