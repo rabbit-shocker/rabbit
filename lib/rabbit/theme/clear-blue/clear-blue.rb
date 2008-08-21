@@ -1,6 +1,7 @@
 add_image_path("clear-blue-images")
 
 base_color = "#458cff"
+base_dark_color = "#0041ab"
 base_dark_background_color = "#e9ffff"
 base_background_color = "#ffffff"
 
@@ -24,7 +25,7 @@ set_progress_background(base_background_color)
 @default_block_quote_item1_mark_color = base_color
 @description_term_line_color = base_color
 
-@default_emphasis_color = base_color
+@default_emphasis_color = base_dark_color
 
 @preformatted_frame_color = base_color
 @preformatted_fill_color = base_background_color
