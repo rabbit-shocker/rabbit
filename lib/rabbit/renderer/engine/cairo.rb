@@ -84,6 +84,9 @@ module Rabbit
           pixbuf
         end
 
+        def prepare_renderer(drawable)
+        end
+
         def init_renderer(drawable)
           init_context(drawable.create_cairo_context)
         end

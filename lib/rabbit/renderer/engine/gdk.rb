@@ -14,10 +14,14 @@ module Rabbit
           end
         end
 
-        def init_renderer(drawable)
+        def prepare_renderer(drawable)
           @gdk_drawables ||= []
           @gdk_drawable = drawable
           @gdk_drawables.push(@gdk_drawable)
+        end
+
+        def init_renderer(drawable)
+          prepare_renderer(drawable)
         end
 
         def finish_renderer

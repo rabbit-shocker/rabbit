@@ -131,6 +131,7 @@ module Rabbit
 
         def mapped(widget)
           @drawable = widget.window
+          prepare_renderer(@drawable)
         end
 
         def set_expose_event
