@@ -66,7 +66,7 @@
 if windows?
   @font_family ||= find_font_family("MS PGothic")
   @monospace_font_family ||= find_font_family("MS Gothic")
-elsif quartz?
+else
   @font_family ||= find_font_family("Hiragino Kaku Gothic Pro")
   @monospace_font_family ||= find_font_family("Osaka-Mono")
   @monospace_font_family ||= find_font_family("Osaka")
