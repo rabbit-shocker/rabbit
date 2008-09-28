@@ -104,6 +104,12 @@ misc/emacs/
 
 Atsushi Takeda
 
+=== RabbIRC
+
+bin/rabbirc
+
+akira yamada
+
 == Co-Authors
 
   * Mr. MIYAMUKO
@@ -790,6 +796,7 @@ page from XXX.rd.
   * akira yamada:
     * He makes Debian package (*.deb).
     * He reports some bugs and also fixes them.
+    * He made rabbirc.
   * usatti: She drow some logos and taro series images.
   * dot: He helps installation on Windows.
   * tanaka: He checks operations on Windows.
