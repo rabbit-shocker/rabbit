@@ -1,10 +1,7 @@
-* support Cluter.
+* improve Clutter support.
 * support GStreamer.
 * support MeCab for clever wrapping.
 * support SilverCity or CodeRay.
 * [nori] write manpage (converted from something like RD or DocBook XML).
-
-== Pending
 * support GooCanvas.
-  * GooCanvas may not be able to be the GtkCanvas...
-
+* support reflected image effect.
