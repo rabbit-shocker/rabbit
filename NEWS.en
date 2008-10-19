@@ -6,6 +6,22 @@ $Id$
 
 == Changes 0.5.8 from 0.5.7: 2008-10-18
 
+  * Improvements
+    * supported Clutter
+      * supported page transition
+      * supported new comment view that flow comments on a slide.
+    * supported IRC backend
+      * RabbIRC (akira yamada)
+  * Theme
+    * added shadow to quote marks
+    * try to use Hiragino font if available
+    * add a new theme
+      * newline-in-slides: supports '\n' newline notation
+  * Bug fixes
+    * fixed too much grabbed problem on magnifier mode
+    * reworked Tofu backend
+    * fixed a problem that was reported on Asakusa.rb
+
 == Changes 0.5.7 from 0.5.6: 2008-07-21
 
   * Bug fixes
