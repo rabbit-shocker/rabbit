@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-30 22:14+0900\n"
+"POT-Creation-Date: 2008-10-19 12:04+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../../lib/rabbit/renderer/base.rb:442
+#: ../../lib/rabbit/renderer/base.rb:450
 msgid "%s does not support: %s"
 msgstr "%s n'est pas supporté."
 
@@ -136,7 +136,8 @@ msgid "Base y-axis position to stroke line."
 msgstr ""
 
 #: ../../lib/rabbit/action/radio.rb:32 ../../lib/rabbit/action/toggle.rb:23
-msgid "Black out"
+#, fuzzy
+msgid "Blackout"
 msgstr "Fondu au noir"
 
 #: ../../lib/rabbit/theme/blue-bar/property.rb:2
@@ -294,7 +295,7 @@ msgstr ""
 msgid "Color of shadow."
 msgstr ""
 
-#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:737
+#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:741
 #: ../../bin/rabbit:444
 msgid "Comment"
 msgstr ""
@@ -311,10 +312,12 @@ msgstr ""
 msgid "Common options"
 msgstr ""
 
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:1
 #: ../../lib/rabbit/theme/newline-in-title/property.rb:1
 msgid "Convenience"
 msgstr ""
 
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:3
 #: ../../lib/rabbit/theme/newline-in-title/property.rb:3
 msgid ""
 "Convenience '\n"
@@ -329,7 +332,7 @@ msgstr ""
 msgid "DEBUG"
 msgstr ""
 
-#: ../../bin/rabbit:723
+#: ../../bin/rabbit:725
 msgid "DRb.thread done."
 msgstr ""
 
@@ -627,6 +630,12 @@ msgstr ""
 
 #: ../../lib/rabbit/theme/emphasize-keyword/property.rb:2
 msgid "Emphasize Keyword"
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:4
+msgid ""
+"Enable '\n"
+"' notation to insert newline in all slides."
 msgstr ""
 
 #: ../../lib/rabbit/theme/newline-in-title/property.rb:4
@@ -954,6 +963,10 @@ msgstr ""
 msgid "Narrow hole"
 msgstr ""
 
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:2
+msgid "Newline in Slides"
+msgstr ""
+
 #: ../../lib/rabbit/theme/newline-in-title/property.rb:2
 msgid "Newline in Title"
 msgstr ""
@@ -1046,7 +1059,7 @@ msgstr "/Imprimer"
 msgid "Print and exit."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:655
+#: ../../lib/rabbit/canvas.rb:658
 msgid "Processing..."
 msgstr ""
 
@@ -1954,7 +1967,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:592
+#: ../../lib/rabbit/canvas.rb:595
 #, fuzzy
 msgid "Unknown action: %s"
 msgstr "Propriété inconnue : %s"
@@ -1964,7 +1977,7 @@ msgstr "Propriété inconnue : %s"
 msgid "Unknown command: %s"
 msgstr "Propriété inconnue : %s"
 
-#: ../../lib/rabbit/rabbit.rb:95
+#: ../../lib/rabbit/rabbit.rb:91
 msgid "Unknown property: %s"
 msgstr "Propriété inconnue : %s"
 
@@ -2048,10 +2061,10 @@ msgid "Whether updating image position automatically or not."
 msgstr ""
 
 #: ../../lib/rabbit/action/radio.rb:27 ../../lib/rabbit/action/toggle.rb:12
-msgid "White out"
+msgid "Whiteout"
 msgstr ""
 
-#: ../../bin/rabbit:676
+#: ../../bin/rabbit:678
 msgid "Window ID: %d"
 msgstr ""
 
@@ -2120,12 +2133,12 @@ msgstr "/Quitter"
 msgid "_Quit with confirmation"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:130
+#: ../../lib/rabbit/rabbit.rb:126
 #, fuzzy
 msgid "can not be read: %s"
 msgstr "%s n'est pas lisible."
 
-#: ../../lib/rabbit/rabbit.rb:103
+#: ../../lib/rabbit/rabbit.rb:99
 msgid "can't allocate color: %s"
 msgstr "impossible d'allouer les couleurs : %s."
 
@@ -2133,16 +2146,16 @@ msgstr "impossible d'allouer les couleurs : %s."
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:165
+#: ../../lib/rabbit/rabbit.rb:161
 #, fuzzy
 msgid "can't find HTML template: %s"
 msgstr "impossible de trouver une imprimante pour %s"
 
-#: ../../lib/rabbit/renderer/print/cairo.rb:112
+#: ../../lib/rabbit/renderer/print/cairo.rb:110
 msgid "can't find printer for %s"
 msgstr "impossible de trouver une imprimante pour %s"
 
-#: ../../lib/rabbit/rabbit.rb:173
+#: ../../lib/rabbit/rabbit.rb:169
 #, fuzzy
 msgid "can't find theme RD template: %s"
 msgstr "impossible de trouver une imprimante pour %s"
@@ -2151,7 +2164,7 @@ msgstr "impossible de trouver une imprimante pour %s"
 msgid "can't generate RSS"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:53
+#: ../../lib/rabbit/rabbit.rb:49
 msgid ""
 "can't handle %s because the following command can't be run successfully: %s"
 msgstr ""
@@ -2199,7 +2212,7 @@ msgstr ""
 msgid "fr"
 msgstr ""
 
-#: ../../bin/rabbit:721
+#: ../../bin/rabbit:723
 msgid "going to shutdown..."
 msgstr ""
 
@@ -2211,15 +2224,15 @@ msgstr ""
 msgid "image rendering"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:138
+#: ../../lib/rabbit/rabbit.rb:134
 msgid "immutable source type: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:181
+#: ../../lib/rabbit/rabbit.rb:177
 msgid "invalid motion: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:196
+#: ../../lib/rabbit/rabbit.rb:192
 msgid ""
 "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %"
 "{value}"
@@ -2234,7 +2247,7 @@ msgstr ""
 msgid "must specify %s!!!"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:43
+#: ../../lib/rabbit/rabbit.rb:39
 #, fuzzy
 msgid "no such file: %s"
 msgstr "impossible de trouver le fichier %s."
@@ -2243,16 +2256,16 @@ msgstr "impossible de trouver le fichier %s."
 msgid "none (get from STDIN) or [FILE_NAMES]"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:122
+#: ../../lib/rabbit/rabbit.rb:118
 #, fuzzy
 msgid "not a file: %s"
 msgstr "impossible de trouver le fichier %s."
 
-#: ../../lib/rabbit/rabbit.rb:157
+#: ../../lib/rabbit/rabbit.rb:153
 msgid "not available interface: %s"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:114
+#: ../../lib/rabbit/rabbit.rb:110
 #, fuzzy
 msgid "not exist: %s"
 msgstr "impossible de trouver le fichier %s."
@@ -2265,7 +2278,7 @@ msgstr ""
 msgid "port <%s> for XML-RPC is in use."
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:223
+#: ../../lib/rabbit/rabbit.rb:219
 msgid "print isn't supported"
 msgstr ""
 
@@ -2285,17 +2298,17 @@ msgstr ""
 msgid "text version timer"
 msgstr ""
 
-#: ../../lib/rabbit/rabbit.rb:71
+#: ../../lib/rabbit/rabbit.rb:67
 #, fuzzy
 msgid "tried dia commands: %s"
 msgstr "commandes gs essayées : %s"
 
-#: ../../lib/rabbit/rabbit.rb:79
+#: ../../lib/rabbit/rabbit.rb:75
 #, fuzzy
 msgid "tried gimp commands: %s"
 msgstr "commandes gs essayées : %s"
 
-#: ../../lib/rabbit/rabbit.rb:63
+#: ../../lib/rabbit/rabbit.rb:59
 msgid "tried gs commands: %s"
 msgstr "commandes gs essayées : %s"
 
@@ -2304,7 +2317,7 @@ msgstr "commandes gs essayées : %s"
 msgid "tried mimeTeX commands: %s"
 msgstr "commandes gs essayées : %s"
 
-#: ../../lib/rabbit/rabbit.rb:217
+#: ../../lib/rabbit/rabbit.rb:213
 #, fuzzy
 msgid "unknown cursor type: %s"
 msgstr "Propriété inconnue : %s"
