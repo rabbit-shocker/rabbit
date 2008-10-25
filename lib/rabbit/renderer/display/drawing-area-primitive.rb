@@ -151,8 +151,12 @@ module Rabbit
         def draw_current_slide
           slide = @canvas.current_slide
           if slide
-            compile_slide(slide) unless compiled_slide?(slide)
-            slide.draw(@canvas, false)
+            begin
+              compile_slide(slide) unless compiled_slide?(slide)
+              slide.draw(@canvas, false)
+            rescue
+              @canvas.logger.warn($!)
+            end
           end
         end
 
