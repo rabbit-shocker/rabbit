@@ -1,4 +1,4 @@
-def color_circle_slide(slides, name="slide")
+def color_circle_slide(slides, name="color-circle-slide")
   slides.delete_pre_draw_proc_by_name(name)
 
   slides.add_pre_draw_proc(name) do |slide, canvas, x, y, w, h, simulation|
@@ -16,7 +16,7 @@ def color_circle_slide(slides, name="slide")
   end
 end
 
-def color_circle_title(titles, name="title")
+def color_circle_title(titles, name="color-circle-title")
   titles.delete_pre_draw_proc_by_name(name)
   titles.delete_post_draw_proc_by_name(name)
 

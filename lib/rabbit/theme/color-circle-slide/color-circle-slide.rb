@@ -1,9 +1,9 @@
 match(Slide) do |slides|
-  color_circle_slide(slides, "slide")
+  color_circle_slide(slides)
 end
 
 match(Slide, HeadLine) do |heads|
-  color_circle_title(heads, 'headline')
+  color_circle_title(heads)
 end
 
 match(Slide, Body) do |bodies|
