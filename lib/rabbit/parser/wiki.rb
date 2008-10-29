@@ -13,7 +13,7 @@ module Rabbit
       unshift_loader(self)
       class << self
         def match?(source)
-          /^!/.match(source.read)
+          /^!/.match(source.read[0, 500])
         end
       end
 
