@@ -51,6 +51,14 @@ module Rabbit
         "<div class=\"title-slide\">\n#{super}\n</div>"
       end
 
+      def [](name)
+        @local_prop[name]
+      end
+
+      def []=(name, value)
+        @local_prop[name] = value
+      end
+
       private
       def normalize_name(name)
         name.gsub(/_/, "-").strip
