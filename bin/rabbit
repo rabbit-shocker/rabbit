@@ -647,9 +647,10 @@ end
 def do_save_as_image(options, logger)
   Rabbit::Renderer::Pixmap.init
   Rabbit.gui_init
-  
+
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_image_info(canvas, options)
+  setup_print_info(canvas, options)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
   setup_3d_info(canvas, options)

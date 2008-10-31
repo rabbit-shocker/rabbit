@@ -23,6 +23,7 @@ module Rabbit
       erb = File.open(template_path) {|f| ERB.new(f.read, nil, "-")}
       erb.def_method(self, "to_html", template_path)
 
+      attr_accessor :pdf_filename
       def initialize(canvas, base_name, image_type,
                      output_html, output_index_html, rss_base_uri)
         @canvas = canvas
@@ -36,6 +37,7 @@ module Rabbit
         @image_type = image_type
         @output_html = output_html
         @output_index_html = output_index_html
+        @pdf_filename = nil
         FileUtils.mkdir_p(to_filename_encoding(@base_dir))
       end
 
@@ -375,7 +377,7 @@ module Rabbit
         end
       end
 
-      def toggle_mode_navi
+      def navi
         result = ''
         args = [first_index]
         if outputting_index?
@@ -386,15 +388,19 @@ module Rabbit
         with_outputting_index(!outputting_index?) do
           result << a_link(*args)
         end
+        if @pdf_filename
+          result << HTML.a_link("<a href=\"#{h(@pdf_filename)}\">",
+                                h(_("PDF")), false)
+        end
         unless result.empty?
-          result = "<div class=\"toggle-mode\">\n#{result}\n</div>"
+          result = "<div class=\"navi\">\n#{result}\n</div>"
         end
         result
       end
 
-      def navi(slide_number=@slide_number)
+      def page_navi(slide_number=@slide_number)
         result = ''
-        result << '<div class="navi">'
+        result << '<div class="page-navi">'
         result << first_link(slide_number)
         result << previous_link(slide_number)
         result << next_link(slide_number)

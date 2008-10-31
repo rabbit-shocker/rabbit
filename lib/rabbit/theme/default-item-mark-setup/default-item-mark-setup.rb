@@ -54,7 +54,7 @@ def setup_default_item_mark(items, name, width, height, space_ratio, color,
   draw_mark(*args) do |item, canvas, x, y, w, h|
     x -= mark_space
     if block_given?
-      yield(item, canvas, x, y, w, h, color)
+      yield(item, canvas, x, y, w, h, color, options)
     else
       type = options["type"]
       setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)

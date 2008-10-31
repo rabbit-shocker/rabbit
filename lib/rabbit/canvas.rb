@@ -375,6 +375,7 @@ module Rabbit
                                         @output_html,
                                         @output_index_html,
                                         @rss_base_uri)
+        generator.pdf_filename = filename if /\.pdf/i =~ filename.to_s
         generator.save
       end
     end

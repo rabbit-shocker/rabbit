@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <%= rss_link %>
 <style type="text/css">
-div.navi
+div.page-navi
 {
   text-align: center;
 }
@@ -92,11 +92,11 @@ function handle_key(e)
 <title><%=h slide_title %></title>
 </head>
 <body onkeypress="handle_key(event);">
-<%= toggle_mode_navi %>
 <%= navi %>
+<%= page_navi %>
 <%= slide_content %>
+<%= page_navi %>
 <%= navi %>
-<%= toggle_mode_navi %>
 <hr />
 <div class="footer">
 <p>
