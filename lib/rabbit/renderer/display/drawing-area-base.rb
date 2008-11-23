@@ -254,7 +254,7 @@ module Rabbit
           set_scroll_event
         end
 
-        def realized(widget)
+        def mapped(widget)
           super
           @white = Gdk::GC.new(@drawable)
           @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
