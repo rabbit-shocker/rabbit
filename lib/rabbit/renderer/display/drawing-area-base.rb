@@ -206,6 +206,18 @@ module Rabbit
           attach_key(@window)
         end
 
+        def detach
+          detach_key(@window)
+          detach_menu(@window)
+          widget.hide
+          unless @window.destroyed?
+            remove_widget_from_window(@window)
+            @window.signal_handler_disconnect(@configure_signal_id)
+          end
+
+          super
+        end
+
         def toggle_whiteout
           super
           @area.queue_draw
