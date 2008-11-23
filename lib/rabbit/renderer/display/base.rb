@@ -32,12 +32,6 @@ module Rabbit
         def attach_to(window)
           @window = window
 
-          init_menu
-          init_gesture_actions
-          add_widget_to_window(@window)
-          widget.show
-          attach_menu(@window)
-          attach_key(@window)
           set_configure_event
         end
 

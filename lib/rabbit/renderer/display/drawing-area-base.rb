@@ -1,4 +1,5 @@
 require "rabbit/renderer/display/drawing-area-primitive"
+require 'rabbit/renderer/display/menu'
 require "rabbit/renderer/display/progress"
 require "rabbit/renderer/display/mask"
 require "rabbit/renderer/display/search"
@@ -17,6 +18,7 @@ module Rabbit
       module DrawingAreaBase
         include DrawingAreaPrimitive
 
+        include Menu
         include Graffiti
         include Mask
         include Progress
@@ -191,6 +193,17 @@ module Rabbit
             callback ||= Utils.process_pending_events_proc
             super(callback)
           end
+        end
+
+        def attach_to(window)
+          super
+
+          init_menu
+          init_gesture_actions
+          add_widget_to_window(@window)
+          widget.show
+          attach_menu(@window)
+          attach_key(@window)
         end
 
         def toggle_whiteout

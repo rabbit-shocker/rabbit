@@ -1,13 +1,9 @@
 require 'gtk2'
 
-require 'rabbit/renderer/display/menu'
-
 module Rabbit
   module Renderer
     module Display
       module ButtonHandler
-        include Menu
-
         BUTTON_PRESS_ACCEPTING_TIME = 250
 
         def initialize(*args, &block)
