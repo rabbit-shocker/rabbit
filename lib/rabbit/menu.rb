@@ -51,7 +51,8 @@ module Rabbit
 
     private
     def accel_group
-      @merge.accel_group
+      # @merge.accel_group
+      @accel_group = @merge.accel_group # <- workaround for Ruby/GLib <= 0.18.1
     end
 
     def make_jump_to_action(jump_to_action, title, i)
