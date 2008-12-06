@@ -204,7 +204,7 @@ module Rabbit
         format = @base_name.dup
         format << "-index" if outputting_index?
         slide_size = outputting_index? ? @index_slide_size : @slide_size
-        format << "%0#{number_of_places(slide_size)}d%s.%s"
+        format << "-%0#{number_of_places(slide_size)}d%s.%s"
       end
 
       def to_filename_encoding(utf8_filename)
