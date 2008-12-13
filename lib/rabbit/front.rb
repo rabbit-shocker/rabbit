@@ -9,14 +9,15 @@ module Rabbit
 
     module PublicLevel
       STRICT = 0
-      MOVE = 1
-      READ_SIZE = 2
-      CHANGE_SIZE = 4
+      MOVE = 1 << 0
+      READ_SIZE = 1 << 1
+      CHANGE_SIZE = 1 << 2
       SIZE = READ_SIZE | CHANGE_SIZE
-      READ_SOURCE = 8
-      CHANGE_SOURCE = 16
+      READ_SOURCE = 1 << 3
+      CHANGE_SOURCE = 1 << 4
       SOURCE = READ_SOURCE | CHANGE_SOURCE
-      ALL = MOVE | SIZE | SOURCE
+      CONTROL = 1 << 5
+      ALL = MOVE | SIZE | SOURCE | CONTROL
     end
 
     AVAILABLE_INTERFACES = []
@@ -40,6 +41,10 @@ module Rabbit
 
     %w(source= reset).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SOURCE, true]
+    end
+
+    %w(quit).each do |name|
+      AVAILABLE_INTERFACES << [name, PublicLevel::CONTROL, false]
     end
 
     include MonitorMixin
@@ -130,6 +135,13 @@ module Rabbit
       @canvas.comments
     end
 
+    def quit
+      GLib::Idle.add do
+        @canvas.quit
+      end
+      true
+    end
+
     private
     def check_dirty
       mon_synchronize do
@@ -183,13 +195,14 @@ module Rabbit
         arg_str = arg_list.join(", ")
         
         if (@public_level & level).zero?
-          instance_eval(<<-EOS, __FILE__, __LINE__)
+          instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
             def self.#{name}(#{arg_str})
               raise NotAvailableInterfaceError.new(#{name.to_s.dump})
             end
           EOS
         else
-          instance_eval(<<-EOS, __FILE__, __LINE__)
+          next if respond_to?(name)
+          instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
             def self.#{name}(#{arg_str})
               result = @canvas.__send__(#{[name.to_s.dump, *arg_list].join(', ')})
               #{if need_clear_cache then "dirty!" end}
