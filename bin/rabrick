@@ -39,7 +39,7 @@ def parse(args=ARGV, logger=nil)
   end
 end
 
-def main(monolithic=true)
+def main
   options, logger = parse
   
   DRb.start_service
