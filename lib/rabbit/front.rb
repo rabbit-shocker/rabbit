@@ -43,7 +43,8 @@ module Rabbit
       AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SOURCE, true]
     end
 
-    %w(quit).each do |name|
+    %w(toggle_fullscreen toggle_index_mode toggle_whiteout
+       toggle_blackout quit).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::CONTROL, false]
     end
 
@@ -135,13 +136,6 @@ module Rabbit
       @canvas.comments
     end
 
-    def quit
-      GLib::Idle.add do
-        @canvas.quit
-      end
-      true
-    end
-
     private
     def check_dirty
       mon_synchronize do
@@ -201,14 +195,29 @@ module Rabbit
             end
           EOS
         else
-          next if respond_to?(name)
-          instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
-            def self.#{name}(#{arg_str})
-              result = @canvas.__send__(#{[name.to_s.dump, *arg_list].join(', ')})
-              #{if need_clear_cache then "dirty!" end}
-              result
-            end
-          EOS
+          send_arguments = [name.to_s.dump, *arg_list].join(', ')
+          dirty_source = nil
+          dirty_source = "dirty!" if need_clear_cache
+          if (level & PublicLevel::CONTROL).zero?
+            instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
+              def self.#{name}(#{arg_str})
+                result = @canvas.__send__(#{send_arguments})
+                #{dirty_source}
+                result
+              end
+            EOS
+          else
+            instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
+              def self.#{name}(#{arg_str})
+                GLib::Idle.add do
+                  @canvas.__send__(#{send_arguments})
+                  #{dirty_source}
+                  false
+                end
+                true
+              end
+            EOS
+          end
         end
       end
     end
