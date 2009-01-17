@@ -112,6 +112,15 @@ module Rabbit
         text_props["size"]
       end
 
+      def pixel_font_size
+        _font_size = font_size
+        if _font_size
+          _font_size / Pango::SCALE
+        else
+          original_height
+        end
+      end
+
       def have_numerical_font_size?
         font_size.is_a?(Numeric)
       end

@@ -13,12 +13,7 @@ match(TitleSlide, Title) do |titles|
   titles.add_pre_draw_proc(proc_name) do |title, canvas, x, y, w, h, simulation|
     unless simulation
       if shadow_layout.nil?
-        font_size = title.prop_get("size")
-        if font_size
-          font_size = font_size.value.to_f / Pango::SCALE
-        else
-          font_size = title.original_height
-        end
+        font_size = title.pixel_font_size
         move_x = screen_x(font_size.to_f / screen_size(10))
         move_y = screen_y(font_size.to_f / screen_size(20))
 
