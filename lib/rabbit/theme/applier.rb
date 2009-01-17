@@ -258,6 +258,38 @@ module Rabbit
         end
       end
 
+      def normalized_width
+        (canvas.x_dpi / 72.0) * NORMALIZED_WIDTH
+      end
+
+      def normalized_height
+        (canvas.y_dpi / 72.0) * NORMALIZED_HEIGHT
+      end
+
+      def normalized_size(s)
+        ((s / canvas.width.to_f) * normalized_width).ceil
+      end
+
+      def normalized_x(sx)
+        ((sx / canvas.width.to_f) * normalized_width).ceil
+      end
+
+      def normalized_y(sy)
+        ((sy / canvas.height.to_f) * normalized_height).ceil
+      end
+
+      def screen_size(n)
+        ((canvas.width * n) / normalized_width).ceil
+      end
+
+      def screen_x(nx)
+        ((canvas.width * nx) / normalized_width).ceil
+      end
+
+      def screen_y(ny)
+        ((canvas.height * ny) / normalized_height).ceil
+      end
+
       private
       def normalize_source(src)
         src.gsub(/(?=^|\W)@(very_)?huge_(script_)?font_size(?=$|\W)/) do |x|
@@ -460,38 +492,6 @@ module Rabbit
             result + [element]
           end
         end
-      end
-
-      def normalized_width
-        (canvas.x_dpi / 72.0) * NORMALIZED_WIDTH
-      end
-
-      def normalized_height
-        (canvas.y_dpi / 72.0) * NORMALIZED_HEIGHT
-      end
-
-      def normalized_size(s)
-        ((s / canvas.width.to_f) * normalized_width).ceil
-      end
-
-      def normalized_x(sx)
-        ((sx / canvas.width.to_f) * normalized_width).ceil
-      end
-
-      def normalized_y(sy)
-        ((sy / canvas.height.to_f) * normalized_height).ceil
-      end
-
-      def screen_size(n)
-        ((canvas.width * n) / normalized_width).ceil
-      end
-
-      def screen_x(nx)
-        ((canvas.width * nx) / normalized_width).ceil
-      end
-
-      def screen_y(ny)
-        ((canvas.height * ny) / normalized_height).ceil
       end
 
       def indent(*args, &block)
