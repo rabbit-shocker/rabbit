@@ -34,21 +34,21 @@ def setup_lightning_talk_slide(slide)
     end
     
     def takahashi(params={}, &block)
-      if lightning_talk?
-        params = lightning_talk_default_params.merge(params)
-        
-        clear_pre_draw_procs
-        clear_post_draw_procs
-        
-        self.vertical_centering = true
-        self.horizontal_centering = true
-        
-        lightning_talk_setup_background(params)
-        lightning_talk_setup_contact_information(params)
-        
-        headline.lightning_talk(params)
-        block.call(self, headline) if block
-      end
+      return unless lightning_talk?
+
+      params = lightning_talk_default_params.merge(params)
+
+      clear_pre_draw_procs
+      clear_post_draw_procs
+
+      self.vertical_centering = true
+      self.horizontal_centering = true
+
+      lightning_talk_setup_background(params)
+      lightning_talk_setup_contact_information(params)
+
+      headline.lightning_talk(params)
+      block.call(self, headline) if block
     end
     alias lightning_talk takahashi
 
