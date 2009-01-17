@@ -28,7 +28,9 @@ end
 @image_timer_margin_right ||= nil
 @image_timer_margin_bottom ||= nil
 
-@image_time_auto_updating = false
+@image_timer_auto_updating = false
+
+@image_timer_draw_parameters ||= {:reflect => {:ratio => 0.5, :alpha => 0.5}}
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
@@ -70,7 +72,7 @@ match(Slide) do |slides|
       ratio = 1 - (rest_time.to_i / @image_timer_limit.to_f)
       base_x = margin_left + max_width * ratio
 
-      loader.draw(canvas, base_x, base_y)
+      loader.draw(canvas, base_x, base_y, @image_timer_draw_parameters)
 
       if @image_timer_auto_scroll
         if canvas.slide_size < 3

@@ -41,6 +41,7 @@ module Rabbit
             raise InvalidImageSizeError.new(filename, name, prop[name])
           end
         end
+        setup_draw_parameters(prop)
         resize(@width, @height)
       end
 
@@ -108,9 +109,21 @@ module Rabbit
       end
 
       private
+      def setup_draw_parameters(prop)
+        @draw_parameters = {}
+        @draw_parameters[:reflect] = {} if true_value?(prop["reflect"])
+        [:ratio, :alpha].each do |key|
+          name = "reflect_#{key}"
+          value = prop[name]
+          next unless value
+          @draw_parameters[:reflect] ||= {}
+          @draw_parameters[:reflect][key] = Float(value)
+        end
+      end
+
       def draw_image(canvas, x, y, w, h, simulation)
         unless simulation
-          image_draw(canvas, x, y)
+          image_draw(canvas, x, y, @draw_parameters)
         end
         [x, y + height, w, h - height]
       end

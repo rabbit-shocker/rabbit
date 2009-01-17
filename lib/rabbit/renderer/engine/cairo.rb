@@ -251,11 +251,14 @@ module Rabbit
 
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = from_screen(x, y)
+
           @context.save do
             @context.translate(x, y)
             @context.set_source_pixbuf(pixbuf, 0, 0)
             @context.paint
           end
+
+          _draw_reflected_pixbuf(pixbuf, x, y, params[:reflect])
         end
 
         def rsvg_available?
@@ -394,6 +397,28 @@ module Rabbit
 
         def make_matrix(xx, xy, x0, yx, yy, y0)
           ::Cairo::Matrix.new(xx, yx, xy, yy, x0, y0)
+        end
+
+        def _draw_reflected_pixbuf(pixbuf, x, y, params)
+          return unless params
+
+          params = {} if params == true
+          ratio = params[:ratio] || 0.3
+          start_alpha = params[:start_alpha] || 0.3
+
+          @context.save do
+            width = pixbuf.width
+            height = pixbuf.height
+            @context.translate(x, y + height * 2)
+            reflect_context(:x)
+            @context.set_source_pixbuf(pixbuf, 0, 0)
+            pattern = ::Cairo::LinearPattern.new(width * 0.5, 0,
+                                                 width * 0.5, height)
+            pattern.add_color_stop_rgba(0, 0, 0, 0, 0)
+            pattern.add_color_stop_rgba(1 - ratio, 0, 0, 0, 0)
+            pattern.add_color_stop_rgba(1, 0, 0, 0, start_alpha)
+            @context.mask(pattern)
+          end
         end
       end
     end

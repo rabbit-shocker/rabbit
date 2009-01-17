@@ -19,6 +19,9 @@ end
 @image_slide_number_margin_right ||= nil
 @image_slide_number_margin_bottom ||= nil
 
+@image_slide_number_draw_parameters ||=
+  {:reflect => {:ratio => 0.5, :alpha => 0.5}}
+
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
   
@@ -87,8 +90,10 @@ match(Slide) do |slides|
           props["flag_color"] = "blue"
           canvas.draw_flag(goal_base_x, base_y, loader.height, props)
         else
-          start_loader.draw(canvas, start_base_x, base_y)
-          goal_loader.draw(canvas, goal_base_x, base_y)
+          start_loader.draw(canvas, start_base_x, base_y,
+                            @image_slide_number_draw_parameters)
+          goal_loader.draw(canvas, goal_base_x, base_y,
+                           @image_slide_number_draw_parameters)
         end
       end
 
@@ -98,7 +103,8 @@ match(Slide) do |slides|
         ratio = (slide.index - 1.0) / (canvas.slide_size - 2.0)
       end
       current_base_x = base_x + max_width * ratio
-      loader.draw(canvas, current_base_x, base_y)
+      loader.draw(canvas, current_base_x, base_y,
+                  @image_slide_number_draw_parameters)
     end
     [x, y, w, h]
   end
