@@ -77,7 +77,8 @@ def setup_title_on_image_slide(slide)
 
     def title_on_image?
       !headline.empty? and
-        body.elements.all? {|elem| elem.is_a?(Element::Image)}
+        body.elements.size == 1 and
+        body.elements[0].is_a?(Element::Image)
     end
   end
 end

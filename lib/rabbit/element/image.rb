@@ -12,6 +12,7 @@ module Rabbit
       alias image_draw draw
       alias draw element_draw
 
+      attr_reader :filename
       attr_reader :caption
       attr_reader :normalized_width, :normalized_height
       attr_reader :relative_width, :relative_height
