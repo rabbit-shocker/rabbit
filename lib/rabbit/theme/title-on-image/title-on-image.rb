@@ -24,6 +24,8 @@ def setup_title_on_image_slide(slide)
       clear_pre_draw_procs
       clear_post_draw_procs
 
+      margin_set(0)
+
       self.vertical_centering = true
       self.horizontal_centering = true
 
@@ -88,6 +90,8 @@ def setup_title_on_image_headline(head)
     def title_on_image(params)
       proc_name = params[:proc_name]
       color = params[:color]
+
+      margin_set(0)
 
       clear_pre_draw_procs
       clear_post_draw_procs
