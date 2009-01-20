@@ -49,7 +49,7 @@ def setup_title_on_image_slide(slide)
       end
 
       add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
-        base_h = orig_h / 2
+        base_h = orig_h / 2 - headline.height / 2
         base_y = orig_y + base_h
         unless simulation
           shadow_headline = headline.clone
