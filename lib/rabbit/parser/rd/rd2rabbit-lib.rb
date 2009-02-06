@@ -1,6 +1,7 @@
 require "forwardable"
 
 require "rabbit/element"
+require 'rabbit/parser/pause-support'
 require 'rabbit/parser/ext/escape'
 require 'rabbit/parser/rd/visitor'
 require "rabbit/parser/rd/ext/refer"
@@ -15,6 +16,7 @@ module Rabbit
 
         include ::RD::MethodParse
         include Element
+        include PauseSupport
 
         SYSTEM_NAME = "RD2RabbitLVisitor"
         SYSTEM_VERSION = "0.0.2"
@@ -41,8 +43,6 @@ module Rabbit
           @slide = nil
           @index = {}
 
-          @pause_targets = {}
-
           init_extensions
           super()
         end
@@ -51,16 +51,6 @@ module Rabbit
           prepare_labels(tree, "label-")
           prepare_footnotes(tree)
           super(tree)
-        end
-
-        def register_pause(target)
-          @pause_targets[@slide] ||= []
-          @pause_targets[@slide] << target
-        end
-
-        def unregister_pause(target)
-          @pause_targets[@slide] ||= []
-          @pause_targets[@slide].delete(target)
         end
 
         def apply_to_DocumentElement(element, contents)
@@ -188,7 +178,7 @@ module Rabbit
           contents.each do |content|
             item << content
           end
-          if contents.size == 1 and contents.first.first.is_a?(WaitTag)
+          if item.have_wait_tag?
             content = contents.first
             content.default_visible = true
             content.clear_theme
@@ -386,19 +376,6 @@ module Rabbit
             raise ArgumentError, "[BUG] footnote ##{num} isn't here."
           end
           @foot_texts.last << [foot_text, num - 1]
-        end
-
-        def burn_out_pause_targets
-          @slides.each do |slide|
-            (@pause_targets[slide] || []).each do |target|
-              slide.register_default_wait_proc(target.parent) do |*args|
-                target.show do
-                  next_proc = args.pop
-                  next_proc.call(*args)
-                end
-              end
-            end
-          end
         end
 
         def burn_out_foot_texts

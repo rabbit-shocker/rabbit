@@ -1,4 +1,5 @@
 require 'rabbit/element'
+require 'rabbit/parser/pause-support'
 require 'rabbit/parser/ext/escape'
 require 'rabbit/parser/ext/inline'
 require 'rabbit/parser/ext/image'
@@ -12,6 +13,7 @@ module Rabbit
     class Wiki
       class RabbitOutput
         include Element
+        include PauseSupport
 
         attr_reader :canvas
         def initialize(canvas)
@@ -35,6 +37,7 @@ module Rabbit
           @slides.each do |slide|
             @canvas << slide
           end
+          burn_out_pause_targets
         end
 
         def container(_for=nil)
@@ -117,19 +120,28 @@ module Rabbit
         def listitem(item)
           return unless @parent
 
-          item = Paragraph.new(item.flatten)
+          list_item = nil
+          item = item.flatten
+          paragraph = Paragraph.new(item)
           type = @list_type_stack.last
           case type
           when "ul"
-            @parent << ItemListItem.new(item)
+            list_item = ItemListItem.new(paragraph)
+            @parent << list_item
           when "ol"
-            list_item = EnumListItem.new(item)
+            list_item = EnumListItem.new(paragraph)
             list_item.order = @enum_order_stack.last
             @enum_order_stack[-1] += 1
             @parent << list_item
           else
             unsupported_list_type
           end
+
+          return unless paragraph.have_wait_tag?
+
+          paragraph.default_visible = true
+          paragraph.clear_theme
+          register_pause(list_item)
         end
 
         def dlist_open
@@ -248,7 +260,9 @@ module Rabbit
         end
 
         def paragraph(contents)
-          @parent << Paragraph.new(contents.flatten)
+          paragraph = Paragraph.new(contents.flatten)
+          register_pause(paragraph) if paragraph.have_wait_tag?
+          @parent << paragraph
         end
 
         def block_plugin(src)
