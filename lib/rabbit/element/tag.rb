@@ -9,6 +9,10 @@ module Rabbit
         true
       end
 
+      def text
+        ""
+      end
+
       def markuped_text
         ""
       end
