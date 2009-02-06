@@ -126,6 +126,13 @@ A presentation tool
 #  # relative_width = 100
 #  # relative_height = 50
 
+= Image: Reflect
+
+  # image
+  # src = shocker.jpg
+  # relative_height = 80
+  # reflect_ratio = 0.5
+
 = Image size
 
 Relative size is available

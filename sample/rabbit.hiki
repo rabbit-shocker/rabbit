@@ -56,7 +56,7 @@
 * {{wait}}国際化
 * スライド内検索
 
-= 機能: UI（3）
+! 機能: UI（3）
 
 * ホワイト・ブラックアウト
 ** スライド白塗り・黒塗り
@@ -120,7 +120,15 @@
 #          :normalized_height => 50,
 #          :relative_width => 100,
 #          :relative_height => 50,
-       })}}
+        })}}
+
+! 画像: 鏡面反射
+
+{{image("shocker.jpg",
+        {
+          :relative_height => 80,
+          :reflect_ratio => 0.5,
+        })}}
 
 ! 画像サイズ
 
@@ -133,7 +141,7 @@
 #          :normalized_height => 50,
 #          :relative_width => 100,
           :relative_height => 50,
-        })}}
+         })}}
 
 ! 外部画像
 

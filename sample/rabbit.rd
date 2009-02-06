@@ -126,6 +126,13 @@
 #  # relative_width = 100
 #  # relative_height = 50
 
+= 画像: 鏡面反射
+
+  # image
+  # src = shocker.jpg
+  # relative_height = 80
+  # reflect_ratio = 0.5
+
 = 画像サイズ
 
 スライドサイズに応じて変更可能
