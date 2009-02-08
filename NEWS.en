@@ -12,8 +12,8 @@ $Id$
     * supported reflected image effect (requested by kdmsnr)
 
       Example:
-        http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-104.html
-        http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-085.html
+        * ((<URL:http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-104.html>))
+        * ((<URL:http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-085.html>))
 
       How to write:
         # image
@@ -36,7 +36,7 @@ $Id$
         superimposes title on image.
 
         Example:
-          http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-036.html
+        ((<URL:http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-036.html>))
 
         How to use:
           In slide:
