@@ -1,4 +1,4 @@
-@title_on_image_proc_name ||= "title-on-image-slide"
+@title_on_image_proc_name ||= "title-on-image"
 @title_on_image_color ||= "white"
 @title_on_image_shadow_color ||= "#0009"
 @title_on_image_background_color ||= "black"
