@@ -4,6 +4,59 @@
 
 $Id$
 
+== Changes 0.5.9 from 0.5.8: 2009-02-09
+
+  * Improvements
+    * HTML output: supported link to PDF.
+    * added rabbit-command command line tool to control Rabbit.
+    * supported reflected image effect (requested by kdmsnr)
+
+      Example:
+        http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-104.html
+
+      How to write:
+        # image
+        # src = XXX.jpg
+        # relative_height = 80
+        # reflect_ratio = 0.5
+
+  * Theme
+    * New themes
+      * pdf-tortoise-and-hare:
+        uses tortoise and hare timer when PDF viewer
+        mode. Allotted time is specified by
+        RABBIT_ALLOTTED_TIME environment variable.
+
+        Example:
+          % RABBIT_ALLOTTED_TIME=4.5m rabbit --theme pdf-tortoise-and-hare XXX.pdf
+      * lightning-clear-blue:
+        uses large character slides in bluish clear-blue theme.
+      * title-on-image-toolkit:
+        superimposes title on image.
+
+        Example:
+          http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-036.html
+
+        How to use:
+          In slide:
+            = Users Group
+
+              # image
+              # src = shocker.jpg
+              # relative_height = 90
+
+          In theme:
+            include_theme("title-on-image-toolkit")
+
+            match(Slide) do |slides|
+              slides.each do |slide|
+                slide.title_on_image if slide.title_on_image?
+              end
+            end
+
+  * Bug fixes
+    * fixed wrong Wiki format detection.
+
 == Changes 0.5.8 from 0.5.7: 2008-10-18
 
   * Improvements

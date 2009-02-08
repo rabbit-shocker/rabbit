@@ -4,6 +4,60 @@
 
 $Id$
 
+== 0.5.8から0.5.9の変更点: 2009-02-09
+
+  * 改良
+    * HTML出力: PDFへのリンク対応
+    * Rabbitをコマンドラインから制御するrabbit-commandの追加
+    * 鏡に反射したような画像効果のサポート
+      （kdmsnrさんからのリクエスト）
+
+      使用例:
+        http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-104.html
+      書き方:
+        # image
+        # src = XXX.jpg
+        # relative_height = 80
+        # reflect_ratio = 0.5
+
+  * テーマ
+    * 新規テーマ
+      * pdf-tortoise-and-hare:
+        PDFビューアとしてRabbitを使うときに、うさぎとかめタ
+        イマーを使う。持ち時間はRABBIT_ALLOTTED_TIME環境変数
+        で指定。
+
+        使用例:
+          % RABBIT_ALLOTTED_TIME=4.5m rabbit --theme pdf-tortoise-and-hare XXX.pdf
+      * lightning-clear-blue:
+        青っぽいclear-blueテーマの中でたまに大きな文字のスラ
+        イドを使う。
+      * title-on-image-toolkit:
+        画像の上にタイトルを重ねる。
+
+        使用例:
+          http://www.clear-code.com/archives/SendaiRubyKaigi01/love-and-continue-it-036.html
+
+        使い方:
+          スライド:
+            = ユーザーズグループ
+
+              # image
+              # src = shocker.jpg
+              # relative_height = 90
+
+          テーマ:
+            include_theme("title-on-image-toolkit")
+
+            match(Slide) do |slides|
+              slides.each do |slide|
+                slide.title_on_image if slide.title_on_image?
+              end
+            end
+
+  * バグ修正
+    * Wikiフォーマットの検出を失敗する問題の修正
+
 == 0.5.7から0.5.8の変更点: 2008-10-19
 
   * 改良
