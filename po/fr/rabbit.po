@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-19 12:04+0900\n"
+"POT-Creation-Date: 2009-02-09 00:01+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -90,7 +90,7 @@ msgstr ""
 msgid "Add [PATH] to load path."
 msgstr "Ajout de [PATH] au chemin de chargement"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:393
+#: ../../lib/rabbit/parser/wiki/output.rb:407
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
 msgid "Anthy isn't available"
 msgstr "Anthy n'est pas disponible"
@@ -212,6 +212,10 @@ msgstr ""
 msgid "Clear blue theme"
 msgstr "Theme Cercle bleu"
 
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:3
+msgid "Clear blue theme with Lightning Talk theme"
+msgstr ""
+
 #: ../../lib/rabbit/action/basic.rb:190
 msgid "Clear graffiti"
 msgstr "Effacer les dessins à main levée"
@@ -295,7 +299,7 @@ msgstr ""
 msgid "Color of shadow."
 msgstr ""
 
-#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:741
+#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:742
 #: ../../bin/rabbit:444
 msgid "Comment"
 msgstr ""
@@ -312,6 +316,11 @@ msgstr ""
 msgid "Common options"
 msgstr ""
 
+#: ../../bin/rabbit-command:51
+#, fuzzy
+msgid "Control commands"
+msgstr "Propriété inconnue : %s"
+
 #: ../../lib/rabbit/theme/newline-in-slides/property.rb:1
 #: ../../lib/rabbit/theme/newline-in-title/property.rb:1
 msgid "Convenience"
@@ -324,7 +333,7 @@ msgid ""
 "' newline notation."
 msgstr ""
 
-#: ../../lib/rabbit/html/generator.rb:46
+#: ../../lib/rabbit/html/generator.rb:48
 msgid "Creating a image for the %dth page"
 msgstr ""
 
@@ -332,7 +341,7 @@ msgstr ""
 msgid "DEBUG"
 msgstr ""
 
-#: ../../bin/rabbit:725
+#: ../../bin/rabbit:726
 msgid "DRb.thread done."
 msgstr ""
 
@@ -614,6 +623,10 @@ msgid ""
 "that the hare will lose to the tortoise."
 msgstr ""
 
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:3
+msgid "Displays title on image"
+msgstr ""
+
 #: ../../lib/rabbit/logger/base.rb:20
 msgid "ERROR"
 msgstr ""
@@ -825,7 +838,7 @@ msgid "Images related to Ruby"
 msgstr ""
 
 #: ../../lib/rabbit/element/index-slide.rb:103
-#: ../../lib/rabbit/html/generator.rb:384
+#: ../../lib/rabbit/html/generator.rb:386
 #, fuzzy
 msgid "Index"
 msgstr "/Mode index"
@@ -852,13 +865,18 @@ msgstr ""
 msgid "Jump to"
 msgstr "/Aller à"
 
-#: ../../lib/rabbit/menu.rb:60
+#: ../../lib/rabbit/menu.rb:61
 msgid "Jump to the %dth slide"
 msgstr ""
 
 #: ../../lib/rabbit/action/basic.rb:48
 msgid "Last slide"
 msgstr "Dernier transparent"
+
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:2
+#, fuzzy
+msgid "Lightning Clear Blue"
+msgstr "Mettre tous les slides en cache"
 
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:3
 msgid "Lightning Talk theme"
@@ -951,9 +969,43 @@ msgstr ""
 msgid "Mirror Effect"
 msgstr ""
 
+#: ../../bin/rabbit-command:21
+#, fuzzy
+msgid "Move commands"
+msgstr "Commandes disponibles: %s"
+
+#: ../../bin/rabbit-command:27
+msgid "Move to next"
+msgstr ""
+
+#: ../../bin/rabbit-command:23
+msgid "Move to previous"
+msgstr ""
+
+#: ../../bin/rabbit-command:47
+msgid "Move to the Nth slide"
+msgstr ""
+
+#: ../../bin/rabbit-command:39
+msgid "Move to the first slide"
+msgstr ""
+
+#: ../../bin/rabbit-command:43
+msgid "Move to the last slide"
+msgstr ""
+
+#: ../../bin/rabbit-command:35
+msgid "Move to the next slide"
+msgstr ""
+
 #: ../../lib/rabbit/theme/slide-show/property.rb:4
 msgid "Move to the next slide automatically."
 msgstr ""
+
+#: ../../bin/rabbit-command:31
+#, fuzzy
+msgid "Move to the previous slide"
+msgstr "Transparent précédent"
 
 #: ../../lib/rabbit/theme/document.erb:3
 msgid "Name"
@@ -1008,7 +1060,12 @@ msgid "Output index HTML for navigating slides."
 msgstr ""
 
 #: ../../lib/rabbit/theme/pdf/property.rb:2
+#: ../../lib/rabbit/html/generator.rb:393
 msgid "PDF"
+msgstr ""
+
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:2
+msgid "PDF with The Tortoise and The Hare"
 msgstr ""
 
 #: ../../bin/rabbit:224
@@ -1059,7 +1116,7 @@ msgstr "/Imprimer"
 msgid "Print and exit."
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:658
+#: ../../lib/rabbit/canvas.rb:659
 msgid "Processing..."
 msgstr ""
 
@@ -1120,6 +1177,11 @@ msgstr ""
 #: ../../bin/rabbit:422
 msgid "Public level"
 msgstr ""
+
+#: ../../bin/rabbit-command:69
+#, fuzzy
+msgid "Quit"
+msgstr "/Quitter"
 
 #: ../../bin/rabbit:198
 msgid "RSS is generated only when HTML is output."
@@ -1441,7 +1503,7 @@ msgstr "/Recharger le thème"
 msgid "Size"
 msgstr ""
 
-#: ../../lib/rabbit/html/generator.rb:382
+#: ../../lib/rabbit/html/generator.rb:384
 msgid "Slide"
 msgstr ""
 
@@ -1482,7 +1544,7 @@ msgid ""
 "displayed."
 msgstr ""
 
-#: ../../bin/rabrick:22
+#: ../../bin/rabbit-command:16 ../../bin/rabrick:22
 msgid "Specify Rabbit's dRuby URI as [URI]."
 msgstr ""
 
@@ -1651,7 +1713,9 @@ msgstr "/Recharger le thème"
 #: ../../lib/rabbit/theme/image-viewer/property.rb:1
 #: ../../lib/rabbit/theme/night-black/property.rb:1
 #: ../../lib/rabbit/theme/red-frame/property.rb:1
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:1
 #: ../../lib/rabbit/theme/rabbit/property.rb:1
 #: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
@@ -1672,6 +1736,10 @@ msgstr "/Recharger le thème"
 
 #: ../../lib/rabbit/theme/pdf/property.rb:3
 msgid "Theme for PDF"
+msgstr ""
+
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:3
+msgid "Theme for PDF with The Tortoise and The Hare"
 msgstr ""
 
 #: ../../lib/rabbit/theme/image-viewer/property.rb:3
@@ -1706,6 +1774,10 @@ msgstr ""
 msgid "Title of slide"
 msgstr ""
 
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:2
+msgid "Title on Image Toolkit"
+msgstr ""
+
 #: ../../lib/rabbit/theme/title-background-color/property.rb:2
 msgid "TitleBackgroundColor"
 msgstr ""
@@ -1722,13 +1794,33 @@ msgstr ""
 msgid "TitleShadow"
 msgstr ""
 
+#: ../../bin/rabbit-command:65
+#, fuzzy
+msgid "Toggle blackout"
+msgstr "Fondu au noir"
+
 #: ../../bin/rabbit:124
 msgid "Toggle full screen mode."
 msgstr ""
 
+#: ../../bin/rabbit-command:53
+#, fuzzy
+msgid "Toggle fullscreen"
+msgstr "/Plein écran"
+
+#: ../../bin/rabbit-command:57
+#, fuzzy
+msgid "Toggle index mode"
+msgstr "/Mode index"
+
 #: ../../bin/rabbit:130
 #, fuzzy
 msgid "Toggle index mode."
+msgstr "/Mode index"
+
+#: ../../bin/rabbit-command:61
+#, fuzzy
+msgid "Toggle whiteout"
 msgstr "/Mode index"
 
 #: ../../lib/rabbit/theme/footer-logo/property.rb:1
@@ -1781,6 +1873,7 @@ msgstr "/Mode index"
 #: ../../lib/rabbit/theme/color-circle-slide/property.rb:1
 #: ../../lib/rabbit/theme/title-shadow/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-description/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:1
@@ -1967,7 +2060,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: ../../lib/rabbit/canvas.rb:595
+#: ../../lib/rabbit/canvas.rb:596
 #, fuzzy
 msgid "Unknown action: %s"
 msgstr "Propriété inconnue : %s"
@@ -2064,7 +2157,7 @@ msgstr ""
 msgid "Whiteout"
 msgstr ""
 
-#: ../../bin/rabbit:678
+#: ../../bin/rabbit:679
 msgid "Window ID: %d"
 msgstr ""
 
@@ -2160,7 +2253,7 @@ msgstr "impossible de trouver une imprimante pour %s"
 msgid "can't find theme RD template: %s"
 msgstr "impossible de trouver une imprimante pour %s"
 
-#: ../../lib/rabbit/html/generator.rb:59
+#: ../../lib/rabbit/html/generator.rb:61
 msgid "can't generate RSS"
 msgstr ""
 
@@ -2212,11 +2305,11 @@ msgstr ""
 msgid "fr"
 msgstr ""
 
-#: ../../bin/rabbit:723
+#: ../../bin/rabbit:724
 msgid "going to shutdown..."
 msgstr ""
 
-#: ../../lib/rabbit/parser/wiki/output.rb:71
+#: ../../lib/rabbit/parser/wiki/output.rb:74
 msgid "horizontal rule is unsupported"
 msgstr ""
 
@@ -2282,7 +2375,7 @@ msgstr ""
 msgid "print isn't supported"
 msgstr ""
 
-#: ../../bin/rabrick:64
+#: ../../bin/rabrick:62
 msgid "reloading ERB templates..."
 msgstr ""
 
@@ -2343,7 +2436,7 @@ msgstr ""
 msgid "unsupported format. (supported: %s)"
 msgstr "%s n'est pas supporté."
 
-#: ../../lib/rabbit/parser/wiki/output.rb:296
+#: ../../lib/rabbit/parser/wiki/output.rb:310
 #, fuzzy
 msgid "unsupported list type: %s"
 msgstr "%s n'est pas supporté."

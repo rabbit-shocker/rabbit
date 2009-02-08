@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-19 12:04+0900\n"
-"PO-Revision-Date: 2008-10-19 12:04+0900\n"
+"POT-Creation-Date: 2009-02-09 00:01+0900\n"
+"PO-Revision-Date: 2009-02-09 00:26+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
 "<nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -91,7 +91,7 @@ msgstr "宣伝文。"
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:393
+#: ../../lib/rabbit/parser/wiki/output.rb:407
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
 msgid "Anthy isn't available"
 msgstr "Anthyが利用できません"
@@ -202,6 +202,10 @@ msgstr "きれいな青: 画像"
 msgid "Clear blue theme"
 msgstr "きれいな青のテーマ"
 
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:3
+msgid "Clear blue theme with Lightning Talk theme"
+msgstr "ライトニングトークテーマ付ききれいな青テーマ"
+
 #: ../../lib/rabbit/action/basic.rb:190
 msgid "Clear graffiti"
 msgstr "落書きをクリア"
@@ -274,7 +278,7 @@ msgstr "スタートとゴールの旗に表示される数字の色。"
 msgid "Color of shadow."
 msgstr "影の色。"
 
-#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:741
+#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:742
 #: ../../bin/rabbit:444
 msgid "Comment"
 msgstr "コメント"
@@ -291,6 +295,10 @@ msgstr "コメントビュー"
 msgid "Common options"
 msgstr "共通のオプション"
 
+#: ../../bin/rabbit-command:51
+msgid "Control commands"
+msgstr "制御コマンド"
+
 #: ../../lib/rabbit/theme/newline-in-slides/property.rb:1
 #: ../../lib/rabbit/theme/newline-in-title/property.rb:1
 msgid "Convenience"
@@ -305,7 +313,7 @@ msgstr ""
 "便利な'\n"
 "'改行記法。"
 
-#: ../../lib/rabbit/html/generator.rb:46
+#: ../../lib/rabbit/html/generator.rb:48
 msgid "Creating a image for the %dth page"
 msgstr "%dページ目の画像を生成しています。"
 
@@ -313,7 +321,7 @@ msgstr "%dページ目の画像を生成しています。"
 msgid "DEBUG"
 msgstr "デバッグ"
 
-#: ../../bin/rabbit:725
+#: ../../bin/rabbit:726
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
 
@@ -615,6 +623,10 @@ msgstr ""
 "プレゼンテーションをおこなってウサギがカメに敗けてしまうことがないよう気をつ"
 "けてください。"
 
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:3
+msgid "Displays title on image"
+msgstr "画像の上にタイトルを表示します。"
+
 #: ../../lib/rabbit/logger/base.rb:20
 msgid "ERROR"
 msgstr "エラー"
@@ -828,7 +840,7 @@ msgid "Images related to Ruby"
 msgstr "Ruby 関連の画像"
 
 #: ../../lib/rabbit/element/index-slide.rb:103
-#: ../../lib/rabbit/html/generator.rb:384
+#: ../../lib/rabbit/html/generator.rb:386
 msgid "Index"
 msgstr "一覧"
 
@@ -852,13 +864,17 @@ msgstr "初期状態"
 msgid "Jump to"
 msgstr "ジャンプ"
 
-#: ../../lib/rabbit/menu.rb:60
+#: ../../lib/rabbit/menu.rb:61
 msgid "Jump to the %dth slide"
 msgstr "%d番目のスライドへジャンプ"
 
 #: ../../lib/rabbit/action/basic.rb:48
 msgid "Last slide"
 msgstr "最後のスライド"
+
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:2
+msgid "Lightning Clear Blue"
+msgstr "ライトニングトーク用きれいな青"
 
 #: ../../lib/rabbit/theme/lightning-talk/property.rb:3
 msgid "Lightning Talk theme"
@@ -955,9 +971,41 @@ msgstr "Migemo"
 msgid "Mirror Effect"
 msgstr "鏡の効果"
 
+#: ../../bin/rabbit-command:21
+msgid "Move commands"
+msgstr "移動コマンド"
+
+#: ../../bin/rabbit-command:27
+msgid "Move to next"
+msgstr "次へ移動"
+
+#: ../../bin/rabbit-command:23
+msgid "Move to previous"
+msgstr "前へ移動"
+
+#: ../../bin/rabbit-command:47
+msgid "Move to the Nth slide"
+msgstr "N番目のスライドへ移動"
+
+#: ../../bin/rabbit-command:39
+msgid "Move to the first slide"
+msgstr "最初のスライドへ移動"
+
+#: ../../bin/rabbit-command:43
+msgid "Move to the last slide"
+msgstr "最後のスライドへ移動"
+
+#: ../../bin/rabbit-command:35
+msgid "Move to the next slide"
+msgstr "次のスライドへ移動"
+
 #: ../../lib/rabbit/theme/slide-show/property.rb:4
 msgid "Move to the next slide automatically."
 msgstr "自動的に次のスライドに移動します。"
+
+#: ../../bin/rabbit-command:31
+msgid "Move to the previous slide"
+msgstr "前のスライドへ移動"
 
 #: ../../lib/rabbit/theme/document.erb:3
 msgid "Name"
@@ -1012,8 +1060,13 @@ msgid "Output index HTML for navigating slides."
 msgstr "保存した画像を閲覧するための索引用HTMLを出力します．"
 
 #: ../../lib/rabbit/theme/pdf/property.rb:2
+#: ../../lib/rabbit/html/generator.rb:393
 msgid "PDF"
 msgstr "PDF"
+
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:2
+msgid "PDF with The Tortoise and The Hare"
+msgstr "うさぎとかめ付きPDF"
 
 #: ../../bin/rabbit:224
 msgid "Paper"
@@ -1063,7 +1116,7 @@ msgstr "印刷"
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: ../../lib/rabbit/canvas.rb:658
+#: ../../lib/rabbit/canvas.rb:659
 msgid "Processing..."
 msgstr "処理中です．．．"
 
@@ -1126,6 +1179,10 @@ msgstr "項目マークのスタイルを設定するメソッドを提供しま
 #: ../../bin/rabbit:422
 msgid "Public level"
 msgstr "公開レベル"
+
+#: ../../bin/rabbit-command:69
+msgid "Quit"
+msgstr "終了"
 
 #: ../../bin/rabbit:198
 msgid "RSS is generated only when HTML is output."
@@ -1437,7 +1494,7 @@ msgstr "シンプル項目マーク"
 msgid "Size"
 msgstr "サイズ"
 
-#: ../../lib/rabbit/html/generator.rb:382
+#: ../../lib/rabbit/html/generator.rb:384
 msgid "Slide"
 msgstr "スライド"
 
@@ -1485,7 +1542,7 @@ msgstr ""
 "め、複数の画像が指定されてそれらが異なる大きさをもっている場合は、アイコンの"
 "大きさに最も近い画像が選ばれて大きさが変換されます。"
 
-#: ../../bin/rabrick:22
+#: ../../bin/rabbit-command:16 ../../bin/rabrick:22
 msgid "Specify Rabbit's dRuby URI as [URI]."
 msgstr "RabbitのdRuby URIを[URI]とします．"
 
@@ -1651,7 +1708,9 @@ msgstr "テキストタイマー"
 #: ../../lib/rabbit/theme/image-viewer/property.rb:1
 #: ../../lib/rabbit/theme/night-black/property.rb:1
 #: ../../lib/rabbit/theme/red-frame/property.rb:1
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:1
 #: ../../lib/rabbit/theme/rabbit/property.rb:1
 #: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
@@ -1672,6 +1731,10 @@ msgstr "テーマ"
 #: ../../lib/rabbit/theme/pdf/property.rb:3
 msgid "Theme for PDF"
 msgstr "PDF用のテーマ"
+
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:3
+msgid "Theme for PDF with The Tortoise and The Hare"
+msgstr "うさぎとかめつきPDF用テーマ"
 
 #: ../../lib/rabbit/theme/image-viewer/property.rb:3
 msgid "Theme for image viewer mode"
@@ -1704,6 +1767,10 @@ msgstr "タイマーツールキット (画像バージョン)"
 msgid "Title of slide"
 msgstr "スライドのタイトル"
 
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:2
+msgid "Title on Image Toolkit"
+msgstr "画像の上にタイトルツールキット"
+
 #: ../../lib/rabbit/theme/title-background-color/property.rb:2
 msgid "TitleBackgroundColor"
 msgstr "タイトル背景色"
@@ -1720,13 +1787,29 @@ msgstr "タイトルロゴ"
 msgid "TitleShadow"
 msgstr "タイトル影つき"
 
+#: ../../bin/rabbit-command:65
+msgid "Toggle blackout"
+msgstr "ブラックアウト切替え"
+
 #: ../../bin/rabbit:124
 msgid "Toggle full screen mode."
 msgstr "フルスクリーンモードに切替えます．"
 
+#: ../../bin/rabbit-command:53
+msgid "Toggle fullscreen"
+msgstr "フルスクリーンモード切替え"
+
+#: ../../bin/rabbit-command:57
+msgid "Toggle index mode"
+msgstr "一覧モード切替え"
+
 #: ../../bin/rabbit:130
 msgid "Toggle index mode."
 msgstr "一覧モードに切替えます．"
+
+#: ../../bin/rabbit-command:61
+msgid "Toggle whiteout"
+msgstr "ホワイトアウト切替え"
 
 #: ../../lib/rabbit/theme/footer-logo/property.rb:1
 #: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
@@ -1778,6 +1861,7 @@ msgstr "一覧モードに切替えます．"
 #: ../../lib/rabbit/theme/color-circle-slide/property.rb:1
 #: ../../lib/rabbit/theme/title-shadow/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-description/property.rb:1
 #: ../../lib/rabbit/theme/default-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:1
@@ -1983,7 +2067,7 @@ msgstr "落書きを戻す"
 msgid "Unknown"
 msgstr "未知"
 
-#: ../../lib/rabbit/canvas.rb:595
+#: ../../lib/rabbit/canvas.rb:596
 msgid "Unknown action: %s"
 msgstr "未知のアクション: %s"
 
@@ -2089,7 +2173,7 @@ msgstr "画像の位置を自動更新するか否か。"
 msgid "Whiteout"
 msgstr "ホワイトアウト"
 
-#: ../../bin/rabbit:678
+#: ../../bin/rabbit:679
 msgid "Window ID: %d"
 msgstr "ウィンドウID: %d"
 
@@ -2183,7 +2267,7 @@ msgstr "%sのためのプリンタが見付かりません．"
 msgid "can't find theme RD template: %s"
 msgstr "テーマ RD のテンプレートが見つかりません: %s"
 
-#: ../../lib/rabbit/html/generator.rb:59
+#: ../../lib/rabbit/html/generator.rb:61
 msgid "can't generate RSS"
 msgstr "RSS を生成できません"
 
@@ -2232,11 +2316,11 @@ msgstr "enscript: サポートしていない言語です: %s"
 msgid "fr"
 msgstr "フランス語"
 
-#: ../../bin/rabbit:723
+#: ../../bin/rabbit:724
 msgid "going to shutdown..."
 msgstr "終了中です．．．"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:71
+#: ../../lib/rabbit/parser/wiki/output.rb:74
 msgid "horizontal rule is unsupported"
 msgstr "水平線はサポートしていません"
 
@@ -2302,7 +2386,7 @@ msgstr "XML-RPC用ポート<%s>は使用中です．"
 msgid "print isn't supported"
 msgstr "印刷をサポートしていません"
 
-#: ../../bin/rabrick:64
+#: ../../bin/rabrick:62
 msgid "reloading ERB templates..."
 msgstr "ERBテンプレートを再読み込みしています．．．"
 
@@ -2362,7 +2446,7 @@ msgstr "制限無し"
 msgid "unsupported format. (supported: %s)"
 msgstr "サポートしていない形式です。（サポートしている形式: %s）"
 
-#: ../../lib/rabbit/parser/wiki/output.rb:296
+#: ../../lib/rabbit/parser/wiki/output.rb:310
 msgid "unsupported list type: %s"
 msgstr "サポートしていないリストの種類: %s"
 
