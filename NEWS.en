@@ -28,7 +28,7 @@ $Id$
         mode. Allotted time is specified by
         RABBIT_ALLOTTED_TIME environment variable.
 
-        Example:
+        How to use:
           % RABBIT_ALLOTTED_TIME=4.5m rabbit --theme pdf-tortoise-and-hare XXX.pdf
       * lightning-clear-blue:
         uses large character slides in bluish clear-blue theme.

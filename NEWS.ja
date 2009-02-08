@@ -29,7 +29,7 @@ $Id$
         イマーを使う。持ち時間はRABBIT_ALLOTTED_TIME環境変数
         で指定。
 
-        使用例:
+        使い方:
           % RABBIT_ALLOTTED_TIME=4.5m rabbit --theme pdf-tortoise-and-hare XXX.pdf
       * lightning-clear-blue:
         青っぽいclear-blueテーマの中でたまに大きな文字のスラ
