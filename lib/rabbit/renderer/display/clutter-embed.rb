@@ -34,6 +34,7 @@ module Rabbit
         include Base
 
         include Cursor
+        include Menu
         include Graffiti
         include Mask
         include Progress
@@ -184,6 +185,26 @@ module Rabbit
             callback ||= Utils.process_pending_events_proc
             @canvas.activate("ReloadTheme", &callback)
           end
+        end
+
+        def attach_to(window)
+          super
+
+          init_menu
+          add_widget_to_window(@window)
+          widget.show
+          attach_menu(@window)
+        end
+
+        def detach
+          detach_menu(@window)
+          widget.hide
+          unless @window.destroyed?
+            remove_widget_from_window(@window)
+            @window.signal_handler_disconnect(@configure_signal_id)
+          end
+
+          super
         end
 
         def reset_adjustment
