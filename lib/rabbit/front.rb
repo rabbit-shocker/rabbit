@@ -22,8 +22,10 @@ module Rabbit
 
     AVAILABLE_INTERFACES = []
 
-    %w(move_to_first move_to_last move_to_next_if_can
-       move_to_previous_if_can move_to_if_can).each do |name|
+    %w(move_to_first move_to_last
+       move_to_next_if_can move_to_next_slide_if_can
+       move_to_previous_if_can move_to_previous_slide_if_can
+       move_to_if_can).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::MOVE, false]
     end
 
