@@ -137,13 +137,10 @@ program author. I'll ask images author.
 
 == Mailing list
 
-Send mail that To field is cozdev@cozmixng.quickml.com , Cc
-field is kou@cozmixng.org and Subject and Body contain
-somthig to
-((<"cozdev@cozmixng.quickml.com"|URL:mailto:cozdev@cozmixng.quickml.com?cc=kou@cozmixng.org&subject=Join!>)).
-
-Note that this mailing list's main language is Japanese. But
-English mail is welcome too.
+To Subscribe to the mailing list send an e-mail To
+rabbit-shockers-en@ml.cozmixng.org , please Cc:
+kou@cozmixng.org and put anything in the Subject and Body.
+((<"rabbit-shockers-en@ml.cozmixng.org"|URL:mailto:rabbit-shockers-en@ml.cozmixng.org?cc=kou@cozmixng.org&subject=Join!>)).
 
 == Development status
 
