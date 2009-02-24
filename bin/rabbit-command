@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#! /usr/bin/ruby1.8
 # -*- ruby -*-
 
 require 'drb/drb'

@@ -8,16 +8,16 @@ $Id$
 
 Rabbit
 
-== What's this?
+== What is it?
 
-This is an application to do presentation with RD document.
+Rabbit is an RD-document-baded presentation application.
 
-There are some features which are different from other
+Rabbit has some features which set it apart from other
 presentation tools:
 
-  * To define slide look, use Ruby.
-  * There are many keyboard interfaces.
-  * This supports mouse gesture.
+  * Use plain Ruby to define the look of your slides
+  * Lots of keyboard commands
+  * Mouse gesture support.
   * and more...
 
 == Screenshots
@@ -35,11 +35,11 @@ Kouhei Sutou <kou@cozmixng.org>
 * Lavie (mascot) ((-Lavie's sense of language is from Rabbit
   and spell is from `la vie' in French.-)) and Rabbit logos.
 
-  (pretty rabbit)
+  (cute rabbit)
 
 * Banner
 
-  (pretty banner)
+  (cute banner)
 
 
 MoMo
@@ -48,11 +48,11 @@ MoMo
 
 * USAGI (in Kanji)
 
-  cool rabbit.
+  the cool rabbit.
 
 * KAME
 
-  pretty turtle.
+  the cute turtle.
 
 sode <sodetaka@kono.cis.iwate-u.ac.jp>
 
@@ -118,22 +118,25 @@ akira yamada
 
 == Copyright
 
-The code author has copyright of the source code. That is
-the committer has copyright of committed code and the patch
-author has copyrights of the patch code.
+The code author retains copyright of the source code. In
+other words the committer retains copyright of his or her
+committed code and patch authors retain the copyright of
+their submitted patch code.
 
-The above image author has copyright of his/her images.
+The images above are copyright their respective owners.
 
-== Licence
+== License
 
-Ruby's. For more information see COPYING.
+Licensed under the same terms and conditions as Ruby. For
+more information see COPYING.
 
-lib/rabbit/div/prototype.js is MIT-style licence. For more
-information see ((<Prototype JavaScript
+lib/rabbit/div/prototype.js released under an MIT-style
+licence. For more information see ((<Prototype JavaScript
 Framework|URL:http://prototype.conio.net/>)).
 
-If you want to get PSD file of mascot character, tell
-program author. I'll ask images author.
+If you want to get a copy of the mascot character PSD files
+ask the program author. He'll forward the request to the
+author of the image.
 
 == Mailing list
 
@@ -144,10 +147,10 @@ kou@cozmixng.org and put anything in the Subject and Body.
 
 == Development status
 
-You can get information of development from commit mail ML
-or ((<commit
+You can stay up to date on the latest development by
+subscribing to the SVN commit ML or ((<commit
 RSS|URL:http://www.cozmixng.org/rss/rabbit.rdf>)). If you
-want to subscribe ML, send the following mail.
+want to subscribe to the ML, send an e-mail like the following.
 
   To: rabbit-commit@ml.cozmixng.org
   Cc: null@cozmixng.org
@@ -155,22 +158,23 @@ want to subscribe ML, send the following mail.
   
   SOMETHING
 
-== Please
+== Requests
 
-Please make a great theme because I have no sence.
+Please contribute great themes because I have no artistic
+sense.
 
-Rabbit lacks documents. Please help me.
+Rabbit lacks documentation. Please help out!
 
-Please translate some messages. You can make
-po/#{LANG}/rabbit.po by the following.
+Please translate rabbit into your native language. You can make
+po/#{LANG}/rabbit.po by the running the following:
 
   % mkdir po/#{LANG}
   % ./update-po.rb
 
-== Dependency libraries
+== Dependencies
 
-See ((<INSTALL.win32.en>)) if you install dependency
-libraries on Windows.
+See ((<INSTALL.win32.en>)) for how to install the
+dependencies in Windows.
 
   * ((<RAA:rdtool>))
   * Ruby/GTK2 in ((<RAA:ruby-gnome2>))
@@ -210,7 +214,7 @@ Execute install.bat if you are on Windows.
 
   % sudo env ACCEPT_KEYWORDS=~x86 FEATURES="digest" emerge rabbit
 
-((%% sudo emerge rabbit%)) only isn't enough???
+is just ((%% sudo emerge rabbit%)) enough?
 
 == Usage
 
@@ -228,13 +232,12 @@ Type the following if you want to run sample/rabbit_en.rd.
 
 However, some samples use themes in sample/rabbit/theme and
 are not displayed correctly when run from the top directory.
-You would be better off running samples in the sample
-directory.
+It's better to run the samples from the sample directory.
 
-If you are Windows user, you can drag and drop RD file to
-bin/rabbit.bat.
+If you are a Windows user, you can drag and drop an RD file
+onto bin/rabbit.bat.
 
-Or else you can invoke Rabbit by double clicking RD file if
+Otherwise you can invoke Rabbit by double clicking an RD file if
 you associate *.rd (or *.rbt (an abbreviation of Rabbit))
 with the following.
 
@@ -245,13 +248,13 @@ with the following.
 : -t, --theme=THEME
    Specifies the theme.
 
-: -I, --include=PATH
-   Adds the load path. Load paths are used to search theme.
+: -I, --include=PATH 
+   Adds PATH to the load path. Load paths are used to find themes.
 
 : -B, --base=BASE
-   Specifies the URI or path to resolve relative path in the
+   Specifies the URI or path to resolve relative paths in the
    input. (For example, the path of image). If you don't
-   specify it, it's automatically decided on the input
+   specify it, it'll automatically decide based on the input
    source type.
 
 : -T, --type=TYPE
@@ -264,7 +267,7 @@ with the following.
      Uses ARGF as input source. This means, you can
      input via standard input.
      
-     You cannot use the function of auto source reload.
+     Note: argf doesn't support the auto source reload feature.
      
      Example:
        % rabbit --type argf file1.rd file2.rd ...
@@ -283,17 +286,18 @@ with the following.
      
      Gets source from specified file.
 
-     You can use the function of auto source reload.
+     Supports the auto source reload feature.
      
      Example:
        % rabbit --type file file.rd
 
    : uri
 
-     Gets source from specified URI.
+     Gets source from the specified URI.
 
-     You can use the function of auto source reload. But
-     Rabbit doesn't reload untill because of performance.
+     You can use the auto source reload feature. But
+     Rabbit will only reload once every 60 seconds for
+     performance reasons.
 
      Example:
        % rabbit --type uri http://www.cozmixng.org/repos/rabbit/trunk/sample/rabbit-implementation.rd
@@ -311,23 +315,25 @@ with the following.
 
    : rwiki
 
-     Uses the content of specified RWiki's page as
-     source. RWiki must have SOAP interface.
+     Uses the content of the specified RWiki's page as
+     the source. RWiki must have the SOAP interface enabled.
 
-     You can use the function of auto source reload. But
-     Rabbit doesn't reload untill because of performance.
+     You can use the auto source reload feature. But
+     Rabbit will only reload once every 60 seconds for
+     performance reasons.
 
      Example:
        % rabbit --type rwiki #{URI of SOAP interface of RWiki} #{page name}
 
-     The encoding of #{page name} is same as RWiki's one.
+     The encoding of #{page name} is the same as the RWiki
+     page's encoding.
 
    : memory
 
-     Manage the source on the memory. In this type, the
-     source can be modified by dRuby/SOAP/... interface.
+     Manage the source in memory. In this type, the source
+     can be modified by the dRuby/SOAP/etc. interfaces.
      
-     You can set initial source by specify file name.
+     You can set initial source by specifying a file name.
 
      Example (without initial source):
        % rabbit --type memory
@@ -341,45 +347,46 @@ with the following.
    Default is auto-detect.
 
 : -f, --full-screen, --no-f, --no-full-screen
-   Specifies whether Rabbit is invoked with full screen mode.
+   Specifies whether Rabbit is invoked in full screen mode.
 
    Default is no.
 
 : --index-mode, --no-index-mode
-   Specifies whether Rabbit is invoked with index mode.
+   Specifies whether Rabbit is invoked in index mode.
 
    Default is no.
 
 : -w, --width=WIDTH
-   Specifies the width of window.
+   Specifies the width of the window.
    
    Default is 800.
    
 : -h, --height=HEIGHT
-   Specifies the height of window.
+   Specifies the height of the window.
 
    Default is 600.
    
 : -S, --size=WIDTH,HEIGHT
-   Specifies the width and height of window.
+   Specifies the width and height of the window.
 
 : -s, --save-as-image
    Saves each slide as image and exit.
 
 : -i, --saved-image-type=TYPE
-   Specifies image type when saves.
+   Specifies image type to save as.
    
-   For example, png (default), jpeg and so on.
+   For example, png (default), jpeg etc.
 
-: -b, --saved-image-base-name=BASE_NAME
-   Specifies base name of saved image. Saved image is 
-   "#{base name}#{page number}.#{extension}".
+: -b, --saved-image-base-name=BASE_NAME 
+  Specifies base name of the saved image. Saved image's
+  file name is "#{base name}#{page number}.#{extension}".
    
-   Default is title of slide.
+   Default is the title of the slide.
    
-   If encoding of your file system isn't UTF-8 and saved
-   filename is UTF-8, you may need to setup environment
-   variable such as LANG and G_FILENAME_ENCODING.
+   If the encoding of your file system isn't UTF-8 and the
+   saved filename is UTF-8, you may need to setup an
+   environment variable such as LANG and
+   G_FILENAME_ENCODING.
 
 : --output-html, --no-output-html
    Specifies whether Rabbit generates HTML or not for
@@ -388,8 +395,8 @@ with the following.
    Default is off.
 
 : --output-index-html, --no-output-index-html
-   Specifies whether Rabbit generates index HTML with
-   thumbnail saved slides or not.
+   Specifies whether Rabbit generates an index HTML file
+   with thumbnailed slides or not.
    
    Default is off.
 
@@ -401,30 +408,28 @@ with the following.
 
 : -o, --output-filename=FILENAME
    Specifies printed file name. Printed format is decided by
-   extension. Printed format is PostScript when extension is
-   .ps, is PDF when extension is .pdf and is PostScript when
-   extension is other.
+   the extension. The printed format is PostScript when the 
+   extension is .ps, PDF when extension is .pdf and
+   PostScript otherwise.
    
-   You can send the output formatted by PostScript to the
+   You can send the output formatted by PostScript to a
    program by specifying "|program-name".
    
    Default is "#{title of slide}.ps".
 
 : --paper-width=WIDTH
-   Specifies the width of paper when printing. The unit of
-   width of paper is inch.
+   Specifies the width (in inches) of the paper when printing.
    
    Default is the width of landscape A4.
    
 : --paper-height=HEIGHT
-   Specifies the height of paper when printing. The unit of
-   height of paper is inch.
+   Specifies the height (in inches) of the paper when printing. 
 
    Default is the height of landscape A4.
    
 : --paper-size=WIDTH,HEIGHT
-   Specifies the width and height of paper when printing.
-   The unit of width and height of paper is inch.
+   Specifies the width and height of the paper when printing.
+   The width and height is in inches.
    
    Default is the size of landscape A4.
 
@@ -438,8 +443,8 @@ with the following.
    greater than 1.
     
    Default is automatically computed by using slides per
-   page. But the algorithm is not good when slides per page
-   is except 2 or 8.
+   page. But the algorithm doesn't work very well when 
+   the slides per page is anything other than 2 or 8.
 
 : --page-margin=={ALL|TOP_BOTTOM,LEFT_RIGHT|TOP,LEFT_RIGHT,BOTTOM|TOP,RIGHT,BOTTOM,LEFT}, --page-margin-*=MARGIN
    Specifies page margin when printing.
@@ -447,7 +452,7 @@ with the following.
    Default is 0.
 
 : --locale-dir=DIR
-   Specifies the directory which has locale data (*.mo).
+   Specifies the directory which has the locale data (*.mo).
    If you want to use Rabbit without installing to system,
    you can type the following in the top directory.
 
@@ -457,14 +462,13 @@ with the following.
    /usr/share/locale/ and so on.
 
 : --logger-type=TYPE
-   Specifies how display error log. If you specify `gui',
-   error log is displayed. You should be specify --logger-type
-   option because error may be occurred when parsing options
-   of rabbit.
+   Specifies how display the error log. If you specify `gui',
+   the error log is displayed. You should specify --logger-type
+   option because errors may occur when parsing rabbit's options.
 
      % rabbit --logger-type gui ...
    
-   Default is stderr which output log to standard error
+   Default is stderr which outputs the log to standard error
    output.
 
 : --use-druby, --no-use-druby
@@ -521,7 +525,7 @@ with the following.
    Specifies what Rabbit functions are public to external
    interfaces (dRuby/XML-RPC/SOAP). Select public level from
    strict, move, read-size, change-size, size, read-source,
-   change-source, source and all. More latter public level
+   change-source, source and all. The later the public level
    indicates that Rabbit publishes more functions.
 
    Default is strict.
@@ -539,10 +543,10 @@ with the following.
 : --migemo-dictionary-search-path=PATH1,PATH2,...
    Specifies search paths for Migemo's static
    dictionary. Search paths are specified as a directory
-   that has static dictionary which name is specified by
-   --migemo-dictionary-name or as a path of static
+   that has a static dictionary whose name is specified by
+   --migemo-dictionary-name or as a path of a static
    dictionary. Two or more search paths can be specified by
-   separating comma.
+   separating them with commas.
 
    Default is /usr/local/share and /usr/share.
 
@@ -561,7 +565,7 @@ with the following.
 
    Default is not show.
 
-== How to write
+== How to write slides for Rabbit
 
 See sample/rabbit-en.rd.
 
@@ -585,7 +589,7 @@ This example has two pages.
 === Title page
 
 The first page is the title page. You can specify meta
-information of the slide by using labeled list (:) in the
+information of the slide by using a labeled list (:) in the
 title page.
 
   = Title of slide
@@ -598,57 +602,57 @@ title page.
 This example shows the author is Kouhei Sutou and his
 institution is COZMIXNG.
 
-For now, you can specify subtitle, content_source and theme
-too. `theme" is the default theme of this slide.
+At the moment, you can specify subtitle, content_source and
+even the theme. `theme" is the default theme of this slide.
 
 === Image
 
-Writes as verbatim block. See sample/rabbit-en.rd.
+Written as a verbatim block. See sample/rabbit-en.rd.
 
 === Entity reference
 
-Writes as inline verbatim. See sample/rabbit-en.rd.
+Written as an inline verbatim. See sample/rabbit-en.rd.
 
 === Sub/Superscript
 
-Writes as inline verbatim. See sample/rabbit-en.rd.
+Written as an inline verbatim. See sample/rabbit-en.rd.
 
 === Headline
 
-You cannot use except the most biggest headline. (You don't
-need some headlines except title, don't you?)
+You can only use headlines for the biggest headline. (The
+only headline you really need is the title, right?)
 
 === Footnote
 
-You can use it but should not use it in presentation.
+You can footnotes but you shouldn't use it in a presentation.
 
 == Theme
 
-You specify look and feel of the slide regardless of RD.
+You can specify look and feel of the slide separate of RD.
 This is the theme.
 
 There is a slide for benchmarking your theme. It's
 sample/theme-bench-en.rab.
 
-=== Where does place a theme?
+=== Where do I place the theme?
 
-A theme is searched by using ruby's $LOAD_PATH. If you make
-a theme, place it to
+Rabbit searches for themes by using ruby's $LOAD_PATH. If you make
+a theme, place it into
 ((|PATH_OF_INCLUDED_IN_$LOAD_PATH/rabbit/theme/THEME_NAME/THEME_NAME.rb|))
 
-=== How to write a theme?
+=== How do I write a theme?
 
-A theme is a Ruby script.
+A theme is just a Ruby script.
 
-You may enumerate the following description in your theme.
+You may enumerate the following descriptions in your theme.
 
   (1) Select some elements (paragraphs, titles and so on) of
-      slide as target.
+      the slide as a target.
 
-  (2) Change property of selected elements and add actions.
+  (2) Change properties of selected elements and add actions.
 
-For example, the following changes color of title of each
-page except title page.
+For example, the following changes color of the title of each
+page except the title page.
 
   match(Page, HeadLine) do |heads|
     heads.prop_set("foreground", "red")
@@ -660,7 +664,7 @@ page except title page.
 You can set some properties by using
 (({prop_set})). ((<Pango Text Attribute
 Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>))
-has more informations.
+has more information.
 
 : font_desc
    Specifies font description.
@@ -668,7 +672,7 @@ has more informations.
 : font_family
    Specifies font family.
    
-   You can get a list of font family by using (({font_families})).
+   You can get a list of font families by using (({font_families})).
 
 : face
    Same as font_family.
@@ -765,62 +769,62 @@ page from XXX.rd.
 
 == Thanks
 
-  * MoMo: She drow some pretty images.
-  * MIYAMUKO: He wrote rabbit mode for xyzzy. He helps
-    Rabbit works on Windows.
+  * MoMo: Drew some pretty images.
+  * MIYAMUKO: Wrote rabbit mode for xyzzy, and helps
+    make Rabbit work on Windows.
   * zunda:
-    * He fixed EPS handling.
-    * He gives me an advise for --margin.
-    * He makes a presentation with Rabbit.
-    * He updates INSTALL.win32.ja.
-  * Vincent: He helps Rabbit works on Max OS X. He makes
-    french messages.
-  * sode: He wrote cool rabbit, pretty rabbit and pretty
+    * Fixed EPS handling.
+    * Gave me advise for --margin.
+    * Makes presentations with Rabbit.
+    * Updated INSTALL.win32.ja.
+  * Vincent: Helped make Rabbit work on Max OS X. He also 
+    made french messages.
+  * sode: Made the cool rabbit, cute rabbit and cute
     turtle.
-  * Kazuhiko: He sent me many bug reports. He makes a
-    presentation with Rabbit. He gives me an idea for theme
+  * Kazuhiko: Sent me many bug reports. He also makes 
+    presentations with Rabbit and gives me ideas for theme
     design.
-  * noritada: He sent me a bug report for document.
-  * gan: He wrote some flags.
+  * noritada: Sent me a bug report for document.
+  * gan: Wrote some flags.
   * KAKUTANI:
-    * He sent me a bug report for document.
-    * He makes a presentation with Rabbit.
-    * He gives me an idea for new features and theme design.
-    * He gives me a patch to fix a bug related HTML
+    * Sent me a bug report for document.
+    * Makes presentations with Rabbit.
+    * Gave me ideas for new features and theme design.
+    * Gave me a patch to fix a bug related HTML
       generation.
-    * He makes Mac OS X (Intel) package.
-  * atzm: He makes Gentoo package (*.ebuild).
+    * Made a Mac OS X (Intel) package.
+  * atzm: Made Gentoo package (*.ebuild).
   * akira yamada:
-    * He makes Debian package (*.deb).
-    * He reports some bugs and also fixes them.
-    * He made rabbirc.
-  * usatti: She drow some logos and taro series images.
-  * dot: He helps installation on Windows.
-  * tanaka: He checks operations on Windows.
-  * asahina: She draws a pretty rabbit girl and Alice.
-  * nskj77: He gave a name to FAQ page. He sends action
+    * Made Debian package (*.deb).
+    * Reports some bugs and also fixes them.
+    * Made rabbirc.
+  * usatti: Drew some logos and taro series images.
+  * dot: Helps with installation on Windows.
+  * tanaka: Checked operations on Windows.
+  * asahina: Drew the pretty rabbit girl and Alice.
+  * nskj77: Gave a name to FAQ page. He sends action
     reporting and some bug reports.
-  * Atsushi Takeda: He wrote rabbit mode for Emacs.
-  * kimura wataru: He makes Mac OS X package.
+  * Atsushi Takeda: Wrote rabbit mode for Emacs.
+  * kimura wataru: Made a Mac OS X package.
   * kitaj:
-    * He makes a presentation with Rabbit.
-    * He improved INSTALL.win32.en.
-    * He improved a theme.
-  * akapy: He wrote a document for emerge.
+    * Makes presentations with Rabbit.
+    * Improved INSTALL.win32.en.
+    * Improved a theme.
+  * akapy: Wrote a document for emerge.
   * OBATA Akio:
-    * He makes pkgsrc package.
-    * He makes a presentation with Rabbit.
-    * He reports some bugs and also fixes them.
-    * He debugs many problems.
+    * Made a pkgsrc package.
+    * Makes presentations with Rabbit.
+    * Reports some bugs and also fixes them.
+    * Helps debug many problems.
   * Masao Mutoh:
-    * He makes a presentation with Rabbit.
-    * He updates INSTALL.win32.ja.
+    * Makes presentations with Rabbit.
+    * Updated INSTALL.win32.ja.
   * TADA Tadashi:
-    * He makes a presentation with Rabbit.
-    * He contributes his themes.
-    * He gives an idea that Rabbit provides a slide for
+    * Makes presentations with Rabbit.
+    * Contributed his themes.
+    * Propposed the idea to have Rabbit provide a slide for
       benchmarking your theme.
   * Shugo Maeda:
-    * He makes a presentation with Rabbit.
-    * He reports a bug.
-  * JunichiNakai: He reports a bug.
+    * Makes presentations with Rabbit.
+    * Reported a bug.
+  * JunichiNakai: Reports bugs.
