@@ -33,9 +33,9 @@ A presentation tool
 
 = Features: Display (2)
 
-  * Table
-  * Interesting theme
-  * Image
+  * Tables
+  * Interesting themes
+  * Images
     * Many supported formats
     * PNG/JPEG/.../PDF/EPS/SVG
 
@@ -49,7 +49,7 @@ A presentation tool
 
   * Rich key bindings
   * Context menu
-  * Mouse gesture
+  * Mouse gestures
   * Spotlight
   * Magnifier
 
@@ -66,7 +66,7 @@ A presentation tool
   * Whiteout/Blackout
   * Rabbit hole
     * Make a hole in a slide
-  * Visualize remaining time
+  * Visualization of remaining time
     * The Tortoise and the Hare
 
 = Features: Input
@@ -107,7 +107,7 @@ A presentation tool
 
 = ToDo
 
-  * Inline image
+  * Inline images
   * Jump to a link
   * Sound
   * Video
@@ -135,7 +135,7 @@ A presentation tool
 
 = Image size
 
-Relative size is available
+Relative image sizes
 
   # image
   # src = usagi.png
@@ -148,7 +148,7 @@ Relative size is available
 
 = External image
 
-Download an image at the URL
+Download an image from a URL
 
   # image
   # src = http://www.cozmixng.org/repos/images/cozmixchu.png
@@ -179,7 +179,7 @@ Download an image at the URL
 
 = EPS
 
-Create EPS on ahead((-need gs-))
+Create EPS ahead of time((-needs gs-))
 
   # image
   # src = equation.eps
@@ -205,24 +205,24 @@ Create EPS on ahead((-need gs-))
   # src = rabbit.xcf
   # relative_height = 100
 
-= Folding
+= Word Wrapping
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
 
 = Source
 
-The following is the source:
+The following is source code:
 
   # comment
   def method_name
     body
   end
 
-The above is the source.
+End of source code.
 
 = Source: colorized
 
-The following is the source:
+The following is source code:
 
   # enscript ruby
   # comment
@@ -230,7 +230,7 @@ The following is the source:
     body
   end
 
-The above is the source.
+End of source code.
 
 = Quotation
 
@@ -267,7 +267,7 @@ The above is the source.
 = Table
 
   # RT
-  caption = Sample of table
+  caption = Table sample
 
   Heading 1, Heading 2
 
@@ -277,24 +277,24 @@ The above is the source.
 = Op.: Move
 
 : Next page
-   Keys mean the next/Left click
+   Bindings for next page/Left click
 
    n, f, j, l, Spc, Ret, +, (('&DownArrow;')),
    (('&RightArrow;')), ...
 
 : Previous page
-   Keys mean the prev./Center click
+   Bindings for prev. page/Center click
 
    p, b, k, h, BS, Del, -, (('&UpArrow;')),
    (('&LeftArrow;')), ...
 
 = Op.: Advanced move
 
-: Go to title page
+: Go to the title page
    a, 0, <, Home
-: Go to n page
+: Go to page n
    1-9. +Ctrl = +10, +Alt = +20
-: Go to last page
+: Go to the last page
    e, $, >, End
 
 = Op.: On stage (1)
@@ -306,7 +306,7 @@ The above is the source.
    i
 
 : Go to the page
-   Double click
+   Double click on the desired page
 
 = Op.: On stage (2)
 
@@ -319,7 +319,7 @@ The above is the source.
 = Op.: Save
 
 : Screenshot
-   Save each page as image
+   Save each page as an image
 
    s
 
@@ -371,5 +371,5 @@ The above is the source.
   * A presentation tool
   * Multi platform
   * Feat./UI: High & Unique
-  * Emphasize keybord
+  * Emphasize keybord shortcuts
     * UI/text based source
