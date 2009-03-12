@@ -46,7 +46,7 @@ MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウン�
   ~/dports% portindex
 
 次に、このディレクトリを MacPorts が参照するように 
-/opt/local/etc/ports/sources.conf を編集します。
+/opt/local/etc/macports/sources.conf を編集します。
 
   # To enable your local ports repository, uncomment and customize the
   # following line to point at your local dports directory
@@ -73,6 +73,11 @@ MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウン�
 
 
 == Rabbit のインストール
+
+まず、以下のコマンドで、Rabbitに必要なソフトウェアの情報を更新し
+ておくのも良いかもしれません。
+
+  ~% sudo port sync
 
 以下のコマンドで Rabbit と、それに必要なソフトウェアがインストールされます。
 

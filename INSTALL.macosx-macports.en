@@ -29,7 +29,7 @@ First, get the Rabbit portfiles from the subversion repository,
   ~% cd dports
   ~/dports% portindex
 
-Then, edit /opt/local/etc/ports/sources.conf like this,
+Then, edit /opt/local/etc/macports/sources.conf like this,
 
   # To enable your local ports repository, uncomment and customize the
   # following line to point at your local dports directory
@@ -56,6 +56,11 @@ Then, edit /opt/local/etc/ports/sources.conf like this,
 
 
 == installing Rabbit
+
+You might want to do the following to update information for
+required ports.
+
+  ~% sudo port sync
 
 The following command will install rabbit and its dependencies.
 
