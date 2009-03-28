@@ -13,6 +13,7 @@ def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.druby_uri = "druby://localhost:10101"
     options.port = 10102
+    options.bonjour = false
     options.debug = false
 
 
@@ -29,6 +30,12 @@ def parse(args=ARGV, logger=nil)
             _("Specify WEBrick port as [PORT]."),
             "(#{options.port})") do |port|
       options.port = port
+    end
+
+    opts.on("--[no-]bonjour",
+            _("Specify whether bonjour enable or not."),
+            "(#{options.bonjour})") do |bool|
+      options.bonjour = bool
     end
 
     opts.on("--[no-]debug",
@@ -57,6 +64,11 @@ def main
 
   trap("INT") {server.shutdown}
   server_thread = Thread.new {server.start}
+  if options.bonjour
+    require 'easyjour'
+    jour_title = 'Rabbit - ' + rabbit.title
+    jour = Easyjour::Service.new(jour_title, 'http', options.port)
+  end
   if options.debug
     while gets
       logger.info(_("reloading ERB templates..."))
