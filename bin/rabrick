@@ -33,7 +33,7 @@ def parse(args=ARGV, logger=nil)
     end
 
     opts.on("--[no-]bonjour",
-            _("Specify whether bonjour enable or not."),
+            _("Specify whether service discovery with bonjour enable or not."),
             "(#{options.bonjour})") do |bool|
       options.bonjour = bool
     end

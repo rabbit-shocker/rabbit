@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-09 00:01+0900\n"
+"POT-Creation-Date: 2009-04-05 00:58+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada "
@@ -39,12 +39,12 @@ msgid "(ARGV: if no filename is given)"
 msgstr ""
 
 #: ../../lib/rabbit/theme/footer-logo/property.rb:7
-#: ../../lib/rabbit/theme/title-logo/property.rb:7
-#: ../../lib/rabbit/theme/slide-logo/property.rb:7
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
-#: ../../lib/rabbit/theme/title-background-color/property.rb:7
 #: ../../lib/rabbit/theme/headline-logo/property.rb:7
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
+#: ../../lib/rabbit/theme/slide-logo/property.rb:7
+#: ../../lib/rabbit/theme/title-background-color/property.rb:7
 #: ../../lib/rabbit/theme/title-background-image/property.rb:8
+#: ../../lib/rabbit/theme/title-logo/property.rb:7
 msgid "(Must be specified.)"
 msgstr ""
 
@@ -91,8 +91,8 @@ msgstr ""
 msgid "Add [PATH] to load path."
 msgstr ""
 
-#: ../../lib/rabbit/parser/wiki/output.rb:407
 #: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
+#: ../../lib/rabbit/parser/wiki/output.rb:407
 msgid "Anthy isn't available"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "Color of shadow."
 msgstr ""
 
-#: ../../lib/rabbit/theme/comment/property.rb:2 ../../lib/rabbit/canvas.rb:742
+#: ../../lib/rabbit/canvas.rb:742 ../../lib/rabbit/theme/comment/property.rb:2
 #: ../../bin/rabbit:444
 msgid "Comment"
 msgstr ""
@@ -734,20 +734,20 @@ msgid "Iconify"
 msgstr ""
 
 #: ../../lib/rabbit/theme/image/property.rb:2
-#: ../../data/rabbit/image/cozmixng-images/property.rb:1
-#: ../../data/rabbit/image/ruby-images/property.rb:1
 #: ../../data/rabbit/image/clear-blue-images/property.rb:1
+#: ../../data/rabbit/image/cozmixng-images/property.rb:1
 #: ../../data/rabbit/image/rabbit-images/property.rb:1
+#: ../../data/rabbit/image/ruby-images/property.rb:1
 msgid "Image"
 msgstr ""
 
 #: ../../lib/rabbit/theme/footer-logo/property.rb:8
-#: ../../lib/rabbit/theme/title-logo/property.rb:8
-#: ../../lib/rabbit/theme/slide-logo/property.rb:8
-#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
-#: ../../lib/rabbit/theme/icon/property.rb:22
 #: ../../lib/rabbit/theme/headline-logo/property.rb:8
+#: ../../lib/rabbit/theme/icon/property.rb:22
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
+#: ../../lib/rabbit/theme/slide-logo/property.rb:8
 #: ../../lib/rabbit/theme/title-background-image/property.rb:9
+#: ../../lib/rabbit/theme/title-logo/property.rb:8
 msgid "Image file name."
 msgstr ""
 
@@ -886,8 +886,8 @@ msgstr ""
 msgid "Line width:"
 msgstr ""
 
-#: ../../lib/rabbit/theme/powered-by/property.rb:18
 #: ../../lib/rabbit/theme/icon/property.rb:18
+#: ../../lib/rabbit/theme/powered-by/property.rb:18
 msgid "List of image file names."
 msgstr ""
 
@@ -1009,8 +1009,8 @@ msgstr ""
 msgid "Output index HTML for navigating slides."
 msgstr ""
 
-#: ../../lib/rabbit/theme/pdf/property.rb:2
 #: ../../lib/rabbit/html/generator.rb:393
+#: ../../lib/rabbit/theme/pdf/property.rb:2
 msgid "PDF"
 msgstr ""
 
@@ -1138,7 +1138,7 @@ msgstr ""
 msgid "RTtool isn't available"
 msgstr ""
 
-#: ../../lib/rabbit/theme/rabbit/property.rb:2 ../../lib/rabbit/stock.rb:17
+#: ../../lib/rabbit/stock.rb:17 ../../lib/rabbit/theme/rabbit/property.rb:2
 msgid "Rabbit"
 msgstr ""
 
@@ -1476,7 +1476,7 @@ msgid ""
 "displayed."
 msgstr ""
 
-#: ../../bin/rabbit-command:16 ../../bin/rabrick:22
+#: ../../bin/rabbit-command:16 ../../bin/rabrick:23
 msgid "Specify Rabbit's dRuby URI as [URI]."
 msgstr ""
 
@@ -1488,7 +1488,7 @@ msgstr ""
 msgid "Specify SOAP port as [PORT]."
 msgstr ""
 
-#: ../../bin/rabrick:29
+#: ../../bin/rabrick:30
 msgid "Specify WEBrick port as [PORT]."
 msgstr ""
 
@@ -1572,8 +1572,12 @@ msgstr ""
 msgid "Specify theme document directory as [DIR]."
 msgstr ""
 
-#: ../../bin/rabrick:35
+#: ../../bin/rabrick:42
 msgid "Specify whether debug mode or not."
+msgstr ""
+
+#: ../../bin/rabrick:36
+msgid "Specify whether service discovery with bonjour enable or not."
 msgstr ""
 
 #: ../../bin/rabbit:357
@@ -1638,26 +1642,26 @@ msgstr ""
 msgid "TextTimer"
 msgstr ""
 
-#: ../../lib/rabbit/theme/lightning-talk/property.rb:1
-#: ../../lib/rabbit/theme/image-viewer/property.rb:1
-#: ../../lib/rabbit/theme/night-black/property.rb:1
-#: ../../lib/rabbit/theme/red-frame/property.rb:1
-#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
-#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:1
-#: ../../lib/rabbit/theme/rabbit/property.rb:1
-#: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
-#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/blue-bar/property.rb:1
-#: ../../lib/rabbit/theme/day-white/property.rb:1
+#: ../../lib/rabbit/theme/blue-circle/property.rb:1
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/clear-blue/property.rb:1
 #: ../../lib/rabbit/theme/comment/property.rb:1
-#: ../../lib/rabbit/theme/blue-circle/property.rb:1
-#: ../../lib/rabbit/theme/pdf/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng/property.rb:1
+#: ../../lib/rabbit/theme/day-white/property.rb:1
 #: ../../lib/rabbit/theme/default/property.rb:1
 #: ../../lib/rabbit/theme/green-circle/property.rb:1
+#: ../../lib/rabbit/theme/image-viewer/property.rb:1
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:1
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
 #: ../../lib/rabbit/theme/lightning-simple/property.rb:1
-#: ../../lib/rabbit/theme/cozmixng/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk/property.rb:1
+#: ../../lib/rabbit/theme/night-black/property.rb:1
+#: ../../lib/rabbit/theme/pdf/property.rb:1
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:1
+#: ../../lib/rabbit/theme/rabbit/property.rb:1
+#: ../../lib/rabbit/theme/red-frame/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
 #: ../../lib/rabbit/theme-browser/tree.rb:54 ../../bin/rabbit:68
 msgid "Theme"
 msgstr ""
@@ -1682,8 +1686,8 @@ msgstr ""
 msgid "This theme is always included at the first."
 msgstr ""
 
-#: ../../lib/rabbit/theme/image-timer/property.rb:1
 #: ../../lib/rabbit/theme/clock/property.rb:1
+#: ../../lib/rabbit/theme/image-timer/property.rb:1
 #: ../../lib/rabbit/theme/slide-show/property.rb:1
 #: ../../lib/rabbit/theme/timer/property.rb:1
 msgid "Time"
@@ -1745,66 +1749,66 @@ msgstr ""
 msgid "Toggle whiteout"
 msgstr ""
 
-#: ../../lib/rabbit/theme/footer-logo/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:1
-#: ../../lib/rabbit/theme/title-logo/property.rb:1
-#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:1
-#: ../../lib/rabbit/theme/default-foot-text/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
-#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:1
-#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
-#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
-#: ../../lib/rabbit/theme/default-title-text/property.rb:1
-#: ../../lib/rabbit/theme/default-description/property.rb:1
-#: ../../lib/rabbit/theme/default-text/property.rb:1
-#: ../../lib/rabbit/theme/default-method-list/property.rb:1
+#: ../../lib/rabbit/theme/base/property.rb:1
+#: ../../lib/rabbit/theme/color-circle/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:1
 #: ../../lib/rabbit/theme/color-circle-common/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/default-description/property.rb:1
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/default-icon/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
+#: ../../lib/rabbit/theme/default-method-list/property.rb:1
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/default-slide/property.rb:1
+#: ../../lib/rabbit/theme/default-text/property.rb:1
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/default-title-text/property.rb:1
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:1
+#: ../../lib/rabbit/theme/footer-logo/property.rb:1
+#: ../../lib/rabbit/theme/headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/icon/property.rb:1
+#: ../../lib/rabbit/theme/image/property.rb:1
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:1
-#: ../../lib/rabbit/theme/slide-logo/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
 #: ../../lib/rabbit/theme/powered-by/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:1
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
 #: ../../lib/rabbit/theme/slide-background-image/property.rb:1
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:1
-#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/default-slide/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:1
-#: ../../lib/rabbit/theme/default-preformatted/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-text/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:1
-#: ../../lib/rabbit/theme/image/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
-#: ../../lib/rabbit/theme/table/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
-#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/icon/property.rb:1
-#: ../../lib/rabbit/theme/default-icon/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/default-block-quote/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/title-background-color/property.rb:1
-#: ../../lib/rabbit/theme/headline-logo/property.rb:1
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:1
-#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
-#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-slide/property.rb:1
-#: ../../lib/rabbit/theme/title-shadow/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:1
-#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-description/property.rb:1
-#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
-#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:1
-#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
-#: ../../lib/rabbit/theme/title-background-image/property.rb:1
-#: ../../lib/rabbit/theme/color-circle/property.rb:1
+#: ../../lib/rabbit/theme/slide-logo/property.rb:1
 #: ../../lib/rabbit/theme/slide-number/property.rb:1
-#: ../../lib/rabbit/theme/base/property.rb:1
+#: ../../lib/rabbit/theme/table/property.rb:1
+#: ../../lib/rabbit/theme/title-background-color/property.rb:1
+#: ../../lib/rabbit/theme/title-background-image/property.rb:1
+#: ../../lib/rabbit/theme/title-logo/property.rb:1
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/title-shadow/property.rb:1
 msgid "Toolkit"
 msgstr ""
 
@@ -2053,17 +2057,17 @@ msgid "Whether show a text over line or not."
 msgstr ""
 
 #: ../../lib/rabbit/theme/footer-logo/property.rb:24
-#: ../../lib/rabbit/theme/slide-logo/property.rb:24
 #: ../../lib/rabbit/theme/slide-footer-info/property.rb:41
 #: ../../lib/rabbit/theme/slide-header-info/property.rb:41
+#: ../../lib/rabbit/theme/slide-logo/property.rb:24
 msgid "Whether uninstall this theme or not."
 msgstr ""
 
-#: ../../lib/rabbit/theme/title-logo/property.rb:19
 #: ../../lib/rabbit/theme/clock/property.rb:17
 #: ../../lib/rabbit/theme/image-slide-number/property.rb:60
 #: ../../lib/rabbit/theme/show-frame/property.rb:12
 #: ../../lib/rabbit/theme/slide-number/property.rb:17
+#: ../../lib/rabbit/theme/title-logo/property.rb:19
 msgid ""
 "Whether uninstalling this toolkit or not. This option is useful for cases "
 "you do not want to make the toolkit work for certain slides."
@@ -2127,10 +2131,6 @@ msgstr ""
 
 #: ../../lib/rabbit/source/slide-share.rb:14
 msgid "[USER] and [TITLE]"
-msgstr ""
-
-#: ../../lib/rabbit/source/flickr.rb:15
-msgid "[USER_ID]"
 msgstr ""
 
 #: ../../lib/rabbit/theme/default-block-quote/default-block-quote.rb:94
@@ -2248,8 +2248,8 @@ msgstr ""
 msgid "ja"
 msgstr "Japanese"
 
-#: ../../lib/rabbit/theme/title-logo/title-logo.rb:4
 #: ../../lib/rabbit/theme/slide-logo/slide-logo.rb:4
+#: ../../lib/rabbit/theme/title-logo/title-logo.rb:4
 msgid "must specify %s!!!"
 msgstr ""
 
@@ -2285,7 +2285,7 @@ msgstr ""
 msgid "print isn't supported"
 msgstr ""
 
-#: ../../bin/rabrick:62
+#: ../../bin/rabrick:74
 msgid "reloading ERB templates..."
 msgstr ""
 
