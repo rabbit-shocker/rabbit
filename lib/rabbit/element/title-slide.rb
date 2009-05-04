@@ -59,6 +59,12 @@ module Rabbit
         @local_prop[name] = value
       end
 
+      def title
+        sub_title = find {|element| element.is_a?(Subtitle)}
+        sub_title = sub_title.text if sub_title
+        [super, sub_title].compact.join(" - ")
+      end
+
       private
       def normalize_name(name)
         name.gsub(/_/, "-").strip
@@ -101,7 +107,6 @@ module Rabbit
 
     class Subtitle
       include TextContainerElement
-
 
       def to_rd
         ": subtitle\n   #{text}"
