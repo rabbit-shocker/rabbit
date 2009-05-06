@@ -92,7 +92,8 @@ module Rabbit
         @elements.each do |element|
           x, y, w, h = element.draw(simulation)
         end
-        if @elements.last and @elements.last.inline_element?
+        last_element = @elements.last
+        if last_element and last_element.inline_element?
           container_height = height
           x = base_x
           y += container_height
