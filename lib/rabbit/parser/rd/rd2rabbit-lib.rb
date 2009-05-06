@@ -41,6 +41,7 @@ module Rabbit
 
           @slides = []
           @slide = nil
+          @slide_property_mode = false
           @index = {}
 
           init_extensions
@@ -55,23 +56,30 @@ module Rabbit
 
         def apply_to_DocumentElement(element, contents)
           target = nil
-          display = false
+          mode = :ignore
           contents.each do |content|
-            display = false if content.nil?
             case content
             when nil
-              # ignore
+              mode = :ignore
             when Slide
               target = Body.new
               content << target
               @canvas << content
-              display = true
+              mode = :display
             when TitleSlide
               target = content
               @canvas << content
-              display = true
+              mode = :display
+            when SlidePropertySetter
+              target = content
+              mode = :property
             else
-              target << content if display
+              case mode
+              when :display
+                target << content
+              when :property
+                target.apply(content)
+              end
             end
           end
           burn_out_pause_targets
@@ -80,7 +88,9 @@ module Rabbit
 
         def apply_to_Headline(element, title)
           anchor = get_anchor(element)
-          if element.level == 1
+          slide, @slide = @slide, nil
+          case element.level
+          when 1
             if @slides.empty?
               @slide = TitleSlide.new(Title.new(title))
             else
@@ -89,8 +99,9 @@ module Rabbit
             @foot_texts << []
             @slides << @slide
             @slide
+          when 2
+            SlidePropertySetter.new(slide)
           else
-            @slide = nil
             nil
           end
         end
@@ -387,6 +398,24 @@ module Rabbit
               ftb << apply_to_Foottext(@footnotes[num], ft)
             end
             slide << ftb
+          end
+        end
+
+        class SlidePropertySetter
+          def initialize(slide)
+            @slide = slide
+          end
+
+          def apply(element)
+            return unless element.is_a?(Element::DescriptionList)
+            element.each do |item|
+              @slide[normalize_name(item.term.text)] = item.content.text.strip
+            end
+          end
+
+          private
+          def normalize_name(name)
+            name.gsub(/_/, "-").strip
           end
         end
       end

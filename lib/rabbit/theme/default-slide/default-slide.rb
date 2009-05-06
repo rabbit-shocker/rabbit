@@ -1,7 +1,10 @@
 @default_headline_line_color ||= "#ff9933"
 
-match(Slide) do
-  margin_set(@margin_top, @margin_right, @margin_bottom, @margin_left)
+match(Slide) do |slides|
+  slides.each do |slide|
+    slide.margin_set(@margin_top, @margin_right, @margin_bottom, @margin_left)
+    slide.headline.hide if slide.hide_title?
+  end
 end
 
 match(Slide, HeadLine) do

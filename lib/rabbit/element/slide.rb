@@ -21,6 +21,10 @@ module Rabbit
       def to_html(generator)
         "<div class=\"slide\">\n#{super}\n</div>"
       end
+
+      def hide_title?
+        self["hide-title"] == "true"
+      end
     end
 
     class HeadLine

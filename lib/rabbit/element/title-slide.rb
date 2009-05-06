@@ -8,26 +8,25 @@ module Rabbit
       include SlideElement
 
       def <<(element)
-        if element.is_a?(DescriptionList)
-          element.each do |item|
-            name = item.term.collect{|x| x.text}.join("")
-            name = normalize_name(name)
-            klass_name = to_class_name(name)
-            if Element.const_defined?(klass_name)
-              meta = Element.const_get(klass_name).new
-              item.content.each do |elem|
-                elem.each do |e|
-                  meta << e
-                end
+        return unless element.is_a?(DescriptionList)
+        element.each do |item|
+          name = item.term.collect{|x| x.text}.join("")
+          name = normalize_name(name)
+          klass_name = to_class_name(name)
+          if Element.const_defined?(klass_name)
+            meta = Element.const_get(klass_name).new
+            item.content.each do |elem|
+              elem.each do |e|
+                meta << e
               end
-              super(meta)
-            else
-              content = ""
-              item.content.each do |x|
-                content << x.text
-              end
-              self[name] = content.strip
             end
+            super(meta)
+          else
+            content = ""
+            item.content.each do |x|
+              content << x.text
+            end
+            self[name] = content.strip
           end
         end
       end
