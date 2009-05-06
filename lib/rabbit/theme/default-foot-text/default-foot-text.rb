@@ -31,12 +31,12 @@ end
 
 match("**", FootText) do
   each do |text|
-    if text.user_property["order_added"]
+    if text["order_added"]
       order_text = text.elements.first
     else
       order_text = Text.new("(*#{text.order})")
       text.unshift(order_text)
-      text.user_property["order_added"] = true
+      text["order_added"] = true
     end
     order_text.prop_set("foreground", "blue")
     order_text.prop_set("size", @script_font_size)

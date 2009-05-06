@@ -7,11 +7,6 @@ module Rabbit
     class TitleSlide
       include SlideElement
 
-      def initialize(title)
-        super
-        @local_prop = {}
-      end
-
       def <<(element)
         if element.is_a?(DescriptionList)
           element.each do |item|
@@ -31,32 +26,24 @@ module Rabbit
               item.content.each do |x|
                 content << x.text
               end
-              @local_prop[name] = content.strip
+              self[name] = content.strip
             end
           end
         end
       end
 
       def theme
-        @local_prop["theme"]
+        self["theme"]
       end
 
       def allotted_time
-        time = @local_prop["allotted-time"]
+        time = self["allotted-time"]
         time = parse_time(time) if time
         time
       end
 
       def to_html(generator)
         "<div class=\"title-slide\">\n#{super}\n</div>"
-      end
-
-      def [](name)
-        @local_prop[name]
-      end
-
-      def []=(name, value)
-        @local_prop[name] = value
       end
 
       def title

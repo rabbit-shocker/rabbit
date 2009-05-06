@@ -363,6 +363,14 @@ module Rabbit
         change_visible(false, &block)
       end
 
+      def [](name)
+        @user_property[name]
+      end
+
+      def []=(name, value)
+        @user_property[name] = value
+      end
+
       protected
       def user_property=(prop)
         @user_property = prop

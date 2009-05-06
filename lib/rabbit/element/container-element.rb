@@ -11,7 +11,7 @@ module Rabbit
 
       attr_reader :elements
 
-      def_delegators(:@elements, :[], :empty?, :each, :first, :last)
+      def_delegators(:@elements, :empty?, :each, :first, :last)
       def_delegators(:@elements, :size, :length)
 
       def initialize(elems=[])
@@ -231,6 +231,22 @@ module Rabbit
 
       def have_wait_tag?
         @elements.any? {|element| element.have_wait_tag?}
+      end
+
+      def [](name_or_index)
+        if name_or_index.is_a?(Integer)
+          @elements[name_or_index]
+        else
+          super
+        end
+      end
+
+      def []=(name_or_index, value)
+        if name_or_index.is_a?(Integer)
+          @elements[name_or_index] = value
+        else
+          super
+        end
       end
     end
   end
