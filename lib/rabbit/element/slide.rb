@@ -37,6 +37,11 @@ module Rabbit
       def to_html(generator)
         "<h1>#{super}</h1>"
       end
+
+      def draw_elements(canvas, x, y, w, h, simulation)
+        return [x, y, w, h] if slide.hide_title?
+        super
+      end
     end
 
     class Body
