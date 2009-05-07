@@ -29,11 +29,11 @@ module Rabbit
         end
       end
 
-      private
-      def ensure_resize(w, h)
-        @pixbuf = to_pixbuf(w, h)
+      def pixbuf
+        @pixbuf ||= to_pixbuf(@width, @height)
       end
 
+      private
       def update_size
         @handle = nil
         rsvg_environment do |name|

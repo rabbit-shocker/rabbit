@@ -34,6 +34,9 @@ module Rabbit
         
         def_delegators(:@print, :clear_theme)
 
+        def_delegators(:@print, :rsvg_available?, :poppler_available?)
+        def_delegators(:@print, :rsvg_available?, :poppler_available?)
+
         def initialize(canvas)
           @print = Print.new(canvas)
           super
@@ -148,9 +151,14 @@ module Rabbit
           @print.draw_pixbuf(pixbuf, x, y, params)
         end
 
-        def draw_svg(handle, x, y, params={})
+        def draw_rsvg_handle(handle, x, y, params={})
           x, y = normalize(x, y)
-          @print.draw_svg(handle, x, y, params)
+          @print.draw_rsvg_handle(handle, x, y, params)
+        end
+
+        def draw_poppler_page(handle, x, y, params={})
+          x, y = normalize(x, y)
+          @print.draw_poppler_page(handle, x, y, params)
         end
 
         private
