@@ -60,9 +60,11 @@ module Rabbit
       end
 
       def draw(canvas, x, y, params={})
-        params["width"] ||= @width
-        params["height"] ||= @height
-        canvas.draw_pixbuf(pixbuf, x, y, params)
+        default_params = {
+          :width => width,
+          :height => height,
+        }
+        canvas.draw_pixbuf(pixbuf, x, y, default_params.merge(params))
       end
 
       private

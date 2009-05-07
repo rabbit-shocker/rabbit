@@ -252,8 +252,8 @@ module Rabbit
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = from_screen(x, y)
 
-          width = (params["width"] || pixbuf.width).to_f
-          height = (params["height"] || pixbuf.height).to_f
+          width = (params[:width] || pixbuf.width).to_f
+          height = (params[:height] || pixbuf.height).to_f
           @context.save do
             @context.translate(x, y)
             @context.scale(width / pixbuf.width, height / pixbuf.height)
@@ -275,8 +275,8 @@ module Rabbit
         def draw_rsvg_handle(handle, x, y, params={})
           x, y = from_screen(x, y)
           dim = handle.dimensions
-          width = (params["width"] || dim.width).to_f
-          height = (params["height"] || dim.height).to_f
+          width = (params[:width] || dim.width).to_f
+          height = (params[:height] || dim.height).to_f
           @context.save do
             @context.translate(x, y)
             @context.scale(width / dim.width, height / dim.height)
@@ -296,8 +296,8 @@ module Rabbit
         def draw_poppler_page(page, x, y, params={})
           x, y = from_screen(x, y)
           w, h = page.size
-          width = (params["width"] || w).to_f
-          height = (params["height"] || h).to_f
+          width = (params[:width] || w).to_f
+          height = (params[:height] || h).to_f
           @context.save do
             @context.translate(x, y)
             @context.scale(width / w, height / h)

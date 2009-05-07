@@ -21,16 +21,18 @@ module Rabbit
 
       def draw(canvas, x, y, params={})
         if @handle and canvas.rsvg_available?
-          params["width"] ||= @width
-          params["height"] ||= @height
-          canvas.draw_rsvg_handle(@handle, x, y, params)
+          default_params = {
+            :width => width,
+            :height => height,
+          }
+          canvas.draw_rsvg_handle(@handle, x, y, default_params.merge(params))
         else
           super
         end
       end
 
       def pixbuf
-        @pixbuf ||= to_pixbuf(@width, @height)
+        @pixbuf ||= to_pixbuf(width, height)
       end
 
       private
