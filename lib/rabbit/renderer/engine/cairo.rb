@@ -252,8 +252,11 @@ module Rabbit
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = from_screen(x, y)
 
+          width = (params["width"] || pixbuf.width).to_f
+          height = (params["height"] || pixbuf.height).to_f
           @context.save do
             @context.translate(x, y)
+            @context.scale(width / pixbuf.width, height / pixbuf.height)
             @context.set_source_pixbuf(pixbuf, 0, 0)
             @context.paint
           end

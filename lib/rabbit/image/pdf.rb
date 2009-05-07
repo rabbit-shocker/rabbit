@@ -31,6 +31,10 @@ module Rabbit
         end
       end
 
+      def pixbuf
+        @pixbuf ||= to_pixbuf
+      end
+
       private
       def page
         index = self["page"] || 0
@@ -44,11 +48,6 @@ module Rabbit
           raise ImageLoadError.new("#{@filename}: #{message}")
         end
         _page
-      end
-
-      def ensure_resize(w, h)
-        @original_pixbuf ||= to_pixbuf
-        @pixbuf = @original_pixbuf.scale(w, h)
       end
 
       def update_size

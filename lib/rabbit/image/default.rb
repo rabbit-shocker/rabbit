@@ -14,15 +14,11 @@ module Rabbit
       end
       
       private
-      def ensure_resize(w, h)
-        @pixbuf = @original_pixbuf.scale(w, h)
-      end
-
       def update_size
         File.open(@filename, "rb") do |file|
           Dir.chdir(File.dirname(@filename)) do
             loader = load_by_pixbuf_loader(file.read)
-            @original_pixbuf = loader.pixbuf
+            @pixbuf = loader.pixbuf
           end
         end
       end

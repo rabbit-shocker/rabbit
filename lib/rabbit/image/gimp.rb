@@ -22,10 +22,6 @@ module Rabbit
       end
 
       private
-      def ensure_resize(w, h)
-        @pixbuf = @original_pixbuf.scale(w, h)
-      end
-
       def update_size
         png_file = Tempfile.new("rabbit-loader-gimp-png")
         png_path = png_file.path
@@ -46,7 +42,7 @@ EOC
           png_file.open
           png_file.binmode
           loader = load_by_pixbuf_loader(png_file.read)
-          @original_pixbuf = loader.pixbuf
+          @pixbuf = loader.pixbuf
         else
           raise GIMPCanNotHandleError.new("gimp #{args.join(' ')}",
                                           GIMP_COMMANDS)

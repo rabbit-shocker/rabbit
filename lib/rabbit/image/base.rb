@@ -35,8 +35,7 @@ module Rabbit
       end
 
       def pixbuf
-        ensure_update
-        internal_pixbuf
+        @pixbuf
       end
 
       def resize(w, h)
@@ -61,6 +60,8 @@ module Rabbit
       end
 
       def draw(canvas, x, y, params={})
+        params["width"] ||= @width
+        params["height"] ||= @height
         canvas.draw_pixbuf(pixbuf, x, y, params)
       end
 
@@ -95,17 +96,6 @@ module Rabbit
         end
         loader.signal_handler_disconnect(id)
         loader
-      end
-
-      def ensure_update
-        _pixbuf = internal_pixbuf
-        if _pixbuf.nil? or [@width, @height] != [_pixbuf.width, _pixbuf.height]
-          ensure_resize(@width, @height)
-        end
-      end
-
-      def internal_pixbuf
-        @pixbuf
       end
     end
   end
