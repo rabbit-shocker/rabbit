@@ -6,13 +6,16 @@ begin
     require "gettext"
   end
   module GetText
-    alias _gettext gettext
-    module_function :_gettext
-    def gettext(msgid)
-      if @@__textdomain[callersrc]
-        _gettext(msgid)
-      else
-        msgid
+    if ::GetText::TextDomainManager.respond_to?(:textdomain)
+      alias _gettext gettext
+      module_function :_gettext
+      def gettext(msgid)
+        return msgid
+        if @@__textdomain[callersrc]
+          _gettext(msgid)
+        else
+          msgid
+        end
       end
     end
   end
@@ -53,13 +56,15 @@ module Rabbit
       charset ||= "UTF-8"
       ::GetText.bindtextdomain(DOMAIN, path, locale, charset)
       if defined?(::GetText::TextDomainManager) and path
-        # workaround for Ruby-GetText >= 1.6.0 (or 1.5.0?)
-        textdomain = ::GetText::TextDomainManager.textdomain(DOMAIN)
-        locale_paths = ["#{path}/%{locale}/LC_MESSAGES/%{name}.mo",
+        if ::GetText::TextDomainManager.respond_to?(:textdomain)
+          # workaround for Ruby-GetText 1.6.0 < 2.0.0
+          textdomain = ::GetText::TextDomainManager.textdomain(DOMAIN)
+          locale_paths = ["#{path}/%{locale}/LC_MESSAGES/%{name}.mo",
                         "#{path}/%{locale}/%{name}.mo"]
-        textdomain.locale_paths.concat(locale_paths)
-        locale ||= textdomain.current_locale || Locale.get
-        textdomain.set_locale(locale, true)
+          textdomain.locale_paths.concat(locale_paths)
+          locale ||= textdomain.current_locale || Locale.get
+          textdomain.set_locale(locale, true)
+        end
       end
     end
     
