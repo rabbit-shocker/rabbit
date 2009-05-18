@@ -4,6 +4,7 @@ match(SlideElement) do |slides|
     make_formatted_layout = Proc.new do |props, text|
       make_layout(span(props, text))
     end
+    applier = self
     singleton_class.send(:define_method, :draw_edge_info) do |options|
       name = options[:name] || "edge-info"
       add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
@@ -19,7 +20,7 @@ match(SlideElement) do |slides|
           text_color = options[:text_color] || "#666"
           x_margin = options[:x_margin] || screen_x(1)
 
-          base_y = options[:y] || (canvas.height - @margin_bottom)
+          base_y = options[:y] || (canvas.height - applier[:margin_bottom])
           if text_position == :lower
             line_y = base_y + (line_width / 2.0).floor
           else
@@ -31,7 +32,7 @@ match(SlideElement) do |slides|
                            line_color, line_params.merge(line_width_params))
 
           props = {
-            "font_family" => @font_family,
+            "font_family" => applier[:font_family],
             "size" => text_size,
             "color" => text_color,
           }

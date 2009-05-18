@@ -290,6 +290,10 @@ module Rabbit
         ((canvas.height * ny) / normalized_height).ceil
       end
 
+      def [](name)
+        instance_variable_get("@#{name}")
+      end
+
       private
       def normalize_source(src)
         src.gsub(/(?=^|\W)@(very_)?huge_(script_)?font_size(?=$|\W)/) do |x|
