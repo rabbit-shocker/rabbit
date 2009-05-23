@@ -4,6 +4,25 @@
 
 $Id$
 
+== Changes 0.6.0from 0.5.9: 2009-05-23
+
+=== Improvements
+
+  * Supported Bonjour: [kimura wataru]
+  * Added new mascot character "Tailavi": [MoMo]
+    * ((<URL:http://www.cozmixng.org/repos/rabbit/trunk/sample/momo/tailavi/>))
+  * Added subtitle to windows title.
+  * Supported slide property.
+  * Added alternative images for "rabbit and tortoise".
+  * Original image is used for PDF embedding instead of
+    resized image.
+
+=== Fixes
+
+  * Fixed a typo in sample/kof2005/gesture.rb: [#143][IWAI, Masaharu]
+  * Fixed install document: [zunda]
+  * Fixed English: [Eduardo Gonzalez]
+
 == Changes 0.5.9 from 0.5.8: 2009-02-09
 
   * Improvements
