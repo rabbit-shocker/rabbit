@@ -259,11 +259,11 @@ module Rabbit
       end
 
       def normalized_width
-        (canvas.x_dpi / 72.0) * NORMALIZED_WIDTH
+        (canvas.x_dpi / Canvas::INTERNAL_DPI) * NORMALIZED_WIDTH
       end
 
       def normalized_height
-        (canvas.y_dpi / 72.0) * NORMALIZED_HEIGHT
+        (canvas.y_dpi / Canvas::INTERNAL_DPI) * NORMALIZED_HEIGHT
       end
 
       def normalized_size(s)

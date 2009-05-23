@@ -9,8 +9,7 @@ module Rabbit
       unshift_loader(self)
       
       GS_COMMANDS = %w(gs gswin32c)
-      DEFAULT_DPI = 72
-      
+
       include SystemRunner
 
       class << self
@@ -32,14 +31,10 @@ module Rabbit
           false
         end
       end
-      
-      private
-      def ensure_resize(w, h)
-        @pixbuf = load_image(w, h).pixbuf
-      end
 
+      private
       def update_size
-        load_image
+        @pixbuf = load_image.pixbuf
       end
 
       def load_image(width=nil, height=nil)
@@ -61,18 +56,17 @@ module Rabbit
       
       def eps_to(width, height, device, *gs_options)
         x, y, w, h, r = eps_size
-        width ||= w
-        height ||= h
-        resolution = r || DEFAULT_DPI
-        res_x = (width.to_f / w * DEFAULT_DPI).round
-        res_y = (height.to_f / h * DEFAULT_DPI).round
-        
+        resolution = (r || Canvas::INTERNAL_DPI).round
+        ratio = resolution.to_f / Canvas::INTERNAL_DPI
+        width = ((width || w) * ratio).round
+        height = ((height || h) * ratio).round
+
         adjust_eps_if_need(x, y) do |path|
           tmp = Tempfile.new("rabbit-image-eps")
           args = %W(-q -dBATCH -dNOPAUSE -sDEVICE=#{device}
             -sOutputFile=#{tmp.path} -dEPSFitPage
             -dGraphicsAlphaBits=4 -dTextAlphaBits=4
-            -g#{width}x#{height} -r#{res_x}x#{res_y}
+            -g#{width}x#{height} -r#{resolution}x#{resolution}
             #{path})
           if GS_COMMANDS.any? {|gs| run(gs, *args)}
             begin

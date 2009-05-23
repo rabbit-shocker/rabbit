@@ -45,9 +45,9 @@ module Rabbit
             @width = dim.width
             @height = dim.height
           else
-            _pixbuf = RSVG.pixbuf_from_file(name)
-            @width = _pixbuf.width
-            @height = _pixbuf.height
+            @pixbuf = RSVG.pixbuf_from_file(name)
+            @width = @pixbuf.width
+            @height = @pixbuf.height
           end
         end
       end
