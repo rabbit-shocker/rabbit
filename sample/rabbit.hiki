@@ -176,7 +176,7 @@ EOL
 
 ! EPS
 
-事前にEPSで作成((-gsが必要-))
+事前にEPSで作成{{note('（gsが必要）')}}
 
 {{image('equation.eps',
         :relative_width => 80)}}
@@ -283,7 +283,7 @@ EOA
 
 ! 操作: 本番用（1）
 
-:フルスクリーン切替え:F5, F10, F11, ジェスチャ(('&DownArrow;'))(('&UpArrow;'))
+:フルスクリーン切替え:F5, F10, F11, ジェスチャ{{e('DownArrow')}}{{e('UpArrow')}}
 :一覧モード切替え:i
 :一覧モードからページ移動:ダブルクリック
 
