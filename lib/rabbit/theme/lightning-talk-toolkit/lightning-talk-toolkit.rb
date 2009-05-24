@@ -54,7 +54,7 @@ def setup_lightning_talk_slide(slide)
 
     def lightning_talk?
       body.empty? or
-        (headline.empty? and
+        ((headline.empty? or !headline.visible?) and
          body.elements.all? {|elem| elem.is_a?(Element::Image)})
     end
     alias takahashi? lightning_talk?
