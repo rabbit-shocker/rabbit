@@ -16,6 +16,10 @@ module Rabbit
           end
         end
 
+        def draw_pixbuf(pixbuf, x, y, params={})
+          super(pixbuf, x, y, {:draw_scaled_pixbuf => true}.merge(params))
+        end
+
         private
         def init_color
           super
