@@ -12,6 +12,7 @@ end
 @@slide_show_timeout_id = Gtk.timeout_add(@slide_show_span) do
   if canvas.last_slide?
     if @slide_show_loop
+      canvas.reset_timer
       canvas.activate("FirstSlide")
       true
     else
