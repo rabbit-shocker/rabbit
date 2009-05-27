@@ -1,3 +1,4 @@
+* [BUG]: PDF slide doesn't scale???
 * improve Clutter support.
 * support GStreamer.
 * support MeCab for clever wrapping.
