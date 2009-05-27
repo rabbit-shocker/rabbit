@@ -1,6 +1,12 @@
 theme_exit unless display?
 
-@slide_show_span ||= 1000 * 60 # a minute
+if canvas.allotted_time
+  default_slide_show_span = (canvas.allotted_time / canvas.slide_size.to_f).round
+else
+  default_slide_show_span = 60
+end
+default_slide_show_span *= 1000 # milliseconds -> seconds
+@slide_show_span ||= default_slide_show_span
 @slide_show_loop ||= false
 
 @@slide_show_timeout_id ||= nil
