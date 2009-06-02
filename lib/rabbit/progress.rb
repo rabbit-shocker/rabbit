@@ -39,11 +39,13 @@ module Rabbit
     end
 
     def update_progress(i)
+      return if @max.nil?
       @current = i
       @bar.fraction = @current / @max
     end
 
     def end_progress
+      return if @max.nil?
       @current = @max
       @bar.fraction = @current / @max
     end
