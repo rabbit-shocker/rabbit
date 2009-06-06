@@ -1,0 +1,18 @@
+= スライド\nプロパティ
+
+: author
+   須藤功平
+
+: institution
+   COZMIXNG
+
+= タイトル
+
+内容
+
+  * タイトルは非表示
+
+== プロパティ
+
+: hide-title
+   true

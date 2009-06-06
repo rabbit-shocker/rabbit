@@ -409,13 +409,9 @@ module Rabbit
           def apply(element)
             return unless element.is_a?(Element::DescriptionList)
             element.each do |item|
-              @slide[normalize_name(item.term.text)] = item.content.text.strip
+              name = Parser.normalize_property_name(item.term.text)
+              @slide[name] = item.content.text.strip
             end
-          end
-
-          private
-          def normalize_name(name)
-            name.gsub(/_/, "-").strip
           end
         end
       end

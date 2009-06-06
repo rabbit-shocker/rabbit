@@ -27,6 +27,9 @@ module Rabbit
           @parent = nil
           @index = {}
 
+          @slide_property_mode = false
+          @target_slide = nil
+
           @enum_order_stack = []
           @list_type_stack = []
 
@@ -50,7 +53,9 @@ module Rabbit
         #
 
         def headline(level, title)
-          if level == 1
+          @slide_property_mode = false
+          case level
+          when 1
             slide = nil
             if @slides.empty?
               @title_slide = true
@@ -65,6 +70,9 @@ module Rabbit
             end
             @foot_texts << []
             @slides << slide
+          when 2
+            @slide_property_mode = true
+            @parent, @target_slide = nil, @slides.last
           else
             @parent = nil
           end
@@ -161,11 +169,17 @@ module Rabbit
         end
 
         def dlist_item(dt, dd)
-          return unless @parent
+          if @slide_property_mode and @target_slide
+            name = dt.collect {|element| element.text}.join
+            value = dd.collect {|element| element.text}.join
+            @target_slide[Parser.normalize_property_name(name)] = value.strip
+          else
+            return unless @parent
 
-          desc_term = DescriptionTerm.new(Paragraph.new(dt))
-          desc_content = DescriptionContent.new(Paragraph.new(dd))
-          @parent << DescriptionListItem.new(desc_term, desc_content)
+            desc_term = DescriptionTerm.new(Paragraph.new(dt))
+            desc_content = DescriptionContent.new(Paragraph.new(dd))
+            @parent << DescriptionListItem.new(desc_term, desc_content)
+          end
         end
 
         def table_open

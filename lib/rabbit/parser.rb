@@ -16,5 +16,9 @@ module Rabbit
       end
       parser.new(canvas, source).parse
     end
+
+    def normalize_property_name(name)
+      name.gsub(/_/, "-").strip
+    end
   end
 end
