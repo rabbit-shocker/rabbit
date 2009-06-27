@@ -55,6 +55,7 @@ A presentation tool
 
 = Features: UI (2)
 
+  # wait
   * Index page
   * Graffiti
   * (('wait'))Pause

@@ -1,8 +1,6 @@
 module Rabbit
   module Parser
     module PauseSupport
-
-      private
       def pause_targets
         @pause_targets ||= {}
       end
