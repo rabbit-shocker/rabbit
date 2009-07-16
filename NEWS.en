@@ -16,7 +16,8 @@ $Id$
     * slide-show: default slide show span is computed from
       allotted time and slide size.
   * "\n" is available by default.
-  * Wiki markup supports slide property.
+  * Wiki format supports slide property.
+  * RD format supports 'wait' in nested itemize. [Kazuhiro NISHIYAMA]
 
 === Fixes
 
