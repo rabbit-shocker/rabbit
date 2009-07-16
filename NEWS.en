@@ -4,7 +4,29 @@
 
 $Id$
 
-== Changes 0.6.0from 0.5.9: 2009-05-23
+== Changes 0.6.1 from 0.6.: 2009-07-17
+
+=== Improvements
+
+  * Images are rendered after resized by Gdk::Pixbuf on
+    display mode.
+  * Theme
+    * lightning-talk-toolkit: supported :hide-title
+    * slide-show: timer is reset after each loop
+    * slide-show: default slide show span is computed from
+      allotted time and slide size.
+  * "\n" is available by default.
+  * Wiki markup supports slide property.
+
+=== Fixes
+
+  * Added missing GPL license file.
+  * Fixed a problem that PDF isn't resized on display size change.
+  * Fixed a problem that index mode doesn't work for title
+    only slide. [rabbit-shockers:654] [OBATA Akio]
+  * Fixed a problem that block wait doesn't work. [OBATA Akio]
+
+== Changes 0.6.0 from 0.5.9: 2009-05-23
 
 === Improvements
 
