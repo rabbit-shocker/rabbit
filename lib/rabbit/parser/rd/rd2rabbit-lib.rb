@@ -189,11 +189,15 @@ module Rabbit
           contents.each do |content|
             item << content
           end
-          if item.have_wait_tag?
-            content = contents.first
-            content.default_visible = true
-            content.clear_theme
-            unregister_pause(content)
+          waited_paragraphs = item.elements.find_all do |element|
+            element.is_a?(Paragraph) and element.have_wait_tag?
+          end
+          unless waited_paragraphs.empty?
+            waited_paragraphs.each do |paragraph|
+              paragraph.default_visible = true
+              paragraph.clear_theme
+              unregister_pause(paragraph)
+            end
 
             item.default_visible = false
             item.clear_theme
