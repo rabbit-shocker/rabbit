@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="583.28003pt"
+   height="486.89005pt"
+   id="svg1359"
+   sodipodi:version="0.32"
+   inkscape:version="0.42+0.43pre1"
+   sodipodi:docbase="/home/kou/work/ruby/rabbit/sample"
+   sodipodi:docname="rabbit-rwiki.svg"
+   version="1.0">
+  <defs
+     id="defs1361">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend"
+       style="overflow:visible">
+      <path
+         sodipodi:nodetypes="cccc"
+         id="path2164"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.97309,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="matrix(-0.600000,0.000000,0.000000,-0.600000,3.000000,0.000000)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path2172"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 L 0,0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="scale(0.400000,0.400000)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.60628663"
+     inkscape:cx="419.84459"
+     inkscape:cy="367.44097"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="734"
+     inkscape:window-height="663"
+     inkscape:window-x="220"
+     inkscape:window-y="75" />
+  <metadata
+     id="metadata1364">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       id="path1308"
+       sodipodi:cx="277.85715"
+       sodipodi:cy="230.93361"
+       sodipodi:rx="159.28572"
+       sodipodi:ry="100"
+       d="M 437.14287 230.93361 A 159.28572 100 0 1 1  118.57143,230.93361 A 159.28572 100 0 1 1  437.14287 230.93361 z"
+       transform="matrix(0.933429,0.000000,0.000000,0.541795,-64.87259,97.14674)" />
+    <text
+       xml:space="preserve"
+       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#e90000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       x="76.389038"
+       y="245.83214"
+       id="text2040"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2042"
+         x="76.389038"
+         y="245.83214">Rabbit</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       id="path2239"
+       sodipodi:cx="328.57144"
+       sodipodi:cy="320.93362"
+       sodipodi:rx="68.571426"
+       sodipodi:ry="38.57143"
+       d="M 397.14287 320.93362 A 68.571426 38.57143 0 1 1  260.00002,320.93362 A 68.571426 38.57143 0 1 1  397.14287 320.93362 z"
+       transform="matrix(1.607773,0.000000,0.000000,1.061493,-336.8658,-281.0315)" />
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       x="103.96395"
+       y="74.928185"
+       id="text2241"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2243"
+         x="103.96395"
+         y="74.928185">RWiki</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       x="14.421991"
+       y="155.88332"
+       id="text2291"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2293"
+         x="14.421991"
+         y="155.88332">SOAP</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Sans"
+       x="192.65247"
+       y="154.63722"
+       id="text2118"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2120"
+         x="192.65247"
+         y="154.63722">ソース</tspan></text>
+    <path
+       transform="matrix(0.714265,0.000000,0.000000,0.460457,-5.565720,413.8877)"
+       d="M 437.14287 230.93361 A 159.28572 100 0 1 1  118.57143,230.93361 A 159.28572 100 0 1 1  437.14287 230.93361 z"
+       sodipodi:ry="100"
+       sodipodi:rx="159.28572"
+       sodipodi:cy="230.93361"
+       sodipodi:cx="277.85715"
+       id="path2122"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       sodipodi:type="arc" />
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Sans"
+       x="94.549911"
+       y="535.13989"
+       id="text2128"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2130"
+         x="94.549911"
+         y="535.13989">ブラウザ</tspan></text>
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:2.73705721;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 183.75081,91.771895 L 183.48245,181.76445"
+       id="path2141"
+       sodipodi:nodetypes="cc" />
+    <path
+       transform="matrix(1.895115,0.000000,0.000000,1.239385,-434.7770,-16.89626)"
+       d="M 397.14287 320.93362 A 68.571426 38.57143 0 1 1  260.00002,320.93362 A 68.571426 38.57143 0 1 1  397.14287 320.93362 z"
+       sodipodi:ry="38.57143"
+       sodipodi:rx="68.571426"
+       sodipodi:cy="320.93362"
+       sodipodi:cx="328.57144"
+       id="path2149"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       sodipodi:type="arc" />
+    <path
+       sodipodi:nodetypes="cc"
+       id="path2143"
+       d="M 187.24968,412.18489 L 188.14761,486.65305"
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:3.16000009;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text2145"
+       y="469.61569"
+       x="23.752321"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       xml:space="preserve"><tspan
+         y="469.61569"
+         x="23.752321"
+         id="tspan2147"
+         sodipodi:role="line">HTTP</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text2151"
+       y="397.3212"
+       x="88.802162"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       xml:space="preserve"><tspan
+         y="397.3212"
+         x="88.802162"
+         id="tspan2153"
+         sodipodi:role="line">Rabrick</tspan></text>
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:3.4180305;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 186.08339,264.62201 L 186.98132,351.74811"
+       id="path2155"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       x="7.4242444"
+       y="316.78647"
+       id="text2157"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2159"
+         x="7.4242444"
+         y="316.78647">dRuby</tspan></text>
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:0.96235913px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 378.80053,4.5113848 L 378.80053,603.31227"
+       id="path2163" />
+    <path
+       transform="matrix(0.933429,0.000000,0.000000,0.541795,311.1275,39.14674)"
+       d="M 437.14287 230.93361 A 159.28572 100 0 1 1  118.57143,230.93361 A 159.28572 100 0 1 1  437.14287 230.93361 z"
+       sodipodi:ry="100"
+       sodipodi:rx="159.28572"
+       sodipodi:cy="230.93361"
+       sodipodi:cx="277.85715"
+       id="path2165"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       sodipodi:type="arc" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text2167"
+       y="187.83214"
+       x="452.38904"
+       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#e90000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       xml:space="preserve"><tspan
+         y="187.83214"
+         x="452.38904"
+         id="tspan2169"
+         sodipodi:role="line">Rabbit</tspan></text>
+    <path
+       transform="matrix(1.607773,0.000000,0.000000,1.124724,51.13416,24.55224)"
+       d="M 397.14287 320.93362 A 68.571426 38.57143 0 1 1  260.00002,320.93362 A 68.571426 38.57143 0 1 1  397.14287 320.93362 z"
+       sodipodi:ry="38.57143"
+       sodipodi:rx="68.571426"
+       sodipodi:cy="320.93362"
+       sodipodi:cx="328.57144"
+       id="path2171"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       sodipodi:type="arc" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text2173"
+       y="404.92819"
+       x="491.96396"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       xml:space="preserve"><tspan
+         y="404.92819"
+         x="491.96396"
+         id="tspan2175"
+         sodipodi:role="line">RWiki</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text2181"
+       y="330.63724"
+       x="382.30185"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Sans"
+       xml:space="preserve"><tspan
+         y="330.63724"
+         x="382.30185"
+         id="tspan2183"
+         sodipodi:role="line">ソース</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:#f2f4e6;fill-opacity:1;fill-rule:nonzero;stroke:#343634;stroke-opacity:1;display:inline"
+       id="path2185"
+       sodipodi:cx="277.85715"
+       sodipodi:cy="230.93361"
+       sodipodi:rx="159.28572"
+       sodipodi:ry="100"
+       d="M 437.14287 230.93361 A 159.28572 100 0 1 1  118.57143,230.93361 A 159.28572 100 0 1 1  437.14287 230.93361 z"
+       transform="matrix(0.714265,0.000000,0.000000,0.460457,382.4343,413.8877)" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text2187"
+       y="535.13989"
+       x="482.54993"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Sans"
+       xml:space="preserve"><tspan
+         y="535.13989"
+         x="482.54993"
+         id="tspan2189"
+         sodipodi:role="line">ブラウザ</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       id="path2191"
+       d="M 593.19281,204.6267 L 594.57383,346.00628"
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:3.40067124;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:3.16000009;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 575.24968,412.18489 L 576.14761,486.65305"
+       id="path2195"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       x="411.75232"
+       y="469.61569"
+       id="text2197"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2199"
+         x="411.75232"
+         y="469.61569">HTTP</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       id="path2205"
+       d="M 537.11303,350.90678 L 536.07998,220.92995"
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:4.1748271;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Mend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text2207"
+       y="272.53955"
+       x="492.63428"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Serif"
+       xml:space="preserve"><tspan
+         y="272.53955"
+         x="492.63428"
+         id="tspan2209"
+         sodipodi:role="line">dRuby</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:48px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Sans"
+       x="601.95123"
+       y="328.98782"
+       id="text2211"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2213"
+         x="601.95123"
+         y="328.98782">画像</tspan></text>
+  </g>
+</svg>

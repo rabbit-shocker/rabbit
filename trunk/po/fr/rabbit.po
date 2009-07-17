@@ -1,0 +1,2452 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Rabbit 0.5.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-05 00:58+0900\n"
+"PO-Revision-Date: 2007-12-15 20:07+0900\n"
+"Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
+"Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../../lib/rabbit/renderer/base.rb:450
+msgid "%s does not support: %s"
+msgstr "%s n'est pas supporté."
+
+#: ../../lib/rabbit/theme/applier.rb:586
+#: ../../lib/rabbit/theme/auto-slide/auto-slide.rb:1
+#: ../../lib/rabbit/theme/slide-background/slide-background.rb:1
+msgid "%s is deprecated. Use %s instead."
+msgstr "%s est déprécié. Veuillez utiliser %s à la place."
+
+#: ../../lib/rabbit/image/pdf.rb:43
+msgid "%s page isn't exist in PDF"
+msgstr "La page %s n'existe pas dans le PDF."
+
+#: ../../lib/rabbit/info-window.rb:78
+msgid "%s: Information window"
+msgstr "%s: Fenêtre d'information"
+
+#: ../../bin/rabbit:100
+msgid "(ARGV: if no filename is given)"
+msgstr "(ARGV: si aucun fichier a été donné)"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:7
+#: ../../lib/rabbit/theme/headline-logo/property.rb:7
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:7
+#: ../../lib/rabbit/theme/slide-logo/property.rb:7
+#: ../../lib/rabbit/theme/title-background-color/property.rb:7
+#: ../../lib/rabbit/theme/title-background-image/property.rb:8
+#: ../../lib/rabbit/theme/title-logo/property.rb:7
+msgid "(Must be specified.)"
+msgstr "(Doit être spécifié.)"
+
+#: ../../lib/rabbit/console.rb:69 ../../bin/rabbit:110 ../../bin/rabbit:116
+#: ../../bin/rabbit:257 ../../bin/rabbit:264 ../../bin/rabbit:271
+#: ../../bin/rabbit:278 ../../bin/rabbit:303 ../../bin/rabbit:310
+#: ../../bin/rabbit:317 ../../bin/rabbit:324 ../../bin/rabbit:454
+msgid "(auto)"
+msgstr "(auto)"
+
+#: ../../bin/rabbit:448
+msgid "(default source)"
+msgstr "(source par défaut)"
+
+#: ../../bin/rabbit:236
+msgid "(landscape A4 height)"
+msgstr "(hauteur d'une page A4 paysage)"
+
+#: ../../bin/rabbit:242
+msgid "(landscape A4 size)"
+msgstr "(taille d'une page A4 paysage)"
+
+#: ../../bin/rabbit:229
+msgid "(landscape A4 width)"
+msgstr "(largeur d'une page A4 paysage)"
+
+#: ../../bin/rabbit:475
+msgid "3D"
+msgstr "3D"
+
+#: ../../lib/rabbit/theme/comment/property.rb:3
+msgid "A theme for comment window"
+msgstr ""
+
+#: ../../lib/rabbit/theme/document.erb:10
+msgid "Abstract"
+msgstr "Grandes lignes"
+
+#: ../../lib/rabbit/theme/powered-by/property.rb:22
+msgid "Ad text."
+msgstr ""
+
+#: ../../bin/rabbit:71 ../../bin/rabbit-theme-manager:27
+msgid "Add [PATH] to load path."
+msgstr "Ajout de [PATH] au chemin de chargement"
+
+#: ../../lib/rabbit/parser/rd/ext/anthy.rb:13
+#: ../../lib/rabbit/parser/wiki/output.rb:407
+msgid "Anthy isn't available"
+msgstr "Anthy n'est pas disponible"
+
+#: ../../lib/rabbit/theme/auto-slide/property.rb:2
+#, fuzzy
+msgid "Auto Slide"
+msgstr "Dernier transparent"
+
+#: ../../bin/rabbit-theme-manager:125
+msgid "Available commands: %s"
+msgstr "Commandes disponibles: %s"
+
+#: ../../lib/rabbit/theme/title-background-color/property.rb:8
+msgid "Background color."
+msgstr "Couleur de fond."
+
+#: ../../lib/rabbit/theme/auto-slide/property.rb:1
+#: ../../lib/rabbit/theme/slide-background/property.rb:1
+msgid "Backward compatibility"
+msgstr "Compatibilité avec les versions précédentes"
+
+#: ../../lib/rabbit/theme/slide-background/property.rb:3
+msgid "Backward compatibility theme for ((<slide-background-image>))"
+msgstr ""
+"Thème pour compatibilité avec les versions précédentes pour ((<slide-"
+"background-image>))"
+
+#: ../../lib/rabbit/theme/auto-slide/property.rb:3
+#, fuzzy
+msgid "Backward compatibility theme for ((<slide-show>))"
+msgstr ""
+"Thème pour compatibilité avec les versions précédentes pour ((<slide-"
+"background-image>))"
+
+#: ../../lib/rabbit/theme/base/property.rb:2
+msgid "Base"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:37
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:37
+msgid "Base y-axis position to stroke line."
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:32 ../../lib/rabbit/action/toggle.rb:23
+#, fuzzy
+msgid "Blackout"
+msgstr "Fondu au noir"
+
+#: ../../lib/rabbit/theme/blue-bar/property.rb:2
+#, fuzzy
+msgid "Blue Bar"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/blue-circle/property.rb:2
+msgid "Blue Circle"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/blue-circle/property.rb:3
+msgid "Blue Circle theme"
+msgstr "Theme Cercle bleu"
+
+#: ../../lib/rabbit/theme/blue-bar/property.rb:3
+#, fuzzy
+msgid "Blue bar theme"
+msgstr "Theme Cercle bleu"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:20
+msgid "Bottom margin of an image."
+msgstr ""
+
+#: ../../lib/rabbit/theme/cozmixng/property.rb:2
+msgid "COZMIXNG"
+msgstr "COZMIXNG"
+
+#: ../../lib/rabbit/theme/cozmixng/property.rb:3
+msgid "COZMIXNG theme"
+msgstr "Theme COZMIXNG"
+
+#: ../../data/rabbit/image/cozmixng-images/property.rb:2
+msgid "COZMIXNGImage"
+msgstr "Image COZMIXNG"
+
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:2
+msgid "COZMIXNGPoweredBy"
+msgstr "Powered by COZMIXNG"
+
+#: ../../lib/rabbit/action/basic.rb:175
+msgid "Cache all slides"
+msgstr "Mettre tous les slides en cache"
+
+#: ../../lib/rabbit/theme/document.erb:6
+msgid "Category"
+msgstr "Catégorie"
+
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:2
+msgid "Centering Rabbit"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:206
+msgid "Change graffiti color"
+msgstr "Changer la couleur de dessin main levée"
+
+#: ../../lib/rabbit/action/basic.rb:102
+msgid "Change theme"
+msgstr "Changer de thème"
+
+#: ../../lib/rabbit/theme/clear-blue/property.rb:2
+#, fuzzy
+msgid "Clear Blue"
+msgstr "Mettre tous les slides en cache"
+
+#: ../../data/rabbit/image/clear-blue-images/property.rb:2
+msgid "Clear Blue Image"
+msgstr ""
+
+#: ../../lib/rabbit/theme/clear-blue/property.rb:3
+#, fuzzy
+msgid "Clear blue theme"
+msgstr "Theme Cercle bleu"
+
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:3
+msgid "Clear blue theme with Lightning Talk theme"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:190
+msgid "Clear graffiti"
+msgstr "Effacer les dessins à main levée"
+
+#: ../../lib/rabbit/action/basic.rb:137
+#, fuzzy
+msgid "Clear slide"
+msgstr "Mettre tous les slides en cache"
+
+#: ../../lib/rabbit/theme/clock/property.rb:3
+msgid "Clock toolkit, a text version"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/property.rb:2
+#, fuzzy
+msgid "Color Circle"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:2
+#, fuzzy
+msgid "Color Circle Description"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:2
+#, fuzzy
+msgid "Color Circle Foot Text"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:2
+#, fuzzy
+msgid "Color Circle Item Mark"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:2
+#, fuzzy
+msgid "Color Circle Method List"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:2
+#, fuzzy
+msgid "Color Circle Preformatted"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:2
+#, fuzzy
+msgid "Color Circle Slide"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:2
+#, fuzzy
+msgid "Color Circle Text"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:2
+#, fuzzy
+msgid "Color Circle Title Slide"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:2
+#, fuzzy
+msgid "Color Circle Title text"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:2
+msgid "Color Circle block quote"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-common/property.rb:2
+msgid "Color Circle common"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-background-color/property.rb:4
+msgid "Color a background of the title slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:41
+msgid "Color of numbers displayed on the start and goal flags."
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-shadow/property.rb:9
+msgid "Color of shadow."
+msgstr ""
+
+#: ../../lib/rabbit/canvas.rb:742 ../../lib/rabbit/theme/comment/property.rb:2
+#: ../../bin/rabbit:444
+msgid "Comment"
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:30
+msgid "Comment frame"
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:37
+msgid "Comment view"
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:59
+msgid "Common options"
+msgstr ""
+
+#: ../../bin/rabbit-command:51
+#, fuzzy
+msgid "Control commands"
+msgstr "Propriété inconnue : %s"
+
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:1
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:1
+msgid "Convenience"
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:3
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:3
+msgid ""
+"Convenience '\n"
+"' newline notation."
+msgstr ""
+
+#: ../../lib/rabbit/html/generator.rb:48
+msgid "Creating a image for the %dth page"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:17
+msgid "DEBUG"
+msgstr ""
+
+#: ../../bin/rabbit:726
+msgid "DRb.thread done."
+msgstr ""
+
+#: ../../lib/rabbit/theme/day-white/property.rb:2
+msgid "Day White"
+msgstr ""
+
+#: ../../lib/rabbit/theme/day-white/property.rb:3
+#, fuzzy
+msgid "Day White theme"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/action/radio.rb:48
+#: ../../lib/rabbit/theme/show-frame/property.rb:1
+msgid "Debug"
+msgstr ""
+
+#: ../../lib/rabbit/theme/show-frame/property.rb:3
+msgid "Debug toolkit to show element frames"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default/property.rb:2
+#, fuzzy
+msgid "Default"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:2
+#, fuzzy
+msgid "Default Block Quote"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:2
+#, fuzzy
+msgid "Default Foot Text"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:2
+#, fuzzy
+msgid "Default Item Mark Setup"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-method-list/property.rb:2
+msgid "Default Method List"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:2
+#, fuzzy
+msgid "Default Preformatted"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-slide/property.rb:2
+#, fuzzy
+msgid "Default Slide"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-text/property.rb:2
+#, fuzzy
+msgid "Default Text"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-title-text/property.rb:2
+#, fuzzy
+msgid "Default Title Text"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/document.erb:31
+#, fuzzy
+msgid "Default: "
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-description/property.rb:2
+msgid "DefaultDescription"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-icon/property.rb:2
+#, fuzzy
+msgid "DefaultIcon"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:2
+#, fuzzy
+msgid "DefaultItemMark"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:2
+msgid "DefaultTitleSlide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/base/property.rb:3
+msgid "Define default variables"
+msgstr ""
+
+#: ../../lib/rabbit/theme/document.erb:21
+msgid "Dependency themes"
+msgstr ""
+
+#: ../../lib/rabbit/theme/document.erb:15
+msgid "Description"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:34
+msgid "Direction of automatic scrolling."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:4
+msgid "Displays Lavie as a logo at the headlines of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:4
+msgid "Displays Lavie as a logo in the title slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:4
+msgid ""
+"Displays a text and an image showing the presentation slides are powered by "
+"Rabbit and COZMIXNG at the foot of the title slide and of the last slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:4
+msgid ""
+"Displays a text and images showing the presentation slides are powered by "
+"COZMIXNG and Rabbit at the foot of the title slide and of the last slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:4
+msgid "Displays an image as a background of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-background-image/property.rb:5
+msgid "Displays an image as a background of the title slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:4
+msgid "Displays an image as a logo at the footer of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/headline-logo/property.rb:4
+msgid "Displays an image as a logo at the headlines of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:4
+msgid "Displays an image as a logo at the top of all slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-logo/property.rb:4
+msgid "Displays an image as a logo in the title slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:3
+msgid "Displays block quote text with frame."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:4
+msgid "Displays colorful balls at the head of list items."
+msgstr ""
+
+#: ../../lib/rabbit/theme/clock/property.rb:4
+msgid "Displays current time with text."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:5
+msgid ""
+"Displays description-list items like ones in the website of the Ruby-GNOME2 "
+"Project; i.e. displays their text colored blue."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-description/property.rb:5
+msgid "Displays description-list items with orange underlines."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:3
+msgid "Displays foot text at the footer of slide with Ruby-GNOME2 style."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:3
+msgid "Displays foot text at the footer of slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-slide/property.rb:3
+msgid "Displays headline with line."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:5
+msgid ""
+"Displays headlines like ones in the website of the Ruby-GNOME2 Project; i.e. "
+"displays their text colored white and placed in the dark red boxes with pink "
+"frames."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:4
+msgid "Displays information with a line at the footer of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:4
+msgid "Displays information with a line at the header of slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:3
+msgid "Displays information with line at the edge of slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:5
+msgid ""
+"Displays list items like ones in the website of the Ruby-GNOME2 Project; i."
+"e. displays text of the first-level items colored blue and underlined, the "
+"second- and third-level items marked with black squares and circles."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-method-list/property.rb:3
+msgid "Displays method description with indent."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:3
+msgid "Displays preformatted text with Ruby-GNOME2 style."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:3
+msgid "Displays preformatted text with frame."
+msgstr ""
+
+#: ../../lib/rabbit/theme/powered-by/property.rb:4
+msgid ""
+"Displays programs the presentation slides are powered by (or displays some "
+"other ads) at the foot of the title slide and of the last slide. Images and/"
+"or a text are available as ads."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:3
+msgid "Displays quotation block with quote mark in frame."
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-shadow/property.rb:4
+msgid "Displays shadows behind the title string in the title slide."
+msgstr ""
+
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:4
+msgid "Displays simple black circles at the head of list items."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-number/property.rb:4
+msgid "Displays slide numbers with text at the bottom of the slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:3
+msgid "Displays slides for lightning talk"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:3
+msgid "Displays slides with Ruby-GNOME2 style."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:4
+msgid "Displays squares at the head of list items."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:4
+msgid ""
+"Displays the progress of presentation with position of an image. This is "
+"useful both for speakers and for listeners to know elapsed slide numbers and "
+"slide numbers left. By default, an image of a hare, which is a family of "
+"rabbit, jumps along the bottom of slides between two flags.\n"
+"\n"
+"Using together with another theme, ((<image-timer>)), you can make a hare "
+"and a tortoise race like the fable of the hare and the tortoise. When doing "
+"so, however, note that you should make your presentation not so slowly that "
+"the hare will lose to the tortoise."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:4
+msgid ""
+"Displays the progress of time with position of an image. This is useful both "
+"for speakers and for listeners to know elapsed time and time left. By "
+"default, a tortoise image walks along the bottom of slides slowly step by "
+"step.\n"
+"\n"
+"Using together with another theme, ((<image-slide-number>)), you can make a "
+"hare and a tortoise race like the fable of the hare and the tortoise. When "
+"doing so, however, note that you should make your presentation not so slowly "
+"that the hare will lose to the tortoise."
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:3
+msgid "Displays title on image"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:20
+msgid "ERROR"
+msgstr ""
+
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:2
+msgid "Edge Info Toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/mirror-effect/property.rb:1
+#: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:1
+#: ../../lib/rabbit/theme/scroll-effect/property.rb:1
+msgid "Effect"
+msgstr ""
+
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:2
+msgid "Emphasize Keyword"
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:4
+msgid ""
+"Enable '\n"
+"' notation to insert newline in all slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:4
+msgid ""
+"Enable '\n"
+"' notation to insert newline in title."
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:63
+msgid "Error"
+msgstr ""
+
+#: ../../lib/rabbit/theme/entry.rb:89
+msgid "Etc"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:240
+msgid "Expand hole"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:21
+msgid "FATAL"
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:68
+msgid "Fatal"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:38
+msgid ""
+"File name of an image that moves. A tortoise image in the ((<rabbit-"
+"images>)) theme is used by default."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:22
+msgid ""
+"File name of an image that moves. An image of a hare in the ((<rabbit-"
+"images>)) theme is used by default."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:56
+msgid "File name of an image used as the goal flag."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:52
+msgid "File name of an image used as the start flag."
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:40
+msgid "First slide"
+msgstr "Premier transparent"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:2
+msgid "Footer Logo"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:46
+msgid ""
+"Form of the start and goal flags. Avaiable forms are (({'triangle'})) and "
+"(({'rectangle'}))."
+msgstr ""
+
+#: ../../lib/rabbit/theme/show-frame/property.rb:8
+msgid "Frame color."
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:52
+#, fuzzy
+msgid "Full screen"
+msgstr "/Plein écran"
+
+#: ../../bin/rabbit-theme-manager:91
+msgid "Generating documents for locale <%s>..."
+msgstr ""
+
+#: ../../lib/rabbit/theme-browser/page.rb:96
+msgid "Go back"
+msgstr ""
+
+#: ../../lib/rabbit/theme-browser/page.rb:101
+msgid "Go forward"
+msgstr ""
+
+#: ../../lib/rabbit/theme-browser/page.rb:112
+msgid "Go up"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:182
+msgid "Graffiti"
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:64
+msgid "Graffiti mode"
+msgstr ""
+
+#: ../../lib/rabbit/theme/green-circle/property.rb:2
+#, fuzzy
+msgid "Green Circle"
+msgstr "Cercle bleu"
+
+#: ../../lib/rabbit/theme/green-circle/property.rb:3
+#, fuzzy
+msgid "Green Circle theme"
+msgstr "Theme Cercle bleu"
+
+#: ../../lib/rabbit/theme/headline-logo/property.rb:2
+msgid "HeadlineLogo"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:18
+msgid "INFO"
+msgstr ""
+
+#: ../../lib/rabbit/theme/icon/property.rb:2
+#, fuzzy
+msgid "Icon"
+msgstr "/Minimiser la fenêtre"
+
+#: ../../lib/rabbit/action/basic.rb:91
+#, fuzzy
+msgid "Iconify"
+msgstr "/Minimiser la fenêtre"
+
+#: ../../lib/rabbit/theme/image/property.rb:2
+#: ../../data/rabbit/image/clear-blue-images/property.rb:1
+#: ../../data/rabbit/image/cozmixng-images/property.rb:1
+#: ../../data/rabbit/image/rabbit-images/property.rb:1
+#: ../../data/rabbit/image/ruby-images/property.rb:1
+msgid "Image"
+msgstr ""
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:8
+#: ../../lib/rabbit/theme/headline-logo/property.rb:8
+#: ../../lib/rabbit/theme/icon/property.rb:22
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:8
+#: ../../lib/rabbit/theme/slide-logo/property.rb:8
+#: ../../lib/rabbit/theme/title-background-image/property.rb:9
+#: ../../lib/rabbit/theme/title-logo/property.rb:8
+msgid "Image file name."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:20
+msgid "Image height."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:12
+msgid "Image position. :right or :left."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-viewer/property.rb:2
+#, fuzzy
+msgid "Image viewer"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:16
+msgid "Image width."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:2
+msgid "ImageSlideNumber"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:2
+#, fuzzy
+msgid "ImageTimer"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme-browser/document.rb:110
+#, fuzzy
+msgid "Images"
+msgstr "/Recharger le thème"
+
+#: ../../data/rabbit/image/clear-blue-images/property.rb:3
+msgid "Images related to ((<clear-blue>)) theme"
+msgstr ""
+
+#: ../../data/rabbit/image/cozmixng-images/property.rb:3
+msgid "Images related to COZMIXNG"
+msgstr ""
+
+#: ../../data/rabbit/image/rabbit-images/property.rb:3
+msgid "Images related to Rabbit"
+msgstr ""
+
+#: ../../data/rabbit/image/ruby-images/property.rb:3
+msgid "Images related to Ruby"
+msgstr ""
+
+#: ../../lib/rabbit/element/index-slide.rb:103
+#: ../../lib/rabbit/html/generator.rb:386
+#, fuzzy
+msgid "Index"
+msgstr "/Mode index"
+
+#: ../../lib/rabbit/action/toggle.rb:44
+#, fuzzy
+msgid "Index mode"
+msgstr "/Mode index"
+
+#: ../../lib/rabbit/action/radio.rb:53
+msgid "Info"
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:72
+msgid "Information window"
+msgstr ""
+
+#: ../../bin/rabbit:121
+msgid "Initial state"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:58
+#, fuzzy
+msgid "Jump to"
+msgstr "/Aller à"
+
+#: ../../lib/rabbit/menu.rb:61
+msgid "Jump to the %dth slide"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:48
+msgid "Last slide"
+msgstr "Dernier transparent"
+
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:2
+#, fuzzy
+msgid "Lightning Clear Blue"
+msgstr "Mettre tous les slides en cache"
+
+#: ../../lib/rabbit/theme/lightning-talk/property.rb:3
+msgid "Lightning Talk theme"
+msgstr ""
+
+#: ../../lib/rabbit/theme/lightning-simple/property.rb:3
+msgid "Lightning Talk theme simple version"
+msgstr ""
+
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:2
+msgid "LightningRabbit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/lightning-talk/property.rb:2
+msgid "LightningTalk"
+msgstr ""
+
+#: ../../lib/rabbit/theme/lightning-simple/property.rb:2
+msgid "LightningTalk-Simple"
+msgstr ""
+
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:2
+msgid "LightningTalk-Toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:21
+msgid "Limit time by second."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:8
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:8
+#, fuzzy
+msgid "Line color."
+msgstr "Couleur de fond."
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:16
+msgid ""
+"Line fill pattern. @slide_footer_info_line_color is ignored if this "
+"parameter is specified."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:16
+msgid ""
+"Line fill pattern. @slide_header_info_line_color is ignored if this "
+"parameter is specified."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:12
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:12
+msgid "Line width."
+msgstr ""
+
+#: ../../lib/rabbit/graffiti/config-dialog.rb:48
+msgid "Line width:"
+msgstr ""
+
+#: ../../lib/rabbit/theme/icon/property.rb:18
+#: ../../lib/rabbit/theme/powered-by/property.rb:18
+msgid "List of image file names."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:4
+msgid ""
+"Locates objects in the title slide simply by centering them and by making "
+"configuration for margins around them a little."
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:301
+msgid "Log Level"
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:86
+msgid "Magnifier"
+msgstr ""
+
+#: ../../bin/rabbit:252
+msgid "Margin"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:112
+#, fuzzy
+msgid "Merge theme"
+msgstr "/Recharger le thème"
+
+#: ../../bin/rabbit:458
+msgid "Migemo"
+msgstr ""
+
+#: ../../lib/rabbit/theme/mirror-effect/property.rb:2
+msgid "Mirror Effect"
+msgstr ""
+
+#: ../../bin/rabbit-command:21
+#, fuzzy
+msgid "Move commands"
+msgstr "Commandes disponibles: %s"
+
+#: ../../bin/rabbit-command:27
+msgid "Move to next"
+msgstr ""
+
+#: ../../bin/rabbit-command:23
+msgid "Move to previous"
+msgstr ""
+
+#: ../../bin/rabbit-command:47
+msgid "Move to the Nth slide"
+msgstr ""
+
+#: ../../bin/rabbit-command:39
+msgid "Move to the first slide"
+msgstr ""
+
+#: ../../bin/rabbit-command:43
+msgid "Move to the last slide"
+msgstr ""
+
+#: ../../bin/rabbit-command:35
+msgid "Move to the next slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-show/property.rb:4
+msgid "Move to the next slide automatically."
+msgstr ""
+
+#: ../../bin/rabbit-command:31
+#, fuzzy
+msgid "Move to the previous slide"
+msgstr "Transparent précédent"
+
+#: ../../lib/rabbit/theme/document.erb:3
+msgid "Name"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:247
+msgid "Narrow hole"
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-slides/property.rb:2
+msgid "Newline in Slides"
+msgstr ""
+
+#: ../../lib/rabbit/theme/newline-in-title/property.rb:2
+msgid "Newline in Title"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:8
+msgid "Next"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:24
+msgid "Next slide"
+msgstr "Transparent suivant"
+
+#: ../../lib/rabbit/theme/night-black/property.rb:2
+msgid "Night Black"
+msgstr ""
+
+#: ../../lib/rabbit/theme/night-black/property.rb:3
+msgid "Night Black theme"
+msgstr ""
+
+#: ../../bin/rabbit:98
+msgid "Note: case insensitive."
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:158
+msgid "Now processing... Do you really quit?"
+msgstr ""
+
+#: ../../bin/rabbit:483
+msgid "Others"
+msgstr ""
+
+#: ../../bin/rabbit:185
+msgid "Output HTML for viewing saved images."
+msgstr ""
+
+#: ../../bin/rabbit:191
+msgid "Output index HTML for navigating slides."
+msgstr ""
+
+#: ../../lib/rabbit/html/generator.rb:393
+#: ../../lib/rabbit/theme/pdf/property.rb:2
+msgid "PDF"
+msgstr ""
+
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:2
+msgid "PDF with The Tortoise and The Hare"
+msgstr ""
+
+#: ../../bin/rabbit:224
+msgid "Paper"
+msgstr ""
+
+#: ../../lib/rabbit/theme/document.erb:28
+msgid "Parameters"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-logo/property.rb:12
+msgid ""
+"Position of the logo. The logo will be set at the upper-right corner when "
+"'(({:right}))', and at the upper-left corner when '(({:left}))'."
+msgstr ""
+
+#: ../../lib/rabbit/theme/powered-by/property.rb:3
+msgid "Powered-by ad toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:3
+msgid "Powered-by-COZMIXNG ad toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:3
+msgid "Powered-by-Rabbit ad toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/powered-by/property.rb:2
+msgid "PoweredBy"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:16
+#, fuzzy
+msgid "Previous"
+msgstr "Transparent précédent"
+
+#: ../../lib/rabbit/action/basic.rb:32
+msgid "Previous slide"
+msgstr "Transparent précédent"
+
+#: ../../lib/rabbit/action/basic.rb:83 ../../bin/rabbit:203
+#, fuzzy
+msgid "Print"
+msgstr "/Imprimer"
+
+#: ../../bin/rabbit:206
+msgid "Print and exit."
+msgstr ""
+
+#: ../../lib/rabbit/canvas.rb:659
+msgid "Processing..."
+msgstr ""
+
+#: ../../lib/rabbit/theme/clock/property.rb:13
+msgid "Properties for the clock, such as font family."
+msgstr ""
+
+#: ../../lib/rabbit/theme/powered-by/property.rb:14
+msgid "Properties of the ad text, such as font family."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-number/property.rb:12
+msgid "Properties of the slide numbers, such as font family."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-common/property.rb:3
+msgid "Provide common methods for Color Circle toolkit."
+msgstr ""
+
+#: ../../lib/rabbit/theme/mirror-effect/property.rb:3
+msgid "Provide mirror_effect method that flips content."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:3
+msgid "Provide rotate_zoom_effect method that rotates and zooms content."
+msgstr ""
+
+#: ../../lib/rabbit/theme/scroll-effect/property.rb:3
+msgid "Provide scroll_effect method that scrolls content."
+msgstr ""
+
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:3
+msgid ""
+"Provides emphasize_keyword method that markups specified keyword as emphasis "
+"text."
+msgstr ""
+
+#: ../../data/rabbit/image/clear-blue-images/property.rb:4
+msgid "Provides images related to ((<clear-blue>)) theme."
+msgstr ""
+
+#: ../../data/rabbit/image/cozmixng-images/property.rb:4
+msgid "Provides images related to COZMIXNG."
+msgstr ""
+
+#: ../../data/rabbit/image/rabbit-images/property.rb:4
+msgid "Provides images related to Rabbit."
+msgstr ""
+
+#: ../../data/rabbit/image/ruby-images/property.rb:4
+msgid "Provides images related to Ruby."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:3
+msgid "Provides methods to set item mark style up."
+msgstr ""
+
+#: ../../bin/rabbit:422
+msgid "Public level"
+msgstr ""
+
+#: ../../bin/rabbit-command:69
+#, fuzzy
+msgid "Quit"
+msgstr "/Quitter"
+
+#: ../../bin/rabbit:198
+msgid "RSS is generated only when HTML is output."
+msgstr ""
+
+#: ../../lib/rabbit/parser/rd/ext/block-verbatim.rb:68
+#, fuzzy
+msgid "RTtool isn't available"
+msgstr "Anthy n'est pas disponible"
+
+#: ../../lib/rabbit/stock.rb:17 ../../lib/rabbit/theme/rabbit/property.rb:2
+#, fuzzy
+msgid "Rabbit"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:2
+#, fuzzy
+msgid "Rabbit Block Quote"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/logger/gui.rb:72
+msgid "Rabbit Error Dialog"
+msgstr "Boite de dialogue d'erreur de Rabbit"
+
+#: ../../lib/rabbit/theme/rabbit/property.rb:3
+#, fuzzy
+msgid "Rabbit theme"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:3
+msgid "Rabbit theme with Lightning Talk theme"
+msgstr ""
+
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:3
+msgid "Rabbit theme with text centering."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:2
+msgid "RabbitHeadlineLogo"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:2
+msgid "RabbitIcon"
+msgstr ""
+
+#: ../../data/rabbit/image/rabbit-images/property.rb:2
+#, fuzzy
+msgid "RabbitImage"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:2
+#, fuzzy
+msgid "RabbitItemMark"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:2
+msgid "RabbitPoweredBy"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:2
+msgid "RabbitTitleLogo"
+msgstr ""
+
+#: ../../lib/rabbit/theme/red-frame/property.rb:3
+#, fuzzy
+msgid "Red frame theme"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/red-frame/property.rb:2
+#, fuzzy
+msgid "RedFrame"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/action/basic.rb:129
+#, fuzzy
+msgid "Redraw"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme-browser/page.rb:119
+#, fuzzy
+msgid "Reload"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/action/basic.rb:121
+#, fuzzy
+msgid "Reload theme"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/action/basic.rb:224
+msgid "Reset adjustment"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:232
+#, fuzzy
+msgid "Reset timer"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:16
+msgid "Right margin of an image."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rotate-zoom-effect/property.rb:2
+msgid "Rotate Zoom Effect"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:2
+msgid "Ruby-GNOME2"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:2
+msgid "Ruby-GNOME2 Foot Text"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:2
+msgid "Ruby-GNOME2 Preformatted"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:2
+msgid "Ruby-GNOME2 Slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:3
+msgid "Ruby-GNOME2 theme"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:2
+msgid "RubyGNOME2Description"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:2
+msgid "RubyGNOME2Headline"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:2
+msgid "RubyGNOME2Icon"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:2
+msgid "RubyGNOME2ItemMark"
+msgstr ""
+
+#: ../../data/rabbit/image/ruby-images/property.rb:2
+#, fuzzy
+msgid "RubyImage"
+msgstr "/Recharger le thème"
+
+#: ../../bin/rabbit:362
+msgid "SOAP"
+msgstr ""
+
+#: ../../bin/rabbit:164
+msgid "Save"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:75
+#, fuzzy
+msgid "Save as image"
+msgstr "/Sauver en tant qu'image"
+
+#: ../../bin/rabbit:167
+msgid "Save as image and exit."
+msgstr ""
+
+#: ../../lib/rabbit/theme/scroll-effect/property.rb:2
+msgid "Scroll Effect"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:263
+msgid "Search slide backward"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:279
+msgid "Search slide backward next"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:255
+msgid "Search slide forward"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:271
+msgid "Search slide forward next"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-background/property.rb:4
+msgid "See ((<slide-background-image>))"
+msgstr ""
+
+#: ../../lib/rabbit/theme/auto-slide/property.rb:4
+msgid "See ((<slide-show>))"
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:84 ../../lib/rabbit/console.rb:101
+#: ../../bin/rabbit:97
+msgid "Select from [%s]."
+msgstr ""
+
+#: ../../bin/rabbit:430
+msgid "Select from the following:"
+msgstr ""
+
+#: ../../bin/rabbit:414
+msgid "Server"
+msgstr ""
+
+#: ../../bin/rabbit:277
+msgid "Set bottom margin for slides per page mode print."
+msgstr ""
+
+#: ../../bin/rabbit:323
+msgid "Set bottom page margin."
+msgstr ""
+
+#: ../../bin/rabbit:256
+msgid "Set left margin for slides per page mode print."
+msgstr ""
+
+#: ../../bin/rabbit:302
+msgid "Set left page margin."
+msgstr ""
+
+#: ../../bin/rabbit:288
+msgid "Set margin for slides per page mode print."
+msgstr ""
+
+#: ../../bin/rabbit:330
+msgid "Set page margin."
+msgstr ""
+
+#: ../../bin/rabbit:235
+msgid "Set paper height to [HEIGHT] Pt."
+msgstr ""
+
+#: ../../bin/rabbit:240
+msgid ""
+"Set paper width and height to\n"
+"[WIDTH] Pt and [HEIGHT] Pt."
+msgstr ""
+
+#: ../../bin/rabbit:228
+msgid "Set paper width to [WIDTH] Pt."
+msgstr ""
+
+#: ../../bin/rabbit:263
+msgid "Set right margin for slides per page mode print."
+msgstr ""
+
+#: ../../bin/rabbit:309
+msgid "Set right page margin."
+msgstr ""
+
+#: ../../bin/rabbit:218
+msgid "Set slides per page."
+msgstr ""
+
+#: ../../bin/rabbit:270
+msgid "Set top margin for slides per page mode print."
+msgstr ""
+
+#: ../../bin/rabbit:316
+msgid "Set top page margin."
+msgstr ""
+
+#: ../../bin/rabbit:147 ../../bin/rabbit-theme-manager:50
+msgid "Set window height to [HEIGHT]."
+msgstr ""
+
+#: ../../bin/rabbit:152 ../../bin/rabbit-theme-manager:55
+msgid ""
+"Set window width and height to\n"
+"[WIDTH] and [HEIGHT]."
+msgstr ""
+
+#: ../../bin/rabbit:140 ../../bin/rabbit-theme-manager:43
+msgid "Set window width to [WIDTH]."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-text/property.rb:3
+msgid "Sets default text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-title-text/property.rb:3
+msgid "Sets default title text style up."
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:37
+msgid "Show"
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:34
+msgid "Show [THEME] when startup."
+msgstr ""
+
+#: ../../bin/rabbit:486
+msgid "Show a native window ID of the Rabbit window if available."
+msgstr ""
+
+#: ../../lib/rabbit/theme/show-frame/property.rb:4
+msgid "Show element frames useful for debug."
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:110
+msgid "Show this message."
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:114
+msgid "Show version."
+msgstr ""
+
+#: ../../lib/rabbit/theme/show-frame/property.rb:2
+msgid "ShowFrame"
+msgstr ""
+
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:2
+#, fuzzy
+msgid "SimpleItemMark"
+msgstr "/Recharger le thème"
+
+#: ../../bin/rabbit:136
+msgid "Size"
+msgstr ""
+
+#: ../../lib/rabbit/html/generator.rb:384
+msgid "Slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:2
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:2
+msgid "Slide Footer Info"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:2
+msgid "Slide Logo"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-show/property.rb:2
+msgid "Slide Show"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-background/property.rb:2
+msgid "SlideBackground"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:2
+msgid "SlideBackgroundImage"
+msgstr ""
+
+#: ../../bin/rabbit:83
+msgid "Source"
+msgstr ""
+
+#: ../../lib/rabbit/theme/icon/property.rb:4
+msgid ""
+"Specifies an image or images as icons of the window, which will be used by "
+"some window managers and desktop environments, for example when the window "
+"is minimized (or 'iconified'), in the window frame, or when windows are "
+"switched. The specified image or images are automatically scaled to the icon "
+"sizes case by case. When several images are specified and they have "
+"different sizes, an image with the most similar size to that of icon among "
+"them is chosen and scaled in order to improve the quality of image finally "
+"displayed."
+msgstr ""
+
+#: ../../bin/rabbit-command:16 ../../bin/rabrick:23
+msgid "Specify Rabbit's dRuby URI as [URI]."
+msgstr ""
+
+#: ../../bin/rabbit:371
+msgid "Specify SOAP host as [HOST]."
+msgstr ""
+
+#: ../../bin/rabbit:379
+msgid "Specify SOAP port as [PORT]."
+msgstr ""
+
+#: ../../bin/rabrick:30
+msgid "Specify WEBrick port as [PORT]."
+msgstr ""
+
+#: ../../bin/rabbit:397
+msgid "Specify XML-RPC host as [HOST]."
+msgstr ""
+
+#: ../../bin/rabbit:405
+msgid "Specify XML-RPC port as [PORT]."
+msgstr ""
+
+#: ../../bin/rabbit:197
+msgid "Specify base URI of RSS as [URI]."
+msgstr ""
+
+#: ../../bin/rabbit:115
+msgid "Specify base URI or path of source as [BASE]."
+msgstr ""
+
+#: ../../bin/rabbit:453
+msgid "Specify comment source encoding."
+msgstr ""
+
+#: ../../bin/rabbit:351
+msgid "Specify dRuby URI."
+msgstr ""
+
+#: ../../bin/rabbit:447
+msgid "Specify initial comment source."
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:68
+msgid "Specify locale dir as [DIR]."
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:100
+msgid "Specify log level as [LEVEL]."
+msgstr ""
+
+#: ../../lib/rabbit/console.rb:83
+msgid "Specify logger type as [TYPE]."
+msgstr ""
+
+#: ../../bin/rabbit:211
+msgid "Specify printed out filename as [FILENAME]."
+msgstr ""
+
+#: ../../bin/rabbit:429
+msgid "Specify public level."
+msgstr ""
+
+#: ../../bin/rabbit:179
+msgid "Specify saved image base name as [BASE_NAME]."
+msgstr ""
+
+#: ../../bin/rabbit:172
+msgid "Specify saved image type as [TYPE]."
+msgstr ""
+
+#: ../../bin/rabbit:463
+msgid "Specify search paths for Migemo static dictionary."
+msgstr ""
+
+#: ../../bin/rabbit:109
+msgid "Specify source encoding as [ENCODING]."
+msgstr ""
+
+#: ../../bin/rabbit:96
+msgid "Specify source type as [TYPE]."
+msgstr ""
+
+#: ../../bin/rabbit:470
+msgid "Specify static dictionary name for Migemo."
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:76
+msgid "Specify target locales as [LOC1,LOC2,...]."
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:69
+msgid "Specify theme document directory as [DIR]."
+msgstr ""
+
+#: ../../bin/rabrick:42
+msgid "Specify whether debug mode or not."
+msgstr ""
+
+#: ../../bin/rabrick:36
+msgid "Specify whether service discovery with bonjour enable or not."
+msgstr ""
+
+#: ../../bin/rabbit:357
+msgid "Specify whether to output dRuby URI."
+msgstr ""
+
+#: ../../bin/rabbit:417
+msgid "Specify whether to run as server."
+msgstr ""
+
+#: ../../bin/rabbit:478
+msgid "Specify whether to use OpenGL if available."
+msgstr ""
+
+#: ../../bin/rabbit:365
+msgid "Specify whether to use SOAP."
+msgstr ""
+
+#: ../../bin/rabbit:391
+msgid "Specify whether to use XML-RPC."
+msgstr ""
+
+#: ../../bin/rabbit:345
+msgid "Specify whether to use dRuby."
+msgstr ""
+
+#: ../../lib/rabbit/action/toggle.rb:79
+msgid "Spotlight"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:287
+msgid "Stop slide search"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:4
+msgid "Support itemization in quotation."
+msgstr ""
+
+#: ../../lib/rabbit/theme/table/property.rb:2
+msgid "Table"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:29
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:29
+msgid "Text color."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:21
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:21
+#, fuzzy
+msgid "Text size."
+msgstr "Transparent suivant"
+
+#: ../../lib/rabbit/theme/clock/property.rb:2
+msgid "TextClock"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-number/property.rb:2
+#, fuzzy
+msgid "TextSlideNumber"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/timer/property.rb:2
+#, fuzzy
+msgid "TextTimer"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/blue-bar/property.rb:1
+#: ../../lib/rabbit/theme/blue-circle/property.rb:1
+#: ../../lib/rabbit/theme/centering-rabbit/property.rb:1
+#: ../../lib/rabbit/theme/clear-blue/property.rb:1
+#: ../../lib/rabbit/theme/comment/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng/property.rb:1
+#: ../../lib/rabbit/theme/day-white/property.rb:1
+#: ../../lib/rabbit/theme/default/property.rb:1
+#: ../../lib/rabbit/theme/green-circle/property.rb:1
+#: ../../lib/rabbit/theme/image-viewer/property.rb:1
+#: ../../lib/rabbit/theme/lightning-clear-blue/property.rb:1
+#: ../../lib/rabbit/theme/lightning-rabbit/property.rb:1
+#: ../../lib/rabbit/theme/lightning-simple/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk/property.rb:1
+#: ../../lib/rabbit/theme/night-black/property.rb:1
+#: ../../lib/rabbit/theme/pdf/property.rb:1
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:1
+#: ../../lib/rabbit/theme/rabbit/property.rb:1
+#: ../../lib/rabbit/theme/red-frame/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2/property.rb:1
+#: ../../lib/rabbit/theme-browser/tree.rb:54 ../../bin/rabbit:68
+#, fuzzy
+msgid "Theme"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/pdf/property.rb:3
+msgid "Theme for PDF"
+msgstr ""
+
+#: ../../lib/rabbit/theme/pdf-tortoise-and-hare/property.rb:3
+msgid "Theme for PDF with The Tortoise and The Hare"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-viewer/property.rb:3
+msgid "Theme for image viewer mode"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/property.rb:4
+msgid "There are many colored circles in slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/base/property.rb:4
+msgid "This theme is always included at the first."
+msgstr ""
+
+#: ../../lib/rabbit/theme/clock/property.rb:1
+#: ../../lib/rabbit/theme/image-timer/property.rb:1
+#: ../../lib/rabbit/theme/slide-show/property.rb:1
+#: ../../lib/rabbit/theme/timer/property.rb:1
+#, fuzzy
+msgid "Time"
+msgstr "/Recharger le thème"
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:44
+msgid "Time interval between automatic update."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:3
+msgid "Timer toolkit, an image version"
+msgstr ""
+
+#: ../../bin/rabbit:180 ../../bin/rabbit:212
+msgid "Title of slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:2
+msgid "Title on Image Toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-background-color/property.rb:2
+msgid "TitleBackgroundColor"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-background-image/property.rb:2
+msgid "TitleBackgroundImage"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-logo/property.rb:2
+msgid "TitleLogo"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-shadow/property.rb:2
+msgid "TitleShadow"
+msgstr ""
+
+#: ../../bin/rabbit-command:65
+#, fuzzy
+msgid "Toggle blackout"
+msgstr "Fondu au noir"
+
+#: ../../bin/rabbit:124
+msgid "Toggle full screen mode."
+msgstr ""
+
+#: ../../bin/rabbit-command:53
+#, fuzzy
+msgid "Toggle fullscreen"
+msgstr "/Plein écran"
+
+#: ../../bin/rabbit-command:57
+#, fuzzy
+msgid "Toggle index mode"
+msgstr "/Mode index"
+
+#: ../../bin/rabbit:130
+#, fuzzy
+msgid "Toggle index mode."
+msgstr "/Mode index"
+
+#: ../../bin/rabbit-command:61
+#, fuzzy
+msgid "Toggle whiteout"
+msgstr "/Mode index"
+
+#: ../../lib/rabbit/theme/base/property.rb:1
+#: ../../lib/rabbit/theme/color-circle/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-common/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:1
+#: ../../lib/rabbit/theme/cozmixng-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/default-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/default-description/property.rb:1
+#: ../../lib/rabbit/theme/default-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/default-icon/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/default-item-mark-setup/property.rb:1
+#: ../../lib/rabbit/theme/default-method-list/property.rb:1
+#: ../../lib/rabbit/theme/default-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/default-slide/property.rb:1
+#: ../../lib/rabbit/theme/default-text/property.rb:1
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:1
+#: ../../lib/rabbit/theme/default-title-text/property.rb:1
+#: ../../lib/rabbit/theme/edge-info-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/emphasize-keyword/property.rb:1
+#: ../../lib/rabbit/theme/footer-logo/property.rb:1
+#: ../../lib/rabbit/theme/headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/icon/property.rb:1
+#: ../../lib/rabbit/theme/image/property.rb:1
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:1
+#: ../../lib/rabbit/theme/lightning-talk-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/powered-by/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-block-quote/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-powered-by/property.rb:1
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-foot-text/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-preformatted/property.rb:1
+#: ../../lib/rabbit/theme/ruby-gnome2-slide/property.rb:1
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:1
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:1
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:1
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:1
+#: ../../lib/rabbit/theme/slide-logo/property.rb:1
+#: ../../lib/rabbit/theme/slide-number/property.rb:1
+#: ../../lib/rabbit/theme/table/property.rb:1
+#: ../../lib/rabbit/theme/title-background-color/property.rb:1
+#: ../../lib/rabbit/theme/title-background-image/property.rb:1
+#: ../../lib/rabbit/theme/title-logo/property.rb:1
+#: ../../lib/rabbit/theme/title-on-image-toolkit/property.rb:1
+#: ../../lib/rabbit/theme/title-shadow/property.rb:1
+msgid "Toolkit"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-background-color/property.rb:3
+msgid "Toolkit to color a background of the title slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-headline-logo/property.rb:3
+msgid "Toolkit to display Lavie as a logo at the headlines"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-title-logo/property.rb:3
+msgid "Toolkit to display Lavie as a logo in the title slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-background-image/property.rb:3
+msgid "Toolkit to display an image as a background of slides"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-background-image/property.rb:3
+msgid "Toolkit to display an image as a background of the title slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/headline-logo/property.rb:3
+msgid "Toolkit to display an image as a logo at the headlines"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-logo/property.rb:3
+msgid "Toolkit to display an image as a logo in the title slide"
+msgstr ""
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:3
+msgid "Toolkit to display an image as logo at the footer"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/property.rb:3
+msgid "Toolkit to display an image as logo at the top"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-item-mark/property.rb:3
+msgid "Toolkit to display colorful balls as list item marks"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-description/property.rb:3
+msgid ""
+"Toolkit to display description-list items like ones in the website of the "
+"Ruby-GNOME2 Project"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-description/property.rb:3
+msgid "Toolkit to display description-list items with orange underlines."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-headline/property.rb:3
+msgid ""
+"Toolkit to display headlines like those in the website of the Ruby-GNOME2 "
+"Project"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:3
+msgid "Toolkit to display information at the footer"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:3
+msgid "Toolkit to display information at the header"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-block-quote/property.rb:3
+msgid "Toolkit to display itemization in quotation"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-item-mark/property.rb:3
+msgid ""
+"Toolkit to display list items like ones in the website of the Ruby-GNOME2 "
+"Project"
+msgstr ""
+
+#: ../../lib/rabbit/theme/title-shadow/property.rb:3
+msgid "Toolkit to display shadows behind the title"
+msgstr ""
+
+#: ../../lib/rabbit/theme/simple-item-mark/property.rb:3
+msgid "Toolkit to display simple black circles as list item marks"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-number/property.rb:3
+msgid "Toolkit to display slide numbers, a text version"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:3
+msgid "Toolkit to display slide numbers, an image version"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark/property.rb:3
+msgid "Toolkit to display squares as list item marks"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-show/property.rb:3
+msgid "Toolkit to do slide show"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-title-slide/property.rb:3
+msgid "Toolkit to locate objects in the title slide in a simple way"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/property.rb:3
+msgid "Toolkit to make a theme that has colored circles"
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-description/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's description-list style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-foot-text/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's foot text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-item-mark/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's item marks style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-method-list/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's method-list style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-preformatted/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's preformatted text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-slide/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's slide style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-text/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-title-slide/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's title slide style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle-title-text/property.rb:3
+msgid "Toolkit to set ((<color-circle>)) theme's title text style up."
+msgstr ""
+
+#: ../../lib/rabbit/theme/icon/property.rb:3
+msgid "Toolkit to specify an image or images as icons"
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:3
+msgid "Toolkit to use Lavie as icons"
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:3
+msgid "Toolkit to use a pink circle as icons"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-icon/property.rb:3
+msgid "Toolkit to use pink circle and polygon as icons"
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:22
+msgid "UNKNOWN"
+msgstr ""
+
+#: ../../lib/rabbit/source/uri.rb:25
+msgid "URI"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:198
+msgid "Undo graffiti"
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:73
+msgid "Unknown"
+msgstr ""
+
+#: ../../lib/rabbit/canvas.rb:596
+#, fuzzy
+msgid "Unknown action: %s"
+msgstr "Propriété inconnue : %s"
+
+#: ../../bin/rabbit-theme-manager:124
+#, fuzzy
+msgid "Unknown command: %s"
+msgstr "Propriété inconnue : %s"
+
+#: ../../lib/rabbit/rabbit.rb:91
+msgid "Unknown property: %s"
+msgstr "Propriété inconnue : %s"
+
+#: ../../lib/rabbit/console.rb:44
+msgid "Usage: %s [options]"
+msgstr ""
+
+#: ../../bin/rabbit:76
+msgid "Use [THEME] as theme."
+msgstr ""
+
+#: ../../lib/rabbit/theme/rabbit-icon/property.rb:4
+msgid "Uses Lavie as icons."
+msgstr ""
+
+#: ../../lib/rabbit/theme/ruby-gnome2-icon/property.rb:4
+msgid "Uses a pink circle as icons."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-icon/property.rb:4
+msgid "Uses pink circle and polygon as icons."
+msgstr ""
+
+#: ../../lib/rabbit/logger/base.rb:19
+msgid "WARNING"
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:58
+msgid "Warning"
+msgstr ""
+
+#: ../../bin/rabbit:89
+msgid ""
+"When select %s\n"
+"specify %s\n"
+"as [SOURCE_INFOS]."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:28
+msgid ""
+"Whether drawing start and goal flags with text or not. When (({true})), "
+"flags are drawn with text with a form of (({@image_slide_number_flag_type})) "
+"and on which slide numbers are also drawn with color ((|"
+"@image_slide_number_text_color|)). Otherwise, image files specified with ((|"
+"@image_slide_number_start_image|)) and ((|@image_slide_number_goal_image|)) "
+"are used as flags."
+msgstr ""
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:12
+msgid "Whether keep ratio of an image or not."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:30
+msgid "Whether scrolling automatically or not."
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:33
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:33
+msgid "Whether show a text over line or not."
+msgstr ""
+
+#: ../../lib/rabbit/theme/footer-logo/property.rb:24
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:41
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:41
+#: ../../lib/rabbit/theme/slide-logo/property.rb:24
+msgid "Whether uninstall this theme or not."
+msgstr ""
+
+#: ../../lib/rabbit/theme/clock/property.rb:17
+#: ../../lib/rabbit/theme/image-slide-number/property.rb:60
+#: ../../lib/rabbit/theme/show-frame/property.rb:12
+#: ../../lib/rabbit/theme/slide-number/property.rb:17
+#: ../../lib/rabbit/theme/title-logo/property.rb:19
+msgid ""
+"Whether uninstalling this toolkit or not. This option is useful for cases "
+"you do not want to make the toolkit work for certain slides."
+msgstr ""
+
+#: ../../lib/rabbit/theme/image-timer/property.rb:25
+msgid "Whether updating image position automatically or not."
+msgstr ""
+
+#: ../../lib/rabbit/action/radio.rb:27 ../../lib/rabbit/action/toggle.rb:12
+msgid "Whiteout"
+msgstr ""
+
+#: ../../bin/rabbit:679
+msgid "Window ID: %d"
+msgstr ""
+
+#: ../../bin/rabbit:388
+msgid "XML-RPC"
+msgstr ""
+
+#: ../../bin/rabbit:282
+msgid "[ALL]"
+msgstr ""
+
+#: ../../lib/rabbit/parser/rd/visitor.rb:49
+msgid "[BUG] [%s] %s extension isn't available."
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:22
+msgid "[COMMAND] is one of them: [%s]"
+msgstr ""
+
+#: ../../lib/rabbit/source/file.rb:9
+msgid "[FILENAME]"
+msgstr ""
+
+#: ../../lib/rabbit/source/memory.rb:9
+msgid "[FILENAME_OR_NOT]"
+msgstr ""
+
+#: ../../lib/rabbit/source/hiki.rb:13
+msgid "[HIKI_CGI_URI] and [PAGE_NAME]"
+msgstr ""
+
+#: ../../lib/rabbit/source/rwiki.rb:12
+msgid "[RWIKI_SOAP_IF_URI] and [PAGE_NAME]"
+msgstr ""
+
+#: ../../bin/rabbit:284
+msgid "[TOP],[LEFT_RIGHT],[BOTTOM]"
+msgstr ""
+
+#: ../../bin/rabbit:285
+msgid "[TOP],[RIGHT],[BOTTOM],[LEFT]"
+msgstr ""
+
+#: ../../bin/rabbit:283
+msgid "[TOP_BOTTOM],[LEFT_RIGHT]"
+msgstr ""
+
+#: ../../lib/rabbit/source/slide-share.rb:14
+msgid "[USER] and [TITLE]"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-block-quote/default-block-quote.rb:94
+msgid "[cited from `%s']"
+msgstr ""
+
+#: ../../lib/rabbit/action/basic.rb:150
+#, fuzzy
+msgid "_Quit"
+msgstr "/Quitter"
+
+#: ../../lib/rabbit/action/basic.rb:151
+msgid "_Quit with confirmation"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:126
+#, fuzzy
+msgid "can not be read: %s"
+msgstr "%s n'est pas lisible."
+
+#: ../../lib/rabbit/rabbit.rb:99
+msgid "can't allocate color: %s"
+msgstr "impossible d'allouer les couleurs : %s."
+
+#: ../../lib/rabbit/logger/stderr.rb:16
+msgid "can't convert to current locale from UTF-8: %s"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:161
+#, fuzzy
+msgid "can't find HTML template: %s"
+msgstr "impossible de trouver une imprimante pour %s"
+
+#: ../../lib/rabbit/renderer/print/cairo.rb:110
+msgid "can't find printer for %s"
+msgstr "impossible de trouver une imprimante pour %s"
+
+#: ../../lib/rabbit/rabbit.rb:169
+#, fuzzy
+msgid "can't find theme RD template: %s"
+msgstr "impossible de trouver une imprimante pour %s"
+
+#: ../../lib/rabbit/html/generator.rb:61
+msgid "can't generate RSS"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:49
+msgid ""
+"can't handle %s because the following command can't be run successfully: %s"
+msgstr ""
+"Impossible de supporter %s car la commande suivante ne peut pas être lancée "
+"avec succès: %s"
+
+#: ../../lib/rabbit/comment/log.rb:57
+msgid "comment"
+msgstr ""
+
+#: ../../bin/rabbit:342
+msgid "dRuby"
+msgstr ""
+
+#: ../../bin/rabbit:587
+msgid "dRuby URI <%s> is in use."
+msgstr ""
+
+#: ../../lib/rabbit/theme/default/property.rb:3
+#, fuzzy
+msgid "default theme"
+msgstr "/Recharger le thème"
+
+#: ../../bin/rabbit:487
+msgid "e.g. The ID is the ID of X resource on X window system."
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:15
+msgid "en"
+msgstr ""
+
+#: ../../lib/rabbit/parser/ext/enscript.rb:62
+msgid "enscript: can't find HTree library"
+msgstr ""
+
+#: ../../lib/rabbit/parser/ext/enscript.rb:114
+msgid "enscript: unsupported element name: %s"
+msgstr ""
+
+#: ../../lib/rabbit/parser/ext/enscript.rb:35
+msgid "enscript: unsupported language: %s"
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:15
+msgid "fr"
+msgstr ""
+
+#: ../../bin/rabbit:724
+msgid "going to shutdown..."
+msgstr ""
+
+#: ../../lib/rabbit/parser/wiki/output.rb:74
+msgid "horizontal rule is unsupported"
+msgstr ""
+
+#: ../../lib/rabbit/theme/image/property.rb:3
+msgid "image rendering"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:134
+msgid "immutable source type: %s"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:177
+msgid "invalid motion: %s"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:192
+msgid ""
+"invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %"
+"{value}"
+msgstr ""
+
+#: ../../bin/rabbit-theme-manager:15
+msgid "ja"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-logo/slide-logo.rb:4
+#: ../../lib/rabbit/theme/title-logo/title-logo.rb:4
+msgid "must specify %s!!!"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:39
+#, fuzzy
+msgid "no such file: %s"
+msgstr "impossible de trouver le fichier %s."
+
+#: ../../lib/rabbit/source/argf.rb:10
+msgid "none (get from STDIN) or [FILE_NAMES]"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:118
+#, fuzzy
+msgid "not a file: %s"
+msgstr "impossible de trouver le fichier %s."
+
+#: ../../lib/rabbit/rabbit.rb:153
+msgid "not available interface: %s"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:110
+#, fuzzy
+msgid "not exist: %s"
+msgstr "impossible de trouver le fichier %s."
+
+#: ../../bin/rabbit:606
+msgid "port <%s> for SOAP is in use."
+msgstr ""
+
+#: ../../bin/rabbit:627
+msgid "port <%s> for XML-RPC is in use."
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:219
+msgid "print isn't supported"
+msgstr ""
+
+#: ../../bin/rabrick:74
+msgid "reloading ERB templates..."
+msgstr ""
+
+#: ../../lib/rabbit/theme/color-circle/color-circle.rb:16
+msgid "required variables aren't set: %s"
+msgstr ""
+
+#: ../../lib/rabbit/theme/table/property.rb:3
+msgid "table rendering"
+msgstr ""
+
+#: ../../lib/rabbit/theme/timer/property.rb:3
+msgid "text version timer"
+msgstr ""
+
+#: ../../lib/rabbit/rabbit.rb:67
+#, fuzzy
+msgid "tried dia commands: %s"
+msgstr "commandes gs essayées : %s"
+
+#: ../../lib/rabbit/rabbit.rb:75
+#, fuzzy
+msgid "tried gimp commands: %s"
+msgstr "commandes gs essayées : %s"
+
+#: ../../lib/rabbit/rabbit.rb:59
+msgid "tried gs commands: %s"
+msgstr "commandes gs essayées : %s"
+
+#: ../../lib/rabbit/parser/ext/tex.rb:51
+#, fuzzy
+msgid "tried mimeTeX commands: %s"
+msgstr "commandes gs essayées : %s"
+
+#: ../../lib/rabbit/rabbit.rb:213
+#, fuzzy
+msgid "unknown cursor type: %s"
+msgstr "Propriété inconnue : %s"
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:81
+msgid ""
+"unknown enumeration item mark type: %s\n"
+"Numeric type is used as fallback"
+msgstr ""
+
+#: ../../lib/rabbit/theme/default-item-mark-setup/default-item-mark-setup.rb:31
+msgid ""
+"unknown item mark type: %s\n"
+"Rectangle type is used as fallback"
+msgstr ""
+
+#: ../../lib/rabbit/info-window.rb:129
+msgid "unlimited"
+msgstr ""
+
+#: ../../lib/rabbit/parser.rb:12
+#, fuzzy
+msgid "unsupported format. (supported: %s)"
+msgstr "%s n'est pas supporté."
+
+#: ../../lib/rabbit/parser/wiki/output.rb:310
+#, fuzzy
+msgid "unsupported list type: %s"
+msgstr "%s n'est pas supporté."
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:15
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:15
+msgid "white <-> black gradation"
+msgstr ""
+
+#: ../../lib/rabbit/theme/slide-footer-info/property.rb:25
+#: ../../lib/rabbit/theme/slide-header-info/property.rb:25
+msgid "x-axis margin."
+msgstr ""

@@ -1,0 +1,7 @@
+* [BUG]: PDF slide doesn't scale???
+* improve Clutter support.
+* support GStreamer.
+* support MeCab for clever wrapping.
+* support SilverCity or CodeRay.
+* [nori] write manpage (converted from something like RD or DocBook XML).
+* support GooCanvas.

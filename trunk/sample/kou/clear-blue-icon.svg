@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="98"
+   height="98.239998"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="clear-blue-icon.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3155">
+      <stop
+         style="stop-color:#458cff;stop-opacity:1;"
+         offset="0"
+         id="stop3157" />
+      <stop
+         id="stop3227"
+         offset="0.25023702"
+         style="stop-color:#a2c5ff;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3159" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3155"
+       id="linearGradient3161"
+       x1="282.14285"
+       y1="365.71933"
+       x2="282.14285"
+       y2="274.71933"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3201">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.35607375"
+         id="feGaussianBlur3203" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3209">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.37607375"
+         id="feGaussianBlur3211" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3213">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.66920069"
+         id="feGaussianBlur3215" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3217">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.71920026"
+         id="feGaussianBlur3219" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3229">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.25"
+         id="feGaussianBlur3231" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="95.418278"
+     inkscape:cy="44.408573"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="843"
+     inkscape:window-height="671"
+     inkscape:window-x="204"
+     inkscape:window-y="219" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-236.64285,-274.11773)">
+    <rect
+       rx="10"
+       y="279.36218"
+       x="241.64285"
+       height="90"
+       width="90"
+       id="rect3221"
+       style="fill:#071730;fill-opacity:0.49803922;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3229)" />
+    <rect
+       style="fill:url(#linearGradient3161);fill-opacity:1;stroke:#458cff;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2383"
+       width="90"
+       height="90"
+       x="237.14285"
+       y="275.21933"
+       rx="10" />
+    <text
+       transform="matrix(0.9495255,0.3136897,-0.3136897,0.9495255,0,0)"
+       sodipodi:linespacing="100%"
+       id="text3169"
+       y="230.88351"
+       x="344.98392"
+       style="font-size:55.99995041px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:4.9999938;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3217);font-family:Sans;-inkscape-font-specification:Sans"
+       xml:space="preserve"><tspan
+         y="230.88351"
+         x="344.98392"
+         id="tspan3171"
+         sodipodi:role="line"
+         style="stroke-width:4.9999938">R</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:55.99998093px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1950a2;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3213);font-family:Sans;-inkscape-font-specification:Sans"
+       x="344.46405"
+       y="239.55598"
+       id="text3165"
+       sodipodi:linespacing="100%"
+       transform="matrix(0.9495255,0.3136897,-0.3136897,0.9495255,3.2142857,-7.7142857)"><tspan
+         sodipodi:role="line"
+         id="tspan3167"
+         x="344.46405"
+         y="239.55598">R</tspan></text>
+    <text
+       sodipodi:linespacing="100%"
+       id="text3205"
+       y="354.57629"
+       x="256.72668"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3209);font-family:Sans;-inkscape-font-specification:Sans"
+       xml:space="preserve"><tspan
+         y="354.57629"
+         x="256.72668"
+         id="tspan3207"
+         sodipodi:role="line">Rabbit</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1950a2;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3201);font-family:Sans;-inkscape-font-specification:Sans"
+       x="256.72668"
+       y="354.57629"
+       id="text3197"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         id="tspan3199"
+         x="256.72668"
+         y="354.57629">Rabbit</tspan></text>
+  </g>
+</svg>

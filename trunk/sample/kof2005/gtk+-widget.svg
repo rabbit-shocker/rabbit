@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="277.00000pt"
+   height="105.00000pt"
+   id="svg2173"
+   sodipodi:version="0.32"
+   inkscape:version="0.42.2"
+   sodipodi:docbase="/home/kou/work/ruby/rabbit/sample"
+   sodipodi:docname="gtk+-widget.svg">
+  <defs
+     id="defs2175" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6245048"
+     inkscape:cx="98.761564"
+     inkscape:cy="77.394613"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="696"
+     inkscape:window-height="515"
+     inkscape:window-x="132"
+     inkscape:window-y="16" />
+  <metadata
+     id="metadata2178">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.38469321;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect1306"
+       width="111.94572"
+       height="103.86716"
+       x="6.7840943"
+       y="10.465064" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1.0000000;fill:#fff1ec;fill-opacity:1.0000000;stroke:#ff9999;stroke-width:1.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:0.80000001"
+       id="path2338"
+       sodipodi:cx="364.40298"
+       sodipodi:cy="529.33673"
+       sodipodi:rx="94.316063"
+       sodipodi:ry="94.316063"
+       d="M 458.71905 529.33673 A 94.316063 94.316063 0 1 1  270.08692,529.33673 A 94.316063 94.316063 0 1 1  458.71905 529.33673 z"
+       transform="matrix(0.384693,0.000000,0.000000,0.384693,-76.88669,-138.5505)" />
+    <rect
+       y="-49.572800"
+       x="184.48244"
+       height="95.449348"
+       width="134.32968"
+       id="rect2340"
+       style="opacity:1.0000000;fill:none;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.40396526;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       transform="matrix(0.952742,0.303780,-0.761905,0.647688,0.000000,0.000000)" />
+    <rect
+       transform="matrix(0.953042,0.302838,-0.762997,0.646402,0.000000,0.000000)"
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.39202949;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect2348"
+       width="130.43283"
+       height="92.577751"
+       x="161.62384"
+       y="-68.526230" />
+    <path
+       d="M 458.71905 529.33673 A 94.316063 94.316063 0 1 1  270.08692,529.33673 A 94.316063 94.316063 0 1 1  458.71905 529.33673 z"
+       sodipodi:ry="94.316063"
+       sodipodi:rx="94.316063"
+       sodipodi:cy="529.33673"
+       sodipodi:cx="364.40298"
+       id="path2342"
+       style="opacity:1.0000000;fill:#fff1ec;fill-opacity:1.0000000;stroke:#ff9999;stroke-width:1.0000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:0.80000001"
+       sodipodi:type="arc"
+       transform="matrix(0.439801,0.140230,-0.269349,0.228971,213.7936,-119.2651)" />
+    <text
+       xml:space="preserve"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125.00000%;writing-mode:lr-tb;text-anchor:start;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="122.22397"
+       y="116.52898"
+       id="text2161"
+       sodipodi:linespacing="125.00000%"><tspan
+         sodipodi:role="line"
+         id="tspan2163"
+         x="122.22397"
+         y="116.52898">GTK+ウィジェット</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       id="text2354"
+       y="92.190918"
+       x="229.03084"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125.00000%;writing-mode:lr-tb;text-anchor:start;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="92.190918"
+         x="229.03084"
+         id="tspan2356"
+         sodipodi:role="line">GDK Window</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125.00000%;writing-mode:lr-tb;text-anchor:start;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="137.21887"
+       y="31.478369"
+       id="text2358"
+       sodipodi:linespacing="125.00000%"><tspan
+         sodipodi:role="line"
+         id="tspan2360"
+         x="137.21887"
+         y="31.478369">GDK Window上に描画</tspan></text>
+  </g>
+</svg>

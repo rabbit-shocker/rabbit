@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require "webrick"
+
+require 'tofu/tofulet'
+require 'drb/drb'
+
+require "rabbit/console"
+require "rabbit/div/tofu"
+
+def parse(args=ARGV, logger=nil)
+  Rabbit::Console.parse!(args, logger) do |opts, options|
+    options.druby_uri = "druby://localhost:10101"
+    options.port = 10102
+    options.bonjour = false
+    options.debug = false
+
+
+    opts.separator ""
+
+    opts.on("--druby-uri=URI",
+            _("Specify Rabbit's dRuby URI as [URI]."),
+            "(#{options.druby_uri})") do |uri|
+      options.druby_uri = uri
+    end
+
+    opts.on("--port=PORT",
+            Integer,
+            _("Specify WEBrick port as [PORT]."),
+            "(#{options.port})") do |port|
+      options.port = port
+    end
+
+    opts.on("--[no-]bonjour",
+            _("Specify whether service discovery with bonjour enable or not."),
+            "(#{options.bonjour})") do |bool|
+      options.bonjour = bool
+    end
+
+    opts.on("--[no-]debug",
+            _("Specify whether debug mode or not."),
+            "(#{options.debug})") do |bool|
+      options.debug = bool
+    end
+  end
+end
+
+def main
+  options, logger = parse
+  
+  DRb.start_service
+
+  logger.webrick_mode = true
+  
+  server = WEBrick::HTTPServer.new(:Port => options.port,
+                                   :AddressFamily => Socket::AF_INET,
+                                   :Logger => logger)
+
+  rabbit = DRbObject.new_with_uri(options.druby_uri)
+  Rabbit::Div::TofuSession.rabbit = rabbit
+  bartender = Tofu::Bartender.new(Rabbit::Div::TofuSession)
+  server.mount("/", WEBrick::Tofulet, bartender)
+
+  trap("INT") {server.shutdown}
+  server_thread = Thread.new {server.start}
+  if options.bonjour
+    require 'easyjour'
+    jour_title = 'Rabbit - ' + rabbit.title
+    jour = Easyjour::Service.new(jour_title, 'http', options.port)
+  end
+  if options.debug
+    while gets
+      logger.info(_("reloading ERB templates..."))
+      Div.reload_erb
+    end
+    server.shutdown
+  end
+  server_thread.join
+end
+
+main

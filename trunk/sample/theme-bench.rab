@@ -1,0 +1,128 @@
+= テーマベンチ
+
+: author
+   須藤 功平
+
+: institution
+   COZMIXNG
+
+: date
+   2007/06/24
+
+: allotted-time
+   10m
+
+= これはなに？
+
+テーマ確認用スライド
+
+  * 基本的な要素を含む
+
+= 箇条書き
+
+  * レベル1-1
+    * レベル2-1
+    * レベル2-2
+      * レベル3
+  * レベル1-2
+
+= 順序つきリスト
+
+  (1) レベル1-1
+      (1) レベル2-1
+      (1) レベル2-2
+          (1) レベル3
+  (1) レベル1-2
+
+= 複合リスト
+
+  (1) レベル1-1
+      * レベル2-1
+      * レベル2-2
+        * レベル3
+  (1) レベル1-2
+
+= 説明リスト
+
+: Lavie
+   Rabbitのマスコット
+
+: ショッカー
+   らびっとゆーざずぐるーぷ
+
+= 説明リスト+箇条書き
+
+: 見出し1
+   * レベル1-1
+   * レベル1-2
+
+: 見出し2
+   * レベル1-1
+   * レベル1-2
+
+= 画像
+
+  # image
+  # src = lavie.png
+  # relative_height = 100
+
+= 画像: 見出し付き
+
+  # image
+  # src = lavie.png
+  # caption = Lavie
+  # relative_height = 100
+
+= 整形済みテキスト
+
+  require 'drb'
+  uri =
+    'druby://localhost:10101/'
+  rabbit =
+    DRbObject.new_with_uri(uri)
+  rabbit.move_to_next_if_can
+
+= ソース
+
+  # enscript ruby
+  class You
+    def love?(it)
+      it == "Rabbit"
+    end
+  end
+
+= 引用: タイトル付き
+
+  # blockquote
+  # title = The Matrix
+  You take the ((*red pill*)), you stay in Wonderland and 
+  I show you how deep the ((*rabbit-hole*)) goes.
+
+= 引用: 箇条書付き
+
+  # blockquote
+
+  引用中の箇条書き
+    * レベル1
+
+= 表
+
+  # RT
+  caption = シンプルな表
+
+  見出し1, 見出し2
+
+  内容1-1, 内容2-1
+  内容1-2, 内容2-2
+
+= タイトルのみ
+
+= 最後のスライド
+
+新テーマ募集中
+
+  * 完全性は必要ない
+    * 一部未対応の要素有りでもOK
+    * 例: 複合リスト未対応
+
+テーマのアイディアも募集中

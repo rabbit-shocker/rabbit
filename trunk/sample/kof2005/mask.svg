@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="258.28000pt"
+   height="92.890000pt"
+   id="svg2370"
+   sodipodi:version="0.32"
+   inkscape:version="0.42.2"
+   sodipodi:docbase="/home/kou/work/ruby/rabbit/sample"
+   sodipodi:docname="mask.svg">
+  <defs
+     id="defs2372" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6081777"
+     inkscape:cx="166.37595"
+     inkscape:cy="69.244468"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="696"
+     inkscape:window-height="515"
+     inkscape:window-x="207"
+     inkscape:window-y="242" />
+  <metadata
+     id="metadata2375">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect1306"
+       width="101.70252"
+       height="94.363159"
+       x="7.6905026"
+       y="12.280086" />
+    <image
+       id="image2539"
+       height="80.000000"
+       width="80.000000"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       xlink:href="ruby-gnome2-logo.png"
+       x="17.487675"
+       y="20.219831" />
+    <path
+       style="fill:#fff1ec;fill-opacity:1.0000000;stroke:#ff9999;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.80000001"
+       d="M 7.6980979,12.280730 L 7.6980979,106.65573 L 109.38560,106.65573 L 109.38560,12.280730 L 7.6980979,12.280730 z M 58.760598,32.561980 C 75.408012,32.561980 88.916848,46.070816 88.916848,62.718230 C 88.916848,79.365640 75.408012,92.905730 58.760598,92.905730 C 42.113184,92.905730 28.604348,79.365640 28.604348,62.718230 C 28.604348,46.070816 42.113184,32.561980 58.760598,32.561980 z "
+       id="rect2579" />
+    <rect
+       transform="matrix(0.978625,0.205654,-0.771940,0.635695,0.000000,0.000000)"
+       style="opacity:1.0000000;fill:none;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.38551128;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect2591"
+       width="122.49804"
+       height="95.323952"
+       x="189.26199"
+       y="-17.916601" />
+    <rect
+       y="-27.530628"
+       x="179.64873"
+       height="95.323593"
+       width="122.49833"
+       id="rect2585"
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.38551092;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       transform="matrix(0.978625,0.205654,-0.771940,0.635695,0.000000,0.000000)" />
+    <image
+       y="-19.510078"
+       x="191.44914"
+       xlink:href="ruby-gnome2-logo.png"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       width="96.358086"
+       height="80.814301"
+       id="image2587"
+       transform="matrix(0.978625,0.205654,-0.771940,0.635695,0.000000,0.000000)" />
+    <rect
+       y="-37.603321"
+       x="171.41202"
+       height="95.323479"
+       width="122.49804"
+       id="rect2184"
+       style="opacity:1.0000000;fill:none;fill-opacity:1.0000000;stroke:#ff9999;stroke-width:0.38551065;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:0.80000001"
+       transform="matrix(0.978625,0.205654,-0.771940,0.635695,0.000000,0.000000)" />
+    <path
+       style="fill:#fff1ec;fill-opacity:1.0000000;stroke:#ff9999;stroke-width:0.34066221;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-opacity:0.80000001"
+       d="M 195.08198,5.2877461 L 121.48814,65.892479 L 241.34991,91.080951 L 314.94372,30.476215 L 195.08198,5.2877461 z M 239.45533,30.960162 C 259.07808,35.083804 264.46708,47.104971 251.48539,57.795421 C 238.50370,68.485879 212.02189,73.834713 192.39914,69.711065 C 172.77639,65.587427 167.41177,53.546195 180.39345,42.855739 C 193.37514,32.165278 219.83259,26.836522 239.45533,30.960162 z "
+       id="path1456" />
+    <text
+       xml:space="preserve"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125.00000%;writing-mode:lr-tb;text-anchor:start;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="137.26236"
+       y="23.814974"
+       id="text2358"
+       sodipodi:linespacing="125.00000%"><tspan
+         sodipodi:role="line"
+         id="tspan2577"
+         x="137.26236"
+         y="23.814974">まるく穴が開いている</tspan></text>
+  </g>
+</svg>

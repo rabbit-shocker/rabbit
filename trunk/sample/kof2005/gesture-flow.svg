@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="337.28000pt"
+   height="237.89000pt"
+   id="svg2041"
+   sodipodi:version="0.32"
+   inkscape:version="0.42.2"
+   sodipodi:docbase="/home/kou/work/ruby/rabbit/sample/kof2005"
+   sodipodi:docname="gesture-flow.svg">
+  <defs
+     id="defs2043">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         sodipodi:nodetypes="cccc"
+         id="path2320"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(-5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         sodipodi:nodetypes="ccccc"
+         id="path2328"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.4)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6100000"
+     inkscape:cx="207.25673"
+     inkscape:cy="150.90107"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="841"
+     inkscape:window-height="753"
+     inkscape:window-x="40"
+     inkscape:window-y="13" />
+  <metadata
+     id="metadata2046">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect1306"
+       width="101.70252"
+       height="94.363159"
+       x="14.234206"
+       y="46.650730" />
+    <image
+       id="image2539"
+       height="80.000000"
+       width="80.000000"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       xlink:href="ruby-gnome2-logo.png"
+       x="22.600998"
+       y="53.211216" />
+    <text
+       xml:space="preserve"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125.00000%;writing-mode:lr-tb;text-anchor:start;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="17.743118"
+       y="30.565315"
+       id="text2358"
+       sodipodi:linespacing="125.00000%"><tspan
+         sodipodi:role="line"
+         id="tspan2577"
+         x="17.743118"
+         y="30.565315">ウィジェット</tspan></text>
+    <rect
+       y="46.650730"
+       x="146.40813"
+       height="94.363159"
+       width="101.70252"
+       id="rect2058"
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <image
+       y="53.211216"
+       x="154.77492"
+       xlink:href="ruby-gnome2-logo.png"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       width="80.000000"
+       height="80.000000"
+       id="image2060" />
+    <path
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       d="M 196.87430,75.819897 L 198.11653,93.832317 L 203.08548,86.378907 L 209.91777,95.695677 L 213.64448,92.590087 L 205.56995,84.515557 L 213.64448,82.031077 L 196.87430,75.819897 z "
+       id="path2062"
+       sodipodi:nodetypes="cccccccc" />
+    <text
+       sodipodi:linespacing="125.00000%"
+       id="text2066"
+       y="30.565315"
+       x="131.41582"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125.00000%;writing-mode:lr-tb;text-anchor:start;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         y="30.565315"
+         x="131.41582"
+         id="tspan2068"
+         sodipodi:role="line">ジェスチャー開始</tspan></text>
+    <rect
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect2070"
+       width="101.70252"
+       height="94.363159"
+       x="292.68146"
+       y="47.383610" />
+    <image
+       id="image2072"
+       height="80.000000"
+       width="80.000000"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       xlink:href="ruby-gnome2-logo.png"
+       x="301.04822"
+       y="53.944157" />
+    <rect
+       y="47.383610"
+       x="292.68146"
+       height="94.363159"
+       width="101.70252"
+       id="rect2076"
+       style="opacity:1.0000000;fill:#121313;fill-opacity:0.58912385;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path2074"
+       d="M 343.14759,76.552817 L 344.38982,94.565237 L 349.35877,87.111827 L 356.19106,96.428597 L 359.91777,93.323007 L 351.84324,85.248477 L 359.91777,82.763997 L 343.14759,76.552817 z "
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+    <text
+       xml:space="preserve"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="342.15302"
+       y="21.248543"
+       id="text2078"
+       sodipodi:linespacing="125.00000%"><tspan
+         sodipodi:role="line"
+         id="tspan2080"
+         x="342.15302"
+         y="21.248543">ジェスチャー処理用</tspan><tspan
+         sodipodi:role="line"
+         x="342.15302"
+         y="41.248543"
+         id="tspan2082">ウィジェット表示</tspan></text>
+    <text
+       sodipodi:linespacing="125.00000%"
+       id="text2092"
+       y="163.63127"
+       x="62.892448"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan2359"
+         x="62.892448"
+         y="163.63127">マウス移動</tspan><tspan
+         sodipodi:role="line"
+         id="tspan2361"
+         x="62.892448"
+         y="183.63127">方向判断</tspan></text>
+    <rect
+       y="192.43951"
+       x="14.234206"
+       height="94.363159"
+       width="101.70252"
+       id="rect2084"
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <image
+       y="199.00006"
+       x="22.600998"
+       xlink:href="ruby-gnome2-logo.png"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       width="80.000000"
+       height="80.000000"
+       id="image2086" />
+    <rect
+       style="opacity:1.0000000;fill:#121313;fill-opacity:0.58912385;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect2088"
+       width="101.70252"
+       height="94.363159"
+       x="14.234206"
+       y="192.43951" />
+    <path
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 63.259391,222.11804 L 31.582371,222.73916"
+       id="path2104" />
+    <path
+       style="fill:#ffffff;fill-opacity:0.60000002;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.60000002"
+       d="M 64.700391,221.60872 L 65.942621,239.62114 L 70.911573,232.16773 L 77.743863,241.48450 L 81.470573,238.37891 L 73.396043,230.30438 L 81.470573,227.81990 L 64.700391,221.60872 z "
+       id="path2090"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path2106"
+       d="M 30.079271,223.60872 L 31.321501,241.62114 L 36.290451,234.16773 L 43.122741,243.48450 L 46.849451,240.37891 L 38.774921,232.30438 L 46.849451,229.81990 L 30.079271,223.60872 z "
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+    <text
+       xml:space="preserve"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       x="195.64781"
+       y="163.33276"
+       id="text2114"
+       sodipodi:linespacing="125.00000%"><tspan
+         y="163.33276"
+         x="195.64781"
+         id="tspan2116"
+         sodipodi:role="line">ジェスチャー終了</tspan><tspan
+         y="183.33276"
+         x="195.64781"
+         sodipodi:role="line"
+         id="tspan2142">アクション起動</tspan></text>
+    <rect
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       id="rect2108"
+       width="101.70252"
+       height="94.363159"
+       x="146.40813"
+       y="192.89917" />
+    <image
+       id="image2110"
+       height="80.000000"
+       width="80.000000"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       xlink:href="ruby-gnome2-logo.png"
+       x="154.77492"
+       y="199.45972" />
+    <rect
+       y="192.89917"
+       x="146.40813"
+       height="94.363159"
+       width="101.70252"
+       id="rect2112"
+       style="opacity:1.0000000;fill:#121313;fill-opacity:0.58912385;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <path
+       id="path2118"
+       d="M 195.43331,222.57767 L 163.75629,223.19879"
+       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#ff0000;stroke-width:3.7500000;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <path
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+       d="M 162.25319,224.06835 L 163.49542,242.08077 L 168.46437,234.62736 L 175.29666,243.94413 L 179.02337,240.83854 L 170.94884,232.76401 L 179.02337,230.27953 L 162.25319,224.06835 z "
+       id="path2122"
+       sodipodi:nodetypes="cccccccc" />
+    <text
+       sodipodi:linespacing="125.00000%"
+       id="text2130"
+       y="162.45099"
+       x="342.15302"
+       style="font-size:16.000000px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125.00000%;writing-mode:lr-tb;text-anchor:middle;fill:#003399;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         x="342.15302"
+         y="162.45099"
+         id="tspan2138">ジェスチャー処理用</tspan><tspan
+         sodipodi:role="line"
+         x="342.15302"
+         y="182.45099"
+         id="tspan2140">ウィジェットを隠す</tspan></text>
+    <rect
+       y="192.89917"
+       x="292.68146"
+       height="94.363159"
+       width="101.70252"
+       id="rect2124"
+       style="opacity:1.0000000;fill:#ddeeff;fill-opacity:1.0000000;stroke:#2299cc;stroke-width:0.34949318;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <image
+       y="199.45972"
+       x="301.04828"
+       xlink:href="ruby-gnome2-logo.png"
+       sodipodi:absref="/home/kou/work/ruby/rabbit/sample/ruby-gnome2-logo.png"
+       width="80.000000"
+       height="80.000000"
+       id="image2126" />
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path2136"
+       d="M 308.52651,224.06835 L 309.76874,242.08077 L 314.73769,234.62736 L 321.56998,243.94413 L 325.29669,240.83854 L 317.22216,232.76401 L 325.29669,230.27953 L 308.52651,224.06835 z "
+       style="fill:#ffffff;fill-opacity:1.0000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000" />
+    <path
+       style="fill:none;fill-opacity:0.60000002;fill-rule:evenodd;stroke:#000000;stroke-width:2.7500000;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Mend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 107.45342,94.878016 L 143.47826,94.878016"
+       id="path2208" />
+    <path
+       id="path2349"
+       d="M 247.45342,94.878016 L 283.47826,94.878016"
+       style="fill:none;fill-opacity:0.60000002;fill-rule:evenodd;stroke:#000000;stroke-width:2.7500000;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Mend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <path
+       id="path2355"
+       d="M 107.45342,240.87802 L 143.47826,240.87802"
+       style="fill:none;fill-opacity:0.60000002;fill-rule:evenodd;stroke:#000000;stroke-width:2.7500000;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Mend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000" />
+    <path
+       style="fill:none;fill-opacity:0.60000002;fill-rule:evenodd;stroke:#000000;stroke-width:2.7500000;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:url(#Arrow2Mend);stroke-miterlimit:4.0000000;stroke-dasharray:none;stroke-opacity:1.0000000"
+       d="M 247.45342,240.87802 L 283.47826,240.87802"
+       id="path2357" />
+  </g>
+</svg>

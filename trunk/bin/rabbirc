@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require 'rubygems'
+require 'net/irc'
+require 'drb'
+require 'nkf'
+require "optparse"
+require "ostruct"
+
+class RabbIRC < Net::IRC::Client
+  def initialize(*args)
+    super
+    @rabbit = DRb::DRbObject.new_with_uri(@opts.rabbit_uri)
+  end
+
+  def on_rpl_welcome(m)
+    super
+    @opts.join_to.each do |channel|
+      post(JOIN, channel)
+    end
+  end
+
+  def on_privmsg(m)
+    channel, message = *m
+    if @opts.join_to.include?(channel)
+      begin
+        @rabbit.append_comment(NKF.nkf('-w', message))
+      rescue DRb::DRbConnError
+        @log.error("RABBIT: #{$!.message} (#{$!.class})")
+      end
+    end
+  end
+end
+
+options = OpenStruct.new
+options.server = "irc.freenode.net"
+options.port = 6667
+options.nick = 'rabbirc'
+options.user = ENV['USER'] || ENV['USERNAME']
+options.real = "rabbirc bot"
+options.channels = ['#rabbirc']
+options.rabbit_uri = 'druby://localhost:10101'
+
+opts = OptionParser.new do |opts|
+  opts.on("--server=SERVER", "IRC server (#{options.server})") do |server|
+    options.server = server
+  end
+
+  opts.on("--port=PORT", Integer, "IRC port (#{options.port})") do |port|
+    options.port = port
+  end
+
+  opts.on("--nick=NAME", "IRC nick name (#{options.nick})") do |nick|
+    options.nick = nick
+  end
+
+  opts.on("--user=NAME", "IRC user name (#{options.user})") do |user|
+    options.user = user
+  end
+
+  opts.on("--real=NAME", "IRC real name (#{options.real})") do |real|
+    options.real = real
+  end
+
+  opts.on("--channels=CHANNEL1,CHANNEL2,...", Array,
+          "IRC channels to join specified as comma separated list",
+          "(#{options.channels.inspect})") do |channels|
+    options.channels = channels
+  end
+
+  opts.on("--rabbit-uri=URI",
+          "Rabbit's dRuby URI(#{options.rabbit_uri})") do |uri|
+    options.rabbit_uri = uri
+  end
+end
+
+opts.parse!(ARGV)
+
+rabbirc = RabbIRC.new(options.server, options.port,
+                      :nick => options.nick,
+                      :user => options.user,
+                      :real => options.real,
+                      :join_to => options.channels,
+                      :rabbit_uri => options.rabbit_uri)
+rabbirc.start
