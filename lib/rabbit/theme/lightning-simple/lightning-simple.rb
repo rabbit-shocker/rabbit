@@ -43,7 +43,7 @@ else
   @image_slide_number_show_text = true
   include_theme("image-slide-number")
 
-  @image_timer_limit ||= 5 * 60
+  @image_timer_limit ||= canvas.allotted_time || 5 * 60
   include_theme("image-timer")
 end
 
