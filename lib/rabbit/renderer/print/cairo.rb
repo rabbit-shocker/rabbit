@@ -102,7 +102,9 @@ module Rabbit
         end
 
         def create_pango_context
-          create_context(StringIO.new).create_pango_layout.context
+          context = create_context(StringIO.new).create_pango_layout.context
+          set_font_resolution(context)
+          context
         end
 
         def find_surface(filename, output=nil)
@@ -121,6 +123,10 @@ module Rabbit
             args[0] = "default.ps"
             ::Cairo::PSSurface.new(*args)
           end
+        end
+
+        def set_font_resolution(context)
+          context.resolution = 72.0 * (Canvas::INTERNAL_DPI / 96.0)
         end
       end
     end

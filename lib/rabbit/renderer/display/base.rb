@@ -57,11 +57,15 @@ module Rabbit
         end
 
         def create_pango_context
-          widget.create_pango_context
+          context = widget.create_pango_context
+          set_font_resolution(context)
+          context
         end
 
         def create_pango_layout(text)
-          widget.create_pango_layout(text)
+          layout = widget.create_pango_layout(text)
+          set_font_resolution(layout.context)
+          layout
         end
 
         def update_title
@@ -75,6 +79,12 @@ module Rabbit
             false
           end
           @configure_signal_id = id
+        end
+
+        def set_font_resolution(context)
+          if context.respond_to?(:resolution=)
+            context.resolution = Canvas::INTERNAL_DPI
+          end
         end
 
         def configured(x, y, w, h)

@@ -317,13 +317,15 @@ module Rabbit
           layout = @context.create_pango_layout
           layout.text = text
           layout.set_attributes(attrs)
-          layout.context.resolution = @x_dpi
+          set_font_resolution(layout.context)
           @context.update_pango_layout(layout)
           layout
         end
 
         def create_pango_context
-          Pango::CairoFontMap.default.create_context
+          context = Pango::CairoFontMap.default.create_context
+          set_font_resolution(context)
+          context
         end
 
         private
