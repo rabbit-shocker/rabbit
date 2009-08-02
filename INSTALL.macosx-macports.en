@@ -11,49 +11,12 @@ The following programs are needed.
 
 * Xcode Tools (from Xcode Tools DVD or ADC)
 * X11 (from Mac OS X System DVD)
-* Subversion
-  * from MacPorts (sudo port install subversion)
-  * from ((<URL:http://metissian.com/projects/macosx/subversion/>))
 
 Remember to select "X11 SDK" when installing the Xcode Tools.
 
 == Install MacPorts
 
 see ((<URL:http://www.macports.org/>)).
-
-=== Configuration of MacPorts
-
-First, get the Rabbit portfiles from the subversion repository,
-
-  ~% svn co http://www.cozmixng.org/repos/dports/trunk dports
-  ~% cd dports
-  ~/dports% portindex
-
-Then, edit /opt/local/etc/macports/sources.conf like this,
-
-  # To enable your local ports repository, uncomment and customize the
-  # following line to point at your local dports directory
-  # Example: file:///Users/landonf/misc/darwinports/dports
-  #
-  file:///Users/yourname/dports # <- here
-  # To get darwinports from the darwinports rsync server use:
-  # rsync://rsync.darwinports.org/dpupdate/dports
-  rsync://rsync.darwinports.org/dpupdate/dports
-
-(/Users/yourname is your home directory)
-
-"port info" command tells you if the installation succeeded or not.
-
-  ### OK ###
-  ~% port info rb-rabbit
-  rb-rabbit 0.5.1, Revision 0, ruby/rb-rabbit
-  {http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit}
-  # snip #
-
-  ### NG ###
-  ~% port info rb-rabbit
-  No port rb-rabbit found.
-
 
 == installing Rabbit
 
@@ -66,14 +29,22 @@ The following command will install rabbit and its dependencies.
 
   ~% sudo port install rb-rabbit
 
-
 You can install these ports to make rabbit even better.
 
-* htree (rb-htree) - enable syntax coloring
 * Ruby-GetText-Package (rb-gettext) - enable I18N message catalogs
+* net/irc (rb-net-irc) - rabbirc requires net/irc
 
-    ~% sudo port install rb-htree
-    ~% sudo port install rb-gettext
+  ~% sudo port install rb-gettext
+  ~% sudo port install rb-net-irc
+
+=== Rabbit without X11
+
+If you want to run rabbit without X11, install pango, cairo and gtk2 without
+X11 before install rb-rabbit.
+
+  ~% sudo port install pango +no_x11 +quartz
+  ~% sudo port install cairo +no_x11 +quartz
+  ~% sudo port install gtk2 +no_x11 +quartz
 
 == tips for X11 environment
 
