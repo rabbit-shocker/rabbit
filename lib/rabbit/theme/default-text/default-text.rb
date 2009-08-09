@@ -1,4 +1,5 @@
 @default_emphasis_color ||= "red"
+@default_emphasis_level2_color ||= @default_emphasis_color
 
 match(Slide, HeadLine) do |heads|
   heads.prop_set("size", @large_font_size)
@@ -17,6 +18,10 @@ end
 match("**", Emphasis) do |texts|
   texts.prop_set("foreground", @default_emphasis_color)
   texts.prop_set("weight", "bold")
+end
+
+match("**", Emphasis, Emphasis) do |texts|
+  texts.prop_set("foreground", @default_emphasis_level2_color)
 end
 
 match("**", DeletedText) do |texts|

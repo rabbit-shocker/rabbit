@@ -300,7 +300,7 @@ module Rabbit
         end
 
         def strong(item)
-          Text.new(item) # or Emphasis.new(item)?
+          Emphasis.new(Emphasis.new(item))
         end
 
         def em(item)
