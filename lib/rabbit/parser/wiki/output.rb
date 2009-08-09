@@ -255,6 +255,8 @@ module Rabbit
         end
 
         def block_preformatted(contents, info)
+          return unless @parent
+
           lang = info ? info.downcase : nil
           result = nil
 
@@ -270,16 +272,22 @@ module Rabbit
         end
 
         def preformatted(contents)
+          return unless @parent
+
           @parent << PreformattedBlock.new(PreformattedText.new(contents))
         end
 
         def paragraph(contents)
+          return unless @parent
+
           paragraph = Paragraph.new(contents.flatten)
           register_pause(paragraph) if paragraph.have_wait_tag?
           @parent << paragraph
         end
 
         def block_plugin(src)
+          return unless @parent
+
           @parent << (evaluate_block_plugin(src) || text("{{#{src}}}"))
         end
 
