@@ -28,6 +28,12 @@ module Rabbit
         @align = new_value
       end
 
+      def justify=(new_value)
+        new_value = true if new_value
+        dirty! if @justify != new_value
+        @justify = new_value
+      end
+
       def width
         if @width
           @width + @padding_left + @padding_right
@@ -85,6 +91,7 @@ module Rabbit
         @spacing = 0
         @wrap_mode = default_wrap_mode
         @align = default_align
+        @justify = default_justify
       end
 
       def dirty!
@@ -182,6 +189,7 @@ module Rabbit
         layout.set_alignment(@align)
         layout.set_indent(@indent)
         layout.set_spacing(@spacing)
+        layout.justify = @justify
         layout.context_changed
         width, height = layout.pixel_size
         if layout.width != -1 and
@@ -219,6 +227,10 @@ module Rabbit
 
       def default_align
         Pango::Layout::ALIGN_LEFT
+      end
+
+      def default_justify
+        true
       end
 
       def draw_layout(canvas, x, y)
