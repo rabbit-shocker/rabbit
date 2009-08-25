@@ -11,6 +11,9 @@
 if @lightning_talk_horizontal_centering.nil?
   @lightning_talk_horizontal_centering = true
 end
+if @lightning_talk_justify.nil?
+  @lightning_talk_justify = false
+end
 @lightning_talk_params = {
   :proc_name => @lightning_talk_proc_name,
   :size => @xx_large_font_size,
@@ -24,6 +27,7 @@ end
   :as_large_as_possible => @lightning_talk_as_large_as_possible,
   :horizontal_centering => @lightning_talk_horizontal_centering,
   :wrap_mode => @lightning_talk_wrap_mode,
+  :justify => @lightning_talk_justify,
 }
 
 def setup_lightning_talk_slide(slide)
@@ -126,6 +130,7 @@ def setup_lightning_talk_headline(head)
       font(font_params)
       self.wrap_mode = params[:wrap_mode]
       self.horizontal_centering = params[:horizontal_centering]
+      self.justify = params[:justify]
 
       substitute_newline
 
