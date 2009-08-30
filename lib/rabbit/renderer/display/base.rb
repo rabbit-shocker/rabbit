@@ -81,12 +81,6 @@ module Rabbit
           @configure_signal_id = id
         end
 
-        def set_font_resolution(context)
-          if context.respond_to?(:resolution=)
-            context.resolution = Canvas::INTERNAL_DPI
-          end
-        end
-
         def configured(x, y, w, h)
         end
 

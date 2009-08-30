@@ -219,8 +219,9 @@ module Rabbit
 
       def_delegators(:canvas, :make_layout)
 
-      NORMALIZED_WIDTH = 91.0
-      NORMALIZED_HEIGHT = 67.5
+      # Those constants are meaningless. :p
+      NORMALIZED_WIDTH = 91.0 * 96
+      NORMALIZED_HEIGHT = 67.5 * 96
 
       def initialize(theme, &callback)
         super()
@@ -259,11 +260,11 @@ module Rabbit
       end
 
       def normalized_width
-        (canvas.x_dpi / Canvas::INTERNAL_DPI) * NORMALIZED_WIDTH
+        NORMALIZED_WIDTH / Canvas::INTERNAL_DPI
       end
 
       def normalized_height
-        (canvas.y_dpi / Canvas::INTERNAL_DPI) * NORMALIZED_HEIGHT
+        NORMALIZED_HEIGHT / Canvas::INTERNAL_DPI
       end
 
       def normalized_size(s)

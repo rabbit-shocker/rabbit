@@ -247,6 +247,10 @@ module Rabbit
       def get_line_width(params, default=nil)
         params[:line_width] || default
       end
+
+      def set_font_resolution(context)
+        context.resolution = Canvas::INTERNAL_DPI
+      end
     end
   end
 end

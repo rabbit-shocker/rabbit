@@ -124,10 +124,6 @@ module Rabbit
             ::Cairo::PSSurface.new(*args)
           end
         end
-
-        def set_font_resolution(context)
-          context.resolution = 72.0 * (Canvas::INTERNAL_DPI / 96.0)
-        end
       end
     end
   end
