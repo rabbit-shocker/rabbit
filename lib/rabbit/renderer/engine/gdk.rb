@@ -152,19 +152,21 @@ module Rabbit
         end
 
         def draw_pixbuf(pixbuf, x, y, params={})
-          gc = make_gc(params['color'], params)
+          gc = make_gc(params[:color], params)
           return if gc.nil?
 
-          width = params['width'] || pixbuf.width
-          height = params['height'] || pixbuf.height
-          if [width, height] != [pixbuf.width, pixbuf.height]
+          draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
+          width = params[:width] || pixbuf.width
+          height = params[:height] || pixbuf.height
+          if draw_scaled_pixbuf and
+              [width, height] != [pixbuf.width, pixbuf.height]
             pixbuf = pixbuf.scale(width, height)
           end
           args = [0, 0, x, y,
                   width, height,
-                  params['dither_mode'] || Gdk::RGB::DITHER_NORMAL,
-                  params['x_dither'] || 0,
-                  params['y_dither'] || 0]
+                  params[:dither_mode] || Gdk::RGB::DITHER_NORMAL,
+                  params[:x_dither] || 0,
+                  params[:y_dither] || 0]
           @gdk_drawable.draw_pixbuf(gc, pixbuf, *args)
         end
 
