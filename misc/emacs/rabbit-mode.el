@@ -2,6 +2,7 @@
 ;;; rabbit-mode.el
 ;;  Emacs major mode for Rabbit
 ;;; Copyright (c) 2006 - 2008 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
+;;; Copyright (c) 2009 Kouhei Sutou <kou@cozmixng.org>
 ;;; $Id$
 
 (require 'cl)
@@ -10,6 +11,7 @@
 (defvar rabbit-mode-hook nil
   "Hooks run when entering `rabbit-mode' major mode")
 (defvar rabbit-command "rabbit")
+(defvar rabbit-command-command "rabbit-command")
 (defvar rabbit-output-buffer nil)
 (defvar rabbit-author nil)
 (defvar rabbit-institution nil)
@@ -165,6 +167,64 @@
   (rabbit-backward-slide)
 ;;   (goto-char )
   (recenter))
+
+(defun rabbit-remote (&rest args)
+  (shell-command (mapconcat 'identity (cons rabbit-command-command args) " ")))
+
+(defun rabbit-remote-next ()
+  "move to the next in Rabbit."
+  (interactive)
+  (rabbit-remote "--next-slide"))
+
+(defun rabbit-remote-previous ()
+  "move to the previous in Rabbit."
+  (interactive)
+  (rabbit-remote "--previous"))
+
+(defun rabbit-remote-next-slide ()
+  "move to the next slide in Rabbit."
+  (interactive)
+  (rabbit-remote "--next-slide"))
+
+(defun rabbit-remote-previous-slide ()
+  "move to the previous slide in Rabbit."
+  (interactive)
+  (rabbit-remote "--previous-slide"))
+
+(defun rabbit-remote-first-slide ()
+  "move to the first slide in Rabbit."
+  (interactive)
+  (rabbit-remote "--first-slide"))
+
+(defun rabbit-remote-last-slide ()
+  "move to the last slide in Rabbit."
+  (interactive)
+  (rabbit-remote "--last-slide"))
+
+(defun rabbit-remote-toggle-fullscreen ()
+  "toggle fullscreen in Rabbit."
+  (interactive)
+  (rabbit-remote "--toggle-fullscreen"))
+
+(defun rabbit-remote-toggle-index-mode ()
+  "toggle index mode in Rabbit."
+  (interactive)
+  (rabbit-remote "--toggle-index-mode"))
+
+(defun rabbit-remote-toggle-whiteout ()
+  "toggle whiteout in Rabbit."
+  (interactive)
+  (rabbit-remote "--toggle-whiteout"))
+
+(defun rabbit-remote-toggle-blackout ()
+  "toggle blackout in Rabbit."
+  (interactive)
+  (rabbit-remote "--toggle-blackout"))
+
+(defun rabbit-remote-quit ()
+  "quit Rabbit."
+  (interactive)
+  (rabbit-remote "--quit"))
 
 ;;; private
 
