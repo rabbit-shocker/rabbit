@@ -169,7 +169,8 @@
   (recenter))
 
 (defun rabbit-remote (&rest args)
-  (shell-command (mapconcat 'identity (cons rabbit-command-command args) " ")))
+  (shell-command-to-string
+   (mapconcat 'identity (cons rabbit-command-command args) " ")))
 
 (defun rabbit-remote-next ()
   "move to the next in Rabbit."
@@ -200,6 +201,11 @@
   "move to the last slide in Rabbit."
   (interactive)
   (rabbit-remote "--last-slide"))
+
+(defun rabbit-remote-current-slide-rd ()
+  "get RD of the current slide in Rabbit."
+  (interactive)
+  (rabbit-remote "--current-slide-rd"))
 
 (defun rabbit-remote-toggle-fullscreen ()
   "toggle fullscreen in Rabbit."
