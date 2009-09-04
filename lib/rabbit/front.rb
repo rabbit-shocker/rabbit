@@ -71,54 +71,44 @@ module Rabbit
     end
 
     def current_slide_text
-      check_dirty
       slide = @canvas.current_slide
       slide ? slide.text : ""
     end
 
     def current_slide_rd
-      check_dirty
       slide = @canvas.current_slide
       slide ? slide.to_rd : ""
     end
 
     def title
-      check_dirty
       @canvas.title
     end
 
     def slide_title
-      check_dirty
       @canvas.slide_title
     end
     
     def total_slide_number
-      check_dirty
       @canvas.slide_size
     end
 
     def current_slide_number
-      check_dirty
       @canvas.current_index
     end
 
     def first_slide?
-      check_dirty
       @canvas.first_slide?
     end
 
     def have_next_slide?
-      check_dirty
       @canvas.have_next_slide?
     end
 
     def have_previous_slide?
-      check_dirty
       @canvas.have_previous_slide?
     end
 
     def last_slide?
-      check_dirty
       @canvas.last_slide?
     end
 
