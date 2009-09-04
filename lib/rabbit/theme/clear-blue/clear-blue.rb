@@ -51,11 +51,11 @@ add_image_path("rabbit-images")
 include_theme("default")
 
 unless print?
-  @image_slide_number_image = "mini-usa-taro.png"
+  @image_slide_number_image ||= "mini-usa-taro.png"
   @image_slide_number_show_text = true
   include_theme("image-slide-number")
   if canvas.allotted_time
-    @image_timer_image = "mini-kame-taro.png"
+    @image_timer_image ||= "mini-kame-taro.png"
     include_theme("image-timer")
   end
 end
