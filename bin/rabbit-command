@@ -52,23 +52,23 @@ def parse(args=ARGV, logger=nil)
 
     opts.on("--toggle-fullscreen", _("Toggle fullscreen")) do
       options.commands << [:toggle_fullscreen]
-   end
+    end
 
     opts.on("--toggle-index-mode", _("Toggle index mode")) do
       options.commands << [:toggle_index_mode]
-   end
+    end
 
     opts.on("--toggle-whiteout", _("Toggle whiteout")) do
       options.commands << [:toggle_whiteout]
-   end
+    end
 
     opts.on("--toggle-blackout", _("Toggle blackout")) do
       options.commands << [:toggle_blackout]
-   end
+    end
 
     opts.on("--quit", _("Quit")) do
       options.commands << [:quit]
-   end
+    end
   end
 end
 
