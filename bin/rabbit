@@ -17,6 +17,7 @@ def parse_args(args=ARGV, logger=nil)
     options.source_type = Rabbit::Source::File
     options.full_screen = false
     options.index_mode = false
+    options.geometry = nil
     options.width = 800
     options.height = 600
     options.paper_width = nil
@@ -134,6 +135,13 @@ def parse_args(args=ARGV, logger=nil)
 
 
     opts.category _("Size")
+
+    opts.on("-g", "--geometry=GEOMETRY",
+            _("Set window geometry [GEOMETRY]."),
+            _("Format: WIDTHxHEIGHT+X+Y"),
+            "(#{options.geometry.inspect})") do |geometry|
+      options.geometry = geometry
+    end
 
     opts.on("-w", "--width=WIDTH",
             Integer,
@@ -649,9 +657,9 @@ def do_save_as_image(options, logger)
   Rabbit.gui_init
 
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
+  setup_size(canvas, options)
   setup_image_info(canvas, options)
   setup_print_info(canvas, options)
-  setup_size(canvas, options)
   setup_paper_size(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
@@ -667,8 +675,9 @@ def do_display(options, logger)
 
   canvas = make_canvas(options, logger, Rabbit::Renderer::Display)
   frame = Rabbit::Frame.new(logger, canvas)
+  frame.geometry = options.geometry
   setup_paper_size(canvas, options)
-  setup_image_info(frame, options)
+  setup_image_info(canvas, options)
   setup_print_info(canvas, options)
   setup_migemo_info(canvas, options)
   setup_3d_info(canvas, options)

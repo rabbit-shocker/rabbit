@@ -18,19 +18,21 @@ module Rabbit
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@window, :iconify, :show, :hide, :visible?)
     def_delegators(:@window, :set_size_request, :resize)
-    
+
     def_delegators(:@canvas, :apply_theme, :theme_name)
     def_delegators(:@canvas, :saved_image_type=, :saved_image_base_name=)
     def_delegators(:@canvas, :save_as_image, :each_slide_pixbuf)
     def_delegators(:@canvas, :print, :filename=)
     def_delegators(:@canvas, :output_html=, :output_index_html=)
     def_delegators(:@canvas, :rss_base_uri=, :use_gl?, :use_gl=)
-    
+
     attr_reader :window, :logger
+    attr_accessor :geometry
 
     def initialize(logger, canvas)
       @logger = logger
       @canvas = canvas
+      @geometry = nil
     end
 
     def destroyed?
@@ -117,7 +119,7 @@ module Rabbit
       window_type ||= Gtk::Window::TOPLEVEL
       @window = Gtk::Window.new(window_type)
       @window.set_default_size(width, height)
-      @window.resize(width, height)
+      @window.parse_geometry(@geometry) if @geometry
       @window.set_app_paintable(true)
       set_window_signal
       setup_dnd
@@ -232,7 +234,7 @@ module Rabbit
 
     def_null_methods(:icon, :icon=, :set_icon)
     def_null_methods(:icon_list, :icon_list=, :set_icon_list)
-    def_null_methods(:update_title)
+    def_null_methods(:update_title, :geometry, :geometry=)
 
     def_null_methods(:fullscreen?, :quit)
 
