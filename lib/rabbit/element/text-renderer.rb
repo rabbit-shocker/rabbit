@@ -230,7 +230,7 @@ module Rabbit
       end
 
       def default_justify
-        true
+        false
       end
 
       def draw_layout(canvas, x, y)
