@@ -17,6 +17,10 @@ module Rabbit
         ""
       end
 
+      def to_html(generator)
+        ""
+      end
+
       def draw_element(canvas, x, y, w, h, simulation)
         [x, y, w, h]
       end
