@@ -403,6 +403,10 @@ module Rabbit
         target.prop_set("font_family", family) if family
       end
 
+      def set_font_resolution_ratio(ratio)
+        canvas.font_resolution_ratio = ratio
+      end
+
       def windows?
         Utils.windows?
       end

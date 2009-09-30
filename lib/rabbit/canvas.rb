@@ -130,7 +130,7 @@ module Rabbit
     attr_accessor :saved_image_type, :rss_base_uri
     attr_accessor :output_html, :output_index_html
     attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
-
+    attr_accessor :font_resolution_ratio
 
     def initialize(logger, renderer, comment_source=nil, comment_encoding=nil)
       @logger = logger
@@ -149,6 +149,7 @@ module Rabbit
       @migemo_dictionary_name = nil
       @limit_time = nil
       @use_gl = false
+      @font_resolution_ratio = 1
       init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
@@ -626,6 +627,10 @@ module Rabbit
       @limit_time = nil
     end
 
+    def font_resolution
+      INTERNAL_DPI * @font_resolution_ratio
+    end
+
     private
     def _apply_theme(name, id, &block)
       @theme_name = name if name
@@ -695,6 +700,7 @@ module Rabbit
     end
 
     def clear_theme
+      @font_resolution_ratio = 1
       @slides.each do |slide|
         slide.clear_theme
       end

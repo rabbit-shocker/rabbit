@@ -249,7 +249,7 @@ module Rabbit
       end
 
       def set_font_resolution(context)
-        context.resolution = Canvas::INTERNAL_DPI
+        context.resolution = @canvas.font_resolution
       end
     end
   end
