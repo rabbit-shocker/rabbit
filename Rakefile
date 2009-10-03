@@ -65,6 +65,7 @@ project = Hoe.spec('rabbit') do
                      # ['gettext'],
                     ]
   self.description = self.summary # FIXME
+  self.need_tar = false
 end
 
 rule '.png' => ['.svg'] do |t|
