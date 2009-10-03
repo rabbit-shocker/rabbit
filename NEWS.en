@@ -23,6 +23,7 @@ $Id$
   * Added a command that gets the current slide content as
     RD format.
   * Added --geometry option.
+  * Supported RubyGems.
 
 === Fixes
 
