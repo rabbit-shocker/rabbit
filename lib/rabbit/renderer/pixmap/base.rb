@@ -22,7 +22,7 @@ module Rabbit
           @filename = nil
           init_dummy_pixmap
           init_color
-          @pango_context = create_pango_context
+          @pango_context = nil
         end
 
         def post_apply_theme
@@ -54,7 +54,7 @@ module Rabbit
 
         def make_layout(text)
           attrs, text = Pango.parse_markup(text)
-          layout = Pango::Layout.new(@pango_context)
+          layout = Pango::Layout.new(@pango_context || create_pango_context)
           layout.text = text
           layout.set_attributes(attrs)
           layout
@@ -66,7 +66,9 @@ module Rabbit
         end
 
         def create_pango_context
-          Gtk::Invisible.new.create_pango_context
+          context = Gtk::Invisible.new.create_pango_context
+          set_font_resolution(context)
+          context
         end
 
         def pre_to_pixbuf(slide_size)
