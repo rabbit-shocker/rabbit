@@ -4,6 +4,36 @@
 
 $Id$
 
+== Changes 0.6.2 from 0.6.1: 2009-10-03
+
+=== Improvements
+
+  * Rabbit became an official MacPorts package! [kimura wataru]
+  * Supported '''strong''' Wiki markup [kdmsnr]
+  * Ignored level 2 or larger section in Wiki markup [kdmsnr]
+  * Theme
+    * pdf-tortoise-and-hare: Added margin between slide edge,
+      tortoise and hare.
+    * clear-blue: Supported changing images of tortoise and hare.
+    * Added set_font_resolution_ratio that can change
+      character size in a lump.
+  * rabbit-mode: Supported rabbit-command.
+  * Updated prototype.js: 1.4.0 -> 1.6.0
+  * Supported justify.
+  * Added a command that gets the current slide content as
+    RD format.
+  * Added --geometry option.
+
+=== Fixes
+
+  * Fixed a problem that allotted-time is ignored in
+    lightning-simple theme. [Kazuhiro NISHIYAMA]
+  * Removed system DPI dependency. [Kazuhiro NISHIYAMA]
+  * Fixed a problem that displayed slide and PDF slide is
+    different. [Kazuhiro NISHIYAMA]
+  * Fixed a problem that images aren't resized with GDK
+    backend.
+
 == Changes 0.6.1 from 0.6.0: 2009-07-17
 
 === Improvements
