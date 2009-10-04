@@ -39,7 +39,7 @@ module Rabbit
 	nil
       else
 	name = "@#{type}_cursor"
-	unless instance_variables.include?(name)
+	unless instance_variable_defined?(name)
 	  raise UnknownCursorTypeError.new(type)
 	end
 	instance_variable_get(name)
