@@ -328,6 +328,10 @@ module Rabbit
           context
         end
 
+        def set_font_resolution(context)
+          context.resolution = @canvas.font_resolution
+        end
+
         private
         def init_engine_color
           @foreground = make_color("black")
