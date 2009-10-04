@@ -1,3 +1,5 @@
+require "rd/rdfmt"
+
 require "rabbit/parser/base"
 
 module Rabbit

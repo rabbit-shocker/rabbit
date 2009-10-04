@@ -1,6 +1,5 @@
 require "forwardable"
 require "gtk2"
-require "rd/rdfmt"
 
 require "rabbit/rabbit"
 require 'rabbit/frame'
