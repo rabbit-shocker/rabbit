@@ -387,12 +387,18 @@ module Rabbit
 
   module Converter
     module_function
-    def keep_kcode(new_kcode)
-      kcode = $KCODE
-      $KCODE = new_kcode
-      yield
-    ensure
-      $KCODE = kcode
+    if "".respond_to?(:encoding)
+      def keep_kcode(new_kcode)
+        yield
+      end
+    else
+      def keep_kcode(new_kcode)
+        kcode = $KCODE
+        $KCODE = new_kcode
+        yield
+      ensure
+        $KCODE = kcode
+      end
     end
 
     def to_utf8(str)
