@@ -176,8 +176,8 @@ module Rabbit
           else
             return unless @parent
 
-            desc_term = DescriptionTerm.new(Paragraph.new(dt))
-            desc_content = DescriptionContent.new(Paragraph.new(dd))
+            desc_term = DescriptionTerm.new(Paragraph.new(dt.flatten))
+            desc_content = DescriptionContent.new(Paragraph.new(dd.flatten))
             @parent << DescriptionListItem.new(desc_term, desc_content)
           end
         end
