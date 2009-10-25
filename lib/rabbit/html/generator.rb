@@ -165,7 +165,7 @@ module Rabbit
             output_html(filename) if output_html?
             if rss_available?
               @rss_info << [filename, slide_title(slide_number),
-                            @slide.to_rd, @slide.to_html(self)]
+                            @slide.text, @slide.to_html(self)]
             end
           end
         end
@@ -179,7 +179,7 @@ module Rabbit
             output_html(filename) if output_index_html?
             if rss_available?
               @rss_info << [filename, slide_title(slide_number),
-                            @slide.to_rd, @slide_index_html]
+                            @slide.text, @slide_index_html]
             end
             @slide_index_html = nil
           end
@@ -286,13 +286,18 @@ module Rabbit
 
       def slide_image(slide_number=@slide_number)
         src = image_src(slide_number)
-        img = "<img title=\"#{image_title(slide_number)}\" src=\"#{src}\" />"
+        img = "<img title=\"#{image_title(slide_number)}\" " +
+          "src=\"#{src}\" alt=\"#{h(slide_text(slide_number))}\" />"
         if last_slide?(slide_number)
           img
         else
           href = next_href(slide_number)
           "<a href=\"#{href}\">\n#{img}\n</a>"
         end
+      end
+
+      def slide_text(slide_number=@slide_number)
+        @canvas.slide_text(slide_number)
       end
 
       def first_slide?(slide_number=@slide_number)

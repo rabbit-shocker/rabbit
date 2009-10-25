@@ -210,6 +210,13 @@ module Rabbit
       end
     end
 
+    def slide_text(index=current_index)
+      return "" if slides.empty?
+      slide = slides[index]
+      return "" if slide.nil?
+      slide.text.strip
+    end
+
     def slides
       if @index_mode
         @index_slides
