@@ -35,6 +35,7 @@ module Rabbit
       attr_accessor :adjustment_x, :adjustment_y
       attr_accessor :graffiti_color, :graffiti_line_width
       attr_accessor :gl_scale, :gl_quaternion
+      attr_accessor :draw_scaled_image
       attr_writer :page_margin_left, :page_margin_right
       attr_writer :page_margin_top, :page_margin_bottom
 
@@ -62,6 +63,7 @@ module Rabbit
         @progress_background = nil
         @graffiti_color = nil
         @graffiti_line_width = nil
+        @draw_scaled_image = true
         clean
         init_hook_procs
         init_dpi

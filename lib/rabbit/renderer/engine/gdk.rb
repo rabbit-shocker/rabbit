@@ -156,6 +156,7 @@ module Rabbit
           return if gc.nil?
 
           draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
+          draw_scaled_pixbuf = @draw_scaled_image if draw_scaled_pixbuf.nil?
           width = params[:width] || pixbuf.width
           height = params[:height] || pixbuf.height
           if draw_scaled_pixbuf and

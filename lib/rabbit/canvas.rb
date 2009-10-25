@@ -118,6 +118,8 @@ module Rabbit
 
     def_delegators(:@renderer, :search_slide, :stop_slide_search, :searching?)
 
+    def_delegators(:@renderer, :draw_scaled_image, :draw_scaled_image=)
+
     def_delegators(:@source, :source=, :reset, :base)
 
     attr_reader :logger, :renderer, :last_modified

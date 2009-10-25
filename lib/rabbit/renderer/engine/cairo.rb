@@ -253,6 +253,7 @@ module Rabbit
           x, y = from_screen(x, y)
 
           draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
+          draw_scaled_pixbuf = @draw_scaled_image if draw_scaled_pixbuf.nil?
           width = (params[:width] || pixbuf.width).to_f
           height = (params[:height] || pixbuf.height).to_f
           if draw_scaled_pixbuf and
