@@ -1,3 +1,4 @@
+include_theme("newline-in-slides")
 include_theme("default-slide")
 include_theme("default-title-text")
 include_theme("default-text")

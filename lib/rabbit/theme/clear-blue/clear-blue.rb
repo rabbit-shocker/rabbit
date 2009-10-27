@@ -63,8 +63,6 @@ end
 match(TitleSlide, "*") do |elements|
   elements.horizontal_centering = false
   elements.align = :right
-
-  elements.substitute_newline
 end
 
 match(TitleSlide, Title) do |titles|
