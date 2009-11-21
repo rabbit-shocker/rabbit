@@ -4,6 +4,31 @@
 
 $Id$
 
+== Changes 0.6.3 from 0.6.2: 20XX-XX-XX
+
+=== Improvements
+
+  * [#180] Supported inline markup in DL with Wiki format.
+    [kdmsnr]
+  * Added butler rabbit to the standard theme.
+  * Changed to use scaled images by default even when
+    printing mode.
+  * Added a theme:
+    * lightning-monochrome:
+      Takahashi method slide + monochrome normal slide
+
+=== Fixes
+
+  * Fixed a problem that fullscreen doesn't work on Ruby 1.9
+    [Masaki Suketa]
+  * [#179] Fixed a problem that Rabbit sometimes crashes
+    with mouse clicks. [kdmsnr]
+
+=== Thanks
+
+  * Masaki Suketa
+  * kdmsnr
+
 == Changes 0.6.2 from 0.6.1: 2009-10-03
 
 === Improvements
