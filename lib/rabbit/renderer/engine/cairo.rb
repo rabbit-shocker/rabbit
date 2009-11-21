@@ -266,7 +266,7 @@ module Rabbit
               @context.scale(width / pixbuf.width, height / pixbuf.height)
             end
             @context.set_source_pixbuf(pixbuf, 0, 0)
-            @context.paint
+            @context.paint(params[:alpha])
           end
 
           _draw_reflected_pixbuf(pixbuf, x, y, params[:reflect])
