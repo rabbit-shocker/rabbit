@@ -74,11 +74,11 @@ match("**", BlockQuote) do
       end
     end
     if close_quote
-      adjust_close_quote_x = (@block_quote_padding_bottom / 2)
-      adjust_close_quote_x += close_quote.height
+      adjust_close_quote_y = (@block_quote_padding_bottom / 2)
+      adjust_close_quote_y += close_quote.height
       block.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
-          close_quote.draw(canvas, x + w, y - adjust_close_quote_x)
+          close_quote.draw(canvas, x + w, y - adjust_close_quote_y)
         end
         [x, y, w, h]
       end
