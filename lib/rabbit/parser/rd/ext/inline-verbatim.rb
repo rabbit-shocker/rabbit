@@ -82,6 +82,18 @@ module Rabbit
             return nil unless /^wait$/ =~ label
             WaitTag.new
           end
+
+          def ext_inline_verb_tag(label, source, content, visitor)
+            label = label.to_s
+            return nil unless /^tag:(.+?)(?::(.+))?$/ =~ label
+            name = $1
+            content = $2
+            if content
+              CustomTag.new(name, Text.new(visitor.apply_to_String(content)))
+            else
+              CustomTag.new(name)
+            end
+          end
         end
       end
     end

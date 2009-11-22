@@ -25,5 +25,15 @@ module Rabbit
         [x, y, w, h]
       end
     end
+
+    class CustomTag
+      include TextContainerElement
+
+      attr_reader :name
+      def initialize(name, elements=[])
+        super(elements)
+        @name = name
+      end
+    end
   end
 end
