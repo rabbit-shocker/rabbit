@@ -8,6 +8,10 @@
 @preformatted_padding_top ||= screen_y(2)
 @preformatted_padding_bottom ||= screen_y(2)
 
+if @preformatted_keep_in_size.nil?
+  @preformatted_keep_in_size = true
+end
+
 match("**", PreformattedBlock) do |blocks|
   name = "preformatted-block"
   
@@ -31,7 +35,7 @@ match("**", PreformattedBlock) do |blocks|
   blocks.margin_top = @space
   blocks.margin_bottom = @space
 
-  blocks.keep_in_size
+  blocks.keep_in_size if @preformatted_keep_in_size
 
   draw_frame(blocks, params)
 end
