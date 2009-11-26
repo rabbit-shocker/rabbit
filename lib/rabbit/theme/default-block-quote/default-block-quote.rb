@@ -87,19 +87,13 @@ match("**", BlockQuote) do
             if @block_quote_image_background_alpha
               adjust_close_quote_x += close_quote.width
             end
-            if @block_quote_image_background_alpha
-              adjust_close_quote_y = close_quote.height
-            else
-              adjust_close_quote_y = close_quote.height / 2
-              adjust_close_quote_y += @block_quote_padding_bottom / 2
-            end
-            adjust_close_quote_y += block.padding_top
-            adjust_close_quote_y += block.padding_bottom
-            adjust_close_quote_y += block.margin_top
-            adjust_close_quote_y += block.margin_bottom
+            adjust_close_quote_y = block.height
+            adjust_close_quote_y -= close_quote.height
+            adjust_close_quote_y -= @block_quote_padding_bottom / 2
+            adjust_close_quote_y -= block.padding_bottom
             close_quote.draw(canvas,
                              x + w - adjust_close_quote_x,
-                             y + h - adjust_close_quote_y,
+                             y + adjust_close_quote_y,
                              :alpha => @block_quote_image_background_alpha)
           end
         end
