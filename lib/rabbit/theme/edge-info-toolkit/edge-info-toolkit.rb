@@ -37,10 +37,10 @@ match(SlideElement) do |slides|
             "color" => text_color,
           }
           left_layout = right_layout = nil
-          if left_text
+          if left_text and !left_text.empty?
             left_layout = make_formatted_layout.call(props, left_text)
           end
-          if right_text
+          if right_text and !right_text.empty?
             right_layout = make_formatted_layout.call(props, right_text)
           end
 

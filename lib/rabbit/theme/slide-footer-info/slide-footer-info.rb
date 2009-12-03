@@ -20,6 +20,9 @@ name = "slide-footer-info"
 @slide_footer_info_text_over_line ||= false
 @slide_footer_info_base_y ||= canvas.height - @margin_bottom
 
+@slide_footer_info_left_text ||= nil
+@slide_footer_info_right_text ||= nil
+
 include_theme("edge-info-toolkit")
 
 match(SlideElement) do
