@@ -49,6 +49,7 @@ module Rabbit
         end
 
         def post_unfullscreen
+          update_cursor(nil, true)
           update_menu
         end
 
