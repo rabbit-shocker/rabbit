@@ -54,11 +54,23 @@ match(*(slide_body + (enum_list_item * 2))) do |items|
 end
 
 match(*(slide_body + (enum_list_item * 3))) do |items|
-  setup_default_enum_item_mark(items, 3, 1, (1 / 4.0),
+  setup_default_enum_item_mark(items, "enum3", 1, (1 / 4.0),
                                {"size" => @x_small_font_size},
                                {"type" => "upper-case"})
 end
 
+
+match(*(slide_body + item_list_item + enum_list_item)) do |items|
+  setup_default_enum_item_mark(items, "item1-enum", 1.5, (2 / 4.0),
+                               {"size" => @small_font_size},
+                               {"type" => "lower-case"})
+end
+
+match(*(slide_body + (item_list_item * 2) + enum_list_item)) do |items|
+  setup_default_enum_item_mark(items, "item2-enum", 1, (1 / 4.0),
+                               {"size" => @x_small_font_size},
+                               {"type" => "upper-case"})
+end
 
 match(*(slide_body + enum_list_item + item_list_item)) do |items|
   setup_default_item_mark(items, "enum-item1", 1.5, 1.5, (2 / 4.0),
