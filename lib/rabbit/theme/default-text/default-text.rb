@@ -140,6 +140,14 @@ match(*(slide_body + (enum_list_item * 3))) do
 end
 
 
+match(*(slide_body + item_list_item + enum_list_item)) do
+  prop_set("size", @small_font_size)
+end
+
+match(*(slide_body + (item_list_item * 2) + enum_list_item)) do
+  prop_set("size", @x_small_font_size)
+end
+
 match(*(slide_body + enum_list_item + item_list_item)) do
   prop_set("size", @small_font_size)
 end
