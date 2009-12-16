@@ -42,9 +42,9 @@ $Id$
   * Supported tag:
 
     syntax:
-        (('tag:name:content'))
-      or
-        (('tag:name'))content
+      (('tag:name:content'))
+    or
+      (('tag:name'))content
 
     e.g.:
       slide.rab:
