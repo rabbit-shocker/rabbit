@@ -13,9 +13,62 @@ $Id$
   * Added butler rabbit to the standard theme.
   * Changed to use scaled images by default even when
     printing mode.
-  * Added a theme:
+  * Supported pixbuf rendering with alpha channel.
+    (when cairo is used as rendering engine)
+
+==== Theme
+
+  * Added:
     * lightning-monochrome:
       Takahashi method slide + monochrome normal slide
+  * Changed:
+    * default-block-quote: Added
+      @block_quote_image_background_alpha parameter that
+      specifies alpha channel of background images.
+    * default-preformatted: Made auto text size adjustment
+      optional. It is customized by
+      @preformatted_keep_in_size parameter.
+    * clear-blue: Displayed title in the left bottom by
+      default. It can be disabled by the following theme:
+        include_theme("clear-blue")
+        @slide_footer_info_left_text = ""
+  * Supported nest of "itemize > enum" and
+    "itemize > itemize > enum".
+
+==== Experimental
+
+((*This maybe changed in the feature.*))
+
+  * Supported tag:
+
+    syntax:
+        (('tag:name:content'))
+      or
+        (('tag:name'))content
+
+    e.g.:
+      slide.rab:
+        (('tag:center'))Hi, look it!
+
+      theme.rb:
+        match("**", CustomTag) do |tags|
+          tags.each do |tag|
+            case tag.name
+            when "center"
+              tag.parent.horizontal_centering = true
+            end
+          end
+        end
+
+      output(before):
+        +-------------------+
+        | Hi, look it!      |
+        +-------------------+
+
+      output(after):
+        +-------------------+
+        |    Hi, look it!   |
+        +-------------------+
 
 === Fixes
 
@@ -23,6 +76,10 @@ $Id$
     [Masaki Suketa]
   * [#179] Fixed a problem that Rabbit sometimes crashes
     with mouse clicks. [kdmsnr]
+  * newline-in-slides theme: Disabled newline substitution in
+    preformatted text.
+  * Fixed a problem that cursor isn't displayed after
+    unfullscreen.
 
 === Thanks
 

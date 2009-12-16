@@ -13,15 +13,70 @@ $Id$
     [kdmsnrさん]
   * 執事うさぎを標準テーマに追加。
   * 印刷時でもデフォルトでは拡大・縮小後の画像を使用。
-  * テーマを追加
+  * アルファチャンネル付きのpixbufレンダリング対応。
+    （cairoレンダリングエンジン使用時）
+
+==== テーマ
+
+  * 追加
     * lightning-monochrome:
       高橋メソッドスライド + モノクロな通常スライド
+  * 変更
+    * default-block-quote: 背景画像の透明度を指定する
+      @block_quote_image_background_alphaパラメーターを追加。
+    * default-preformatted: テキストの自動サイズ調整をカスタ
+      マイズできるようにした。@preformatted_keep_in_sizeパラ
+      メータで変更可能。
+    * clear-blue: デフォルトで左下にタイトルを表示するように
+      変更。無効にする場合は以下を追加するとよい。
+        include_theme("clear-blue")
+        @slide_footer_info_left_text = ""
+  * 箇条書きと列挙のネスト"itemize > enum"と
+    "itemize > itemize > enum"に対応
+
+==== 実験的
+
+((*変更される可能性があります。*))
+
+  * タグのサポート
+
+    構文:
+      (('tag:name:内容'))
+    または
+      (('tag:name'))内容
+
+    例:
+      slide.rab:
+        (('tag:center'))どうもどうも
+
+      theme.rb:
+        match("**", CustomTag) do |tags|
+          tags.each do |tag|
+            case tag.name
+            when "center"
+              tag.parent.horizontal_centering = true
+            end
+          end
+        end
+
+    出力（テーマ適用前）:
+      +-------------------+
+      | どうもどうも      |
+      +-------------------+
+
+    出力（テーマ適用後）:
+      +-------------------+
+      |   どうもどうも    |
+      +-------------------+
 
 === 修正
 
   * Ruby 1.9でフルスクリーンが動かない問題を修正 [助田さん]
   * [#179] マウス使用時にクラッシュすることがある問題を修正
     [kdmsnrさん]
+  * newline-in-slidesテーマ: 整形済みテキストでは改行を置換
+    しないようにした。
+  * フルスクリーン解除時にカーソルが表示されない問題を修正
 
 === 感謝
 
