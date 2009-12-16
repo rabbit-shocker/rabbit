@@ -65,6 +65,8 @@ update_rd(*args) do |src, page_name, prefix|
 end
 
 [
+ ["NEWS.ja"],
+ ["NEWS.en"],
  ["INSTALL.macosx-macports.ja"],
  ["INSTALL.macosx-macports.en"],
  ["sample/rabbit.rd", "sample.ja"],
