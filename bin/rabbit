@@ -63,6 +63,7 @@ def parse_args(args=ARGV, logger=nil)
     options.migemo_dictionary_name = "migemo-dict"
     options.use_gl = false
     options.show_native_window_id = false
+    options.keep_above = false
 
 
     opts.banner = "#{opts.banner} [SOURCE_INFOS]"
@@ -495,6 +496,14 @@ def parse_args(args=ARGV, logger=nil)
       options.use_gl = bool
     end
 
+    opts.category _("Display")
+
+    opts.on("--[no-]keep-above",
+            _("Specify whether to keep above window."),
+            "(#{options.keep_above})") do |bool|
+      options.keep_above = bool
+    end
+
     opts.category _("Others")
 
     opts.on("--[no-]show-native-window-id",
@@ -684,6 +693,7 @@ def do_display(options, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Display)
   frame = Rabbit::Frame.new(logger, canvas)
   frame.geometry = options.geometry
+  frame.force_keep_above = options.keep_above
   setup_paper_size(canvas, options)
   setup_image_info(canvas, options)
   setup_print_info(canvas, options)

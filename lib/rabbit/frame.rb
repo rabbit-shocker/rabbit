@@ -27,12 +27,13 @@ module Rabbit
     def_delegators(:@canvas, :rss_base_uri=, :use_gl?, :use_gl=)
 
     attr_reader :window, :logger
-    attr_accessor :geometry
+    attr_accessor :geometry, :force_keep_above
 
     def initialize(logger, canvas)
       @logger = logger
       @canvas = canvas
       @geometry = nil
+      @force_keep_above = nil
     end
 
     def destroyed?
@@ -101,7 +102,11 @@ module Rabbit
       @fullscreen = false
       @iconify = false
       @main_window = main_window
-      @window.keep_above = true unless @main_window
+      if @main_window
+        @window.keep_above = @force_keep_above unless @force_keep_above.nil?
+      else
+        @window.keep_above = true
+      end
       @window.show
       @canvas.post_init_gui
     end
@@ -131,6 +136,15 @@ module Rabbit
       set_window_signal_destroy
     end
 
+    def update_keep_above(keep_above=nil)
+      if @main_window
+        keep_above = @force_keep_above unless @force_keep_above.nil?
+        @window.keep_above = keep_above unless keep_above.nil?
+      else
+        @window.keep_above = true
+      end
+    end
+
     def set_window_signal_window_state_event
       @window.signal_connect("window_state_event") do |widget, event|
         if event.changed_mask.fullscreen?
@@ -139,7 +153,7 @@ module Rabbit
             @window.keep_above = true
             @canvas.fullscreened
           else
-            @window.keep_above = !@main_window
+            update_keep_above(false)
             @canvas.unfullscreened
           end
           @window.present
@@ -235,6 +249,7 @@ module Rabbit
     def_null_methods(:icon, :icon=, :set_icon)
     def_null_methods(:icon_list, :icon_list=, :set_icon_list)
     def_null_methods(:update_title, :geometry, :geometry=)
+    def_null_methods(:force_keep_above, :force_keep_above=)
 
     def_null_methods(:fullscreen?, :quit)
 
