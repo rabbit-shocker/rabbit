@@ -130,6 +130,7 @@ module Rabbit
 
     attr_accessor :saved_image_type, :rss_base_uri
     attr_accessor :output_html, :output_index_html
+    attr_accessor :source_filename
     attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
     attr_accessor :font_resolution_ratio
 
@@ -145,7 +146,8 @@ module Rabbit
       @apply_theme_request_queue = []
       @auto_redraw_timer = nil
       @output_html = false
-      @rss_base_uri = true
+      @rss_base_uri = nil
+      @source_filename = nil
       @migemo_dictionary_search_path = []
       @migemo_dictionary_name = nil
       @limit_time = nil
@@ -387,6 +389,7 @@ module Rabbit
                                         @output_index_html,
                                         @rss_base_uri)
         generator.pdf_filename = filename if /\.pdf/i =~ filename.to_s
+        generator.source_filename = @source_filename
         generator.save
       end
     end

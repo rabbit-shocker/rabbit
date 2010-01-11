@@ -64,6 +64,7 @@ def parse_args(args=ARGV, logger=nil)
     options.use_gl = false
     options.show_native_window_id = false
     options.keep_above = false
+    options.source_filename = nil
 
 
     opts.banner = "#{opts.banner} [SOURCE_INFOS]"
@@ -208,6 +209,12 @@ def parse_args(args=ARGV, logger=nil)
             _("RSS is generated only when HTML is output."),
             "(#{options.rss_base_uri})") do |uri|
       options.rss_base_uri = uri
+    end
+
+    opts.on("--source-filename=FILENAME",
+            _("Specify source filenam as [FILENAME]."),
+            "(#{options.source_filename})") do |filename|
+      options.source_filename = filename
     end
 
     opts.category _("Print")
@@ -566,6 +573,7 @@ def setup_image_info(target, options)
   target.output_html = options.output_html
   target.output_index_html = options.output_index_html
   target.rss_base_uri = options.rss_base_uri
+  target.source_filename = options.source_filename
 end
 
 def setup_print_info(target, options)

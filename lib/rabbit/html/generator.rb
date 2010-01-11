@@ -23,7 +23,7 @@ module Rabbit
       erb = File.open(template_path) {|f| ERB.new(f.read, nil, "-")}
       erb.def_method(self, "to_html", template_path)
 
-      attr_accessor :pdf_filename
+      attr_accessor :pdf_filename, :source_filename
       def initialize(canvas, base_name, image_type,
                      output_html, output_index_html, rss_base_uri)
         @canvas = canvas
@@ -38,6 +38,7 @@ module Rabbit
         @output_html = output_html
         @output_index_html = output_index_html
         @pdf_filename = nil
+        @source_filename = nil
         FileUtils.mkdir_p(to_filename_encoding(@base_dir))
       end
 
@@ -292,7 +293,7 @@ module Rabbit
           img
         else
           href = next_href(slide_number)
-          "<a href=\"#{href}\">\n#{img}\n</a>"
+          "<a href=\"#{href}\">#{img}</a>"
         end
       end
 
@@ -396,6 +397,10 @@ module Rabbit
         if @pdf_filename
           result << HTML.a_link("<a href=\"#{h(@pdf_filename)}\">",
                                 h(_("PDF")), false)
+        end
+        if @source_filename
+          result << HTML.a_link("<a href=\"#{h(@source_filename)}\">",
+                                h(_("Source")), false)
         end
         unless result.empty?
           result = "<div class=\"navi\">\n#{result}\n</div>"
