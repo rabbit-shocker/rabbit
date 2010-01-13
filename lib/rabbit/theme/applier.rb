@@ -608,6 +608,14 @@ module Rabbit
       def entity(key)
         Parser::Ext::Entity::TABLE[key]
       end
+
+      def theme_load_path
+        super + [canvas.full_path(".")].compact
+      end
+
+      def image_load_path
+        super + [canvas.full_path(".")].compact
+      end
     end
   end
 end

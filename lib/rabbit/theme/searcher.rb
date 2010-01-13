@@ -86,14 +86,21 @@ module Rabbit
       end
 
       def collect_theme(&block)
-        _collect_theme($LOAD_PATH, &block)
+        _collect_theme(theme_load_path, &block)
       end
 
       def collect_image_theme(&block)
-        _collect_theme(Config::IMAGE_PATH + $LOAD_PATH,
-                       "image_dir", :image, &block)
+        _collect_theme(image_load_path, "image_dir", :image, &block)
       end
-      
+
+      def theme_load_path
+        $LOAD_PATH
+      end
+
+      def image_load_path
+        Config::IMAGE_PATH + $LOAD_PATH
+      end
+
       def _collect_theme(path, converter=nil, type=nil, &block)
         converter ||= "theme_dir"
         themes = []
