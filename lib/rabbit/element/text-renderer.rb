@@ -234,6 +234,13 @@ module Rabbit
       end
 
       def draw_layout(canvas, x, y)
+        shadow_color = self["shadow-color"]
+        if shadow_color
+          shadow_x = self["shadow-x"] || 1
+          shadow_y = self["shadow-y"] || 1
+          canvas.draw_layout(@layout, x + shadow_x, y + shadow_y, shadow_color)
+        end
+
         color = prop_get("foreground")
         color = color.value if color
         canvas.draw_layout(@layout, x, y, color)
