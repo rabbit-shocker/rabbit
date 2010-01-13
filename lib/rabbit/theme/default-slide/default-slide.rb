@@ -26,6 +26,14 @@ match(Slide, HeadLine) do |headlines|
     headline.hide if slide.hide_title?
     color = slide["headline-color"]
     headline.prop_set("foreground", color) if color
+    shadow_color = slide["headline-shadow-color"]
+    if shadow_color
+      shadow_x = screen_x(Float(slide["headline-shadow-x"] || 0.25))
+      shadow_y = screen_y(Float(slide["headline-shadow-y"] || 0.25))
+      headline["shadow-color"] = shadow_color
+      headline["shadow-x"] = shadow_x
+      headline["shadow-y"] = shadow_y
+    end
   end
 end
 
