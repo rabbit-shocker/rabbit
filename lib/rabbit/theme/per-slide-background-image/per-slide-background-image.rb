@@ -19,7 +19,6 @@ match(Slide) do |slides|
     slide.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if simulation
         _x, _y, _w, _h = 0, 0, canvas.width, canvas.height
-        p [:before, image.height]
         image.compile(canvas, _x, _y, _w, _h)
         if image.do_vertical_centering?
           adjust_height = ((_h - image.height - image.padding_bottom) / 2.0).ceil
