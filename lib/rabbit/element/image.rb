@@ -112,6 +112,7 @@ module Rabbit
       private
       def setup_draw_parameters(prop)
         @draw_parameters = {}
+
         @draw_parameters[:reflect] = {} if true_value?(prop["reflect"])
         [:ratio, :alpha].each do |key|
           name = "reflect_#{key}"
@@ -120,6 +121,9 @@ module Rabbit
           @draw_parameters[:reflect] ||= {}
           @draw_parameters[:reflect][key] = Float(value)
         end
+
+        alpha = prop["alpha"]
+        @draw_parameters[:alpha] = Float(alpha) if alpha
       end
 
       def draw_image(canvas, x, y, w, h, simulation)
