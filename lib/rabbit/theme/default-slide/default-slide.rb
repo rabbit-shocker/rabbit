@@ -3,11 +3,10 @@
 match(Slide) do |slides|
   slides.each do |slide|
     slide.margin_set(@margin_top, @margin_right, @margin_bottom, @margin_left)
-    slide.headline.hide if slide.hide_title?
   end
 end
 
-match(Slide, HeadLine) do
+match(Slide, HeadLine) do |headlines|
   name = "head-line"
   
   delete_post_draw_proc_by_name(name)
@@ -20,6 +19,13 @@ match(Slide, HeadLine) do
                        @default_headline_line_color)
     end
     [x, y, w, h]
+  end
+
+  headlines.each do |headline|
+    slide = headline.slide
+    headline.hide if slide.hide_title?
+    color = slide["headline-color"]
+    headline.prop_set("foreground", color) if color
   end
 end
 
