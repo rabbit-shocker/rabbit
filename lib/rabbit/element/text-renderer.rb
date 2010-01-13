@@ -234,6 +234,7 @@ module Rabbit
       end
 
       def draw_layout(canvas, x, y)
+        # FIXME: should define formatter.
         shadow_color = self["shadow-color"]
         if shadow_color
           shadow_x = self["shadow-x"] || 1
