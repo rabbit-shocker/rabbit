@@ -459,7 +459,7 @@ module Rabbit
 
       def _draw(canvas, x, y, w, h, simulation)
         around_draw_procs = @around_draw_procs.dup
-        around_draw_procs.concat(slide.waited_draw_procs(self))
+        around_draw_procs.concat(slide.waited_draw_procs(self)) if slide
         _draw_rec(canvas, x, y, w, h, simulation, around_draw_procs)
       end
 
