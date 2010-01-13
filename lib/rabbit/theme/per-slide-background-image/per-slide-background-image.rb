@@ -9,7 +9,7 @@ match(Slide) do |slides|
 
     properties = {}
     slide.user_property.each do |name, value|
-      if /\Abackground[_-]image[_-]/ =~ name
+      if /\Abackground-image-/ =~ name
         properties[$POSTMATCH.gsub(/-/, '_')] = value
       end
     end
