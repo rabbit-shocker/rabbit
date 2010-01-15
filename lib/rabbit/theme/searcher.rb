@@ -46,6 +46,12 @@ module Rabbit
         else
           collector = "collect_all_theme"
         end
+
+        unless only_image
+          entry = SingleFileEntry.new(base_directory, theme_name)
+          return entry if entry.available?
+        end
+
         found_entry = nil
         __send__(collector) do |entry|
           if theme_name == entry.name
@@ -53,6 +59,7 @@ module Rabbit
             break
           end
         end
+
         raise LoadError, "can't find theme: #{theme_name}." if found_entry.nil?
         found_entry
       end
@@ -86,11 +93,11 @@ module Rabbit
       end
 
       def collect_theme(&block)
-        _collect_theme(theme_load_path, &block)
+        _collect_theme(theme_load_path, DirectoryEntry, &block)
       end
 
       def collect_image_theme(&block)
-        _collect_theme(image_load_path, "image_dir", :image, &block)
+        _collect_theme(image_load_path, ImageDirectoryEntry, "image_dir", &block)
       end
 
       def theme_load_path
@@ -101,7 +108,7 @@ module Rabbit
         Config::IMAGE_PATH + $LOAD_PATH
       end
 
-      def _collect_theme(path, converter=nil, type=nil, &block)
+      def _collect_theme(path, entry_class, converter=nil, &block)
         converter ||= "theme_dir"
         themes = []
         theme_name = {}
@@ -110,8 +117,8 @@ module Rabbit
           if File.directory?(base_name)
             Dir.foreach(base_name) do |theme|
               next if /\A..?\z/ =~ theme
-              entry = Entry.new(File.join(File.expand_path(base_name), theme),
-                                type)
+              file = File.join(File.expand_path(base_name), theme)
+              entry = entry_class.new(file)
               if entry.available? and !theme_name.has_key?(theme)
                 block.call(entry) if block
                 themes << entry

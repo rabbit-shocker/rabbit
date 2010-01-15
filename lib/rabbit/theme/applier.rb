@@ -609,12 +609,16 @@ module Rabbit
         Parser::Ext::Entity::TABLE[key]
       end
 
+      def base_directory
+        canvas.full_path(".")
+      end
+
       def theme_load_path
-        super + [canvas.full_path(".")].compact
+        super + [base_directory].compact
       end
 
       def image_load_path
-        super + [canvas.full_path(".")].compact
+        super + [base_directory].compact
       end
     end
   end

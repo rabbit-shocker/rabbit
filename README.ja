@@ -661,8 +661,9 @@ inline verbatimとして記述します．詳しくはsample/rabbit.rdを見
 === 置き場所
 
 テーマはrubyの$LOAD_PATHから検索されます．新しくテーマを作成
-した場合は((|$LOAD_PATHに含まれているパス/rabbit/theme/テー
-マ名/テーマ名.rb|))に置いてください．
+した場合は((|$LOAD_PATHに含まれているパス/rabbit/theme/テーマ
+名/テーマ名.rb|))あるいは((|ソースがあるディレクトリ/テーマ
+名.rb|))に置いてください．
 
 === 書き方
 

@@ -47,11 +47,10 @@ module Rabbit
       attr_reader :dependencies, :parameters
       attr_accessor :logger
 
-      def initialize(theme_dir, type)
+      def initialize(theme_dir, name)
         @logger = nil
         @theme_dir = theme_dir
-        @type = type
-        @name = File.basename(@theme_dir)
+        @name = name
         @title = @name
         @category = nil
         @abstract = nil
@@ -68,7 +67,7 @@ module Rabbit
       def property_editable?
         File.writable?(property_file)
       end
-      
+
       def theme_file
         File.join(@theme_dir, "#{@name}.rb")
       end
@@ -80,7 +79,7 @@ module Rabbit
       def have_file?(target)
         File.exist?(full_path(target))
       end
-      
+
       def full_path(target)
         File.join(@theme_dir, target)
       end
@@ -90,7 +89,7 @@ module Rabbit
       end
 
       def image_theme?
-        @type == :image
+        false
       end
 
       def files
@@ -104,7 +103,7 @@ module Rabbit
       def property_file
          File.join(@theme_dir, "#{PROPERTY_BASE_NAME}.rb")
       end
-      
+
       def parse_property
         file = property_file
         if File.exist?(file)
@@ -115,6 +114,40 @@ module Rabbit
             @logger.warn($!) if @logger
           end
         end
+      end
+    end
+
+    class DirectoryEntry < Entry
+      def initialize(theme_dir)
+        super(theme_dir, File.basename(theme_dir))
+      end
+    end
+
+    class ImageDirectoryEntry < DirectoryEntry
+      def image_theme?
+        true
+      end
+    end
+
+    class SingleFileEntry < Entry
+      def initialize(theme_dir, name)
+        super(theme_dir, name)
+      end
+
+      def property_editable?
+        false
+      end
+
+      def files
+        []
+      end
+
+      def have_file?(target)
+        name == target
+      end
+
+      private
+      def parse_property
       end
     end
   end
