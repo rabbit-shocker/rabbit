@@ -258,6 +258,7 @@ module Rabbit
 
       def dynamic_font_size_computation(proc_name, compute_max_size,
                                         &make_params)
+        return if text.empty?
         computed = false
         min_width = nil
         add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
