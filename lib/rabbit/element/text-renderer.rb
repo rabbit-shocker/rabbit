@@ -180,6 +180,18 @@ module Rabbit
         @original_width, @original_height = layout.pixel_size
         @first_line_width = @original_width / layout.line_count
         @first_line_height = @original_height / layout.line_count
+        setup_layout(layout, w)
+        width, height = layout.pixel_size
+        if layout.width != -1 and
+            (layout.alignment == Pango::Layout::ALIGN_CENTER or
+             layout.alignment == Pango::Layout::ALIGN_RIGHT)
+          width = layout.width / Pango::SCALE
+        end
+        @width, @height = width, height
+        @layout = layout
+      end
+
+      def setup_layout(layout, w)
         if @wrap_mode
           layout.set_width(w * Pango::SCALE)
           layout.set_wrap(@wrap_mode)
@@ -191,16 +203,8 @@ module Rabbit
         layout.set_spacing(@spacing)
         layout.justify = @justify
         layout.context_changed
-        width, height = layout.pixel_size
-        if layout.width != -1 and
-            (layout.alignment == Pango::Layout::ALIGN_CENTER or
-             layout.alignment == Pango::Layout::ALIGN_RIGHT)
-          width = layout.width / Pango::SCALE
-        end
-        @width, @height = width, height
-        @layout = layout
       end
-      
+
       def markup(str)
         t = str
         @prop.each do |name, formatter|
@@ -234,12 +238,17 @@ module Rabbit
       end
 
       def draw_layout(canvas, x, y)
-        # FIXME: should define formatter.
         shadow_color = self["shadow-color"]
         if shadow_color
-          shadow_x = self["shadow-x"] || 1
-          shadow_y = self["shadow-y"] || 1
-          canvas.draw_layout(@layout, x + shadow_x, y + shadow_y, shadow_color)
+          shadow_foreground = Format::Foreground.new(shadow_color)
+          shadow_text = markup(shadow_foreground.format(text))
+          shadow_layout = canvas.make_layout(shadow_text)
+          setup_layout(shadow_layout, @layout.width / Pango::SCALE)
+          line_height = shadow_layout.pixel_size[1] / shadow_layout.line_count
+          shadow_x = self["shadow-x"] || (line_height * 0.08)
+          shadow_y = self["shadow-y"] || (line_height * 0.06)
+          canvas.draw_layout(shadow_layout, x + shadow_x, y + shadow_y,
+                             shadow_color)
         end
 
         color = prop_get("foreground")
