@@ -11,7 +11,7 @@ module Rabbit
       unshift_loader(self)
       class << self
         def match?(source)
-          /\A%PDF-1\.\d\z/ =~ source.read.split(/\r?\n/, 2)[0]
+          /\A%PDF-1\.\d\s/m =~ source.read
         end
       end
 
