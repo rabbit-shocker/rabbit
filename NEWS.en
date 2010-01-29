@@ -4,6 +4,92 @@
 
 $Id$
 
+== Changes 0.6.4 from 0.6.3: 2009-12-16
+
+Rabbit had been included in Debian official packages! [Youhei
+SASAKI]
+
+=== Improvements
+
+  * Added --keep-above option: Rabbit is always shown top of
+    windows.
+  * Added --source-filename option that adds source link to
+    output HTML.
+  * Added a directory in source file into theme load path.
+  * Supported a single theme file in the same directory of
+    source file. [zunda]
+  * Improved PDF file detection.
+
+==== Theme
+
+  * Added:
+    * per-slide-background-image:
+      Uses background image per slide. A background
+      image is specified by slide property:
+
+        = target slide
+
+        ...
+
+        == properties
+
+        : background-image
+           my-picture.png
+        : background-image-ralative-height
+           95
+
+      Supported options are same as image options in slide.
+      Options name should be started with "background-image-".
+
+      e.g.: "background-image-relative-height" for
+      "relative-height" option.
+
+    * per-slide-background-color:
+      Uses background color per slide. A background color is
+      specified by slide property:
+
+        = target slide
+
+        ...
+
+        == properties
+
+        : background-color
+           black
+
+      Color can be specified as color name, "black", or RGB
+      values "#RRGGBBAA".
+
+  * Changed:
+    * default-slide:
+      Supports title foreground color and shadow color
+      change per slide. They are specified by slide
+      property:
+
+        = target slide
+
+        ...
+
+        == properties
+
+        : headline-color
+           red
+        : headline-shadow-color
+           gray
+
+=== Fixes
+
+  * Fixed a bug that empty title with
+    @lightning_talk_as_large_as_possible = true crashes.
+    [kdmsnr]
+  * Added workaround for Ruby 1.8.7 p249.
+
+=== Thanks
+
+  * zunda
+  * kdmsnr
+  * Youhei SASAKI
+
 == Changes 0.6.3 from 0.6.2: 2009-12-16
 
 === Improvements
