@@ -126,7 +126,7 @@ module Rabbit
 
         draw_order = Proc.new do |item, canvas, x, y, w, h, tw, th, layout|
           first_text = item.elements.first
-          text_height = first_text.original_height
+          text_height = first_text.first_line_height
           text_height += first_text.padding_top + first_text.padding_bottom
           adjust_y = ((text_height / 2.0) - (th / 2.0)).ceil
 
