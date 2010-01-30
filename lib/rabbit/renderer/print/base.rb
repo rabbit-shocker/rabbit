@@ -51,7 +51,7 @@ module Rabbit
         end
 
         def filename
-          @filename ||= "#{GLib.filename_from_utf8(@canvas.title)}.pdf"
+          @filename ||= default_filename
         end
 
         def draw_slide(slide, simulation)
@@ -66,6 +66,11 @@ module Rabbit
               end
             end
           end
+        end
+
+        private
+        def default_filename
+          "#{GLib.filename_from_utf8(@canvas.title.gsub(/\n/, ''))}.pdf"
         end
       end
     end
