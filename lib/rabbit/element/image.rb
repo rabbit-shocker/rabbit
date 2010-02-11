@@ -16,6 +16,10 @@ module Rabbit
       attr_reader :caption
       attr_reader :normalized_width, :normalized_height
       attr_reader :relative_width, :relative_height
+      attr_reader :relative_margin_top, :relative_margin_bottom
+      attr_reader :relative_margin_left, :relative_margin_right
+      attr_reader :relative_padding_top, :relative_padding_bottom
+      attr_reader :relative_padding_left, :relative_padding_right
 
       def initialize(filename, prop)
         @filename = filename
@@ -35,6 +39,10 @@ module Rabbit
            x_dither y_dither
            normalized_width normalized_height
            relative_width relative_height
+           relative_margin_top relative_margin_bottom
+           relative_margin_left relative_margin_right
+           relative_padding_top relative_padding_bottom
+           relative_padding_left relative_padding_right
           ).each do |name|
           begin
             instance_variable_set("@#{name}", prop[name] && Integer(prop[name]))
@@ -42,6 +50,7 @@ module Rabbit
             raise InvalidImageSizeError.new(filename, name, prop[name])
           end
         end
+
         setup_draw_parameters(prop)
         resize(@width, @height)
       end
@@ -133,9 +142,34 @@ module Rabbit
         [x, y + height, w, h - height]
       end
 
+      def adjust_margin(w, h)
+        @margin_top =
+          make_relative_size(@relative_margin_top, h) || @margin_top
+        @margin_bottom =
+          make_relative_size(@relative_margin_bottom, h) || @margin_bottom
+        @margin_left =
+          make_relative_size(@relative_margin_left, w) || @margin_left
+        @margin_right =
+          make_relative_size(@relative_margin_right, w) || @margin_right
+      end
+
+      def adjust_padding(w, h)
+        @padding_top =
+          make_relative_size(@relative_padding_top, h) || @padding_top
+        @padding_bottom =
+          make_relative_size(@relative_padding_bottom, h) || @padding_bottom
+        @padding_left =
+          make_relative_size(@relative_padding_left, w) || @padding_left
+        @padding_right =
+          make_relative_size(@relative_padding_right, w) || @padding_right
+      end
+
       def adjust_size(canvas, x, y, w, h)
         base_w = w
-        base_h = (@oh || h) - @padding_top - @padding_bottom
+        base_h = @oh || h
+        adjust_margin(base_w, base_h)
+        adjust_padding(base_w, base_h)
+        base_h = base_h - @padding_top - @padding_bottom
         if @as_large_as_possible
           iw = base_w - x
           ih = base_h - y
