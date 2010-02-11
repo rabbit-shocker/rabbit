@@ -37,8 +37,11 @@ def apply_background_image_property(element, options={})
         end
       end
       if right
-        element_margin_right = image.width
-        _x = _w - element_margin_right - image.margin_right
+        element_margin_right = image.width +
+          image.margin_left + image.margin_right +
+          element.margin_right + element.padding_right +
+          element.parent.margin_right
+        _x = _w - image.width - image.margin_right
       end
 
       if old_geometry != [_x, _y, _w, _h]
