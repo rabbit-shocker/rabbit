@@ -24,6 +24,11 @@ module Rabbit
       def initialize(filename, prop)
         @filename = filename
         super(filename, prop)
+        normalized_prop = {}
+        prop.each do |name, value|
+          normalized_prop[name.gsub(/-/, '_')] = value
+        end
+        prop = normalized_prop
         %w(caption dither_mode).each do |name|
           instance_variable_set("@#{name}", prop[name])
         end
