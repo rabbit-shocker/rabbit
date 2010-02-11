@@ -47,6 +47,9 @@ module Rabbit
           []
         end
 
+        def current_body
+          @slides.last.body
+        end
 
         #
         # Procedures
@@ -288,7 +291,9 @@ module Rabbit
         def block_plugin(src)
           return unless @parent
 
-          @parent << (evaluate_block_plugin(src) || text("{{#{src}}}"))
+          result = evaluate_block_plugin(src)
+          return if result == :no_element
+          @parent << (result || text("{{#{src}}}"))
         end
 
 
@@ -404,6 +409,7 @@ module Rabbit
         end
 
         class BlockPlugin
+          include GetText
           include Element
 
           def initialize(output)
@@ -411,7 +417,23 @@ module Rabbit
           end
 
           def image(source, props={})
-            Ext::Image.make_image(@output.canvas, source, props)
+            if props[:align].to_s == "right"
+              body = @output.current_body
+              if body["background-image"]
+                raise ParseError,
+                      _("multiple {{image, 'XXX.png', :align => :right}} " + \
+                        "isn't supported.")
+              end
+              body["background-image"] = source
+              props.each do |name, value|
+                name = name.to_s.gsub(/_/, '-')
+                value = value.to_s if name == "align"
+                body["background-image-#{name}"] = value
+              end
+              :no_element
+            else
+              Ext::Image.make_image(@output.canvas, source, props)
+            end
           end
           alias_method :img, :image
 

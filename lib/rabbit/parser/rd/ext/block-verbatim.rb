@@ -38,10 +38,15 @@ module Rabbit
             return nil unless /^(?:image|img)$/i =~ label
             src, prop = parse_source(source)
             return nil if prop['src'].nil?
+
             if prop['align'] == "right"
               body = visitor.current_body
-              raise if body["background-image-align"]
+              if body["background-image"]
+                raise ParseError,
+                      _("multiple 'align = right' isn't supported.")
+              end
               prop.each do |name, value|
+                name = name.gsub(/_/, '-')
                 if name == "src"
                   property_name = "background-image"
                 else
