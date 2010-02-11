@@ -38,7 +38,21 @@ module Rabbit
             return nil unless /^(?:image|img)$/i =~ label
             src, prop = parse_source(source)
             return nil if prop['src'].nil?
-            make_image(visitor, prop['src'], prop)
+            if prop['align'] == "right"
+              body = visitor.current_body
+              raise if body["background-image-align"]
+              prop.each do |name, value|
+                if name == "src"
+                  property_name = "background-image"
+                else
+                  property_name = "background-image-#{name}"
+                end
+                body[property_name] = value
+              end
+              :no_element
+            else
+              make_image(visitor, prop['src'], prop)
+            end
           end
 
           def ext_block_verb_enscript(label, source, content, visitor)

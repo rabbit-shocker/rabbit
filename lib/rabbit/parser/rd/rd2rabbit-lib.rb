@@ -59,11 +59,12 @@ module Rabbit
           mode = :ignore
           contents.each do |content|
             case content
+            when :no_element
+              next
             when nil
               mode = :ignore
             when Slide
-              target = Body.new
-              content << target
+              target = content.body
               @canvas << content
               mode = :display
             when TitleSlide
@@ -95,6 +96,7 @@ module Rabbit
               @slide = TitleSlide.new(Title.new(title))
             else
               @slide = Slide.new(HeadLine.new(title))
+              @slide << Body.new
             end
             @foot_texts << []
             @slides << @slide
@@ -275,6 +277,10 @@ module Rabbit
         def create_have_text_element(klass, content)
           raise "Why???" if content.size > 1
           klass.new(content.collect{|x| x.text}.join(""))
+        end
+
+        def current_body
+          @slide.body
         end
 
         private
