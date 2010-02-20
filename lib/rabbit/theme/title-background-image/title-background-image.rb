@@ -1,25 +1,27 @@
-proc_name = "title-background-image"
-
 if @title_background_image.nil?
   theme_exit("must specify @title_background_image!!")
 end
 
+@title_background_image_properties ||= {}
+default_title_backgroud_image_properties = {
+  "as_large_as_possible" => true,
+  "align" => "center",
+  "assign_box" => false,
+  "keep_ratio" => true,
+}
+
 match(TitleSlide) do |slides|
-  loader = ImageLoader.new(find_file(@title_background_image))
-  resized = false
-
-  slides.delete_pre_draw_proc_by_name(proc_name)
-
-  slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
-    unless simulation
-      unless loader.nil?
-        unless resized
-          loader.resize(canvas.width, canvas.height)
-          resized = true
-        end
-        loader.draw(canvas, 0, 0)
-      end
+  slides.each do |slide|
+    image_properties = default_title_backgroud_image_properties.dup
+    @title_background_image_properties.each do |key, value|
+      value = value.to_s if value.is_a?(Symbol)
+      image_properties[key.to_s.gsub(/-/, "_")] = value
     end
-    [x, y, w, h]
+    properties = {
+      :file_name => find_file(@title_background_image),
+      :proc_name => "title-background-image",
+      :properties => image_properties,
+    }
+    apply_background_image_property(slide, properties)
   end
 end

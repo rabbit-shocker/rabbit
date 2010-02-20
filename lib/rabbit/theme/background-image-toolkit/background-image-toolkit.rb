@@ -4,22 +4,35 @@ def apply_background_image_property(element, options={})
 
   element.delete_pre_draw_proc_by_name(proc_name)
 
-  background_image = element["background-image"]
+  if options.has_key?(:file_name)
+    background_image = options[:file_name]
+  else
+    background_image = element["background-image"]
+    background_image = canvas.full_path(background_image) if background_image
+  end
   return if background_image.nil?
 
-  properties = {}
-  element.user_property.each do |name, value|
-    if /\Abackground-image-/ =~ name
-      properties[$POSTMATCH.gsub(/-/, '_')] = value
+  if options.has_key?(:properties)
+    properties = options[:properties]
+  else
+    properties = {}
+    element.user_property.each do |name, value|
+      if /\Abackground-image-/ =~ name
+        properties[$POSTMATCH.gsub(/-/, '_')] = value
+      end
     end
   end
-  image = Image.new(canvas.full_path(background_image), properties)
-  right = properties["align"] == "right"
+
+  image = Image.new(background_image, properties)
+  align = properties["align"]
+  assign_box = properties["assign_box"]
   element_margin_right = 0
-  unless right
+  case align
+  when "center"
     image.horizontal_centering = true
   end
   image.vertical_centering = true
+
   element.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
     if simulation
       if compute_initial_geometry
@@ -27,6 +40,7 @@ def apply_background_image_property(element, options={})
       else
         _x, _y, _w, _h = x, y, w, h
       end
+
       old_geometry = [_x, _y, _w, _h]
       image.compile(canvas, _x, _y, _w, _h)
       if image.do_vertical_centering?
@@ -36,12 +50,17 @@ def apply_background_image_property(element, options={})
           _h -= adjust_height
         end
       end
-      if right
-        element_margin_right = image.width +
-          image.margin_left + image.margin_right +
-          element.margin_right + element.padding_right +
-          element.parent.margin_right
+
+      case align
+      when "right"
+        if assign_box
+          element_margin_right = image.width +
+            image.margin_left + image.margin_right +
+            element.margin_right + element.padding_right
+          element_margin_right += element.parent.margin_right if element.parent
+        end
         _x = _w - image.width - image.margin_right
+      when "center"
       end
 
       if old_geometry != [_x, _y, _w, _h]
