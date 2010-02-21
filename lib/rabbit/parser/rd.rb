@@ -14,7 +14,8 @@ module Rabbit
       end
 
       def parse
-        source = "=begin\n#{@source.read}\n=end\n"
+        source = @source.read.gsub(/\r\n/, "\n")
+        source = "=begin\n#{source}\n=end\n"
         tree = ::RD::RDTree.new(source)
         visitor = RD2RabbitVisitor.new(@canvas)
         visitor.visit(tree)
