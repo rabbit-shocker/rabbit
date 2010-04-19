@@ -1,3 +1,4 @@
+* support centering in table cell.
 * [BUG]: PDF slide doesn't scale???
 * improve Clutter support.
 * support GStreamer.
