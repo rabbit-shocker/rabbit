@@ -7,3 +7,18 @@
 * [nori] write manpage (converted from something like RD or DocBook XML).
 * support GooCanvas.
 * support Nokogiri as alternative of HTree.
+* support theme configuration in RD:
+  e.g.:
+
+    : theme
+       * @slide_footer_info_left_text = "Ruby Kaigi"
+       * image_path: clear-code-images
+       * @slide_logo_image = "clear-code-logo.png"
+       * clear-blue
+
+    ->
+      @slide_footer_info_left_text = "Ruby Kaigi"
+      add_image_path("clear-code-images")
+      @slide_logo_image = "clear-code-logo.png"
+      include_theme("clear-blue")
+
