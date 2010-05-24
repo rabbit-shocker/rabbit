@@ -36,6 +36,8 @@ module Rabbit
 
         def_delegators(:@pixmap, :x_dpi, :y_dpi)
 
+        def_delegators(:@pixmap, :set_font_resolution)
+
         attr_accessor :direction
 
         def width
