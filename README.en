@@ -113,6 +113,12 @@ bin/rabbirc
 
 akira yamada
 
+=== Rabbitter
+
+bin/rabbitter
+
+OBATA Akio
+
 == Co-Authors
 
   * Mr. MIYAMUKO
@@ -821,6 +827,7 @@ page from XXX.rd.
     * Makes presentations with Rabbit.
     * Reports some bugs and also fixes them.
     * Helps debug many problems.
+    * Made Rabbitter.
   * Masao Mutoh:
     * Makes presentations with Rabbit.
     * Updated INSTALL.win32.ja.

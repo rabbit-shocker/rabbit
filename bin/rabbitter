@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require 'rubygems'
+require 'rubytter'
+require 'drb'
+require "optparse"
+require "ostruct"
+
+class Rabbitter
+  def initialize(options)
+    @options = options
+    @rabbit = DRb::DRbObject.new_with_uri(@options.rabbit_uri)
+    @rubytter = Rubytter.new
+  end
+
+  def start
+    max_id = 0
+    loop do
+      interval = 30
+      @rubytter.search(@options.keyword, {:since_id => max_id}).each do |status|
+        begin
+          @rabbit.append_comment("#{status.user.screen_name}: #{status.text}")
+          sleep 1
+          interval -= 1
+        rescue DRb::DRbConnError
+          puts "Rabbiter: #{$!.class}: #{$!.message}"
+        end
+        if status.id > max_id
+          max_id = status.id
+        end
+      end
+      if interval > 0
+        sleep interval
+      end
+    end
+  end
+end
+
+options = OpenStruct.new
+
+options.keyword = 'ruby'
+options.rabbit_uri = 'druby://localhost:10101'
+
+parser = OptionParser.new do |opts|
+  opts.on("--keyword=KEYWROD",
+          "Keyword for search Twitter",
+          "(#{options.keyword})") do |keyword|
+    options.keyword = keyword
+  end
+
+  opts.on("--rabbit-uri=URI",
+          "Rabbit's dRuby URI(#{options.rabbit_uri})") do |uri|
+    options.rabbit_uri = uri
+  end
+end
+
+parser.parse!(ARGV)
+
+rabbitter = Rabbitter.new(options)
+rabbitter.start
