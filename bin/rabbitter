@@ -2,7 +2,8 @@
 # -*- ruby -*-
 
 require 'rubygems'
-require 'rubytter'
+require 'password'
+require 'tweetstream'
 require 'drb'
 require "optparse"
 require "ostruct"
@@ -11,36 +12,34 @@ class Rabbitter
   def initialize(options)
     @options = options
     @rabbit = DRb::DRbObject.new_with_uri(@options.rabbit_uri)
-    @rubytter = Rubytter.new
+    @tweet = nil
   end
 
   def start
-    max_id = 0
-    loop do
-      interval = 30
-      @rubytter.search(@options.keyword, {:since_id => max_id}).each do |status|
-        begin
-          @rabbit.append_comment("#{status.user.screen_name}: #{status.text}")
-          sleep 1
-          interval -= 1
-        rescue DRb::DRbConnError
-          puts "Rabbiter: #{$!.class}: #{$!.message}"
-        end
-        if status.id > max_id
-          max_id = status.id
-        end
+    @tweet = TweetStream::Daemon.new(@options.username,
+                                     @options.password,
+                                     "rabbitter")
+    @tweet.track(@options.keyword) do |status|
+      begin
+        @rabbit.append_comment("#{status.user.screen_name}: #{status.text}")
+      rescue DRb::DRbConnError
+        puts "Rabbiter: #{$!.class}: #{$!.message}"
       end
-      if interval > 0
-        sleep interval
-      end
+    end
+  end
+
+  def stop
+    if @tweet
+      @tweet.stop
     end
   end
 end
 
 options = OpenStruct.new
-
 options.keyword = 'ruby'
 options.rabbit_uri = 'druby://localhost:10101'
+options.username = ENV['USER'] || ENV['USERNAME']
+options.password = ''
 
 parser = OptionParser.new do |opts|
   opts.on("--keyword=KEYWROD",
@@ -50,12 +49,34 @@ parser = OptionParser.new do |opts|
   end
 
   opts.on("--rabbit-uri=URI",
-          "Rabbit's dRuby URI(#{options.rabbit_uri})") do |uri|
+          "Rabbit's dRuby URI",
+          "(#{options.rabbit_uri})") do |uri|
     options.rabbit_uri = uri
+  end
+
+  opts.on("--username=USERNAME",
+          "Username for Twitter",
+          "(#{options.username})") do |username|
+    options.username = username
+  end
+
+  opts.on("--password=PASSWORD",
+          "User password for Twitter",
+          "(#{options.password})") do |password|
+    options.password = password
   end
 end
 
 parser.parse!(ARGV)
 
+if options.password.empty?
+  options.password = Password.get("Password for #{options.username}: ")
+end
+
 rabbitter = Rabbitter.new(options)
+
+Signal.trap("INT") do
+  rabbitter.stop
+end
+
 rabbitter.start
