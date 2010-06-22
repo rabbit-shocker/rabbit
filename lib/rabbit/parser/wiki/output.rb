@@ -5,6 +5,7 @@ require 'rabbit/parser/ext/inline'
 require 'rabbit/parser/ext/image'
 require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
+require 'rabbit/parser/ext/aafigure'
 require 'rabbit/parser/ext/anthy'
 require 'rabbit/parser/ext/entity'
 
@@ -475,6 +476,14 @@ module Rabbit
             end
           end
           alias_method :mimetex, :mimeTeX
+
+          def aafigure(source, props={})
+            args = [@output.canvas, source]
+            Ext::Image.make_image_from_file(*args) do |src_file_path|
+              args = [src_file_path, props, @output.canvas]
+              [Ext::AAFigure.make_image_by_aafigure(*args), props]
+            end
+          end
         end
       end
     end

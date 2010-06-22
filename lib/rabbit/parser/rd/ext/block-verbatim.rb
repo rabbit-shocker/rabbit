@@ -10,6 +10,7 @@ require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/parser/rd/ext/tex'
+require 'rabbit/parser/rd/ext/aafigure'
 require 'rabbit/parser/rd/ext/anthy'
 
 module Rabbit
@@ -20,6 +21,7 @@ module Rabbit
           include Image
           include Enscript
           include TeX
+          include AAFigure
           include Anthy
           include GetText
 
@@ -79,6 +81,11 @@ module Rabbit
           def ext_block_verb_mimeTeX(label, source, content, visitor)
             return nil unless /^mimeTeX$/i =~ label
             make_image_by_mimeTeX(source, visitor)
+          end
+
+          def ext_block_verb_aafigure(label, source, content, visitor)
+            return nil unless /^aafigure$/i =~ label
+            make_image_by_aafigure(source, visitor)
           end
 
           def ext_block_verb_rt(label, source, content, visitor)
