@@ -195,9 +195,11 @@ module Rabbit
           add_widget_to_window(@window)
           widget.show
           attach_menu(@window)
+          attach_key(@window)
         end
 
         def detach
+          detach_key(@window)
           detach_menu(@window)
           widget.hide
           unless @window.destroyed?
