@@ -21,7 +21,8 @@ class Rabbitter
                                      "rabbitter")
     @tweet.track(@options.keyword) do |status|
       begin
-        @rabbit.append_comment("#{status.user.screen_name}: #{status.text}")
+        comment = "#{status.user.screen_name}: #{clean_text(status.text)}"
+        @rabbit.append_comment(comment)
       rescue DRb::DRbConnError
         puts "Rabbiter: #{$!.class}: #{$!.message}"
       end
@@ -32,6 +33,19 @@ class Rabbitter
     if @tweet
       @tweet.stop
     end
+  end
+
+  private
+  def clean_text(text)
+    remove_ustream_link(remove_hash_tag(text))
+  end
+
+  def remove_hash_tag(text)
+    text.gsub(/\##{Regexp.escape(@options.keyword)}/, "")
+  end
+
+  def remove_ustream_link(text)
+    text.gsub(/\(.* live at http:\/\/ustre\.am\/.*\)/, "")
   end
 end
 
