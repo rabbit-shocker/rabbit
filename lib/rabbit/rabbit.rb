@@ -84,6 +84,12 @@ module Rabbit
     end
   end
 
+  class AAFigureCanNotHandleError < ImageLoadWithExternalCommandError
+    def initialize(command, additional_info=nil)
+      super("aafigure", command, additional_info)
+    end
+  end
+
   class UnknownPropertyError < Error
     attr_reader :name
     def initialize(name)

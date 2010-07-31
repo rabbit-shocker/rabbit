@@ -6,14 +6,18 @@ module Rabbit
         def make_image_by_aafigure(path, prop, logger)
           image_file = Tempfile.new("rabbit-image-aafigure")
           command = ["aafigure",
-                     "--type", "png",
-                     "--output", image_file.path,
-                     path]
+                     "--type", "svg",
+                     "--encoding", "utf-8",
+                     "--output", image_file.path]
+          prop.each do |key, value|
+            command.concat(["--#{key}", value])
+          end
+          command << path
           if SystemRunner.run(*command)
             image_file
           else
-            format = _("tried aafigure commands: %s")
-            additional_info = format % commands.inspect
+            format = _("tried aafigure command: %s")
+            additional_info = format % command.inspect
             raise AAFigureCanNotHandleError.new(command.join(' '),
                                                 additional_info)
           end
