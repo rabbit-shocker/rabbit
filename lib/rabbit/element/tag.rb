@@ -1,4 +1,5 @@
 require 'rabbit/element/base'
+require 'rabbit/element/text-container-element'
 
 module Rabbit
   module Element
