@@ -206,6 +206,7 @@ URL先の画像をダウンロード
 = aafigure
 
   # aafigure
+  # relative_width = 90
 #  # foreground = #ff3333
 #  # option = font=mikachan
   あいうえお

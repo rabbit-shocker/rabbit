@@ -209,6 +209,7 @@ Create EPS ahead of time((-needs gs-))
 = aafigure
 
   # aafigure
+  # relative_width = 90
 #  # foreground = #ff3333
   A   B   C   D   E   F   G   H   I   J   K   L   M
    AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM

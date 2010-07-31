@@ -3,14 +3,17 @@ module Rabbit
     module Ext
       module AAFigure
         module_function
+        AVAILABLE_OPTIONS = ["linewidth", "foreground", "fill", "background",
+                             "option"]
         def make_image_by_aafigure(path, prop, logger)
           image_file = Tempfile.new("rabbit-image-aafigure")
           command = ["aafigure",
                      "--type", "svg",
                      "--encoding", "utf-8",
                      "--output", image_file.path]
-          prop.each do |key, value|
-            command.concat(["--#{key}", value])
+          aafigure_options = []
+          AVAILABLE_OPTIONS.each do |name|
+            command.concat(["--#{name}", prop[name]]) if prop.has_key?(name)
           end
           command << path
           if SystemRunner.run(*command)
