@@ -4,9 +4,99 @@
 
 $Id$
 
-== Changes 0.6.4 from 0.6.3: 2010-XX-XX
+== Changes 0.6.4 from 0.6.5: 2010-07-31
 
-TODO
+  * Added Rabbiter that collects comments from Twitter.
+    [OBATA Akio]
+  * Supported
+    ((<aafigure|URL:http://docutils.sourceforge.net/sandbox/cliechti/aafigure/README.html>)).
+    [Suggested by kdmsnr]
+
+=== Improvements
+
+  * Removed needless newlines from default PDF filename.
+  * Worked with \r\n newline. [Reported by zunda]
+  * Rabbitter: Added. It collects comments from Twitter.
+    [OBATA Akio]
+  * Supported aafigure. [kdmsnrさんが提案]
+
+==== Theme
+
+  * clear-blue: Removed needless newlines from footer text.
+  * per-slide-background-iamge:
+    Supported "background-image-align: right" slide property.
+    [Suggested by kdmsnr]
+
+      = slide
+
+      ...
+
+      == properties
+
+       : background-image
+          lavie.png
+
+       : background-image-relative-width
+          30
+
+       : background-image-align
+          right
+
+       : background-image-relative-margin-right
+          3
+
+  * Supported width parameter 'relative_width' as well as
+    'relative-width'.
+
+  * body-background-image: Added. It enables "align = right"
+    image property:
+
+      = title
+
+        # image
+        # src = lavie.png
+        # relative-width = 30
+        # align = right
+        # relative-margin-right = -5
+
+  * Enabled body-background-image and
+    per-slide-background-image by default.
+
+  * background-image-tookit: Added. It is a toolkit for
+    shareing common processes in body-background-image and
+    per-slide-background-image themes.
+
+  * title-background-image:
+    Supported customize by
+    @title_background_image_properties. The same options for
+    image element can be used.
+    [Suggested by kdmsnr]
+
+      @title_background_image_properties = {
+        :align => :right,
+        :as_large_as_possible => false,
+        :relative_height => 75,
+      }
+
+    This shows image with the following layout:
+        +-----------+
+        |      +---+|
+        |  title <- background image
+        |      +---+|
+        +-----------+
+
+    A background image is showed in center and it is
+    resized to as large as possible by default.
+
+=== Fixes
+
+  * Fixed comment view doesn't work.
+
+=== Thanks
+
+  * kdmsnr
+  * zunda
+  * OBATA Akio
 
 == Changes 0.6.4 from 0.6.3: 2010-01-29
 

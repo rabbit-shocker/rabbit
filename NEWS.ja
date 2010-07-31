@@ -4,9 +4,98 @@
 
 $Id$
 
-== 0.6.4から0.6.4の変更点: 2010-XX-XX
+== 0.6.4から0.6.5の変更点: 2010-07-31
 
-TODO
+  * Twitterからコメントを拾ってくるRabbitterを追加しました。
+    [おばたさん]
+  * ((<aafigure|URL:http://docutils.sourceforge.net/sandbox/cliechti/aafigure/README.html>))
+    に対応しました。 [kdmsnrさんが提案]
+
+=== 改良
+
+  * デフォルトのPDFのファイル名から不要な改行を削除。
+  * 改行文字が\r\nでも動作するようにした。
+    [zundaさんが報告]
+  * Rabbitter: 追加。Twitterからコメントを拾ってくる。
+    [おばたさん]
+  * aafigure対応。[kdmsnrさんが提案]
+
+==== テーマ
+
+  * clear-blue: フッターのテキストから不要な改行を削除。
+  * per-slide-background-iamge:
+    "background-image-align: right"スライドプロパティ対応。
+    [kdmsnrさんが提案]
+
+      = スライド
+
+      ...
+
+      == プロパティ
+
+       : background-image
+          lavie.png
+
+       : background-image-relative-width
+          30
+
+       : background-image-align
+          right
+
+       : background-image-relative-margin-right
+          3
+
+  * relative_widthでもrelative-widthでも画像の幅を指定できる
+    ようにした。
+
+  * body-background-image: 追加。"align = right"画像プロパティ
+    が使えるようになる。
+
+      = タイトル
+
+        # image
+        # src = lavie.png
+        # relative-width = 30
+        # align = right
+        # relative-margin-right = -5
+
+  * デフォルトでbody-background-imageと
+    per-slide-background-imageを有効にした。
+
+  * background-image-tookit: 追加。body-background-imageと
+    per-slide-background-imageテーマの共通部分を汎用化した
+    ツールキット。
+
+  * title-background-image:
+    @title_background_image_propertiesによるカスタマイズに対
+    応。画像要素に使えるオプションと同じものが指定できる。
+    [kdmsnrさんが提案]
+
+      @title_background_image_properties = {
+        :align => :right,
+        :as_large_as_possible => false,
+        :relative_height => 75,
+      }
+
+    上記のオプションでは以下のようになる。
+        +-----------+
+        |      +---+|
+        |  タイトル <- 背景画像
+        |      +---+|
+        +-----------+
+
+    デフォルトでは、背景画像はできるだけ拡大して、中央に配置
+    されます。
+
+=== 修正
+
+  * コメント表示が動かない問題を修正
+
+=== 感謝
+
+  * kdmsnrさん
+  * zundaさん
+  * おばたさん
 
 == 0.6.3から0.6.4の変更点: 2010-01-29
 
