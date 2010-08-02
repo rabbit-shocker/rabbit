@@ -134,6 +134,25 @@ A presentation tool
   # relative_height = 80
   # reflect_ratio = 0.5
 
+= Image: Background
+
+  * Background image
+  * Centering by default
+
+== Properties
+
+: background-image
+   lavie.png
+
+: background-image-relative-width
+   50
+
+# : background-image-align
+#    right
+
+: background-image-relative-margin-right
+   3
+
 = Image size
 
 Relative image sizes

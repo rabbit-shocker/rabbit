@@ -24,7 +24,7 @@ def apply_background_image_property(element, options={})
   end
 
   image = Image.new(background_image, properties)
-  align = properties["align"]
+  align = properties["align"] || "center"
   assign_box = properties["assign_box"]
   element_margin_right = 0
   case align

@@ -134,6 +134,25 @@
   # relative_height = 80
   # reflect_ratio = 0.5
 
+= 画像: 背景
+
+  * 背景画像
+  * デフォルトはセンタリング
+
+== プロパティ
+
+: background-image
+   lavie.png
+
+: background-image-relative-width
+   50
+
+# : background-image-align
+#    right
+
+# : background-image-relative-margin-right
+#    3
+
 = 画像サイズ
 
 スライドサイズに応じて変更可能
