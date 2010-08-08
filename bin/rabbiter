@@ -8,7 +8,7 @@ require 'drb'
 require "optparse"
 require "ostruct"
 
-class Rabbitter
+class Rabbiter
   def initialize(options)
     @options = options
     @rabbit = DRb::DRbObject.new_with_uri(@options.rabbit_uri)
@@ -18,7 +18,7 @@ class Rabbitter
   def start
     @tweet = TweetStream::Daemon.new(@options.username,
                                      @options.password,
-                                     "rabbitter")
+                                     "rabbiter")
     @tweet.track(@options.keyword) do |status|
       begin
         comment = "#{status.user.screen_name}: #{clean_text(status.text)}"
@@ -87,10 +87,10 @@ if options.password.empty?
   options.password = Password.get("Password for #{options.username}: ")
 end
 
-rabbitter = Rabbitter.new(options)
+rabbiter = Rabbiter.new(options)
 
 Signal.trap("INT") do
-  rabbitter.stop
+  rabbiter.stop
 end
 
-rabbitter.start
+rabbiter.start
