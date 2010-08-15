@@ -25,13 +25,17 @@ def apply_background_image_property(element, options={})
 
   image = Image.new(background_image, properties)
   align = properties["align"] || "center"
+  vertical_align = properties["vertical_align"] || "middle"
   assign_box = properties["assign_box"]
   element_margin_right = 0
   case align
   when "center"
     image.horizontal_centering = true
   end
-  image.vertical_centering = true
+  case vertical_align
+  when "middle"
+    image.vertical_centering = true
+  end
 
   element.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
     if simulation
