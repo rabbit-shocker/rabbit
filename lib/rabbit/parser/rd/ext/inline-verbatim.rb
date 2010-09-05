@@ -23,6 +23,11 @@ module Rabbit
             visitor.apply_to_Verb(::RD::Verb.new(text))
           end
 
+          def apply_inline_markup(visitor, text)
+            tree = ::RD::RDTree.new("=begin\n#{text}\n=end\n")
+            TextContainer.new(tree.root.children[0].accept(visitor).elements)
+          end
+
 #           def ext_inline_verb_img(label, content, visitor)
 #             img(label, content, visitor)
 #           end
@@ -36,34 +41,34 @@ module Rabbit
           def ext_inline_verb_del(label, source, content, visitor)
             label = label.to_s
             return nil unless /^del:(.*)$/ =~ label
-            DeletedText.new(apply_inline_verbatim(visitor, $1))
+            DeletedText.new(apply_inline_markup(visitor, $1))
           end
 
           def ext_inline_verb_sub(label, source, content, visitor)
             label = label.to_s
             return nil unless /^sub:(.*)$/ =~ label
-            sub_text = apply_inline_verbatim(visitor, $1)
+            sub_text = apply_inline_markup(visitor, $1)
             Inline.sub(sub_text)
           end
 
           def ext_inline_verb_sup(label, source, content, visitor)
             label = label.to_s
             return nil unless /^sup:(.*)$/ =~ label
-            sup_text = apply_inline_verbatim(visitor, $1)
+            sup_text = apply_inline_markup(visitor, $1)
             Inline.sup(sup_text)
           end
 
           def ext_inline_verb_note(label, source, content, visitor)
             label = label.to_s
             return nil unless /^note:(.*)$/ =~ label
-            target = apply_inline_verbatim(visitor, $1)
+            target = apply_inline_markup(visitor, $1)
             Inline.note(target)
           end
 
           def ext_inline_verb_lang(label, source, content, visitor)
             label = label.to_s
             return nil unless /^lang:([a-z]{2,2}):(.*)$/ =~ label
-            Inline.lang($1, apply_inline_verbatim(visitor, $2))
+            Inline.lang($1, apply_inline_markup(visitor, $2))
           end
 
           def ext_inline_verb_wait(label, source, content, visitor)
@@ -78,7 +83,7 @@ module Rabbit
             name = $1
             content = $2
             if content
-              CustomTag.new(name, apply_inline_verbatim(visitor, content))
+              CustomTag.new(name, apply_inline_markup(visitor, content))
             else
               CustomTag.new(name)
             end
