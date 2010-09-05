@@ -1,6 +1,6 @@
 require 'rabbit/element/text-element'
 require 'rabbit/element/text-container-element'
-require 'rabbit/element/block-element'
+require 'rabbit/element/text-block-element'
 
 module Rabbit
   module Element
@@ -12,9 +12,12 @@ module Rabbit
       include TextContainerElement
     end
 
+    class TextBlock
+      include TextBlockElement
+    end
+
     class PreformattedBlock
-      include TextContainerElement
-      include BlockHorizontalCentering
+      include TextBlockElement
 
       def to_html(generator)
         "<pre>#{super}</pre>"

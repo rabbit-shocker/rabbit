@@ -1,15 +1,15 @@
-require 'rabbit/element/text-container-element'
-require 'rabbit/element/container-element'
-require 'rabbit/element/block-element'
+require 'rabbit/element/text-block-element'
 
 module Rabbit
   module Element
     class Container
       include ContainerElement
+      include BlockElement
     end
 
     class BlockQuote
       include ContainerElement
+      include BlockElement
       include BlockHorizontalCentering
 
       attr_reader :cite, :title
@@ -27,7 +27,7 @@ module Rabbit
     end
 
     class Paragraph
-      include TextContainerElement
+      include TextBlockElement
 
       def text
         "#{super}\n"
@@ -44,6 +44,7 @@ module Rabbit
 
     class WaitBlock
       include ContainerElement
+      include BlockElement
 
       def have_wait_tag?
         true

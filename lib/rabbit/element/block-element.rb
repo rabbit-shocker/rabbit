@@ -22,8 +22,6 @@ module Rabbit
     end
 
     module BlockElement
-      include Base
-
       def inline_element?
         false
       end

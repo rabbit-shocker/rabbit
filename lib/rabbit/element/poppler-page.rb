@@ -3,6 +3,7 @@ require 'rabbit/element/block-element'
 module Rabbit
   module Element
     class PopplerPage
+      include Base
       include BlockElement
       include BlockHorizontalCentering
 

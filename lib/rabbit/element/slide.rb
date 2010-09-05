@@ -28,7 +28,7 @@ module Rabbit
     end
 
     class HeadLine
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         "= #{text}"

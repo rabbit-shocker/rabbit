@@ -4,6 +4,7 @@ module Rabbit
   module Element
     module SlideElement
       include ContainerElement
+      include BlockElement
 
       attr_accessor :index, :drawing_index, :transition
       def initialize(title_element)

@@ -6,8 +6,9 @@ module Rabbit
     module ContainerElement
       extend Forwardable
 
-      include BlockElement
       include Enumerable
+
+      include Base
 
       attr_reader :elements
 

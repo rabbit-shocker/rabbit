@@ -1,5 +1,5 @@
 require 'rabbit/element/slide-element'
-require 'rabbit/element/text-container-element'
+require 'rabbit/element/text-block-element'
 require 'rabbit/element/description-list'
 
 module Rabbit
@@ -80,7 +80,7 @@ module Rabbit
     end
 
     class Title
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         "= #{text}"
@@ -92,7 +92,7 @@ module Rabbit
     end
 
     class Subtitle
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": subtitle\n   #{text}"
@@ -104,7 +104,7 @@ module Rabbit
     end
 
     class Author
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": author\n   #{text}"
@@ -116,7 +116,7 @@ module Rabbit
     end
 
     class ContentSource
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": content-source\n   #{text}"
@@ -128,7 +128,7 @@ module Rabbit
     end
 
     class Institution
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": institution\n   #{text}"
@@ -140,7 +140,7 @@ module Rabbit
     end
 
     class Date
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": date\n   #{text}"
@@ -152,7 +152,7 @@ module Rabbit
     end
 
     class Place
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": place\n   #{text}"
@@ -164,7 +164,7 @@ module Rabbit
     end
 
     class When
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": when\n   #{text}"
@@ -176,7 +176,7 @@ module Rabbit
     end
 
     class Where
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": where\n   #{text}"

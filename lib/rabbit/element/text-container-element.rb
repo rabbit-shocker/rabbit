@@ -70,6 +70,10 @@ module Rabbit
         super or @elements.any? {|elem| elem.have_numerical_font_size?}
       end
 
+      def inline_element?
+        true
+      end
+
       protected
       def initial_font_size_for_compute_font_size
         [
