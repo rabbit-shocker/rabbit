@@ -26,3 +26,5 @@ include_theme("per-slide-background-color")
 include_theme("background-image-toolkit")
 include_theme("per-slide-background-image")
 include_theme("body-background-image")
+
+include_theme("tag")
