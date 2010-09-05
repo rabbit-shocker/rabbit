@@ -4,6 +4,7 @@ module Rabbit
   module Element
     class ItemList
       include ContainerElement
+      include BlockElement
 
       def to_html(generator)
         "<ul>\n#{super}\n</ul>"
@@ -12,6 +13,7 @@ module Rabbit
 
     class ItemListItem
       include ContainerElement
+      include BlockElement
 
       def to_rd
         prefix = "* "

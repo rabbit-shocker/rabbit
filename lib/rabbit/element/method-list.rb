@@ -1,5 +1,5 @@
 require 'rabbit/element/container-element'
-require 'rabbit/element/text-container-element'
+require 'rabbit/element/text-block-element'
 
 module Rabbit
   module Element
@@ -26,7 +26,7 @@ module Rabbit
     end
 
     class MethodTerm
-      include TextContainerElement
+      include TextBlockElement
 
       attr_accessor :name
     end

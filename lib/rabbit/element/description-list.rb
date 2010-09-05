@@ -1,10 +1,11 @@
 require 'rabbit/element/container-element'
-require 'rabbit/element/text-container-element'
+require 'rabbit/element/text-block-element'
 
 module Rabbit
   module Element
     class DescriptionList
       include ContainerElement
+      include BlockElement
 
       def to_html(generator)
         "<dl>\n#{super}\n</dl>"
@@ -13,6 +14,7 @@ module Rabbit
 
     class DescriptionListItem
       include ContainerElement
+      include BlockElement
 
       attr_reader :term, :content
 
@@ -26,7 +28,7 @@ module Rabbit
     end
 
     class DescriptionTerm
-      include TextContainerElement
+      include TextBlockElement
 
       def to_rd
         ": #{text}"
@@ -39,6 +41,7 @@ module Rabbit
 
     class DescriptionContent
       include ContainerElement
+      include BlockElement
 
       def text
         super.gsub(/^/, "  ")
