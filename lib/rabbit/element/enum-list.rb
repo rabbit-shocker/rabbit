@@ -1,4 +1,5 @@
 require 'rabbit/element/container-element'
+require 'rabbit/element/block-element'
 
 module Rabbit
   module Element
