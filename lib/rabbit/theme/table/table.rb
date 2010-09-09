@@ -137,16 +137,8 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
         cell_w = table.available_w / row.elements.size
         base_y = y + cell.padding_top
         text_width = cell_w - cell.padding_left - cell.padding_right
-        
-        need_recompile = false
-        if cell.layout.nil? or cell.layout.pixel_size[0] > text_width
-          need_recompile = true
-        elsif width_not_set
-          need_recompile = true
-          width_not_set = false
-        end
-        
-        if need_recompile
+
+        if cell.layout.nil? or cell.width > text_width
           cell.dirty!
           cell.text_compile(canvas, x, base_y, text_width, h)
         end
