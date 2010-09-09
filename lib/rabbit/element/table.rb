@@ -87,7 +87,7 @@ module Rabbit
     end
 
     class TableHeader
-      include TextElement
+      include TextContainerElement
 
       def to_html(generator)
         "<th>#{super}</th>"
@@ -95,7 +95,7 @@ module Rabbit
     end
 
     class TableCell
-      include TextElement
+      include TextContainerElement
 
       def to_html(generator)
         "<td>#{super}</td>"

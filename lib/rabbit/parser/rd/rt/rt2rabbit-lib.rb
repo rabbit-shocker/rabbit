@@ -36,7 +36,13 @@ module Rabbit
       targets.each do |r|
         row = Element::TableRow.new
         each_cell(r) do |c|
-          cell = cell_class.new(c.value)
+          tree = ::RD::RDTree.new("=begin\n#{c.value}\n=end\n")
+          if tree.root.children.empty?
+            elements = []
+          else
+            elements = tree.root.children[0].accept(@rd_visitor).elements
+          end
+          cell = cell_class.new(elements)
           setup_text_align(cell, c.align)
           row << cell
         end

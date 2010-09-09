@@ -227,8 +227,7 @@ module Rabbit
 
           @have_table_header = true
           @table_head << @parent if @parent.parent.nil?
-          content = item.collect {|e| e.markuped_text}.join
-          header = TableHeader.new(content)
+          header = TableHeader.new(item)
           def header.default_align
             Pango::Layout::ALIGN_CENTER
           end
@@ -240,8 +239,7 @@ module Rabbit
 
           @have_table_body = true
           @table_body << @parent if @parent.parent.nil?
-          content = item.collect {|e| e.markuped_text}.join
-          @parent << TableCell.new(content)
+          @parent << TableCell.new(item)
         end
 
         def blockquote_open

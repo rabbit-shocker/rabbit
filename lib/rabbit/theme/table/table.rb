@@ -96,6 +96,12 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
     end
     [x, y, w, h]
   end
+
+  headers.add_post_draw_proc(name) do |header, canvas, x, y, w, h, simulation|
+    moved_x = header.width + header.padding_left + header.padding_right
+    moved_y = header.height - header.padding_top - header.padding_bottom
+    [x + moved_x, y - moved_y, w - moved_x, h + moved_y]
+  end
 end
 
 match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
@@ -123,7 +129,9 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
 
   cells.each do |cell|
     orig_x = nil
+    orig_y = nil
     orig_w = nil
+    orig_h = nil
     cell_w = nil
     width_not_set = true
 
@@ -132,7 +140,9 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
     
     cell.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
       orig_x = x
+      orig_y = y
       orig_w = w
+      orig_h = h
       if simulation
         cell_w = table.available_w / row.elements.size
         base_y = y + cell.padding_top
@@ -147,7 +157,7 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
     end
 
     cell.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
-      [orig_x + cell_w, y, orig_w - cell_w, h]
+      [orig_x + cell_w, orig_y, orig_w - cell_w, orig_h]
     end
 
     draw_frame(cell, params) do |_, canvas, x, y, w, h|
