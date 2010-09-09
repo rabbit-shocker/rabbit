@@ -1,10 +1,12 @@
 require 'rabbit/element/text-element'
 require 'rabbit/element/container-element'
+require 'rabbit/element/block-element'
 
 module Rabbit
   module Element
     class Table
       include ContainerElement
+      include BlockElement
 
       attr_reader :caption
       def initialize(prop={})
@@ -47,6 +49,7 @@ module Rabbit
 
     class TableHead
       include ContainerElement
+      include BlockElement
 
       def text
         "#{super}\n"
@@ -59,6 +62,7 @@ module Rabbit
 
     class TableBody
       include ContainerElement
+      include BlockElement
 
       def to_html(generator)
         "<tbody>\n#{super}\n</tbody>"
@@ -67,6 +71,7 @@ module Rabbit
 
     class TableRow
       include ContainerElement
+      include BlockElement
 
       def text
         super.gsub(/\n/, ", ")
