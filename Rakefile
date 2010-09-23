@@ -61,7 +61,10 @@ project = Hoe.spec('rabbit') do
   self.test_globs = ['test/test_*.rb']
   self.changes = File.read('NEWS.en').split(/^== /)[1].gsub(/^==/, '').strip
   self.extra_deps = [
-                     ['cairo'],
+                     ['gtk2'],
+                     ['gdk_pixbuf2'],
+                     ['rsvg2'],
+                     ['poppler'],
                      ['hikidoc'],
                      # ['gettext'],
                     ]
