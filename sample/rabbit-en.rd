@@ -106,6 +106,14 @@ A presentation tool
   * Theme reload
   * Change theme
 
+= Features: Tag
+
+(('tag:x-large:Large Text'))
+
+(('tag:center'))Centerized Text
+
+(('tag:right'))Right-Justified Text
+
 = ToDo
 
   * Inline images
@@ -134,7 +142,7 @@ A presentation tool
   # relative_height = 80
   # reflect_ratio = 0.5
 
-= Image: Background
+= Image: Background (1)
 
   * Background image
   * Centering by default
@@ -152,6 +160,19 @@ A presentation tool
 
 : background-image-relative-margin-right
    3
+
+= Image: Background (2)
+
+    # image
+    # src = lavie.png
+    # relative-width = 30
+    # align = right
+#    # vertical-align = top
+    # relative-margin-right = -5
+
+  * Right justified backgorund image
+  * Specify in slide
+    * align = right
 
 = Image size
 

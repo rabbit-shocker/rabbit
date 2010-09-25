@@ -107,6 +107,14 @@
   * テーマの再読み込み
   * テーマの切り替え
 
+= 機能: タグ
+
+(('tag:x-large:大きなテキスト'))
+
+(('tag:center'))中央寄せされたテキスト
+
+(('tag:right'))右寄せされたテキスト
+
 = ToDo
 
   * インラインでの画像表示
@@ -134,7 +142,7 @@
   # relative_height = 80
   # reflect_ratio = 0.5
 
-= 画像: 背景
+= 画像: 背景（1）
 
   * 背景画像
   * デフォルトはセンタリング
@@ -152,6 +160,19 @@
 
 # : background-image-relative-margin-right
 #    3
+
+= 画像: 背景（2）
+
+    # image
+    # src = lavie.png
+    # relative-width = 30
+    # align = right
+#    # vertical-align = top
+    # relative-margin-right = -5
+
+  * 右寄せ背景画像
+  * スライド内で指定
+    * align = right
 
 = 画像サイズ
 
