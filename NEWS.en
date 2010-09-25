@@ -4,7 +4,68 @@
 
 $Id$
 
-== Changes 0.6.4 from 0.6.5: 2010-07-31
+== Changes 0.9.0 from 0.6.5: 2010-09-25
+
+Applied defalut custom tag styles.
+
+=== Improvements
+
+==== Theme
+
+  * background-image-toolkit: Added vertical-align
+    paramteter that specifies vertical position.
+
+    Example:
+      # image
+      # src = lavie.png
+      # relative-width = 30
+      # align = right
+      # vertical-align = top
+      # relative-margin-right = -5
+
+  * tag: New theme. It provides default style for some
+    custome tags. The following custom tags are supports. It
+    is enabled by default.
+
+    * tag:x-large: Made specified text large.
+    * tag:center: Placed specified text in center If no text
+      is specified, block that has center tag is placed in
+      center.
+    * tag:right: Placed specified text in right If no text
+      is specified, block that has right tag is placed in
+      right.
+
+    Example:
+      (('tag:x-large:Large Text'))
+
+      (('tag:center'))Centerized Text
+
+      (('tag:right'))Right-Tustified Text
+
+==== RD
+
+  * Supported recursive markup in (('('))('XXX:')((')')) markup.
+
+  * Supported markup in cells in table.
+
+=== Fix
+
+  * Fixed missing require.
+    [Reported by OBATA Akio]
+  * Fixed aafigure's site URL.
+    [Reported by kdmsnr]
+  * Changed default align to center of
+    background-image-toolkit theme for backward compatibility.
+    [Suggested by nari]
+  * Renamed Rabbitter to Rabbiter.
+
+=== Thanks
+
+  * OBATA Akio
+  * kdmsnr
+  * nari
+
+== Changes 0.6.5 from 0.6.4: 2010-07-31
 
   * Added Rabbiter that collects comments from Twitter.
     [OBATA Akio]
