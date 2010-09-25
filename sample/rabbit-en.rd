@@ -376,6 +376,35 @@ End of source code.
 : Toggle info window
    I
 
+= Op.: On stage (3)
+
+: Magnifier
+   Ctrl + right click
+
+   Change scale by wheel
+
+: Spotlight
+   Double right clicks
+
+   Change radius by wheel
+
+= Op.: On stage (4)
+
+: Graffiti
+   Popup menu (right click) (('&rightarrow;'))\n
+   "Graffiti mode"
+
+: Mouse gesture
+   Right button drag
+
+= Op.: On stage (5)
+
+: Whiteout
+   W
+
+: Blackout
+   B
+
 = Op.: Save
 
 : Screenshot
