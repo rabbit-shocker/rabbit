@@ -72,6 +72,8 @@ project = Hoe.spec('rabbit') do
   self.need_tar = false
 end
 
+project.spec.executables -= ["rabbit.bat"]
+
 rule '.png' => ['.svg'] do |t|
   sh("inkscape", "--export-png", t.name, t.source)
 end
