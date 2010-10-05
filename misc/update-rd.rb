@@ -51,14 +51,6 @@ prev_version, current_version = ARGV
 end_point = "http://www.cozmixng.org/~rwiki/rw-soap.rb"
 driver = RWiki::SOAP::Driver.new(end_point)
 
-%w(ja en).each do |lang|
-  %w(README INSTALL.win32).each do |target|
-    update_rd(driver, "#{target}.#{lang}") do |src, page_name, prefix|
-      src.gsub(/\(\(<(INSTALL.win32.#{lang})>\)\)/, "((<#{prefix}\\1>))")
-    end
-  end
-end
-
 args = [driver, "misc/emacs/README.ja", "README.ja", "rabbit-mode.el::"]
 update_rd(*args) do |src, page_name, prefix|
   src.gsub(/\(\(<(.*?)>\)\)/, "((<#{prefix}#{page_name}/\\1>))")
@@ -67,8 +59,14 @@ end
 [
  ["NEWS.ja"],
  ["NEWS.en"],
- ["INSTALL.macosx-macports.ja"],
- ["INSTALL.macosx-macports.en"],
+ ["README.ja"],
+ ["README.en"],
+ ["doc/INSTALL.macosx-macports.ja"],
+ ["doc/INSTALL.macosx-macports.en"],
+ ["doc/INSTALL.macosx-homebrew.ja"],
+ ["doc/INSTALL.macosx-homebrew.en"],
+ ["doc/INSTALL.win32.ja"],
+ ["doc/INSTALL.win32.en"],
  ["sample/rabbit.rd", "sample.ja"],
  ["sample/rabbit-en.rd", "sample.en"],
  ["sample/rabbit-implementation.rd", "Implementation.ja"],

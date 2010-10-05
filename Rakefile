@@ -15,10 +15,6 @@ end
 manifest = File.join(base_dir, "Manifest.txt")
 manifest_contents = []
 base_dir_included_components = %w(COPYING COPYING.ja GPL Manifest.txt
-                                  INSTALL.macosx-macports.en
-                                  INSTALL.macosx-macports.ja
-                                  INSTALL.win32.en
-                                  INSTALL.win32.ja
                                   NEWS.en
                                   NEWS.ja
                                   README.en
