@@ -72,7 +72,14 @@ end
  ["sample/rabbit-implementation.rd", "Implementation.ja"],
  ["sample/can_rabbit.rd", "CanRabbit.ja"],
 ].each do |name, page_name, prefix|
-  update_rd(driver, name, page_name, prefix)
+  update_rd(driver, name, page_name, prefix) do |src, _page_name, prefix|
+    if /\.(ja|en)\z/ =~ _page_name
+      lang = $1
+      src.gsub(/\(\(<(INSTALL.win32.#{lang})>\)\)/, "((<#{prefix}\\1>))")
+    else
+      src
+    end
+  end
 end
 
 update_index(driver, prev_version, current_version)
