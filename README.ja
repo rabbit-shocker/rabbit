@@ -132,8 +132,11 @@ bin/rabbitter
 
 == ライセンス
 
-プログラム，画像ともにRuby'sです．詳しくはCOPYINGまた
-はCOPYING.jaを見てください．
+プログラム，画像ともにGPLv2 or laterです．詳しくはGPLファイル
+を見てください．取り込まれたパッチやコードなどを提供してもらっ
+た場合、それらのライセンスがGPLv2 or laterとすることに同意し
+てもらったこととします。また、それらも含めて須藤がライセンス
+を変更できる権利を持つことに同意してもらったこととします。
 
 lib/rabbit/div/prototype.jsはMITスタイルのライセンスになります．
 詳しくは((<Prototype JavaScript
