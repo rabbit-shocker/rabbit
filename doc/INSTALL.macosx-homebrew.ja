@@ -1,3 +1,5 @@
+# -*- rd -*-
+
 = INSTALL.macosx-homebrew.ja
 
 Mac OS X のパッケージ管理システムのひとつである Homebrew と RubyGems を利用して
