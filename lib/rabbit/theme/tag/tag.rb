@@ -29,6 +29,10 @@ match("**", CustomTag) do |tags|
       find_block_element.call(tag).align = "right"
     when "x-large"
       find_markup_target.call(tag).prop_set("size", @x_large_font_size)
+    when "margin-top"
+      find_block_element.call(tag).margin_top += @space
+    when "margin-bottom"
+      find_block_element.call(tag).margin_bottom += @space
     end
   end
 end
