@@ -373,11 +373,23 @@ module Rabbit
             pattern = @context.source
           end
           if pattern
+            set_pattern_common_options(pattern, info)
             @context.set_source(pattern)
-            extend = info[:extend]
-            pattern.extend = extend if extend
           end
           !pattern.nil?
+        end
+
+        def set_pattern_common_options(pattern, info)
+          extend = info[:extend]
+          pattern.extend = extend if extend
+          transformations = info[:transformations]
+          if transformations
+            matrix = ::Cairo::Matrix.identity
+            transformations.each do |operation, *args|
+              matrix.send("#{operation}!", *args)
+            end
+            pattern.matrix = matrix
+          end
         end
 
         def set_color(color)
