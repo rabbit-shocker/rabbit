@@ -1,6 +1,9 @@
 @default_headline_line_color ||= "#ff9933"
 @default_headline_line_params ||= {}
 @default_headline_line_width ||= 1
+unless defined?(@default_headline_line_expand)
+  @default_headline_line_expand = false
+end
 
 match(Slide) do |slides|
   slides.each do |slide|
@@ -15,17 +18,22 @@ match(Slide, HeadLine) do |headlines|
 
   space = @space / 2.0
   top_space = space + @default_headline_line_width / 2.0
-  margin_with(:bottom => top_space * 1.5)
+  margin_with(:bottom => top_space * 2)
   add_post_draw_proc(name) do |headline, canvas, x, y, w, h, simulation|
     unless simulation
+      if @default_headline_line_expand
+        line_x, line_w = 0, canvas.width
+      else
+        line_x, line_w = x, w
+      end
       if @default_headline_line_params.respond_to?(:call)
         params = @default_headline_line_params.call(headline, canvas,
-                                                    x, y + top_space,
-                                                    w, h - top_space)
+                                                    line_x, y + top_space,
+                                                    line_w, h - top_space)
       else
         params = @default_headline_line_params
       end
-      canvas.draw_line(x, y + top_space, x + w, y + top_space,
+      canvas.draw_line(line_x, y + top_space, line_x + line_w, y + top_space,
                        @default_headline_line_color,
                        params.merge(:line_width => @default_headline_line_width))
     end
