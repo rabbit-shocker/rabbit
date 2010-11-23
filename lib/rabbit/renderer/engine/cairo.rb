@@ -368,8 +368,15 @@ module Rabbit
             info[:color_stops].each do |offset, r, g, b, a|
               pattern.add_color_stop_rgba(offset, r, g, b, a)
             end
+          when :pixbuf
+            @context.set_source_pixbuf(info[:pixbuf])
+            pattern = @context.source
           end
-          @context.set_source(pattern) if pattern
+          if pattern
+            @context.set_source(pattern)
+            extend = info[:extend]
+            pattern.extend = extend if extend
+          end
           !pattern.nil?
         end
 
