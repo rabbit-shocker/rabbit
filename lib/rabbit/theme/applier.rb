@@ -89,28 +89,36 @@ module Rabbit
         end
       end
 
-      def draw_image_mark(image_name, name=nil)
+      def draw_image_mark(image_name, name=nil, options={})
         return if empty?
 
         loader = ImageLoader.new(image_name)
 
         width_proc = Proc.new {loader.width}
         height_proc = Proc.new {loader.height}
+        custom_indent = options[:indent]
         indent_proc = Proc.new do |item, simulation|
           text_height = item.elements.first.original_height
           if text_height < loader.height
             loader.resize(nil, (text_height * 2.0 / 3.0).ceil)
           end
-          loader.width * 2.5
+          if custom_indent.nil?
+            loader.width * 2.5
+          elsif custom_indent.respond_to?(:call)
+            custom_indent.call(item, loader)
+          else
+            custom_indent
+          end
         end
 
-        draw_mark(indent_proc, width_proc, height_proc, name) do
-          |item, canvas, x, y, w, h|
+        draw_mark(indent_proc,
+                  width_proc, height_proc,
+                  name) do  |item, canvas, x, y, w, h|
           x -= loader.width * 0.5
           loader.draw(canvas, x, y)
         end
       end
-      
+
       def draw_order(indent_width, name=nil, &block)
         layouts = {}
         make_order_layout = Proc.new do |item, simulation|
