@@ -2,7 +2,6 @@
 
 @font_family =
   find_font_family("モトヤLマルベリ3等幅") ||
-  find_font_family("ＤＦＰ中丸ゴシック体") ||
   @font_family
 
 rroonga_color = "#ff5151"
