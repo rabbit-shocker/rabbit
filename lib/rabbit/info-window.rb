@@ -122,7 +122,7 @@ module Rabbit
     end
 
     def timer_label
-      rest_time = @canvas.rest_time
+      rest_time = @canvas.rest_time || @canvas.allotted_time
       if rest_time
         "%s%02d:%02d" % Utils.split_number_to_minute_and_second(rest_time)
       else
