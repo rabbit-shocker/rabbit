@@ -29,7 +29,7 @@ module Rabbit
       @window.signal_handler_disconnect(@window_destroy_id)
       @window.destroy
       @window = @window_destroy_id = nil
-      @hbox = @outer_box = nil
+      @canvas_widgets = @outer_box = nil
       @timer_started = false
       @previous_canvas = @next_canvas = nil
     end
@@ -83,18 +83,18 @@ module Rabbit
 
     def init_widgets
       @outer_box = Gtk::VBox.new
-      init_hbox
+      init_canvas_widgets
       init_timer_label
-      @outer_box.pack_start(@hbox, true, true)
+      @outer_box.pack_start(@canvas_widgets, true, true)
       @outer_box.pack_end(@timer_label, true, true)
       @outer_box.show
     end
 
-    def init_hbox
-      @hbox = Gtk::HBox.new
-      @previous_canvas.attach_to(nil, @hbox)
-      @next_canvas.attach_to(nil, @hbox)
-      @hbox.show
+    def init_canvas_widgets
+      @canvas_widgets = Gtk::HBox.new
+      @previous_canvas.attach_to(nil, @canvas_widgets)
+      @next_canvas.attach_to(nil, @canvas_widgets)
+      @canvas_widgets.show
     end
 
     def init_timer_label
