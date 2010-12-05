@@ -1,5 +1,4 @@
 * [Matz]: support mouse click operations on information window.
-* [Matz]: show the current window not the previous window on information window.
 
 * documents all key-bindings and mouse-bindings. (e.g. spotlight)
 * support centering in table cell.

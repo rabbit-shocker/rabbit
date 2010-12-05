@@ -31,7 +31,7 @@ module Rabbit
       @window = @window_destroy_id = nil
       @canvas_widgets = @outer_box = nil
       @timer_started = false
-      @previous_canvas = @next_canvas = nil
+      @previous_canvas = @current_canvas = @next_canvas = nil
     end
 
     def showing?
@@ -61,6 +61,7 @@ module Rabbit
     end
 
     def init_canvas
+      @current_canvas = make_canvas
       @previous_canvas = make_canvas
       @next_canvas = make_canvas
     end
@@ -93,6 +94,7 @@ module Rabbit
     def init_canvas_widgets
       @canvas_widgets = Gtk::HBox.new
       @previous_canvas.attach_to(nil, @canvas_widgets)
+      @current_canvas.attach_to(nil, @canvas_widgets)
       @next_canvas.attach_to(nil, @canvas_widgets)
       @canvas_widgets.show
     end
@@ -144,6 +146,7 @@ module Rabbit
     def adjust_slide(base_index=nil)
       base_index ||= @canvas.current_index
       @previous_canvas.move_to_if_can(base_index - 1)
+      @current_canvas.move_to_if_can(base_index)
       @next_canvas.move_to_if_can(base_index + 1)
     end
 
@@ -154,7 +157,7 @@ module Rabbit
     end
 
     def each(&block)
-      [@previous_canvas, @next_canvas].each(&block)
+      [@previous_canvas, @current_canvas, @next_canvas].each(&block)
     end
   end
 end
