@@ -29,7 +29,7 @@ module Rabbit
       @window.signal_handler_disconnect(@window_destroy_id)
       @window.destroy
       @window = @window_destroy_id = nil
-      @hbox = @vbox = nil
+      @hbox = @outer_box = nil
       @timer_started = false
       @previous_canvas = @next_canvas = nil
     end
@@ -77,17 +77,17 @@ module Rabbit
       end
       @window.title = _("%s: Information window") % @canvas.title
       @window.set_default_size(width, height) if width and height
-      init_vbox
-      @window.add(@vbox)
+      init_widgets
+      @window.add(@outer_box)
     end
 
-    def init_vbox
-      @vbox = Gtk::VBox.new
+    def init_widgets
+      @outer_box = Gtk::VBox.new
       init_hbox
       init_timer_label
-      @vbox.pack_start(@hbox, true, true)
-      @vbox.pack_end(@timer_label, true, true)
-      @vbox.show
+      @outer_box.pack_start(@hbox, true, true)
+      @outer_box.pack_end(@timer_label, true, true)
+      @outer_box.show
     end
 
     def init_hbox
