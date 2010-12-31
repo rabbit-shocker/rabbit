@@ -98,6 +98,7 @@ module Rabbit
           end
           keys = Keys::MOVE_TO_NEXT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
+            p @canvas.object_id
             @canvas.activate("Next")
           end
           keys = Keys::MOVE_TO_PREVIOUS_KEYS

@@ -7,7 +7,7 @@ module Rabbit
           init_magnifier
         end
 
-        def attach_to(window)
+        def attach_to(window, container=nil)
           super
           magnifier_action.active = false
         end

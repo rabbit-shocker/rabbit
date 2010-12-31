@@ -195,12 +195,12 @@ module Rabbit
           end
         end
 
-        def attach_to(window)
+        def attach_to(window, container=nil)
           super
 
           init_menu
           init_gesture_actions
-          add_widget_to_window(@window)
+          add_widgets_to_container(@container)
           widget.show
           attach_menu(@window)
           attach_key(@window)
@@ -211,8 +211,7 @@ module Rabbit
           detach_menu(@window)
           widget.hide
           unless @window.destroyed?
-            remove_widget_from_window(@window)
-            @window.signal_handler_disconnect(@configure_signal_id)
+            remove_widgets_from_container(@container)
           end
 
           super
@@ -237,18 +236,18 @@ module Rabbit
         end
 
         private
-        def add_widget_to_window(window)
+        def add_widgets_to_container(container)
           @hbox = Gtk::HBox.new
           @vbox = Gtk::VBox.new
           @vbox.pack_start(@area, true, true, 0)
           @hbox.pack_end(@vbox, true, true, 0)
-          window.add(@hbox)
+          container.add(@hbox)
           @hbox.show
           @vbox.show
         end
 
-        def remove_widget_from_window(window)
-          window.remove(@hbox)
+        def remove_widgets_from_container(container)
+          container.remove(@hbox)
           @hbox = @vbox = nil
         end
 

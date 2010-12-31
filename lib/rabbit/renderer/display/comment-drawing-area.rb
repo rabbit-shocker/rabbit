@@ -100,12 +100,12 @@ module Rabbit
         end
 
         private
-        def add_widget_to_window(window)
-          window.add(@area)
+        def add_widgets_to_container(container)
+          container.add(@area)
         end
 
-        def remove_widget_from_window(window)
-          window.remove(@area)
+        def remove_widgets_from_container(container)
+          container.remove(@area)
         end
 
         def attach_menu(window)

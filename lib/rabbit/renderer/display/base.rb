@@ -29,14 +29,21 @@ module Rabbit
           widget.queue_draw
         end
 
-        def attach_to(window)
+        def attach_to(window, container=nil)
           @window = window
+          @container = container || @window
 
           set_configure_event
         end
 
         def detach
+          if !@window.destroyed? and @configure_signal_id
+            @window.signal_handler_disconnect(@configure_signal_id)
+            @configure_signal_id = nil
+          end
+
           @window = nil
+          @container = nil
         end
 
         def toggle_whiteout

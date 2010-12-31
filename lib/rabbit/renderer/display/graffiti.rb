@@ -20,7 +20,7 @@ module Rabbit
           init_graffiti
         end
 
-        def attach_to(window)
+        def attach_to(window, container=nil)
           super
           graffiti_mode_action.active = false
         end

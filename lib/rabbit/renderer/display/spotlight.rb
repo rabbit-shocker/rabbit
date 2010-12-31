@@ -7,7 +7,7 @@ module Rabbit
           init_spotlight
         end
 
-        def attach_to(window)
+        def attach_to(window, container=nil)
           super
           spotlight_action.active = false
         end

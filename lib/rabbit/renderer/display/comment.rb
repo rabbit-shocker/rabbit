@@ -73,7 +73,7 @@ module Rabbit
         end
 
         private
-        def add_widget_to_window(window)
+        def add_widgets_to_container(container)
           super
           @vbox.pack_end(@comment_log.widget, false, false, 0)
           init_comment_view_canvas

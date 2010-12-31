@@ -23,7 +23,7 @@ module Rabbit
           init_drawing_area
         end
 
-        def attach_to(window)
+        def attach_to(window, container=nil)
           init_gl(@area)
           super
         end
