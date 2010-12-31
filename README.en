@@ -848,3 +848,6 @@ page from XXX.rd.
   * Masaki Suketa: Reported bugs related Ruby 1.9.
   * kdmsnr: Reported a bug.
   * Youhei SASAKI: The official Debian package maintainer.
+  * Matz:
+    * Makes presentations with Rabbit.
+    * Suggested about information window.
