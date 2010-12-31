@@ -173,9 +173,9 @@ module Rabbit
 
     def adjust_slide(base_index=nil)
       base_index ||= @canvas.current_index
-      @previous_canvas.move_to_if_can(base_index - 1)
+      @previous_canvas.move_to_if_can([base_index - 1, 0].max)
       @current_canvas.move_to_if_can(base_index)
-      @next_canvas.move_to_if_can(base_index + 1)
+      @next_canvas.move_to_if_can([base_index + 1, @canvas.slide_size - 1].min)
     end
 
     def toggle_index_mode
