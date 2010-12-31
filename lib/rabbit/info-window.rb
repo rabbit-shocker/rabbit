@@ -6,6 +6,7 @@ require 'rabbit/renderer/display/hook-handler'
 require 'rabbit/renderer/display/key-handler'
 require 'rabbit/renderer/display/button-handler'
 require 'rabbit/renderer/display/scroll-handler'
+require 'rabbit/renderer/display/menu'
 
 module Rabbit
   class InfoWindow
@@ -15,6 +16,7 @@ module Rabbit
     include Renderer::Display::KeyHandler
     include Renderer::Display::ButtonHandler
     include Renderer::Display::ScrollHandler
+    include Renderer::Display::Menu
 
     def initialize(canvas)
       @canvas = canvas
@@ -36,6 +38,7 @@ module Rabbit
 
     def hide
       return unless showing?
+      detach_menu(@window)
       detach_key(@window)
       each do |canvas|
         canvas.detach
@@ -93,7 +96,9 @@ module Rabbit
       @window.title = _("%s: Information window") % @canvas.title
       @window.set_default_size(width, height) if width and height
       init_widgets
+      init_menu
       attach_key(@window)
+      attach_menu(@window)
       event_mask = Gdk::Event::BUTTON_PRESS_MASK
       event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
       event_mask |= Gdk::Event::BUTTON1_MOTION_MASK
