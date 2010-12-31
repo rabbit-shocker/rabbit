@@ -2,15 +2,19 @@ require 'erb'
 
 require 'rabbit/dependency-canvas'
 require 'rabbit/renderer/display/drawing-area-view-only'
+require 'rabbit/renderer/display/key-handler'
 
 module Rabbit
   class InfoWindow
     include ERB::Util
 
+    include Renderer::Display::KeyHandler
+
     def initialize(canvas)
       @canvas = canvas
       @window = nil
       @timer_started = false
+      init_key_handler
     end
 
     def show(width=nil, height=nil)
@@ -23,6 +27,7 @@ module Rabbit
 
     def hide
       return unless showing?
+      detach_key(@window)
       each do |canvas|
         canvas.detach
       end
@@ -79,6 +84,7 @@ module Rabbit
       @window.title = _("%s: Information window") % @canvas.title
       @window.set_default_size(width, height) if width and height
       init_widgets
+      attach_key(@window)
       @window.add(@outer_box)
     end
 
@@ -93,9 +99,9 @@ module Rabbit
 
     def init_canvas_widgets
       @canvas_widgets = Gtk::HBox.new
-      @previous_canvas.attach_to(nil, @canvas_widgets)
-      @current_canvas.attach_to(nil, @canvas_widgets)
-      @next_canvas.attach_to(nil, @canvas_widgets)
+      @previous_canvas.attach_to(nil, @window, @canvas_widgets)
+      @current_canvas.attach_to(nil, @window, @canvas_widgets)
+      @next_canvas.attach_to(nil, @window, @canvas_widgets)
       @canvas_widgets.show
     end
 
