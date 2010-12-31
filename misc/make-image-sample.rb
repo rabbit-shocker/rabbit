@@ -47,6 +47,7 @@ ARGV.each do |rd|
                    "blue-circle", "green-circle",
                    "ruby-gnome2", "lightning-rabbit",
                    "day-white", "night-black", "cozmixng",
+                   "debian", "ranguba",
                   ])
   end
   themes.each do |theme, option|
