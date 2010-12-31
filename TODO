@@ -1,5 +1,3 @@
-* [Matz]: support mouse click operations on information window.
-
 * documents all key-bindings and mouse-bindings. (e.g. spotlight)
 * support centering in table cell.
 * [BUG]: PDF slide doesn't scale???
