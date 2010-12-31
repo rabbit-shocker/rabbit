@@ -2,8 +2,10 @@ require 'erb'
 
 require 'rabbit/dependency-canvas'
 require 'rabbit/renderer/display/drawing-area-view-only'
+require 'rabbit/renderer/display/hook-handler'
 require 'rabbit/renderer/display/key-handler'
 require 'rabbit/renderer/display/button-handler'
+require 'rabbit/renderer/display/scroll-handler'
 
 module Rabbit
   class InfoWindow
@@ -12,6 +14,7 @@ module Rabbit
     include Renderer::Display::HookHandler
     include Renderer::Display::KeyHandler
     include Renderer::Display::ButtonHandler
+    include Renderer::Display::ScrollHandler
 
     def initialize(canvas)
       @canvas = canvas
@@ -20,6 +23,7 @@ module Rabbit
       init_hook_handler
       init_key_handler
       init_button_handler
+      init_scroll_handler
     end
 
     def show(width=nil, height=nil)
@@ -97,6 +101,7 @@ module Rabbit
       event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
       @window.add_events(event_mask)
       set_button_event(@window)
+      set_scroll_event(@window)
       @window.add(@outer_box)
     end
 

@@ -8,6 +8,7 @@ require "rabbit/renderer/display/graffiti"
 require "rabbit/renderer/display/menu"
 require "rabbit/renderer/display/button-handler"
 require "rabbit/renderer/display/key-handler"
+require "rabbit/renderer/display/scroll-handler"
 require "rabbit/renderer/display/info"
 require "rabbit/renderer/display/spotlight"
 require "rabbit/renderer/display/magnifier"
@@ -26,6 +27,7 @@ module Rabbit
         include Gesture
         include KeyHandler
         include ButtonHandler
+        include ScrollHandler
         include Info
         include Spotlight
         include Magnifier
@@ -262,7 +264,7 @@ module Rabbit
           set_key_press_event(@area)
           set_button_event(@area)
           set_motion_notify_event
-          set_scroll_event
+          set_scroll_event(@area)
         end
 
         def mapped(widget)
@@ -362,24 +364,6 @@ module Rabbit
           set_hole
           super unless @caching
           false
-        end
-
-        def set_scroll_event
-          @area.signal_connect("scroll_event") do |widget, event|
-            handled = call_hook_procs(@scroll_hook_procs, event)
-            unless handled
-              handled = true
-              case event.direction
-              when Gdk::EventScroll::Direction::UP
-                @canvas.activate("PreviousSlide")
-              when Gdk::EventScroll::Direction::DOWN
-                @canvas.activate("NextSlide")
-              else
-                handled = false
-              end
-            end
-            handled
-          end
         end
 
         def confirm_dialog(message)
