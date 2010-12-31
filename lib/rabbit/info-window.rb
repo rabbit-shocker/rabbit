@@ -119,7 +119,7 @@ module Rabbit
         widget.set_size_request(width * (2.0 / 3.0), height * (2.0 / 3.0))
         container.pack_start(widget, true, false)
       end
-      @outer_box.pack_start(current_box, false, false)
+      @outer_box.pack_start(current_box, true, false)
 
       bottom_box = Gtk::HBox.new
       @previous_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
