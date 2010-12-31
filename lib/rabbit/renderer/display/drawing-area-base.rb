@@ -197,12 +197,12 @@ module Rabbit
           end
         end
 
-        def attach_to(window, container=nil)
+        def attach_to(window, container=nil, &block)
           super
 
           init_menu
           init_gesture_actions
-          add_widgets_to_container(@container)
+          add_widgets_to_container(@container, &block)
           widget.show
           attach_menu(@window)
           attach_key(@window)
@@ -243,7 +243,11 @@ module Rabbit
           @vbox = Gtk::VBox.new
           @vbox.pack_start(@area, true, true, 0)
           @hbox.pack_end(@vbox, true, true, 0)
-          container.add(@hbox)
+          if block_given?
+            yield(container, @hbox)
+          else
+            container.add(@hbox)
+          end
           @hbox.show
           @vbox.show
         end

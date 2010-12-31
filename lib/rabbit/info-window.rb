@@ -95,7 +95,7 @@ module Rabbit
       end
       @window.title = _("%s: Information window") % @canvas.title
       @window.set_default_size(width, height) if width and height
-      init_widgets
+      init_widgets(width, height)
       init_menu
       attach_key(@window)
       attach_menu(@window)
@@ -110,26 +110,42 @@ module Rabbit
       @window.add(@outer_box)
     end
 
-    def init_widgets
+    def init_widgets(width, height)
+      init_timer_label(width * (1.0 / 3.0), height * (1.0 / 3.0))
       @outer_box = Gtk::VBox.new
-      init_canvas_widgets
-      init_timer_label
-      @outer_box.pack_start(@canvas_widgets, true, true)
-      @outer_box.pack_end(@timer_label, true, true)
+
+      current_box = Gtk::HBox.new
+      @current_canvas.attach_to(nil, @window, current_box) do |container, widget|
+        widget.set_size_request(width * (2.0 / 3.0), height * (2.0 / 3.0))
+        container.pack_start(widget, true, false)
+      end
+      @outer_box.pack_start(current_box, false, false)
+
+      bottom_box = Gtk::HBox.new
+      @previous_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
+        widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
+        container.pack_start(widget, false, false)
+      end
+      bottom_box.pack_start(@timer_label, true, false)
+      @next_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
+        widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
+        container.pack_end(widget, false, false)
+      end
+      @outer_box.pack_end(bottom_box, false, false)
+
       @outer_box.show
     end
 
     def init_canvas_widgets
       @canvas_widgets = Gtk::HBox.new
-      @previous_canvas.attach_to(nil, @window, @canvas_widgets)
       @current_canvas.attach_to(nil, @window, @canvas_widgets)
       @next_canvas.attach_to(nil, @window, @canvas_widgets)
-      @canvas_widgets.show
     end
 
-    def init_timer_label
+    def init_timer_label(width, height)
       @timer_label = Gtk::Label.new
-      @timer_label.markup = markupped_timer_label
+      @timer_label.justify = :center
+      @timer_label.markup = markupped_timer_label(width, height)
       @timer_started = false
       check_timer
     end
@@ -143,9 +159,11 @@ module Rabbit
       end
     end
 
-    def markupped_timer_label
+    def markupped_timer_label(width=nil, height=nil)
+      width ||= @window.size[0] * (1.0 / 3.0)
+      height ||= @window.size[1] * (1.0 / 3.0)
       attrs = {}
-      attrs["font_desc"] = ((@window.size[1] * 100) / Pango::SCALE).to_s
+      attrs["font_desc"] = ((height * 200) / Pango::SCALE).to_s
       rest_time = @canvas.rest_time
       attrs["foreground"] = "red" if rest_time and rest_time < 0
       "<span #{@canvas.to_attrs(attrs)}>#{h timer_label}</span>"

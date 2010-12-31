@@ -184,9 +184,9 @@ module Rabbit
       Front.new(self, public_level)
     end
 
-    def attach_to(frame, window, container=nil)
+    def attach_to(frame, window, container=nil, &block)
       @frame = frame if frame
-      @renderer.attach_to(window, container) if window
+      @renderer.attach_to(window, container, &block) if window
     end
     
     def detach
