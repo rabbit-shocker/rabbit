@@ -1,10 +1,12 @@
 require "rabbit/renderer/base"
+require "rabbit/renderer/display/hook-handler"
 
 module Rabbit
   module Renderer
     module Display
       module Base
         include Renderer::Base
+        include HookHandler
 
         def initialize(*args, &block)
           @drawable = nil

@@ -65,7 +65,6 @@ module Rabbit
         @graffiti_line_width = nil
         @draw_scaled_image = true
         clean
-        init_hook_procs
         init_dpi
         init_gl_parameters
       end
@@ -174,46 +173,6 @@ module Rabbit
             nil
           end
         end.compact.join(" ")
-      end
-
-      def call_hook_procs(procs, *args)
-        procs.any? {|proc| proc.call(*args)}
-      end
-
-      def add_motion_notify_hook(hook=Proc.new)
-        @motion_notify_hook_procs << hook
-      end
-      
-      def clear_motion_notify_hook
-        @motion_notify_hook_procs.clear
-      end
-
-      def add_scroll_hook(hook=Proc.new)
-        @scroll_hook_procs << hook
-      end
-
-      def clear_scroll_hook
-        @scroll_hook_procs.clear
-      end
-
-      def add_button_press_hook(hook=Proc.new)
-        @button_press_hook_procs << hook
-      end
-      
-      def clear_button_press_hook
-        @button_press_hook_procs.clear
-      end
-      
-      def add_button_release_hook(hook=Proc.new)
-        @button_release_hook_procs << hook
-      end
-      
-      def clear_button_release_hook
-        @button_release_hook_procs.clear
-      end
-
-      def clear_hooks
-        init_hook_procs
       end
 
       def clean
@@ -452,13 +411,6 @@ module Rabbit
         format = _("%s does not support: %s")
         msg = format % [self.class.name, name]
         @canvas.logger.warn(msg)
-      end
-
-      def init_hook_procs
-        @motion_notify_hook_procs = []
-        @scroll_hook_procs = []
-        @button_press_hook_procs = []
-        @button_release_hook_procs = []
       end
 
       def init_dpi

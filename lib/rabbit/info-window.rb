@@ -3,18 +3,23 @@ require 'erb'
 require 'rabbit/dependency-canvas'
 require 'rabbit/renderer/display/drawing-area-view-only'
 require 'rabbit/renderer/display/key-handler'
+require 'rabbit/renderer/display/button-handler'
 
 module Rabbit
   class InfoWindow
     include ERB::Util
 
+    include Renderer::Display::HookHandler
     include Renderer::Display::KeyHandler
+    include Renderer::Display::ButtonHandler
 
     def initialize(canvas)
       @canvas = canvas
       @window = nil
       @timer_started = false
+      init_hook_handler
       init_key_handler
+      init_button_handler
     end
 
     def show(width=nil, height=nil)
@@ -85,6 +90,13 @@ module Rabbit
       @window.set_default_size(width, height) if width and height
       init_widgets
       attach_key(@window)
+      event_mask = Gdk::Event::BUTTON_PRESS_MASK
+      event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
+      event_mask |= Gdk::Event::BUTTON1_MOTION_MASK
+      event_mask |= Gdk::Event::BUTTON2_MOTION_MASK
+      event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
+      @window.add_events(event_mask)
+      set_button_event(@window)
       @window.add(@outer_box)
     end
 
