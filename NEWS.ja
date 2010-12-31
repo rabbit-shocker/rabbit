@@ -4,6 +4,45 @@
 
 $Id$
 
+== 0.9.2: 2010-12-31
+
+Matz向けリリース。
+
+=== 改良
+
+==== テーマ
+
+  * Debianテーマを追加。[佐々木さんが追加]
+  * cairoバックエンド:
+    * line_cap対応。
+    * line_join対応。
+    * パターンのソースとしてPixbufに対応。
+    * パターンの行列変換に対応。
+  * default-slide: 線幅のカスタマイズに対応。
+    * @default_headline_line_width
+    * @default_headline_line_params
+    * @default_headline_line_expand
+  * tag:
+    * margin-topタグの追加。
+    * margin-bottomタグの追加。
+  * slide-logo: スライドロゴの幅・高さ・位置のカスタマイズに対応。
+    * @slide_logo_width
+    * @slide_logo_height
+    * @slide_logo_position
+  * ラングバテーマを追加。
+
+==== 情報ウィンドウ
+
+  * タイマー開始前でも残り時間を表示。 [まつもとさんが提案]
+  * 現在のスライドも表示。 [まつもとさんが提案]
+  * 情報ウィンドウからキーボード・マウスでのスライド操作に対応。
+    [まつもとさんが提案]
+
+=== 感謝
+
+  * 佐々木さん
+  * まつもとさん
+
 == 0.9.0から0.9.1の変更点: 2010-10-25
 
 ライセンスの変更: Rubyライセンス → GPLv2 or later
