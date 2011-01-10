@@ -851,3 +851,5 @@ page from XXX.rd.
   * Matz:
     * Makes presentations with Rabbit.
     * Suggested about information window.
+  * tmtms:
+    * Reported a bug related Ruby 1.9.
