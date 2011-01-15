@@ -73,9 +73,9 @@ def parse_args(args=ARGV, logger=nil)
 
     opts.on("-I", "--include=PATH",
             _("Add [PATH] to load path.")) do |path|
-      $LOAD_PATH.unshift(path)
+      $LOAD_PATH.unshift(File.expand_path(path))
     end
-    
+
     opts.on("-t", "--theme=THEME",
             _("Use [THEME] as theme."),
             "(#{options.theme})") do |theme|
