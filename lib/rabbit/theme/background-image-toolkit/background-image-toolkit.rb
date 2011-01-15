@@ -12,14 +12,10 @@ def apply_background_image_property(element, options={})
   end
   return if background_image.nil?
 
-  if options.has_key?(:properties)
-    properties = options[:properties]
-  else
-    properties = {}
-    element.user_property.each do |name, value|
-      if /\Abackground-image-/ =~ name
-        properties[$POSTMATCH.gsub(/-/, '_')] = value
-      end
+  properties = options[:properties] || {}
+  element.user_property.each do |name, value|
+    if /\Abackground-image-/ =~ name
+      properties[$POSTMATCH.gsub(/-/, '_')] = value
     end
   end
 
