@@ -304,6 +304,11 @@ module Rabbit
           container.remove(@embed)
         end
 
+        def init_color
+          super
+          init_engine_color
+        end
+
         def init_dpi
           @x_dpi = ScreenInfo.screen_x_resolution
           @y_dpi = ScreenInfo.screen_y_resolution
