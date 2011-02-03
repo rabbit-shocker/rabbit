@@ -1,6 +1,7 @@
 proc_name = "image"
 
-@image_frame_width = 1
+@image_frame_width ||= 1
+@image_caption_font_size ||= @normal_font_size
 
 match("**", Image) do |images|
 
@@ -49,7 +50,7 @@ match("**", Image) do |images|
     image.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if simulation
         caption = Text.new(image.caption)
-        caption.prop_set("size", @normal_font_size)
+        caption.prop_set("size", @image_caption_font_size)
         set_font_family(caption)
         if image.horizontal_centering
           caption.do_horizontal_centering(canvas, x, y, w, h)
