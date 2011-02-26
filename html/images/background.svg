@@ -30,9 +30,9 @@
          offset="0"
          id="stop5632" />
       <stop
-         id="stop5638"
-         offset="0.63647324"
-         style="stop-color:#aa0202;stop-opacity:1;" />
+         id="stop5640"
+         offset="0.42707893"
+         style="stop-color:#d46869;stop-opacity:0.98431373;" />
       <stop
          style="stop-color:#aa0202;stop-opacity:1;"
          offset="1"
@@ -94,7 +94,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568542"
      inkscape:cx="-0.38016677"
-     inkscape:cy="132.93011"
+     inkscape:cy="76.361564"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
