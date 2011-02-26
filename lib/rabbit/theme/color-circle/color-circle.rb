@@ -25,6 +25,9 @@ set_progress_background(@color_circle_bright_color)
 
 include_theme("default-icon")
 
+include_theme("newline-in-slides")
+include_theme("tag")
+
 include_theme("image")
 include_theme("table")
 
