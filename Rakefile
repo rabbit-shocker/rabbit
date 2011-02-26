@@ -83,3 +83,76 @@ end
     sh("inkscape", "--export-png", t.name, *t.prerequisites)
   end
 end
+
+namespace :html do
+  screenshots_dir = "html/images/screenshots"
+  directory screenshots_dir
+
+  screenshot_rab = "html/screenshot.rab"
+
+  screenshot_themes = ["blue-circle", "clear-blue", "cozmixng", "day-white",
+                       "debian", "green-circle", "night-black",
+                       "rabbit", "ranguba", "red-frame", "ruby-gnome2"]
+  screenshots = []
+  screenshot_themes.each do |theme|
+    screenshot_base_name = "#{screenshots_dir}/#{theme}"
+    screenshot_raw = "#{screenshot_base_name}-raw.png"
+    screenshot = "#{screenshot_base_name}.png"
+    screenshots << screenshot
+
+    file screenshot_raw => [screenshots_dir, screenshot_rab, __FILE__] do
+      ruby("-I", "lib", "bin/rabbit",
+           "--save-as-image",
+           "--theme", theme,
+           "--size", "200,150",
+           "--saved-image-base-name", screenshot_base_name,
+           screenshot_rab)
+      mv("#{screenshot_base_name}-0.png", screenshot_raw)
+    end
+
+    file screenshot => screenshot_raw do
+      true_value = 1
+      false_value = 0
+      run_mode = false_value
+      offset_x = 8
+      offset_y = 8
+      blur_radius = 15.0
+      black = "'(0 0 0)"
+      shadow_color = black
+      opacity = 80.0
+      allow_resizing = true_value
+      drop_shadow = <<-EOC
+(let* ((image (car (gimp-file-load RUN-NONINTERACTIVE
+                                   "#{screenshot_raw}"
+                                   "#{screenshot_raw}")))
+       (picture-layer (car (gimp-image-get-active-drawable image))))
+  (script-fu-drop-shadow image picture-layer
+                         #{offset_x} #{offset_y}
+                         #{blur_radius} #{shadow_color}
+                         #{opacity} #{allow_resizing})
+  (let ((layer (car (gimp-image-merge-visible-layers image CLIP-TO-IMAGE))))
+    (file-png-save-defaults RUN-NONINTERACTIVE image layer
+                            "#{screenshot}"
+                            "#{screenshot}"))
+  (gimp-image-delete image))
+EOC
+      sh("gimp",
+         "-i",
+         "-b", drop_shadow,
+         "-b", "(gimp-quit TRUE)")
+    end
+  end
+
+  desc "generate HTML and needed files."
+  task :generate => screenshots do
+  end
+
+  desc "publish HTML."
+  task :publish => :generate do
+    sh("rsync", "-avz",# "--delete",
+       "--exclude", "*.svn",
+       "--exclude", "*-raw.png",
+       "html/",
+       "rabbit@rabbit-shockers.org:public_html/")
+  end
+end

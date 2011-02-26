@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+ul#screenshots
+{
+    height: 180px;
+    overflow: hidden;
+}
+
+ul#screenshots li
+{
+    display: inline;
+}
