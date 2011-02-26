@@ -117,7 +117,7 @@ namespace :html do
       offset_x = 8
       offset_y = 8
       blur_radius = 15.0
-      black = "'(0 0 0)"
+      black = "'(122 122 122)"
       shadow_color = black
       opacity = 80.0
       allow_resizing = true_value
@@ -152,6 +152,7 @@ EOC
     sh("rsync", "-avz",# "--delete",
        "--exclude", "*.svn",
        "--exclude", "*-raw.png",
+       "--exclude", "*.svg",
        "html/",
        "rabbit@rabbit-shockers.org:public_html/")
   end
