@@ -1,5 +1,11 @@
 @charset "utf-8";
 
+/* color:
+ *   * dark: #aa0202
+ *   * medium: #d26364
+ *   * light: #feced1
+ */
+
 body
 {
     color: black;
@@ -93,11 +99,12 @@ nav
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #aa0202;
+    border: #aa0202 2px solid;
+    background-color: white;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    color: white;
+    color: #aa0202;
     position: relative;
 }
 
@@ -112,9 +119,26 @@ nav p.note
     top: 10px;
 }
 
-nav a
+nav a:link
 {
-    color: #feced1;
+    color: #aa0202;
+}
+
+nav a:visited
+{
+    color: #d26364;
+}
+
+nav a:hover
+{
+    color: white;
+    background-color: #aa0202;
+}
+
+nav a:active
+{
+    color: #aa0202;
+    background-color: white;
 }
 
 footer
