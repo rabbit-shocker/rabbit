@@ -85,43 +85,46 @@ end
 end
 
 namespace :html do
-  screenshots_dir = "html/images/screenshots"
-  directory screenshots_dir
-
-  screenshot_rab = "html/screenshot.rab"
-
-  screenshot_themes = ["blue-circle", "clear-blue", "cozmixng", "day-white",
-                       "debian", "green-circle", "night-black",
-                       "rabbit", "ranguba", "red-frame", "ruby-gnome2"]
   screenshots = []
-  screenshot_themes.each do |theme|
-    screenshot_base_name = "#{screenshots_dir}/#{theme}"
-    screenshot_raw = "#{screenshot_base_name}-raw.png"
-    screenshot = "#{screenshot_base_name}.png"
-    screenshots << screenshot
 
-    file screenshot_raw => [screenshots_dir, screenshot_rab, __FILE__] do
-      ruby("-I", "lib", "bin/rabbit",
-           "--save-as-image",
-           "--theme", theme,
-           "--size", "200,150",
-           "--saved-image-base-name", screenshot_base_name,
-           screenshot_rab)
-      mv("#{screenshot_base_name}-0.png", screenshot_raw)
-    end
+  languages = ["ja", "en"]
+  languages.each do |lang|
+    screenshots_dir = "html/images/screenshots/#{lang}"
+    directory screenshots_dir
 
-    file screenshot => screenshot_raw do
-      true_value = 1
-      false_value = 0
-      run_mode = false_value
-      offset_x = 8
-      offset_y = 8
-      blur_radius = 15.0
-      black = "'(122 122 122)"
-      shadow_color = black
-      opacity = 80.0
-      allow_resizing = true_value
-      drop_shadow = <<-EOC
+    screenshot_rab = "html/screenshot.#{lang}.rab"
+
+    screenshot_themes = ["blue-circle", "clear-blue", "cozmixng", "day-white",
+                         "debian", "green-circle", "night-black",
+                         "rabbit", "ranguba", "red-frame", "ruby-gnome2"]
+    screenshot_themes.each do |theme|
+      screenshot_base_name = "#{screenshots_dir}/#{theme}"
+      screenshot_raw = "#{screenshot_base_name}-raw.png"
+      screenshot = "#{screenshot_base_name}.png"
+      screenshots << screenshot
+
+      file screenshot_raw => [screenshots_dir, screenshot_rab, __FILE__] do
+        ruby("-I", "lib", "bin/rabbit",
+             "--save-as-image",
+             "--theme", theme,
+             "--size", "200,150",
+             "--saved-image-base-name", screenshot_base_name,
+             screenshot_rab)
+        mv("#{screenshot_base_name}-0.png", screenshot_raw)
+      end
+
+      file screenshot => screenshot_raw do
+        true_value = 1
+        false_value = 0
+        run_mode = false_value
+        offset_x = 8
+        offset_y = 8
+        blur_radius = 15.0
+        black = "'(122 122 122)"
+        shadow_color = black
+        opacity = 80.0
+        allow_resizing = true_value
+        drop_shadow = <<-EOC
 (let* ((image (car (gimp-file-load RUN-NONINTERACTIVE
                                    "#{screenshot_raw}"
                                    "#{screenshot_raw}")))
@@ -136,10 +139,11 @@ namespace :html do
                             "#{screenshot}"))
   (gimp-image-delete image))
 EOC
-      sh("gimp",
-         "-i",
-         "-b", drop_shadow,
-         "-b", "(gimp-quit TRUE)")
+        sh("gimp",
+           "-i",
+           "-b", drop_shadow,
+           "-b", "(gimp-quit TRUE)")
+      end
     end
   end
 
@@ -149,7 +153,7 @@ EOC
 
   desc "publish HTML."
   task :publish => :generate do
-    sh("rsync", "-avz",# "--delete",
+    sh("rsync", "-avz", "--delete",
        "--exclude", "*.svn",
        "--exclude", "*-raw.png",
        "--exclude", "*.svg",

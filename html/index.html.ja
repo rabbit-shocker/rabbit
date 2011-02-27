@@ -27,27 +27,27 @@
       </h1>
       <pre id="install" class="command">% gem install rabbit</pre>
       <ul id="screenshots">
-        <li><img src="images/screenshots/blue-circle.png"
+        <li><img src="images/screenshots/ja/blue-circle.png"
                  alt="青い円テーマ" /></li>
-        <li><img src="images/screenshots/clear-blue.png"
+        <li><img src="images/screenshots/ja/clear-blue.png"
                  alt="きれいな青テーマ" /></li>
-        <li><img src="images/screenshots/cozmixng.png"
+        <li><img src="images/screenshots/ja/cozmixng.png"
                  alt="COZMIXNGテーマ" /></li>
-        <li><img src="images/screenshots/day-white.png"
+        <li><img src="images/screenshots/ja/day-white.png"
                  alt="Day Whiteテーマ" /></li>
-        <li><img src="images/screenshots/debian.png"
+        <li><img src="images/screenshots/ja/debian.png"
                  alt="Debianテーマ" /></li>
-        <li><img src="images/screenshots/green-circle.png"
+        <li><img src="images/screenshots/ja/green-circle.png"
                  alt="緑の円テーマ" /></li>
-        <li><img src="images/screenshots/night-black.png"
+        <li><img src="images/screenshots/ja/night-black.png"
                  alt="Night Blackテーマ" /></li>
-        <li><img src="images/screenshots/rabbit.png"
+        <li><img src="images/screenshots/ja/rabbit.png"
                  alt="Rabbitテーマ" /></li>
-        <li><img src="images/screenshots/ranguba.png"
+        <li><img src="images/screenshots/ja/ranguba.png"
                  alt="ラングバテーマ" /></li>
-        <li><img src="images/screenshots/red-frame.png"
+        <li><img src="images/screenshots/ja/red-frame.png"
                  alt="赤い枠テーマ" /></li>
-        <li><img src="images/screenshots/ruby-gnome2.png"
+        <li><img src="images/screenshots/ja/ruby-gnome2.png"
                  alt="Ruby-GNOME2テーマ" /></li>
       </ul>
     </header>

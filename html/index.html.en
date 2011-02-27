@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rabbit - A presentation tool for Rubyist</title>
+    <link rel="shortcut icon" href="favicon.ico"
+          type="image/vnd.microsfot.icon" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="stylesheet" href="css/jquery-ui/themes/ui-lightness.css"
+          type="text/css" />
+    <link rel="stylesheet" href="css/rabbit.css" type="text/css" />
+    <script type="text/javascript" src="javascripts/jquery.js"></script>
+    <script type="text/javascript" src="javascripts/jquery-ui.js"></script>
+  </head>
+  <body>
+    <header id="header">
+      <h1>
+	<a href="./">
+          <span class="title">
+            Rabbit
+          </span>
+          <span class="separator">-</span>
+          <span class="catch-phrase">
+            A presentation tool for Rubyist
+          </span>
+        </a>
+      </h1>
+      <pre id="install" class="command">% gem install rabbit</pre>
+      <ul id="screenshots">
+        <li><img src="images/screenshots/en/blue-circle.png"
+                 alt="Blue Circle theme" /></li>
+        <li><img src="images/screenshots/en/clear-blue.png"
+                 alt="Clear Blue theme" /></li>
+        <li><img src="images/screenshots/en/cozmixng.png"
+                 alt="COZMIXNG theme" /></li>
+        <li><img src="images/screenshots/en/day-white.png"
+                 alt="Day White theme" /></li>
+        <li><img src="images/screenshots/en/debian.png"
+                 alt="Debian theme" /></li>
+        <li><img src="images/screenshots/en/green-circle.png"
+                 alt="Green Circle theme" /></li>
+        <li><img src="images/screenshots/en/night-black.png"
+                 alt="Night Black theme" /></li>
+        <li><img src="images/screenshots/en/rabbit.png"
+                 alt="Rabbit theme" /></li>
+        <li><img src="images/screenshots/en/ranguba.png"
+                 alt="Ranguba theme" /></li>
+        <li><img src="images/screenshots/en/red-frame.png"
+                 alt="Red Frame theme" /></li>
+        <li><img src="images/screenshots/en/ruby-gnome2.png"
+                 alt="Ruby-GNOME2 theme" /></li>
+      </ul>
+    </header>
+    <section class="contents">
+      <nav>
+	<h2>About Rabbit</h2>
+	<p class="note">jump to www.cozmixng.org.</p>
+	<ul>
+	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AREADME.en">Readme</a></li>
+	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3ANEWS.en">News</a></li>
+	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AFAQ.en">FAQ</a></li>
+	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AUsersGroup.en">Shockers - Rabbit users group</a></li>
+	</ul>
+      </nav>
+    </section>
+    <footer>
+    </footer>
+  </body>
+</html>
