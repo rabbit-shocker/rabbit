@@ -157,6 +157,7 @@ EOC
        "--exclude", "*.svn",
        "--exclude", "*-raw.png",
        "--exclude", "*.svg",
+       "--exclude", "*.rab",
        "html/",
        "rabbit@rabbit-shockers.org:public_html/")
   end
