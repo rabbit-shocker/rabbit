@@ -51,10 +51,17 @@ h1 span.catch-phrase
     letter-spacing: 5px;
 }
 
+div.facebook-buttons
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
 pre#install
 {
     position: absolute;
-    top: 10px;
+    top: 50px;
     right: 20px;
 }
 

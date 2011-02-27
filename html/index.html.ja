@@ -9,8 +9,20 @@
     <link rel="stylesheet" href="css/jquery-ui/themes/ui-lightness.css"
           type="text/css" />
     <link rel="stylesheet" href="css/rabbit.css" type="text/css" />
+    <meta property="fb:page_id" content="202603309766491" />
     <script type="text/javascript" src="javascripts/jquery.js"></script>
     <script type="text/javascript" src="javascripts/jquery-ui.js"></script>
+    <script src="http://connect.facebook.net/ja_JP/all.js"></script>
+    <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+	appId  : null, //,
+	status : true, // check login status
+	cookie : true, // enable cookies to allow the server to access the session
+	xfbml  : true  // parse XFBML
+      });
+    };
+    </script>
     <script type="text/javascript">
       if (document.location.protocol != "file:" &&
           document.location.host != "localhost") {
@@ -27,6 +39,7 @@
     </script>
   </head>
   <body>
+    <div id="fb-root"></div>
     <header id="header">
       <h1>
 	<a href="./">
@@ -39,6 +52,9 @@
           </span>
         </a>
       </h1>
+      <div class="facebook-buttons">
+	<fb:like layout="standard"></fb:like>
+      </div>
       <pre id="install" class="command">% gem install rabbit</pre>
       <ul id="screenshots">
         <li><img src="images/screenshots/ja/blue-circle.png"
