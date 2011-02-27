@@ -16,7 +16,7 @@
     <script>
     window.fbAsyncInit = function() {
       FB.init({
-	appId  : null, //,
+	appId  : null,
 	status : true, // check login status
 	cookie : true, // enable cookies to allow the server to access the session
 	xfbml  : true  // parse XFBML
@@ -56,6 +56,8 @@
 	<fb:like layout="standard"></fb:like>
       </div>
       <pre id="install" class="command">% gem install rabbit</pre>
+    </header>
+    <section class="screenshots">
       <ul id="screenshots">
         <li><img src="images/screenshots/ja/blue-circle.png"
                  alt="青い円テーマ" /></li>
@@ -80,7 +82,7 @@
         <li><img src="images/screenshots/ja/ruby-gnome2.png"
                  alt="Ruby-GNOME2テーマ" /></li>
       </ul>
-    </header>
+    </section>
     <section class="contents">
       <nav>
 	<h2>Rabbitについて</h2>

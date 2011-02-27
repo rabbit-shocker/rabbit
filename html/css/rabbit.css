@@ -16,6 +16,12 @@ body
     margin: 0;
 }
 
+header
+{
+    display: block;
+    position: relative;
+}
+
 h1
 {
     margin: 0;
@@ -54,15 +60,27 @@ h1 span.catch-phrase
 div.facebook-buttons
 {
     position: absolute;
-    top: 20px;
+    bottom: 0px;
     right: 20px;
+    border: #aa0202 2px solid;
+    background-color: white;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    height: 90px;
 }
 
 pre#install
 {
     position: absolute;
-    top: 50px;
+    bottom: 0px;
     right: 20px;
+    -moz-border-radius: 10px 0;
+    -webkit-border-radius: 10px 0;
+    border-radius: 10px 0;
+    margin: 0;
 }
 
 pre.command
@@ -70,9 +88,6 @@ pre.command
     background-color: black;
     color: white;
     padding: 10px 20px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
 }
 
 ul#screenshots
