@@ -57,9 +57,9 @@ pre.command
     background-color: black;
     color: white;
     padding: 10px 20px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
 
 ul#screenshots
@@ -78,6 +78,13 @@ ul#screenshots li
     display: inline;
 }
 
+section.contents
+{
+    display: block;
+    background: url(../images/hare-and-tortoise.png) repeat-x;
+    padding-top: 80px;
+}
+
 nav
 {
     display: block;
@@ -87,9 +94,9 @@ nav
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #aa0202;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
     color: white;
     position: relative;
 }
