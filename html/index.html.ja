@@ -10,6 +10,10 @@
           type="text/css" />
     <link rel="stylesheet" href="css/rabbit.css" type="text/css" />
     <meta property="fb:page_id" content="202603309766491" />
+    <meta property="fb:admins" content="kouhei.sutou" />
+    <meta property="og:type" content="product" />
+    <meta property="og:image" content="http://rabbit-shockers.org/lavie.png" />
+    <meta property="og:site_name" content="Rabbit" />
     <script type="text/javascript" src="javascripts/jquery.js"></script>
     <script type="text/javascript" src="javascripts/jquery-ui.js"></script>
     <script src="http://connect.facebook.net/ja_JP/all.js"></script>
