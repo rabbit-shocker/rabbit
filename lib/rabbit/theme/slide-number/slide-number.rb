@@ -6,6 +6,7 @@ proc_name = "slide-number"
 }
 
 @slide_number_color || nil
+@slide_number_position ||= :bottom
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
@@ -20,7 +21,12 @@ match(Slide) do |slides|
       text.compile(canvas, x, y, w, h)
       layout = text.layout
       layout.set_width(w * Pango::SCALE)
-      num_y = canvas.height - @margin_bottom - text.height
+      case @slide_number_position
+      when :bottom
+        num_y = canvas.height - @margin_bottom - text.height
+      when :top
+        num_y = @margin_top
+      end 
       canvas.draw_layout(text.layout, x, num_y, @slide_number_color)
     end
     [x, y, w, h]
