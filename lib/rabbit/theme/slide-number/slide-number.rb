@@ -12,7 +12,7 @@ match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
 
   break if @slide_number_uninstall
-  
+
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       text = Text.new("#{slide.index}/#{canvas.slide_size - 1}")
@@ -23,11 +23,11 @@ match(Slide) do |slides|
       layout.set_width(w * Pango::SCALE)
       case @slide_number_position
       when :bottom
-        num_y = canvas.height - @margin_bottom - text.height
+        number_y = canvas.height - @margin_bottom - text.height
       when :top
-        num_y = @margin_top
-      end 
-      canvas.draw_layout(text.layout, x, num_y, @slide_number_color)
+        number_y = @margin_top
+      end
+      canvas.draw_layout(text.layout, x, number_y, @slide_number_color)
     end
     [x, y, w, h]
   end
