@@ -1,3 +1,7 @@
+require 'rubygems'
+require 'bundler'
+Bundler.setup
+
 begin
   require "rabbit/config"
 rescue LoadError
