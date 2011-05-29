@@ -10,6 +10,7 @@ require "rabbit/theme/manager"
 require "rabbit/front"
 require "rabbit/action"
 require "rabbit/html/generator"
+require "rabbit/twitter"
 
 module Rabbit
   class Canvas
