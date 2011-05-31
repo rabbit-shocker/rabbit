@@ -1,6 +1,5 @@
 require 'rubygems'
-require 'bundler'
-Bundler.setup
+require 'bundler/setup'
 
 begin
   require "rabbit/config"
