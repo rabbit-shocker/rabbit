@@ -26,7 +26,7 @@ match(Slide) do |slides|
     unless simulation
       unless twitter_stream_tweets.empty?
         content = twitter_stream_tweets.first
-        text = Text.new(ERB::Util.h(content.strip.gsub("\n","\\")))
+        text = Text.new(ERB::Util.h(content.strip.gsub("\n", " ")))
         twitter_stream_tweets.shift if twitter_stream_tweets.size > 1
         text.font @twitter_footer_props
         set_font_family(text)
