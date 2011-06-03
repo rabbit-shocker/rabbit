@@ -152,9 +152,15 @@ module Rabbit
           else
             @logger.debug("[twitter][write][start]")
             written_size = @channel.write(data)
-            @logger.debug("[twitter][write][done] #{written_size}")
-            rest -= written_size
-            data[0, written_size] = ""
+            if written_size.is_a?(Numeric)
+              @logger.debug("[twitter][write][done] #{written_size}")
+              rest -= written_size
+              data[0, written_size] = ""
+            else
+              # for Ruby/GLib2 < 0.90.9
+              rest = 0
+              data.replace("")
+            end
             true
           end
         end
