@@ -12,6 +12,7 @@ module Rabbit
       @config_file_path = Pathname.new("~/.rabbit/twitter-oauth.yaml")
       @config_file_path = @config_file_path.expand_path
       @listeners = []
+      @connection = nil
     end
 
     def register_listener(&block)
@@ -28,44 +29,52 @@ module Rabbit
         :consumer_secret => CONSUMER_SECRET,
         :access_key => oauth_access_parameters[:access_token],
         :access_secret => oauth_access_parameters[:access_secret],
-        :proxy => ENV['http_proxy'],
       }
     end
 
+    def close
+      return if @connection.nil?
+      @connection.close
+      @connection = nil
+    end
+
     def start_stream(*filters)
+      close
       setup if @oauth_parameters.nil?
+      require 'socket'
       require 'twitter/json_stream'
-      Thread.start do
-        EventMachine.run do
-          stream_options = {
-            :oauth => @oauth_parameters,
-            :host => "stream.twitter.com",
-            :path => "/1/statuses/filter.json",
-            :method => "POST",
-            :filters => filters,
-          }
-          @stream = ::Twitter::JSONStream.connect(stream_options)
-          @stream.each_item do |item|
-            item = JSON.parse(item)
-            @listeners.each do |listener|
-              listener.call(item)
-            end
-          end
+      stream_options = {
+        :oauth => @oauth_parameters,
+        :host => "stream.twitter.com",
+        :path => "/1/statuses/filter.json",
+        :method => "POST",
+        :filters => filters,
+      }
+      @stream = ::Twitter::JSONStream.new(:signature, stream_options)
+      @connection = GLibConnection.new(stream_options, @stream)
 
-          @stream.on_error do |message|
-            @logger.error("[twitter] #{message}")
-          end
-
-          @stream.on_reconnect do |timeout, retries|
-            @logger.info("[twitter][reconnect] #{timeout} seconds (#{retries})")
-          end
-
-          @stream.on_max_reconnects do |timeout, retries|
-            @logger.info("[twitter][max-reconnects] " +
-                         "Failed after #{retries} failed reconnects")
-          end
+      @stream.each_item do |item|
+        item = JSON.parse(item)
+        p item
+        @listeners.each do |listener|
+          listener.call(item)
         end
       end
+
+      @stream.on_error do |message|
+        @logger.error("[twitter] #{message}")
+      end
+
+      @stream.on_reconnect do |timeout, retries|
+        @logger.info("[twitter][reconnect] #{timeout} seconds (#{retries})")
+      end
+
+      @stream.on_max_reconnects do |timeout, retries|
+        @logger.info("[twitter][max-reconnects] " +
+                     "Failed after #{retries} failed reconnects")
+      end
+
+      @connection.connect
     end
 
     private
@@ -89,6 +98,103 @@ module Rabbit
       @config_file_path.open("w") do |config_file|
         config_file.chmod(0600)
         config_file.puts(YAML.dump(oauth_parameters))
+      end
+    end
+
+    class GLibConnection
+      def initialize(options, handler)
+        @options = options
+        @handler = handler
+        @socket = nil
+        @channel = nil
+        @source_ids = []
+      end
+
+      def connect
+        close
+        @socket = TCPSocket.new(@options[:host], "http")
+        @channel = GLib::IOChannel.new(@socket.fileno)
+        @channel.flags = GLib::IOChannel::FLAG_NONBLOCK
+        reader_id = @channel.add_watch(GLib::IOChannel::IN) do |io, condition|
+          data = io.read(4096)
+          if data.empty?
+            @source_ids.delete!(reader_id)
+            false
+          else
+            @handler.receive_data(data)
+            true
+          end
+        end
+        @source_ids << reader_id
+        error_id = @channel.add_watch(GLib::IOChannel::ERR) do |io, condition|
+          p condition
+          @handler.receive_error(condition)
+          true
+        end
+        @source_ids << error_id
+        @handler.extend(GLibAdapter)
+        @handler.connection = self
+        @handler.connection_completed
+      end
+
+      def send_data(data)
+        rest = data.bytesize
+        flushed = false
+        @channel.add_watch(GLib::IOChannel::OUT) do |io, condition|
+          if rest.zero?
+            @channel.flush
+            false
+          else
+            written_size = @channel.write(data)
+            rest -= written_size
+            data[0, written_size] = ""
+            true
+          end
+        end
+      end
+
+      def close
+        return if @socket.nil?
+        @source_ids.reject! do |id|
+          GLib::Source.remove(id)
+          true
+        end
+        @channel = nil
+        @socket.close
+      end
+
+      def reconnect(options={})
+        close
+        after = options[:after] || 0
+        if after.zero?
+          connect
+        else
+          id = GLib::Timeout.add(after) do
+            connect
+            false
+          end
+          @source_ids << id
+        end
+      end
+    end
+
+    module GLibAdapter
+      attr_accessor :connection
+      def send_data(data)
+        @connection.send_data(data)
+      end
+
+      def reconnect_after(timeout)
+        @reconnect_callback.call(timeout, @reconnect_retries) if @reconnect_callback
+        @connection.reconnect(:after => timeout)
+      end
+
+      def reconnect(server, port)
+        @connection.reconnect
+      end
+
+      def close_connection
+        @connection.close
       end
     end
   end
