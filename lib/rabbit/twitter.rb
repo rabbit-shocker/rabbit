@@ -141,7 +141,6 @@ module Rabbit
 
       def send_data(data)
         rest = data.bytesize
-        flushed = false
         writer_id = @channel.add_watch(GLib::IOChannel::OUT) do |io, condition|
           if rest.zero?
             @logger.debug("[twitter][flush][start]")
