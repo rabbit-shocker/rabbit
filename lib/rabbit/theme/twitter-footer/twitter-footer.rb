@@ -7,7 +7,8 @@ proc_name = "twitter-footer"
   "font_family" => @font_family,
 }
 @twitter_footer_color ||= "black"
-@twitter_stream_filters = ['twitter']
+@twitter_footer_filters ||= ['twitter']
+@twitter_footer_min_display_time ||= 1
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
@@ -16,10 +17,14 @@ match(Slide) do |slides|
   break if @twitter_footer_uninstall
 
   twitter_stream_tweets = []
-  canvas.twitter.start_stream(@twitter_stream_filters) do |status|
+  redraw_time = Time.now
+  canvas.twitter.start_stream(@twitter_footer_filters) do |status|
     tweet = "@#{status['user']['screen_name']}: #{status['text']}"
     twitter_stream_tweets << tweet
-    canvas.activate("Redraw")
+    if Time.now - redraw_time > @twitter_footer_min_display_time
+      canvas.activate("Redraw")
+      redraw_time = Time.now
+    end
   end
 
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
