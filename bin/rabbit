@@ -780,6 +780,8 @@ def main
   else
     do_display(options, logger)
   end
+
+  Rabbit.cleanup
 end
 
 main

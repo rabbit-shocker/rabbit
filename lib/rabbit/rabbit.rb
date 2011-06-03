@@ -16,6 +16,7 @@ module Rabbit
   TMP_DIR_NAME = ".tmp"
 
   @@gui_init_procs = []
+  @@cleanup_procs = []
 
   module_function
   def add_gui_init_proc(proc=Proc.new)
@@ -24,6 +25,16 @@ module Rabbit
 
   def gui_init
     @@gui_init_procs.each do |proc|
+      proc.call
+    end
+  end
+
+  def add_cleanup_proc(proc=Proc.new)
+    @@cleanup_procs << proc
+  end
+
+  def cleanup
+    @@cleanup_procs.each do |proc|
       proc.call
     end
   end
