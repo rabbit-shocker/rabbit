@@ -17,7 +17,7 @@ match(Slide) do |slides|
 
   twitter_stream_tweets = []
   canvas.twitter.start_stream(@twitter_stream_filters) do |status|
-    tweet = "@#{status['user']['screen_name']}:\"#{status['text']}\"\n"
+    tweet = "@#{status['user']['screen_name']}: #{status['text']}"
     twitter_stream_tweets << tweet
     canvas.activate("Redraw")
   end
