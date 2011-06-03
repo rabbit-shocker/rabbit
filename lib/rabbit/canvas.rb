@@ -154,6 +154,7 @@ module Rabbit
       @limit_time = nil
       @use_gl = false
       @font_resolution_ratio = 1
+      @twitter = nil
       init_comment(comment_source, comment_encoding)
       clear
       @renderer = renderer.new(self)
@@ -177,6 +178,7 @@ module Rabbit
     end
 
     def quit
+      clear_twitter
       @quitted = true
       @frame.quit
     end
@@ -643,6 +645,10 @@ module Rabbit
       INTERNAL_DPI * @font_resolution_ratio
     end
 
+    def twitter
+      @twitter ||= Twitter.new(@logger)
+    end
+
     private
     def _apply_theme(name, id, &block)
       @theme_name = name if name
@@ -693,13 +699,20 @@ module Rabbit
     end
     
     def clear
+      clear_twitter
       reset_timer
       stop_auto_redraw_timer
       clear_slides
       clear_index_slides
       modified
     end
-    
+
+    def clear_twitter
+      return if @twitter.nil?
+      @twitter.close
+      @twitter = nil
+    end
+
     def clear_slides
       @current_index = 0
       @slides = []

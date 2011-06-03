@@ -38,8 +38,8 @@ module Rabbit
       @connection = nil
     end
 
-    def start_stream(*filters)
-      close
+    def start_stream(*filters, &block)
+      register_listener(&block) if block_given?
       setup if @oauth_parameters.nil?
       require 'socket'
       require 'twitter/json_stream'
@@ -51,13 +51,12 @@ module Rabbit
         :filters => filters,
       }
       @stream = ::Twitter::JSONStream.new(:signature, stream_options)
-      @connection = GLibConnection.new(stream_options, @stream)
+      @connection = GLibConnection.new(@logger, @stream, stream_options)
 
       @stream.each_item do |item|
-        item = JSON.parse(item)
-        p item
+        status = JSON.parse(item)
         @listeners.each do |listener|
-          listener.call(item)
+          listener.call(status)
         end
       end
 
@@ -102,7 +101,8 @@ module Rabbit
     end
 
     class GLibConnection
-      def initialize(options, handler)
+      def initialize(logger, handler, options)
+        @logger = logger
         @options = options
         @handler = handler
         @socket = nil
@@ -116,9 +116,12 @@ module Rabbit
         @channel = GLib::IOChannel.new(@socket.fileno)
         @channel.flags = GLib::IOChannel::FLAG_NONBLOCK
         reader_id = @channel.add_watch(GLib::IOChannel::IN) do |io, condition|
+          @logger.debug("[twitter][read][start]")
           data = io.read(4096)
+          @logger.debug("[twitter][read][done] #{data.bytesize}")
           if data.empty?
-            @source_ids.delete!(reader_id)
+            @source_ids.reject! {|id| id == reader_id}
+            @logger.debug("[twitter][read][eof]")
             false
           else
             @handler.receive_data(data)
@@ -127,7 +130,6 @@ module Rabbit
         end
         @source_ids << reader_id
         error_id = @channel.add_watch(GLib::IOChannel::ERR) do |io, condition|
-          p condition
           @handler.receive_error(condition)
           true
         end
@@ -140,17 +142,23 @@ module Rabbit
       def send_data(data)
         rest = data.bytesize
         flushed = false
-        @channel.add_watch(GLib::IOChannel::OUT) do |io, condition|
+        writer_id = @channel.add_watch(GLib::IOChannel::OUT) do |io, condition|
           if rest.zero?
+            @logger.debug("[twitter][flush][start]")
             @channel.flush
+            @logger.debug("[twitter][flush][done]")
+            @source_ids.reject! {|id| id == writer_id}
             false
           else
+            @logger.debug("[twitter][write][start]")
             written_size = @channel.write(data)
+            @logger.debug("[twitter][write][done] #{written_size}")
             rest -= written_size
             data[0, written_size] = ""
             true
           end
         end
+        @source_ids << writer_id
       end
 
       def close
