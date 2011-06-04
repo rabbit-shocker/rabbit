@@ -3,7 +3,7 @@ theme_exit unless display?
 proc_name = "twitter-footer"
 
 @twitter_footer_props ||= {
-  "size" => screen_size(1.4 * Pango::SCALE),
+  "size" => (@xx_small_font_size * 0.5).ceil,
   "font_family" => @font_family,
 }
 @twitter_footer_color ||= "black"
@@ -37,9 +37,10 @@ match(Slide) do |slides|
         set_font_family(text)
         text.compile(canvas, x, y, w, h)
         text.layout.set_width(w * Pango::SCALE)
-        num_x = x
-        num_y = canvas.height - 20
-        canvas.draw_layout(text.layout, num_x, num_y, @twitter_footer_color)
+        text_x = x
+        text_y = canvas.height - slide.margin_bottom - slide.padding_bottom
+        text_y -= text.layout.pixel_size[1]
+        canvas.draw_layout(text.layout, text_x, text_y, @twitter_footer_color)
       end
     end
     [x, y, w, h]
