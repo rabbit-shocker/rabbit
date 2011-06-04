@@ -21,6 +21,7 @@ module Rabbit
 
     def setup
       return unless @oauth_parameters.nil?
+      require 'yaml'
       require 'twitter_oauth'
       setup_access_token unless @config_file_path.exist?
       oauth_access_parameters = YAML.load(@config_file_path.read)
