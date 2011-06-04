@@ -6,8 +6,11 @@ proc_name = "twitter-footer"
   "size" => (@xx_small_font_size * 0.5).ceil,
   "font_family" => @font_family,
 }
-@twitter_footer_color ||= "black"
-@twitter_footer_filters ||= ['twitter']
+@twitter_footer_color ||= @default_foreground
+if !defined?(@twitter_footer_filters) or @twitter_footer_filters.nil?
+  theme_exit("must specify @twitter_footer_filters!! as " +
+             "array of keyword: ['keyword1', 'keyword1', ...])")
+end
 @twitter_footer_min_display_time ||= 1
 
 match(Slide) do |slides|
