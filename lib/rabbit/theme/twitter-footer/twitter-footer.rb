@@ -21,7 +21,7 @@ match(Slide) do |slides|
 
   twitter_stream_tweets = []
   redraw_time = Time.now
-  canvas.twitter.start_stream(@twitter_footer_filters) do |status|
+  canvas.twitter.start(@twitter_footer_filters) do |status|
     tweet = "@#{status['user']['screen_name']}: #{status['text']}"
     twitter_stream_tweets << tweet
     if Time.now - redraw_time > @twitter_footer_min_display_time

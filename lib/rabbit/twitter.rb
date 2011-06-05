@@ -39,13 +39,14 @@ module Rabbit
       @connection = nil
     end
 
-    def start_stream(*filters, &block)
+    def start(*filters, &block)
       register_listener(&block) if block_given?
       setup if @oauth_parameters.nil?
       require 'socket'
       require 'twitter/json_stream'
       stream_options = {
         :oauth => @oauth_parameters,
+        :user_agent => "Rabitter #{Rabbit::VERSION}",
         :host => "stream.twitter.com",
         :path => "/1/statuses/filter.json",
         :method => "POST",
