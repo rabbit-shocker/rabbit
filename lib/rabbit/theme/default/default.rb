@@ -29,4 +29,8 @@ include_theme("body-background-image")
 
 include_theme("tag")
 
-include_theme("footer-comment")
+if canvas.renderer.widget.class.name == "Clutter::GtkEmbed"
+  include_theme("clutter-comment")
+else
+  include_theme("footer-comment")
+end
