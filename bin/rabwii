@@ -7,15 +7,14 @@ require "rabbit/console"
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
-    options.druby_uri = "druby://localhost:10101"
-    options.commands = []
+    options.rabbit_uri = "druby://localhost:10101"
 
     opts.separator ""
 
-    opts.on("--druby-uri=URI",
-            _("Specify Rabbit's dRuby URI as [URI]."),
-            "(#{options.druby_uri})") do |uri|
-      options.druby_uri = uri
+    opts.on("--rabbit-uri=URI",
+            "Rabbit's dRuby URI",
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
     end
   end
 end
@@ -70,7 +69,7 @@ def main
   wiimote.rpt_mode = WiiMote::RPT_BTN
   wiimote.led = WiiMote::LED1_ON | WiiMote::LED4_ON
 
-  rabbit = DRbObject.new_with_uri(options.druby_uri)
+  rabbit = DRbObject.new_with_uri(options.rabbit_uri)
 
   accept_wiimote(wiimote, rabbit, logger)
 end
