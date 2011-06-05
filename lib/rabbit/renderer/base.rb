@@ -219,35 +219,10 @@ module Rabbit
       def toggle_spotlight
       end
 
-      def toggle_comment_frame
-      end
-
-      def toggle_comment_view
-      end
-
-      def showing_comment_frame?
-        false
-      end
-
-      def showing_comment_view?
-        false
-      end
-
-      def comment_frame_available?
-        false
-      end
-
-      def comment_view_available?
-        false
-      end
-
       def gl_available?
         @canvas.use_gl? and gl_supported?
       end
 
-      def update_comment(source)
-      end
-      
       def post_init_gui
       end
 

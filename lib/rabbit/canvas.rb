@@ -90,11 +90,6 @@ module Rabbit
     def_delegators(:@renderer, :whiteouting?, :blackouting?)
     def_delegators(:@renderer, :toggle_whiteout, :toggle_blackout)
 
-    def_delegators(:@renderer, :showing_comment_frame?, :showing_comment_view?)
-    def_delegators(:@renderer, :toggle_comment_frame, :toggle_comment_view)
-    def_delegators(:@renderer, :comment_frame_available?)
-    def_delegators(:@renderer, :comment_view_available?)
-
     def_delegators(:@renderer, :adjustment_x, :adjustment_x=)
     def_delegators(:@renderer, :adjustment_y, :adjustment_y=)
     def_delegators(:@renderer, :reset_adjustment)
@@ -124,7 +119,7 @@ module Rabbit
     def_delegators(:@source, :source=, :reset, :base)
 
     attr_reader :logger, :renderer, :last_modified
-    attr_reader :comment_source, :actions
+    attr_reader :comments, :actions
     
     attr_writer :saved_image_base_name
     attr_writer :use_gl
@@ -134,8 +129,9 @@ module Rabbit
     attr_accessor :source_filename
     attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
     attr_accessor :font_resolution_ratio
+    attr_accessor :max_n_comments
 
-    def initialize(logger, renderer, comment_source=nil, comment_encoding=nil)
+    def initialize(logger, renderer)
       @logger = logger
       @frame = NullFrame.new
       @theme_name = nil
@@ -155,7 +151,7 @@ module Rabbit
       @use_gl = false
       @font_resolution_ratio = 1
       @twitter = nil
-      init_comment(comment_source, comment_encoding)
+      @max_n_comments = 100
       clear
       @renderer = renderer.new(self)
       @actions = Action.action_group(self)
@@ -567,30 +563,29 @@ module Rabbit
       end
     end
 
+    def on_comment(name, &callback)
+      @on_comment_callbacks << [name, callback]
+    end
+
+    def delete_on_comment_proc_by_name(name)
+      @on_comment_callbacks.reject! do |callback_name, callback|
+        callback_name == name
+      end
+    end
+
     def append_comment(comment)
-      comment = prepare_comment(comment)
-      comment = "\n= #{comment}" if /\A\s*\z/ !~ comment
-      prev_source = @comment_source.read
-      @comment_source.source = "#{prev_source}#{comment}"
-      @renderer.update_comment(@comment_source) do |error|
-        @comment_source.source = prev_source
-        if block_given?
-          yield(error)
-        else
-          logger.warn(error)
+      @comments << comment
+      @comments.shift if @comments.size > @max_n_comments
+      @on_comment_callbacks.each do |name, callback|
+        begin
+          callback.call(comment)
+        rescue
+          logger.error($!)
         end
-        return false
       end
       true
     end
 
-    def comments
-      comments = @comment_source.read.split(/^=\s*(?=[^=]+$)/)[2..-1]
-      comments.collect do |comment|
-        comment.strip
-      end
-    end
-    
     def title_slide
       @slides.find{|x| x.is_a?(Element::TitleSlide)}
     end
@@ -700,6 +695,7 @@ module Rabbit
     
     def clear
       clear_twitter
+      clear_comments
       reset_timer
       stop_auto_redraw_timer
       clear_slides
@@ -711,6 +707,11 @@ module Rabbit
       return if @twitter.nil?
       @twitter.close
       @twitter = nil
+    end
+
+    def clear_comments
+      @comments = []
+      @on_comment_callbacks = []
     end
 
     def clear_slides
@@ -761,25 +762,6 @@ module Rabbit
       set_current_index(index)
       Action.update_status(self)
       @renderer.post_move(old_index, current_index)
-    end
-
-    def init_comment(comment_source, comment_encoding)
-      args = [comment_encoding, logger, comment_source]
-      @comment_source = Source::Memory.new(*args)
-      if /^=\s*[^=]+$/ !~ @comment_source.read
-        @comment_source.source = default_comment_source
-      end
-    end
-
-    def default_comment_source
-      source = "= " + _("Comment") + "\n"
-      source << ": theme\n"
-      source << "   comment\n"
-      source
-    end
-
-    def prepare_comment(comment)
-      comment.to_s.gsub(/\r?\n/, '')
     end
   end
 end

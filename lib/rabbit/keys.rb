@@ -85,10 +85,6 @@ module Rabbit
       Gdk::Keyval::GDK_c,
     ]
 
-    TOGGLE_COMMENT_FRAME_KEYS = [
-      Gdk::Keyval::GDK_m,
-    ]
-
     SEARCH_SLIDE_FORWARD_KEYS = [
       Gdk::Keyval::GDK_slash,
     ]
@@ -112,10 +108,6 @@ module Rabbit
 
       BLACK_OUT_KEYS = [
         Gdk::Keyval::GDK_b,
-      ]
-
-      TOGGLE_COMMENT_VIEW_KEYS = [
-        Gdk::Keyval::GDK_m,
       ]
 
       EXPAND_HOLE_KEYS = [

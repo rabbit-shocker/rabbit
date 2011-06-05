@@ -53,8 +53,6 @@ def parse_args(args=ARGV, logger=nil)
     options.server = false
     options.default_public_level = "all"
     options.public_level = nil
-    options.comment_source = nil
-    options.comment_encoding = nil
     options.migemo_dictionary_search_path = [
       File.join(Config::CONFIG["prefix"], "share"),
       File.join("", "usr", "local", "share"),
@@ -467,15 +465,15 @@ def parse_args(args=ARGV, logger=nil)
     opts.category _("Comment")
     
     opts.on("--comment-source=FILE",
+            _("Deprecated. Just ignored."),
             _("Specify initial comment source."),
             _("(default source)")) do |name|
-      options.comment_source = name
     end
     
     opts.on("--comment-encoding=ENCODING",
+            _("Deprecated. Just ignored."),
             _("Specify comment source encoding."),
             _("(auto)")) do |encoding|
-      options.comment_encoding = encoding
     end
 
     opts.category _("Migemo")
@@ -523,11 +521,7 @@ def parse_args(args=ARGV, logger=nil)
 end
 
 def make_canvas(options, logger, renderer)
-  args = [
-    logger, renderer,
-    options.comment_source, options.comment_encoding,
-  ]
-  Rabbit::Canvas.new(*args)
+  Rabbit::Canvas.new(logger, renderer)
 end
 
 def make_source(options, argv, logger)

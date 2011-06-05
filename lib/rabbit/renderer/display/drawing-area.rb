@@ -1,6 +1,5 @@
 require 'rabbit/renderer/engine'
 require 'rabbit/renderer/display/drawing-area-base'
-require 'rabbit/renderer/display/comment'
 
 module Rabbit
   module Renderer
@@ -8,7 +7,6 @@ module Rabbit
       class DrawingArea
         include Renderer::Engine.renderer_module
         include DrawingAreaBase
-        include Comment
 
         class << self
           def priority

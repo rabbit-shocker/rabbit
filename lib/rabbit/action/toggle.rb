@@ -23,20 +23,6 @@ module Rabbit
       config[:label] = N_("Blackout")
     end
 
-    def act_toggle_comment_frame(action, group, canvas)
-      canvas.toggle_comment_frame
-    end
-    def act_toggle_comment_frame_config(config, canvas)
-      config[:label] = N_("Comment frame")
-    end
-
-    def act_toggle_comment_view(action, group, canvas)
-      canvas.toggle_comment_view
-    end
-    def act_toggle_comment_view_config(config, canvas)
-      config[:label] = N_("Comment view")
-    end
-
     def act_toggle_index_mode(action, group, canvas)
       canvas.toggle_index_mode
     end

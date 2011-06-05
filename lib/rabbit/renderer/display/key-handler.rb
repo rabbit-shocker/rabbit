@@ -136,10 +136,6 @@ module Rabbit
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("CacheAllSlides")
           end
-          keys = Keys::TOGGLE_COMMENT_FRAME_KEYS
-          set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("ToggleCommentFrame")
-          end
           keys = Keys::SEARCH_SLIDE_FORWARD_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("SearchSlideForward")
@@ -168,10 +164,6 @@ module Rabbit
           keys = Keys::Shift::BLACK_OUT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("ToggleBlackout")
-          end
-          keys = Keys::Shift::TOGGLE_COMMENT_VIEW_KEYS
-          set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("ToggleCommentView")
           end
           keys = Keys::Shift::EXPAND_HOLE_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|
