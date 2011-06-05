@@ -42,7 +42,7 @@ def parse_args(args=ARGV, logger=nil)
     options.page_margin_top = nil
     options.page_margin_bottom = nil
     options.use_druby = true
-    options.druby_uri = "druby://:10101"
+    options.druby_uri = "druby://127.0.0.1:10101"
     options.output_druby_uri = false
     options.use_soap = false
     options.soap_host = "0.0.0.0"
@@ -51,7 +51,7 @@ def parse_args(args=ARGV, logger=nil)
     options.xmlrpc_host = "0.0.0.0"
     options.xmlrpc_port = 10104
     options.server = false
-    options.default_public_level = "strict"
+    options.default_public_level = "all"
     options.public_level = nil
     options.comment_source = nil
     options.comment_encoding = nil
@@ -544,9 +544,6 @@ end
 
 def make_front(canvas, options)
   level = options.public_level
-  if options.source_type == Rabbit::Source::Memory or options.server
-    level ||= "all"
-  end
   level ||= options.default_public_level
   level = level.gsub(/-/, "_").upcase
   canvas.front(Rabbit::Front::PublicLevel.const_get(level))
