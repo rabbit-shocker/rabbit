@@ -10,6 +10,7 @@ def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.rabbit_uri = "druby://localhost:10101"
     options.filters = []
+    options.user_languages = []
 
     opts.separator ""
 
@@ -25,6 +26,13 @@ def parse(args=ARGV, logger=nil)
       options.filters << filter
     end
 
+    opts.on("--user-language=LANGUAGE",
+            "Filter by user language.",
+            "(e.g.: ja, en)",
+            "To use multiple language, use this option multiple.") do |language|
+      options.user_languages << language
+    end
+
     opts.separator "Deprecated"
 
     opts.on("--keyword=KEYWORD",
@@ -32,6 +40,11 @@ def parse(args=ARGV, logger=nil)
       options.filters << keyword
     end
   end
+end
+
+def target?(status, options)
+  return true if options.user_languages.empty?
+  options.user_languages.include?(status["user"]["lang"])
 end
 
 def clean_text(text, filters)
@@ -63,6 +76,7 @@ def main
   rabbit = DRbObject.new_with_uri(options.rabbit_uri)
   twitter = Rabbit::Twitter.new(logger)
   twitter.start(*options.filters) do |status|
+    next unless target?(status, options)
     begin
       text = clean_text(status['text'], options.filters)
       comment = "@#{status['user']['screen_name']}: #{text}"
