@@ -7,15 +7,25 @@ require "rabbit/console"
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
-    options.druby_uri = "druby://localhost:10101"
+    options.rabbit_uri = "druby://localhost:10101"
+    options.druby_uri_specified = false
     options.commands = []
 
     opts.separator ""
 
-    opts.on("--druby-uri=URI",
+    opts.on("--rabbit-uri=URI",
             _("Specify Rabbit's dRuby URI as [URI]."),
-            "(#{options.druby_uri})") do |uri|
-      options.druby_uri = uri
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
+    end
+
+    opts.on("--druby-uri=URI",
+            _("Deprecated."),
+            _("Use --rabbit-uri instead."),
+            _("Specify Rabbit's dRuby URI as [URI]."),
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
+      options.druby_uri_specified = true
     end
 
     opts.separator(_("Move commands"))
@@ -85,6 +95,9 @@ end
 def main
   options, logger = parse
 
+  if options.druby_uri_specified
+    logger.warning(_("--druby-uri is deprecated. Use --rabbit-uri instead."))
+  end
   rabbit = DRbObject.new_with_uri(options.druby_uri)
   options.commands.each do |output, method, *args|
     result = rabbit.send(method, *args)
