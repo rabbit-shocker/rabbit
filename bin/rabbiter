@@ -1,96 +1,83 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
-require 'rubygems'
-require 'password'
-require 'tweetstream'
-require 'drb'
-require "optparse"
-require "ostruct"
+require 'drb/drb'
 
-class Rabbiter
-  def initialize(options)
-    @options = options
-    @rabbit = DRb::DRbObject.new_with_uri(@options.rabbit_uri)
-    @tweet = nil
+require 'rabbit/console'
+require 'rabbit/twitter'
+
+def parse(args=ARGV, logger=nil)
+  Rabbit::Console.parse!(args, logger) do |opts, options|
+    options.rabbit_uri = "druby://localhost:10101"
+    options.filters = []
+
+    opts.separator ""
+
+    opts.on("--rabbit-uri=URI",
+            "Rabbit's dRuby URI",
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
+    end
+
+    opts.on("--filter=FILTER",
+            "Filter word for search Twitter.",
+            "To use multiple filters, use this option multiple.") do |filter|
+      options.filters << filter
+    end
+
+    opts.separator "Deprecated"
+
+    opts.on("--keyword=KEYWORD",
+            "Deprecated. Use --filter instead.") do |keyword|
+      options.filters << keyword
+    end
+  end
+end
+
+def clean_text(text, filters)
+  remove_ustream_link(remove_hash_tag(text, filters))
+end
+
+def remove_hash_tag(text, filters)
+  hash_tag_regexps = filters.collect do |filter|
+    if filter.start_with?("#")
+      Regexp.escape(filter)
+    else
+      Regexp.escape("\##{filter}")
+    end
+  end
+  text.gsub(Regexp.union(*hash_tag_regexps), "")
+end
+
+def remove_ustream_link(text)
+  text.gsub(/\(.* live at http:\/\/ustre\.am\/.*\)/, "")
+end
+
+def main
+  options, logger = parse
+  if options.filters.empty?
+    logger.error("must specify one or more filters by --filter")
+    exit(false)
   end
 
-  def start
-    @tweet = TweetStream::Daemon.new(@options.username,
-                                     @options.password,
-                                     "rabbiter")
-    @tweet.track(@options.keyword) do |status|
-      begin
-        comment = "#{status.user.screen_name}: #{clean_text(status.text)}"
-        @rabbit.append_comment(comment)
-      rescue DRb::DRbConnError
-        puts "Rabbiter: #{$!.class}: #{$!.message}"
-      end
+  rabbit = DRbObject.new_with_uri(options.rabbit_uri)
+  twitter = Rabbit::Twitter.new(logger)
+  twitter.start(*options.filters) do |status|
+    begin
+      text = clean_text(status['text'], options.filters)
+      comment = "@#{status['user']['screen_name']}: #{text}"
+      rabbit.append_comment(comment)
+    rescue DRb::DRbConnError
+      logger.error("Rabbiter: #{$!.class}: #{$!.message}")
     end
   end
 
-  def stop
-    if @tweet
-      @tweet.stop
-    end
+  main_loop = GLib::MainLoop.new
+  trap("INT") do
+    twitter.close
+    main_loop.quit
   end
-
-  private
-  def clean_text(text)
-    remove_ustream_link(remove_hash_tag(text))
-  end
-
-  def remove_hash_tag(text)
-    text.gsub(/\##{Regexp.escape(@options.keyword)}/, "")
-  end
-
-  def remove_ustream_link(text)
-    text.gsub(/\(.* live at http:\/\/ustre\.am\/.*\)/, "")
-  end
+  main_loop.run
 end
 
-options = OpenStruct.new
-options.keyword = 'ruby'
-options.rabbit_uri = 'druby://localhost:10101'
-options.username = ENV['USER'] || ENV['USERNAME']
-options.password = ''
-
-parser = OptionParser.new do |opts|
-  opts.on("--keyword=KEYWROD",
-          "Keyword for search Twitter",
-          "(#{options.keyword})") do |keyword|
-    options.keyword = keyword
-  end
-
-  opts.on("--rabbit-uri=URI",
-          "Rabbit's dRuby URI",
-          "(#{options.rabbit_uri})") do |uri|
-    options.rabbit_uri = uri
-  end
-
-  opts.on("--username=USERNAME",
-          "Username for Twitter",
-          "(#{options.username})") do |username|
-    options.username = username
-  end
-
-  opts.on("--password=PASSWORD",
-          "User password for Twitter",
-          "(#{options.password})") do |password|
-    options.password = password
-  end
-end
-
-parser.parse!(ARGV)
-
-if options.password.empty?
-  options.password = Password.get("Password for #{options.username}: ")
-end
-
-rabbiter = Rabbiter.new(options)
-
-Signal.trap("INT") do
-  rabbiter.stop
-end
-
-rabbiter.start
+main
