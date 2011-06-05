@@ -11,7 +11,8 @@ require "rabbit/div/tofu"
 
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
-    options.druby_uri = "druby://localhost:10101"
+    options.rabbit_uri = "druby://localhost:10101"
+    options.druby_uri_specified = false
     options.port = 10102
     options.bonjour = false
     options.debug = false
@@ -19,10 +20,19 @@ def parse(args=ARGV, logger=nil)
 
     opts.separator ""
 
-    opts.on("--druby-uri=URI",
+    opts.on("--rabbit-uri=URI",
             _("Specify Rabbit's dRuby URI as [URI]."),
-            "(#{options.druby_uri})") do |uri|
-      options.druby_uri = uri
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
+    end
+
+    opts.on("--druby-uri=URI",
+            _("Deprecated."),
+            _("Use --rabbit-uri instead."),
+            _("Specify Rabbit's dRuby URI as [URI]."),
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
+      options.druby_uri_specified = true
     end
 
     opts.on("--port=PORT",
@@ -57,7 +67,10 @@ def main
                                    :AddressFamily => Socket::AF_INET,
                                    :Logger => logger)
 
-  rabbit = DRbObject.new_with_uri(options.druby_uri)
+  if options.druby_uri_specified
+    logger.warning(_("--druby-uri is deprecated. Use --rabbit-uri instead."))
+  end
+  rabbit = DRbObject.new_with_uri(options.rabbit_uri)
   Rabbit::Div::TofuSession.rabbit = rabbit
   bartender = Tofu::Bartender.new(Rabbit::Div::TofuSession)
   server.mount("/", WEBrick::Tofulet, bartender)
