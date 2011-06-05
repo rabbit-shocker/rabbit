@@ -890,3 +890,4 @@ XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）�
     * Ruby 1.9関連のバグを報告してくれました。
   * Kiwamu Okabeさん:
     * twitter-footerテーマを提供してくれました。
+    * Wii RemoteでRabbitを操作するコマンドを提供してくれました。
