@@ -123,7 +123,7 @@ module Rabbit
     end
 
     def accept_move?
-      not (@public_level & Front::PublicLevel::MOVE).zero?      
+      not (@public_level & Front::PublicLevel::MOVE).zero?
     end
 
     def append_comment(comment)
