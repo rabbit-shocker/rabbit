@@ -28,3 +28,5 @@ include_theme("per-slide-background-image")
 include_theme("body-background-image")
 
 include_theme("tag")
+
+include_theme("footer-comment")
