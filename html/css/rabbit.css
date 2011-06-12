@@ -137,7 +137,8 @@ div.main
     padding-top: 80px;
 }
 
-section.contents
+section.contents,
+section.footnotes
 {
     display: block;
     margin-left: 20px;
@@ -150,8 +151,20 @@ section.contents
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    color: #aa0202;
     position: relative;
+}
+
+section.contents h2,
+section.contents h3,
+section.contents h4,
+section.contents h5
+{
+    color: #aa0202;
+}
+
+section.footnotes
+{
+    margin-top: 30px;
 }
 
 nav h2
