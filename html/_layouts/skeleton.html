@@ -38,10 +38,10 @@
       <div class="other-language-links">
 	<ul>
 {% if page.language != "en" %}
-	  <li><a href="/{{ page.url | replace:page.language:'en' }}" alt="English" title="English"><img src="/images/us.png"></a></li>
+	  <li><a href="{{ page.url | remove:page.language | append:'en' }}" alt="English" title="English"><img src="/images/us.png"></a></li>
 {% endif %}
 {% if page.language != "ja" %}
-	  <li><a href="/{{ page.url | replace:page.language:'ja' }}" alt="日本語" title="日本語"><img src="/images/jp.png"></a></li>
+	  <li><a href="{{ page.url | remove:page.language | append:'ja' }}" alt="日本語" title="日本語"><img src="/images/jp.png"></a></li>
 {% endif %}
 	</ul>
       </div>
