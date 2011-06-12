@@ -2,7 +2,73 @@
 
 = NEWS.en
 
-$Id$
+== 0.9.3: 2010-06-12
+
+A comment and Twitter support improved release.
+
+=== Improvements
+
+==== Core
+
+  * Supported PDF viewer on Ruby 1.9.
+    [Reported by tmtms]
+  * [#199] Supported "~" expansion in path specified by "-I".
+    [Reported by kdmsnr]
+  * Supported Twitter's OAuth.
+  * Supported Bundler.
+  * Added Rabbit.add_cleanup_proc that is an API to register
+    a hook on rabbit command finished.
+  * Added rabwii command to control Rabbit via Wii Remote.
+    [Based on Kiwamu Okabe's code]
+  * Changed default dRuby server bind address to localhost.
+  * Changed default --default-public-level to "all".
+  * rabbitter: Used OAuth.
+  * rabrick: Changed --druby-uri option to --rabbit-uri.
+  * rabbit-command: Changed --druby-uri option to --rabbit-uri.
+  * Removed comment view.
+  * rabbitter: Added --user-language option.
+
+==== Theme
+
+  * title-background-image: Supported image file name in
+    slide property.
+    [Suggested by kdmsnr]
+  * background-image-toolkit: Used slide property rather
+    than options in theme.
+  * image: Made image caption's font size customizable.
+  * color-circle: Enabled newline-in-slides and tag theme by
+    default.
+  * slide-number: Made slide number position customizable.
+    [Youhei SASAKI]
+  * debian: Updated.
+    [Youhei SASAKI]
+  * dark-gradation: Added. It's Keynote like dark gradation
+    theme.
+    [Youhei SASAKI]
+  * twitter-comment: Added. It imports tweets from Twitter
+    as comments.
+    [Based on Kiwamu Okabe's code]
+  * comment: Removed. It's for removed comment view.
+  * footer-comment: Added. It shows comments on the footer.
+    [Based on Kiwamu Okabe's code]
+  * clutter-comment: Added. It streams comments on slides
+    with rolling by Clutter API.
+  * stream-comment: Added. It streams comments on slides.
+
+=== Fixes
+
+==== Core
+
+  * Fixed Clutter backend doesn't work.
+    [Reported by OBATA Akio]
+
+=== Thanks
+
+  * tmtms
+  * kdmsnr
+  * OBATA Akio
+  * Youhei SASAKI
+  * Kiwamu Okabe
 
 == 0.9.2: 2010-12-31
 

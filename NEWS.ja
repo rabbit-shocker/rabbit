@@ -2,7 +2,79 @@
 
 = NEWS.ja
 
-$Id$
+== 0.9.3: 2010-06-12
+
+コメント・Twitterサポート強化リリース。
+
+=== 改良
+
+==== 本体
+
+  * PDFサポートのRuby 1.9対応。
+    [とみたさんが報告]
+  * [#199] "-I"オプションで指定されたパスの中の「~」を展開す
+    るようにした。
+    [kdmsnrさんが報告]
+  * TwitterのOAuthに対応。
+  * Bundlerに対応。
+  * rabbitコマンド終了時に実行する処理を登録できる
+    Rabbit.add_cleanup_procを追加。
+  * Wii RemoteでRabbitを操作するためのコマンドrabwii（らぶ
+    うぃー）を追加。
+    [おかべさんのコードをベースに改造]
+  * dRubyサーバはデフォルトでlocalhostにバインドするようにし
+    た。
+  * デフォルトでRabbit APIをすべて公開するようにした。
+    （--default-public-level=all）
+  * rabbitter: OAuthを使用するようにした。
+  * rabrick: --druby-uriオプションを--rabbit-uriに変更した。
+  * rabbit-command: --druby-uriオプションを--rabbit-uriに変更した。
+  * コメントビューの削除。
+  * rabbitter: --user-languageオプションを追加。
+
+==== テーマ
+
+  * title-background-image: スライドプロパティでの画像ファイ
+    ル名指定に対応。
+    [kdmsnrさんが提案]
+  * background-image-toolkit: テーマでオプションが指定されて
+    いても常にスライドプロパティを使うようにした。
+  * image: 画像のキャプションのフォントサイズをカスタマイズ
+    できるようにした。
+  * color-circle: newline-in-slidesテーマとtagテーマを有効に
+    した。
+  * slide-number: スライド番号を表示する位置をカスタマイズで
+    きるようにした。
+    [佐々木さん]
+  * debian: アップデート。
+    [佐々木さん]
+  * dark-gradation: 追加。Keynote風の暗めのグラデーションの
+    テーマ。
+    [佐々木さん]
+  * twitter-comment: 追加。Twitterのtweetをコメントとして取
+    り込むテーマ。
+    [おかべさんのコードをベースに改造]
+  * comment: 削除。廃止されたコメントビュー用のテーマ。
+  * footer-comment: 追加。コメントをフッターに表示するテーマ。
+    [おかべさんのコードをベースに改造]
+  * clutter-comment: 追加。コメントをClutterのAPIを利用して
+    ぐりんぐりんさせながら表示するテーマ。
+  * stream-comment: 追加。コメントをスライド上に流すテーマ。
+
+=== 修正
+
+==== 本体
+
+  * Clutterバックエンドが動かない問題を修正。
+    [おばたさんが報告]
+
+=== 感謝
+
+  * とみたさん
+  * kdmsnrさん
+  * おばたさん
+  * 佐々木さん
+  * おかべさん
 
 == 0.9.2: 2010-12-31
 
