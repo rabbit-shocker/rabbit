@@ -891,3 +891,6 @@ XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）�
   * Kiwamu Okabeさん:
     * twitter-footerテーマを提供してくれました。
     * Wii RemoteでRabbitを操作するコマンドを提供してくれました。
+  * なかださん:
+    * Windowsでコンソールが利用可能かどうかを検出する方法を
+      教えてくれました。
