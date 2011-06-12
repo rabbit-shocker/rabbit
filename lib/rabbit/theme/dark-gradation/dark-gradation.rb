@@ -105,9 +105,9 @@ include_theme("title-shadow")
 #-------------------------
 # background images
 #-------------------------
-add_image_path("dark_gradation-images")
-@slide_background_image ||= "bg_grad.png"
-@title_background_image ||= "bg_grad.png"
+add_image_path("dark-gradation-images")
+@slide_background_image ||= "background-gradation.png"
+@title_background_image ||= "background-gradation.png"
 # title background grad
 proc_name = "title-background-image"
 match(TitleSlide) do |slides|
@@ -171,7 +171,7 @@ end
 #-------------------------
 # lightning talk setting(Takahashi method)
 #-------------------------
-@lightning_talk_proc_name = "lightning-dark_gradation"
+@lightning_talk_proc_name = "lightning-dark-gradation"
 @lightning_talk_as_large_as_possible = true
 @lightning_talk_color = "#ffffffffffff"
 include_theme("lightning-talk-toolkit")
