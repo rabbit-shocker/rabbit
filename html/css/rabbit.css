@@ -27,9 +27,6 @@ h1
     margin: 0;
     padding: 0;
     margin-left: 20px;
-    padding-top: 30px;
-    padding-left: 130px;
-    height: 90px;
     background: url(../images/lavie-icon.png) left no-repeat;
 }
 
@@ -37,6 +34,11 @@ h1 a
 {
     color: white;
     text-decoration: none;
+    display: block;
+    height: 90px;
+    padding-top: 30px;
+    padding-left: 130px;
+    margin-right: 570px;
 }
 
 h1 span.title
@@ -49,7 +51,7 @@ h1 span.separator
     display: none;
 }
 
-h1 span.catch-phrase
+h1 span.description
 {
     display: block;
     color: #eee;
@@ -88,6 +90,27 @@ pre.command
     background-color: black;
     color: white;
     padding: 10px 20px;
+}
+
+header div.other-language-links
+{
+    position: absolute;
+    top: 10px;
+    right: 500px;
+    /* width: 50px; */
+}
+
+header div.other-language-links ul,
+header div.other-language-links li
+{
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+header div.other-language-links a img
+{
+    border-style: none;
 }
 
 ul#screenshots
