@@ -1,106 +1,43 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Rabbit - Rubyist用プレゼンツール</title>
-    <link rel="shortcut icon" href="favicon.ico"
-          type="image/vnd.microsfot.icon" />
-    <link rel="icon" href="favicon.png" type="image/png" />
-    <link rel="stylesheet" href="css/jquery-ui/themes/ui-lightness.css"
-          type="text/css" />
-    <link rel="stylesheet" href="css/rabbit.css" type="text/css" />
-    <meta property="fb:page_id" content="202603309766491" />
-    <meta property="fb:admins" content="kouhei.sutou" />
-    <meta property="og:type" content="product" />
-    <meta property="og:image" content="http://rabbit-shockers.org/lavie.png" />
-    <meta property="og:site_name" content="Rabbit" />
-    <script type="text/javascript" src="javascripts/jquery.js"></script>
-    <script type="text/javascript" src="javascripts/jquery-ui.js"></script>
-    <script src="http://connect.facebook.net/ja_JP/all.js"></script>
-    <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-	appId  : null,
-	status : true, // check login status
-	cookie : true, // enable cookies to allow the server to access the session
-	xfbml  : true  // parse XFBML
-      });
-    };
-    </script>
-    <script type="text/javascript">
-      if (document.location.protocol != "file:" &&
-          document.location.host != "localhost") {
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-12143252-4']);
-	_gaq.push(['_trackPageview']);
+---
+layout: ja
+title: Rubyist用プレゼンツール
+---
+<section class="screenshots">
+  <ul id="screenshots">
+    <li><img src="images/screenshots/ja/blue-circle.png"
+             alt="青い円テーマ" /></li>
+    <li><img src="images/screenshots/ja/clear-blue.png"
+             alt="きれいな青テーマ" /></li>
+    <li><img src="images/screenshots/ja/cozmixng.png"
+             alt="COZMIXNGテーマ" /></li>
+    <li><img src="images/screenshots/ja/day-white.png"
+             alt="Day Whiteテーマ" /></li>
+    <li><img src="images/screenshots/ja/debian.png"
+             alt="Debianテーマ" /></li>
+    <li><img src="images/screenshots/ja/green-circle.png"
+             alt="緑の円テーマ" /></li>
+    <li><img src="images/screenshots/ja/night-black.png"
+             alt="Night Blackテーマ" /></li>
+    <li><img src="images/screenshots/ja/rabbit.png"
+             alt="Rabbitテーマ" /></li>
+    <li><img src="images/screenshots/ja/ranguba.png"
+             alt="ラングバテーマ" /></li>
+    <li><img src="images/screenshots/ja/red-frame.png"
+             alt="赤い枠テーマ" /></li>
+    <li><img src="images/screenshots/ja/ruby-gnome2.png"
+             alt="Ruby-GNOME2テーマ" /></li>
+  </ul>
+</section>
 
-	(function() {
-	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
-      }
-    </script>
-  </head>
-  <body>
-    <div id="fb-root"></div>
-    <header id="header">
-      <h1>
-	<a href="./">
-          <span class="title">
-            Rabbit
-          </span>
-          <span class="separator">-</span>
-          <span class="catch-phrase">
-            Rubyist用プレゼンツール
-          </span>
-        </a>
-      </h1>
-      <div class="facebook-buttons">
-	<fb:like href="http://www.facebook.com/pages/Rabbit/202603309766491"
-                 layout="standard"></fb:like>
-      </div>
-      <pre id="install" class="command">% gem install rabbit</pre>
-    </header>
-    <section class="screenshots">
-      <ul id="screenshots">
-        <li><img src="images/screenshots/ja/blue-circle.png"
-                 alt="青い円テーマ" /></li>
-        <li><img src="images/screenshots/ja/clear-blue.png"
-                 alt="きれいな青テーマ" /></li>
-        <li><img src="images/screenshots/ja/cozmixng.png"
-                 alt="COZMIXNGテーマ" /></li>
-        <li><img src="images/screenshots/ja/day-white.png"
-                 alt="Day Whiteテーマ" /></li>
-        <li><img src="images/screenshots/ja/debian.png"
-                 alt="Debianテーマ" /></li>
-        <li><img src="images/screenshots/ja/green-circle.png"
-                 alt="緑の円テーマ" /></li>
-        <li><img src="images/screenshots/ja/night-black.png"
-                 alt="Night Blackテーマ" /></li>
-        <li><img src="images/screenshots/ja/rabbit.png"
-                 alt="Rabbitテーマ" /></li>
-        <li><img src="images/screenshots/ja/ranguba.png"
-                 alt="ラングバテーマ" /></li>
-        <li><img src="images/screenshots/ja/red-frame.png"
-                 alt="赤い枠テーマ" /></li>
-        <li><img src="images/screenshots/ja/ruby-gnome2.png"
-                 alt="Ruby-GNOME2テーマ" /></li>
-      </ul>
-    </section>
-    <section class="contents">
-      <nav>
-	<h2>Rabbitについて</h2>
-	<p class="note">www.cozmixng.orgへ飛びます。</p>
-	<ul>
-	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AREADME.ja">はじめに</a></li>
-	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3ANEWS.ja">お知らせ</a></li>
-	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AFAQ.ja">よくある質問</a></li>
-	  <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AUsersGroup.ja">ショッカー - ユーザのみなさん</a></li>
-	</ul>
-      </nav>
-    </section>
-    <footer>
-    </footer>
-  </body>
-</html>
+<section class="contents">
+  <nav>
+    <h2>Rabbitについて</h2>
+    <p class="note">www.cozmixng.orgへ飛びます。</p>
+    <ul>
+      <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AREADME.ja">はじめに</a></li>
+      <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3ANEWS.ja">お知らせ</a></li>
+      <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AFAQ.ja">よくある質問</a></li>
+      <li><a href="http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit%3A%3AUsersGroup.ja">ショッカー - ユーザのみなさん</a></li>
+    </ul>
+  </nav>
+</section>
