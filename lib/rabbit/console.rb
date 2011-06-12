@@ -19,7 +19,7 @@ module Rabbit
     module_function
     def parse!(args, logger=nil)
       bindtextdomain
-      logger ||= Logger::STDERR.new
+      logger ||= guess_default_logger
       options = OpenStruct.new
       options.logger = logger
       options.default_logger = logger
@@ -128,6 +128,14 @@ module Rabbit
 
     def get_last_name(klass)
       klass.name.split("::").last
+    end
+
+    def guess_default_logger
+      if Utils.windows?
+        Logger::GUI.new
+      else
+        Logger::STDERR.new
+      end
     end
   end
 end
