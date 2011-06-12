@@ -129,14 +129,15 @@ ul#screenshots li
     display: inline;
 }
 
-section.contents
+div.main
 {
     display: block;
     background: url(../images/hare-and-tortoise.png) repeat-x;
+    margin-top: 20px;
     padding-top: 80px;
 }
 
-nav
+section.contents
 {
     display: block;
     margin-left: 20px;
