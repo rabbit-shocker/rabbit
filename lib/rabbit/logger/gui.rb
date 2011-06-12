@@ -38,14 +38,14 @@ module Rabbit
         log_prog_name(prog_name)
         log_message(message)
         if @start_gui_main_loop_automatically and Gtk.main_level.zero?
-          Thread.new{Gtk.main}
+          Thread.new {Gtk.main}
         end
       end
 
       def log_severity(severity)
         append("[")
-        name = severity_name(severity)
-        append(name, name)
+        name = Severity::MARK_TABLE[severity]
+        append(_(name), name)
         append("]\n")
       end
 
@@ -165,8 +165,6 @@ module Rabbit
                            "left_margin" => 10,
                            "right_margin" => 10)
       end
-      
     end
-    
   end
 end
