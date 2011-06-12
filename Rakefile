@@ -2,73 +2,38 @@
 
 require 'find'
 require 'rubygems'
-require 'hoe'
+require 'rubygems/package_task'
+require 'jeweler'
 
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 require 'rabbit/rabbit'
 
-truncate_base_dir = Proc.new do |x|
-  x.gsub(/\A#{Regexp.escape(base_dir + File::SEPARATOR)}/, '')
-end
+ENV["VERSION"] ||= Rabbit::VERSION
+version = ENV["VERSION"].dup
+spec = nil
+Jeweler::Tasks.new do |_spec|
+  spec = _spec
+  spec.name = "rabbit"
+  spec.version = version.dup
+  spec.rubyforge_project = "rabbit"
+  spec.homepage = "http://rabbit-shockers.org/"
+  spec.authors = ["Kouhei Sutou"]
+  spec.email = ["kou@cozmixng.org"]
+  spec.summary = 'Rabbit is an RD-document-based presentation application.'
+  spec.description = spec.summary # FIXME
+  spec.license = "GPLv2+"
 
-manifest = File.join(base_dir, "Manifest.txt")
-manifest_contents = []
-base_dir_included_components = %w(COPYING COPYING.ja GPL Manifest.txt
-                                  NEWS.en
-                                  NEWS.ja
-                                  README.en
-                                  README.ja
-                                  Rakefile TODO setup.rb
-                                  update-mo.rb update-po.rb)
-excluded_components = %w(.svn .test-result .tmp doc log tmp pkg config.rb)
-excluded_suffixes = %w(.po~)
-white_list_paths = []
-Find.find(base_dir + File::SEPARATOR) do |target|
-  target = truncate_base_dir[target]
-  components = target.split(File::SEPARATOR)
-  next if components.empty?
-  if components.size == 1 and !File.directory?(target)
-    next unless base_dir_included_components.include?(components[0])
-  end
-  unless white_list_paths.include?(target)
-    Find.prune if (excluded_components - components) != excluded_components
-    next if /~\z/ =~ target
-    next if excluded_suffixes.include?(File.extname(target))
-  end
-  manifest_contents << target if File.file?(target)
+  spec.files = FileList["{lib,data,entities,bin,sample,misc}/**/*",
+                        "*.rb",
+                        "Rakefile",
+                        "GPL",
+                        "NEWS*",
+                        "README*",
+                        "Gemfile"]
+  spec.test_files = FileList["test/**/*.rb"]
+  spec.executables -= ["rabbit.bat"]
 end
-
-File.open(manifest, "w") do |f|
-  f.puts manifest_contents.sort.join("\n")
-end
-at_exit do
-  FileUtils.rm_f(manifest)
-end
-
-ENV["VERSION"] = Rabbit::VERSION
-project = Hoe.spec('rabbit') do
-  self.version = Rabbit::VERSION
-  self.rubyforge_name = 'rabbit'
-  self.author = ['Kouhei Sutou']
-  self.email = ['kou@cozmixng.org']
-  self.summary = 'Rabbit is an RD-document-based presentation application.'
-  self.url = 'http://www.cozmixng.org/~rwiki/?cmd=view;name=Rabbit'
-  self.test_globs = ['test/test_*.rb']
-  self.changes = File.read('NEWS.en').split(/^== /)[1].gsub(/^==/, '').strip
-  self.extra_deps = [
-                     ['gtk2'],
-                     ['gdk_pixbuf2'],
-                     ['rsvg2'],
-                     ['poppler'],
-                     ['hikidoc'],
-                     # ['gettext'],
-                    ]
-  self.description = self.summary # FIXME
-  self.need_tar = false
-end
-
-project.spec.executables -= ["rabbit.bat"]
 
 rule '.png' => ['.svg'] do |t|
   sh("inkscape", "--export-png", t.name, t.source)
@@ -94,7 +59,8 @@ namespace :html do
 
     screenshot_rab = "html/screenshot.#{lang}.rab"
 
-    screenshot_themes = ["blue-circle", "clear-blue", "cozmixng", "day-white",
+    screenshot_themes = ["blue-circle", "clear-blue", "cozmixng",
+                         "dark-gradation", "day-white",
                          "debian", "green-circle", "night-black",
                          "rabbit", "ranguba", "red-frame", "ruby-gnome2"]
     screenshot_themes.each do |theme|
