@@ -27,6 +27,8 @@ A comment and Twitter support improved release.
   * rabbit-command: Changed --druby-uri option to --rabbit-uri.
   * Removed comment view.
   * rabbitter: Added --user-language option.
+  * Always used GUI logger on Windows even if Rabbit isn't
+    invoked by rubyw.exe.
 
 ==== Theme
 
