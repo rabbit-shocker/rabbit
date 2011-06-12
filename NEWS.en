@@ -61,6 +61,7 @@ A comment and Twitter support improved release.
 
   * Fixed Clutter backend doesn't work.
     [Reported by OBATA Akio]
+  * Fixed GUI logger doesn't work.
 
 === Thanks
 
