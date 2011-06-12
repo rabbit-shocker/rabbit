@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'bundler/setup'
-
 begin
   require "rabbit/config"
 rescue LoadError
