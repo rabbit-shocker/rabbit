@@ -1,6 +1,7 @@
 ---
 layout: en
 title: A presentation tool for Rubyist
+lang_suffix: true
 ---
 <section class="screenshots">
   <ul id="screenshots">
