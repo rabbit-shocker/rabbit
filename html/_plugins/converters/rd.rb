@@ -6,11 +6,6 @@ module Jekyll
   class RDConverter < Converter
     safe true
 
-    def setup
-      return if @setup
-      @setup = true
-    end
-
     def matches(ext)
       /rd/i =~ ext
     end
@@ -65,7 +60,7 @@ module Jekyll
         if foottext
           snippet << "<section class=\"foottext\">#{foottext}</section>\n"
         end
-        snippet = "<div class=\"main\">#{snippet}</div>"
+        snippet = "<div class=\"main\">\n#{snippet}</div>"
         snippet
       end
     end
