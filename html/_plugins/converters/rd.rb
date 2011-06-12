@@ -6,6 +6,9 @@ module Jekyll
   class RDConverter < Converter
     safe true
 
+    def setup
+    end
+
     def matches(ext)
       /rd/i =~ ext
     end
@@ -58,7 +61,9 @@ module Jekyll
         foottext = make_foottext
         snippet = "<section class=\"contents\">\n#{content}\n</section>\n"
         if foottext
-          snippet << "<section class=\"foottext\">#{foottext}</section>\n"
+          foottext = foottext.gsub(/\A<hr \/>/, '')
+          foottext = "<h2>Footnotes</h2>\n#{foottext}"
+          snippet << "<section class=\"footnotes\">\n#{foottext}\n</section>\n"
         end
         snippet = "<div class=\"main\">\n#{snippet}</div>"
         snippet
