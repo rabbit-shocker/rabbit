@@ -31,8 +31,9 @@
   * rabbit-command: --druby-uriオプションを--rabbit-uriに変更した。
   * コメントビューの削除。
   * rabbitter: --user-languageオプションを追加。
-  * Windowsではrubyw.exeで起動されていなくても常にGUIロガー
+  * Windowsではrubyw.exeで起動されていたらデフォルトでGUIロガー
     を使うようにした。
+    [なかださんが手助け]
 
 ==== テーマ
 
@@ -78,6 +79,7 @@
   * おばたさん
   * 佐々木さん
   * おかべさん
+  * なかださん
 
 == 0.9.2: 2010-12-31
 

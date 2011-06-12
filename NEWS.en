@@ -27,8 +27,9 @@ A comment and Twitter support improved release.
   * rabbit-command: Changed --druby-uri option to --rabbit-uri.
   * Removed comment view.
   * rabbitter: Added --user-language option.
-  * Always used GUI logger on Windows even if Rabbit isn't
-    invoked by rubyw.exe.
+  * Used GUI logger by default when Rabbit isn't invoked by
+    rubyw.exe.
+    [Helped by Nobuyoshi Nakada]
 
 ==== Theme
 
@@ -72,6 +73,7 @@ A comment and Twitter support improved release.
   * OBATA Akio
   * Youhei SASAKI
   * Kiwamu Okabe
+  * Nobuyoshi Nakada
 
 == 0.9.2: 2010-12-31
 
