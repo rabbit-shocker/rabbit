@@ -49,6 +49,13 @@ end
   end
 end
 
+namespace :entity do
+  desc "Update entities"
+  task :update do
+    sh("entities/ent2rb.rb entities/*.ent")
+  end
+end
+
 namespace :html do
   screenshots = []
 
