@@ -1,11 +1,13 @@
-= INSTALL.macosx-macports.ja
-
-$Id$
+---
+layout: ja
+title: MacPortsでインストール
+---
+== Mac OS XでMacPortsを使ったインストール方法
 
 Mac OS X のパッケージ管理システムのひとつである、MacPorts を利用して
 Rabbit をインストール、利用する手順について説明します。
 
-== 事前に準備するもの
+=== 事前に準備するもの
 
 以下のソフトウェアが必要です。Mac OS X のシステムDVDなどからインストール
 してください。
@@ -15,7 +17,7 @@ Rabbit をインストール、利用する手順について説明します。
 
 Xcode Tools のインストール時には、X11 SDK を選択するのを忘れないでください。
 
-== MacPorts のインストール
+=== MacPorts のインストール
 
 MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウンロード、
 インストールします。ディスクイメージ(.dmg)からインストールするのが簡単です。
@@ -24,7 +26,7 @@ MacPorts の公式サイト ((<URL:http://www.macports.org/>)) からダウン�
 されます。MacPorts のコマンドを利用するために、環境変数 PATH に /opt/local/bin
 を追加します。
 
-== Rabbit のインストール
+=== Rabbit のインストール
 
 まず、以下のコマンドで、Rabbitに必要なソフトウェアの情報を更新し
 ておくのも良いかもしれません。
@@ -51,7 +53,7 @@ glib や Gtk2 がインストールされていないときは、これらのイ
 注) Ruby-GetText-Package が、すでに RubyGems からインストールされているときは
 rb-gettext のインストールは不要です。
 
-=== X11なしでRabbitを利用したい
+==== X11なしでRabbitを利用したい
 
 もしRabbitをX11なしで利用したい場合は、rb-rabbitパッケージをインストールする
 前に、pango・cairoおよびgtk2をX11なしでインストールしてください。
@@ -60,24 +62,24 @@ rb-gettext のインストールは不要です。
   ~% sudo port install cairo +no_x11 +quartz
   ~% sudo port install gtk2 +no_x11 +quartz
 
-== X11 環境に関する Tips
+=== X11 環境に関する Tips
 
 一般的な PC-UNIX 環境とは異なり、Mac OS X ではウィンドウシステムとして X を
 利用していません。そのため、いくつかの注意が必要になります。
 
-=== X11.app を起動する
+==== X11.app を起動する
 
 X11.app が起動していなければ、rabbit は実行できません。X11.app は 
 /アプリケーション/ユーティリティ/X11.app にあります。
 
-=== DISPLAY 環境変数
+==== DISPLAY 環境変数
 
 X11 上で動作する Rabbit を利用するためには、DISPLAY 環境変数が設定されて
 いなければなりません。X11.app 上の xterm では設定されていますが、標準の
 ターミナルや iTerm、JTerminal を利用しているときは自分で設定する必要が
 あることに注意してください。
 
-== Rabbit をバージョンアップする
+=== Rabbit をバージョンアップする
 
 port sync コマンドで Portfile を最新のものに更新したうえで、
 port upgrade コマンドにより、Rabbit を最新のバージョンに更新することが
@@ -89,13 +91,15 @@ port upgrade コマンドにより、Rabbit を最新のバージョンに更新
 Rabbit だけをバージョンアップしたいときは、-n オプションを指定します。この
 オプションの指定により、関連するソフトウェアは更新せずに Rabbit だけを更新
 することができます。
-  
+
   ~% sudo port -n upgrade rb-rabbit
 
-== 連絡先
+=== 連絡先
 
 お気づきの点やリクエストなどは、Rabbit::UsersGroup.ja
 ((<URL:http://www.cozmixng.org/~rwiki/index.rb?cmd=view;name=Rabbit%3A%3AUsersGroup.ja>)) 
 や Rabbit MacPorts 担当の木村 (kimuraw at i.nifty.jp) までどうぞ。
 
 
+Rabbitはgemまたはそれぞれのプラットフォームにあるパッケージ管
+理システムを使ってインストールすることができます。

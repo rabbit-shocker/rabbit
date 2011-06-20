@@ -1,27 +1,29 @@
-# -*- rd -*-
-
-= INSTALL.macosx-homebrew.ja
+---
+layout: ja
+title: Homebrewでインストール
+---
+== Mac OS XでHomebrewを使ったインストール方法
 
 Mac OS X のパッケージ管理システムのひとつである Homebrew と RubyGems を利用して
 Rabbit をインストール、利用する手順について説明します。
 
-== 事前に準備するもの
+=== 事前に準備するもの
 
 * Intel Mac
 * Mac OS X Leopard 以上
 * Xcode と X11
 
-== Homebrew のインストール
+=== Homebrew のインストール
 
  $ ruby -e "$(curl -fsS http://gist.github.com/raw/323731/install_homebrew.rb)"
 
 環境変数 PATH に /usr/local/bin を追加します。
 
-== Rabbit に必要なソフトウェアのインストール (brew install)
+=== Rabbit に必要なソフトウェアのインストール (brew install)
 
 /usr/local/Library/Formula/*.rb の設定を変更してから brew install を実行します。
 
-=== /usr/local/Library/Formula/pango.rb
+==== /usr/local/Library/Formula/pango.rb
 
   require 'formula'
 
@@ -50,7 +52,7 @@ Rabbit をインストール、利用する手順について説明します。
     end
   end
 
-=== /usr/local/Library/Formula/cairo.rb
+==== /usr/local/Library/Formula/cairo.rb
 
   require 'formula'
 
@@ -81,7 +83,7 @@ Rabbit をインストール、利用する手順について説明します。
     end
   end
 
-=== /usr/local/Library/Formula/gtk+.rb
+==== /usr/local/Library/Formula/gtk+.rb
 
   require 'formula'
 
@@ -119,7 +121,7 @@ Rabbit をインストール、利用する手順について説明します。
     end
   end
 
-=== /usr/local/Library/Formula/poppler.rb
+==== /usr/local/Library/Formula/poppler.rb
 
   require 'formula'
 
@@ -168,7 +170,7 @@ Rabbit をインストール、利用する手順について説明します。
     end
   end
 
-=== brew install と brew link の実行
+==== brew install と brew link の実行
 
   $ brew install cairo
   $ brew link cairo
@@ -176,7 +178,7 @@ Rabbit をインストール、利用する手順について説明します。
   $ brew install gtk+
   $ brew install poppler
 
-== Rabbit に必要なソフトウェアのインストール (gem install)
+=== Rabbit に必要なソフトウェアのインストール (gem install)
 
 gem install を実行します。
 
@@ -187,7 +189,7 @@ gem install を実行します。
   $ sudo gem install poppler
   $ sudo gem install hikidoc # Wiki 記法を使う場合
 
-== Rabbit のインストール
+=== Rabbit のインストール
 
 gem install を実行します。
 
