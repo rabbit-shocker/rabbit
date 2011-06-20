@@ -1,6 +1,7 @@
 ---
 layout: ja
 title: Hiki記法
+apply_data: false
 ---
 !パラグラフ
 
