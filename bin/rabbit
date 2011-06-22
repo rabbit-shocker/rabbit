@@ -535,7 +535,7 @@ def make_source(options, argv, logger)
     elsif argv.size == 1 and /\Ahttps?:\/\// =~ argv[0]
       options.source_type = Rabbit::Source::URI
     else
-      options.source_type = Rabbit::Source::FILE
+      options.source_type = Rabbit::Source::File
     end
   end
   if options.source_type == Rabbit::Source::ARGF
