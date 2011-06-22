@@ -14,7 +14,7 @@ def parse_args(args=ARGV, logger=nil)
     options.theme = "default"
     options.theme_specified = false
     options.base = nil
-    options.source_type = Rabbit::Source::File
+    options.source_type = :auto
     options.full_screen = false
     options.index_mode = false
     options.geometry = nil
@@ -87,6 +87,7 @@ def parse_args(args=ARGV, logger=nil)
     source_type_names = Rabbit::Source.types.collect do |x|
       Rabbit::Console.get_last_name(x).downcase
     end
+    source_type_names.unshift("auto")
     source_type_descs = Rabbit::Source.types.collect do |x|
       message = _("When select %s\nspecify %s\nas [SOURCE_INFOS].")
       type = Rabbit::Console.get_last_name(x)
@@ -98,12 +99,15 @@ def parse_args(args=ARGV, logger=nil)
             _("Specify source type as [TYPE]."),
             _("Select from [%s].") % source_type_names.join(', '),
             _("Note: case insensitive."),
-            "(#{Rabbit::Console.get_last_name(options.source_type)})",
-            _("(ARGV: if no filename is given)"),
+            "(auto)",
             " ",
             *source_type_descs) do |source_type|
-      options.source_type = Rabbit::Source.types.find do |t|
-        Rabbit::Console.get_last_name(t).downcase == source_type.downcase
+      if source_type == "auto"
+        options.source_type = :auto
+      else
+        options.source_type = Rabbit::Source.types.find do |t|
+          Rabbit::Console.get_last_name(t).downcase == source_type.downcase
+        end
       end
     end
 
@@ -525,8 +529,14 @@ def make_canvas(options, logger, renderer)
 end
 
 def make_source(options, argv, logger)
-  if options.source_type == Rabbit::Source::File and argv.empty?
-    options.source_type = Rabbit::Source::ARGF
+  if options.source_type == :auto
+    if argv.empty?
+      options.source_type = Rabbit::Source::ARGF
+    elsif argv.size == 1 and /\Ahttps?:\/\// =~ argv[0]
+      options.source_type = Rabbit::Source::URI
+    else
+      options.source_type = Rabbit::Source::FILE
+    end
   end
   if options.source_type == Rabbit::Source::ARGF
     infos = [ARGF]
