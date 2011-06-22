@@ -31,7 +31,7 @@ Windows上でRabbitをインストール、利用する手順について説明�
 
 ==== Rabbitのインストール
 
-RubyInstallerをインストールするとスターとメニューに「Start
+RubyInstallerをインストールするとスタートメニューに「Start
 Command Prompt with Ruby」というプログラムが追加されます。こ
 のプログラムを実行するとruby.exeにパスが通ったコマンドプロン
 プトが表示されます。ここで以下のコマンドを実行することで
