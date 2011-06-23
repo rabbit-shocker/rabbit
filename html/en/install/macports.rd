@@ -1,11 +1,13 @@
-= INSTALL.macosx-macports.en
-
-$Id$
+---
+layout: en
+title: Install with MacPorts
+---
+== How to install Rabbit with MacPorts on Mac OS X
 
 This document describes how to install Rabbit with MacPorts and how to use
 Rabbit on Mac OS X.
 
-== Requirements
+=== Requirements
 
 The following programs are needed.
 
@@ -14,11 +16,11 @@ The following programs are needed.
 
 Remember to select "X11 SDK" when installing the Xcode Tools.
 
-== Install MacPorts
+=== Install MacPorts
 
 see ((<URL:http://www.macports.org/>)).
 
-== installing Rabbit
+=== installing Rabbit
 
 You might want to do the following to update information for
 required ports.
@@ -37,7 +39,7 @@ You can install these ports to make rabbit even better.
   ~% sudo port install rb-gettext
   ~% sudo port install rb-net-irc
 
-=== Rabbit without X11
+==== Rabbit without X11
 
 If you want to run rabbit without X11, install pango, cairo and gtk2 without
 X11 before install rb-rabbit.
@@ -46,18 +48,18 @@ X11 before install rb-rabbit.
   ~% sudo port install cairo +no_x11 +quartz
   ~% sudo port install gtk2 +no_x11 +quartz
 
-== tips for X11 environment
+=== tips for X11 environment
 
-=== launch X11.app
+==== launch X11.app
 
 Rabbit requires X11.app, which is under /Applications/Utilities/.
 
-=== DISPLAY environment variable
+==== DISPLAY environment variable
 
 Mac OS X 10.4 or earlier, DISPLAY environment was not declared.
 Remember to set this variable.
 
-== upgrade Rabbit
+=== upgrade Rabbit
 
 the following operation upgrades your Rabbit.
 
@@ -69,7 +71,7 @@ option.
 
   ~% sudo port -n upgrade rb-rabbit
 
-== Contact
+=== Contact
 
-* Rabbit::UsersGroup.ja ((<URL:http://www.cozmixng.org/~rwiki/index.rb?cmd=view;name=Rabbit%3A%3AUsersGroup.ja>))
+* ((<"../users.rd"/Users group>))
 * Kimura Wataru (kimuraw at i nifty.jp) - maintainer of Rabbit MacPorts
