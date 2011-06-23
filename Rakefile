@@ -61,10 +61,10 @@ namespace :html do
 
   languages = ["ja", "en"]
   languages.each do |lang|
-    screenshots_dir = "html/images/screenshots/#{lang}"
+    screenshots_dir = "doc/images/screenshots/#{lang}"
     directory screenshots_dir
 
-    screenshot_rab = "html/screenshot.#{lang}.rab"
+    screenshot_rab = "doc/screenshot.#{lang}.rab"
 
     screenshot_themes = ["blue-circle", "clear-blue", "cozmixng",
                          "dark-gradation", "day-white",
