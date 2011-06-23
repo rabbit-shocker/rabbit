@@ -1,27 +1,29 @@
-# -*- rd -*-
-
-= INSTALL.macosx-homebrew.en
+---
+layout: en
+title: Install with Homebrew
+---
+== How to install Rabbit with Homebrew on Mac OS X
 
 This document describes how to install Rabbit with Homebrew and RubyGems on Mac OS X.
 
-== Requirements
+=== Requirements
 
 * An Intel CPU
 * OS X Leopard or higher
 * Xcode with X11
 
-== Install Homebrew
+=== Install Homebrew
 
  $ ruby -e "$(curl -fsS http://gist.github.com/raw/323731/install_homebrew.rb)"
 
 Then add /usr/local/bin to your PATH.
 
-== Install Softwares Rabbit Needs (brew install)
+=== Install Softwares Rabbit Needs (brew install)
 
 Change files in /usr/local/Library/Formula/*.rb as follows.
 Then exec "brew install".
 
-=== /usr/local/Library/Formula/pango.rb
+==== /usr/local/Library/Formula/pango.rb
 
   require 'formula'
 
@@ -50,7 +52,7 @@ Then exec "brew install".
     end
   end
 
-=== /usr/local/Library/Formula/cairo.rb
+==== /usr/local/Library/Formula/cairo.rb
 
   require 'formula'
 
@@ -81,7 +83,7 @@ Then exec "brew install".
     end
   end
 
-=== /usr/local/Library/Formula/gtk+.rb
+==== /usr/local/Library/Formula/gtk+.rb
 
   require 'formula'
 
@@ -168,7 +170,7 @@ Then exec "brew install".
     end
   end
 
-=== Excec brew install and brew link
+==== Exec brew install and brew link
 
   $ brew install cairo
   $ brew link cairo
@@ -176,9 +178,9 @@ Then exec "brew install".
   $ brew install gtk+
   $ brew install poppler
 
-== Install Softwares Rabbit Needs (gem install)
+=== Install Softwares Rabbit Needs (gem install)
 
-Excec gem install.
+Exec gem install.
 
   $ sudo gem install pango
   $ sudo gem install cairo
@@ -187,8 +189,8 @@ Excec gem install.
   $ sudo gem install poppler
   $ sudo gem install hikidoc # If you use Wiki notation.
 
-== Install Rabbit
+=== Install Rabbit
 
-Excec gem install.
+Exec gem install.
 
   $ sudo gem install rabbit
