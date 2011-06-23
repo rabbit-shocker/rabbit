@@ -1,7 +1,7 @@
-# -*- rd -*-
-
-= NEWS.en
-
+---
+layout: en
+title: News
+---
 == 0.9.3: 2010-06-12
 
 A comment and Twitter support improved release.
