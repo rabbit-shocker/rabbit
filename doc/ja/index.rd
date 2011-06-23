@@ -197,9 +197,9 @@ Issues|URL:https://github.com/shockers/rabbit/issues>))をご
 
   To: rabbit-commit@ml.cozmixng.org
   Cc: null@cozmixng.org
-  Subject: 何か
+  Subject: 登録
   
-  本文に何か
+  登録
 
 == 開発への参加方法
 
