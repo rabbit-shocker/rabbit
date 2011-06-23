@@ -46,7 +46,7 @@ Rabbit has useful slide operation interface.
 
 == Install
 
-See ((<install.html/Install>)) page.
+See ((<"install/"/Install>)) page.
 
 == Usage
 
