@@ -54,7 +54,7 @@ See ((<usage.html/Usage>)) page.
 
 == How to make slides
 
-See ((<how-to-make.html/How to make slides>)) page.
+See ((<"how-to-make/"/How to make a slide>)) page.
 
 == Author
 
