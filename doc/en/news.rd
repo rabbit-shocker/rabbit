@@ -23,11 +23,11 @@ A comment and Twitter support improved release.
     [Based on Kiwamu Okabe's code]
   * Changed default dRuby server bind address to localhost.
   * Changed default --default-public-level to "all".
-  * rabbitter: Used OAuth.
+  * rabbiter: Used OAuth.
   * rabrick: Changed --druby-uri option to --rabbit-uri.
   * rabbit-command: Changed --druby-uri option to --rabbit-uri.
   * Removed comment view.
-  * rabbitter: Added --user-language option.
+  * rabbiter: Added --user-language option.
   * Used GUI logger by default when Rabbit isn't invoked by
     rubyw.exe.
     [Helped by Nobuyoshi Nakada]

@@ -27,11 +27,11 @@ apply_data: false
     た。
   * デフォルトでRabbit APIをすべて公開するようにした。
     （--default-public-level=all）
-  * rabbitter: OAuthを使用するようにした。
+  * rabbiter: OAuthを使用するようにした。
   * rabrick: --druby-uriオプションを--rabbit-uriに変更した。
   * rabbit-command: --druby-uriオプションを--rabbit-uriに変更した。
   * コメントビューの削除。
-  * rabbitter: --user-languageオプションを追加。
+  * rabbiter: --user-languageオプションを追加。
   * Windowsではrubyw.exeで起動されていたらデフォルトでGUIロガー
     を使うようにした。
     [なかださんが手助け]
