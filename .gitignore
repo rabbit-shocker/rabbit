@@ -5,3 +5,4 @@
 /sample/.tmp/
 /po/*/rabbit.po~
 /po/rabbit.pot
+/rabbit.gemspec
