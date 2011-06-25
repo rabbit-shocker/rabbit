@@ -186,40 +186,9 @@ author of the image.
 
 See ((<users.html/Users>)) page.
 
-== Bug Tracking System
-
-Use mailing list or ((<Issues on
-GitHub|URL:https://github.com/shockers/rabbit/issues>)) for
-reporting a bug or a request.
-
-== Development status
-
-You can stay up to date on the latest development by
-subscribing to the git commit ML. If you want to subscribe
-to the ML, send an e-mail like the following.
-
-  To: rabbit-commit@ml.cozmixng.org
-  Cc: null@cozmixng.org
-  Subject: Subscribe
-  
-  Subscribe
-
-== Requests
-
-Please contribute great themes because I have no artistic
-sense.
-
-Rabbit lacks documentation. Please help out!
-
-Please translate rabbit into your native language. You can make
-po/#{LANG}/rabbit.po by the running the following:
-
-  % mkdir po/#{LANG}
-  % ./update-po.rb
-
 == Join development
 
-TODO
+See ((<development.html/Development>)) page.
 
 == FAQ
 

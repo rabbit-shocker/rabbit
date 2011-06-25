@@ -183,27 +183,9 @@ Framework|URL:http://prototype.conio.net/>))を見てください。
 ((<users.html/ユーザー>))ページにメーリングリストへの参
 加方法があります。
 
-== バグトラッキングシステム
-
-ご意見ご要望不具合報告等は作者へのメール、上記のメーリングリ
-スト、((<GitHubの
-Issues|URL:https://github.com/shockers/rabbit/issues>))をご
-利用ください。
-
-== 開発状況の確認
-
-開発状況はコミットメールが流れるMLで確認できます。MLに参加す
-るには以下のようなメールを送信してください。
-
-  To: rabbit-commit@ml.cozmixng.org
-  Cc: null@cozmixng.org
-  Subject: 登録
-  
-  登録
-
 == 開発への参加方法
 
-TODO
+((<development.html/開発>))ページを見てください。
 
 == FAQ
 
