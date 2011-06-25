@@ -131,7 +131,7 @@ module Rabbit
     end
 
     def guess_default_logger
-      if Utils.have_console?
+      if Utils.support_console_output?
         Logger::STDERR.new
       else
         Logger::GUI.new

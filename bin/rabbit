@@ -561,7 +561,7 @@ end
 def make_source(options, argv, logger)
   if options.source_type == :auto
     if argv.empty?
-      if Rabbit::Utils.have_console?
+      if Rabbit::Utils.support_console_input?
         options.source_type = Rabbit::Source::ARGF
       else
         file_name = choose_source_file_by_dialog(options)

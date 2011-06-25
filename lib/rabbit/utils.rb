@@ -146,13 +146,29 @@ module Rabbit
       /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
     end
 
-    def have_console?
-      return true unless windows?
-      begin
-        File.open("conout$", "w") {}
-        true
-      rescue SystemCallError
-        false
+    def support_console_input?
+      if windows?
+        begin
+          File.open("conin$", "w") {}
+          true
+        rescue SystemCallError
+          false
+        end
+      else
+        $stdin.tty?
+      end
+    end
+
+    def support_console_output?
+      if windows?
+        begin
+          File.open("conout$", "w") {}
+          true
+        rescue SystemCallError
+          false
+        end
+      else
+        $stdout.tty?
       end
     end
 
