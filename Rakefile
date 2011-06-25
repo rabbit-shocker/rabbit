@@ -24,7 +24,7 @@ Jeweler::Tasks.new do |_spec|
   spec.description = spec.summary # FIXME
   spec.license = "GPLv2+"
 
-  spec.files = FileList["{lib,data,entities,bin,sample,misc}/**/*",
+  spec.files = FileList["{lib,data,entities,bin,sample,misc,doc,po}/**/*",
                         "*.rb",
                         "Rakefile",
                         "GPL",
@@ -122,6 +122,7 @@ EOC
 
   desc "generate HTML and needed files."
   task :generate => screenshots do
+    sh("jekyll", "doc", "doc/_site")
   end
 
   desc "publish HTML."
@@ -131,7 +132,7 @@ EOC
        "--exclude", "*-raw.png",
        "--exclude", "*.svg",
        "--exclude", "*.rab",
-       "doc/",
+       "doc/_site/",
        "rabbit@rabbit-shockers.org:public_html/")
   end
 end

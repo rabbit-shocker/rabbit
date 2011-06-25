@@ -12,4 +12,5 @@ gem 'twitter_oauth'
 group :development, :test do
   gem 'rake'
   gem 'jeweler'
+  gem 'jekyll'
 end
