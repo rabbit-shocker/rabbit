@@ -3,7 +3,7 @@
 @abstract = N_("Toolkit to set background color of each slide")
 @description = N_("Set background color of each slide.\n" \
                   "\n" \
-                  "Each image is specified as a slide property:\n" \
+                  "Each color is specified as a slide property:\n" \
                   "  = target slide\n" \
                   "  \n" \
                   "  ...\n" \
