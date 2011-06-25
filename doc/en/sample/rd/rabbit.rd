@@ -1,6 +1,6 @@
 ---
 layout: en
-title: Sample slide: Rabbit
+title: "Sample slide: Rabbit"
 ---
   # To run with it without system install.
   #  % ruby -I./lib bin/rabbit -f sample/rabbit-en.rd

@@ -2,6 +2,10 @@
 layout: en
 title: Sample slides
 ---
-== RD format Samples
+== RD format samples
 
-  * ((<rd/rabbit.html/Rabbit>))
+  * ((<"rd/rabbit.html"/Rabbit>))
+
+== Hiki notation samples
+
+  * ((<"hiki/rabbit.html"/Rabbit>))

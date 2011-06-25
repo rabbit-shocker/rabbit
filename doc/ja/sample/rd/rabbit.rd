@@ -1,6 +1,6 @@
 ---
 layout: ja
-title: サンプルスライド: Rabbit
+title: "サンプルスライド: Rabbit"
 ---
   # To run with it without system install.
   #  % ruby -I./lib bin/rabbit -f sample/rabbit.rd

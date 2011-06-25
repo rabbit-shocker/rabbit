@@ -4,4 +4,8 @@ title: サンプルスライド
 ---
 == RDでのサンプル
 
-  * ((<rd/rabbit.html/Rabbit>))
+  * ((<"rd/rabbit.html"/Rabbit>))
+
+== Hiki記法でのサンプル
+
+  * ((<"hiki/rabbit.html"/Rabbit>))
