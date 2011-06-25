@@ -3,3 +3,5 @@
 /doc/_site/
 /doc/images/screenshots/
 /sample/.tmp/
+/po/*/rabbit.po~
+/po/rabbit.pot
