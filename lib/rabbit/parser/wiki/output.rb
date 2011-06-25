@@ -390,6 +390,14 @@ module Rabbit
             WaitTag.new
           end
 
+          def tag(name, text=nil, *rest)
+            if text.empty?
+              CustomTag.new(name, @private.pack(text, *rest))
+            else
+              CustomTag.new(name)
+            end
+          end
+
           class Private
             include Element
             def initialize(output)
@@ -480,6 +488,14 @@ module Rabbit
             Ext::Image.make_image_from_file(*args) do |src_file_path|
               args = [src_file_path, props, @output.canvas]
               [Ext::AAFigure.make_image_by_aafigure(*args), props]
+            end
+          end
+
+          def tag(name, value=nil)
+            if value
+              CustomTag.new(name, @output.text(value))
+            else
+              CustomTag.new(name)
             end
           end
         end

@@ -101,6 +101,14 @@
 * テーマの再読み込み
 * テーマの切り替え
 
+! 機能: タグ
+
+{{tag('x-large', 'Large Text')}}
+
+{{tag('center')}}Centerized Text
+
+{{tag('right')}}Right-Justified Text
+
 ! ToDo
 
 * インラインでの画像表示
