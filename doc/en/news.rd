@@ -1,8 +1,9 @@
 ---
 layout: en
 title: News
+apply_data: false
 ---
-== 0.9.3: 2010-06-12
+== 0.9.3: 2010-06-25
 
 A comment and Twitter support improved release.
 
@@ -32,6 +33,7 @@ A comment and Twitter support improved release.
     [Helped by Nobuyoshi Nakada]
   * Added launcher mode that show file chose dialog when
     Rabbit invoked without source file on no console environment.
+  * Supported tag in Hiki notation. ({{tag('tag-name', 'value')}}
 
 ==== Theme
 
