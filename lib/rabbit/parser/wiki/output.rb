@@ -378,7 +378,7 @@ module Rabbit
             super(@private.pack(text, *rest))
           end
 
-          def lang(lang, text)
+          def lang(lang, text, *rest)
             super(lang, @private.pack(text, *rest))
           end
 
