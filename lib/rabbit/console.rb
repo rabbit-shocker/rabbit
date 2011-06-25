@@ -131,16 +131,10 @@ module Rabbit
     end
 
     def guess_default_logger
-      if Utils.windows?
-        begin
-          File.open("conout$", "w") {}
-        rescue SystemCallError
-          Logger::GUI.new
-        else
-          Logger::STDERR.new
-        end
-      else
+      if Utils.have_console?
         Logger::STDERR.new
+      else
+        Logger::GUI.new
       end
     end
   end

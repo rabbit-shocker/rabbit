@@ -528,10 +528,47 @@ def make_canvas(options, logger, renderer)
   Rabbit::Canvas.new(logger, renderer)
 end
 
+def add_source_dialog_filter(dialog, name, pattern)
+  filter = Gtk::FileFilter.new
+  filter.name = "#{name} (#{pattern})"
+  filter.add_pattern(pattern)
+  dialog.add_filter(filter)
+end
+
+def choose_source_file_by_dialog(options)
+  dialog = Gtk::FileChooserDialog.new(_("Choose a Rabbit source file"),
+                                      nil,
+                                      Gtk::FileChooser::ACTION_OPEN,
+                                      nil,
+                                      [Gtk::Stock::CANCEL,
+                                       Gtk::Dialog::RESPONSE_CANCEL],
+                                      [Gtk::Stock::OPEN,
+                                       Gtk::Dialog::RESPONSE_ACCEPT])
+  dialog.current_folder = options.base if options.base
+  add_source_dialog_filter(dialog, "Rabbit files", "*.rab")
+  add_source_dialog_filter(dialog, "RD files", "*.rd")
+  add_source_dialog_filter(dialog, "Hiki files", "*.hiki")
+  add_source_dialog_filter(dialog, "PDF files", "*.pdf")
+  add_source_dialog_filter(dialog, "All files", "*")
+  file_name = nil
+  if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+    file_name = dialog.filename
+    dialog.destroy
+  end
+  file_name
+end
+
 def make_source(options, argv, logger)
   if options.source_type == :auto
     if argv.empty?
-      options.source_type = Rabbit::Source::ARGF
+      if Rabbit::Utils.have_console?
+        options.source_type = Rabbit::Source::ARGF
+      else
+        file_name = choose_source_file_by_dialog(options)
+        exit if file_name.nil?
+        argv = [file_name]
+        options.source_type = Rabbit::Source::File
+      end
     elsif argv.size == 1 and /\Ahttps?:\/\// =~ argv[0]
       options.source_type = Rabbit::Source::URI
     else
@@ -543,7 +580,9 @@ def make_source(options, argv, logger)
   else
     infos = argv
   end
-  options.source_type.new(options.encoding, logger, *infos)
+  source = options.source_type.new(options.encoding, logger, *infos)
+  source.base = options.base if options.base
+  source
 end
 
 def make_front(canvas, options)
@@ -557,9 +596,7 @@ def apply_theme_if_need(target, options)
   target.apply_theme(options.theme) if options.theme_specified
 end
 
-def parse(target, options, logger, background=false)
-  source = make_source(options, ARGV, logger)
-  source.base = options.base if options.base
+def parse(target, source, background=false)
   if background
     callback = Rabbit::Utils.process_pending_events_proc
   else
@@ -665,13 +702,14 @@ def setup_xmlrpc(front, options, logger)
 end
 
 def do_print(options, logger)
+  source = make_source(options, ARGV, logger)
   renderer = Rabbit::Renderer.printable_renderer(options.slides_per_page)
   canvas = make_canvas(options, logger, renderer)
   setup_paper_size(canvas, options)
   setup_print_info(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
-  parse(canvas, options, logger)
+  parse(canvas, source)
   canvas.print
   canvas.quit
 rescue Rabbit::NoPrintSupportError
@@ -682,6 +720,7 @@ def do_save_as_image(options, logger)
   Rabbit::Renderer::Pixmap.init
   Rabbit.gui_init
 
+  source = make_source(options, ARGV, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)
   setup_image_info(canvas, options)
@@ -689,7 +728,7 @@ def do_save_as_image(options, logger)
   setup_paper_size(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
-  parse(canvas, options, logger)
+  parse(canvas, source)
   canvas.activate("ToggleIndexMode") if options.index_mode
   canvas.save_as_image
   canvas.quit
@@ -699,6 +738,7 @@ def do_display(options, logger)
   Rabbit::Renderer::Display.init
   Rabbit.gui_init
 
+  source = make_source(options, ARGV, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Display)
   frame = Rabbit::Frame.new(logger, canvas)
   frame.geometry = options.geometry
@@ -715,7 +755,7 @@ def do_display(options, logger)
     logger.info(_("Window ID: %d") % native_window.xid)
   end
   apply_theme_if_need(frame, options)
-  parse(frame, options, logger, !Rabbit::Utils.windows?)
+  parse(frame, source, !Rabbit::Utils.windows?)
   canvas.activate("ToggleIndexMode") if options.index_mode
 
   front = make_front(canvas, options)
@@ -728,10 +768,11 @@ end
 
 def do_server(options, logger)
   Rabbit.gui_init
-  
+
   # GLib::Log.cancel_handler
   # GLib::Log.set_handler(nil, GLib::Log::LEVEL_ERROR)
-  
+
+  source = make_source(options, ARGV, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
@@ -739,11 +780,11 @@ def do_server(options, logger)
   setup_print_info(canvas, options)
   setup_3d_info(canvas, options)
   apply_theme_if_need(canvas, options)
-  parse(canvas, options, logger)
+  parse(canvas, source)
 
   soap_server_thread = nil
   xmlrpc_server_thread = nil
-  
+
   front = make_front(canvas, options)
   setup_druby(front, options, logger) if options.use_druby
   if options.use_soap

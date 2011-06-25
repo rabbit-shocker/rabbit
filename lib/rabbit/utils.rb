@@ -146,6 +146,16 @@ module Rabbit
       /cygwin|mingw|mswin32|bccwin32/.match(RUBY_PLATFORM) ? true : false
     end
 
+    def have_console?
+      return true unless windows?
+      begin
+        File.open("conout$", "w") {}
+        true
+      rescue SystemCallError
+        false
+      end
+    end
+
     def quartz?
       if Gdk.respond_to?(:windowing_quartz?)
         Gdk.windowing_quartz?
