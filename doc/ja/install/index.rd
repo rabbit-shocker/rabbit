@@ -50,3 +50,16 @@ Rabbitはgemまたはそれぞれのプラットフォームにあるパッケ�
 
 ((<windows.rd/Windowsでのインストール方法>))を参照してくださ
 い。
+
+== tar.gzからインストール
+
+((<URL:http://rabbit-shockers.org/download/rabbit.tar.gz>))
+から最新のRabbitをダウンロードし、setup.rbを実行します。この
+URLは常に最新のRabbitのアーカイブになります。
+
+  % mkdir tmp
+  % cd tmp
+  % wget http://rabbit-shockers.org/download/rabbit.tar.gz
+  % tar xvzf rabbit.tar.gz
+  % cd rabbit-*
+  % sudo ruby setup.rb
