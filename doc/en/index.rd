@@ -227,6 +227,8 @@ See ((<faq.html/FAQ>)) page.
 
 == Thanks
 
+Here is a contributor list. Thanks to them!!!
+
   * MoMo: Drew some pretty images.
   * MIYAMUKO: Wrote rabbit mode for xyzzy, and helps
     make Rabbit work on Windows.
