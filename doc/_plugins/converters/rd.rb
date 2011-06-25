@@ -65,7 +65,7 @@ module Jekyll
           foottext = "<h2>Footnotes</h2>\n#{foottext}"
           snippet << "<section class=\"footnotes\">\n#{foottext}\n</section>\n"
         end
-        snippet = "<div class=\"main\">\n#{snippet}</div>"
+        snippet = "<div id=\"main\">\n#{snippet}</div>"
         snippet
       end
     end

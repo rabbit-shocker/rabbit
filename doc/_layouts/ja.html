@@ -15,4 +15,23 @@ country: JP
   </ul>
 </nav>
 {% endif %}
-{{ content }}
+{% if page.no_sidebar %}
+  {{ content }}
+{% else %}
+<div id="body">
+  {{ content }}
+  <nav id="sidebar">
+    <h3>最新リリース</h3>
+    <p>2011-06-25にリリースされた0.9.3が最新リリースです。</p>
+    <h3>リンク</h3>
+    <ul>
+      <li><a href="/ja/">はじめに</a></li>
+      <li><a href="/ja/install/">インストール</a></li>
+      <li><a href="/ja/usage.html">使い方</a></li>
+      <li><a href="/ja/how-to-make/">作り方</a></li>
+      <li><a href="/ja/users.html">ショッカー</a></li>
+      <li><a href="/ja/development.html">開発</a></li>
+    </ul>
+  </nav>
+</div>
+{% endif %}

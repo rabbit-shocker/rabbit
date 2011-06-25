@@ -2,6 +2,7 @@
 layout: ja
 title: Rubyist用プレゼンツール
 lang_suffix: true
+no_sidebar: true
 ---
 <section class="screenshots">
   <ul id="screenshots">
@@ -32,10 +33,10 @@ lang_suffix: true
   </ul>
 </section>
 
-<div class="main">
+<div id="main">
   <section class="contents">
+    <h2>Rabbitについて</h2>
     <nav>
-      <h2>Rabbitについて</h2>
       <ul>
 	<li><a href="ja/">はじめに</a></li>
 	<li><a href="ja/news.html">お知らせ</a></li>

@@ -20,7 +20,7 @@ module Jekyll
                                 :level => 2,
                                 :use_wiki_name => false)
       snippet = "<section class=\"contents\">\n#{snippet}\n</section>"
-      snippet = "<div class=\"main\">\n#{snippet}\n</div>"
+      snippet = "<div id=\"main\">\n#{snippet}\n</div>"
       snippet
     end
   end

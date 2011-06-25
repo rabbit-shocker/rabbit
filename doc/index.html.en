@@ -2,6 +2,7 @@
 layout: en
 title: A presentation tool for Rubyist
 lang_suffix: true
+no_sidebar: true
 ---
 <section class="screenshots">
   <ul id="screenshots">
@@ -34,13 +35,13 @@ lang_suffix: true
 
 <div class="main">
   <section class="contents">
+    <h2>About Rabbit</h2>
     <nav>
-      <h2>About Rabbit</h2>
       <ul>
-	<li><a href="en/">README</a></li>
-	<li><a href="en/news.html">News</a></li>
-	<li><a href="en/faq.html">FAQ</a></li>
-	<li><a href="en/users.html">Shockers - Rabbit users group</a></li>
+        <li><a href="en/">README</a></li>
+        <li><a href="en/news.html">News</a></li>
+        <li><a href="en/faq.html">FAQ</a></li>
+        <li><a href="en/users.html">Shockers - Rabbit users group</a></li>
       </ul>
     </nav>
   </section>

@@ -152,14 +152,22 @@ nav.menu ul li
     padding-right: 7.5px;
 }
 
-div.main
+body > div#main,
+div#body,
+footer
 {
-    display: block;
+    position: relative;
     background: url(../images/hare-and-tortoise.png) repeat-x;
     margin-top: 20px;
     padding-top: 80px;
 }
 
+div#body div#main
+{
+    margin-right: 300px;
+}
+
+div#body nav#sidebar,
 section.contents,
 section.footnotes
 {
@@ -180,7 +188,8 @@ section.footnotes
 section.contents h2,
 section.contents h3,
 section.contents h4,
-section.contents h5
+section.contents h5,
+div#body nav#sidebar h3
 {
     color: #aa0202;
 }
@@ -190,8 +199,12 @@ section.footnotes
     margin-top: 30px;
 }
 
-nav h2
+div#body nav#sidebar
 {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 230px;
 }
 
 nav p.note
@@ -226,5 +239,9 @@ nav a:active
 footer
 {
     display: block;
-    height: 40px;
+}
+
+footer p.copyright
+{
+    text-align: center;
 }
