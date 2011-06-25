@@ -3,4 +3,14 @@ layout: skeleton
 language: en
 country: US
 ---
+{% if page.lang_suffix == null %}
+<nav class="menu">
+  <ul>
+    <li><a href="/en/">README</a></li>
+    <li><a href="/en/install/">Install</a></li>
+    <li><a href="/en/usage.html">Usage</a></li>
+    <li><a href="/en/how-to-make/">How to make</a></li>
+  </ul>
+</nav>
+{% endif %}
 {{ content }}

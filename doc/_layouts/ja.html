@@ -3,4 +3,14 @@ layout: skeleton
 language: ja
 country: JP
 ---
+{% if page.lang_suffix == null %}
+<nav class="menu">
+  <ul>
+    <li><a href="/ja/">はじめに</a></li>
+    <li><a href="/ja/install/">インストール</a></li>
+    <li><a href="/ja/usage.html">使い方</a></li>
+    <li><a href="/ja/how-to-make/">作り方</a></li>
+  </ul>
+</nav>
+{% endif %}
 {{ content }}

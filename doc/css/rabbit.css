@@ -129,6 +129,29 @@ ul#screenshots li
     display: inline;
 }
 
+nav.menu
+{
+    border: #aa0202 0 solid;
+    border-top-width: 1px;
+    border-bottom-width: 2px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 5px 40px;
+}
+
+nav.menu ul,
+nav.menu ul li
+{
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+nav.menu ul li
+{
+    padding-right: 7.5px;
+}
+
 div.main
 {
     display: block;
