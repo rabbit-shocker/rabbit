@@ -40,6 +40,8 @@ Jeweler::Tasks.new do |_spec|
   spec.executables -= ["rabbit.bat"]
 end
 
+Jeweler::RubygemsDotOrgTasks.new
+
 def force_array(enumerable)
   array = []
   enumerable.each do |element|
