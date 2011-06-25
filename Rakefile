@@ -36,6 +36,22 @@ Jeweler::Tasks.new do |_spec|
   spec.extra_rdoc_files = ["README"]
 end
 
+def force_array(enumerable)
+  array = []
+  enumerable.each do |element|
+    array << element
+  end
+  array
+end
+
+def spec.files
+  @files = force_array(super)
+end
+
+def spec.extra_rdoc_files
+  @extra_rdoc_files = force_array(super)
+end
+
 Gem::PackageTask.new(spec) do |package|
   package.need_tar_gz = true
 end
