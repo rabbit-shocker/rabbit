@@ -30,6 +30,8 @@ A comment and Twitter support improved release.
   * Used GUI logger by default when Rabbit isn't invoked by
     rubyw.exe.
     [Helped by Nobuyoshi Nakada]
+  * Added launcher mode that show file chose dialog when
+    Rabbit invoked without source file on no console environment.
 
 ==== Theme
 
