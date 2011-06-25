@@ -27,12 +27,17 @@ Jeweler::Tasks.new do |_spec|
   spec.files = FileList["{lib,data,entities,bin,sample,misc,doc,po}/**/*",
                         "*.rb",
                         "Rakefile",
+                        "COPYING",
                         "GPL",
-                        "NEWS*",
-                        "README*",
+                        "README",
                         "Gemfile"]
   spec.test_files = FileList["test/**/*.rb"]
   spec.executables -= ["rabbit.bat"]
+  spec.extra_rdoc_files = ["README"]
+end
+
+Gem::PackageTask.new(spec) do |package|
+  package.need_tar_gz = true
 end
 
 rule '.png' => ['.svg'] do |t|
