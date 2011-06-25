@@ -6,12 +6,12 @@ title: Shockers - Users
 
 Shockers is a community for Rabbit users.
 
-=== Activities
+== Activities
 
 Rostrum is the most active spot for Shockers but there are
 some other active spots.
 
-==== Mailing list
+=== Mailing list
 
 There is a rabbit-shockers-en mailing list for Shockers. You
 can subscribe the mailing list by sending the following mail:
@@ -22,7 +22,7 @@ can subscribe the mailing list by sending the following mail:
   
   I want to join Shockers!
 
-=== Members
+== Members
 
 Please link your public slides at ((<slides.html/Slides>)) page.
 
