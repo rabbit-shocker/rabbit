@@ -391,7 +391,7 @@ module Rabbit
           end
 
           def tag(name, text=nil, *rest)
-            if text.empty?
+            if text
               CustomTag.new(name, @private.pack(text, *rest))
             else
               CustomTag.new(name)
