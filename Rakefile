@@ -23,6 +23,9 @@ Jeweler::Tasks.new do |_spec|
   spec.summary = 'Rabbit is an RD-document-based presentation application.'
   spec.description = spec.summary # FIXME
   spec.license = "GPLv2+"
+  Bundler.load.dependencies_for(:default).each do |dependency|
+    spec.add_runtime_dependency(dependency.name, dependency.requirement.to_s)
+  end
 
   spec.files = FileList["{lib,data,entities,bin,sample,misc,doc,po}/**/*",
                         "*.rb",
