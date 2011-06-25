@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'tmpdir'
 
 require 'rabbit/rabbit'
 
@@ -108,6 +109,9 @@ module Rabbit
           @tmp_base = @base
         else
           @tmp_base = "."
+        end
+        unless ::File.writable?(@tmp_base)
+          @tmp_base = Dir.tmpdir
         end
       end
 
