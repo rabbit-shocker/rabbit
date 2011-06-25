@@ -121,13 +121,13 @@
 
 {{image("lavie.png",
         {
-          :caption => "Lavie",
-          :width => 100,
-          :height => 100,
-#          :normalized_width => 50,
-#          :normalized_height => 50,
-#          :relative_width => 100,
-#          :relative_height => 50,
+         :caption => "Lavie",
+         :width => 100,
+         :height => 100,
+#         :normalized_width => 50,
+#         :normalized_height => 50,
+#         :relative_width => 100,
+#         :relative_height => 50,
         })}}
 
 ! 画像: 鏡面反射
@@ -137,6 +137,32 @@
           :relative_height => 80,
           :reflect_ratio => 0.5,
         })}}
+
+! 画像: 背景（1）
+
+* 背景画像
+* デフォルトはセンタリング
+
+!! プロパティ
+
+:background-image:lavie.png
+:background-image-relative-width:50
+//:background-image-align:right
+//:background-image-relative-margin-right:3
+
+! 画像: 背景（2）
+
+{{image("lavie.png",
+        {
+	  :relative_width => 30,
+	  :align => "right",
+#         :vertical_align => "top",
+	  :relative_margin_right => -5,
+        })}}
+
+* 右寄せ背景画像
+* スライド内で指定
+** :align => "right"
 
 ! 画像サイズ
 
@@ -163,7 +189,7 @@ URL先の画像をダウンロード
 
 ! 数式
 
-* 書式: TeX（っぽい）
+* 書式: TeX{{note("（っぽい）")}}
 * バックエンド
 ** LaTeX
 ** mimeTeX
@@ -203,6 +229,29 @@ EOL
 
 {{image('rabbit.xcf',
         :relative_height => 100)}}
+
+! aafigure
+
+{{aafigure("
+あいうえお
+A   B   C   D   E   F   G   H   I   J   K   L   M
+ AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM
+ AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM
+
+ aa  bb  cc  dd  ee  ff  gg  hh  ii  jj  kk  ll  mm
+ aa  bb  cc  dd  ee  ff  gg  hh  ii  jj  kk  ll  mm
+
+N   O   P   Q   R   S   T   U   V   W   X   Y   Z
+ NN  OO  PP  QQ  RR  SS  TT  UU  VV  WW  XX  YY  ZZ
+ NN  OO  PP  QQ  RR  SS  TT  UU  VV  WW  XX  YY  ZZ
+
+ nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz
+ nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz",
+           {
+             :relative_width => 90,
+#            :foreground => "#ff3333",
+#            :option => "font=mikachan",
+           })}}
 
 ! 折り返し
 
@@ -279,9 +328,9 @@ EOA
 
 ! 操作: 移動
 
-:次ページ:次に進みそうなキー/左クリック{{br}}n, f, j, l, Spc, Ret, +, {{e('DownArrow')}}, {{e('RightArrow')}}
+:次ページ:次に進みそうなキー/左クリック\nn, f, j, l, Spc, Ret, +, {{e('DownArrow')}}, {{e('RightArrow')}}
 
-:前ページ:前に進みそうなキー/中クリック{{br}}p, b, k, h, BS, Del, -, {{e('UpArrow')}}, {{e('LeftArrow')}}
+:前ページ:前に進みそうなキー/中クリック\np, b, k, h, BS, Del, -, {{e('UpArrow')}}, {{e('LeftArrow')}}
 
 ! 操作: 高度な移動
 
@@ -300,10 +349,25 @@ EOA
 :キャッシュ作成:c
 :情報ウィンドウ表示切替え:I
 
+! 操作: 本番用（3）
+
+:虫眼鏡:Ctrl+右クリック\nホイールで拡大率変更
+:スポットライト:ダブル右クリック\nホイールで半径変更
+
+! 操作: 本番用（4）
+
+:落書き:ポップアップ（右クリック）→\n落書きモード
+:マウスジェスチャー:右ドラッグ
+
+! 操作: 本番用（5）
+
+:ホワイトアウト:W
+:ブラックアウト:B
+
 ! 操作: 保存
 
-:スクリーンショット:各ページを画像として保存{{br}}s
-:印刷:各ページをPS/PDFとして保存{{br}}Ctrl+p
+:スクリーンショット:各ページを画像として保存\ns
+:印刷:各ページをPS/PDFとして保存\nCtrl+p
 
 ! 操作: 描画
 
