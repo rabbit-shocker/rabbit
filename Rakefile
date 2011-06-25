@@ -9,6 +9,8 @@ base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 require 'rabbit/rabbit'
 
+rsync_base_path = "rabbit@rabbit-shockers.org:public_html/"
+
 ENV["VERSION"] ||= Rabbit::VERSION
 version = ENV["VERSION"].dup
 spec = nil
@@ -145,7 +147,9 @@ EOC
 
   desc "generate HTML and needed files."
   task :generate => screenshots do
-    sh("jekyll", "doc", "doc/_site")
+    Dir.chdir("doc") do
+      sh("ruby", "-S", "jekyll")
+    end
   end
 
   desc "publish HTML."
@@ -155,12 +159,33 @@ EOC
        "--exclude", "*-raw.png",
        "--exclude", "*.svg",
        "--exclude", "*.rab",
+       "--exclude", "/download/",
        "doc/_site/",
-       "rabbit@rabbit-shockers.org:public_html/")
+       rsync_base_path)
   end
 end
 
 desc "Tag the current revision."
-task do
+task :tag do
   sh("git tag -a #{version} -m 'release #{version}!!!'")
+end
+
+namespace :package do
+  desc "Upload tar.gz."
+  task :upload => :package do
+    htaccess = ".htaccess"
+    rabbit_tar_gz = "rabbit.tar.gz"
+    current_rabbit_tar_gz = "rabbit-#{version}.tar.gz"
+    File.open(htaccess, "w") do |file|
+      file.puts("Options +Indexes +FollowSymlinks")
+    end
+    ln_s(current_rabbit_tar_gz, rabbit_tar_gz)
+    sh("rsync", "-avz",
+       htaccess,
+       rabbit_tar_gz,
+       "pkg/#{current_rabbit_tar_gz}",
+       "#{rsync_base_path}download/")
+    rm(rabbit_tar_gz)
+    rm(htaccess)
+  end
 end
