@@ -136,3 +136,8 @@ EOC
        "rabbit@rabbit-shockers.org:public_html/")
   end
 end
+
+desc "Tag the current revision."
+task do
+  sh("git tag -a #{version} -m 'release #{version}!!!'")
+end
