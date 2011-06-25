@@ -26,7 +26,11 @@ your platform.
 
 == How to install on NetBSD (or pkgsrc ready platform)
 
-  % sudo pkg_add rabbit
+  % sudo pkg_add ruby18-rabbit
+
+or
+
+  % sudo pkg_add ruby19-rabbit
 
 == How to install on FreeBSD
 
