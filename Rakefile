@@ -33,7 +33,6 @@ Jeweler::Tasks.new do |_spec|
                         "Gemfile"]
   spec.test_files = FileList["test/**/*.rb"]
   spec.executables -= ["rabbit.bat"]
-  spec.extra_rdoc_files = ["README"]
 end
 
 def force_array(enumerable)
