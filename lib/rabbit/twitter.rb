@@ -22,7 +22,13 @@ module Rabbit
     def setup
       return unless @oauth_parameters.nil?
       require 'yaml'
-      require 'twitter_oauth'
+      begin
+        require 'twitter_oauth'
+      rescue LoadError
+        @logger.warn(_("twitter_oauth gem is missing. " \
+                       "Install it by 'gem install twitter_oauth'."))
+        return
+      end
       setup_access_token unless @config_file_path.exist?
       oauth_access_parameters = YAML.load(@config_file_path.read)
       @oauth_parameters = {
@@ -42,8 +48,16 @@ module Rabbit
     def start(*filters, &block)
       register_listener(&block) if block_given?
       setup if @oauth_parameters.nil?
+      return if @oauth_parameters.nil?
       require 'socket'
-      require 'twitter/json_stream'
+      begin
+        require 'twitter/json_stream'
+      rescue LoadError
+        @logger.warn(_("twitter-stream gem is missing. " \
+                       "Install it by 'gem install twitter-stream'."))
+        return
+      end
+
       stream_options = {
         :oauth => @oauth_parameters,
         :user_agent => "Rabitter #{Rabbit::VERSION}",
