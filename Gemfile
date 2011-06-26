@@ -13,4 +13,5 @@ group :development, :test do
   gem 'rake'
   gem 'jeweler'
   gem 'jekyll'
+  gem 'gettext'
 end

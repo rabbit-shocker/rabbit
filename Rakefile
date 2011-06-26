@@ -172,6 +172,15 @@ task :tag do
   sh("git tag -a #{version} -m 'release #{version}!!!'")
 end
 
+namespace :mo do
+  desc "Update .mo."
+  task :update do
+    ruby("update-mo.rb")
+  end
+end
+
+task :package => "mo:update"
+
 namespace :package do
   desc "Upload tar.gz."
   task :upload => :package do

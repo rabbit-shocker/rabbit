@@ -6,3 +6,4 @@
 /po/*/rabbit.po~
 /po/rabbit.pot
 /rabbit.gemspec
+/data/locale/*/LC_MESSAGES/*.mo
