@@ -179,6 +179,7 @@ namespace :mo do
   end
 end
 
+task :build => "mo:update"
 task :package => "mo:update"
 
 namespace :package do
