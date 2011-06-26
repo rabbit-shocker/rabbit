@@ -28,14 +28,14 @@ module Rabbit
             # p [:text, type, text]
             escaped_text = Escape.escape_meta_character(text)
             text_element = SyntaxHighlightingText.new(Text.new(escaped_text))
-            CustomTag.new("code-#{type}", text_element)
+            CustomTag.new("syntax-#{type}", text_element)
           end
 
           def open_token(kind)
             # p [:open, kind]
             @out = TextContainer.new
             @elements << @out
-            CustomTag.new("code-#{kind}")
+            CustomTag.new("syntax-#{kind}")
           end
 
           def begin_line(kind)

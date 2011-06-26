@@ -98,7 +98,7 @@ match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|
   scheme = @syntax_highlighting_scheme_default.merge(@syntax_highlighting_scheme)
   tags.each do |tag|
     case tag.name
-    when /\Acode-(.+)\z/
+    when /\Asyntax-(.+)\z/
       style = (scheme[$1.to_sym] || {})
       next if style.empty?
       find_markup_target.call(tag).font(style)
