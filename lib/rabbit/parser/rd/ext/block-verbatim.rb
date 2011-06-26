@@ -8,7 +8,7 @@ rescue LoadError
 end
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
-require 'rabbit/parser/rd/ext/enscript'
+require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
@@ -19,7 +19,6 @@ module Rabbit
       module Ext
         class BlockVerbatim < Base
           include Image
-          include Enscript
           include GetText
 
           def default_ext_block_verbatim(label, source, content, visitor)
@@ -62,7 +61,15 @@ module Rabbit
           def ext_block_verb_enscript(label, source, content, visitor)
             return nil unless /^enscript (\w+)$/i =~ label
             lang = $1.downcase.untaint
-            enscript_block(label, lang, source, content, visitor)
+
+            src, prop = parse_source(source)
+            logger = visitor.logger
+
+            result = nil
+            if Parser::Ext::Enscript.check_availability(lang, logger)
+              result = Parser::Ext::Enscript.highlight(lang, src, logger)
+            end
+            result || default_ext_block_verbatim(label, src, src, visitor)
           end
 
           def ext_block_verb_LaTeX(label, source, content, visitor)
