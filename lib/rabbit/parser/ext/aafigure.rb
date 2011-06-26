@@ -5,7 +5,7 @@ module Rabbit
         module_function
         AVAILABLE_OPTIONS = ["linewidth", "foreground", "fill", "background",
                              "option"]
-        def make_image_by_aafigure(path, prop, logger)
+        def make_image(path, prop, logger)
           image_file = Tempfile.new("rabbit-image-aafigure")
           command = ["aafigure",
                      "--type", "svg",

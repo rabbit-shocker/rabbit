@@ -10,7 +10,6 @@ require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/parser/rd/ext/tex'
-require 'rabbit/parser/rd/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
 
 module Rabbit
@@ -21,7 +20,6 @@ module Rabbit
           include Image
           include Enscript
           include TeX
-          include AAFigure
           include GetText
 
           def default_ext_block_verbatim(label, source, content, visitor)
@@ -79,7 +77,9 @@ module Rabbit
 
           def ext_block_verb_aafigure(label, source, content, visitor)
             return nil unless /^aafigure$/i =~ label
-            make_image_by_aafigure(source, visitor)
+            make_image_from_file(source, visitor) do |src_file_path, prop|
+              Parser::Ext::AAFigure.make_image(src_file_path, prop, visitor)
+            end
           end
 
           def ext_block_verb_blockdiag(label, source, content, visitor)

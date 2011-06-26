@@ -478,7 +478,7 @@ module Rabbit
             Ext::Image.make_image_from_file(*args) do |src_file_path|
               props = Utils.stringify_hash_key(props)
               args = [src_file_path, props, @output.canvas]
-              [Ext::AAFigure.make_image_by_aafigure(*args), props]
+              [Ext::AAFigure.make_image(*args), props]
             end
           end
 
