@@ -12,7 +12,6 @@ require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/parser/rd/ext/tex'
 require 'rabbit/parser/rd/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
-require 'rabbit/parser/rd/ext/anthy'
 
 module Rabbit
   module Parser
@@ -23,7 +22,6 @@ module Rabbit
           include Enscript
           include TeX
           include AAFigure
-          include Anthy
           include GetText
 
           def default_ext_block_verbatim(label, source, content, visitor)
@@ -67,11 +65,6 @@ module Rabbit
             return nil unless /^enscript (\w+)$/i =~ label
             lang = $1.downcase.untaint
             enscript_block(label, lang, source, content, visitor)
-          end
-
-          def ext_block_verb_anthy(label, source, content, visitor)
-            return nil unless /^anthy$/i =~ label
-            anthy_hiragana_to_kanji(label, source, content, visitor)
           end
 
           def ext_block_verb_LaTeX(label, source, content, visitor)

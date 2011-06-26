@@ -7,7 +7,6 @@ require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
-require 'rabbit/parser/ext/anthy'
 require 'rabbit/parser/ext/entity'
 
 module Rabbit
@@ -452,18 +451,6 @@ module Rabbit
             else
               nil
             end
-          end
-
-          def anthy(source)
-            unless Ext::Anthy.available?
-              @output.canvas.logger.warn(_("Anthy isn't available"))
-              return nil
-            end
-
-            converted_source = Ext::Anthy.hiragana_to_kanji(source)
-            converted_source =
-              Ext::Escape.escape_meta_character(converted_source)
-            Paragraph.new(Text.new(converted_source))
           end
 
           def LaTeX(source, props={})
