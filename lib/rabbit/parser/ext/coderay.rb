@@ -11,7 +11,7 @@ module Rabbit
 
         module_function
         def highlight(lang, text, logger)
-          tokens = ::CodeRay.scan(text, lang.to_sym)
+          tokens = ::CodeRay.scan(text.strip, lang.to_sym)
           tokens.encode(RabbitEncoder.new)
         end
 

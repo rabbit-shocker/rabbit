@@ -44,7 +44,7 @@ theme_exit if @syntax_highlighting_uninstall
 @syntax_highlighting_padding_left ||= screen_x(5)
 @syntax_highlighting_padding_right ||= screen_x(5)
 @syntax_highlighting_padding_top ||= screen_y(2)
-@syntax_highlighting_padding_bottom ||= 0 # screen_y(2) # FIXME
+@syntax_highlighting_padding_bottom ||= screen_y(2)
 
 if @syntax_highlighting_keep_in_size.nil?
   @syntax_highlighting_keep_in_size = true
