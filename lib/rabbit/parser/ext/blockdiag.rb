@@ -11,7 +11,6 @@ module Rabbit
           command = ["blockdiag",
                      "-T", "svg",
                      "-o", image_file.path]
-          p prop
           font = find_font(prop)
           command.concat(["-f", font]) if font
           AVAILABLE_FLAG_OPTIONS.each do |name|
