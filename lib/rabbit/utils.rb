@@ -300,13 +300,12 @@ module Rabbit
       p output
     end
 
-    def stringify_hash_key!(hash)
-      dupped_hash = hash.dup
-      hash.clear
-      dupped_hash.each do |key, value|
-        hash[key.to_s] = value
+    def stringify_hash_key(hash)
+      stringified_hash = {}
+      hash.each do |key, value|
+        stringified_hash[key.to_s] = value
       end
-      hash
+      stringified_hash
     end
   end
 

@@ -6,6 +6,7 @@ require 'rabbit/parser/ext/image'
 require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/aafigure'
+require 'rabbit/parser/ext/blockdiag'
 require 'rabbit/parser/ext/anthy'
 require 'rabbit/parser/ext/entity'
 
@@ -468,6 +469,7 @@ module Rabbit
           def LaTeX(source, props={})
             args = [@output.canvas, source]
             Ext::Image.make_image_from_file(*args) do |src_file_path|
+              props = Utils.stringify_hash_key(props)
               args = [src_file_path, props, @output.canvas]
               [Ext::TeX.make_image_by_LaTeX(*args), props]
             end
@@ -477,6 +479,7 @@ module Rabbit
           def mimeTeX(source, props={})
             args = [@output.canvas, source]
             Ext::Image.make_image_from_file(*args) do |src_file_path|
+              props = Utils.stringify_hash_key(props)
               args = [src_file_path, props, @output.canvas]
               [Ext::TeX.make_image_by_mimeTeX(*args), props]
             end
@@ -486,8 +489,18 @@ module Rabbit
           def aafigure(source, props={})
             args = [@output.canvas, source]
             Ext::Image.make_image_from_file(*args) do |src_file_path|
+              props = Utils.stringify_hash_key(props)
               args = [src_file_path, props, @output.canvas]
               [Ext::AAFigure.make_image_by_aafigure(*args), props]
+            end
+          end
+
+          def blockdiag(source, props={})
+            args = [@output.canvas, source]
+            Ext::Image.make_image_from_file(*args) do |src_file_path|
+              props = Utils.stringify_hash_key(props)
+              args = [src_file_path, props, @output.canvas]
+              [Ext::BlockDiag.make_image(*args), props]
             end
           end
 

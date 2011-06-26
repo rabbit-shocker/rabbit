@@ -11,6 +11,7 @@ require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/enscript'
 require 'rabbit/parser/rd/ext/tex'
 require 'rabbit/parser/rd/ext/aafigure'
+require 'rabbit/parser/ext/blockdiag'
 require 'rabbit/parser/rd/ext/anthy'
 
 module Rabbit
@@ -86,6 +87,13 @@ module Rabbit
           def ext_block_verb_aafigure(label, source, content, visitor)
             return nil unless /^aafigure$/i =~ label
             make_image_by_aafigure(source, visitor)
+          end
+
+          def ext_block_verb_blockdiag(label, source, content, visitor)
+            return nil unless /^blockdiag$/i =~ label
+            make_image_from_file(source, visitor) do |src_file_path, prop|
+              Parser::Ext::BlockDiag.make_image(src_file_path, prop, visitor)
+            end
           end
 
           def ext_block_verb_rt(label, source, content, visitor)

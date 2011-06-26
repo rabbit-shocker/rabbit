@@ -24,7 +24,7 @@ module Rabbit
         raise ImageFileDoesNotExistError.new(filename)
       end
       super(*args, &block)
-      Utils.stringify_hash_key!(props) if props
+      props = Utils.stringify_hash_key(props) if props
       @loader = Base.find_loader(filename).new(filename, props)
     end
   end

@@ -24,6 +24,7 @@ module Rabbit
 
       def initialize(filename, prop)
         @filename = filename
+        prop = Utils.stringify_hash_key(prop)
         super(filename, prop)
         normalized_prop = {}
         prop.each do |name, value|

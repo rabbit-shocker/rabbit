@@ -264,6 +264,22 @@ URL先の画像をダウンロード
    nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz
    nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz
 
+= blockdiag
+
+  # blockdiag
+  # relative_width = 90
+#  # antialias = true
+  # fonts = /usr/share/fonts/opentype/ipafont/ipag.ttf, /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf
+  {
+    fontsize = 25;
+    RD -> Rabbit;
+    Hiki -> Rabbit;
+    PDF -> Rabbit;
+    group {
+      Rabbit -> 画面;
+    }
+  }
+
 = 折り返し
 
 なーーーーーーーーーーーーーーーーーーーーーーーーーーーーーがーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーい行

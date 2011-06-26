@@ -232,7 +232,7 @@ Create EPS ahead of time{{note('(needs gs)')}}
 {{image("rabbit.xcf",
         :relative_height => 100)}}
 
-= aafigure
+! aafigure
 
 {{aafigure("
 A   B   C   D   E   F   G   H   I   J   K   L   M
@@ -252,6 +252,25 @@ N   O   P   Q   R   S   T   U   V   W   X   Y   Z
              :relative_width => 90,
 #            :foreground => "#ff3333",
            })}}
+
+! blockdiag
+
+{{blockdiag("
+{
+  fontsize = 25;
+  RD -> Rabbit;
+  Hiki -> Rabbit;
+  PDF -> Rabbit;
+  group {
+    Rabbit -> Display;
+  }
+}",
+            {
+              :relative_width => 90,
+#             :antialias => true,
+              :fonts => ["/usr/share/fonts/opentype/ipafont/ipag.ttf",
+                         "/usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf"],
+            })}}
 
 ! Word Wrapping
 

@@ -101,6 +101,12 @@ module Rabbit
     end
   end
 
+  class BlockDiagCanNotHandleError < ImageLoadWithExternalCommandError
+    def initialize(command, additional_info=nil)
+      super("blockdiag", command, additional_info)
+    end
+  end
+
   class UnknownPropertyError < Error
     attr_reader :name
     def initialize(name)
