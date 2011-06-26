@@ -7,7 +7,11 @@ module Rabbit
 
       class << self
         @initialized = false
-        def init
+        @preferred_class_name = nil
+        def init(options={})
+          if options.has_key?(:preferred_class_name)
+            @preferred_class_name = options[:preferred_class_name]
+          end
           unless @initialized
             @initialized = true
             dir = ::File.join("rabbit", "renderer", "display")
@@ -17,7 +21,15 @@ module Rabbit
 
         def new(*args, &block)
           init
-          corresponding_class_under_module(self).new(*args, &block)
+          target_class = nil
+          if @preferred_class_name
+            if const_defined?(@preferred_class_name)
+              target_class = const_get(@preferred_class_name)
+              target_class = nil unless target_class.is_a?(Class)
+            end
+          end
+          target_class ||= corresponding_class_under_module(self)
+          target_class.new(*args, &block)
         end
       end
     end

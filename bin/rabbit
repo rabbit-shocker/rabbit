@@ -735,7 +735,11 @@ def do_save_as_image(options, logger)
 end
 
 def do_display(options, logger)
-  Rabbit::Renderer::Display.init
+  display_init_options = {}
+  if options.use_gl
+    display_init_options[:preferred_class_name] = "ClutterEmbed"
+  end
+  Rabbit::Renderer::Display.init(display_init_options)
   Rabbit.gui_init
 
   source = make_source(options, ARGV, logger)

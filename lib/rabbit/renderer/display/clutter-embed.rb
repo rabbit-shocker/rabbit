@@ -27,7 +27,7 @@ module Rabbit
       class ClutterEmbed
         class << self
           def priority
-            200
+            0
           end
         end
 
