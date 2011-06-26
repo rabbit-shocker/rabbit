@@ -70,9 +70,9 @@ module Rabbit
       @window.signal_connect("key_press_event") do |widget, event|
         if event.state.control_mask?
           case event.keyval
-          when Gdk::Keyval::GDK_q
+          when Gdk::Keyval::GDK_KEY_q
             @window.destroy
-          when Gdk::Keyval::GDK_r
+          when Gdk::Keyval::GDK_KEY_r
             page.reload
           end
         end
