@@ -9,7 +9,8 @@ end
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/enscript'
-require 'rabbit/parser/rd/ext/tex'
+require 'rabbit/parser/ext/tex'
+require 'rabbit/parser/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
 
 module Rabbit
@@ -19,7 +20,6 @@ module Rabbit
         class BlockVerbatim < Base
           include Image
           include Enscript
-          include TeX
           include GetText
 
           def default_ext_block_verbatim(label, source, content, visitor)
@@ -67,12 +67,17 @@ module Rabbit
 
           def ext_block_verb_LaTeX(label, source, content, visitor)
             return nil unless /^LaTeX$/i =~ label
-            make_image_by_LaTeX(source, visitor)
+            make_image_from_file(source, visitor) do |src_file_path, prop|
+              Parser::Ext::TeX.make_image_by_LaTeX(src_file_path, prop, visitor)
+            end
           end
 
           def ext_block_verb_mimeTeX(label, source, content, visitor)
             return nil unless /^mimeTeX$/i =~ label
-            make_image_by_mimeTeX(source, visitor)
+            make_image_from_file(source, visitor) do |src_file_path, prop|
+              Parser::Ext::TeX.make_image_by_mimeTeX(src_file_path, prop,
+                                                     visitor)
+            end
           end
 
           def ext_block_verb_aafigure(label, source, content, visitor)
