@@ -7,6 +7,7 @@ require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
+require 'rabbit/parser/ext/coderay'
 require 'rabbit/parser/ext/entity'
 
 module Rabbit
@@ -262,8 +263,8 @@ module Rabbit
           lang = info ? info.downcase : nil
           result = nil
 
-          if lang and Ext::Enscript.check_availability(lang, @canvas.logger)
-            result = Ext::Enscript.highlight(lang, contents, @canvas.logger)
+          if lang
+            result = Ext::CodeRay.highlight(lang, contents, @canvas.logger)
           end
 
           if result
@@ -489,6 +490,11 @@ module Rabbit
               args = [src_file_path, props, @output.canvas]
               [Ext::BlockDiag.make_image(*args), props]
             end
+          end
+
+          def coderay(lang, source)
+            logger = @output.canvas.logger
+            Ext::CodeRay.highlight(lang, source, logger)
           end
 
           def tag(name, value=nil)

@@ -6,6 +6,7 @@ gem 'gtk2'
 gem 'rsvg2'
 gem 'poppler'
 gem 'hikidoc'
+gem 'albino'
 
 group :development, :test do
   gem 'twitter-stream'

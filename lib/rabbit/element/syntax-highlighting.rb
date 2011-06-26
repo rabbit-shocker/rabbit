@@ -3,7 +3,7 @@ require 'rabbit/element/block-element'
 
 module Rabbit
   module Element
-    class PreformattedBlock
+    class SyntaxHighlightingBlock
       include TextBlockElement
       include BlockHorizontalCentering
 
@@ -16,11 +16,11 @@ module Rabbit
       end
 
       def to_html(generator)
-        "<pre>#{super}</pre>"
+        "<pre class=\"syntax-highlighting\">#{super}</pre>"
       end
     end
 
-    class PreformattedText
+    class SyntaxHighlightingText
       include TextContainerElement
     end
   end

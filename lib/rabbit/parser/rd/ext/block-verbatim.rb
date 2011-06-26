@@ -12,6 +12,7 @@ require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/aafigure'
 require 'rabbit/parser/ext/blockdiag'
+require 'rabbit/parser/ext/coderay'
 
 module Rabbit
   module Parser
@@ -99,6 +100,17 @@ module Rabbit
             make_image_from_file(source, visitor) do |src_file_path, prop|
               Parser::Ext::BlockDiag.make_image(src_file_path, prop, visitor)
             end
+          end
+
+          def ext_block_verb_coderay(label, source, content, visitor)
+            return nil unless /^coderay (\w+)$/i =~ label
+            lang = $1.downcase.untaint
+
+            src, prop = parse_source(source)
+            logger = visitor.logger
+
+            result = Parser::Ext::CodeRay.highlight(lang, src, logger)
+            result || default_ext_block_verbatim(label, src, src, visitor)
           end
 
           def ext_block_verb_rt(label, source, content, visitor)

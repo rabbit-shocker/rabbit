@@ -295,11 +295,23 @@ URL先の画像をダウンロード
 
 以上がソース
 
-= ソース: 色付き
+= ソース: Enscript
 
 以下がソース
 
   # enscript ruby
+  # comment
+  def method_name
+    body
+  end
+
+以上がソース
+
+= ソース: CodeRay
+
+以下がソース
+
+  # coderay ruby
   # comment
   def method_name
     body

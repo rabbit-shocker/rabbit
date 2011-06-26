@@ -296,11 +296,23 @@ The following is source code:
 
 End of source code.
 
-= Source: colorized
+= Source: Enscript
 
 The following is source code:
 
   # enscript ruby
+  # comment
+  def method_name
+    body
+  end
+
+End of source code.
+
+= Source: CodeRay
+
+The following is source code:
+
+  # coderay ruby
   # comment
   def method_name
     body

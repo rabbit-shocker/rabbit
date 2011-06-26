@@ -16,18 +16,6 @@ module Rabbit
       include TextBlockElement
     end
 
-    class PreformattedBlock
-      include TextBlockElement
-
-      def to_html(generator)
-        "<pre>#{super}</pre>"
-      end
-    end
-
-    class PreformattedText
-      include TextContainerElement
-    end
-
     class Keyword
       include TextContainerElement
     end
