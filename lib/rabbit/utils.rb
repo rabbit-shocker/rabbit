@@ -155,7 +155,7 @@ module Rabbit
           false
         end
       else
-        $stdin.tty?
+        $stdin.tty? or ENV["TERM"]
       end
     end
 
@@ -168,7 +168,7 @@ module Rabbit
           false
         end
       else
-        $stdout.tty?
+        $stdout.tty? or ENV["TERM"]
       end
     end
 
