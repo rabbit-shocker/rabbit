@@ -129,8 +129,18 @@ module Rabbit
       def connect
         close
         @socket = TCPSocket.new(@options[:host], "http")
-        @channel = GLib::IOChannel.new(@socket.fileno)
-        @channel.flags = GLib::IOChannel::FLAG_NONBLOCK
+        if GLib.const_defined?(:IOChannelWin32Socket)
+          @channel = GLib::IOChannelWin32Socket.new(@socket.fileno)
+        else
+          @channel = GLib::IOChannel.new(@socket.fileno)
+        end
+        begin
+          @channel.flags = GLib::IOChannel::FLAG_NONBLOCK
+        rescue GLib::IOChannelError
+          @logger.warn("[twitter][read][error] " +
+                       "failed to set non-blocking mode: " +
+                       "#{$!.message}(#{$!.class})")
+        end
         reader_id = @channel.add_watch(GLib::IOChannel::IN) do |io, condition|
           @logger.debug("[twitter][read][start]")
           data = io.read(4096)
