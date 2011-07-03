@@ -28,7 +28,8 @@ module Rabbit
             # p [:text, type, text]
             escaped_text = Escape.escape_meta_character(text)
             text_element = SyntaxHighlightingText.new(Text.new(escaped_text))
-            CustomTag.new("syntax-#{type}", text_element)
+            tag_name = type.to_s.gsub(/_/, '-')
+            CustomTag.new("syntax-#{tag_name}", text_element)
           end
 
           def open_token(kind)
