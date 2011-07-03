@@ -1,7 +1,4 @@
-begin
-  require 'htree'
-rescue LoadError
-end
+require 'nokogiri'
 
 require 'rabbit/utils'
 require 'rabbit/parser/ext/escape'
@@ -58,16 +55,12 @@ module Rabbit
         end
 
         def html_to_rabbit(html, logger)
-          unless defined?(HTree)
-            logger.warn(_("enscript: can't find HTree library"))
-            return nil
-          end
-          tree = HTree(extract_newline_around_pre(html))
-          pre = find_element(tree, "pre")
-          address = find_element(tree, "address")
-          element = tree_to_rabbit(pre, logger)
+          node = Nokogiri::HTML(extract_newline_around_pre(html))
+          pre = find_element(node, "pre")
+          address = find_element(node, "address")
+          element = node_to_rabbit(pre, logger)
           if element
-            logger.info(address.extract_text.to_s)
+            logger.info(address.text) if address
             PreformattedBlock.new(element)
           else
             nil
@@ -79,18 +72,18 @@ module Rabbit
           html.gsub(/\n<\/pre>/i, '</pre>')
         end
 
-        def find_element(tree, name)
-          tree.find_element("{http://www.w3.org/1999/xhtml}#{name}")
+        def find_element(node, name)
+          node.css(name)[0]
         end
 
-        def tree_to_rabbit(tree, logger)
-          element = element_to_rabbit(tree, logger)
+        def node_to_rabbit(node, logger)
+          element = element_to_rabbit(node, logger)
           return nil if element.nil?
-          tree.each_child do |child|
+          node.children.each do |child|
             if child.text?
               element << Text.new(Escape.escape_meta_character(child.to_s))
             else
-              child_element = tree_to_rabbit(child, logger)
+              child_element = node_to_rabbit(child, logger)
               element << child_element unless child_element.nil?
             end
           end
@@ -98,7 +91,7 @@ module Rabbit
         end
 
         def element_to_rabbit(element, logger)
-          case element.qualified_name
+          case element.name
           when "pre"
             PreformattedText.new
           when "b"
