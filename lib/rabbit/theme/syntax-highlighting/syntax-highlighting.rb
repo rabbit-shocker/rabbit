@@ -10,6 +10,10 @@ theme_exit if @syntax_highlighting_uninstall
     :color => "#8f5902",
     :style => "italic",
   },
+  :comment_delimiter => {
+    :color => "#8f5902",
+    :style => "italic",
+  },
   :reserved => {
     :color => "#204a87",
   },
@@ -18,6 +22,9 @@ theme_exit if @syntax_highlighting_uninstall
   },
   :string => {
     :color => "#4e9a06",
+  },
+  :variable => {
+    :color => "#ce5c00",
   },
   :instance_variable => {
     :color => "#ce5c00",
@@ -99,7 +106,7 @@ match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|
   tags.each do |tag|
     case tag.name
     when /\Asyntax-(.+)\z/
-      style = (scheme[$1.to_sym] || {})
+      style = (scheme[$1.gsub(/-/, '_').to_sym] || {})
       next if style.empty?
       find_markup_target.call(tag).font(style)
     end
