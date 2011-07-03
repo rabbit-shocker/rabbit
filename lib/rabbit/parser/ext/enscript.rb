@@ -105,7 +105,7 @@ module Rabbit
             text
           else
             format = _("enscript: unsupported element name: %s")
-            logger.warn(format % element.qualified_name)
+            logger.warn(format % element.name)
             nil
           end
         end
