@@ -74,6 +74,20 @@ div.facebook-buttons
     height: 90px;
 }
 
+pre
+{
+    overflow: auto;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0.2em 0.2em 0.5em rgb(100, 100, 100);
+    -webkit-box-shadow: 0.2em 0.2em 0.5em rgb(100, 100, 100);
+    box-shadow: 0.2em 0.2em 0.5em rgb(100, 100, 100);
+    border: solid 1px #abf562;
+    background: #d8ffb2;
+    padding: 5px 10px;
+}
+
 pre#install
 {
     position: absolute;
@@ -82,6 +96,8 @@ pre#install
     -moz-border-radius: 10px 0;
     -webkit-border-radius: 10px 0;
     border-radius: 10px 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
     margin: 0;
 }
 
@@ -90,6 +106,8 @@ pre.command
     background-color: black;
     color: white;
     padding: 10px 20px;
+    border-style: none;
+    box-shadow: none;
 }
 
 header div.other-language-links
