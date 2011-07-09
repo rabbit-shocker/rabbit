@@ -178,19 +178,10 @@ Rabbit をインストール、利用する手順について説明します。
   $ brew install gtk+
   $ brew install poppler
 
-=== Rabbit に必要なソフトウェアのインストール (gem install)
-
-gem install を実行します。
-
-  $ sudo gem install pango
-  $ sudo gem install cairo
-  $ sudo gem install gtk2
-  $ sudo gem install gdk_pixbuf2
-  $ sudo gem install poppler
-  $ sudo gem install hikidoc # Wiki 記法を使う場合
-
 === Rabbit のインストール
 
 gem install を実行します。
 
   $ sudo gem install rabbit
+  $ sudo gem install twitter-stream # Twitter連携機能を使う場合
+  $ sudo gem install twitter_oauth  # Twitter連携機能を使う場合

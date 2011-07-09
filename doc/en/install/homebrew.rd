@@ -178,19 +178,10 @@ Then exec "brew install".
   $ brew install gtk+
   $ brew install poppler
 
-=== Install Softwares Rabbit Needs (gem install)
-
-Exec gem install.
-
-  $ sudo gem install pango
-  $ sudo gem install cairo
-  $ sudo gem install gtk2
-  $ sudo gem install gdk_pixbuf2
-  $ sudo gem install poppler
-  $ sudo gem install hikidoc # If you use Wiki notation.
-
 === Install Rabbit
 
 Exec gem install.
 
   $ sudo gem install rabbit
+  $ sudo gem install twitter-stream # If you want to use Twitter related features
+  $ sudo gem install twitter_oauth  # If you want to use Twitter related features
