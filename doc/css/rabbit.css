@@ -232,22 +232,26 @@ nav p.note
     top: 10px;
 }
 
+div#main a:link,
 nav a:link
 {
     color: #aa0202;
 }
 
+div#main a:visited,
 nav a:visited
 {
     color: #d26364;
 }
 
+div#main a:hover,
 nav a:hover
 {
     color: white;
     background-color: #aa0202;
 }
 
+div#main a:active,
 nav a:active
 {
     color: #aa0202;
