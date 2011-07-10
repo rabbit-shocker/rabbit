@@ -49,9 +49,9 @@ match(SlideElement) do |slides|
             comments.shift
           end
         end
+        set_font_family(text)
         text.font @footer_comment_props
         text.padding_with @footer_comment_padding
-        set_font_family(text)
         text.compile(canvas, x, y, w, h)
 
         # set horizontal
