@@ -107,23 +107,34 @@ module Rabbit
       end
 
       def prop_set(name, *values)
+        name = normalize_property_name(name)
         @prop[name] = make_prop_value(name, *values)
         dirty!
       end
       alias __prop_set__ prop_set
 
       def prop_get(name)
+        name = normalize_property_name(name)
         @prop[name]
       end
       alias __prop_get__ prop_get
 
+      def prop_value(name)
+        name = normalize_property_name(name)
+        value = @prop[name]
+        value = value.value if value.respond_to?(:value)
+        value
+      end
+
       def prop_delete(name)
+        name = normalize_property_name(name)
         @prop.delete(name)
         dirty!
       end
       alias __prop_delete__ prop_delete
 
       def add_default_prop(name, value)
+        name = normalize_property_name(name)
         @default_prop[name] = make_prop_value(name, value)
       end
 
@@ -424,6 +435,11 @@ module Rabbit
         else
           nil
         end
+      end
+
+      def normalize_property_name(name)
+        name = name.to_s if name.is_a?(Symbol)
+        name.gsub(/_/, "-")
       end
 
       def normalize_font_property(key, value)

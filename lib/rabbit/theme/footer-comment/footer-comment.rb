@@ -2,11 +2,14 @@ theme_exit unless display?
 
 proc_name = "footer-comment"
 
+@footer_comment_color ||= @default_foreground
+@footer_comment_shadow_color ||= @default_shadow_color
 @footer_comment_props ||= {
   "size" => (@xx_small_font_size * 0.5).ceil,
   "font_family" => @font_family,
+  "color" => @footer_comment_color,
+  "shadow-color" => @footer_comment_shadow_color,
 }
-@footer_comment_color ||= @default_foreground
 @footer_comment_min_display_time ||= 1
 
 match(SlideElement) do |slides|
@@ -38,7 +41,7 @@ match(SlideElement) do |slides|
         text_x = x
         text_y = canvas.height - slide.margin_bottom - slide.padding_bottom
         text_y -= text.layout.pixel_size[1]
-        canvas.draw_layout(text.layout, text_x, text_y, @footer_comment_color)
+        text.draw_element(canvas, text_x, text_y, w, h, false)
       end
     end
     [x, y, w, h]

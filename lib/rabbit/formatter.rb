@@ -99,7 +99,7 @@ EOC
         super(value)
       end
     end
-    
+
     class Foreground
       def normalize_attribute(name, value)
         value = Renderer::Color.parse(value).to_gdk_format
@@ -108,17 +108,16 @@ EOC
     end
 
     module ConvenienceTextFormatter
-
       include Formatter
 
       def text_formatter?
         true
       end
-      
+
       def html_formatter?
         true
       end
-      
+
       def format(text)
         tagged_text(text, name, {})
       end
@@ -132,12 +131,33 @@ EOC
       module_eval(<<-EOC)
         class #{to_class_name(name)}
           include ConvenienceTextFormatter
-          
+
           def name
             #{name.dump}
           end
         end
-EOC
+      EOC
+    end
+
+    module ValueContainerFormatter
+      include Formatter
+
+      attr_reader :value
+      def initialize(value)
+        @value = value
+      end
+    end
+
+    %w(shadow-color shadow-x shadow-y).each do |name|
+      module_eval(<<-EOC)
+        class #{to_class_name(name)}
+          include ValueContainerFormatter
+
+          def name
+            #{name.dump}
+          end
+        end
+      EOC
     end
   end
 end

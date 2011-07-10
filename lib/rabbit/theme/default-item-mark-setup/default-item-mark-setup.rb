@@ -17,7 +17,7 @@ def setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)
     canvas.draw_circle(true, x, y, w, h, color)
   when "check", "dash"
     props = {
-      "font_family" => @font_family,
+      "font-family" => @font_family,
       "weight" => "bold",
       "foreground" => canvas.make_color(color).to_gdk_format,
     }.merge(item.first.text_props)

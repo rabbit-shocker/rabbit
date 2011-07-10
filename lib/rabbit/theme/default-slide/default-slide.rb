@@ -44,9 +44,9 @@ match(Slide, HeadLine) do |headlines|
     slide = headline.slide
     headline.hide if slide.hide_title?
     color = slide["headline-color"]
-    headline.prop_set("foreground", color) if color
+    headline.font("color", color) if color
     shadow_color = slide["headline-shadow-color"]
-    headline["shadow-color"] = shadow_color if shadow_color
+    headline.font("shadow-color" => shadow_color) if shadow_color
   end
 end
 
