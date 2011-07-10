@@ -83,7 +83,7 @@ module Rabbit
             end
             element
           when "span"
-            # p [node.text, node["class"]]
+            p [node.text, node["class"]] if Utils.syntax_highlighting_debug?
             text_to_rabbit(node.text, normalize_class_name(node["class"]))
           else
             format = _("emacs: unsupported element name: %s")

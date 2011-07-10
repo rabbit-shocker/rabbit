@@ -307,6 +307,10 @@ module Rabbit
       end
       stringified_hash
     end
+
+    def syntax_highlighting_debug?
+      ENV["RABBIT_SYNTAX_HIGHLIGHTING_DEBUG"] == "yes"
+    end
   end
 
   module SystemRunner

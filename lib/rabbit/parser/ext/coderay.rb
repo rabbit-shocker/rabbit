@@ -25,7 +25,7 @@ module Rabbit
           end
 
           def text_token(text, type=:plain)
-            # p [:text, type, text]
+            p [:text, type, text] if Utils.syntax_highlighting_debug?
             escaped_text = Escape.escape_meta_character(text)
             text_element = SyntaxHighlightingText.new(Text.new(escaped_text))
             tag_name = type.to_s.gsub(/_/, '-')
@@ -33,24 +33,24 @@ module Rabbit
           end
 
           def open_token(kind)
-            # p [:open, kind]
+            p [:open, kind] if Utils.syntax_highlighting_debug?
             @out = TextContainer.new
             @elements << @out
             CustomTag.new("syntax-#{kind}")
           end
 
           def begin_line(kind)
-            # p [:begin_line, kind]
+            p [:begin_line, kind] if Utils.syntax_highlighting_debug?
             nil
           end
 
           def end_line(kind)
-            # p [:end_line, kind]
+            p [:end_line, kind] if Utils.syntax_highlighting_debug?
             nil
           end
 
           def close_token(kind)
-            # p [:close, kind]
+            p [:close, kind] if Utils.syntax_highlighting_debug?
             block = @elements.pop
             @out = @elements.last
             block
