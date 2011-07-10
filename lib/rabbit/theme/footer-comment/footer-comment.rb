@@ -26,8 +26,13 @@ match(SlideElement) do |slides|
 
   comments = []
   canvas.on_comment(proc_name) do |comment|
+    if comments.empty?
+      GLib::Timeout.add_seconds(@footer_comment_min_display_time) do
+        canvas.activate("Redraw")
+        not comments.empty?
+      end
+    end
     comments << comment
-    canvas.activate("Redraw")
   end
 
   redraw_time = Time.now
