@@ -4,6 +4,18 @@
 
 theme_exit if @syntax_highlighting_uninstall
 
+# http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
+#
+# Butter:     #fce94f     #edd400     #c4a000
+# Orange:     #fcaf3e     #f57900     #ce5c00
+# Chocolate:  #e9b96e     #c17d11     #8f5902
+# Chameleon:  #8ae234     #73d216     #4e9a06
+# Sky Blue:   #729fcf     #3465a4     #204a87
+# Plum:       #ad7fa8     #75507b     #5c35cc
+# Scarlet Red:#ef2929     #cc0000     #a40000
+# Aluminium:  #eeeeec     #d3d7cf     #babdb6
+#             #888a85     #555753     #2e3436
+
 @syntax_highlighting_scheme ||= {}
 @syntax_highlighting_scheme_default = {
   :comment => {
@@ -38,8 +50,20 @@ theme_exit if @syntax_highlighting_uninstall
   :ident => {
     # :color => "#f57900",
   },
+  :include => {
+    :color => "#73d216",
+  },
   :pre_constant => {
-    :color => "#204a87",
+    :color => "#5c35cc",
+  },
+  :preprocessor => {
+    :color => "#ad7fa8",
+  },
+  :pre_type => {
+    :color => "#5c35cc",
+  },
+  :directive => {
+    :color => "#5c35cc",
   },
 }
 
