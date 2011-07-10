@@ -1,27 +1,15 @@
-require 'rabbit/element/text-block-element'
-require 'rabbit/element/block-element'
+require 'rabbit/element/preformatted'
 
 module Rabbit
   module Element
-    class SyntaxHighlightingBlock
-      include TextBlockElement
-      include BlockHorizontalCentering
-
-      def text
-        super.gsub(/^/, "  ")
-      end
-
-      def to_rd
-        text
-      end
-
-      def to_html(generator)
-        "<pre class=\"syntax-highlighting\">#{super}</pre>"
+    class SyntaxHighlightingBlock < PreformattedBlock
+      private
+      def attributes
+        " class=\"syntax-highlighting\""
       end
     end
 
-    class SyntaxHighlightingText
-      include TextContainerElement
+    class SyntaxHighlightingText < PreformattedText
     end
   end
 end

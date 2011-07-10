@@ -16,7 +16,12 @@ module Rabbit
       end
 
       def to_html(generator)
-        "<pre>#{super}</pre>"
+        "<pre#{attributes}>#{super}</pre>"
+      end
+
+      private
+      def attributes
+        ""
       end
     end
 
