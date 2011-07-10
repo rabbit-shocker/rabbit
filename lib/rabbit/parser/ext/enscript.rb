@@ -81,7 +81,7 @@ module Rabbit
           return nil if element.nil?
           node.children.each do |child|
             if child.text?
-              element << Text.new(Escape.escape_meta_character(child.to_s))
+              element << Text.new(Escape.escape_meta_character(child.text))
             else
               child_element = node_to_rabbit(child, logger)
               element << child_element unless child_element.nil?
