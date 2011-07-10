@@ -10,6 +10,11 @@ proc_name = "footer-comment"
   "color" => @footer_comment_color,
   "shadow-color" => @footer_comment_shadow_color,
 }
+@footer_comment_padding ||= {
+  :left => 3 * @space,
+  :right => 3 * @space,
+  :bottom => (@space * 0.5).ceil,
+}
 @footer_comment_min_display_time ||= 1
 
 match(SlideElement) do |slides|
@@ -35,13 +40,22 @@ match(SlideElement) do |slides|
           comments.shift if comments.size > 1
         end
         text.font @footer_comment_props
+        text.padding_with @footer_comment_padding
         set_font_family(text)
         text.compile(canvas, x, y, w, h)
-        text.layout.set_width(w * Pango::SCALE)
+
+        # set horizontal
         text_x = x
+        text_w = w - text.padding_left - text.padding_right
+        text.compile(canvas, text_x, y, text_w, h)
+
+        # set vertical
         text_y = canvas.height - slide.margin_bottom - slide.padding_bottom
-        text_y -= text.layout.pixel_size[1]
-        text.draw_element(canvas, text_x, text_y, w, h, false)
+        text_y -= text.height
+        text_h = h - text.height
+        text.compile(canvas, text_x, text_y, text_w, text_h)
+
+        text.draw
       end
     end
     [x, y, w, h]
