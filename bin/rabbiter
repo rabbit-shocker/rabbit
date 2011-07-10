@@ -11,6 +11,7 @@ def parse(args=ARGV, logger=nil)
     options.rabbit_uri = "druby://localhost:10101"
     options.filters = []
     options.user_languages = []
+    options.log_status = false
 
     opts.separator ""
 
@@ -31,6 +32,13 @@ def parse(args=ARGV, logger=nil)
             "(e.g.: ja, en)",
             "To use multiple language, use this option multiple.") do |language|
       options.user_languages << language
+    end
+
+    opts.separator "Debug"
+
+    opts.on("--[no-]log-status",
+            "Log target statuses.") do |boolean|
+      options.log_status = boolean
     end
 
     opts.separator "Deprecated"
@@ -80,6 +88,7 @@ def main
     begin
       text = clean_text(status['text'], options.filters)
       comment = "@#{status['user']['screen_name']}: #{text}"
+      logger.info(comment)
       rabbit.append_comment(comment)
     rescue DRb::DRbConnError
       logger.error("Rabbiter: #{$!.class}: #{$!.message}")
