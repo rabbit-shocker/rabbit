@@ -87,7 +87,7 @@ module Rabbit
     def slide_title
       @canvas.slide_title
     end
-    
+
     def total_slide_number
       @canvas.slide_size
     end
@@ -127,9 +127,13 @@ module Rabbit
     end
 
     def append_comment(comment)
-      @canvas.append_comment(comment)
+      GLib::Idle.add do
+        @canvas.append_comment(comment)
+        false
+      end
+      true
     end
-    
+
     def comments
       @canvas.comments
     end
@@ -150,7 +154,7 @@ module Rabbit
         end
       end
     end
-    
+
     def update_images_if_need
       mon_synchronize do
         _check_dirty
@@ -185,7 +189,7 @@ module Rabbit
         arg_list = []
         arg_list.concat(Utils.arg_list(@canvas.method(name).arity))
         arg_str = arg_list.join(", ")
-        
+
         if (@public_level & level).zero?
           instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
             def self.#{name}(#{arg_str})
@@ -219,7 +223,7 @@ module Rabbit
         end
       end
     end
-    
+
     def clean
       @off_screen_canvas = nil
       @dirty = false
