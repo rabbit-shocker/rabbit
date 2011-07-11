@@ -8,6 +8,8 @@ gem 'poppler'
 gem 'hikidoc'
 gem 'albino'
 gem 'nokogiri'
+gem "rack"
+gem "haml"
 
 group :development, :test do
   gem 'twitter-stream'

@@ -1,0 +1,13 @@
+%ul
+  %li
+    - if @rabbit.have_next_slide?
+      %a(href="/pages/next")
+        .navi 次へ
+    - else
+      .navi 次へ
+  %li
+    - if @rabbit.have_previous_slide?
+      %a(href="/pages/previous")
+        .navi 前へ
+    - else
+      .navi 前へ

@@ -1,0 +1,97 @@
+#!/usr/bin/env ruby
+# -*- mode: ruby; coding: utf-8 -*-
+#
+# Copyright (C) 2011  Kouhei Sutou <kou@clear-code.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+require "drb/drb"
+
+require "rabbit/console"
+
+base_dir = nil
+$LOAD_PATH.each do |path|
+  base_dir = File.join(path, "rabbit", "middleware")
+  if File.exist?(base_dir)
+    break
+  else
+    base_dir = nil
+  end
+end
+public_path = File.join(base_dir, "public")
+config_ru_path = File.join(base_dir, "config.ru")
+
+parse = lambda do
+  Rabbit::Console.parse!(ARGV) do |opts, options|
+    options.rabbit_uri = "druby://localhost:10101"
+    options.filters = []
+    options.user_languages = []
+    options.log_status = false
+
+    opts.banner += " [passenger|shotgun|rackup] [-- [RACK_RUNNER_OPTIONS]]"
+
+    opts.separator ""
+
+    opts.on("--rabbit-uri=URI",
+            "Rabbit's dRuby URI",
+            "(#{options.rabbit_uri})") do |uri|
+      options.rabbit_uri = uri
+    end
+
+    opts.on("-e", "--environment=ENVIRONMENT",
+            "Use ENVIRONMENT as Rack application environment.") do |environment|
+      ENV["RACK_ENV"] = environment
+    end
+  end
+end
+
+options, logger = parse.call
+
+ENV["RABBIT_URI"] = options.rabbit_uri
+
+rack_runner = ARGV.first
+case rack_runner
+when "passenger"
+  require 'phusion_passenger'
+  require 'phusion_passenger/standalone/main'
+  ENV["HROONGA_PASSENGER_STANDALONE"] = "yes"
+  ARGV.shift
+  if ARGV[0] == "start"
+    ARGV[1, 0] = ["--rackup", config_ru_path]
+  end
+  PhusionPassenger::Standalone::Main.run!(ARGV)
+when "shotgun"
+  require "shotgun"
+  shotgun_rb = nil
+  $LOAD_PATH.each do |path|
+    shotgun_rb = File.join(path, "shotgun.rb")
+    if File.exist?(shotgun_rb)
+      break
+    else
+      shotgun_rb = nil
+    end
+  end
+  shotgun_base_dir = File.dirname(File.dirname(shotgun_rb))
+  shotgun_bin = File.join(shotgun_base_dir, "bin", "shotgun")
+  ARGV.shift
+  ARGV.unshift("--public", public_path)
+  ARGV << config_ru_path
+  load shotgun_bin
+else
+  require "rack"
+  ARGV.shift if rack_runner == "rackup"
+  ARGV.unshift("--option", "config=#{config_ru_path}")
+  Rack::Server.start
+end

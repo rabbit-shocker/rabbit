@@ -1,0 +1,12 @@
+ul,
+ul li
+{
+    display: inline;
+}
+
+.navi
+{
+    font-size: 72px;
+    display: block;
+    padding: 1em;
+}
