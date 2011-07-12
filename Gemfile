@@ -10,6 +10,7 @@ gem 'albino'
 gem 'nokogiri'
 gem "rack"
 gem "haml"
+gem "rdtool"
 gem "coderay"
 
 group :development, :test do
