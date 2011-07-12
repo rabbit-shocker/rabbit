@@ -40,7 +40,7 @@ no_sidebar: true
       <ul>
 	<li><a href="ja/">はじめに</a></li>
 	<li><a href="ja/news.html">お知らせ</a></li>
-	<li><a href="ja/install.html">インストール</a></li>
+	<li><a href="ja/install/">インストール</a></li>
 	<li><a href="ja/faq.html">よくある質問</a></li>
 	<li><a href="ja/users.html">ショッカー - ユーザのみなさん</a></li>
       </ul>
