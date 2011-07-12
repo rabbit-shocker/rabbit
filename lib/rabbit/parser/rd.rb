@@ -5,7 +5,15 @@ require "rabbit/parser/base"
 module Rabbit
   module Parser
     class RD < Base
+    end
+  end
+end
 
+require "rabbit/parser/rd/rd2rabbit-lib"
+
+module Rabbit
+  module Parser
+    class RD
       push_loader(self)
       class << self
         def match?(source)
@@ -53,5 +61,3 @@ module Rabbit
     end
   end
 end
-
-require "rabbit/parser/rd/rd2rabbit-lib"
