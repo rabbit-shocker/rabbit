@@ -18,3 +18,5 @@ if canvas.allotted_time
   @image_timer_margin_bottom = @margin_bottom
   include_theme("image-timer")
 end
+
+include_theme("default-comment")
