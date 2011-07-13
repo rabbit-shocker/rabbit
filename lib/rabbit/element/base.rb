@@ -363,7 +363,7 @@ module Rabbit
       end
 
       def padding_with(params)
-        padding_set(*extract_four_way(params))
+        padding_set(params)
       end
 
       def show(&block)
