@@ -129,7 +129,7 @@ module Rabbit
     attr_accessor :source_filename
     attr_accessor :migemo_dictionary_search_path, :migemo_dictionary_name
     attr_accessor :font_resolution_ratio
-    attr_accessor :max_n_comments
+    attr_accessor :max_n_comments, :comment_theme
 
     def initialize(logger, renderer)
       @logger = logger
@@ -153,6 +153,7 @@ module Rabbit
       @twitter = nil
       @max_n_comments = 100
       @allotted_time = nil
+      @comment_theme = nil
       clear
       @renderer = renderer.new(self)
       @actions = Action.action_group(self)

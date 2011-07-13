@@ -13,6 +13,7 @@ def parse_args(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.theme = "default"
     options.theme_specified = false
+    options.comment_theme = nil
     options.allotted_time = ENV["RABBIT_ALLOTTED_TIME"]
     options.base = nil
     options.source_type = :auto
@@ -80,6 +81,12 @@ def parse_args(args=ARGV, logger=nil)
             "(#{options.theme})") do |theme|
       options.theme = theme
       options.theme_specified = true
+    end
+
+    opts.on("--comment-theme=THEME",
+            _("Use [THEME] for comment."),
+            "(#{options.comment_theme})") do |theme|
+      options.comment_theme = theme
     end
 
     opts.on("--allotted-time=TIME",
@@ -533,6 +540,7 @@ end
 
 def make_canvas(options, logger, renderer)
   canvas = Rabbit::Canvas.new(logger, renderer)
+  canvas.comment_theme = options.comment_theme
   canvas.allotted_time = options.allotted_time
   canvas
 end
