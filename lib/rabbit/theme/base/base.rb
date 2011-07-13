@@ -1,3 +1,10 @@
+@foreground = "black"
+@background = "white"
+@shadow_color = "#fff9"
+
+set_foreground(@foreground)
+set_background(@background)
+
 @xx_large_font_size = screen_size(15 * Pango::SCALE)
 @x_large_font_size = screen_size(11 * Pango::SCALE)
 @large_font_size = screen_size(7 * Pango::SCALE)

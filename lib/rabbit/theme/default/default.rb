@@ -1,6 +1,6 @@
-@default_foreground ||= "black"
-@default_background ||= "white"
-@default_shadow_color ||= "#fff9"
+@default_foreground ||= @foreground
+@default_background ||= @background
+@default_shadow_color ||= @shadow_color
 
 set_foreground(@default_foreground)
 set_background(@default_background)
