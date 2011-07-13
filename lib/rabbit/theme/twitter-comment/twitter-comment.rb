@@ -1,6 +1,6 @@
 theme_exit unless display?
 
-@twitter_footer_color ||= @default_foreground
+@twitter_footer_color ||= @foreground
 if !defined?(@twitter_footer_filters) or @twitter_footer_filters.nil?
   theme_exit("must specify @twitter_footer_filters!! as " +
              "array of keyword: ['keyword1', 'keyword1', ...])")

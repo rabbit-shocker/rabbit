@@ -2,8 +2,8 @@ theme_exit unless display?
 
 proc_name = "footer-comment"
 
-@footer_comment_color ||= @default_foreground
-@footer_comment_shadow_color ||= @default_shadow_color
+@footer_comment_color ||= @foreground
+@footer_comment_shadow_color ||= @shadow_color
 @footer_comment_props ||= {
   "size" => (@x_small_font_size * 0.5).ceil,
   "font_family" => @font_family,
