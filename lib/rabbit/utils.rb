@@ -256,7 +256,7 @@ module Rabbit
     end
 
     def parse_four_way(*values)
-      if values.is_a?(Array) and values.size == 1 and
+      if values.size == 1 and
           (values.first.is_a?(Array) or values.first.is_a?(Hash))
         values = values.first
       end
@@ -267,14 +267,14 @@ module Rabbit
         when 1
           left = right = top = bottom = Integer(values.first)
         when 2
-          top, left = values.collect{|x| Integer(x)}
+          top, left = values.collect {|x| Integer(x)}
           bottom = top
           right = left
         when 3
-          top, left, bottom = values.collect{|x| Integer(x)}
+          top, left, bottom = values.collect {|x| Integer(x)}
           right = left
         when 4
-          top, right, bottom, left = values.collect{|x| Integer(x)}
+          top, right, bottom, left = values.collect {|x| Integer(x)}
         else
           raise ArgumentError
         end
