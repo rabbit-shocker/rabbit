@@ -13,6 +13,7 @@ def parse_args(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.theme = "default"
     options.theme_specified = false
+    options.allotted_time = ENV["RABBIT_ALLOTTED_TIME"]
     options.base = nil
     options.source_type = :auto
     options.full_screen = false
@@ -79,6 +80,12 @@ def parse_args(args=ARGV, logger=nil)
             "(#{options.theme})") do |theme|
       options.theme = theme
       options.theme_specified = true
+    end
+
+    opts.on("--allotted-time=TIME",
+            _("Use [TIME] as allotted time."),
+            "(#{options.allotted_time})") do |time|
+      options.allotted_time = time
     end
 
 
@@ -525,7 +532,9 @@ def parse_args(args=ARGV, logger=nil)
 end
 
 def make_canvas(options, logger, renderer)
-  Rabbit::Canvas.new(logger, renderer)
+  canvas = Rabbit::Canvas.new(logger, renderer)
+  canvas.allotted_time = options.allotted_time
+  canvas
 end
 
 def add_source_dialog_filter(dialog, name, pattern)

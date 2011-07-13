@@ -122,7 +122,7 @@ module Rabbit
     attr_reader :comments, :actions
     
     attr_writer :saved_image_base_name
-    attr_writer :use_gl
+    attr_writer :use_gl, :allotted_time
 
     attr_accessor :saved_image_type, :rss_base_uri
     attr_accessor :output_html, :output_index_html
@@ -152,6 +152,7 @@ module Rabbit
       @font_resolution_ratio = 1
       @twitter = nil
       @max_n_comments = 100
+      @allotted_time = nil
       clear
       @renderer = renderer.new(self)
       @actions = Action.action_group(self)
@@ -620,8 +621,9 @@ module Rabbit
     end
 
     def allotted_time
-      slide = title_slide
-      slide ? slide.allotted_time : nil
+      time = @allotted_time
+      time ||= title_slide.allotted_time if title_slide
+      Utils.ensure_time(time)
     end
 
     def start_timer(limit)

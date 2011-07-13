@@ -36,9 +36,7 @@ module Rabbit
       end
 
       def allotted_time
-        time = self["allotted-time"]
-        time = parse_time(time) if time
-        time
+        self["allotted-time"]
       end
 
       def to_html(generator)
@@ -54,28 +52,6 @@ module Rabbit
       private
       def normalize_name(name)
         name.gsub(/_/, "-").strip
-      end
-
-      def parse_time(str)
-        if /\A\s*\z/m =~ str
-          nil
-        else
-          if /\A\s*(\d*\.?\d*)\s*(h|m|s)?\s*\z/i =~ str
-            time = $1.to_f
-            unit = $2
-            if unit
-              case unit.downcase
-              when "m"
-                time *= 60
-              when "h"
-                time *= 3600
-              end
-            end
-            time.to_i
-          else
-            nil
-          end
-        end
       end
     end
 

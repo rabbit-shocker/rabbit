@@ -282,6 +282,31 @@ module Rabbit
       end
     end
 
+    def ensure_time(object)
+      return nil if object.nil?
+      return object if object.is_a?(Numeric)
+
+      if /\A\s*\z/m =~ object
+        nil
+      else
+        if /\A\s*(\d*\.?\d*)\s*(h|m|s)?\s*\z/i =~ object
+          time = $1.to_f
+          unit = $2
+          if unit
+            case unit.downcase
+            when "m"
+              time *= 60
+            when "h"
+              time *= 3600
+            end
+          end
+          time.to_i
+        else
+          nil
+        end
+      end
+    end
+
     def split_number_to_minute_and_second(number)
       if number >= 0
         sign = " "
