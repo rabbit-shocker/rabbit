@@ -13,7 +13,9 @@ module Rabbit
       unshift_loader(self)
       class << self
         def match?(source)
-          /^!/.match(source.read[0, 500])
+          head = source.read[0, 500]
+          head.force_encoding("ASCII-8BIT") if head.respond_to?(:force_encoding)
+          /^!/.match(head)
         end
       end
 
