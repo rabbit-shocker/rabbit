@@ -32,8 +32,4 @@ include_theme("tag")
 
 include_theme("syntax-highlighting")
 
-if display? and canvas.renderer.widget.class.name == "Clutter::GtkEmbed"
-  include_theme("clutter-comment")
-else
-  include_theme("footer-comment")
-end
+include_theme("default-comment")
