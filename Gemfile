@@ -7,7 +7,7 @@ gem 'rsvg2'
 gem 'poppler'
 gem 'hikidoc'
 gem 'nokogiri'
-gem "rack"
+gem "sinatra"
 gem "haml"
 gem "rdtool"
 gem "coderay"
