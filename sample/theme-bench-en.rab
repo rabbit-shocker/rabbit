@@ -84,7 +84,7 @@ For benchmarking a theme
 
 = Source
 
-  # enscript ruby
+  # coderay ruby
   class You
     def love?(it)
       it == "Rabbit"
