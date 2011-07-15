@@ -44,11 +44,13 @@ set_background(@background)
 @table_cell_padding_right = screen_x(2)
 @table_cell_padding_top = screen_y(0.5)
 @table_cell_padding_bottom = screen_y(0.5)
+@table_cell_font_props = {}
 
 @table_header_padding_left = screen_x(2) * 0
 @table_header_padding_right = screen_x(2) * 0
 @table_header_padding_top = screen_y(0.5)
 @table_header_padding_bottom = screen_y(0.5)
+@table_header_font_props = {}
 
 @table_caption_space = screen_y(2)
 @table_caption_color = "black"

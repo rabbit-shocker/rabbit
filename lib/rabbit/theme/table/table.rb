@@ -75,6 +75,7 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
   headers.delete_post_draw_proc_by_name(name)
   
   headers.prop_set("size", @normal_font_size)
+  headers.font(@table_header_font_props)
   set_font_family(headers)
   
   draw_frame(headers, params) do |header, canvas, x, y, w, h|
@@ -116,6 +117,7 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
 
   cells.prop_set("size", @normal_font_size)
   set_font_family(cells)
+  cells.font(@table_cell_font_props)
 
   cells.padding_left = @table_cell_padding_left
   cells.padding_right = @table_cell_padding_right
