@@ -3,7 +3,112 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
-== 0.9.3: 2010-06-25
+== 1.0.0: 2011-07-15
+
+7年目にして初のメジャーリリース！
+
+=== 改良
+
+==== 本体
+
+  * Twitter関連のgemの依存関係を必須ではなくオプションにした。
+  * 明示的に--use-glをしない限りClutterを使わないようにした。
+    [おばたさんが報告]
+  * ((<blockdiag|URL:http://blockdiag.com/blockdiag-ja/build/html/>))対応。
+
+    RD:
+      # blockdiag
+      # relative_width = 90
+      # fonts = /usr/share/fonts/opentype/ipafont/ipag.ttf, /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf
+      {
+        fontsize = 25;
+        RD -> Rabbit;
+        Hiki -> Rabbit;
+        PDF -> Rabbit;
+        group {
+          Rabbit -> Display;
+        }
+      }
+
+    Hiki:
+      {{blockdiag("
+      {
+        fontsize = 25;
+        RD -> Rabbit;
+        Hiki -> Rabbit;
+        PDF -> Rabbit;
+        group {
+          Rabbit -> Display;
+        }
+      }",
+                  {
+                    :relative_width => 90,
+      #             :antialias => true,
+                    :fonts => ["/usr/share/fonts/opentype/ipafont/ipag.ttf",
+                               "/usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf"],
+                  })}}
+  * Anthy対応を削除。
+  * CodeRayによるシンタックスハイライト対応。
+  * Emacsを用いたシンタックスハイライト対応。
+  * コンソールからの起動の検出処理の改良。
+    [おばたさんが報告]
+  * Twitterとの通信をnon-blockingモードにできなくてもエラー
+    にせずに警告にするようにした。
+    [おばたさんが報告]
+  * 不必要なGUIでのログ出力を抑制。
+    [おばたさんが報告]
+  * HTreeではなくNokogiriを使うようにした。
+  * プレゼン時間を指定する--allotted-timeオプションを追加。
+  * コメント用のテーマを指定する--comment-themeオプションを
+    追加。
+
+==== Rabbiter
+
+  * デバッグ用に取得した情報を出力する--log-statusオプション
+    の追加。
+
+==== Rabbirack
+
+  * Rabrickに変わるRabbitのWebインターフェイス。
+
+==== テーマ
+
+  * テキスト要素にshadow-color, shadow-x, shadow-yプロパティ
+    を追加。
+  * syntax-highlighting: 追加。シンタックスハイライトの色を
+    指定するテーマ。
+  * footer-comment:
+    * image-timerと一緒に使ったときでも見やすくした。
+    * デフォルトでは最後のコメントは残さないようにした。
+  * rabbit-powered-by: バナー画像を表示しないようにした。
+  * pdf-tortoise-and-hare: pdfテーマに統合したため削除。
+  * pdf:
+    * プレゼン時間が指定されていたら自動でうさぎとかめを
+      表示するようにした。
+    * コメント表示に対応。
+  * base: 前景色・背景色・影の色を指定するようにした。
+  * default-comment: 追加。コメント用テーマを指定するテーマ。
+
+=== 修正
+
+==== 本体
+
+  * パッケージに.moが含まれていない問題を修正。
+    [おばたさんが報告]
+  * rabbiterからのコメント追加時にクラッシュする問題を修正。
+  * Ruby 1.9でPDFファイルの自動検出に失敗する問題を修正。
+
+==== ドキュメント
+
+  * リンク先を修正。
+    [znzさんが報告]
+
+=== 感謝
+
+  * おばたさん
+  * znzさん
+
+== 0.9.3: 2011-06-25
 
 コメント・Twitterサポート強化リリース。
 

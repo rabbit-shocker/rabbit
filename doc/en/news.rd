@@ -3,7 +3,120 @@ layout: en
 title: News
 apply_data: false
 ---
-== 0.9.3: 2010-06-25
+== 1.0.0: 2011-07-15
+
+The first major release! We spent seven years for it!
+
+=== Improvements
+
+==== Core
+
+  * Made Twitter related gems optional not required.
+  * Disabled Clutter by default. --use-gl is required to
+    enable it.
+    [Reported by OBATA Akio]
+  * Supported ((<blockdiag|URL:http://blockdiag.com/blockdiag/build/html/>)).
+
+    RD:
+      # blockdiag
+      # relative_width = 90
+      # fonts = /usr/share/fonts/opentype/ipafont/ipag.ttf, /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf
+      {
+        fontsize = 25;
+        RD -> Rabbit;
+        Hiki -> Rabbit;
+        PDF -> Rabbit;
+        group {
+          Rabbit -> Display;
+        }
+      }
+
+    Hiki:
+      {{blockdiag("
+      {
+        fontsize = 25;
+        RD -> Rabbit;
+        Hiki -> Rabbit;
+        PDF -> Rabbit;
+        group {
+          Rabbit -> Display;
+        }
+      }",
+                  {
+                    :relative_width => 90,
+      #             :antialias => true,
+                    :fonts => ["/usr/share/fonts/opentype/ipafont/ipag.ttf",
+                               "/usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf"],
+                  })}}
+  * Removed Anthy support.
+  * Supported syntax highlighting by CodeRay.
+  * Supported syntax highlighting by Emacs.
+  * Improved "run from console" detection.
+    [Reported by OBATA Akio]
+  * Supported non-blocking mode for Twitter connection.
+    [Reported by OBATA Akio]
+  * Improved the default logger detection.
+    [Reported by OBATA Akio]
+  * Supported Nokogiri and dropped HTree.
+  * Added --allotted-time option to specify presentation
+    allotted time.
+  * Added --comment-theme option to specify a theme for
+    comment.
+
+    For example, use --comment-theme stream-comment to
+    stream comment on your slide.
+
+==== Rabbiter
+
+  * Added --log-status option to log streamed information
+    for debug.
+
+==== Rabbirack
+
+  * Added. It is a new Web interface for Rabbit. It will
+    deprecate Rabrick.
+
+==== Theme
+
+  * Added shadow-color, shadow-x and shadow-y properties to
+    text element.
+  * syntax-highlighting: Added. It specifies colors for
+    syntax highlighting.
+  * footer-comment:
+    * Improved image-timer support.
+    * Disabled the last comment remaining by default.
+  * rabbit-powered-by: Disabled banner.
+  * pdf-tortoise-and-hare: Removed because it's merged to
+    pdf theme.
+  * pdf:
+    * Supported hare and tortoise.
+    * Supported comment.
+  * base: Added foreground color, background color and
+    shadow color configurations.
+  * default-comment: Added. It specifies a theme for comment.
+
+=== Fixes
+
+==== Core
+
+  * Fixed a problem that .mo are missing in package.
+    [Reported by OBATA Akio]
+  * Fixed a problem that appending comment from rabbiter
+    crashes Rabbit.
+  * Fixed a problem that PDF file detection is failed in
+    Ruby 1.9.
+
+==== Documentation
+
+  * Fixed link URL.
+    [Reported znz]
+
+=== Thanks
+
+  * おばたさん
+  * znzさん
+
+== 0.9.3: 2011-06-25
 
 A comment and Twitter support improved release.
 
