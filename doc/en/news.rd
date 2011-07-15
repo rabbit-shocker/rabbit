@@ -3,6 +3,16 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.1: 2011-07-15
+
+A bug fix release of 1.0.0.
+
+=== Fixes
+
+==== Core
+
+  * Removed needless albino gem dependency.
+
 == 1.0.0: 2011-07-15
 
 The first major release! We spent seven years for it!
