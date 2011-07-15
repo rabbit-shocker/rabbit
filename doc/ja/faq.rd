@@ -10,6 +10,24 @@ title: FAQ
 
 答え...
 
+== Twitterのtweetをスライド中に表示するには？
+
+rabbiterコマンドを使います。Rabbitが起動した状態で以下のよう
+にrabbitterコマンドを起動すると、「twitter」という単語が含ま
+れたtweetがコメントとしてスライド下部に表示されます。
+
+  % rabbiter --filter ruby
+
+== Twitterのtweetをニコニコ動画のようにスライド上に流すには？
+
+((%--comment-theme stream-comment%))オプション付きで
+((%rabbit%))コマンドを実行してください。
+
+  % rabbit --comment-theme stream-comment slide.rab
+
+((%rabbiter%))コマンドでTwitterからtweetを取り込むと、スライ
+ド上をコメントが流れていきます。
+
 == 1ページに複数枚のスライドが入ったPDFを作るには？
 
 XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）を
@@ -19,11 +37,11 @@ XXX.rdから1ページに8枚のスライドが入ったPDF（XXX_multi.pdf）�
 
 == PDFでうさぎと亀を使いたいときは？
 
-pdf-tortoise-and-hareテーマとRABBIT_ALLOTTED_TIME環境変数を使います。
+--allotted-timeオプションを使います。
 
-  % RABBIT_ALLOTTED_TIME=5m rabbit --theme pdf-tortoise-and-hare slide.pdf
+  % rabbit --allotted-time 5m slide.pdf
 
-RABBIT_ALLOTTED_TIMEの値の書式はスライド中に
+--allotted-timeの値の書式はスライド中に
 
   # _
   : allotted-time
