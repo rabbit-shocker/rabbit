@@ -42,8 +42,18 @@ with the following.
 : -t, --theme=THEME
    Specifies the theme.
 
-: -I, --include=PATH 
+: -I, --include=PATH
    Adds PATH to the load path. Load paths are used to find themes.
+
+: --comment-theme=THEME
+   Specifies the comment theme. Available themes are
+   footer-comment (default) that shows comments in the
+   footer and stream-comment that streams comments on
+   slides.
+
+: --allotted-time=TIME
+   Specifies allotted time for presentation. It overrides
+   allotted time specified in title slide.
 
 : -B, --base=BASE
    Specifies the URI or path to resolve relative paths in the
