@@ -159,6 +159,7 @@ EOC
        "--exclude", "*.svg",
        "--exclude", "*.rab",
        "--exclude", "/download/",
+       "--exclude", "/samples/",
        "doc/_site/",
        rsync_base_path)
   end
