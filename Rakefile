@@ -37,6 +37,7 @@ Jeweler::Tasks.new do |_spec|
   spec.executables -= ["rabbit.bat"]
 end
 
+Rake::Task["release"].prerequisites.clear
 Jeweler::RubygemsDotOrgTasks.new
 
 def force_array(enumerable)
