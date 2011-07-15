@@ -53,6 +53,14 @@ module Rabbit
       def title
         "Rabbit"
       end
+
+      def slide_title
+        current_slide_title = @rabbit.slide_title
+        if current_slide_title.respond_to?(:force_encoding)
+          current_slide_title.force_encoding("ASCII-8BIT")
+        end
+        current_slide_title
+      end
     end
   end
 end
