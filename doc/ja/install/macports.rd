@@ -96,10 +96,5 @@ Rabbit だけをバージョンアップしたいときは、-n オプション�
 
 === 連絡先
 
-お気づきの点やリクエストなどは、Rabbit::UsersGroup.ja
-((<URL:http://www.cozmixng.org/~rwiki/index.rb?cmd=view;name=Rabbit%3A%3AUsersGroup.ja>)) 
+お気づきの点やリクエストなどは、((<ショッカー|URL:../users.html>))
 や Rabbit MacPorts 担当の木村 (kimuraw at i.nifty.jp) までどうぞ。
-
-
-Rabbitはgemまたはそれぞれのプラットフォームにあるパッケージ管
-理システムを使ってインストールすることができます。
