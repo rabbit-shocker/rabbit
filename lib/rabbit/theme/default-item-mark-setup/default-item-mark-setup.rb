@@ -93,7 +93,7 @@ def setup_default_enum_item_mark(items, name, indent, space_ratio, props,
   indent_width = screen_x(indent)
   indent_width = option_value.call("indent_width", indent_width) || indent_width
   default_props = {
-    "font_family" => @font_family,
+    "font-family" => @font_family,
   }.merge(props)
 
   delete_pre_draw_proc_by_name(name)

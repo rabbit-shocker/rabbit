@@ -32,7 +32,7 @@ match(SlideElement) do |slides|
                            line_color, line_params.merge(line_width_params))
 
           props = {
-            "font_family" => applier[:font_family],
+            "font-family" => applier[:font_family],
             "size" => text_size,
             "color" => text_color,
           }
