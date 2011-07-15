@@ -11,8 +11,8 @@ Rabbitはgemまたはそれぞれのプラットフォームにあるパッケ�
 == gemを使う方法
 
   % gem install rabbit
-  % gem install twitter-stream # If you want to use Twitter related features
-  % gem install twitter_oauth  # If you want to use Twitter related features
+  % gem install twitter-stream # Twitter関連機能を利用する場合
+  % gem install twitter_oauth  # Twitter関連機能を利用する場合
 
 == Debian GNU/Linuxでのインストール方法
 
