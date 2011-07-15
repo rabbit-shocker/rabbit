@@ -3,6 +3,37 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.2: 2011-07-15
+
+RubyKaigi2011 release.
+
+=== Improvements
+
+==== Core
+
+  * Re-supported GTK+ 2.20. (For Debian GNU/Linux squeeze)
+    [Reported by akira yamada]
+
+==== Theme
+
+  * title-slide-background-image: Added. It shows background
+    image with title slide slide.
+  * table: Supported font color customize.
+  * rubykaigi2011: Added. It's for RubyKaigi2011.
+
+=== Fixes
+
+==== Theme
+
+  * default-item-mark-setup: Fixed duplicated font name
+    specified error.
+  * edge-info-toolkit: Fixed duplicated font name
+    specified error.
+
+=== Thanks
+
+  * yamada akira
+
 == 1.0.1: 2011-07-15
 
 A bug fix release of 1.0.0.
