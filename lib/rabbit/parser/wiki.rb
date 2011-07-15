@@ -1,15 +1,19 @@
-begin
-  require "hikidoc"
-rescue LoadError
-  require "rubygems"
-  require "hikidoc"
-end
+require "hikidoc"
 
 require "rabbit/parser/base"
 
 module Rabbit
   module Parser
     class Wiki < Base
+    end
+  end
+end
+
+require "rabbit/parser/wiki/output"
+
+module Rabbit
+  module Parser
+    class Wiki
       unshift_loader(self)
       class << self
         def match?(source)
@@ -28,5 +32,3 @@ module Rabbit
     end
   end
 end
-
-require "rabbit/parser/wiki/output"
