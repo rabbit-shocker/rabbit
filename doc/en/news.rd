@@ -124,8 +124,8 @@ The first major release! We spent seven years for it!
 
 === Thanks
 
-  * おばたさん
-  * znzさん
+  * OBATA Akio
+  * znz
 
 == 0.9.3: 2011-06-25
 
