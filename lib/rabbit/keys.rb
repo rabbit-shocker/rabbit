@@ -1,6 +1,14 @@
 require "gtk2"
 require "rabbit/utils"
 
+# For GTK+ < 2.22
+unless Gdk::Keyval.const_defined?(:GDK_KEY_Escape)
+  Gdk::Keyval.constants.each do |name|
+    Gdk::Keyval.const_set(name.to_s.sub(/\AGDK_/, "GDK_KEY_"),
+                          Gdk::Keyval.const_get(name))
+  end
+end
+
 module Rabbit
   module Keys
 
