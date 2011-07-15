@@ -5,6 +5,7 @@ lang_suffix: true
 no_sidebar: true
 ---
 <section class="screenshots">
+  <h2>スクリーンショット</h2>
   <ul id="screenshots">
     <li><img src="images/screenshots/ja/blue-circle.png"
              alt="青い円テーマ" /></li>

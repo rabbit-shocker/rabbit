@@ -131,6 +131,11 @@ header div.other-language-links a img
     border-style: none;
 }
 
+section.screenshots h2
+{
+    display: none;
+}
+
 ul#screenshots
 {
     margin: 0;

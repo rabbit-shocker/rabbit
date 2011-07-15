@@ -5,6 +5,7 @@ lang_suffix: true
 no_sidebar: true
 ---
 <section class="screenshots">
+  <h2>Screenshots</h2>
   <ul id="screenshots">
     <li><img src="images/screenshots/en/blue-circle.png"
              alt="Blue Circle theme" /></li>
