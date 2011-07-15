@@ -35,14 +35,15 @@ match(SlideElement) do |slides|
     comments << comment
   end
 
-  redraw_time = Time.now
+  redraw_time = nil
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     unless simulation
       unless comments.empty?
+        redraw_time ||= Time.now
         content = comments.first
         text = Text.new(ERB::Util.h(content.strip.gsub("\n", " ")))
         if Time.now - redraw_time > @footer_comment_min_display_time
-          redraw_time = Time.now
+          redraw_time = nil
           if @footer_comment_keep_last_comment
             comments.shift if comments.size > 1
           else
