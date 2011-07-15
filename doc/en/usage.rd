@@ -54,7 +54,7 @@ with the following.
 : -T, --type=TYPE
    Specifies the input source type.
 
-   Available types are rwiki, file (default), argf and uri .
+   Available types are file (default), argf and uri .
 
    : argf
 
@@ -105,22 +105,7 @@ with the following.
        % rabbit --type uri /.../XXX.rd
      are same as
        % rabbit --type file /.../XXX.rd
-     
 
-   : rwiki
-
-     Uses the content of the specified RWiki's page as
-     the source. RWiki must have the SOAP interface enabled.
-
-     You can use the auto source reload feature. But
-     Rabbit will only reload once every 60 seconds for
-     performance reasons.
-
-     Example:
-       % rabbit --type rwiki #{URI of SOAP interface of RWiki} #{page name}
-
-     The encoding of #{page name} is the same as the RWiki
-     page's encoding.
 
    : memory
 

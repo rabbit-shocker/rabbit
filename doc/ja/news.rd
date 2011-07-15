@@ -61,6 +61,7 @@ apply_data: false
   * プレゼン時間を指定する--allotted-timeオプションを追加。
   * コメント用のテーマを指定する--comment-themeオプションを
     追加。
+  * RWiki対応を削除。
 
 ==== Rabbiter
 

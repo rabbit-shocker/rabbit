@@ -79,7 +79,7 @@ title: "サンプルスライド: Rabbit"
     * ファイル
     * 標準入力
     * HTTP
-    * RWiki/Hiki
+    * Hiki
     * SlideShare
 
   = 機能: 入力書式

@@ -52,7 +52,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
 : -T, --type=TYPE
    入力ソースの種類を指定します．
 
-   入力ソースの種類は rwiki, file（デフォルト）, argf, uri 
+   入力ソースの種類は file（デフォルト）, argf, uri 
    のいずれかを指定します。
 
    : argf
@@ -94,7 +94,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
      いてもソースを再読み込みしません．
 
      例:
-       % rabbit --type uri http://www.cozmixng.org/repos/rabbit/trunk/sample/rabbit-implementation.rd
+       % rabbit --type uri https://raw.github.com/shockers/rabbit/master/sample/rabbit-implementation.rd
      とか
        % rabbit --type uri ftp://.../XXX.rd
      とか
@@ -106,33 +106,6 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
      とかは
        % rabbit --type file /.../XXX.rd
      と同じ
-
-   : rwiki
-
-     指定したRWikiのページの内容をソースとします．ただし，
-     RWikiにはSOAPインターフェイスが用意されている必要があり
-     ます．
-
-     ソースの自動再読み込み機能を利用できますが，パフォーマ
-     ンスなどを考慮して，最後にソースを読み込んでから一定時
-     間（現在は60秒）以上たたないとたとえソースが変更されて
-     いてもソースを再読み込みしません．
-
-     例:
-       % rabbit --type rwiki RWikiのSOAPインターフェイスのURI ページ名
-
-     注意点としてはページ名は対象となるRWikiと同じエンコーディ
-     ングである必要があるということです．
-
-     例えば，EUC-JPで以下のようにします（The RWikiにはSOAPイン
-     ターフェイスが導入済み）．
-
-       % rabbit --type rwiki http://pub.cozmixng.org/~the-rwiki/rw-soap.rb スライド::Rabbit
-
-     --baseと組み合わせてこんな風にするとよいかもしれません．
-
-       % rabbit --type rwiki --base #{Rabbitを展開したディレクトリ}/sample \
-          http://pub.cozmixng.org/~the-rwiki/rw-soap.rb スライド::Rabbit
 
    : memory
 

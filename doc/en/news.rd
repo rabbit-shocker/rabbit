@@ -65,6 +65,7 @@ The first major release! We spent seven years for it!
 
     For example, use --comment-theme stream-comment to
     stream comment on your slide.
+  * Removed RWiki support.
 
 ==== Rabbiter
 

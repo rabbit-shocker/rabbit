@@ -75,7 +75,7 @@ A presentation tool
   * File
   * Standard input
   * HTTP
-  * RWiki/Hiki
+  * Hiki
   * SlideShare
 
 = Features: Format

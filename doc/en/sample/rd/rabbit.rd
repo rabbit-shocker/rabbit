@@ -78,7 +78,7 @@ title: "Sample slide: Rabbit"
     * File
     * Standard input
     * HTTP
-    * RWiki/Hiki
+    * Hiki
     * SlideShare
 
   = Features: Format
