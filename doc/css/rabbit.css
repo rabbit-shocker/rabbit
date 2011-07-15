@@ -131,6 +131,14 @@ header div.other-language-links a img
     border-style: none;
 }
 
+div.latest-release p
+{
+    text-align: center;
+    font-size: x-large;
+    padding: 0;
+    margin: 0;
+}
+
 section.screenshots h2
 {
     display: none;
@@ -152,6 +160,7 @@ ul#screenshots li
     display: inline;
 }
 
+div.latest-release,
 nav.menu
 {
     border: #aa0202 0 solid;
@@ -237,25 +246,29 @@ nav p.note
     top: 10px;
 }
 
+div.latest-release a:link,
 div#main a:link,
 nav a:link
 {
     color: #aa0202;
 }
 
+div.latest-release a:visited,
 div#main a:visited,
 nav a:visited
 {
     color: #d26364;
 }
 
-div#main a:hover,
-nav a:hover
+div.latest-release a:hover[href],
+div#main a:hover[href],
+nav a:hover[href]
 {
     color: white;
     background-color: #aa0202;
 }
 
+div.latest-release a:active,
 div#main a:active,
 nav a:active
 {

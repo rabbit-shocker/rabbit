@@ -4,6 +4,10 @@ title: A presentation tool for Rubyist
 lang_suffix: true
 no_sidebar: true
 ---
+<div class="latest-release">
+  <p><a href="/en/news.html">1.0.0</a> is the latest release. It had been released at 2011-07-15.</p>
+</div>
+
 <section class="screenshots">
   <h2>Screenshots</h2>
   <ul id="screenshots">

@@ -4,6 +4,10 @@ title: Rubyist用プレゼンツール
 lang_suffix: true
 no_sidebar: true
 ---
+<div class="latest-release">
+  <p>2011-07-15にリリースされた<a href="/ja/news.html">1.0.0</a>が最新リリースです。</p>
+</div>
+
 <section class="screenshots">
   <h2>スクリーンショット</h2>
   <ul id="screenshots">
