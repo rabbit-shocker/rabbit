@@ -34,7 +34,6 @@ Jeweler::Tasks.new do |_spec|
                         "README",
                         "Gemfile"]
   spec.test_files = FileList["test/**/*.rb"]
-  spec.executables -= ["rabbit.bat"]
 end
 
 Rake::Task["release"].prerequisites.clear
