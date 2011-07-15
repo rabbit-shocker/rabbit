@@ -6,7 +6,6 @@ gem 'gtk2'
 gem 'rsvg2'
 gem 'poppler'
 gem 'hikidoc'
-gem 'albino'
 gem 'nokogiri'
 gem "rack"
 gem "haml"
