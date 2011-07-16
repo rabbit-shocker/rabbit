@@ -8,7 +8,7 @@ require "rabbit/gettext"
 
 module Rabbit
 
-  VERSION = "1.0.3"
+  VERSION = "1.0.4"
 
   TMP_DIR_NAME = ".tmp"
 
