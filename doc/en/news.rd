@@ -3,6 +3,37 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.3: 2011-07-17
+
+A bug fix release of 1.0.2.
+
+=== Improvements
+
+==== Core
+
+  * Supported RubyGems 1.8.5.
+    [Reported by okkez]
+  * rabbit command doesn't use standard input as the default
+    source type.
+
+=== Fixes
+
+==== Core
+
+  * Fixed a problem that Wiki notation support doesn't show error.
+    [Reported by kimura wataru]
+  * Added missing Sinatra dependency.
+
+==== Theme
+
+  * footer-comment: Fixed a problem that a comment is hidden
+    shortly.
+
+=== Thanks
+
+  * okkez
+  * kimura wataru
+
 == 1.0.2: 2011-07-15
 
 RubyKaigi2011 release.
