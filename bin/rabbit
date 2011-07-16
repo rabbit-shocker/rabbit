@@ -578,14 +578,10 @@ end
 def make_source(options, argv, logger)
   if options.source_type == :auto
     if argv.empty?
-      if Rabbit::Utils.support_console_input?
-        options.source_type = Rabbit::Source::ARGF
-      else
-        file_name = choose_source_file_by_dialog(options)
-        exit if file_name.nil?
-        argv = [file_name]
-        options.source_type = Rabbit::Source::File
-      end
+      file_name = choose_source_file_by_dialog(options)
+      exit if file_name.nil?
+      argv = [file_name]
+      options.source_type = Rabbit::Source::File
     elsif argv.size == 1 and /\Ahttps?:\/\// =~ argv[0]
       options.source_type = Rabbit::Source::URI
     else
