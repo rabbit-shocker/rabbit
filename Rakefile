@@ -93,7 +93,8 @@ namespace :html do
     screenshot_themes = ["blue-circle", "clear-blue", "cozmixng",
                          "dark-gradation", "day-white",
                          "debian", "green-circle", "night-black",
-                         "rabbit", "ranguba", "red-frame", "ruby-gnome2"]
+                         "rabbit", "ranguba", "red-frame", "ruby-gnome2",
+                         "rubykaigi2011"]
     screenshot_themes.each do |theme|
       screenshot_base_name = "#{screenshots_dir}/#{theme}"
       screenshot_raw = "#{screenshot_base_name}-raw.png"
