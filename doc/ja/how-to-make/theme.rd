@@ -43,7 +43,7 @@ title: テーマの作り方
 
 (({prop_set}))では前景色（foreground）以外にも以下のものが指
 定できます．詳しくは((<Pango Text Attribute
-Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>))
+Markup|URL:http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>))
 を見てください．
 
 : font_desc
