@@ -39,7 +39,7 @@ page except the title page.
 
 You can set some properties by using
 (({prop_set})). ((<Pango Text Attribute
-Markup|URL:http://developer.gnome.org/doc/API/2.4/pango/PangoMarkupFormat.html>))
+Markup|URL:http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>))
 has more information.
 
 : font_desc
