@@ -286,3 +286,5 @@ data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg
   * なかださん:
     * Windowsでコンソールが利用可能かどうかを検出する方法を
       教えてくれました。
+  * 無量井健さん:
+    * ドキュメントのバグを直してくれました。
