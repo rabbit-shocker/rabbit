@@ -14,6 +14,8 @@ end
 @image_slide_number_start_image ||= "start-flag.png"
 @image_slide_number_goal_image ||= "goal-flag.png"
 @image_slide_number_space_ratio ||= 1.0 / 12.0
+@image_slide_number_start_flag_color ||= "red"
+@image_slide_number_goal_flag_color ||= "blue"
 
 @image_slide_number_margin_left ||= nil
 @image_slide_number_margin_right ||= nil
@@ -82,12 +84,12 @@ match(Slide) do |slides|
             "flag_type" => @image_slide_number_flag_type,
             "text" => "%0#{max_text_length}d" % slide.index,
             "text_attributes" => text_attributes,
-            "flag_color" => "red",
+            "flag_color" => @image_slide_number_start_flag_color,
           }
           canvas.draw_flag(start_base_x, base_y, loader.height, props)
 
           props["text"] = (canvas.slide_size - 1).to_s
-          props["flag_color"] = "blue"
+          props["flag_color"] = @image_slide_number_goal_flag_color
           canvas.draw_flag(goal_base_x, base_y, loader.height, props)
         else
           start_loader.draw(canvas, start_base_x, base_y,
