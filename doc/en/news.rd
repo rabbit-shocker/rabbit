@@ -3,6 +3,31 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.4: 2011-08-06
+
+Theme improvements release!
+
+=== Improvements
+
+==== Theme
+
+  * nari: Added. This is for nari. [Created by nari]
+  * image-slide-number: Changed the default here to a cute here.
+  * image-slide-number: Supported flag color customize.
+  * image-timer: Changed the default tortoise to a cute tortoise.
+  * rubykaigi2011: Supported the tortoise and the here.
+
+=== Fixes
+
+==== Documentation
+
+  * Fixed Pango link. [Patch by Ken Muryoi]
+
+=== Thanks
+
+  * nari
+  * Ken Muryoi
+
 == 1.0.3: 2011-07-17
 
 A bug fix release of 1.0.2.
