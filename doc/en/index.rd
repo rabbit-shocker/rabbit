@@ -280,5 +280,5 @@ Here is a contributor list. Thanks to them!!!
     * Contributed Rabbit control command by Wii Remote.
   * Nobuyoshi Nakada:
     * Suggested about console availability check way on Windows.
-  * Key Muryoi:
+  * Ken Muryoi:
     * Fixed a bug in document.
