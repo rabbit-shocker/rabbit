@@ -45,3 +45,11 @@ background_image = "rubykaigi2011-background-white.jpg"
 @slide_background_image = background_image
 include_theme("title-slide-background-image")
 include_theme("slide-background-image")
+
+if canvas.allotted_time
+  include_theme("image-slide-number")
+  @image_slide_number_show_text = true
+  @image_slide_number_start_flag_color = dark_color
+  @image_slide_number_goal_flag_color = dark_color
+  include_theme("image-timer")
+end
