@@ -2,7 +2,7 @@ add_image_path("rabbit-images")
 
 proc_name = "image-slide-number"
 
-@image_slide_number_image ||= "mini-usagi.png"
+@image_slide_number_image ||= "mini-usa-taro.png"
 @image_slide_number_show_text ||= false
 @image_slide_number_font_size ||= @xx_small_font_size
 @image_slide_number_text_color ||= "white"
