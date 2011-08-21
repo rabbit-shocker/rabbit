@@ -282,3 +282,6 @@ Here is a contributor list. Thanks to them!!!
     * Suggested about console availability check way on Windows.
   * Ken Muryoi:
     * Fixed a bug in document.
+  * TAKATSU Tomonari:
+    * The official FreeBSD Ports maintainer.
+    * Fixed many bugs.
