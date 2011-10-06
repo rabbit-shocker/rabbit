@@ -71,7 +71,7 @@ module Rabbit
               target = content
               @canvas << content
               mode = :display
-            when SlidePropertySetter
+            when SlidePropertySetter, NoteSetter
               target = content
               mode = :property
             else
@@ -102,7 +102,11 @@ module Rabbit
             @slides << @slide
             @slide
           when 2
-            SlidePropertySetter.new(slide)
+            if title.first.text == "Note"
+              NoteSetter.new(@slides.last)
+            else
+              SlidePropertySetter.new(@slides.last)
+            end
           else
             nil
           end
@@ -422,6 +426,18 @@ module Rabbit
               name = Parser.normalize_property_name(item.term.text)
               @slide[name] = item.content.text.strip
             end
+          end
+        end
+
+        class NoteSetter
+          def initialize(slide)
+            @slide = slide
+          end
+
+          def apply(element)
+            return unless element.is_a?(Element::Paragraph)
+            @slide['note'] ||= ""
+            @slide['note'] << element.text
           end
         end
       end

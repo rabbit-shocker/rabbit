@@ -58,6 +58,7 @@ module Rabbit
     def moved(index)
       return unless showing?
       check_timer
+      update_note_text if on_note_mode?
       adjust_slide(index)
     end
 
@@ -95,7 +96,11 @@ module Rabbit
       end
       @window.title = _("%s: Information window") % @canvas.title
       @window.set_default_size(width, height) if width and height
-      init_widgets(width, height)
+      if on_note_mode?
+        init_widgets_on_note_mode(width, height)
+      else
+        init_widgets(width, height)
+      end
       init_menu
       attach_key(@window)
       attach_menu(@window)
@@ -136,6 +141,34 @@ module Rabbit
       @outer_box.show
     end
 
+    def init_widgets_on_note_mode(width, height)
+      init_timer_label(width * (1.0 / 5.0), height * (2.0 / 5.0))
+      init_note_text(width * (5.0 / 5.0), height * (3.0 / 5.0))
+      @outer_box = Gtk::VBox.new
+
+      current_box = Gtk::HBox.new
+      current_box.pack_start(@timer_label, false, false)
+      @previous_canvas.attach_to(nil, @window, current_box) do |container, widget|
+        widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
+        container.pack_start(widget, true, true, 10)
+      end
+      @current_canvas.attach_to(nil, @window, current_box) do |container, widget|
+        widget.set_size_request(width * (2.0 / 5.0), height * (2.0 / 5.0))
+        container.pack_start(widget, true, true)
+      end
+      @next_canvas.attach_to(nil, @window, current_box) do |container, widget|
+        widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
+        container.pack_end(widget, true, true, 10)
+      end
+      @outer_box.pack_start(current_box, false, false)
+
+      bottom_box = Gtk::HBox.new
+      bottom_box.pack_start(@note_label, false, true, 20)
+      @outer_box.pack_start(bottom_box, true, false)
+
+      @outer_box.show
+    end
+
     def init_canvas_widgets
       @canvas_widgets = Gtk::HBox.new
       @current_canvas.attach_to(nil, @window, @canvas_widgets)
@@ -148,6 +181,16 @@ module Rabbit
       @timer_label.markup = markupped_timer_label(width, height)
       @timer_started = false
       check_timer
+    end
+
+    def init_note_text(width, height)
+      @note_label = Gtk::Label.new
+      @note_label.justify = :left
+      @note_label.markup = markupped_note_text
+    end
+
+    def update_note_text
+      @note_label.markup = markupped_note_text
     end
 
     def check_timer
@@ -163,7 +206,8 @@ module Rabbit
       width ||= @window.size[0] * (1.0 / 3.0)
       height ||= @window.size[1] * (1.0 / 3.0)
       attrs = {}
-      attrs["font_desc"] = ((height * 200) / Pango::SCALE).to_s
+      font_size = on_note_mode? ? 100 : 200
+      attrs["font_desc"] = ((height * font_size) / Pango::SCALE).to_s
       rest_time = @canvas.rest_time
       attrs["foreground"] = "red" if rest_time and rest_time < 0
       "<span #{@canvas.to_attrs(attrs)}>#{h timer_label}</span>"
@@ -176,6 +220,15 @@ module Rabbit
       else
         _("unlimited")
       end
+    end
+
+    def markupped_note_text
+      if @canvas.current_slide["note"]
+        text = @canvas.current_slide["note"].split("\\n").join("\n")
+      else
+        text = ""
+      end
+      "#{text}"
     end
 
     def update_source
@@ -204,6 +257,10 @@ module Rabbit
 
     def each(&block)
       [@previous_canvas, @current_canvas, @next_canvas].each(&block)
+    end
+
+    def on_note_mode?
+      @canvas.title_slide["note-mode"] == "true"
     end
   end
 end
