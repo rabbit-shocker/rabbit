@@ -186,6 +186,16 @@ match(Slide) do |slides|
   end
 end
 
+# enable headline-align
+match(Slide) do |slides|
+  slides.each do |slide|
+    headline_align = slide["headline-align"]
+    next if headline_align.nil?
+
+    slide.headline.horizontal_centering = false
+  end
+end
+
 # background-image-credit
 #
 # Usage: 
