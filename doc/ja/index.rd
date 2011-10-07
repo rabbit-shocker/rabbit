@@ -288,3 +288,6 @@ data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg
       教えてくれました。
   * 無量井健さん:
     * ドキュメントのバグを直してくれました。
+  * TAKATSU Tomonariさん:
+    * FreeBSDのPortsをメンテナンスしてくれます。
+    * たくさんバグを直してくれました。

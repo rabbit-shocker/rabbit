@@ -67,6 +67,7 @@ theme_exit if @syntax_highlighting_uninstall
   },
 }
 
+@syntax_highlighting_foreground ||= "#000000"
 @syntax_highlighting_frame_color ||= "#000000"
 @syntax_highlighting_frame_width ||= 2
 @syntax_highlighting_fill_color ||= "#f8f8f8"
@@ -107,6 +108,7 @@ match("**", SyntaxHighlightingBlock) do |blocks|
   blocks.keep_in_size if @syntax_highlighting_keep_in_size
 
   draw_frame(blocks, params)
+  blocks.prop_set("foreground", @syntax_highlighting_foreground)
 end
 
 match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|

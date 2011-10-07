@@ -98,7 +98,7 @@ def main
   if options.druby_uri_specified
     logger.warning(_("--druby-uri is deprecated. Use --rabbit-uri instead."))
   end
-  rabbit = DRbObject.new_with_uri(options.druby_uri)
+  rabbit = DRbObject.new_with_uri(options.rabbit_uri)
   options.commands.each do |output, method, *args|
     result = rabbit.send(method, *args)
     send(output, result) if output

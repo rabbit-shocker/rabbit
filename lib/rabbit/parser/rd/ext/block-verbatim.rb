@@ -136,7 +136,7 @@ module Rabbit
           end
 
           def ext_block_verb_block_quote(label, source, content, visitor)
-            return nil unless /^blockquote$/i =~ label
+            return nil unless /^block[_-]?quote$/i =~ label
             src, prop = parse_source(source)
             tree = ::RD::RDTree.new("=begin\n#{src}\n=end\n")
             elems = tree.root.children.collect do |child|

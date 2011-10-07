@@ -64,10 +64,11 @@ module Rabbit
       def info(message_or_error=nil, &block)
         log(INFO, message_or_error, &block)
       end
-      
-      def warn(message_or_error=nil, &block)
+
+      def warning(message_or_error=nil, &block)
         log(WARNING, message_or_error, &block)
       end
+      alias_method :warn, :warning # for backward compatibility
 
       def error(message_or_error=nil, &block)
         log(ERROR, message_or_error, &block)

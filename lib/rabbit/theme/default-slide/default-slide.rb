@@ -47,6 +47,8 @@ match(Slide, HeadLine) do |headlines|
     headline.font("color", color) if color
     shadow_color = slide["headline-shadow-color"]
     headline.font("shadow-color" => shadow_color) if shadow_color
+    align = slide["headline-align"]
+    headline.align = align if align
   end
 end
 
