@@ -186,7 +186,9 @@ module Rabbit
     def init_note_text(width, height)
       @note_label = Gtk::Label.new
       @note_label.justify = :left
-      @note_label.markup = markupped_note_text
+      @note_label.wrap = true
+      @note_label.markup = markupped_note_text(width, height)
+      @note_label.set_size_request(width, height)
     end
 
     def update_note_text
@@ -222,13 +224,16 @@ module Rabbit
       end
     end
 
-    def markupped_note_text
+    def markupped_note_text(width=nil, height=nil)
+      height ||= @window.size[1] * (3.0 / 5.0)
       if @canvas.current_slide["note"]
         text = @canvas.current_slide["note"].split("\\n").join("\n")
       else
         text = ""
       end
-      "#{text}"
+      attrs = {}
+      attrs["font_desc"] = ((height * 40) / Pango::SCALE).to_s
+      "<span #{@canvas.to_attrs(attrs)}>#{text}</span>"
     end
 
     def update_source
