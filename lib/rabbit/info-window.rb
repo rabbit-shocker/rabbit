@@ -227,7 +227,7 @@ module Rabbit
     def markupped_note_text(width=nil, height=nil)
       height ||= @window.size[1] * (3.0 / 5.0)
       if @canvas.current_slide["note"]
-        text = @canvas.current_slide["note"].split("\\n").join("\n")
+        text = @canvas.current_slide["note"].gsub(/\\n/, "\n")
       else
         text = ""
       end
