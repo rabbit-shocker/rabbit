@@ -265,7 +265,7 @@ module Rabbit
     end
 
     def on_note_mode?
-      @canvas.title_slide["note-mode"] == "true"
+      @canvas.slides.any? {|slide| slide["note"]}
     end
   end
 end
