@@ -102,7 +102,7 @@ module Rabbit
             @slides << @slide
             @slide
           when 2
-            if title.first.text == "Note"
+            if /\Anote\z/i =~ title.first.text
               NoteSetter.new(@slides.last)
             else
               SlidePropertySetter.new(@slides.last)
