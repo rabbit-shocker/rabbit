@@ -1,10 +1,7 @@
 begin
-  begin
-    require "gettext"
-  rescue LoadError
-    require "rubygems"
-    require "gettext"
-  end
+  require "rubygems"
+  raise LoadError if Gem.respond_to?(:_deprecated_all_load_paths)
+  require "gettext"
   module GetText
     if ::GetText::TextDomainManager.respond_to?(:textdomain)
       alias _gettext gettext
