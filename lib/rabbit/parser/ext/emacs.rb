@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 require 'rabbit/utils'
 require 'rabbit/parser/ext/escape'
 
@@ -12,6 +10,13 @@ module Rabbit
 
         module_function
         def highlight(text, logger, mode_line=nil)
+          begin
+            require 'nokogiri'
+          rescue
+            logger.warning("Syntax highlight by Emacs requires nokogiri.")
+            return nil
+          end
+
           src_file = Tempfile.new("rabbit-emacs")
           src_file.open
           src_file.print("#{mode_line}\n") if mode_line

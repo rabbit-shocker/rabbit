@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 require 'rabbit/utils'
 require 'rabbit/parser/ext/escape'
 
@@ -35,6 +33,13 @@ module Rabbit
         end
 
         def highlight(lang, text, logger)
+          begin
+            require 'nokogiri'
+          rescue
+            logger.warning("Syntax highlight by enscript requires nokogiri.")
+            return nil
+          end
+
           src_file = Tempfile.new("rabbit-enscript")
           src_file.open
           src_file.print(text)
