@@ -50,6 +50,7 @@ module Rabbit
       setup if @oauth_parameters.nil?
       return if @oauth_parameters.nil?
       require 'socket'
+      require 'openssl'
       begin
         require 'twitter/json_stream'
       rescue LoadError
@@ -64,6 +65,7 @@ module Rabbit
         :host => "stream.twitter.com",
         :path => "/1/statuses/filter.json",
         :method => "POST",
+        :ssl => true,
         :filters => filters,
       }
       @stream = ::Twitter::JSONStream.new(:signature, stream_options)
@@ -121,18 +123,22 @@ module Rabbit
         @logger = logger
         @options = options
         @handler = handler
-        @socket = nil
+        @tcp_socket = nil
+        @ssl_socket = nil
         @channel = nil
         @source_ids = []
       end
 
       def connect
         close
-        @socket = TCPSocket.new(@options[:host], "http")
+        @tcp_socket = TCPSocket.new(@options[:host], "https")
+        @ssl_socket = OpenSSL::SSL::SSLSocket.new(@tcp_socket)
+        @ssl_socket.sync_close = true
+        @ssl_socket.connect
         if GLib.const_defined?(:IOChannelWin32Socket)
-          @channel = GLib::IOChannelWin32Socket.new(@socket.fileno)
+          @channel = GLib::IOChannelWin32Socket.new(@tcp_socket.fileno)
         else
-          @channel = GLib::IOChannel.new(@socket.fileno)
+          @channel = GLib::IOChannel.new(@tcp_socket.fileno)
         end
         begin
           @channel.flags = GLib::IOChannel::FLAG_NONBLOCK
@@ -143,7 +149,7 @@ module Rabbit
         end
         reader_id = @channel.add_watch(GLib::IOChannel::IN) do |io, condition|
           @logger.debug("[twitter][read][start]")
-          data = io.read(4096)
+          data = @ssl_socket.read(8192)
           @logger.debug("[twitter][read][done] #{data.bytesize}")
           if data.empty?
             @source_ids.reject! {|id| id == reader_id}
@@ -170,13 +176,13 @@ module Rabbit
         writer_id = @channel.add_watch(GLib::IOChannel::OUT) do |io, condition|
           if rest.zero?
             @logger.debug("[twitter][flush][start]")
-            @channel.flush
+            @ssl_socket.flush
             @logger.debug("[twitter][flush][done]")
             @source_ids.reject! {|id| id == writer_id}
             false
           else
             @logger.debug("[twitter][write][start]")
-            written_size = @channel.write(data)
+            written_size = @ssl_socket.write(data)
             if written_size.is_a?(Numeric)
               @logger.debug("[twitter][write][done] #{written_size}")
               rest -= written_size
@@ -193,13 +199,15 @@ module Rabbit
       end
 
       def close
-        return if @socket.nil?
+        return if @ssl_socket.nil?
         @source_ids.reject! do |id|
           GLib::Source.remove(id)
           true
         end
         @channel = nil
-        @socket.close
+        @ssl_socket.close
+        @tcp_socket = nil
+        @ssl_socket = nil
       end
 
       def reconnect(options={})
