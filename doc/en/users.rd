@@ -20,7 +20,7 @@ There is a rabbit-shockers-en mailing list for Shockers.
 You can subscribe the mailing list by sending the following
 mail:
 
-  To: rabbit-shockers@ml.cozmixng.org
+  To: rabbit-shockers-en@ml.cozmixng.org
   Cc: kou@cozmixng.org
   Subject: Subscribe
   
