@@ -25,7 +25,7 @@ end
       false
     end
   else
-    canvas.activate("NextSlide")
+    canvas.activate("Next")
     true
   end
 end
