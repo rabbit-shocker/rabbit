@@ -1,12 +1,12 @@
 %ul
   %li
-    - if @rabbit.have_next_slide?
+    - if @rabbit.have_next?
       %a(href="/pages/next")
         .navi 次へ
     - else
       .navi 次へ
   %li
-    - if @rabbit.have_previous_slide?
+    - if @rabbit.have_previous?
       %a(href="/pages/previous")
         .navi 前へ
     - else

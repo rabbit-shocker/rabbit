@@ -108,6 +108,14 @@ module Rabbit
       @canvas.have_previous_slide?
     end
 
+    def have_next?
+      @canvas.have_next?
+    end
+
+    def have_previous?
+      @canvas.have_previous?
+    end
+
     def last_slide?
       @canvas.last_slide?
     end
