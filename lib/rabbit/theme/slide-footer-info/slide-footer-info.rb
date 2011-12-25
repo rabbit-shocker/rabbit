@@ -1,19 +1,23 @@
 name = "slide-footer-info"
 
-@slide_footer_info_line_color ||= "#666"
 @slide_footer_info_line_width ||= screen_y(0.1)
-@slide_footer_info_line_params ||= {
-  :pattern => {
-    :base => [0, 0, canvas.width, 0],
-    :type => :linear,
-    :color_stops => [
-                     [0.0, 1, 1, 1],
-                     [0.3, 0, 0, 0],
-                     [0.7, 0, 0, 0],
-                     [1.0, 1, 1, 1],
-                    ],
+@slide_footer_info_line_color ||= nil
+if @slide_footer_info_line_color.nil?
+  @slide_footer_info_line_params ||= {
+    :pattern => {
+      :base => [0, 0, canvas.width, 0],
+      :type => :linear,
+      :color_stops => [
+                       [0.0, 1, 1, 1],
+                       [0.3, 0, 0, 0],
+                       [0.7, 0, 0, 0],
+                       [1.0, 1, 1, 1],
+                      ],
+    }
   }
-}
+else
+  @slide_footer_info_line_color = "#666"
+end
 @slide_footer_info_text_size ||= screen_size(1.5 * Pango::SCALE)
 @slide_footer_info_x_margin ||= screen_x(1)
 @slide_footer_info_text_color ||= "#666"
