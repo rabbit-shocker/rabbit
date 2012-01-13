@@ -56,7 +56,7 @@ def parse_args(args=ARGV, logger=nil)
     options.default_public_level = "all"
     options.public_level = nil
     options.migemo_dictionary_search_path = [
-      File.join(Config::CONFIG["prefix"], "share"),
+      File.join(RbConfig::CONFIG["prefix"], "share"),
       File.join("", "usr", "local", "share"),
       File.join("", "usr", "share"),
     ].uniq
