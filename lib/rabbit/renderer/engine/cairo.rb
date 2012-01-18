@@ -274,8 +274,7 @@ module Rabbit
 
         def rsvg_available?
           if @@rsvg_available.nil?
-            instance_methods = ::Cairo::Context.instance_methods
-            @@rsvg_available = instance_methods.include?("render_rsvg_handle")
+            @@rsvg_available = RSVG.cairo_available?
           end
           @@rsvg_available
         end
@@ -294,9 +293,7 @@ module Rabbit
 
         def poppler_available?
           if @@poppler_available.nil?
-            instance_methods = ::Cairo::Context.instance_methods
-            available = instance_methods.include?("render_poppler_page")
-            @@poppler_available = available
+            @@poppler_available = Poppler.cairo_available?
           end
           @@poppler_available
         end
