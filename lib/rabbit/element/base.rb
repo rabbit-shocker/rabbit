@@ -87,6 +87,10 @@ module Rabbit
       end
 
       def compile(canvas, x, y, w, h)
+        compile_element(canvas, x, y, w, h)
+      end
+
+      def compile_element(canvas, x, y, w, h)
         @base_x, @base_y, @base_w, @base_h = x, y, w, h
         @px, @py, @pw, @ph = @x, @y, @w, @h
         x, y, w, h = setup_margin(x, y, w, h)

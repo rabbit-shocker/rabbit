@@ -49,7 +49,7 @@ module Rabbit
       end
 
       def compile(canvas, x, y, w, h)
-        super
+        compile_element(canvas, x, y, w, h)
         text_compile(canvas, @x, @y, @w, @h)
       end
 
