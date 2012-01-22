@@ -54,6 +54,14 @@ module Rabbit
       def empty?
         @text.nil? or /\A\s*\z/ =~ @text
       end
+
+      def inspect(verbose=false)
+        if verbose
+          super()
+        else
+          "<#{self.class.name} #{@text.inspect}>"
+        end
+      end
     end
   end
 end

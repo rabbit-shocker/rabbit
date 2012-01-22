@@ -320,11 +320,10 @@ module Rabbit
 
       def inspect(verbose=false)
         if verbose
-          self_info = super()
+          super()
         else
-          self_info = "<#{self.class.name}>"
+          "<#{self.class.name}>"
         end
-        self_info
       end
 
       def clone
