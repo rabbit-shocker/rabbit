@@ -36,6 +36,10 @@ module Rabbit
         super or old?(@last_modified, :last_modified)
       end
 
+      def extension
+        extract_extension(@uri.path)
+      end
+
       private
       def _read
         begin

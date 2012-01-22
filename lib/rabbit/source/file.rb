@@ -32,7 +32,11 @@ module Rabbit
       def need_read?
         super or old?(@mtime, :mtime)
       end
-      
+
+      def extension
+        extract_extension(@name)
+      end
+
       private
       def check_file
         unless ::File.exist?(@name)

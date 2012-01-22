@@ -17,6 +17,7 @@ module Rabbit
       push_loader(self)
       class << self
         def match?(source)
+          return true if /\A(?:rd|rab)\z/i =~ source.extension.to_s
           /^= /.match(source.read)
         end
       end

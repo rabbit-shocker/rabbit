@@ -93,12 +93,16 @@ module Rabbit
           set_base(new_value)
         end
       end
-      
+
+      def extension
+        nil
+      end
+
       private
       def init_base
         set_base(".")
       end
-      
+
       def set_base(new_value)
         if ::File::ALT_SEPARATOR
           new_value = new_value.gsub(::File::ALT_SEPARATOR, ::File::SEPARATOR)
@@ -138,6 +142,12 @@ module Rabbit
           "UTF-32"
         else
           "UTF-8"
+        end
+
+        def extract_extension(path)
+          components = File.basename(path).split(/\./)
+          return nil if components.size < 2
+          components.last
         end
       end
     end
