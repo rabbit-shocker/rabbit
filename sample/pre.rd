@@ -81,7 +81,7 @@ ddd
 
 = pre8
 
-  # enscript C
+  # coderay C
   #include <stdio.h>
   int
   main(void)
@@ -92,18 +92,29 @@ ddd
 
 = pre9
 
+  # enscript C
+  #include <stdio.h>
+  int
+  main(void)
+  {
+    printf("Hello World!\n");
+    return 0;
+  }
+
+= pre10
+
   あいうえおあいうえおあいうえおあい
       あいうえおあいうえおあいう
            あいうえおあいう
 
-= pre10
+= pre11
 
   あいうえおあいうえおあいうえおあいうえおあ
       あいうえおあいうえおあいうえおあい
           あいうえおあいうえおあいう
                あいうえおあいう
 
-= pre11
+= pre12
 
   あいうえおあいうえおあいうえおあいうえおあいうえお
       あいうえおあいうえおあいうえおあいうえおあ
