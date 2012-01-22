@@ -15,7 +15,7 @@ A presentation tool
 
 * Impl.: Ruby/GTK+ 2/cairo
 * Env.: PC-UNIX/Win/Mac
-* Format: RD/Wiki/PDF
+* Format:\nRD/Wiki/Markdown/PDF
 * View: Ruby{{note('(separated with format)')}}
 
 ! Features: Display (1)
@@ -23,7 +23,7 @@ A presentation tool
 * ''Emphasis''/==Deletion==
 * Sub{{sub('script')}}/Super{{sup('script')}}
 * Math characters: {{e('sum')}}{{sub('i=0')}}{{e('sum', sub('i=0'))}}
-* Colorized source
+* Syntax highlight
 
 ! Features: Display (2)
 
@@ -36,7 +36,7 @@ A presentation tool
 ! Features: Display (3)
 
 * Folding long lines
-* Colorized source
+* Syntax highlight
 * Big text
 
 ! Features: UI (1)
@@ -74,7 +74,8 @@ A presentation tool
 ! Features: Format
 
 * RD
-* Wiki(Hiki)
+* Wiki (Hiki)
+* Markdown (kramdown)
 * PDF
 ** {{e('RightArrow')}}PDF viewer
 

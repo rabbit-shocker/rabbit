@@ -11,6 +11,7 @@ gem "sinatra"
 gem "haml"
 gem "rdtool"
 gem "coderay"
+gem "kramdown"
 
 group :development, :test do
   gem 'twitter-stream'

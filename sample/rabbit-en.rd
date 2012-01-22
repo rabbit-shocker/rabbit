@@ -21,7 +21,8 @@ A presentation tool
 
   * Impl.: Ruby/GTK+ 2/cairo
   * Env.: PC-UNIX/Win/Mac
-  * Format: RD/Wiki/PDF
+  * Format:\n
+    RD/Wiki/Markdown/PDF
   * View: Ruby(('note:(separated with format)'))
 
 = Features: Display (1)
@@ -29,7 +30,7 @@ A presentation tool
   * ((*Emphasis*))/(('del:Deletion'))
   * Sub(('sub:script'))/Super(('sup:script'))
   * Math characters: (('&sum;'))(('sub:i=0'))(('&sum;sub:i=0'))
-  * Colorized source
+  * Syntax highlight
 
 = Features: Display (2)
 
@@ -42,7 +43,7 @@ A presentation tool
 = Features: Display (3)
 
   * Folding long lines
-  * Colorized source
+  * Syntax highlight
   * Big text
 
 = Features: UI (1)
@@ -82,6 +83,7 @@ A presentation tool
 
   * RD
   * Wiki(Hiki)
+  * Markdown（kramdown）
   * PDF
     * (('&RightArrow;'))PDF viewer
 

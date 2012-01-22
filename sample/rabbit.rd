@@ -21,7 +21,8 @@
 
   * 実装: Ruby/GTK+ 2/cairo
   * 動作: PC-UNIX/Win/Mac
-  * 書式: RD/Wiki/PDF
+  * 書式:\n
+    RD/Wiki/Markdown/PDF
   * 見た目: Ruby(('note:（ソースと分離）'))
 
 = 機能: 表示（1）
@@ -83,6 +84,7 @@
 
   * RD
   * Wiki（Hiki）
+  * Markdown（kramdown）
   * PDF
     * (('&RightArrow;'))PDFビューア
 

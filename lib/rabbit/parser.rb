@@ -20,5 +20,31 @@ module Rabbit
     def normalize_property_name(name)
       name.gsub(/_/, "-").strip
     end
+
+    class SlidePropertySetter
+      def initialize(slide)
+        @slide = slide
+      end
+
+      def apply(element)
+        return unless element.is_a?(Element::DescriptionList)
+        element.each do |item|
+          name = Parser.normalize_property_name(item.term.text)
+          @slide[name] = item.content.text.strip
+        end
+      end
+    end
+
+    class NoteSetter
+      def initialize(slide)
+        @slide = slide
+      end
+
+      def apply(element)
+        return unless element.is_a?(Element::Paragraph)
+        @slide['note'] ||= ""
+        @slide['note'] << element.text
+      end
+    end
   end
 end

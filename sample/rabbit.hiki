@@ -16,7 +16,7 @@
 
 * 実装: Ruby/GTK+ 2/cairo
 * 動作: PC-UNIX/Win/Mac
-* 書式: Wiki/RD/PDF
+* 書式:\nWiki/RD/Markdown/PDF
 * 見た目: Ruby{{note('（ソースと分離）')}}
 
 ! 機能: 表示（1）
