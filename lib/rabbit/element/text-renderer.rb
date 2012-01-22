@@ -49,7 +49,7 @@ module Rabbit
           nil
         end
       end
-      
+
       def compile(canvas, x, y, w, h)
         super
         text_compile(canvas, x, y, w, h)
