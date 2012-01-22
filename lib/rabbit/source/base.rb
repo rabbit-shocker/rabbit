@@ -143,12 +143,12 @@ module Rabbit
         else
           "UTF-8"
         end
+      end
 
-        def extract_extension(path)
-          components = File.basename(path).split(/\./)
-          return nil if components.size < 2
-          components.last
-        end
+      def extract_extension(path)
+        components = ::File.basename(path).split(/\./)
+        return nil if components.size < 2
+        components.last
       end
     end
 
