@@ -289,6 +289,9 @@ module Rabbit
             @context.scale(width / dim.width, height / dim.height)
             @context.render_rsvg_handle(handle)
           end
+
+          _draw_reflected_rsvg_handle(handle, x, y, width, height,
+                                      params[:reflect])
         end
 
         def poppler_available?
@@ -452,6 +455,21 @@ module Rabbit
             pattern.add_color_stop_rgba(1, 0, 0, 0, start_alpha)
             @context.mask(pattern)
           end
+        end
+
+        def _draw_reflected_rsvg_handle(handle, x, y, width, height, params)
+          return unless params
+
+          dim = handle.dimensions
+          surface = ::Cairo::ImageSurface.new(:argb32, width, height)
+          context = ::Cairo::Context.new(surface)
+          context.scale(width / dim.width, height / dim.height)
+          context.render_rsvg_handle(handle)
+          png = Tempfile.new("rabbit-cairo-svg-renderer")
+          context.target.write_to_png(png.path)
+          context.target.finish
+          pixbuf = Gdk::Pixbuf.new(png.path)
+          _draw_reflected_pixbuf(pixbuf, x, y, params)
         end
 
         def set_line_options(params)
