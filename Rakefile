@@ -202,7 +202,8 @@ namespace :package do
 end
 
 namespace :doc do
-  namespace :version do
+  namespace :release do
+    desc "update release information."
     task :update do
       old_release = ENV["OLD_RELEASE"]
       old_release_date = ENV["OLD_RELEASE_DATE"]
