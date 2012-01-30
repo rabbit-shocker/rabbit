@@ -3,6 +3,79 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 1.0.5: 2012-01-30
+
+Markdown対応リリース！
+
+=== 改良
+
+==== rabbit
+
+  * ノートモードを追加。 [nariさんが追加]
+
+==== rabbirack
+
+  * wait対応。
+
+==== レンダリング
+
+  * テキストレンダリング速度を改良。（特にCodeRayを使った場合）
+  * SVG: 鏡面反射をサポート。
+
+==== マークアップ
+
+  * マークアップの検出時に拡張子も参照することで検出精度を向上。
+  * RD: "block-quote"というキーワードでも"block_quote"という
+    キーワードでも引用扱いになるようにした。
+  * kramdownを使ってMarkdownサポートを追加。
+
+==== テーマ
+
+  * syntax-highlighting: デフォルトの前景色を設定した。
+  * nari: headline-alignに対応。
+  * tag: タグ毎の処理をカスタマイズできるようにした。
+  * slide-show: waitに対応。
+  * slide-footer-info: @slide_footer_info_line_colorだけ設定
+    しても有効になるようにした。
+    [kimura wataruさんが提案]
+
+=== 修正
+
+==== rabbit
+
+  * [GitHub#4]: warningメソッドがなかったのを追加。
+    [TAKATSU Tomonariさんが修正]
+
+==== rabbirack
+
+  * [GitHub#5]: Rack 1.2.1対応。
+    [TAKATSU Tomonariさんが報告]
+
+==== rabbit-command
+
+  * [GitHub#3]: 変数名が間違っていた問題を修正。
+    [TAKATSU Tomonariさんが修正]
+
+==== rabbitter
+
+  * HTTPS対応。 [OBATA Akioさんが修正]
+
+==== テーマ
+
+  * [GitHub#2]: default-slide: headline-alignスライドプロパ
+    ティが動かなくなっていた問題を修正。 [nariさんが報告]
+
+==== ドキュメント
+
+  * 英語用MLのアドレスを修正。
+
+=== 感謝
+
+  * nariさん
+  * TAKATSU Tomonariさん
+  * OBATA Akioさん
+  * kimura wataruさん
+
 == 1.0.4: 2011-08-06
 
 テーマ改良リリース！

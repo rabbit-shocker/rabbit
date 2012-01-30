@@ -3,6 +3,79 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.5: 2012-01-30
+
+Markdown support release!
+
+=== Improvements
+
+==== rabbit
+
+  * Added note mode. [Added by nari]
+
+==== rabbirack
+
+  * Supported wait.
+
+==== Rendering
+
+  * Improved rendering speed. (Especially CodeRay is used case)
+  * SVG: Supported reflection.
+
+==== Markup
+
+  * Improved markup detection accuracy by using extension.
+  * RD: Accepted "block-quote" keyword and "block_quote"
+    keyword as block quote markup keyword.
+  * Supported Markdown support by kramdown.
+
+==== Theme
+
+  * syntax-highlighting: Added the default foreground color.
+  * nari: Supported headline-align.
+  * tag: Supported tag handler customization.
+  * slide-show: Supported wait.
+  * slide-footer-info: Improved @slide_footer_info_line_color
+    customizability.
+    [Suggested by kimura wataru]
+
+=== Fixes
+
+==== rabbit
+
+  * [GitHub#4]: Added missing warning method.
+    [Patch by TAKATSU Tomonari]
+
+==== rabbirack
+
+  * [GitHub#5]: Supported Rack 1.2.1.
+    [Reported by TAKATSU Tomonari]
+
+==== rabbit-command
+
+  * [GitHub#3]: Fixed a wrong variable name.
+    [Patch by TAKATSU Tomonari]
+
+==== rabbitter
+
+  * Supported HTTPS. [Patch by OBATA Akio]
+
+==== Theme
+
+  * [GitHub#2]: default-slide: Fixed broken headline-align
+    slide property. [Reported by nari]
+
+==== Documents
+
+  * Fixed wrong ML address in English.
+
+=== Thanks
+
+  * nari
+  * TAKATSU Tomonari
+  * OBATA Akio
+  * kimura wataru
+
 == 1.0.4: 2011-08-06
 
 Theme improvements release!
