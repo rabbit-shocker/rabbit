@@ -10,7 +10,7 @@ gem 'nokogiri'
 gem "sinatra"
 gem "haml"
 gem "rdtool"
-gem "coderay"
+gem "coderay", ">= 1.0.0"
 gem "kramdown"
 
 group :development, :test do
