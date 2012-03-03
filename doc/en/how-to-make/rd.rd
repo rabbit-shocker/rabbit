@@ -42,7 +42,7 @@ This example shows the author is Kouhei Sutou and his
 institution is COZMIXNG.
 
 At the moment, you can specify subtitle, content_source and
-even the theme. `theme" is the default theme of this slide.
+even the theme. "theme" is for the default theme of this slide.
 
 == Image
 
