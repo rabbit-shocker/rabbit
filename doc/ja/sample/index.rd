@@ -9,3 +9,7 @@ title: サンプルスライド
 == Hiki記法でのサンプル
 
   * ((<"hiki/rabbit.html"/Rabbit>))
+
+== Markdown記法でのサンプル
+
+  * ((<"markdown/rabbit.html"/Rabbit>))
