@@ -3,6 +3,20 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.6: 2012-03-03
+
+CodeRay 1.0.x support release.
+
+=== Improvements
+
+==== rabbit
+
+  * Supported CodeRay 1.0.x. [Reported by TAKATSU Tomonari]
+
+=== Thanks
+
+  * TAKATSU Tomonari
+
 == 1.0.5: 2012-01-30
 
 Markdown support release!

@@ -3,6 +3,20 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 1.0.6: 2012-03-03
+
+CodeRay 1.0.x対応リリース
+
+=== 改良
+
+==== rabbit
+
+  * CodeRay 1.0.xに対応。 [TAKATSU Tomonariさんが報告]
+
+=== 感謝
+
+  * TAKATSU Tomonariさん
+
 == 1.0.5: 2012-01-30
 
 Markdown対応リリース！
