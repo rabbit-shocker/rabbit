@@ -3,387 +3,389 @@ layout: en
 title: "Sample slide: Rabbit"
 apply_data: false
 ---
- // To run with it without system install.
- //  % ruby -I./lib bin/rabbit -f sample/rabbit-en.rd
+<<<
+// To run with it without system install.
+//  % ruby -I./lib bin/rabbit -f sample/rabbit-en.rd
 
- ! Rabbit(en)
+! Rabbit(en)
 
- :subtitle:Presentation with Wiki notation
- :author:Kouhei Sutou
- :institution:COZMIXNG
- //:content_source:content source
- :theme:rabbit
+:subtitle:Presentation with Wiki notation
+:author:Kouhei Sutou
+:institution:COZMIXNG
+//:content_source:content source
+:theme:rabbit
 
- ! Rabbit
+! Rabbit
 
- A presentation tool
+A presentation tool
 
- * Impl.: Ruby/GTK+ 2/cairo
- * Env.: PC-UNIX/Win/Mac
- * Format: RD/Wiki/PDF
- * View: Ruby{{note('(separated with format)')}}
+* Impl.: Ruby/GTK+ 2/cairo
+* Env.: PC-UNIX/Win/Mac
+* Format: RD/Wiki/PDF
+* View: Ruby{{note('(separated with format)')}}
 
- ! Features: Display (1)
+! Features: Display (1)
 
- * ''Emphasis''/==Deletion==
- * Sub{{sub('script')}}/Super{{sup('script')}}
- * Math characters: {{e('sum')}}{{sub('i=0')}}{{e('sum', sub('i=0'))}}
- * Colorized source
+* ''Emphasis''/==Deletion==
+* Sub{{sub('script')}}/Super{{sup('script')}}
+* Math characters: {{e('sum')}}{{sub('i=0')}}{{e('sum', sub('i=0'))}}
+* Colorized source
 
- ! Features: Display (2)
+! Features: Display (2)
 
- * Tables
- * Interesting themes
- * Images
- ** Many supported formats
- ** PNG/JPEG/.../PDF/EPS/SVG
+* Tables
+* Interesting themes
+* Images
+** Many supported formats
+** PNG/JPEG/.../PDF/EPS/SVG
 
- ! Features: Display (3)
+! Features: Display (3)
 
- * Folding long lines
- * Colorized source
- * Big text
+* Folding long lines
+* Colorized source
+* Big text
 
- ! Features: UI (1)
+! Features: UI (1)
 
- * Rich key bindings
- * Context menu
- * Mouse gestures
- * Spotlight
- * Magnifier
+* Rich key bindings
+* Context menu
+* Mouse gestures
+* Spotlight
+* Magnifier
 
- ! Features: UI (2)
+! Features: UI (2)
 
- * Index page
- * Graffiti
- * {{wait}}Pause
- * {{wait}}I18N
- * Search
+* Index page
+* Graffiti
+* {{wait}}Pause
+* {{wait}}I18N
+* Search
 
- ! Features: UI (3)
+! Features: UI (3)
 
- * Whiteout/Blackout
- * Rabbit hole
- ** Make a hole in a slide
- * Visualization of remaining time
- ** The Tortoise and the Hare
+* Whiteout/Blackout
+* Rabbit hole
+** Make a hole in a slide
+* Visualization of remaining time
+** The Tortoise and the Hare
 
- ! Features: Input
+! Features: Input
 
- * File
- * Standard input
- * HTTP
- * Hiki
- * SlideShare
+* File
+* Standard input
+* HTTP
+* Hiki
+* SlideShare
 
- ! Features: Format
+! Features: Format
 
- * RD
- * Wiki(Hiki)
- * PDF
- ** {{e('RightArrow')}}PDF viewer
+* RD
+* Wiki(Hiki)
+* PDF
+** {{e('RightArrow')}}PDF viewer
 
- ! Features: Output
+! Features: Output
 
- * Images
- * Images + HTML
- * PS/PDF
- * PS/PDF for print
- ** slides/page
+* Images
+* Images + HTML
+* PS/PDF
+* PS/PDF for print
+** slides/page
 
- ! Features: Ext. API
+! Features: Ext. API
 
- * HTTP
- * dRuby
- * XML-RPC
- * SOAP
+* HTTP
+* dRuby
+* XML-RPC
+* SOAP
 
- ! Features: Creating
+! Features: Creating
 
- * Auto source reload
- * Theme reload
- * Change theme
+* Auto source reload
+* Theme reload
+* Change theme
 
- ! Features: Tag
+! Features: Tag
 
- {{tag('x-large', 'Large Text')}}
+{{tag('x-large', 'Large Text')}}
 
- {{tag('center')}}Centerized Text
+{{tag('center')}}Centerized Text
 
- {{tag('right')}}Right-Justified Text
+{{tag('right')}}Right-Justified Text
 
- ! ToDo
+! ToDo
 
- * Inline images
- * Jump to a link
- * Sound
- * Video
- * 3D
+* Inline images
+* Jump to a link
+* Sound
+* Video
+* 3D
 
- ! Image
+! Image
 
- {{image("lavie.png",
+{{image("lavie.png",
 	 {
 	  :caption => "Lavie",
 	  :keep_ratio => true,
 	  :width => 100,
 	  :height => 100,
- #        :normalized_width => 50,
- #        :normalized_height => 50,
- #        :relative_width => 100,
- #        :relative_height => 50,
+#        :normalized_width => 50,
+#        :normalized_height => 50,
+#        :relative_width => 100,
+#        :relative_height => 50,
 	 })}}
 
- ! Image: Reflect
+! Image: Reflect
 
- {{image("shocker.jpg",
+{{image("shocker.jpg",
 	 {
 	   :relative_height => 80,
 	   :reflect_ratio => 0.5,
 	 })}}
 
- ! Image: Background (1)
+! Image: Background (1)
 
- * Background image
- * Centering by default
+* Background image
+* Centering by default
 
- !! Properties
+!! Properties
 
- :background-image:lavie.png
- :background-image-relative-width:50
- //:background-image-align:right
- :background-image-relative-margin-right:3
+:background-image:lavie.png
+:background-image-relative-width:50
+//:background-image-align:right
+:background-image-relative-margin-right:3
 
- ! Image: Background (2)
+! Image: Background (2)
 
- {{image("lavie.png",
+{{image("lavie.png",
 	 {
 	   :relative_width => 30,
 	   :align => "right",
- #         :vertical_align => "top",
+#         :vertical_align => "top",
 	   :relative_margin_right => -5,
 	 })}}
 
- * Right justified backgorund image
- * Specify in slide
- ** :align => "right"
+* Right justified backgorund image
+* Specify in slide
+** :align => "right"
 
- ! Image size
+! Image size
 
- Relative image sizes
+Relative image sizes
 
- {{image("usagi.png",
+{{image("usagi.png",
 	 {
 	   :caption => "USAGI",
 	   :keep_ratio => true,
- #         :normalized_width => 50,
- #         :normalized_height => 50,
- #         :relative_width => 100,
+#         :normalized_width => 50,
+#         :normalized_height => 50,
+#         :relative_width => 100,
 	   :relative_height => 80,
 	 })}}
 
- ! External image
+! External image
 
- Download an image from a URL
+Download an image from a URL
 
- {{image("http://www.cozmixng.org/repos/images/cozmixchu.png",
+{{image("http://www.cozmixng.org/repos/images/cozmixchu.png",
 	 :caption => "COZMIX Chu")}}
 
- // [[COZMIX Chu|http://www.cozmixng.org/repos/images/cozmixchu.png]]
- // This syntax isn't supported yet.
+// [[COZMIX Chu|http://www.cozmixng.org/repos/images/cozmixchu.png]]
+// This syntax isn't supported yet.
 
- ! Math. expressions
+! Math. expressions
 
- * TeX {{note('(like)')}} format
- * Backends
- ** LaTeX
- ** mimeTeX
+* TeX {{note('(like)')}} format
+* Backends
+** LaTeX
+** mimeTeX
 
- ! LaTeX
+! LaTeX
 
- {{latex(<<-'EOL', :relative_width => 80)
- $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
+{{latex(<<-'EOL', :relative_width => 80)
+$f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 
- \LaTeX
- EOL
- }}
+\LaTeX
+EOL
+}}
 
- ! mimeTeX
+! mimeTeX
 
- {{mimetex('\Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt',
+{{mimetex('\Large f(x)=\Bigint_{-\infty}^x~e^{-t^2}dt',
 	   :relative_width => 80)}}
 
- ! EPS
+! EPS
 
- Create EPS ahead of time{{note('(needs gs)')}}
+Create EPS ahead of time{{note('(needs gs)')}}
 
- {{image('equation.eps',
+{{image('equation.eps',
 	 :keep_ratio => true,
 	 :relative_width => 80)}}
 
- ! SVG
+! SVG
 
- {{image("spiral.svg",
+{{image("spiral.svg",
 	 :keep_ratio => true,
 	 :relative_height => 100)}}
 
- ! Dia
+! Dia
 
- {{image("rabbit.dia",
+{{image("rabbit.dia",
 	 :relative_width => 90)}}
 
- ! GIMP
+! GIMP
 
- {{image("rabbit.xcf",
+{{image("rabbit.xcf",
 	 :relative_height => 100)}}
 
- = aafigure
+= aafigure
 
- {{aafigure("
- A   B   C   D   E   F   G   H   I   J   K   L   M
-  AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM
-  AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM
+{{aafigure("
+A   B   C   D   E   F   G   H   I   J   K   L   M
+ AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM
+ AA  BB  CC  DD  EE  FF  GG  HH  II  JJ  KK  LL  MM
 
-  aa  bb  cc  dd  ee  ff  gg  hh  ii  jj  kk  ll  mm
-  aa  bb  cc  dd  ee  ff  gg  hh  ii  jj  kk  ll  mm
+ aa  bb  cc  dd  ee  ff  gg  hh  ii  jj  kk  ll  mm
+ aa  bb  cc  dd  ee  ff  gg  hh  ii  jj  kk  ll  mm
 
- N   O   P   Q   R   S   T   U   V   W   X   Y   Z
-  NN  OO  PP  QQ  RR  SS  TT  UU  VV  WW  XX  YY  ZZ
-  NN  OO  PP  QQ  RR  SS  TT  UU  VV  WW  XX  YY  ZZ
+N   O   P   Q   R   S   T   U   V   W   X   Y   Z
+ NN  OO  PP  QQ  RR  SS  TT  UU  VV  WW  XX  YY  ZZ
+ NN  OO  PP  QQ  RR  SS  TT  UU  VV  WW  XX  YY  ZZ
 
-  nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz
-  nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz",
+ nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz
+ nn  oo  pp  qq  rr  ss  tt  uu  vv  ww  xx  yy  zz",
 	    {
 	      :relative_width => 90,
- #            :foreground => "#ff3333",
+#            :foreground => "#ff3333",
 	    })}}
 
- ! Word Wrapping
+! Word Wrapping
 
- looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
+looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
 
- ! Source
+! Source
 
- The following is source code:
+The following is source code:
 
- <<<
- # comment
- def method_name
-   body
- end
- >>>
+<<<
+# comment
+def method_name
+  body
+end
+>>>
 
- End of source code.
+End of source code.
 
- ! Source: colorized
+! Source: colorized
 
- The following is source code:
+The following is source code:
 
- <<< ruby
- # comment
- def method_name
-   body
- end
- >>>
+<<< ruby
+# comment
+def method_name
+  body
+end
+>>>
 
- End of source code.
+End of source code.
 
- ! Quotation
+! Quotation
 
- ""You take the ''red pill'', you stay in Wonderland and 
- ""I show you how deep the ''rabbit-hole'' goes.
+""You take the ''red pill'', you stay in Wonderland and 
+""I show you how deep the ''rabbit-hole'' goes.
 
- ! Enumeration
+! Enumeration
 
- # Level 1-1
- ## Level 2-1
- ### Level 3-1
- ### Level 3-2
- ## Level 2-2
- # Level 1-2
+# Level 1-1
+## Level 2-1
+### Level 3-1
+### Level 3-2
+## Level 2-2
+# Level 1-2
 
- ! Labeled list
+! Labeled list
 
- :Rabbit:USAGI
- :Turtle:KAME
+:Rabbit:USAGI
+:Turtle:KAME
 
- :USAGI:Rabbit
+:USAGI:Rabbit
 
- ! Table
+! Table
 
- ||!Heading 1||!Heading 2
- ||content 1||content 2
- ||very long content 3||veeeery looooooooooooooooooooooong content 4
+||!Heading 1||!Heading 2
+||content 1||content 2
+||very long content 3||veeeery looooooooooooooooooooooong content 4
 
- ! Op.: Move
+! Op.: Move
 
- :Next page:Bindings for next page/Left click\nn, f, j, l, Spc, Ret, +, {{e('DownArrow')}}, {{e('RightArrow')}}, ...
+:Next page:Bindings for next page/Left click\nn, f, j, l, Spc, Ret, +, {{e('DownArrow')}}, {{e('RightArrow')}}, ...
 
- :Previous page:Bindings for prev. page/Center click\np, b, k, h, BS, Del, -, {{e('UpArrow')}}, {{e('LeftArrow')}}, ...
+:Previous page:Bindings for prev. page/Center click\np, b, k, h, BS, Del, -, {{e('UpArrow')}}, {{e('LeftArrow')}}, ...
 
- ! Op.: Advanced move
+! Op.: Advanced move
 
- :Go to the title page:a, 0, <, Home
- :Go to page n:1-9. +Ctrl = +10, +Alt = +20
- :Go to the last page:e, $, >, End
+:Go to the title page:a, 0, <, Home
+:Go to page n:1-9. +Ctrl = +10, +Alt = +20
+:Go to the last page:e, $, >, End
 
- ! Op.: On stage (1)
+! Op.: On stage (1)
 
- :Toggle full screen:F5, F10, F11, Gesture{{e('DownArrow')}}{{e('UpArrow')}}
- :Toggle index mode:i
- :Go to the page:Double click on the desired page
+:Toggle full screen:F5, F10, F11, Gesture{{e('DownArrow')}}{{e('UpArrow')}}
+:Toggle index mode:i
+:Go to the page:Double click on the desired page
 
- ! Op.: On stage (2)
+! Op.: On stage (2)
 
- :Cache all slides:c
- :Toggle info window:I
+:Cache all slides:c
+:Toggle info window:I
 
- ! Op.: On stage (3)
+! Op.: On stage (3)
 
- :Magnifier:Ctrl + right click\nChange scale by wheel
- :Spotlight:Double right clicks\nChange radius by wheel
+:Magnifier:Ctrl + right click\nChange scale by wheel
+:Spotlight:Double right clicks\nChange radius by wheel
 
- ! Op.: On stage (4)
+! Op.: On stage (4)
 
- :Graffiti:Popup menu (right click) {{e('rightarrow')}}\n"Graffiti mode"
- :Mouse gesture:Right button drag
+:Graffiti:Popup menu (right click) {{e('rightarrow')}}\n"Graffiti mode"
+:Mouse gesture:Right button drag
 
- ! Op.: On stage (5)
+! Op.: On stage (5)
 
- :Whiteout:W
- :Blackout:B
+:Whiteout:W
+:Blackout:B
 
- ! Op.: Save
+! Op.: Save
 
- :Screenshot:Save each page as an image\ns
- :Print:Print each page as PS/PDF\nCtrl+p
+:Screenshot:Save each page as an image\ns
+:Print:Print each page as PS/PDF\nCtrl+p
 
- ! Op.: Display
+! Op.: Display
 
- :Redraw:Ctrl+l
- :Reload theme:t, r
- :Reset slide adjustment:Alt+a
+:Redraw:Ctrl+l
+:Reload theme:t, r
+:Reset slide adjustment:Alt+a
 
- ! Op.: Hole
+! Op.: Hole
 
- :Expand the hole:E
- :Narrow the hole:N
+:Expand the hole:E
+:Narrow the hole:N
 
- ! Op.: Search
+! Op.: Search
 
- :Search forward:C-s, /
- :Search backward:C-r, ?
- :Quit search:C-g
+:Search forward:C-s, /
+:Search backward:C-r, ?
+:Quit search:C-g
 
- ! Op.: Quit
+! Op.: Quit
 
- :Quit:q, Esc
- :Iconify:z
+:Quit:q, Esc
+:Iconify:z
 
- ! Conclusion
+! Conclusion
 
- * A presentation tool
- * Multi platform
- * Feat./UI: High & Unique
- * Emphasize keybord shortcuts
- ** UI/text based source
+* A presentation tool
+* Multi platform
+* Feat./UI: High & Unique
+* Emphasize keybord shortcuts
+** UI/text based source
+>>>
