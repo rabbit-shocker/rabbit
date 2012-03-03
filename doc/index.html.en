@@ -48,6 +48,8 @@ no_sidebar: true
         <li><a href="en/">README</a></li>
         <li><a href="en/news.html">News</a></li>
         <li><a href="en/install/">Install</a></li>
+	<li><a href="en/usage.html">Usage</a></li>
+	<li><a href="en/how-to-make/">How to make a slide</a></li>
         <li><a href="en/faq.html">FAQ</a></li>
         <li><a href="en/users.html">Shockers - Rabbit users group</a></li>
       </ul>
