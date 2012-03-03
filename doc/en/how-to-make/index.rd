@@ -4,15 +4,16 @@ title: How to make a slide
 ---
 == How to make a slide source
 
-Rabbit slide is made by text format or PDF format. To
-make text format slide, RD or Hiki notation is used. To
-make PDF format slide, make slide by other presentation
-tool and export slide as PDF format.
+Rabbit slide is made by text format or PDF format. To make
+text format slide, RD, Hiki notation or Markdown is used. To
+make PDF format slide, make slide by other presentation tool
+and export slide as PDF format.
 
 See the following pages for details:
 
   * ((<rd.html/How to make a RD format slide>))
   * ((<hiki.html/How to make a Hiki notation slide>))
+  * ((<markdown.html/How to make a Markdown format slide>))
   * ((<pdf.html/How to make a PDF format slide>))
 
 == How to make a theme

@@ -26,7 +26,7 @@ presentation slides.
 
 === Format
 
-Rabbit supports RD and Wiki notation for text format.
+Rabbit supports RD, Wiki notation and Markdown for text format.
 
 ((<rd.html/RD>)) is an abbreviation of Ruby Document. It's
 easy to read text format.

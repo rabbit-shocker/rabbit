@@ -9,3 +9,7 @@ title: Sample slides
 == Hiki notation samples
 
   * ((<"hiki/rabbit.html"/Rabbit>))
+
+== Markdown format samples
+
+  * ((<"markdown/rabbit.html"/Rabbit>))
