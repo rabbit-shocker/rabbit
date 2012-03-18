@@ -251,6 +251,12 @@ module Rabbit
             [Ext::TeX.make_image_by_LaTeX(src_file_path, {}, @canvas), {}]
           end
         end
+
+        def convert_a(element)
+          ref = ReferText.new(convert_container(element))
+          ref.to = element.attr['href']
+          ref
+        end
       end
     end
   end
