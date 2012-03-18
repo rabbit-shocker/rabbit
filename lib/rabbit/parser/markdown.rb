@@ -17,7 +17,7 @@ module Rabbit
       unshift_loader(self)
       class << self
         def match?(source)
-          /\Amd\z/i =~ source.extension.to_s
+          /\A(?:md|markdown)\z/i =~ source.extension.to_s
         end
       end
 
