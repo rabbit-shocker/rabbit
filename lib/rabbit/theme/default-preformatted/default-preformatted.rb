@@ -12,10 +12,14 @@ if @preformatted_keep_in_size.nil?
   @preformatted_keep_in_size = true
 end
 
+if @preformatted_centering.nil?
+  @preformatted_centering = true
+end
+
 match("**", PreformattedBlock) do |blocks|
   name = "preformatted-block"
   
-  blocks.horizontal_centering = true
+  blocks.horizontal_centering = @preformatted_centering
 
   params = {
     :proc_name => name,
