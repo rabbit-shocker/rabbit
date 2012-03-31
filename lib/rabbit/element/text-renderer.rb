@@ -200,7 +200,7 @@ module Rabbit
         end
         layout.set_alignment(@align)
         layout.set_indent(@indent)
-        layout.set_spacing(@spacing)
+        layout.set_spacing(@spacing * Pango::SCALE)
         layout.justify = @justify
         layout.context_changed
       end
