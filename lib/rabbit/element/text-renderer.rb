@@ -9,7 +9,7 @@ module Rabbit
       attr_reader :original_width, :original_height
       attr_reader :first_line_width, :first_line_height
 
-      attr_writer :wrap_mode, :indent, :spacing
+      attr_writer :wrap_mode, :indent
 
       def initialize(*args, &block)
         super
@@ -32,6 +32,11 @@ module Rabbit
         new_value = true if new_value
         dirty! if @justify != new_value
         @justify = new_value
+      end
+
+      def spacing=(new_spacing)
+        dirty! if @spacing != new_spacing
+        @spacing = new_spacing
       end
 
       def width
