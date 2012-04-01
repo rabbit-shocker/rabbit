@@ -80,7 +80,11 @@ module Rabbit
       def do_horizontal_centering(canvas, x, y, w, h)
         self.align = Pango::Layout::ALIGN_CENTER
       end
-     
+
+      def reset_horizontal_centering(canvas, x, y, w, h)
+        self.align = default_align if @align == Pango::Layout::ALIGN_CENTER
+      end
+
       def markuped_text
         markup(text)
       end

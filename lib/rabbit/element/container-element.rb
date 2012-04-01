@@ -119,9 +119,7 @@ module Rabbit
         prev_is_inline = false
         @elements.each do |element|
           element.compile(canvas, x, y, w, h)
-          if element.do_horizontal_centering?
-            element.do_horizontal_centering(canvas, x, y, w, h)
-          end
+          compile_horizontal(canvas, x, y, w, h)
           x, y, w, h = element.draw(true)
         end
       end
@@ -130,6 +128,8 @@ module Rabbit
         @elements.each do |element|
           if do_horizontal_centering? or element.do_horizontal_centering?
             element.do_horizontal_centering(canvas, x, y, w, h)
+          else
+            element.reset_horizontal_centering(canvas, x, y, w, h)
           end
         end
       end

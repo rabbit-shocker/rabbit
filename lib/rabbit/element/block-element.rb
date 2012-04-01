@@ -15,6 +15,10 @@ module Rabbit
         draw(true)
       end
 
+      def reset_horizontal_centering(canvas, x, y, w, h)
+        # TODO
+      end
+
       def clear_theme
         @ox = @oy = @ow = @oh = nil
         super

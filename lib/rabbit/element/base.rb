@@ -107,6 +107,8 @@ module Rabbit
       def compile_horizontal(canvas, x, y, w, h)
         if do_horizontal_centering?
           do_horizontal_centering(canvas, x, y, w, h)
+        else
+          reset_horizontal_centering(canvas, x, y, w, h)
         end
       end
 
@@ -282,7 +284,9 @@ module Rabbit
       end
 
       def horizontal_centering=(new_value)
-        dirty! if @horizontal_centering != new_value
+        if @horizontal_centering != new_value
+          dirty!
+        end
         @horizontal_centering = new_value
       end
 
@@ -292,6 +296,9 @@ module Rabbit
       end
 
       def do_horizontal_centering(canvas, x, y, w, h)
+      end
+
+      def reset_horizontal_centering(canvas, x, y, w, h)
       end
 
       def previous_element
