@@ -99,6 +99,7 @@ pre#install
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     margin: 0;
+    z-index: 2;
 }
 
 pre.command
