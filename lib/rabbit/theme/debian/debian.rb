@@ -56,8 +56,17 @@ add_image_path("rabbit-images")
 #--------------------------------------
 # @image_frame_width = 0.0
 @image_caption_font_size = @xx_small_font_size * 0.8
+#----------------------------------------
+# set slide number at top-right
+#----------------------------------------
+@slide_number_props = {
+  "size" => @xx_small_font_size * 0.8,
+  "font_family" => @bold_font
+}
+@slide_number_position = :top
+@slide_number_color = "#fff"
 #--------------------------------------
-# use default theme but not use slide number
+# use default theme
 #--------------------------------------
 include_theme("default")
 include_theme("title-shadow")
@@ -132,16 +141,6 @@ match(TitleSlide) do |slides|
   slides.delete_pre_draw_proc_by_name(name2)
   slides.add_pre_draw_proc(name2, &title_logo)
 end
-#----------------------------------------
-# set slide number at top-right
-#----------------------------------------
-# copy from slide-number.rb
-@slide_number_props = {
-  "size" => @xx_small_font_size * 0.8,
-  "font_family" => @bold_font
-}
-@slide_number_position = :top
-@slide_number_color = "#fff"
 #----------------------------------------
 # per slide header/footer style settings
 #----------------------------------------
