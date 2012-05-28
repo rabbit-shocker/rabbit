@@ -13,7 +13,7 @@ title: FAQ
 == Twitterのtweetをスライド中に表示するには？
 
 rabbiterコマンドを使います。Rabbitが起動した状態で以下のよう
-にrabbitterコマンドを起動すると、「twitter」という単語が含ま
+にrabbiterコマンドを起動すると、「ruby」という単語が含ま
 れたtweetがコメントとしてスライド下部に表示されます。
 
   % rabbiter --filter ruby
