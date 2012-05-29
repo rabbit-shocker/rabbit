@@ -3,6 +3,49 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.7: 2012-05-29
+
+twitter-stream 0.1.15 support release.
+
+=== Improvements
+
+==== rabbit
+
+  * Supported markdown extension as Markdown file.
+  * Supported Markdown's link markup. [Patch by KITAITI Makoto]
+
+==== Theme
+
+  * default-preformatted: Added @preformatted_centering variable that
+    changes alignment of preformatted text.
+    [Patch by kimura wataru]
+    * (({true})): Centering (default)
+    * (({false})): Left align
+
+==== rabbiter
+
+  * Supported twitter-stream 0.1.15.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed computation of spacing.
+
+==== Theme
+
+  * Fixed a bug that horizontal centering isn't reset.
+
+==== Documentation
+
+  * Fixed typos [Reported by @tmtms]
+
+=== Thanks
+
+  * KITAITI Makoto
+  * kimura wataru
+  * @tmtms
+
 == 1.0.6: 2012-03-03
 
 CodeRay 1.0.x support release.
