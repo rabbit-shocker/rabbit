@@ -63,6 +63,7 @@ module Rabbit
         :oauth => @oauth_parameters,
         :user_agent => "Rabitter #{Rabbit::VERSION}",
         :host => "stream.twitter.com",
+        :port => 443,
         :path => "/1/statuses/filter.json",
         :method => "POST",
         :ssl => true,
@@ -227,6 +228,9 @@ module Rabbit
 
     module GLibAdapter
       attr_accessor :connection
+      def start_tls
+      end
+
       def send_data(data)
         @connection.send_data(data)
       end
