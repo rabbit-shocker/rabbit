@@ -86,6 +86,8 @@ def main
   twitter.start(*options.filters) do |status|
     next unless target?(status, options)
     begin
+      text = status["text"]
+      next if text.nil?
       text = clean_text(status['text'], options.filters)
       comment = "@#{status['user']['screen_name']}: #{text}"
       logger.info(comment)
