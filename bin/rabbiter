@@ -85,12 +85,12 @@ def main
   twitter = Rabbit::Twitter.new(logger)
   twitter.start(*options.filters) do |status|
     next unless target?(status, options)
+    text = status["text"]
+    next if text.nil?
+    text = clean_text(status['text'], options.filters)
+    comment = "@#{status['user']['screen_name']}: #{text}"
+    logger.info(comment)
     begin
-      text = status["text"]
-      next if text.nil?
-      text = clean_text(status['text'], options.filters)
-      comment = "@#{status['user']['screen_name']}: #{text}"
-      logger.info(comment)
       rabbit.append_comment(comment)
     rescue DRb::DRbConnError
       logger.error("Rabbiter: #{$!.class}: #{$!.message}")
