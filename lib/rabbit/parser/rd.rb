@@ -47,7 +47,7 @@ module Rabbit
       def add_number(source, around=nil)
         i = 1
         puts source
-        lines = source.to_a[0..-2]
+        lines = source.lines.to_a[0..-2]
         if around
           i = [1, around - SNIPPET_SIZE].max
           lines = lines[i, 2 * SNIPPET_SIZE]
