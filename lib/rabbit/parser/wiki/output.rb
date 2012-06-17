@@ -368,6 +368,10 @@ module Rabbit
           end
           alias_method :e, :entity
 
+          def code_point(code_point, *rest)
+            @private.pack(Text.new([code_point].pack("U")), *rest)
+          end
+
           def sub(text, *rest)
             super(@private.pack(text, *rest))
           end

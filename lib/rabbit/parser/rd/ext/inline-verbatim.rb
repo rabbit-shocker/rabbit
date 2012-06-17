@@ -2,7 +2,7 @@ require 'rabbit/utils'
 require 'rabbit/parser/ext/inline'
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
-require 'rabbit/parser/rd/ext/entity'
+require 'rabbit/parser/rd/ext/character-reference'
 
 module Rabbit
   module Parser
@@ -11,7 +11,7 @@ module Rabbit
         class InlineVerbatim < Base
           extend Utils
           include Image
-          include Entity
+          include CharacterReference
 
           Inline = Parser::Ext::Inline
 
