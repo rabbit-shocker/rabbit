@@ -237,10 +237,9 @@
 (defun rabbit-setup-keys ()
   "define default key bindings."
   (define-key rabbit-mode-map "\C-c\C-r" 'rabbit-run-rabbit)
-  (define-key rabbit-mode-map "\C-c\C-t" 'rabbit-insert-title-template)
-  (define-key rabbit-mode-map "\C-c\C-i" 'rabbit-insert-image-template-default)
-  (define-key rabbit-mode-map "\C-ci" 'rabbit-insert-image-template)
-  (define-key rabbit-mode-map "\C-c\C-s" 'rabbit-insert-slide)
+  (define-key rabbit-mode-map "\C-c\C-it" 'rabbit-insert-title-template)
+  (define-key rabbit-mode-map "\C-c\C-ii" 'rabbit-insert-image-template)
+  (define-key rabbit-mode-map "\C-c\C-is" 'rabbit-insert-slide)
   (define-key rabbit-mode-map "\C-c\C-d" 'rabbit-delete-slide)
   (define-key rabbit-mode-map "\M-n" 'rabbit-next-slide)
   (define-key rabbit-mode-map "\M-p" 'rabbit-previous-slide))
