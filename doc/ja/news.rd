@@ -3,6 +3,20 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 1.0.8: 2012-06-17
+
+1.0.7のバグフィックスリリース
+
+=== 修正
+
+==== rabbit
+
+  * 画像を表示できない問題を修正。 [TAKATSU Tomonariさんが報告]
+
+=== 感謝
+
+  * TAKATSU Tomonariさん
+
 == 1.0.7: 2012-05-29
 
 twitter-stream 0.1.15対応リリース

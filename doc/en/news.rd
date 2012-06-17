@@ -3,6 +3,20 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.8: 2012-06-17
+
+A bug fix release of 1.0.7.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that image isn't displayed. [Reported by TAKATSU Tomonari]
+
+=== Thanks
+
+  * TAKATSU Tomonari
+
 == 1.0.7: 2012-05-29
 
 twitter-stream 0.1.15 support release.
