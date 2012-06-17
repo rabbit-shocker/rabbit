@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require "test/unit"
+
+require "test-unit"
 
 test_file = "test/test_*.rb"
 

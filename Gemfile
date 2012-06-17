@@ -14,6 +14,7 @@ gem "coderay", ">= 1.0.0"
 gem "kramdown"
 
 group :development, :test do
+  gem "test-unit"
   gem 'twitter-stream'
   gem 'twitter_oauth'
   gem 'rake'
