@@ -150,7 +150,7 @@ module Rabbit
         end
         reader_id = @channel.add_watch(GLib::IOChannel::IN) do |io, condition|
           @logger.debug("[twitter][read][start]")
-          data = @ssl_socket.read(8192) || ""
+          data = @ssl_socket.readpartial(8192) || ""
           @logger.debug("[twitter][read][done] #{data.bytesize}")
           if data.empty?
             @source_ids.reject! {|id| id == reader_id}
