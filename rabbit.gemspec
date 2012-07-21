@@ -36,7 +36,8 @@ Gem::Specification.new do |spec|
     spec.executables = Dir.glob("*")
   end
 
-  spec.add_runtime_dependency("gtk2", ">= 1.1.4")
+  spec.add_runtime_dependency("gio2", ">= 1.1.4")
+  spec.add_runtime_dependency("gtk2")
   spec.add_runtime_dependency("rsvg2")
   spec.add_runtime_dependency("poppler")
   spec.add_runtime_dependency("hikidoc")
