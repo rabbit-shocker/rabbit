@@ -1,5 +1,6 @@
 require 'shellwords'
 require 'pathname'
+require 'gio2'
 
 module Rabbit
   class Twitter
@@ -122,36 +123,30 @@ module Rabbit
         @logger = logger
         @handler = handler
         @options = @handler.instance_variable_get("@options")
-        @tcp_socket = nil
-        @ssl_socket = nil
-        @channel = nil
+        @client = nil
+        @connection = nil
+        @socket = nil
         @source_ids = []
       end
 
       def connect
         close
-        @tcp_socket = TCPSocket.new(@options[:host], @options[:port])
-        @ssl_socket = OpenSSL::SSL::SSLSocket.new(@tcp_socket)
-        @ssl_socket.sync_close = true
-        @ssl_socket.connect
-        if GLib.const_defined?(:IOChannelWin32Socket)
-          @channel = GLib::IOChannelWin32Socket.new(@tcp_socket.fileno)
-        else
-          @channel = GLib::IOChannel.new(@tcp_socket.fileno)
-        end
-        begin
-          @channel.flags = GLib::IOChannel::FLAG_NONBLOCK
-        rescue GLib::IOChannelError
-          @logger.warn("[twitter][read][error] " +
-                       "failed to set non-blocking mode: " +
-                       "#{$!.message}(#{$!.class})")
-        end
-        reader_id = @channel.add_watch(GLib::IOChannel::IN) do |io, condition|
+        resolver = Gio::Resolver.default
+        @client = Gio::SocketClient.new
+        @client.tls = @options[:ssl]
+        @client.tls_validation_flags = 0
+        @connection = @client.connect_to_host(@options[:host], @options[:port])
+        @socket = @connection.socket
+        @socket.blocking = false
+        @input = @connection.input_stream
+        @output = @connection.output_stream
+
+        reader_source = @socket.create_source(:in) do |socket, condition|
           @logger.debug("[twitter][read][start]")
-          data = @ssl_socket.readpartial(8192) || ""
+          data = @input.read(8192) || ""
           @logger.debug("[twitter][read][done] #{data.bytesize}")
           if data.empty?
-            @source_ids.reject! {|id| id == reader_id}
+            @source_ids.reject! {|id| id == reader_source.id}
             @logger.debug("[twitter][read][eof]")
             false
           else
@@ -159,12 +154,14 @@ module Rabbit
             true
           end
         end
-        @source_ids << reader_id
-        error_id = @channel.add_watch(GLib::IOChannel::ERR) do |io, condition|
+        @source_ids << reader_source.attach
+
+        error_source = @socket.create_source(:err) do |socket, condition|
           @handler.receive_error(condition)
           true
         end
-        @source_ids << error_id
+        @source_ids << error_source.attach
+
         @handler.extend(GLibAdapter)
         @handler.connection = self
         @handler.connection_completed
@@ -172,41 +169,37 @@ module Rabbit
 
       def send_data(data)
         rest = data.bytesize
-        writer_id = @channel.add_watch(GLib::IOChannel::OUT) do |io, condition|
+        writer_source = @socket.create_source(:out) do |socket, condition|
           if rest.zero?
             @logger.debug("[twitter][flush][start]")
-            @ssl_socket.flush
+            @output.flush
             @logger.debug("[twitter][flush][done]")
-            @source_ids.reject! {|id| id == writer_id}
+            @source_ids.reject! {|id| id == writer_source.id}
             false
           else
             @logger.debug("[twitter][write][start]")
-            written_size = @ssl_socket.write(data)
-            if written_size.is_a?(Numeric)
-              @logger.debug("[twitter][write][done] #{written_size}")
-              rest -= written_size
-              data[0, written_size] = ""
-            else
-              # for Ruby/GLib2 < 0.90.9
-              rest = 0
-              data.replace("")
-            end
+            written_size = @output.write(data)
+            @logger.debug("[twitter][write][done] #{written_size}")
+            rest -= written_size
+            data[0, written_size] = ""
             true
           end
         end
-        @source_ids << writer_id
+        @source_ids << writer_source.attach
       end
 
       def close
-        return if @ssl_socket.nil?
+        return if @client.nil?
         @source_ids.reject! do |id|
           GLib::Source.remove(id)
           true
         end
-        @channel = nil
-        @ssl_socket.close
-        @tcp_socket = nil
-        @ssl_socket = nil
+        @socket.close
+        @socket = nil
+        @input = nil
+        @output = nil
+        @connection = nil
+        @client = nil
       end
 
       def reconnect(options={})
