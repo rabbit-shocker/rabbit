@@ -3,6 +3,37 @@ layout: en
 title: News
 apply_data: false
 ---
+== 1.0.9: 2012-07-21
+
+A bug fix release of 1.0.8.
+
+=== Improvements
+
+==== rabbit-mode.el
+
+  * Changed prefix for insert commands to ((%C-cC-i%)).
+
+==== rabbit
+
+  * Supported numeric character reference in RD and Hiki:
+
+    RD:
+      (('&#x1D11E;')) in hex
+      (('&#119070;')) in decimal
+
+    Hiki:
+      {{code_point(0x1d11e)}} in hex
+      {{code_point(119070)}} in decimal
+
+==== rabbirack
+
+  * Removed needless encoding change.
+
+==== rabbiter
+
+  * Supported twitter-stream 0.1.16. Earlier versions aren't supported.
+  * Re-implemented connection related codes by Ruby/GIO2.
+
 == 1.0.8: 2012-06-17
 
 A bug fix release of 1.0.7.
