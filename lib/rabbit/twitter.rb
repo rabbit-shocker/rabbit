@@ -1,6 +1,6 @@
-require 'shellwords'
-require 'pathname'
-require 'gio2'
+require "shellwords"
+require "pathname"
+require "gio2"
 
 module Rabbit
   class Twitter
