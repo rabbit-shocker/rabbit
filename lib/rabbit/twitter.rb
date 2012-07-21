@@ -62,15 +62,13 @@ module Rabbit
       stream_options = {
         :oauth => @oauth_parameters,
         :user_agent => "Rabitter #{Rabbit::VERSION}",
-        :host => "stream.twitter.com",
-        :port => 443,
-        :path => "/1/statuses/filter.json",
         :method => "POST",
-        :ssl => true,
         :filters => filters,
       }
-      @stream = ::Twitter::JSONStream.new(:signature, stream_options)
-      @connection = GLibConnection.new(@logger, @stream, stream_options)
+      @stream = ::Twitter::JSONStream.allocate
+      @stream.send(:initialize, stream_options)
+      @stream.send(:reset_state)
+      @connection = GLibConnection.new(@logger, @stream)
 
       @stream.each_item do |item|
         status = JSON.parse(item)
@@ -120,10 +118,10 @@ module Rabbit
     end
 
     class GLibConnection
-      def initialize(logger, handler, options)
+      def initialize(logger, handler)
         @logger = logger
-        @options = options
         @handler = handler
+        @options = @handler.instance_variable_get("@options")
         @tcp_socket = nil
         @ssl_socket = nil
         @channel = nil
@@ -132,7 +130,7 @@ module Rabbit
 
       def connect
         close
-        @tcp_socket = TCPSocket.new(@options[:host], "https")
+        @tcp_socket = TCPSocket.new(@options[:host], @options[:port])
         @ssl_socket = OpenSSL::SSL::SSLSocket.new(@tcp_socket)
         @ssl_socket.sync_close = true
         @ssl_socket.connect
