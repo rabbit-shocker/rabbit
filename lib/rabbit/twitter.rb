@@ -131,7 +131,6 @@ module Rabbit
         close
         @client = Gio::SocketClient.new
         @client.tls = @options[:ssl]
-        @client.tls_validation_flags = 0
         @connection = @client.connect_to_host(@options[:host], @options[:port])
         @socket = @connection.socket
         @socket.blocking = false
