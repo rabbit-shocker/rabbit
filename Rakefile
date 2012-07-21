@@ -1,9 +1,9 @@
 # -*- ruby -*-
 
-require 'find'
-require 'rubygems'
-require 'rubygems/package_task'
-require 'jeweler'
+require "find"
+require "rubygems"
+require "rubygems/package_task"
+require "bundler/gem_helper"
 
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
@@ -11,33 +11,9 @@ require 'rabbit/rabbit'
 
 rsync_base_path = "rabbit@rabbit-shockers.org:public_html/"
 
-ENV["VERSION"] ||= Rabbit::VERSION
-version = ENV["VERSION"].dup
-spec = nil
-Jeweler::Tasks.new do |_spec|
-  spec = _spec
-  spec.name = "rabbit"
-  spec.version = version.dup
-  spec.rubyforge_project = "rabbit"
-  spec.homepage = "http://rabbit-shockers.org/"
-  spec.authors = ["Kouhei Sutou"]
-  spec.email = ["kou@cozmixng.org"]
-  spec.summary = 'Rabbit is an RD-document-based presentation application.'
-  spec.description = spec.summary # FIXME
-  spec.license = "GPLv2+"
-
-  spec.files = FileList["{lib,data,entities,bin,sample,misc,doc,po}/**/*",
-                        "*.rb",
-                        "Rakefile",
-                        "COPYING",
-                        "GPL",
-                        "README",
-                        "Gemfile"]
-  spec.test_files = FileList["test/**/*.rb"]
-end
-
-Rake::Task["release"].prerequisites.clear
-Jeweler::RubygemsDotOrgTasks.new
+helper = Bundler::GemHelper.new(base_dir)
+helper.install
+spec = helper.gemspec
 
 def force_array(enumerable)
   array = []
