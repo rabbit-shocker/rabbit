@@ -14,6 +14,7 @@ rsync_base_path = "rabbit@rabbit-shockers.org:public_html/"
 helper = Bundler::GemHelper.new(base_dir)
 helper.install
 spec = helper.gemspec
+version = spec.version.to_s
 
 def force_array(enumerable)
   array = []
