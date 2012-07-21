@@ -50,8 +50,6 @@ module Rabbit
       register_listener(&block) if block_given?
       setup if @oauth_parameters.nil?
       return if @oauth_parameters.nil?
-      require 'socket'
-      require 'openssl'
       begin
         require 'twitter/json_stream'
       rescue LoadError
@@ -131,7 +129,6 @@ module Rabbit
 
       def connect
         close
-        resolver = Gio::Resolver.default
         @client = Gio::SocketClient.new
         @client.tls = @options[:ssl]
         @client.tls_validation_flags = 0
