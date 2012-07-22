@@ -153,7 +153,7 @@ module Rabbit
         @source_ids << reader_source.attach
 
         error_source = @socket.create_source(:err) do |socket, condition|
-          @handler.receive_error(condition)
+          @handler.send(:receive_error, condition)
           true
         end
         @source_ids << error_source.attach
