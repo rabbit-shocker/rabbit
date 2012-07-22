@@ -47,6 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("rdtool")
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
   spec.add_runtime_dependency("kramdown")
+  spec.add_runtime_dependency("gettext")
 
   spec.add_development_dependency("test-unit")
   spec.add_development_dependency("twitter-stream", ">= 0.1.16")
@@ -54,5 +55,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("rake")
   spec.add_development_dependency("bundler")
   spec.add_development_dependency("jekyll")
-  spec.add_development_dependency("gettext")
 end
