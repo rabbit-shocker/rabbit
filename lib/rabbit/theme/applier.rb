@@ -618,7 +618,11 @@ module Rabbit
       end
 
       def image_element(path, properties={})
-        Parser::Ext::Image.make_image(canvas, path, properties)
+        image = Parser::Ext::Image.make_image(canvas, path, properties)
+        if image.nil?
+          raise ImageFileDoesNotExistError.new(path)
+        end
+        image
       end
 
       def base_directory
