@@ -53,7 +53,12 @@ module Rabbit
             when /http|ftp/i
               other_uri_filename(canvas, uri)
             else
-              related_path_filename(canvas, uri)
+              path = Pathname.new(GLib.filename_from_utf8(uri.path))
+              if path.absolute?
+                path.to_s
+              else
+                canvas.full_path(path.to_s)
+              end
             end
           end
 
@@ -61,21 +66,6 @@ module Rabbit
             dir = canvas.tmp_dir_name
             FileUtils.mkdir_p(dir)
             File.join(dir, CGI.escape(key))
-          end
-
-          def related_path_filename(canvas, uri)
-            image_uri = canvas.full_path(GLib.filename_from_utf8(uri.to_s))
-            filename = nil
-
-            begin
-              raise URI::InvalidURIError if URI.parse(image_uri).scheme.nil?
-              filename = tmp_filename(canvas, image_uri)
-              setup_image_file(canvas, image_uri, filename)
-            rescue URI::InvalidURIError
-              filename = image_uri
-            end
-
-            filename
           end
 
           def other_uri_filename(canvas, uri)
