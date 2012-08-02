@@ -617,6 +617,10 @@ module Rabbit
         Parser::Ext::Entity::TABLE[key]
       end
 
+      def image_element(path, properties={})
+        Parser::Ext::Image.make_image(canvas, path, properties)
+      end
+
       def base_directory
         canvas.full_path(".")
       end

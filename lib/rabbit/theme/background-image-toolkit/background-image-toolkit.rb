@@ -8,7 +8,6 @@ def apply_background_image_property(element, options={})
     background_image = options[:file_name]
   else
     background_image = element["background-image"]
-    background_image = canvas.full_path(background_image) if background_image
   end
   return if background_image.nil?
 
@@ -19,7 +18,7 @@ def apply_background_image_property(element, options={})
     end
   end
 
-  image = Image.new(background_image, properties)
+  image = image_element(background_image, properties)
   align = properties["align"] || "center"
   vertical_align = properties["vertical_align"] || "middle"
   assign_box = properties["assign_box"]
