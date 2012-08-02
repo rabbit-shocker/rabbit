@@ -47,10 +47,10 @@ module Rabbit
         module Private
           module_function
           def image_filename(canvas, uri)
-            case uri.scheme
-            when /file/i
+            case uri.scheme.to_s.downcase
+            when "file"
               GLib.filename_from_utf8(uri.path)
-            when /https?|ftp/i
+            when "http", "https", "ftp"
               other_uri_filename(canvas, uri)
             else
               path = Pathname.new(GLib.filename_from_utf8(uri.path))
