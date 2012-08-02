@@ -9,7 +9,7 @@ module Rabbit
   module Parser
     module Ext
       module Image
-        ALLOWED_IMG_URL_SCHEME = ['http', 'file', '']
+        ALLOWED_IMG_URL_SCHEME = ['http', 'https', 'file', '']
 
         module_function
         def make_image(canvas, uri_str, prop={})
@@ -50,7 +50,7 @@ module Rabbit
             case uri.scheme
             when /file/i
               GLib.filename_from_utf8(uri.path)
-            when /http|ftp/i
+            when /https?|ftp/i
               other_uri_filename(canvas, uri)
             else
               path = Pathname.new(GLib.filename_from_utf8(uri.path))
