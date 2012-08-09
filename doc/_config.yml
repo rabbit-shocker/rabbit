@@ -1,2 +1,4 @@
 markdown: rdiscount
 pygments: true
+version: 1.0.9
+release_date: 2012-07-21
