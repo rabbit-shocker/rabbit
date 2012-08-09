@@ -5,14 +5,7 @@ country: US
 ---
 {% if page.lang_suffix == null %}
 <nav class="menu">
-  <ul>
-    <li><a href="/en/">README</a></li>
-    <li><a href="/en/install/">Install</a></li>
-    <li><a href="/en/usage.html">Usage</a></li>
-    <li><a href="/en/how-to-make/">How to make</a></li>
-    <li><a href="/en/users.html">Shockers</a></li>
-    <li><a href="/en/development.html">Development</a></li>
-  </ul>
+{% include en.menu.html %}
 </nav>
 {% endif %}
 {% if page.no_sidebar %}
@@ -24,14 +17,7 @@ country: US
     <h3>The Latest Release</h3>
     <p><a href="en/news.html">1.0.9</a> is the latest release. It had been released at 2012-07-21.</p>
     <h3>Links</h3>
-    <ul>
-      <li><a href="/en/">README</a></li>
-      <li><a href="/en/install/">Install</a></li>
-      <li><a href="/en/usage.html">Usage</a></li>
-      <li><a href="/en/how-to-make/">How to make</a></li>
-      <li><a href="/en/users.html">Shockers</a></li>
-      <li><a href="/en/development.html">Development</a></li>
-    </ul>
+{% include en.menu.html %}
   </nav>
 </div>
 {% endif %}

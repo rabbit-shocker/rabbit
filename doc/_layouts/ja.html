@@ -5,14 +5,7 @@ country: JP
 ---
 {% if page.lang_suffix == null %}
 <nav class="menu">
-  <ul>
-    <li><a href="/ja/">はじめに</a></li>
-    <li><a href="/ja/install/">インストール</a></li>
-    <li><a href="/ja/usage.html">使い方</a></li>
-    <li><a href="/ja/how-to-make/">作り方</a></li>
-    <li><a href="/ja/users.html">ショッカー</a></li>
-    <li><a href="/ja/development.html">開発</a></li>
-  </ul>
+{% include ja.menu.html %}
 </nav>
 {% endif %}
 {% if page.no_sidebar %}
@@ -24,14 +17,7 @@ country: JP
     <h3>最新リリース</h3>
     <p>2012-07-21にリリースされた<a href="/ja/news.html">1.0.9</a>が最新リリースです。</p>
     <h3>リンク</h3>
-    <ul>
-      <li><a href="/ja/">はじめに</a></li>
-      <li><a href="/ja/install/">インストール</a></li>
-      <li><a href="/ja/usage.html">使い方</a></li>
-      <li><a href="/ja/how-to-make/">作り方</a></li>
-      <li><a href="/ja/users.html">ショッカー</a></li>
-      <li><a href="/ja/development.html">開発</a></li>
-    </ul>
+{% include ja.menu.html %}
   </nav>
 </div>
 {% endif %}
