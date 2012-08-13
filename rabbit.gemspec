@@ -45,6 +45,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("sinatra")
   spec.add_runtime_dependency("haml")
   spec.add_runtime_dependency("rdtool")
+  spec.add_runtime_dependency("rttool")
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
   spec.add_runtime_dependency("kramdown")
   spec.add_runtime_dependency("gettext")
