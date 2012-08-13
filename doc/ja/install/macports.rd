@@ -96,5 +96,5 @@ Rabbit だけをバージョンアップしたいときは、-n オプション�
 
 === 連絡先
 
-お気づきの点やリクエストなどは、((<ショッカー|URL:../users.html>))
+お気づきの点やリクエストなどは、((<"../users.rd"/ショッカー>))
 や Rabbit MacPorts 担当の木村 (kimuraw at i.nifty.jp) までどうぞ。

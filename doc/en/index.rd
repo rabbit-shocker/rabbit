@@ -28,10 +28,10 @@ presentation slides.
 
 Rabbit supports RD, Wiki notation and Markdown for text format.
 
-((<rd.html/RD>)) is an abbreviation of Ruby Document. It's
+((<rd.rd/RD>)) is an abbreviation of Ruby Document. It's
 easy to read text format.
 
-Rabbit supports a ((<hiki.html/Hiki notation>)) that is a
+Rabbit supports a ((<hiki.rd/Hiki notation>)) that is a
 dialect of Wiki notations.
 
 === Interface
@@ -50,7 +50,7 @@ See ((<"install/"/Install>)) page.
 
 == Usage
 
-See ((<usage.html/Usage>)) page.
+See ((<usage.rd/Usage>)) page.
 
 == How to make slides
 
@@ -190,15 +190,15 @@ author of the image.
 
 == Mailing list
 
-See ((<users.html/Users>)) page.
+See ((<users.rd/Users>)) page.
 
 == Join development
 
-See ((<development.html/Development>)) page.
+See ((<development.rd/Development>)) page.
 
 == FAQ
 
-See ((<faq.html/FAQ>)) page.
+See ((<faq.rd/FAQ>)) page.
 
 == Thanks
 

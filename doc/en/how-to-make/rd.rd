@@ -5,7 +5,7 @@ title: How to make a RD format slide source
 == About RD format for Rabbit slide
 
 Rabbit uses RD format but it uses different usage with
-normal document. See ((<"../rd.html"/RD>)) about basic RD
+normal document. See ((<"../rd.rd"/RD>)) about basic RD
 syntax, ((<"../sample/"/sample slide>)) about sample slide.
 
 == Page

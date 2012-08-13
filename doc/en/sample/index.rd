@@ -4,12 +4,12 @@ title: Sample slides
 ---
 == RD format samples
 
-  * ((<"rd/rabbit.html"/Rabbit>))
+  * ((<"rd/rabbit.rd"/Rabbit>))
 
 == Hiki notation samples
 
-  * ((<"hiki/rabbit.html"/Rabbit>))
+  * ((<"hiki/rabbit.rd"/Rabbit>))
 
 == Markdown format samples
 
-  * ((<"markdown/rabbit.html"/Rabbit>))
+  * ((<"markdown/rabbit.rd"/Rabbit>))

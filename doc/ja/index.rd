@@ -27,12 +27,12 @@ GUIのプレゼンテーションツールで行い、スライド表示・操�
 
 テキストの書式にはRDまたはWiki記法またはMarkdown記法を使います。
 
-((<rd.html/RD>))はRuby Documentの略で、素の状態でも読み書きし
+((<rd.rd/RD>))はRuby Documentの略で、素の状態でも読み書きし
 やすいようにデザインされたテキストの書式です。Wiki記法に近い
 書きかたなので比較的簡単に理解できます。
 
 Wiki記法にはいくつか亜種がありますが、Rabbitでは
-((<hiki.html/Hiki記法>))を採用しています。
+((<hiki.rd/Hiki記法>))を採用しています。
 
 === インターフェイス
 
@@ -50,7 +50,7 @@ Rabbitはスライド操作のインターフェイスが充実しています�
 
 == 使い方
 
-((<usage.html/使い方>))ページで説明しています。
+((<usage.rd/使い方>))ページで説明しています。
 
 == スライドの作り方
 
@@ -185,16 +185,16 @@ data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg
 
 == メーリングリスト
 
-((<users.html/ユーザー>))ページにメーリングリストへの参
+((<users.rd/ユーザー>))ページにメーリングリストへの参
 加方法があります。
 
 == 開発への参加方法
 
-((<development.html/開発>))ページを見てください。
+((<development.rd/開発>))ページを見てください。
 
 == FAQ
 
-((<faq.html/FAQ>))ページを見てください。
+((<faq.rd/FAQ>))ページを見てください。
 
 == 感謝
 

@@ -21,7 +21,7 @@ to the ML, send an e-mail like the following.
 
 == Bug report
 
-Use mailing list (see ((<users.html/Users>)) page about
+Use mailing list (see ((<users.rd/Users>)) page about
 mailing list) or ((<Issues on
 GitHub|URL:https://github.com/shockers/rabbit/issues>)) for
 reporting a bug or a request.
@@ -38,7 +38,7 @@ when you create a theme.
 === Documentation
 
 Rabbit lacks documentation in English. Please consider that
-you write your tips to ((<faq.html/FAQ>)) page.
+you write your tips to ((<faq.rd/FAQ>)) page.
 
 === Translation
 

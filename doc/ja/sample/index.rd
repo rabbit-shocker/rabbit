@@ -4,12 +4,12 @@ title: サンプルスライド
 ---
 == RDでのサンプル
 
-  * ((<"rd/rabbit.html"/Rabbit>))
+  * ((<"rd/rabbit.rd"/Rabbit>))
 
 == Hiki記法でのサンプル
 
-  * ((<"hiki/rabbit.html"/Rabbit>))
+  * ((<"hiki/rabbit.rd"/Rabbit>))
 
 == Markdown記法でのサンプル
 
-  * ((<"markdown/rabbit.html"/Rabbit>))
+  * ((<"markdown/rabbit.rd"/Rabbit>))

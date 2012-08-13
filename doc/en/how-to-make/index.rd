@@ -11,10 +11,10 @@ and export slide as PDF format.
 
 See the following pages for details:
 
-  * ((<rd.html/How to make a RD format slide>))
-  * ((<hiki.html/How to make a Hiki notation slide>))
-  * ((<markdown.html/How to make a Markdown format slide>))
-  * ((<pdf.html/How to make a PDF format slide>))
+  * ((<rd.rd/How to make a RD format slide>))
+  * ((<hiki.rd/How to make a Hiki notation slide>))
+  * ((<markdown.rd/How to make a Markdown format slide>))
+  * ((<pdf.rd/How to make a PDF format slide>))
 
 == How to make a theme
 
@@ -23,4 +23,4 @@ slide source is RD format or Hiki notation. ((-PDF format
 slide can also be customizable but layout by PDF can't be
 changed.-)) See the following page for details:
 
-  * ((<theme.html/How to make a theme>))
+  * ((<theme.rd/How to make a theme>))

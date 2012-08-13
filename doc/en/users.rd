@@ -28,7 +28,7 @@ mail:
 
 == Members
 
-Please link your public slides at ((<slides.html/Slides>)) page.
+Please link your public slides at ((<slides.rd/Slides>)) page.
 
   * Ary Borenszweig
     * ((<Review Semestral|URL:https://bitbucket.org/asterite/review_2012_h1>))
