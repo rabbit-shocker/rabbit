@@ -145,12 +145,6 @@ bin/rabbirc
 
 akira yamada
 
-=== Rabbitter
-
-bin/rabbitter
-
-OBATA Akio
-
 == Co-Authors
 
   * Mr. MIYAMUKO
