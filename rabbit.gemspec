@@ -41,8 +41,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("poppler")
   spec.add_runtime_dependency("hikidoc")
   spec.add_runtime_dependency("nokogiri")
-  spec.add_runtime_dependency("sinatra")
-  spec.add_runtime_dependency("haml")
   spec.add_runtime_dependency("rdtool")
   spec.add_runtime_dependency("rttool")
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
