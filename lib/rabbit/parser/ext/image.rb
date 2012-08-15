@@ -54,10 +54,14 @@ module Rabbit
               other_uri_filename(canvas, uri)
             else
               path = Pathname.new(GLib.filename_from_utf8(uri.path))
-              if path.absolute?
-                path.to_s
+              return path.to_s if path.absolute?
+
+              expanded_path = canvas.full_path(path.to_s)
+              expanded_uri = URI(expanded_path)
+              if expanded_uri.scheme.nil?
+                expanded_path
               else
-                canvas.full_path(path.to_s)
+                image_filename(canvas, expanded_uri)
               end
             end
           end
