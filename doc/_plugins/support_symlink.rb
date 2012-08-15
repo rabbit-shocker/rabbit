@@ -3,7 +3,7 @@ module Jekyll
     class File < ::File
       class << self
         def symlink?(path)
-          false
+          super and !exist?(readlink(path))
         end
       end
     end
