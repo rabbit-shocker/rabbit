@@ -15,7 +15,20 @@ country: JP
   {{ content }}
   <nav id="sidebar">
     <h3>最新リリース</h3>
-    <p>{{ site.release_date }}にリリースされた<a href="/ja/news.html">{{ site.vresion }}</a>が最新リリースです。</p>
+    <ul>
+      <li>
+        Rabbit <a href="/ja/news.html">{{ site.version }}</a>:
+        {{ site.release_date }}
+      </li>
+      <li>
+        <a href="/ja/rabbiter/">rabbiter</a> <a href="/ja/rabbiter/news.html">{{ site.rabbiter_version }}</a>:
+        {{ site.rabbiter_release_date }}
+      </li>
+      <li>
+        <a href="/ja/rabbirack">rabbirack</a> <a href="/ja/rabbirack/news.html">{{ site.rabbirack_version }}</a>:
+        {{ site.rabbirack_release_date }}
+      </li>
+    </ul>
     <h3>リンク</h3>
 {% include ja.menu.html %}
   </nav>
