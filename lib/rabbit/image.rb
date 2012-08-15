@@ -28,7 +28,7 @@ module Rabbit
       @loader = Base.find_loader(filename).new(filename, props)
     end
   end
-  
+
   class ImageLoader
     include ImageManipulable
   end
