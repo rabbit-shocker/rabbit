@@ -44,7 +44,6 @@ def parse_args(args=ARGV, logger=nil)
     options.page_margin_top = nil
     options.page_margin_bottom = nil
     options.use_druby = true
-    options.druby_uri = "druby://127.0.0.1:10101"
     options.output_druby_uri = false
     options.use_soap = false
     options.soap_host = "0.0.0.0"

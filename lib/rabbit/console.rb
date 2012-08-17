@@ -23,6 +23,7 @@ module Rabbit
       options = OpenStruct.new
       options.logger = logger
       options.default_logger = logger
+      options.druby_uri = "druby://127.0.0.1:10101"
       options.version = VERSION
 
       process_locale_options(args)
