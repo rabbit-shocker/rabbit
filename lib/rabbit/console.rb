@@ -23,6 +23,7 @@ module Rabbit
       options = OpenStruct.new
       options.logger = logger
       options.default_logger = logger
+      options.version = VERSION
 
       process_locale_options(args)
 
@@ -112,7 +113,7 @@ module Rabbit
       end
 
       opts.on_tail("--version", _("Show version.")) do
-        output_info_and_exit(options, "#{VERSION}\n")
+        output_info_and_exit(options, "#{options.version}\n")
       end
     end
 
