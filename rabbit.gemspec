@@ -14,7 +14,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-require "./lib/rabbit/version"
+base_dir = File.expand_path(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(base_dir, 'lib'))
+require "rabbit/version"
 
 Gem::Specification.new do |spec|
   spec.name = "rabbit"
