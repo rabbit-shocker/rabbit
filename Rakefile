@@ -7,7 +7,6 @@ require "bundler/gem_helper"
 
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
-require 'rabbit/rabbit'
 
 rsync_base_path = "rabbit@rabbit-shockers.org:public_html/"
 
