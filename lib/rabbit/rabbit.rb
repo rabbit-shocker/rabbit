@@ -4,12 +4,10 @@ rescue LoadError
   require "rabbit/default-config"
 end
 
+require "rabbit/version"
 require "rabbit/gettext"
 
 module Rabbit
-
-  VERSION = "1.1.0"
-
   TMP_DIR_NAME = ".tmp"
 
   @@gui_init_procs = []
