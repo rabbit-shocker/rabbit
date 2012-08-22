@@ -26,19 +26,30 @@ require "rabbit/console/roff"
 
 Thread.abort_on_exception = true
 
-include Rabbit::GetText
-
 module Rabbit
-  module Console
+  class Console
+    include GetText
+
     @@locale_dir_option_name = "--locale-dir"
 
-    module_function
-    def parse!(args, logger=nil)
-      bindtextdomain
-      logger ||= guess_default_logger
+    class << self
+      def parse!(args, logger=nil, &block)
+        new(logger).parse!(args, &block)
+      end
+
+      def get_last_name(klass)
+        klass.name.split("::").last
+      end
+    end
+
+    def initialize(logger=nil)
+      @logger = logger || guess_default_logger
+    end
+
+    def parse!(args)
       options = OpenStruct.new
-      options.logger = logger
-      options.default_logger = logger
+      options.logger = @logger
+      options.default_logger = @logger
       options.druby_uri = "druby://127.0.0.1:10101"
       options.version = VERSION
 
@@ -52,12 +63,13 @@ module Rabbit
       begin
         opts.parse!(args)
       rescue
-        logger.fatal($!.message)
+        @logger.fatal($!.message)
       end
 
       [options, options.logger]
     end
 
+    private
     def banner
       _("Usage: %s [options]") % File.basename($0, '.*')
     end
@@ -65,9 +77,9 @@ module Rabbit
     def process_locale_options(args)
       args.each_with_index do |arg, i|
         if arg == @@locale_dir_option_name
-          bindtextdomain(args[i + 1])
+          self.class.bindtextdomain(TEXT_DOMAIN, :path => args[i + 1])
         elsif /#{@@locale_dir_option_name}=/ =~ arg
-          bindtextdomain($POSTMATCH)
+          self.class.bindtextdomain(TEXT_DOMAIN, :path => $POSTMATCH)
         end
       end
     end
@@ -84,8 +96,8 @@ module Rabbit
     def setup_locale_options(opts, options)
       opts.on("--locale-dir=DIR",
               _("Specify locale dir as [DIR]."),
-              _("(auto)")) do |d|
-        bindtextdomain(d)
+              _("(auto)")) do |directory|
+        self.class.bindtextdomain(TEXT_DOMAIN, :path => directory)
       end
 
       opts.separator ""
@@ -145,7 +157,7 @@ module Rabbit
     end
 
     def get_last_name(klass)
-      klass.name.split("::").last
+      self.class.get_last_name(klass)
     end
 
     def guess_default_logger

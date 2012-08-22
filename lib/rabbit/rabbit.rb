@@ -4,8 +4,8 @@ rescue LoadError
   require "rabbit/default-config"
 end
 
-require "rabbit/version"
 require "rabbit/gettext"
+require "rabbit/version"
 
 module Rabbit
   TMP_DIR_NAME = ".tmp"

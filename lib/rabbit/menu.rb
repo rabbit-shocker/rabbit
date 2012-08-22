@@ -11,8 +11,8 @@ require "rabbit/action"
 
 module Rabbit
   class Menu
-    include GetText
     include ERB::Util
+    include GetText
 
     @@icon = nil
 

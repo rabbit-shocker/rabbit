@@ -4,7 +4,7 @@ require 'rabbit/rabbit'
 
 module Rabbit
   module Stock
-    extend GetText
+    include GetText
     
     RABBIT = :rabbit_rabbit
     

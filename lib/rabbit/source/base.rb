@@ -10,7 +10,7 @@ module Rabbit
 
       def self.append_features(klass)
         super
-        klass.extend(GetText)
+        klass.send(:include, GetText)
       end
       
       attr_reader :base, :tmp_base

@@ -9,6 +9,8 @@ require "rabbit/source"
 require "rabbit/renderer"
 require "rabbit/front"
 
+include Rabbit::GetText
+
 def parse_args(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
     options.theme = "default"

@@ -4,7 +4,25 @@ module Rabbit
   module Logger
 
     module Severity
-      extend GetText
+      class << self
+        def names
+          MARK_TABLE.sort_by {|key, _| key}.collect {|_, value| value.downcase}
+        end
+
+        def name(level)
+          MARK_TABLE[level].downcase
+        end
+
+        def level(name)
+          MARK_TABLE.find do |key, value|
+            value.downcase == name.downcase
+          end[0]
+        end
+
+        def N_(message)
+          message
+        end
+      end
 
       DEBUG = 0
       INFO = 1
@@ -21,65 +39,48 @@ module Rabbit
         FATAL => N_("FATAL"),
         UNKNOWN => N_("UNKNOWN"),
       }
-
-      class << self
-        def names
-          MARK_TABLE.sort_by {|key, _| key}.collect {|_, value| value.downcase}
-        end
-
-        def name(level)
-          MARK_TABLE[level].downcase
-        end
-
-        def level(name)
-          MARK_TABLE.find do |key, value|
-            value.downcase == name.downcase
-          end[0]
-        end
-      end
     end
 
     module Base
-      include Severity
       include GetText
 
       attr_accessor :level, :webrick_mode
-      def initialize(level=INFO, prog_name=nil)
+      def initialize(level=Severity::INFO, prog_name=nil)
         @level = level
         @prog_name = prog_name
         @webrick_mode = false
       end
       
-      def debug?; @level <= DEBUG; end
-      def info?; @level <= INFO; end
-      def warning?; @level <= WARNING; end
-      def error?; @level <= ERROR; end
-      def fatal?; @level <= FATAL; end
-      def unknown?; @level <= UNKNOWN; end
+      def debug?; @level <= Severity::DEBUG; end
+      def info?; @level <= Severity::INFO; end
+      def warning?; @level <= Severity::WARNING; end
+      def error?; @level <= Severity::ERROR; end
+      def fatal?; @level <= Severity::FATAL; end
+      def unknown?; @level <= Severity::UNKNOWN; end
     
       def debug(message_or_error=nil, &block)
-        log(DEBUG, message_or_error, &block)
+        log(Severity::DEBUG, message_or_error, &block)
       end
       
       def info(message_or_error=nil, &block)
-        log(INFO, message_or_error, &block)
+        log(Severity::INFO, message_or_error, &block)
       end
 
       def warning(message_or_error=nil, &block)
-        log(WARNING, message_or_error, &block)
+        log(Severity::WARNING, message_or_error, &block)
       end
       alias_method :warn, :warning # for backward compatibility
 
       def error(message_or_error=nil, &block)
-        log(ERROR, message_or_error, &block)
+        log(Severity::ERROR, message_or_error, &block)
       end
 
       def fatal(message_or_error=nil, &block)
-        log(FATAL, message_or_error, &block)
+        log(Severity::FATAL, message_or_error, &block)
       end
       
       def unknown(message_or_error=nil, &block)
-        log(UNKNOWN, message_or_error, &block)
+        log(Severity::UNKNOWN, message_or_error, &block)
       end
 
       def <<(message_or_error)
@@ -87,7 +88,7 @@ module Rabbit
       end
       
       def log(severity, message_or_error, prog_name=nil, &block)
-        severity ||= UNKNOWN
+        severity ||= Severity::UNKNOWN
         prog_name ||= @prog_name
         if need_log?(severity)
           if message_or_error.nil? and block_given?

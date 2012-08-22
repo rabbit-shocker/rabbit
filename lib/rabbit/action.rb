@@ -27,7 +27,7 @@ require 'rabbit/utils'
 module Rabbit
   module Action
     extend Utils
-    extend GetText
+    include GetText
 
     @@actions = []
     @@toggle_actions = []
@@ -52,7 +52,7 @@ module Rabbit
       def action_group(canvas, name="Rabbit")
         Stock.init(canvas)
         group = Gtk::ActionGroup.new(name)
-        group.set_translate_func(&GetText.method(:_))
+        group.set_translate_func(&method(:_))
         group.add_actions(to_gtk_actions(@@actions, canvas))
         actions = to_gtk_actions(@@toggle_actions, canvas, true)
         group.add_toggle_actions(actions)

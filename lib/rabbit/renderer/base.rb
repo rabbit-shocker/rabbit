@@ -3,7 +3,6 @@ require "erb"
 require "gtk2"
 
 require "rabbit/rabbit"
-require "rabbit/gettext"
 require "rabbit/trackball"
 require "rabbit/renderer/color"
 
@@ -18,12 +17,12 @@ end
 module Rabbit
   module Renderer
     module Base
+      extend Forwardable
+
+      include ERB::Util
       include GetText
       include DirtyCount
-      include ERB::Util
 
-      extend Forwardable
-      
       def_delegators(:@canvas, :reload_source)
       
       attr_reader :x_dpi, :y_dpi

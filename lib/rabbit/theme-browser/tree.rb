@@ -6,7 +6,7 @@ module Rabbit
   class ThemeBrowser
     class Tree
       include GetText
-      
+
       MODEL = [
         [:name, String],
         [:title, String],

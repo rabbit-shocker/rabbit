@@ -1,7 +1,6 @@
 require "gtk2"
 
 require "rabbit/rabbit"
-require "rabbit/gettext"
 
 module Rabbit
   module Renderer

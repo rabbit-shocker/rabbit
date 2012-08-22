@@ -7,10 +7,10 @@ module Rabbit
     class Entry
       extend ERB::DefMethod
       
+      include Enumerable
       include ERB::Util
       include GetText
-      include Enumerable
-      
+
       PROPERTY_BASE_NAME = "property"
 
       class << self

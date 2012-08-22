@@ -19,7 +19,7 @@ module Rabbit
         ::STDERR.puts(format_severity(severity))
         ::STDERR.print("[#{prog_name}]: ") if prog_name
         ::STDERR.puts(message)
-        exit if severity >= FATAL
+        exit if severity >= Severity::FATAL
       end
       
     end
