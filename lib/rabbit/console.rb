@@ -64,7 +64,7 @@ module Rabbit
       setup_logger_options(opts, options)
       setup_common_options_on_tail(opts, options)
     end
-    
+
     def setup_locale_options(opts, options)
       opts.on("--locale-dir=DIR",
               _("Specify locale dir as [DIR]."),
