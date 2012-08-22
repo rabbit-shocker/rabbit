@@ -4,6 +4,7 @@ require "find"
 require "rubygems"
 require "rubygems/package_task"
 require "bundler/gem_helper"
+require "gettext/task"
 
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
@@ -29,6 +30,9 @@ end
 
 def spec.extra_rdoc_files
   @extra_rdoc_files = force_array(super)
+end
+
+GetText::Task.new(spec) do |task|
 end
 
 Gem::PackageTask.new(spec) do |package|
@@ -147,15 +151,8 @@ task :tag do
   sh("git tag -a #{version} -m 'release #{version}!!!'")
 end
 
-namespace :mo do
-  desc "Update .mo."
-  task :update do
-    ruby("update-mo.rb")
-  end
-end
-
-task :build => "mo:update"
-task :package => "mo:update"
+task :build => "gettext"
+task :package => "gettext"
 
 namespace :package do
   desc "Upload tar.gz."
