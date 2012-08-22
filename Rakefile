@@ -33,6 +33,7 @@ def spec.extra_rdoc_files
 end
 
 GetText::Task.new(spec) do |task|
+  task.mo_base_directory = "data"
 end
 
 Gem::PackageTask.new(spec) do |package|
