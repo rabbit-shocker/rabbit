@@ -33,6 +33,9 @@ Gem::Specification.new do |spec|
   spec.files += Dir.glob("{lib,data,entities,sample,misc,doc,po}/**/*")
   spec.files -= Dir.glob("doc/_site/**/*")
   spec.files += Dir.glob("*.rb")
+  spec.files.reject! do |file|
+    not File.file?(file)
+  end
   spec.test_files = Dir.glob("test/**/*.rb")
   Dir.chdir("bin") do
     spec.executables = Dir.glob("*")
