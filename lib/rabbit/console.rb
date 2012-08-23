@@ -77,9 +77,9 @@ module Rabbit
     def process_locale_options(args)
       args.each_with_index do |arg, i|
         if arg == @@locale_dir_option_name
-          self.class.bindtextdomain(TEXT_DOMAIN, :path => args[i + 1])
+          self.class.bindtextdomain(GetText::DOMAIN, :path => args[i + 1])
         elsif /#{@@locale_dir_option_name}=/ =~ arg
-          self.class.bindtextdomain(TEXT_DOMAIN, :path => $POSTMATCH)
+          self.class.bindtextdomain(GetText::DOMAIN, :path => $POSTMATCH)
         end
       end
     end
@@ -97,7 +97,7 @@ module Rabbit
       opts.on("--locale-dir=DIR",
               _("Specify locale dir as [DIR]."),
               _("(auto)")) do |directory|
-        self.class.bindtextdomain(TEXT_DOMAIN, :path => directory)
+        self.class.bindtextdomain(GetText::DOMAIN, :path => directory)
       end
 
       opts.separator ""
