@@ -16,6 +16,7 @@
 
 require 'English'
 
+require "shellwords"
 require "optparse"
 require "ostruct"
 
@@ -52,6 +53,7 @@ module Rabbit
       options.default_logger = @logger
       options.druby_uri = "druby://127.0.0.1:10101"
       options.version = VERSION
+      options.options_file = nil
 
       process_locale_options(args)
 
@@ -61,6 +63,7 @@ module Rabbit
       end
 
       begin
+        read_options_file(opts, options.options_file)
         opts.parse!(args)
       rescue
         @logger.fatal($!.message)
@@ -70,6 +73,19 @@ module Rabbit
     end
 
     private
+    def read_options_file(parser, options_file)
+      return if options_file.nil?
+      return unless File.exist?(options_file)
+
+      options = []
+      File.open(options_file) do |file|
+        file.each_line do |line|
+          options.concat(Shellwords.split(line))
+        end
+      end
+      parser.parse!(options)
+    end
+
     def banner
       _("Usage: %s [options]") % File.basename($0, '.*')
     end

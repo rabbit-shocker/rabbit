@@ -13,6 +13,7 @@ include Rabbit::GetText
 
 def parse_args(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |opts, options|
+    options.options_file = ".rabbit"
     options.theme = "default"
     options.theme_specified = false
     options.comment_theme = nil
