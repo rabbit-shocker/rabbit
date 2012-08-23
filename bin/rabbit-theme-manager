@@ -8,7 +8,7 @@ require "rabbit/console"
 COMMANDS = %w(generate browse)
 
 def parse(args=ARGV, logger=nil)
-  Rabbit::Console.parse!(args, logger) do |opts, options|
+  Rabbit::Console.parse!(args, logger) do |parser, options|
     options.startup_theme = nil
     options.theme_doc_dir = "theme-doc"
     options.locale_dir = nil
@@ -17,64 +17,64 @@ def parse(args=ARGV, logger=nil)
     options.height = 400
 
 
-    opts.banner = "#{opts.banner} [COMMAND]"
+    parser.banner = "#{parser.banner} [COMMAND]"
 
-    opts.separator _("[COMMAND] is one of them: [%s]") % COMMANDS.join(', ')
-    opts.separator "(#{COMMANDS.first})"
-    opts.separator ""
+    parser.separator _("[COMMAND] is one of them: [%s]") % COMMANDS.join(', ')
+    parser.separator "(#{COMMANDS.first})"
+    parser.separator ""
 
-    opts.on("-I", "--include [PATH]",
-            _("Add [PATH] to load path.")) do |path|
+    parser.on("-I", "--include [PATH]",
+              _("Add [PATH] to load path.")) do |path|
       $LOAD_PATH.unshift(path)
     end
     
-    opts.separator ""
+    parser.separator ""
     
-    opts.on("--startup-theme [THEME]",
-            _("Show [THEME] when startup."),
-            "(#{options.startup_theme})") do |theme|
+    parser.on("--startup-theme [THEME]",
+              _("Show [THEME] when startup."),
+              "(#{options.startup_theme})") do |theme|
       options.startup_theme = theme
     end
 
-    opts.separator ""
+    parser.separator ""
     
-    opts.on("-w", "--width [WIDTH]",
-            Integer,
-            _("Set window width to [WIDTH]."),
-            "(#{options.width})") do |width|
+    parser.on("-w", "--width [WIDTH]",
+              Integer,
+              _("Set window width to [WIDTH]."),
+              "(#{options.width})") do |width|
       options.width = width
     end
 
-    opts.on("-h", "--height [HEIGHT]",
-            Integer,
-            _("Set window height to [HEIGHT]."),
-            "(#{options.height})") do |height|
+    parser.on("-h", "--height [HEIGHT]",
+              Integer,
+              _("Set window height to [HEIGHT]."),
+              "(#{options.height})") do |height|
       options.height = height
     end
 
     message = _("Set window width and height to\n" \
                 "[WIDTH] and [HEIGHT].")
     message = message.split(/\n/) + ["(#{options.width},#{options.height})"]
-    opts.on("-S", "--size [WIDTH],[HEIGHT]",
-            Array,
-            *message) do |size|
+    parser.on("-S", "--size [WIDTH],[HEIGHT]",
+              Array,
+              *message) do |size|
       width, height = size.collect{|x| Integer(x)}
       options.width = width
       options.height = height
     end
 
-    opts.separator ""
+    parser.separator ""
     
-    opts.on("--theme-doc-dir [DIR]",
-            _("Specify theme document directory as [DIR].")) do |dir|
+    parser.on("--theme-doc-dir [DIR]",
+              _("Specify theme document directory as [DIR].")) do |dir|
       options.theme_doc_dir = dir
     end
     
-    opts.separator ""
+    parser.separator ""
     
-    opts.on("--locales [LOC1,LOC2,...]",
-            _("Specify target locales as [LOC1,LOC2,...]."),
-            "([#{options.locales.join(', ')}])") do |locales|
+    parser.on("--locales [LOC1,LOC2,...]",
+              _("Specify target locales as [LOC1,LOC2,...]."),
+              "([#{options.locales.join(', ')}])") do |locales|
       options.locales = locales
     end
   end

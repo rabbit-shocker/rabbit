@@ -12,7 +12,7 @@ require "rabbit/front"
 include Rabbit::GetText
 
 def parse_args(args=ARGV, logger=nil)
-  Rabbit::Console.parse!(args, logger) do |opts, options|
+  Rabbit::Console.parse!(args, logger) do |parser, options|
     options.options_file = ".rabbit"
     options.theme = "default"
     options.theme_specified = false
@@ -69,36 +69,36 @@ def parse_args(args=ARGV, logger=nil)
     options.source_filename = nil
 
 
-    opts.banner = "#{opts.banner} [SOURCE_INFOS]"
+    parser.banner = "#{parser.banner} [SOURCE_INFOS]"
 
-    opts.category _("Theme")
+    parser.category _("Theme")
 
-    opts.on("-I", "--include=PATH",
-            _("Add [PATH] to load path.")) do |path|
+    parser.on("-I", "--include=PATH",
+              _("Add [PATH] to load path.")) do |path|
       $LOAD_PATH.unshift(File.expand_path(path))
     end
 
-    opts.on("-t", "--theme=THEME",
-            _("Use [THEME] as theme."),
-            "(#{options.theme})") do |theme|
+    parser.on("-t", "--theme=THEME",
+              _("Use [THEME] as theme."),
+              "(#{options.theme})") do |theme|
       options.theme = theme
       options.theme_specified = true
     end
 
-    opts.on("--comment-theme=THEME",
-            _("Use [THEME] for comment."),
-            "(#{options.comment_theme})") do |theme|
+    parser.on("--comment-theme=THEME",
+              _("Use [THEME] for comment."),
+              "(#{options.comment_theme})") do |theme|
       options.comment_theme = theme
     end
 
-    opts.on("--allotted-time=TIME",
-            _("Use [TIME] as allotted time."),
-            "(#{options.allotted_time})") do |time|
+    parser.on("--allotted-time=TIME",
+              _("Use [TIME] as allotted time."),
+              "(#{options.allotted_time})") do |time|
       options.allotted_time = time
     end
 
 
-    opts.category _("Source")
+    parser.category _("Source")
 
     source_type_names = Rabbit::Source.types.collect do |x|
       Rabbit::Console.get_last_name(x).downcase
@@ -110,14 +110,14 @@ def parse_args(args=ARGV, logger=nil)
       message = message % [type, _(x.initial_args_description)]
       message.split(/\n/) + [" "]
     end.flatten
-    opts.on("-T", "--type=TYPE",
-            source_type_names,
-            _("Specify source type as [TYPE]."),
-            _("Select from [%s].") % source_type_names.join(', '),
-            _("Note: case insensitive."),
-            "(auto)",
-            " ",
-            *source_type_descs) do |source_type|
+    parser.on("-T", "--type=TYPE",
+              source_type_names,
+              _("Specify source type as [TYPE]."),
+              _("Select from [%s].") % source_type_names.join(', '),
+              _("Note: case insensitive."),
+              "(auto)",
+              " ",
+              *source_type_descs) do |source_type|
       if source_type == "auto"
         options.source_type = :auto
       else
@@ -127,61 +127,61 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
 
-    opts.on("-e", "--encoding=ENCODING",
-            _("Specify source encoding as [ENCODING]."),
-            _("(auto)")) do |encoding|
+    parser.on("-e", "--encoding=ENCODING",
+              _("Specify source encoding as [ENCODING]."),
+              _("(auto)")) do |encoding|
       options.encoding = encoding
     end
 
-    opts.on("-B", "--base=BASE",
-            _("Specify base URI or path of source as [BASE]."),
-            _("(auto)")) do |base|
+    parser.on("-B", "--base=BASE",
+              _("Specify base URI or path of source as [BASE]."),
+              _("(auto)")) do |base|
       options.base = base
     end
 
 
-    opts.category _("Initial state")
+    parser.category _("Initial state")
 
-    opts.on("-f", "--[no-]full-screen",
-            _("Toggle full screen mode."),
-            "(#{options.full_screen ? 'on' : 'off'})") do |bool|
+    parser.on("-f", "--[no-]full-screen",
+              _("Toggle full screen mode."),
+              "(#{options.full_screen ? 'on' : 'off'})") do |bool|
       options.full_screen = bool
     end
 
-    opts.on("--[no-]index-mode",
-            _("Toggle index mode."),
-            "(#{options.index_mode ? 'on' : 'off'})") do |bool|
+    parser.on("--[no-]index-mode",
+              _("Toggle index mode."),
+              "(#{options.index_mode ? 'on' : 'off'})") do |bool|
       options.index_mode = bool
     end
 
 
-    opts.category _("Size")
+    parser.category _("Size")
 
-    opts.on("-g", "--geometry=GEOMETRY",
-            _("Set window geometry [GEOMETRY]."),
-            _("Format: WIDTHxHEIGHT+X+Y"),
-            "(#{options.geometry.inspect})") do |geometry|
+    parser.on("-g", "--geometry=GEOMETRY",
+              _("Set window geometry [GEOMETRY]."),
+              _("Format: WIDTHxHEIGHT+X+Y"),
+              "(#{options.geometry.inspect})") do |geometry|
       options.geometry = geometry
     end
 
-    opts.on("-w", "--width=WIDTH",
-            Integer,
-            _("Set window width to [WIDTH]."),
-            "(#{options.width})") do |width|
+    parser.on("-w", "--width=WIDTH",
+              Integer,
+              _("Set window width to [WIDTH]."),
+              "(#{options.width})") do |width|
       options.width = width
     end
 
-    opts.on("-h", "--height=HEIGHT",
-            Integer,
-            _("Set window height to [HEIGHT]."),
-            "(#{options.height})") do |height|
+    parser.on("-h", "--height=HEIGHT",
+              Integer,
+              _("Set window height to [HEIGHT]."),
+              "(#{options.height})") do |height|
       options.height = height
     end
 
     message = _("Set window width and height to\n" \
                 "[WIDTH] and [HEIGHT].")
     message = message.split(/\n/) + ["(#{options.width},#{options.height})"]
-    opts.on("-S", "--size=WIDTH,HEIGHT",
+    parser.on("-S", "--size=WIDTH,HEIGHT",
             Array,
             *message) do |size|
       width, height = size.collect{|x| Integer(x)}
@@ -190,133 +190,133 @@ def parse_args(args=ARGV, logger=nil)
     end
 
 
-    opts.category _("Save")
+    parser.category _("Save")
 
-    opts.on("-s", "--save-as-image",
-            _("Save as image and exit.")) do
+    parser.on("-s", "--save-as-image",
+              _("Save as image and exit.")) do
       options.save_as_image = true
     end
 
-    opts.on("-i", "--saved-image-type=TYPE",
-            _("Specify saved image type as [TYPE]."),
-            "(#{options.saved_image_type})") do |t|
+    parser.on("-i", "--saved-image-type=TYPE",
+              _("Specify saved image type as [TYPE]."),
+              "(#{options.saved_image_type})") do |t|
       options.saved_image_type = t
     end
 
-    opts.on("-b", "--saved-image-base-name=BASE_NAME",
-            "--saved-image-basename=BASE_NAME",
-            _("Specify saved image base name as [BASE_NAME]."),
-            "(" + _("Title of slide") + ")") do |b|
+    parser.on("-b", "--saved-image-base-name=BASE_NAME",
+              "--saved-image-basename=BASE_NAME",
+              _("Specify saved image base name as [BASE_NAME]."),
+              "(" + _("Title of slide") + ")") do |b|
       options.saved_image_base_name = b
     end
 
-    opts.on("--[no-]output-html",
-            _("Output HTML for viewing saved images."),
-            "(#{options.output_html})") do |bool|
+    parser.on("--[no-]output-html",
+              _("Output HTML for viewing saved images."),
+              "(#{options.output_html})") do |bool|
       options.output_html = bool
     end
 
-    opts.on("--[no-]output-index-html",
-            _("Output index HTML for navigating slides."),
-            "(#{options.output_index_html})") do |bool|
+    parser.on("--[no-]output-index-html",
+              _("Output index HTML for navigating slides."),
+              "(#{options.output_index_html})") do |bool|
       options.output_index_html = bool
     end
 
-    opts.on("--rss-base-uri=URI",
-            _("Specify base URI of RSS as [URI]."),
-            _("RSS is generated only when HTML is output."),
-            "(#{options.rss_base_uri})") do |uri|
+    parser.on("--rss-base-uri=URI",
+              _("Specify base URI of RSS as [URI]."),
+              _("RSS is generated only when HTML is output."),
+              "(#{options.rss_base_uri})") do |uri|
       options.rss_base_uri = uri
     end
 
-    opts.on("--source-filename=FILENAME",
-            _("Specify source filenam as [FILENAME]."),
-            "(#{options.source_filename})") do |filename|
+    parser.on("--source-filename=FILENAME",
+              _("Specify source filenam as [FILENAME]."),
+              "(#{options.source_filename})") do |filename|
       options.source_filename = filename
     end
 
-    opts.category _("Print")
+    parser.category _("Print")
 
-    opts.on("-p", "--print",
-            _("Print and exit.")) do
+    parser.on("-p", "--print",
+              _("Print and exit.")) do
       options.print = true
     end
 
-    opts.on("-o", "--output-filename=FILENAME",
-            _("Specify printed out filename as [FILENAME]."),
-            "(\#{%s}.pdf)" % _("Title of slide")) do |f|
+    parser.on("-o", "--output-filename=FILENAME",
+              _("Specify printed out filename as [FILENAME]."),
+              "(\#{%s}.pdf)" % _("Title of slide")) do |f|
       options.print_out_filename = f
     end
 
-    opts.on("--slides-per-page=SLIDES",
-            Integer,
-            _("Set slides per page."),
-            "(1)") do |slides|
+    parser.on("--slides-per-page=SLIDES",
+              Integer,
+              _("Set slides per page."),
+              "(1)") do |slides|
       options.slides_per_page = slides
     end
 
-    opts.on("--[no-]draw-scaled-image",
-            _("Draw scaled image."),
-            _("Better look for displaying but lesser look for printing."),
-            "(#{options.draw_scaled_image})") do |boolean|
+    parser.on("--[no-]draw-scaled-image",
+              _("Draw scaled image."),
+              _("Better look for displaying but lesser look for printing."),
+              "(#{options.draw_scaled_image})") do |boolean|
       options.draw_scaled_image = boolean
     end
 
-    opts.category _("Paper")
+    parser.category _("Paper")
 
-    opts.on("--paper-width=WIDTH",
-            Integer,
-            _("Set paper width to [WIDTH] Pt."),
-            _("(landscape A4 width)")) do |width|
+    parser.on("--paper-width=WIDTH",
+              Integer,
+              _("Set paper width to [WIDTH] Pt."),
+              _("(landscape A4 width)")) do |width|
       options.paper_width = width
     end
 
-    opts.on("--paper-height=HEIGHT",
-            Integer,
-            _("Set paper height to [HEIGHT] Pt."),
-            _("(landscape A4 height)")) do |height|
+    parser.on("--paper-height=HEIGHT",
+              Integer,
+              _("Set paper height to [HEIGHT] Pt."),
+              _("(landscape A4 height)")) do |height|
       options.paper_height = height
     end
 
     message = _("Set paper width and height to\n" \
                 "[WIDTH] Pt and [HEIGHT] Pt.")
     message = message.split(/\n/) + [_("(landscape A4 size)")]
-    opts.on("--paper-size=WIDTH,HEIGHT",
-            Array,
-            *message) do |size|
+    parser.on("--paper-size=WIDTH,HEIGHT",
+              Array,
+              *message) do |size|
       width, height = size.collect{|x| Integer(x)}
       options.paper_width = width
       options.paper_height = height
     end
 
 
-    opts.category _("Margin")
+    parser.category _("Margin")
 
-    opts.on("--margin-left=MARGIN",
-            Integer,
-            _("Set left margin for slides per page mode print."),
-            _("(auto)")) do |margin|
+    parser.on("--margin-left=MARGIN",
+              Integer,
+              _("Set left margin for slides per page mode print."),
+              _("(auto)")) do |margin|
       options.margin_left = margin
     end
 
-    opts.on("--margin-right=MARGIN",
-            Integer,
-            _("Set right margin for slides per page mode print."),
-            _("(auto)")) do |margin|
+    parser.on("--margin-right=MARGIN",
+              Integer,
+              _("Set right margin for slides per page mode print."),
+              _("(auto)")) do |margin|
       options.margin_right = margin
     end
 
-    opts.on("--margin-top=MARGIN",
-            Integer,
-            _("Set top margin for slides per page mode print."),
-            _("(auto)")) do |margin|
+    parser.on("--margin-top=MARGIN",
+              Integer,
+              _("Set top margin for slides per page mode print."),
+              _("(auto)")) do |margin|
       options.margin_top = margin
     end
 
-    opts.on("--margin-bottom=MARGIN",
-            Integer,
-            _("Set bottom margin for slides per page mode print."),
-            _("(auto)")) do |margin|
+    parser.on("--margin-bottom=MARGIN",
+              Integer,
+              _("Set bottom margin for slides per page mode print."),
+              _("(auto)")) do |margin|
       options.margin_bottom = margin
     end
 
@@ -324,9 +324,9 @@ def parse_args(args=ARGV, logger=nil)
     margin2 = _("[TOP_BOTTOM],[LEFT_RIGHT]")
     margin3 = _("[TOP],[LEFT_RIGHT],[BOTTOM]")
     margin4 = _("[TOP],[RIGHT],[BOTTOM],[LEFT]")
-    opts.on("--margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
-            Array,
-            _("Set margin for slides per page mode print.")) do |margins|
+    parser.on("--margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
+              Array,
+              _("Set margin for slides per page mode print.")) do |margins|
       begin
         top, right, bottom, left = Rabbit::Utils.parse_four_way(margins)
         options.margin_top = top
@@ -338,37 +338,37 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
 
-    opts.on("--page-margin-left=MARGIN",
-            Integer,
-            _("Set left page margin."),
-            _("(auto)")) do |margin|
+    parser.on("--page-margin-left=MARGIN",
+              Integer,
+              _("Set left page margin."),
+              _("(auto)")) do |margin|
       options.page_margin_left = margin
     end
 
-    opts.on("--page-margin-right=MARGIN",
-            Integer,
-            _("Set right page margin."),
-            _("(auto)")) do |margin|
+    parser.on("--page-margin-right=MARGIN",
+              Integer,
+              _("Set right page margin."),
+              _("(auto)")) do |margin|
       options.page_margin_right = margin
     end
 
-    opts.on("--page-margin-top=MARGIN",
-            Integer,
-            _("Set top page margin."),
-            _("(auto)")) do |margin|
+    parser.on("--page-margin-top=MARGIN",
+              Integer,
+              _("Set top page margin."),
+              _("(auto)")) do |margin|
       options.page_margin_top = margin
     end
 
-    opts.on("--page-margin-bottom=MARGIN",
-            Integer,
-            _("Set bottom page margin."),
-            _("(auto)")) do |margin|
+    parser.on("--page-margin-bottom=MARGIN",
+              Integer,
+              _("Set bottom page margin."),
+              _("(auto)")) do |margin|
       options.page_margin_bottom = margin
     end
 
-    opts.on("--page-margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
-            Array,
-            _("Set page margin.")) do |margins|
+    parser.on("--page-margin={#{margin1}|#{margin2}|#{margin3}|#{margin4}}",
+              Array,
+              _("Set page margin.")) do |margins|
       begin
         top, right, bottom, left = Utils.parse_four_dimensions(margins)
         options.page_margin_top = top
@@ -380,45 +380,45 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
 
-    opts.category _("dRuby")
+    parser.category _("dRuby")
     
-    opts.on("--[no-]use-druby",
-            _("Specify whether to use dRuby."),
-            "(#{options.use_druby})") do |bool|
+    parser.on("--[no-]use-druby",
+              _("Specify whether to use dRuby."),
+              "(#{options.use_druby})") do |bool|
       options.use_druby = bool
     end
     
-    opts.on("--druby-uri=URI",
-            _("Specify dRuby URI."),
-            "(#{options.druby_uri})") do |uri|
+    parser.on("--druby-uri=URI",
+              _("Specify dRuby URI."),
+              "(#{options.druby_uri})") do |uri|
       options.druby_uri = uri if uri
     end
     
-    opts.on("--[no-]output-druby-uri",
-            _("Specify whether to output dRuby URI."),
-            "(#{options.output_druby_uri})") do |bool|
+    parser.on("--[no-]output-druby-uri",
+              _("Specify whether to output dRuby URI."),
+              "(#{options.output_druby_uri})") do |bool|
       options.output_druby_uri = bool
     end
     
-    opts.category _("SOAP")
+    parser.category _("SOAP")
     
-    opts.on("--[no-]use-soap",
-            _("Specify whether to use SOAP."),
-            "(#{options.use_soap})") do |bool|
+    parser.on("--[no-]use-soap",
+              _("Specify whether to use SOAP."),
+              "(#{options.use_soap})") do |bool|
       options.use_soap = bool
     end
     
-    opts.on("--soap-host=HOST",
-            _("Specify SOAP host as [HOST]."),
-            "(#{options.soap_host})") do |port|
+    parser.on("--soap-host=HOST",
+              _("Specify SOAP host as [HOST]."),
+              "(#{options.soap_host})") do |port|
       begin
         options.soap_host = host
       end
     end
     
-    opts.on("--soap-port=PORT",
-            _("Specify SOAP port as [PORT]."),
-            "(#{options.soap_port})") do |port|
+    parser.on("--soap-port=PORT",
+              _("Specify SOAP port as [PORT]."),
+              "(#{options.soap_port})") do |port|
       begin
         options.soap_port = Integer(port) if port
       rescue ArgumentError
@@ -426,25 +426,25 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
     
-    opts.category _("XML-RPC")
+    parser.category _("XML-RPC")
     
-    opts.on("--[no-]use-xmlrpc",
-            _("Specify whether to use XML-RPC."),
-            "(#{options.use_xmlrpc})") do |bool|
+    parser.on("--[no-]use-xmlrpc",
+              _("Specify whether to use XML-RPC."),
+              "(#{options.use_xmlrpc})") do |bool|
       options.use_xmlrpc = bool
     end
     
-    opts.on("--xmlrpc-host=HOST",
-            _("Specify XML-RPC host as [HOST]."),
-            "(#{options.xmlrpc_host})") do |port|
+    parser.on("--xmlrpc-host=HOST",
+              _("Specify XML-RPC host as [HOST]."),
+              "(#{options.xmlrpc_host})") do |port|
       begin
         options.xmlrpc_host = host
       end
     end
     
-    opts.on("--xmlrpc-port=PORT",
-            _("Specify XML-RPC port as [PORT]."),
-            "(#{options.xmlrpc_port})") do |port|
+    parser.on("--xmlrpc-port=PORT",
+              _("Specify XML-RPC port as [PORT]."),
+              "(#{options.xmlrpc_port})") do |port|
       begin
         options.xmlrpc_port = Integer(port) if port
       rescue ArgumentError
@@ -452,15 +452,15 @@ def parse_args(args=ARGV, logger=nil)
       end
     end
     
-    opts.category _("Server")
+    parser.category _("Server")
     
-    opts.on("--[no-]server",
-            _("Specify whether to run as server."),
-            "(#{options.server})") do |bool|
+    parser.on("--[no-]server",
+              _("Specify whether to run as server."),
+              "(#{options.server})") do |bool|
       options.server = bool
     end
 
-    opts.category _("Public level")
+    parser.category _("Public level")
 
     levels = Rabbit::Front::PublicLevel.constants.sort_by do |const|
       Rabbit::Front::PublicLevel.const_get(const)
@@ -478,63 +478,63 @@ def parse_args(args=ARGV, logger=nil)
     messages.last << levels.last
     messages << "]"
     messages << _("(#{options.default_public_level})")
-    opts.on("--public-level=LEVEL", levels, *messages) do |level|
+    parser.on("--public-level=LEVEL", levels, *messages) do |level|
       options.public_level = level
     end
 
-    opts.category _("Comment")
+    parser.category _("Comment")
     
-    opts.on("--comment-source=FILE",
-            _("Deprecated. Just ignored."),
-            _("Specify initial comment source."),
-            _("(default source)")) do |name|
+    parser.on("--comment-source=FILE",
+              _("Deprecated. Just ignored."),
+              _("Specify initial comment source."),
+              _("(default source)")) do |name|
     end
     
-    opts.on("--comment-encoding=ENCODING",
-            _("Deprecated. Just ignored."),
-            _("Specify comment source encoding."),
-            _("(auto)")) do |encoding|
+    parser.on("--comment-encoding=ENCODING",
+              _("Deprecated. Just ignored."),
+              _("Specify comment source encoding."),
+              _("(auto)")) do |encoding|
     end
 
-    opts.category _("Migemo")
+    parser.category _("Migemo")
 
     search_path = options.migemo_dictionary_search_path.join(', ')
-    opts.on("--migemo-dictionary-search-path=PATH1,PATH2,...",
-            Array,
-            _("Specify search paths for Migemo static dictionary."),
-            _("(#{search_path})")) do |path|
+    parser.on("--migemo-dictionary-search-path=PATH1,PATH2,...",
+              Array,
+              _("Specify search paths for Migemo static dictionary."),
+              _("(#{search_path})")) do |path|
       options.migemo_dictionary_search_path = path
     end
 
-    opts.on("--migemo-dictionary-name=NAME",
-            Array,
-            _("Specify static dictionary name for Migemo."),
-            _("(#{options.migemo_dictionary_name})")) do |name|
+    parser.on("--migemo-dictionary-name=NAME",
+              Array,
+              _("Specify static dictionary name for Migemo."),
+              _("(#{options.migemo_dictionary_name})")) do |name|
       options.migemo_dictionary_name = name
     end
 
-    opts.category _("3D")
+    parser.category _("3D")
 
-    opts.on("--[no-]use-gl",
-            _("Specify whether to use OpenGL if available."),
-            "(#{options.use_gl})") do |bool|
+    parser.on("--[no-]use-gl",
+              _("Specify whether to use OpenGL if available."),
+              "(#{options.use_gl})") do |bool|
       options.use_gl = bool
     end
 
-    opts.category _("Display")
+    parser.category _("Display")
 
-    opts.on("--[no-]keep-above",
-            _("Specify whether to keep above window."),
-            "(#{options.keep_above})") do |bool|
+    parser.on("--[no-]keep-above",
+              _("Specify whether to keep above window."),
+              "(#{options.keep_above})") do |bool|
       options.keep_above = bool
     end
 
-    opts.category _("Others")
+    parser.category _("Others")
 
-    opts.on("--[no-]show-native-window-id",
-            _("Show a native window ID of the Rabbit window if available."),
-            _("e.g. The ID is the ID of X resource on X window system."),
-            "(#{options.show_native_window_id})") do |bool|
+    parser.on("--[no-]show-native-window-id",
+              _("Show a native window ID of the Rabbit window if available."),
+              _("e.g. The ID is the ID of X resource on X window system."),
+              "(#{options.show_native_window_id})") do |bool|
       options.show_native_window_id = bool
     end
   end

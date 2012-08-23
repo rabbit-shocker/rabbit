@@ -6,87 +6,87 @@ require 'drb/drb'
 require "rabbit/console"
 
 def parse(args=ARGV, logger=nil)
-  Rabbit::Console.parse!(args, logger) do |opts, options|
+  Rabbit::Console.parse!(args, logger) do |parser, options|
     options.rabbit_uri = "druby://localhost:10101"
     options.druby_uri_specified = false
     options.commands = []
 
-    opts.separator ""
+    parser.separator ""
 
-    opts.on("--rabbit-uri=URI",
-            _("Specify Rabbit's dRuby URI as [URI]."),
-            "(#{options.rabbit_uri})") do |uri|
+    parser.on("--rabbit-uri=URI",
+              _("Specify Rabbit's dRuby URI as [URI]."),
+              "(#{options.rabbit_uri})") do |uri|
       options.rabbit_uri = uri
     end
 
-    opts.on("--druby-uri=URI",
-            _("Deprecated."),
-            _("Use --rabbit-uri instead."),
-            _("Specify Rabbit's dRuby URI as [URI]."),
-            "(#{options.rabbit_uri})") do |uri|
+    parser.on("--druby-uri=URI",
+              _("Deprecated."),
+              _("Use --rabbit-uri instead."),
+              _("Specify Rabbit's dRuby URI as [URI]."),
+              "(#{options.rabbit_uri})") do |uri|
       options.rabbit_uri = uri
       options.druby_uri_specified = true
     end
 
-    opts.separator(_("Move commands"))
+    parser.separator(_("Move commands"))
 
-    opts.on("--previous", _("Move to previous")) do
+    parser.on("--previous", _("Move to previous")) do
       options.commands << [false, :move_to_previous_if_can]
     end
 
-    opts.on("--next", _("Move to next")) do
+    parser.on("--next", _("Move to next")) do
       options.commands << [false, :move_to_next_if_can]
     end
 
-    opts.on("--previous-slide", _("Move to the previous slide")) do
+    parser.on("--previous-slide", _("Move to the previous slide")) do
       options.commands << [false, :move_to_previous_slide_if_can]
     end
 
-    opts.on("--next-slide", _("Move to the next slide")) do
+    parser.on("--next-slide", _("Move to the next slide")) do
       options.commands << [false, :move_to_next_slide_if_can]
     end
 
-    opts.on("--first-slide", _("Move to the first slide")) do
+    parser.on("--first-slide", _("Move to the first slide")) do
       options.commands << [false, :move_to_first]
     end
 
-    opts.on("--last-slide", _("Move to the last slide")) do
+    parser.on("--last-slide", _("Move to the last slide")) do
       options.commands << [false, :move_to_last]
     end
 
-    opts.on("--jump-to=N", Integer, _("Move to the Nth slide")) do |n|
+    parser.on("--jump-to=N", Integer, _("Move to the Nth slide")) do |n|
       options.commands << [false, :move_to_if_can, n]
     end
 
-    opts.separator(_("Get commands"))
+    parser.separator(_("Get commands"))
 
-    opts.on("--source", _("Show source")) do
+    parser.on("--source", _("Show source")) do
       options.commands << [:puts, :source]
     end
 
-    opts.on("--current-slide-rd", _("Show the current slide source as RD")) do
+    parser.on("--current-slide-rd", _("Show the current slide source as RD")) do
       options.commands << [:puts, :current_slide_rd]
     end
 
-    opts.separator(_("Control commands"))
+    parser.separator(_("Control commands"))
 
-    opts.on("--toggle-fullscreen", _("Toggle fullscreen")) do
+    parser.on("--toggle-fullscreen", _("Toggle fullscreen")) do
       options.commands << [false, :toggle_fullscreen]
     end
 
-    opts.on("--toggle-index-mode", _("Toggle index mode")) do
+    parser.on("--toggle-index-mode", _("Toggle index mode")) do
       options.commands << [false, :toggle_index_mode]
     end
 
-    opts.on("--toggle-whiteout", _("Toggle whiteout")) do
+    parser.on("--toggle-whiteout", _("Toggle whiteout")) do
       options.commands << [false, :toggle_whiteout]
     end
 
-    opts.on("--toggle-blackout", _("Toggle blackout")) do
+    parser.on("--toggle-blackout", _("Toggle blackout")) do
       options.commands << [false, :toggle_blackout]
     end
 
-    opts.on("--quit", _("Quit")) do
+    parser.on("--quit", _("Quit")) do
       options.commands << [false, :quit]
     end
   end
