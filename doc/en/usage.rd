@@ -14,3 +14,5 @@ other pages.
   * ((<"rabbiter/"/Rabbiter>)): It's a tool that receives comments
     from twitter and passes them to Rabbit. Rabbit displays received
     comments on the current slide.
+  * ((<"rabwii/"/RabWii>)): A Wii Remote interface for Rabbit. You can
+    control Rabbit by your Wii Remote.
