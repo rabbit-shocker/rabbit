@@ -57,14 +57,14 @@ module Rabbit
 
       process_locale_options(args)
 
-      opts = OptionParser.new(banner) do |opts|
-        yield(opts, options)
-        setup_common_options(opts, options)
+      parser = OptionParser.new(banner) do |_parser|
+        yield(_parser, options)
+        setup_common_options(_parser, options)
       end
 
       begin
-        read_options_file(opts, options.options_file)
-        opts.parse!(args)
+        read_options_file(parser, options.options_file)
+        parser.parse!(args)
       rescue
         @logger.fatal($!.message)
       end
@@ -100,35 +100,35 @@ module Rabbit
       end
     end
 
-    def setup_common_options(opts, options)
-      opts.separator ""
-      opts.separator _("Common options")
+    def setup_common_options(parser, options)
+      parser.separator ""
+      parser.separator _("Common options")
 
-      setup_locale_options(opts, options)
-      setup_logger_options(opts, options)
-      setup_common_options_on_tail(opts, options)
+      setup_locale_options(parser, options)
+      setup_logger_options(parser, options)
+      setup_common_options_on_tail(parser, options)
     end
 
-    def setup_locale_options(opts, options)
-      opts.on("--locale-dir=DIR",
-              _("Specify locale dir as [DIR]."),
-              _("(auto)")) do |directory|
+    def setup_locale_options(parser, options)
+      parser.on("--locale-dir=DIR",
+                _("Specify locale dir as [DIR]."),
+                _("(auto)")) do |directory|
         self.class.bindtextdomain(GetText::DOMAIN, :path => directory)
       end
 
-      opts.separator ""
+      parser.separator ""
     end
 
-    def setup_logger_options(opts, options)
+    def setup_logger_options(parser, options)
       logger_type_names = Rabbit::Logger.types.collect do |x|
         get_last_name(x).downcase
       end
 
-      opts.on("--logger-type=TYPE",
-              logger_type_names,
-              _("Specify logger type as [TYPE]."),
-              _("Select from [%s].") % logger_type_names.join(', '),
-              "(#{get_last_name(options.logger.class)})") do |logger_type|
+      parser.on("--logger-type=TYPE",
+                logger_type_names,
+                _("Specify logger type as [TYPE]."),
+                _("Select from [%s].") % logger_type_names.join(', '),
+                "(#{get_last_name(options.logger.class)})") do |logger_type|
         logger_class = Rabbit::Logger.types.find do |t|
           get_last_name(t).downcase == logger_type.downcase
         end
@@ -141,23 +141,23 @@ module Rabbit
       end
 
       level_names = Logger::Severity.names
-      opts.on("--log-level=LEVEL",
-              level_names,
-              _("Specify log level as [LEVEL]."),
-              _("Select from [%s].") % level_names.join(', '),
-              "(#{Logger::Severity.name(options.logger.level)})") do |name|
+      parser.on("--log-level=LEVEL",
+                level_names,
+                _("Specify log level as [LEVEL]."),
+                _("Select from [%s].") % level_names.join(', '),
+                "(#{Logger::Severity.name(options.logger.level)})") do |name|
         options.logger.level = Logger::Severity.level(name)
       end
 
-      opts.separator ""
+      parser.separator ""
     end
 
-    def setup_common_options_on_tail(opts, options)
-      opts.on_tail("--help", _("Show this message.")) do
-        output_info_and_exit(options, opts.to_s)
+    def setup_common_options_on_tail(parser, options)
+      parser.on_tail("--help", _("Show this message.")) do
+        output_info_and_exit(options, parser.to_s)
       end
 
-      opts.on_tail("--version", _("Show version.")) do
+      parser.on_tail("--version", _("Show version.")) do
         output_info_and_exit(options, "#{options.version}\n")
       end
     end
