@@ -10,7 +10,6 @@ require "rabbit/theme/manager"
 require "rabbit/front"
 require "rabbit/action"
 require "rabbit/html/generator"
-require "rabbit/twitter"
 
 module Rabbit
   class Canvas
@@ -150,7 +149,6 @@ module Rabbit
       @limit_time = nil
       @use_gl = false
       @font_resolution_ratio = 1
-      @twitter = nil
       @max_n_comments = 100
       @allotted_time = nil
       @comment_theme = nil
@@ -176,7 +174,6 @@ module Rabbit
     end
 
     def quit
-      clear_twitter
       @quitted = true
       @frame.quit
     end
@@ -643,10 +640,6 @@ module Rabbit
       INTERNAL_DPI * @font_resolution_ratio
     end
 
-    def twitter
-      @twitter ||= Twitter.new(@logger)
-    end
-
     private
     def _apply_theme(name, id, &block)
       @theme_name = name if name
@@ -697,19 +690,12 @@ module Rabbit
     end
     
     def clear
-      clear_twitter
       clear_comments
       reset_timer
       stop_auto_redraw_timer
       clear_slides
       clear_index_slides
       modified
-    end
-
-    def clear_twitter
-      return if @twitter.nil?
-      @twitter.close
-      @twitter = nil
     end
 
     def clear_comments
