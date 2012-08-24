@@ -19,6 +19,8 @@ require 'English'
 require "shellwords"
 require "optparse"
 require "ostruct"
+require "uri"
+require "pathname"
 
 require "rabbit/rabbit"
 require "rabbit/logger"
@@ -64,7 +66,10 @@ module Rabbit
       end
 
       begin
-        read_options_file(parser, options.options_file)
+        options_file = options.options_file
+        if options_file.nil? and File.exist?(options_file)
+          read_options_file(parser, options, options_file)
+        end
         options.rest.concat(parser.parse!(args))
       rescue
         @logger.fatal($!.message)
@@ -74,17 +79,27 @@ module Rabbit
     end
 
     private
-    def read_options_file(parser, options_file)
-      return if options_file.nil?
-      return unless File.exist?(options_file)
-
-      options = []
+    def read_options_file(parser, options, options_file)
+      options_in_file = []
       File.open(options_file) do |file|
         file.each_line do |line|
-          options.concat(Shellwords.split(line))
+          options_in_file.concat(Shellwords.split(line))
         end
       end
-      parser.parse!(options)
+      source_info = parser.parse(options_in_file)
+
+      source_info = source_info.collect do |path|
+        if URI(path).scheme
+          path
+        else
+          if Pathname(path).absolute?
+            path
+          else
+            File.join(File.dirname(options_file), path)
+          end
+        end
+      end
+      options.rest.concat(source_info)
     end
 
     def banner
@@ -105,9 +120,20 @@ module Rabbit
       parser.separator ""
       parser.separator _("Common options")
 
+      setup_options_options(parser, options)
       setup_locale_options(parser, options)
       setup_logger_options(parser, options)
       setup_common_options_on_tail(parser, options)
+    end
+
+    def setup_options_options(parser, options)
+      parser.on("--options-file=FILE",
+                _("Load options from FILE."),
+                _("(none)")) do |file|
+        read_options_file(parser, options, file)
+      end
+
+      parser.separator ""
     end
 
     def setup_locale_options(parser, options)
