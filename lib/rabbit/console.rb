@@ -54,6 +54,7 @@ module Rabbit
       options.druby_uri = "druby://127.0.0.1:10101"
       options.version = VERSION
       options.options_file = nil
+      options.rest = []
 
       process_locale_options(args)
 
@@ -64,7 +65,7 @@ module Rabbit
 
       begin
         read_options_file(parser, options.options_file)
-        parser.parse!(args)
+        options.rest.concat(parser.parse!(args))
       rescue
         @logger.fatal($!.message)
       end

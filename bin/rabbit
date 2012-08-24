@@ -577,25 +577,24 @@ def choose_source_file_by_dialog(options)
   file_name
 end
 
-def make_source(options, argv, logger)
+def make_source(options, logger)
+  rest_arguments = options.rest
   if options.source_type == :auto
-    if argv.empty?
+    if rest_arguments.empty?
       file_name = choose_source_file_by_dialog(options)
       exit if file_name.nil?
-      argv = [file_name]
+      rest_arguments = [file_name]
       options.source_type = Rabbit::Source::File
-    elsif argv.size == 1 and /\Ahttps?:\/\// =~ argv[0]
+    elsif rest_arguments.size == 1 and /\Ahttps?:\/\// =~rest_arguments[0]
       options.source_type = Rabbit::Source::URI
     else
       options.source_type = Rabbit::Source::File
     end
   end
   if options.source_type == Rabbit::Source::ARGF
-    infos = [ARGF]
-  else
-    infos = argv
+    rest_arguments = [ARGF]
   end
-  source = options.source_type.new(options.encoding, logger, *infos)
+  source = options.source_type.new(options.encoding, logger, *rest_arguments)
   source.base = options.base if options.base
   source
 end
@@ -717,7 +716,7 @@ def setup_xmlrpc(front, options, logger)
 end
 
 def do_print(options, logger)
-  source = make_source(options, ARGV, logger)
+  source = make_source(options, logger)
   renderer = Rabbit::Renderer.printable_renderer(options.slides_per_page)
   canvas = make_canvas(options, logger, renderer)
   setup_paper_size(canvas, options)
@@ -735,7 +734,7 @@ def do_save_as_image(options, logger)
   Rabbit::Renderer::Pixmap.init
   Rabbit.gui_init
 
-  source = make_source(options, ARGV, logger)
+  source = make_source(options, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)
   setup_image_info(canvas, options)
@@ -757,7 +756,7 @@ def do_display(options, logger)
   Rabbit::Renderer::Display.init(display_init_options)
   Rabbit.gui_init
 
-  source = make_source(options, ARGV, logger)
+  source = make_source(options, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Display)
   frame = Rabbit::Frame.new(logger, canvas)
   frame.geometry = options.geometry
@@ -791,7 +790,7 @@ def do_server(options, logger)
   # GLib::Log.cancel_handler
   # GLib::Log.set_handler(nil, GLib::Log::LEVEL_ERROR)
 
-  source = make_source(options, ARGV, logger)
+  source = make_source(options, logger)
   canvas = make_canvas(options, logger, Rabbit::Renderer::Pixmap)
   setup_size(canvas, options)
   setup_paper_size(canvas, options)
