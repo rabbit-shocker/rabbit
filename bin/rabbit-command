@@ -5,10 +5,11 @@ require 'drb/drb'
 
 require "rabbit/console"
 
+include Rabbit::GetText
+
 def parse(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |parser, options|
-    options.rabbit_uri = "druby://localhost:10101"
-    options.druby_uri_specified = false
+    options.rabbit_uri = options.druby_uri
     options.commands = []
 
     parser.separator ""
@@ -17,15 +18,6 @@ def parse(args=ARGV, logger=nil)
               _("Specify Rabbit's dRuby URI as [URI]."),
               "(#{options.rabbit_uri})") do |uri|
       options.rabbit_uri = uri
-    end
-
-    parser.on("--druby-uri=URI",
-              _("Deprecated."),
-              _("Use --rabbit-uri instead."),
-              _("Specify Rabbit's dRuby URI as [URI]."),
-              "(#{options.rabbit_uri})") do |uri|
-      options.rabbit_uri = uri
-      options.druby_uri_specified = true
     end
 
     parser.separator(_("Move commands"))
@@ -95,9 +87,6 @@ end
 def main
   options, logger = parse
 
-  if options.druby_uri_specified
-    logger.warning(_("--druby-uri is deprecated. Use --rabbit-uri instead."))
-  end
   rabbit = DRbObject.new_with_uri(options.rabbit_uri)
   options.commands.each do |output, method, *args|
     result = rabbit.send(method, *args)
