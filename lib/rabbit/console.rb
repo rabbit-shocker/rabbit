@@ -68,7 +68,7 @@ module Rabbit
 
       begin
         options_file = options.options_file
-        if options_file.nil? and File.exist?(options_file)
+        if options_file and File.exist?(options_file)
           read_options_file(parser, options, options_file)
         end
         options.rest.concat(parser.parse!(args))
