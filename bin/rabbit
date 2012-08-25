@@ -827,6 +827,13 @@ end
 
 def main
   options, logger = parse_args
+  if options.rest.size == 1
+    options_file = File.join(options.rest[0], options.options_file)
+    if File.exist?(options_file)
+      options, logger = parse_args(["--options-file", options_file],
+                                   options.logger)
+    end
+  end
 
   require "rabbit/canvas"
   GC.enable
