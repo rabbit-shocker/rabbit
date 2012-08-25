@@ -19,4 +19,4 @@
 
 require "rabbit/command/rabbit"
 
-Rabbit::Command::Rabbit.run(ARGV)
+Rabbit::Command::Rabbit.run(*ARGV)

@@ -15,13 +15,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-GC.disable
-require "rbconfig"
-
-require "rabbit/console"
-require "rabbit/source"
-require "rabbit/renderer"
-require "rabbit/front"
+require "rabbit/gettext"
 
 module Rabbit
   module Command
@@ -29,7 +23,7 @@ module Rabbit
       include GetText
 
       class << self
-        def run(arguments)
+        def run(*arguments)
           new.run(arguments)
         end
       end
@@ -39,6 +33,14 @@ module Rabbit
       end
 
       def run(arguments)
+        GC.disable
+        require "rbconfig"
+
+        require "rabbit/console"
+        require "rabbit/source"
+        require "rabbit/renderer"
+        require "rabbit/front"
+
         @options, @logger = parse_command_line_arguments(arguments)
 
         require "rabbit/canvas"
