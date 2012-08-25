@@ -12,7 +12,7 @@ other pages.
   * ((<"rabbirack/"/RabbiRack>)): A Web interface for Rabbit. You can
     control Rabbit on your Web browser.
   * ((<"rabbiter/"/Rabbiter>)): It's a tool that receives comments
-    from twitter and passes them to Rabbit. Rabbit displays received
+    from Twitter and passes them to Rabbit. Rabbit displays received
     comments on the current slide.
   * ((<"rabwii/"/RabWii>)): A Wii Remote interface for Rabbit. You can
     control Rabbit by your Wii Remote.

@@ -11,7 +11,7 @@ Rabbitはスライドを表示する((%rabbit%))コマンドがメインのツ�
   * ((<"usage/rabbit.rd"/rabbitコマンドの使い方>))
   * ((<"rabbirack/"/RabbiRack>)): RabbitのWebインターフェイス。Rabbitを
     Webブラウザーから操作できるようになる。
-  * ((<"rabbiter/"/Rabbiter>)): twitterからコメントを収集してRabbitに渡
+  * ((<"rabbiter/"/Rabbiter>)): Twitterからコメントを収集してRabbitに渡
     すツール。Rabbitは受け取ったコメントをスライドに表示する。
   * ((<"rabwii/"/RabWii>)): RabbitのWii Remoteインターフェイス。Wii
     Remoteで Rabbitを操作できるようになる。
