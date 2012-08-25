@@ -57,6 +57,7 @@ module Rabbit
       options.version = VERSION
       options.options_file = nil
       options.rest = []
+      options.after_hooks = []
 
       process_locale_options(args)
 
@@ -71,6 +72,9 @@ module Rabbit
           read_options_file(parser, options, options_file)
         end
         options.rest.concat(parser.parse!(args))
+        options.after_hooks.each do |hook|
+          hook.call(self, parser, options)
+        end
       rescue
         @logger.fatal($!.message)
       end
@@ -78,7 +82,6 @@ module Rabbit
       [options, options.logger]
     end
 
-    private
     def read_options_file(parser, options, options_file)
       options_in_file = []
       File.open(options_file) do |file|
@@ -102,6 +105,7 @@ module Rabbit
       options.rest.concat(source_info)
     end
 
+    private
     def banner
       _("Usage: %s [options]") % File.basename($0, '.*')
     end

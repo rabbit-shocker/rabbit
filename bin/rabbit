@@ -13,6 +13,16 @@ include Rabbit::GetText
 
 def parse_args(args=ARGV, logger=nil)
   Rabbit::Console.parse!(args, logger) do |parser, options|
+    options.after_hooks << lambda do |console, _, _|
+      if options.rest.size == 1
+        options_file = File.join(options.rest[0], options.options_file)
+        if File.exist?(options_file)
+          options.rest.clear
+          console.read_options_file(parser, options, options_file)
+        end
+      end
+    end
+
     options.options_file = ".rabbit"
     options.theme = "default"
     options.theme_specified = false
@@ -827,13 +837,6 @@ end
 
 def main
   options, logger = parse_args
-  if options.rest.size == 1
-    options_file = File.join(options.rest[0], options.options_file)
-    if File.exist?(options_file)
-      options, logger = parse_args(["--options-file", options_file],
-                                   options.logger)
-    end
-  end
 
   require "rabbit/canvas"
   GC.enable
