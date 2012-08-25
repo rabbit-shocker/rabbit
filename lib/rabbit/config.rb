@@ -19,8 +19,8 @@ require 'rbconfig'
 module Rabbit
   module Config
     IMAGE_PATH = [
-      RbConfig::CONFIG["datadir"],
       File.join(File.dirname(__FILE__), "..", "..", "data"),
+      RbConfig::CONFIG["datadir"],
     ]
     append_path_from_gem = lambda do
       return unless Object.const_defined?(:Gem)
