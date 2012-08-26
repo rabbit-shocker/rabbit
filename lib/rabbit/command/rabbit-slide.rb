@@ -86,14 +86,14 @@ module Rabbit
 
           parser.on("--id=ID",
                     _("Slide ID"),
-                    _("(e.g.: --id=rubykaigi2012)"),
+                    _("(e.g.: %s)") % "--id=rubykaigi2012",
                     _("(must)")) do |id|
             @id = id
           end
 
           messages = [
             _("Base name for the slide source file and generated PDF file"),
-            _("(e.g.: --base-name=rabbit-introduction)"),
+            _("(e.g.: %s)") % "--base-name=rabbit-introduction",
             _("(must)"),
           ]
           parser.on("--base-name=NAME",
@@ -105,7 +105,7 @@ module Rabbit
           label = "[" + available_markup_languages.join(", ") + "]"
           messages = [
             _("Markup language for the new slide"),
-            _("(e.g.: --markup-language=rd)"),
+            _("(e.g.: %s)") % "--markup-language=rd",
             _("(available markup languages: %s)") % label,
           ]
           if @author_conf.markup_language
@@ -119,7 +119,7 @@ module Rabbit
 
           parser.on("--title=TITLE",
                     _("Title of the new slide"),
-                    _("(e.g.: --title=\"Rabbit Introduction\")"),
+                    _("(e.g.: %s)") % _("--title=\"Rabbit Introduction\""),
                     _("(optional)")) do |title|
             @title = title
           end
@@ -127,21 +127,21 @@ module Rabbit
           parser.on("--tags=TAG,TAG,...",
                     Array,
                     _("Tags of the new slide"),
-                    _("(e.g.: --tags=rabbit,presentation,ruby)"),
+                    _("(e.g.: %s)") % "--tags=rabbit,presentation,ruby",
                  _("(optional)")) do |tags|
             @tags.concat(tags)
           end
 
           parser.on("--allotted-time=TIME",
                     _("Allotted time in presentaion"),
-                    _("(e.g.: --allotted-time=5m)"),
+                    _("(e.g.: %s)") % "--allotted-time=5m",
                     _("(optional)")) do |allotted_time|
             @allotted_time = allotted_time
           end
 
           parser.on("--presentation-date=DATE",
                     _("Presentation date with the new slide"),
-                    _("(e.g.: --presentation-date=2012/06/29)"),
+                    _("(e.g.: %s)") % "--presentation-date=2012/06/29",
                     _("(optional)")) do |date|
             @presentation_date = date
           end
@@ -150,7 +150,7 @@ module Rabbit
 
           messages = [
             _("Author name of the new slide"),
-            _("(e.g.: --name=\"Kouhei Sutou\")"),
+            _("(e.g.: %s)") % "--name=\"Kouhei Sutou\"",
           ]
           if @author_conf.name
             messages << _("(default: %s)") % @author_conf.name
@@ -163,7 +163,7 @@ module Rabbit
 
           messages = [
             _("Author e-mail of the new slide"),
-            _("(e.g.: --email=kou@cozmixng.org)"),
+            _("(e.g.: %s)") % "--email=kou@cozmixng.org",
           ]
           if @author_conf.email
             messages << _("(default: %s)") % @author_conf.email
@@ -177,7 +177,7 @@ module Rabbit
           messages = [
             _("Account for %s") % "RubyGems.org",
             _("It is used to publish your slide to %s") % "RubyGems.org",
-            _("(e.g.: --rubygems-user=kou)"),
+            _("(e.g.: %s)") % "--rubygems-user=kou",
           ]
           if @author_conf.rubygems_user
             messages << _("(default: %s)") % @author_conf.rubygems_user
@@ -191,7 +191,7 @@ module Rabbit
           messages = [
             _("Account for %s") % "SlideShare",
             _("It is used to publish your slide to %s") % "SlideShare",
-            _("(e.g.: --slideshare-user=kou)"),
+            _("(e.g.: %s)") % "--slideshare-user=kou",
           ]
           if @author_conf.slideshare_user
             messages << _("(default: %s)") % @author_conf.slideshare_user
@@ -205,7 +205,7 @@ module Rabbit
           messages = [
             _("Account for %s") % "Speaker Deck",
             _("It is used to publish your slide to %s") % "Speaker Deck",
-            _("(e.g.: --speaker-deck-user=kou)"),
+            _("(e.g.: %s)") % "--speaker-deck-user=kou",
           ]
           if @author_conf.speaker_deck_user
             messages << _("(default: %s)") % @author_conf.speaker_deck_user
