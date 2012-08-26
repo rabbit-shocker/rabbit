@@ -594,8 +594,10 @@ module Rabbit
         source = options.rest[0]
         if /\.gem\z/i =~ source
           gem_name = $PREMATCH
-          spec = load_slide_gem(gem_name)
-          source = spec.gem_dir
+          require "rabbit/gem-finder"
+          finder = GemFinder.new(@logger)
+          spec = finder.find(gem_name, "rabbit-slide-")
+          source = spec.gem_dir if spec
         end
 
         options_file = File.join(source, options.options_file)
@@ -603,37 +605,6 @@ module Rabbit
           options.rest.clear
           console.read_options_file(parser, options, options_file)
         end
-      end
-
-      def load_slide_gem(gem_name)
-        normalized_gem_name = gem_name.downcase.gsub(/\A(?:rabbit-slide-)?/,
-                                                     "rabbit-slide-")
-        retried = false
-        spec = nil
-        begin
-          spec = Gem::Specification.find_by_name(gem_name)
-        rescue Gem::LoadError
-          begin
-            spec = Gem::Specification.find_by_name(normalized_gem_name)
-          rescue Gem::LoadError
-            unless retried
-              retried = true
-              require "rubygems/dependency_installer"
-              options = {}
-              if File.writable?(Gem.dir)
-                @logger.info(_("Installing gem: %s") % normalized_gem_name)
-              else
-                options[:user_install] = true
-                format = _("Installing gem in user install mode: %s")
-                @logger.info(format % normalized_gem_name)
-              end
-              installer = Gem::DependencyInstaller.new(options)
-              installer.install(normalized_gem_name, Gem::Requirement.default)
-              retry
-            end
-          end
-        end
-        spec
       end
 
       def make_canvas(renderer)
