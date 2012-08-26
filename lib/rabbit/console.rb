@@ -46,7 +46,7 @@ module Rabbit
     end
 
     def initialize(logger=nil)
-      @logger = logger || guess_default_logger
+      @logger = logger || Logger.default
     end
 
     def parse!(args)
@@ -205,14 +205,6 @@ module Rabbit
 
     def get_last_name(klass)
       self.class.get_last_name(klass)
-    end
-
-    def guess_default_logger
-      if Utils.support_console_output? or !Logger.const_defined?(:GUI)
-        Logger::STDERR.new
-      else
-        Logger::GUI.new
-      end
     end
   end
 end

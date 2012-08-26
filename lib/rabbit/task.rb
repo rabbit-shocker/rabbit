@@ -17,6 +17,7 @@
 require "rake"
 
 require "rabbit/gettext"
+require "rabbit/logger"
 require "rabbit/command/rabbit"
 
 module Rabbit
@@ -27,12 +28,15 @@ module Rabbit
 
       attr_reader :spec
       attr_accessor :package_dir, :pdf_dir, :pdf_base_path
+      attr_accessor :tags
       attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
       def initialize(spec)
+        @logger = Logger.default
         @spec = spec
         @package_dir = "pkg"
         @pdf_dir = "pdf"
         @pdf_base_path = nil
+        @tags = []
         @rubygems_user = nil
         @slideshare_user = nil
         @speaker_deck_user = nil
@@ -72,28 +76,47 @@ module Rabbit
         desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
         task :pdf => pdf_path
 
-        desc(_("Publish the slide to RubyGems.org, SlideShare and Speaker Deck"))
+        desc(_("Publish the slide to all available targets"))
         task :publish
 
         publish_tasks = []
         namespace :publish do
-          desc(_("Publish the slide to RubyGems.org"))
-          task :rubygems => :gem do
-            ruby("-S", "gem", "push", "--verbose", gem_path)
+          if @rubygems_user
+            desc(_("Publish the slide to RubyGems.org"))
+            task :rubygems => :gem do
+              ruby("-S", "gem", "push", "--verbose", gem_path)
+            end
+            publish_tasks << :rubygems
           end
-          publish_tasks << :rubygems
 
-          desc(_("Publish the slide to SlideShare"))
-          task :slideshare => :pdf do
-            raise "Not implemented yet."
+          if @slideshare_user
+            desc(_("Publish the slide to SlideShare"))
+            task :slideshare => :pdf do
+              require "rabbit/slideshare"
+              slideshare = SlideShare.new(@logger)
+              slideshare.user = @slideshare_user
+              slideshare.pdf_path = pdf_path
+              slideshare.title = @spec.summary
+              slideshare.description = @spec.description
+              slideshare.tags = @tags if @tags
+              id = slideshare.upload
+              if id
+                url = "http://www.slideshare.net/#{@slideshare_user}/ss-#{id}"
+                @logger.info(_("Uploaded successfully!"))
+                @logger.info(_("See %s") % url)
+                Gtk.show_uri(url) if Gtk.respond_to?(:show_uri)
+              end
+            end
+            publish_tasks << :slideshare
           end
-          # publish_tasks << :slideshare
 
-          desc(_("Publish the slide to Spearker Deck"))
-          task :speaker_deck => :pdf do
-            raise "Not implemented yet."
+          if @speaker_deck_user
+            desc(_("Publish the slide to Spearker Deck"))
+            task :speaker_deck => :pdf do
+              raise "Not implemented yet."
+            end
+            publish_tasks << :speaker_deck
           end
-          # publish_tasks << :speaker_deck
         end
         task :publish => publish_tasks.collect {|task| "publish:#{task}"}
       end
