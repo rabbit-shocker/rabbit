@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-26 14:31+0900\n"
+"POT-Creation-Date: 2012-08-26 14:49+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -1020,7 +1020,7 @@ msgstr ""
 msgid "Lightning Talk theme simple version"
 msgstr ""
 
-#: ../lib/rabbit/theme/auto-slide/auto-slide.rb:1 ../lib/rabbit/theme/applier.rb:603
+#: ../lib/rabbit/theme/auto-slide/auto-slide.rb:1 ../lib/rabbit/theme/applier.rb:604
 #: ../lib/rabbit/theme/slide-background/slide-background.rb:1
 msgid "%s is deprecated. Use %s instead."
 msgstr ""
@@ -1255,11 +1255,11 @@ msgid "Syntax Highlighting"
 msgstr ""
 
 #: ../lib/rabbit/theme/syntax-highlighting/property.rb:3
-msgid "Toolkit to apply syntax highlighting tag"
+msgid "Toolkit for syntax highlighting"
 msgstr ""
 
 #: ../lib/rabbit/theme/syntax-highlighting/property.rb:4
-msgid "Applies syntax highlighting tag style."
+msgid "Applies syntax highlighting style."
 msgstr ""
 
 #: ../lib/rabbit/theme/slide-background/property.rb:2
@@ -1319,11 +1319,11 @@ msgid "Displays foot text at the footer of slide with Ruby-GNOME2 style."
 msgstr ""
 
 #: ../lib/rabbit/theme/enishi-green/property.rb:2
-msgid "mayuco"
+msgid "Enishi Green"
 msgstr ""
 
 #: ../lib/rabbit/theme/enishi-green/property.rb:3
-msgid "mayuco theme"
+msgid "EnishTech green based theme"
 msgstr ""
 
 #: ../lib/rabbit/theme/stream-comment/property.rb:2
@@ -2760,47 +2760,19 @@ msgid "Available commands: %s"
 msgstr ""
 
 
-#. #: ../lib/rabbit/command/rabbit-slide.rb:114
-#. msgid "(available markups: %s"
+#. #: ../lib/rabbit/theme/syntax-highlighting/property.rb:3
+#. msgid "Toolkit to apply syntax highlighting tag"
 #. msgstr ""
 
-#. #: ../lib/rabbit/command/rabbit-slide.rb:141
-#. msgid "Allotted time of the new slide"
+#. #: ../lib/rabbit/theme/syntax-highlighting/property.rb:4
+#. msgid "Applies syntax highlighting tag style."
 #. msgstr ""
 
-#. #: ../lib/rabbit/command/rabbit-slide.rb:151
-#. msgid "(e.g.: --author=\"Kouhei Sutou\""
+#. #: ../lib/rabbit/theme/enishi-green/property.rb:2
+#. msgid "mayuco"
 #. msgstr ""
 
-#. #: ../lib/rabbit/command/rabbit-slide.rb:164
-#. msgid "(e.g.: --email=kou@cozmixng.org"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:176
-#. msgid "Account for RubyGems.org"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:177
-#. msgid "It is used to publish your slide to RubyGems.org"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:190
-#. msgid "Account for SlideShare"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:191
-#. msgid "It is used to publish your slide to SlideShare"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:204
-#. msgid "Account for Speaker Deck"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:205
-#. msgid "It is used to publish your slide to Speaker Deck"
-#. msgstr ""
-
-#. #: ../lib/rabbit/command/rabbit-slide.rb:460
-#. msgid "CONTENT SOURCE"
+#. #: ../lib/rabbit/theme/enishi-green/property.rb:3
+#. msgid "mayuco theme"
 #. msgstr ""
 
