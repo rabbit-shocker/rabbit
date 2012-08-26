@@ -31,7 +31,7 @@ module Rabbit
       end
 
       def initialize
-        @slide_conf_path = File.expand_path("~/.rabbit/slide.yaml")
+        @author_conf_path = File.expand_path("~/.rabbit/author.yaml")
         @config_yaml_path = "config.yaml"
         @id = nil
         @base_name = nil
@@ -59,7 +59,7 @@ module Rabbit
         end
 
         generate
-        save_slide_conf
+        save_author_conf
         true
       end
 
@@ -67,7 +67,7 @@ module Rabbit
       def parse_command_line_arguments(arguments)
         Rabbit::Console.parse!(ARGV) do |parser, options|
           @logger = options.default_logger
-          load_slide_conf
+          load_author_conf
 
           format = _("Usage: %s new [options]\n" \
                      " e.g.: %s new \\\n" \
@@ -582,9 +582,9 @@ EOR
         File.open(path, "w", &block)
       end
 
-      def load_slide_conf
-        return unless File.exist?(@slide_conf_path)
-        conf = YAML.load(File.read(@slide_conf_path))
+      def load_author_conf
+        return unless File.exist?(@author_conf_path)
+        conf = YAML.load(File.read(@author_conf_path))
         @markup            = conf["markup"]
         @author            = conf["author"]
         @email             = conf["email"]
@@ -593,10 +593,10 @@ EOR
         @speaker_deck_user = conf["speaker_deck_user"]
       rescue
         format = _("Failed to read slide configuration: %s: %s")
-        @logger.error(format % [@slide_conf_path, $!.message])
+        @logger.error(format % [@author_conf_path, $!.message])
       end
 
-      def save_slide_conf
+      def save_author_conf
         conf = {
           "markup"            => @markup,
           "author"            => @author,
@@ -605,13 +605,13 @@ EOR
           "slideshare_user"   => @slideshare_user,
           "speaker_deck_user" => @speaker_deck_user,
         }
-        create_directory(File.dirname(@slide_conf_path))
-        create_file(@slide_conf_path) do |slide_conf|
-          slide_conf.print(conf.to_yaml)
+        create_directory(File.dirname(@author_conf_path))
+        create_file(@author_conf_path) do |author_conf|
+          author_conf.print(conf.to_yaml)
         end
       rescue
         format = _("Failed to write slide configuration: %s: %s")
-        @logger.error(format % [@slide_conf_path, $!.message])
+        @logger.error(format % [@author_conf_path, $!.message])
       end
 
       def gem_name
