@@ -21,9 +21,7 @@ include_theme("image")
 include_theme("table")
 include_theme("newline-in-slides")
 
-if print?
-  include_theme("slide-number")
-else
+unless print?
   include_theme("image-slide-number")
   if canvas.allotted_time
     include_theme("image-timer")

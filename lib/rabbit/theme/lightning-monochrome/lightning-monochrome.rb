@@ -1,4 +1,3 @@
-@slide_number_uninstall = true
 @default_headline_line_color = "black"
 @default_item1_mark_type = "check"
 @default_item2_mark_type = "circle"
