@@ -548,14 +548,14 @@ module Rabbit
           parser.on("--migemo-dictionary-search-path=PATH1,PATH2,...",
                     Array,
                     _("Specify search paths for Migemo static dictionary."),
-                    _("(%s)") % search_path)) do |path|
+                    _("(%s)") % search_path) do |path|
             options.migemo_dictionary_search_path = path
           end
 
           parser.on("--migemo-dictionary-name=NAME",
                     Array,
                     _("Specify static dictionary name for Migemo."),
-                    _("(%s)") % options.migemo_dictionary_name)) do |name|
+                    _("(%s)") % options.migemo_dictionary_name) do |name|
             options.migemo_dictionary_name = name
           end
 
