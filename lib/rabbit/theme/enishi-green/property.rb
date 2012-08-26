@@ -1,3 +1,3 @@
 @category = N_("Theme")
-@title = N_("mayuco")
-@description = N_("mayuco theme")
+@title = N_("Enishi Green")
+@description = N_("EnishTech green based theme")
