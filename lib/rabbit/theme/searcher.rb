@@ -111,18 +111,19 @@ module Rabbit
       def _collect_theme(path, entry_class, converter=nil, &block)
         converter ||= "theme_dir"
         themes = []
-        theme_name = {}
+        theme_names = {}
         path.each do |dir|
           base_name = __send__(converter, dir)
           if File.directory?(base_name)
             Dir.foreach(base_name) do |theme|
               next if /\A..?\z/ =~ theme
-              file = File.join(File.expand_path(base_name), theme)
-              entry = entry_class.new(file)
-              if entry.available? and !theme_name.has_key?(theme)
+              next if theme_names.has_key?(theme)
+              theme_dir = File.join(File.expand_path(base_name), theme)
+              entry = entry_class.new(theme_dir)
+              if entry.available?
                 block.call(entry) if block
                 themes << entry
-                theme_name[theme] = true
+                theme_names[theme] = true
               end
             end
           end
