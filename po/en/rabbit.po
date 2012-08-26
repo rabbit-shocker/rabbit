@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-25 19:09+0900\n"
+"POT-Creation-Date: 2012-08-26 14:02+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -22,6 +22,14 @@ msgstr ""
 
 #: ../lib/rabbit/info-window.rb:223
 msgid "unlimited"
+msgstr ""
+
+#: ../lib/rabbit/slideshare.rb:72
+msgid "Enter password on SlideShare"
+msgstr ""
+
+#: ../lib/rabbit/slideshare.rb:100
+msgid "Failed to upload: %s"
 msgstr ""
 
 #: ../lib/rabbit/logger/gui.rb:72
@@ -56,6 +64,183 @@ msgstr ""
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr ""
 
+#: ../lib/rabbit/command/rabbit-slide.rb:58
+msgid "See --help for example"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:74
+msgid ""
+"Usage: %s new [options]\n"
+" e.g.: %s new \\\n"
+"          --id rubykaigi2012 \\\n"
+"          --base-name rabbit-introduction \\\n"
+"          --markup rd \\\n"
+"          --author \"Kouhei Sutou\" \\\n"
+"          --email kou@cozmixng.org \\\n"
+"          --rubygems-user kou \\\n"
+"          --slideshare-user kou \\\n"
+"          --speaker-deck-user kou"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:90
+msgid "Slide information"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:93
+msgid "Slide ID"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:94
+msgid "(e.g.: --id=rubykaigi2012)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:95 ../lib/rabbit/command/rabbit-slide.rb:102
+#: ../lib/rabbit/command/rabbit-slide.rb:119
+msgid "(must)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:100
+msgid "Base name for the slide source file and generated PDF file"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:101
+msgid "(e.g.: --base-name=rabbit-introduction)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:112
+msgid "Markup language for the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:113
+msgid "(e.g.: --markup=rd)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:114
+msgid "(available markups: %s"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:117 ../lib/rabbit/command/rabbit-slide.rb:154
+#: ../lib/rabbit/command/rabbit-slide.rb:167 ../lib/rabbit/command/rabbit-slide.rb:181
+#: ../lib/rabbit/command/rabbit-slide.rb:195 ../lib/rabbit/command/rabbit-slide.rb:209
+msgid "(default: %s)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:126
+msgid "Title of the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:127
+msgid "(e.g.: --title=\"Rabbit Introduction\")"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:128 ../lib/rabbit/command/rabbit-slide.rb:136
+#: ../lib/rabbit/command/rabbit-slide.rb:143 ../lib/rabbit/command/rabbit-slide.rb:156
+#: ../lib/rabbit/command/rabbit-slide.rb:169 ../lib/rabbit/command/rabbit-slide.rb:183
+#: ../lib/rabbit/command/rabbit-slide.rb:197 ../lib/rabbit/command/rabbit-slide.rb:211
+msgid "(optional)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:134
+msgid "Tags of the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:135
+msgid "(e.g.: --tags=Rabbit,Presentation,Ruby)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:141
+msgid "Allotted time of the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:142
+msgid "(e.g.: --allotted-time=5m)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:147
+msgid "Your information"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:150
+msgid "Author of the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:151
+msgid "(e.g.: --author=\"Kouhei Sutou\""
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:163
+msgid "Author e-mail of the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:164
+msgid "(e.g.: --email=kou@cozmixng.org"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:176
+msgid "Account for RubyGems.org"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:177
+msgid "It is used to publish your slide to RubyGems.org"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:178
+msgid "(e.g.: --rubygems-user=kou)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:190
+msgid "Account for SlideShare"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:191
+msgid "It is used to publish your slide to SlideShare"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:192
+msgid "(e.g.: --slideshare-user=kou)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:204
+msgid "Account for Speaker Deck"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:205
+msgid "It is used to publish your slide to Speaker Deck"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:206
+msgid "(e.g.: --speaker-deck-user=kou)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:232
+msgid "too many commands: %s"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:237
+msgid "invalid command: <%s>: available commands: %s"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:245 ../lib/rabbit/command/rabbit-slide.rb:251
+#: ../lib/rabbit/command/rabbit-slide.rb:257
+msgid "%s is missing"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:555
+msgid "Creating directory: %s"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:563
+msgid "Creating file:      %s"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:577
+msgid "Failed to read slide configuration: %s: %s"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:595
+msgid "Failed to write slide configuration: %s: %s"
+msgstr ""
+
 #: ../lib/rabbit/command/rabbit.rb:133 ../lib/rabbit/theme-browser/tree.rb:54
 #: ../lib/rabbit/theme/lightning-simple/property.rb:1 ../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../lib/rabbit/theme/blue-bar/property.rb:1 ../lib/rabbit/theme/lightning-clear-blue/property.rb:1
@@ -65,11 +250,12 @@ msgstr ""
 #: ../lib/rabbit/theme/rabbit/property.rb:1 ../lib/rabbit/theme/blue-circle/property.rb:1
 #: ../lib/rabbit/theme/lightning-rabbit/property.rb:1 ../lib/rabbit/theme/lightning-talk/property.rb:1
 #: ../lib/rabbit/theme/debian/property.rb:1 ../lib/rabbit/theme/red-frame/property.rb:1
-#: ../lib/rabbit/theme/centering-rabbit/property.rb:1 ../lib/rabbit/theme/image-viewer/property.rb:1
-#: ../lib/rabbit/theme/dark-gradation/property.rb:1 ../lib/rabbit/theme/green-circle/property.rb:1
-#: ../lib/rabbit/theme/rubykaigi2011/property.rb:1 ../lib/rabbit/theme/ruby-gnome2/property.rb:1
-#: ../lib/rabbit/theme/lightning-monochrome/property.rb:1 ../lib/rabbit/theme/pdf/property.rb:1
-#: ../sample/rabbit/theme/kof2005/property.rb:1 ../sample/rabbit/theme/pdf/property.rb:1
+#: ../lib/rabbit/theme/nari/property.rb:1 ../lib/rabbit/theme/centering-rabbit/property.rb:1
+#: ../lib/rabbit/theme/image-viewer/property.rb:1 ../lib/rabbit/theme/dark-gradation/property.rb:1
+#: ../lib/rabbit/theme/green-circle/property.rb:1 ../lib/rabbit/theme/rubykaigi2011/property.rb:1
+#: ../lib/rabbit/theme/ruby-gnome2/property.rb:1 ../lib/rabbit/theme/lightning-monochrome/property.rb:1
+#: ../lib/rabbit/theme/pdf/property.rb:1 ../sample/rabbit/theme/kof2005/property.rb:1
+#: ../sample/rabbit/theme/pdf/property.rb:1
 msgid "Theme"
 msgstr ""
 
@@ -1637,6 +1823,14 @@ msgstr ""
 msgid "Line fill pattern. @slide_header_info_line_color is ignored if this parameter is specified."
 msgstr ""
 
+#: ../lib/rabbit/theme/nari/property.rb:2
+msgid "Nari"
+msgstr ""
+
+#: ../lib/rabbit/theme/nari/property.rb:3
+msgid "Nari's theme"
+msgstr ""
+
 #: ../lib/rabbit/theme/document.erb:3
 msgid "Name"
 msgstr ""
@@ -2186,35 +2380,47 @@ msgstr ""
 msgid "[USER] and [TITLE]"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:48
+#: ../lib/rabbit/task.rb:53
 msgid "To run rabbit, create '%{options_file}'!"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:52
+#: ../lib/rabbit/task.rb:57
 msgid "Show slide"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:57
+#: ../lib/rabbit/task.rb:62
 msgid "Create gem: %{gem_path}"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:71
+#: ../lib/rabbit/task.rb:72
+msgid "Write %{item} in %{where}: %{content}"
+msgstr ""
+
+#: ../lib/rabbit/task.rb:97
 msgid "Generate PDF: %{pdf_path}"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:74
-msgid "Publish the slide to RubyGems.org, SlideShare and Speaker Deck"
+#: ../lib/rabbit/task.rb:100
+msgid "Publish the slide to all available targets"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:79
+#: ../lib/rabbit/task.rb:106
 msgid "Publish the slide to RubyGems.org"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:85
+#: ../lib/rabbit/task.rb:114
 msgid "Publish the slide to SlideShare"
 msgstr ""
 
-#: ../lib/rabbit/task.rb:91
+#: ../lib/rabbit/task.rb:126
+msgid "Uploaded successfully!"
+msgstr ""
+
+#: ../lib/rabbit/task.rb:127
+msgid "See %s"
+msgstr ""
+
+#: ../lib/rabbit/task.rb:135
 msgid "Publish the slide to Spearker Deck"
 msgstr ""
 
@@ -2509,3 +2715,9 @@ msgstr ""
 #: ../bin/rabbit-theme-manager:125
 msgid "Available commands: %s"
 msgstr ""
+
+
+#. #: ../lib/rabbit/task.rb:74
+#. msgid "Publish the slide to RubyGems.org, SlideShare and Speaker Deck"
+#. msgstr ""
+
