@@ -376,7 +376,7 @@ summary = (readme_blocks[0] || "TODO").gsub(/\\A(?:[=*!]+|h\\d\\.)\s*/, "")
 description = readme_blocks[1] || "TODO"
 
 specification = Gem::Specification.new do |spec|
-  prefix = "rabbit-slide"
+  prefix = "#{gem_name_prefix}"
   spec.name = "\#{prefix}-\#{rubygems_user}-\#{slide_id}"
   spec.version = version
   spec.homepage = "http://slide.rabbit-shockers.org/\#{rubygems_user}/\#{slide_id}/"
@@ -560,7 +560,11 @@ EOR
       end
 
       def gem_name
-        "rabbit-slide-#{@author_conf.rubygems_user}-#{@id}"
+        "#{gem_name_prefix}#{@author_conf.rubygems_user}-#{@id}"
+      end
+
+      def gem_name_prefix
+        "rabbit-slide-"
       end
     end
   end
