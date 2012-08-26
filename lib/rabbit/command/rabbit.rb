@@ -64,6 +64,8 @@ module Rabbit
       private
       def parse_command_line_arguments(arguments)
         Console.parse!(arguments) do |parser, options|
+          @logger = options.logger
+
           options.after_hooks << lambda do |console, _, _|
             adjust_rest_arguments(console, parser, options)
           end
@@ -616,7 +618,16 @@ module Rabbit
           rescue Gem::LoadError
             unless retried
               retried = true
-              isntaller = Gem::DependencyInstaller.new
+              require "rubygems/dependency_installer"
+              options = {}
+              if File.writable?(Gem.dir)
+                @logger.info(_("Installing gem: %s") % normalized_gem_name)
+              else
+                options[:user_install] = true
+                format = _("Installing gem in user install mode: %s")
+                @logger.info(format % normalized_gem_name)
+              end
+              installer = Gem::DependencyInstaller.new(options)
               installer.install(normalized_gem_name, Gem::Requirement.default)
               retry
             end
