@@ -27,14 +27,15 @@ module Rabbit
 
       attr_reader :spec
       attr_accessor :package_dir, :pdf_dir, :pdf_base_path
-      attr_accessor :rubygems_org_user, :slide_share_user
+      attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
       def initialize(spec)
         @spec = spec
         @package_dir = "pkg"
         @pdf_dir = "pdf"
         @pdf_base_path = nil
-        @rubygems_org_user = nil
-        @slide_share_user = nil
+        @rubygems_user = nil
+        @slideshare_user = nil
+        @speaker_deck_user = nil
         yield(self) if block_given?
         define
       end
@@ -103,7 +104,7 @@ module Rabbit
 
       def default_pdf_base_path
         user_name_and_slide_id = @spec.name.gsub(/\Arabbit-slide-/, "")
-        escaped_user = Regexp.escape(@rubygems_org_user)
+        escaped_user = Regexp.escape(@rubygems_user)
         slide_id = user_name_and_slide_id.gsub(/\A#{escaped_user}-/, "")
         "#{slide_id}.pdf"
       end
