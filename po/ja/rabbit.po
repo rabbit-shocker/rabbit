@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-26 14:49+0900\n"
-"PO-Revision-Date: 2012-08-26 14:54+0900\n"
+"POT-Creation-Date: 2012-08-26 18:01+0900\n"
+"PO-Revision-Date: 2012-08-26 18:02+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -64,11 +64,11 @@ msgstr "未知"
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr "UTF-8から現在のロケールに変換できません: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:58
+#: ../lib/rabbit/command/rabbit-slide.rb:59
 msgid "See --help for example"
 msgstr "--helpで例を確認できます"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:74
+#: ../lib/rabbit/command/rabbit-slide.rb:75
 msgid ""
 "Usage: %s new [options]\n"
 " e.g.: %s new \\\n"
@@ -92,213 +92,222 @@ msgstr ""
 "          --slideshare-user kou \\\n"
 "          --speaker-deck-user kou"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:90
+#: ../lib/rabbit/command/rabbit-slide.rb:91
 msgid "Slide information"
 msgstr "スライドの情報"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:93
+#: ../lib/rabbit/command/rabbit-slide.rb:94
 msgid "Slide ID"
 msgstr "スライドID"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:94
+#: ../lib/rabbit/command/rabbit-slide.rb:95
 msgid "(e.g.: --id=rubykaigi2012)"
 msgstr "（例: --id=rubykaigi2012）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:95 ../lib/rabbit/command/rabbit-slide.rb:102
-#: ../lib/rabbit/command/rabbit-slide.rb:119
+#: ../lib/rabbit/command/rabbit-slide.rb:96 ../lib/rabbit/command/rabbit-slide.rb:103
+#: ../lib/rabbit/command/rabbit-slide.rb:120
 msgid "(must)"
 msgstr "（必須）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:100
+#: ../lib/rabbit/command/rabbit-slide.rb:101
 msgid "Base name for the slide source file and generated PDF file"
 msgstr "スライドのソースファイルとソースから生成するPDFファイルのベースファイル名"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:101
+#: ../lib/rabbit/command/rabbit-slide.rb:102
 msgid "(e.g.: --base-name=rabbit-introduction)"
 msgstr "（例: --base-name=rabbit-introduction）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:112
+#: ../lib/rabbit/command/rabbit-slide.rb:113
 msgid "Markup language for the new slide"
 msgstr "新しいスライドのマークアップ言語"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:113
+#: ../lib/rabbit/command/rabbit-slide.rb:114
 msgid "(e.g.: --markup=rd)"
 msgstr "（例: --markup=rd）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:114
+#: ../lib/rabbit/command/rabbit-slide.rb:115
 msgid "(available markups: %s)"
 msgstr "（利用可能なマークアップ言語: %s）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:117 ../lib/rabbit/command/rabbit-slide.rb:154
-#: ../lib/rabbit/command/rabbit-slide.rb:167 ../lib/rabbit/command/rabbit-slide.rb:181
-#: ../lib/rabbit/command/rabbit-slide.rb:195 ../lib/rabbit/command/rabbit-slide.rb:209
+#: ../lib/rabbit/command/rabbit-slide.rb:118 ../lib/rabbit/command/rabbit-slide.rb:162
+#: ../lib/rabbit/command/rabbit-slide.rb:175 ../lib/rabbit/command/rabbit-slide.rb:189
+#: ../lib/rabbit/command/rabbit-slide.rb:203 ../lib/rabbit/command/rabbit-slide.rb:217
 msgid "(default: %s)"
 msgstr "(デフォルト: %s)"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:126
+#: ../lib/rabbit/command/rabbit-slide.rb:127
 msgid "Title of the new slide"
 msgstr "新しいスライドのタイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:127
+#: ../lib/rabbit/command/rabbit-slide.rb:128
 msgid "(e.g.: --title=\"Rabbit Introduction\")"
 msgstr "（例: --title=\"Rabbitの紹介\"）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:128 ../lib/rabbit/command/rabbit-slide.rb:136
-#: ../lib/rabbit/command/rabbit-slide.rb:143 ../lib/rabbit/command/rabbit-slide.rb:156
-#: ../lib/rabbit/command/rabbit-slide.rb:169 ../lib/rabbit/command/rabbit-slide.rb:183
-#: ../lib/rabbit/command/rabbit-slide.rb:197 ../lib/rabbit/command/rabbit-slide.rb:211
+#: ../lib/rabbit/command/rabbit-slide.rb:129 ../lib/rabbit/command/rabbit-slide.rb:137
+#: ../lib/rabbit/command/rabbit-slide.rb:144 ../lib/rabbit/command/rabbit-slide.rb:151
+#: ../lib/rabbit/command/rabbit-slide.rb:164 ../lib/rabbit/command/rabbit-slide.rb:177
+#: ../lib/rabbit/command/rabbit-slide.rb:191 ../lib/rabbit/command/rabbit-slide.rb:205
+#: ../lib/rabbit/command/rabbit-slide.rb:219
 msgid "(optional)"
 msgstr "（省略可能）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:134
+#: ../lib/rabbit/command/rabbit-slide.rb:135
 msgid "Tags of the new slide"
 msgstr "新しいスライドのタグ"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:135
-msgid "(e.g.: --tags=Rabbit,Presentation,Ruby)"
-msgstr "（例: --tags=Rabbit,Presentation,Ruby）"
+#: ../lib/rabbit/command/rabbit-slide.rb:136
+msgid "(e.g.: --tags=rabbit,presentation,ruby)"
+msgstr "（例:: --tags=rabbit,presentation,ruby）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:141
+#: ../lib/rabbit/command/rabbit-slide.rb:142
 msgid "Allotted time in presentaion"
 msgstr "プレゼンの持ち時間"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:142
+#: ../lib/rabbit/command/rabbit-slide.rb:143
 msgid "(e.g.: --allotted-time=5m)"
 msgstr "（例: --allotted-time=5m）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:147
+#: ../lib/rabbit/command/rabbit-slide.rb:149
+msgid "Presentation date with the new slide"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:150
+msgid "(e.g.: --presentation-date=2012/06/29)"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:155
 msgid "Your information"
 msgstr "あなたの情報"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:150
+#: ../lib/rabbit/command/rabbit-slide.rb:158
 msgid "Author of the new slide"
 msgstr "新しいスライドの作者"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:151
+#: ../lib/rabbit/command/rabbit-slide.rb:159
 msgid "(e.g.: --author=\"Kouhei Sutou\")"
 msgstr "（例: --author=\"Kouhei Sutou\"）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:163
+#: ../lib/rabbit/command/rabbit-slide.rb:171
 msgid "Author e-mail of the new slide"
 msgstr "新しいスライドの作者のEメールアドレス"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:164
+#: ../lib/rabbit/command/rabbit-slide.rb:172
 msgid "(e.g.: --email=kou@cozmixng.org)"
 msgstr "（例: --email=kou@cozmixng.org）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:176 ../lib/rabbit/command/rabbit-slide.rb:190
-#: ../lib/rabbit/command/rabbit-slide.rb:204
+#: ../lib/rabbit/command/rabbit-slide.rb:184 ../lib/rabbit/command/rabbit-slide.rb:198
+#: ../lib/rabbit/command/rabbit-slide.rb:212
 msgid "Account for %s"
 msgstr "%sのアカウント"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:177 ../lib/rabbit/command/rabbit-slide.rb:191
-#: ../lib/rabbit/command/rabbit-slide.rb:205
+#: ../lib/rabbit/command/rabbit-slide.rb:185 ../lib/rabbit/command/rabbit-slide.rb:199
+#: ../lib/rabbit/command/rabbit-slide.rb:213
 msgid "It is used to publish your slide to %s"
 msgstr "%sにスライドを公開するときに使います"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:178
+#: ../lib/rabbit/command/rabbit-slide.rb:186
 msgid "(e.g.: --rubygems-user=kou)"
 msgstr "（例: --rubygems-user=kou）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:192
+#: ../lib/rabbit/command/rabbit-slide.rb:200
 msgid "(e.g.: --slideshare-user=kou)"
 msgstr "（例: --slideshare-user=kou）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:206
+#: ../lib/rabbit/command/rabbit-slide.rb:214
 msgid "(e.g.: --speaker-deck-user=kou)"
 msgstr "（例: --speaker-deck-user=kou）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:232
+#: ../lib/rabbit/command/rabbit-slide.rb:240
 msgid "too many commands: %s"
 msgstr "コマンドが多過ぎます: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:237
+#: ../lib/rabbit/command/rabbit-slide.rb:245
 msgid "invalid command: <%s>: available commands: %s"
 msgstr "不正なコマンド: <%s>: 利用可能なコマンド: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:245 ../lib/rabbit/command/rabbit-slide.rb:251
-#: ../lib/rabbit/command/rabbit-slide.rb:257
+#: ../lib/rabbit/command/rabbit-slide.rb:253 ../lib/rabbit/command/rabbit-slide.rb:259
+#: ../lib/rabbit/command/rabbit-slide.rb:265
 msgid "%s is missing"
 msgstr "%sがありません"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:312
+#: ../lib/rabbit/command/rabbit-slide.rb:321
 msgid "TODO: SLIDE TITLE"
 msgstr "TODO: スライドのタイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:314
+#: ../lib/rabbit/command/rabbit-slide.rb:323
 msgid "TODO: SLIDE DESCRIPTION"
 msgstr "TODO: スライドの説明"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:317
+#: ../lib/rabbit/command/rabbit-slide.rb:326
 msgid "For author"
 msgstr "作者向け"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:319 ../lib/rabbit/command/rabbit-slide.rb:335
+#: ../lib/rabbit/command/rabbit-slide.rb:328 ../lib/rabbit/command/rabbit-slide.rb:344
 #: ../lib/rabbit/action/radio.rb:37
 msgid "Show"
 msgstr "表示"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:323
+#: ../lib/rabbit/command/rabbit-slide.rb:332
 msgid "Publish"
 msgstr "公開"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:328
+#: ../lib/rabbit/command/rabbit-slide.rb:337
 msgid "For viewers"
 msgstr "閲覧者向け"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:330
+#: ../lib/rabbit/command/rabbit-slide.rb:339
 msgid "Install"
 msgstr "インストール"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:442 ../lib/rabbit/command/rabbit-slide.rb:451
+#: ../lib/rabbit/command/rabbit-slide.rb:467 ../lib/rabbit/command/rabbit-slide.rb:476
 msgid "TITLE"
 msgstr "タイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:444
+#: ../lib/rabbit/command/rabbit-slide.rb:469
 msgid "FIRST SLIDE"
 msgstr "最初のスライド"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:446
+#: ../lib/rabbit/command/rabbit-slide.rb:471
 msgid "SECOND SLIDE"
 msgstr "二番目のスライド"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:457
+#: ../lib/rabbit/command/rabbit-slide.rb:482
 msgid "SUBTITLE"
 msgstr "サブタイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:458
+#: ../lib/rabbit/command/rabbit-slide.rb:483
 msgid "AUTHOR"
 msgstr "作者"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:459
+#: ../lib/rabbit/command/rabbit-slide.rb:484
 msgid "INSTITUTION"
 msgstr "所属"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:460
+#: ../lib/rabbit/command/rabbit-slide.rb:485
 msgid "EVENT NAME"
 msgstr "イベント名"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:482
+#: ../lib/rabbit/command/rabbit-slide.rb:507
 msgid "ITEM %d"
 msgstr "項目%d"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:551
+#: ../lib/rabbit/command/rabbit-slide.rb:576
 msgid "Creating directory: %s"
 msgstr "ディレクトリを作成中: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:559
+#: ../lib/rabbit/command/rabbit-slide.rb:584
 msgid "Creating file:      %s"
 msgstr "ファイルを作成中:     %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:573
+#: ../lib/rabbit/command/rabbit-slide.rb:598
 msgid "Failed to read slide configuration: %s: %s"
 msgstr "スライド設定の読み込みに失敗しました: %s: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:591
+#: ../lib/rabbit/command/rabbit-slide.rb:616
 msgid "Failed to write slide configuration: %s: %s"
 msgstr "スライド設定の書き込みに失敗しました: %s: %s"
 
-#: ../lib/rabbit/command/rabbit.rb:133 ../lib/rabbit/theme-browser/tree.rb:54
+#: ../lib/rabbit/command/rabbit.rb:129 ../lib/rabbit/theme-browser/tree.rb:54
 #: ../lib/rabbit/theme/lightning-simple/property.rb:1 ../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../lib/rabbit/theme/blue-bar/property.rb:1 ../lib/rabbit/theme/lightning-clear-blue/property.rb:1
 #: ../lib/rabbit/theme/enishi-green/property.rb:1 ../lib/rabbit/theme/clear-blue/property.rb:1
@@ -316,27 +325,27 @@ msgstr "スライド設定の書き込みに失敗しました: %s: %s"
 msgid "Theme"
 msgstr "テーマ"
 
-#: ../lib/rabbit/command/rabbit.rb:136 ../bin/rabbit-theme-manager:27
+#: ../lib/rabbit/command/rabbit.rb:132 ../bin/rabbit-theme-manager:27
 msgid "Add [PATH] to load path."
 msgstr "[PATH]をロードパスに追加します．"
 
-#: ../lib/rabbit/command/rabbit.rb:141
+#: ../lib/rabbit/command/rabbit.rb:137
 msgid "Use [THEME] as theme."
 msgstr "テーマに[THEME]を使用します．"
 
-#: ../lib/rabbit/command/rabbit.rb:148
+#: ../lib/rabbit/command/rabbit.rb:144
 msgid "Use [THEME] for comment."
 msgstr "コメント用のテーマに[THEME]を使用します．"
 
-#: ../lib/rabbit/command/rabbit.rb:154
+#: ../lib/rabbit/command/rabbit.rb:150
 msgid "Use [TIME] as allotted time."
 msgstr "持ち時間を[TIME]とします。"
 
-#: ../lib/rabbit/command/rabbit.rb:160 ../lib/rabbit/html/generator.rb:403
+#: ../lib/rabbit/command/rabbit.rb:156 ../lib/rabbit/html/generator.rb:403
 msgid "Source"
 msgstr "ソース"
 
-#: ../lib/rabbit/command/rabbit.rb:167
+#: ../lib/rabbit/command/rabbit.rb:163
 msgid ""
 "When select %s\n"
 "specify %s\n"
@@ -346,389 +355,389 @@ msgstr ""
 "[SOURCE_INFOS]として\n"
 "%sを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:174
+#: ../lib/rabbit/command/rabbit.rb:170
 msgid "Specify source type as [TYPE]."
 msgstr "[TYPE]にソースの種類を指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:175 ../lib/rabbit/console.rb:161 ../lib/rabbit/console.rb:178
+#: ../lib/rabbit/command/rabbit.rb:171 ../lib/rabbit/console.rb:161 ../lib/rabbit/console.rb:178
 msgid "Select from [%s]."
 msgstr "[%s]から選びます．"
 
-#: ../lib/rabbit/command/rabbit.rb:176
+#: ../lib/rabbit/command/rabbit.rb:172
 msgid "Note: case insensitive."
 msgstr "注意: 大文字小文字は区別しません．"
 
-#: ../lib/rabbit/command/rabbit.rb:190
+#: ../lib/rabbit/command/rabbit.rb:186
 msgid "Specify source encoding as [ENCODING]."
 msgstr "[ENCODING]にソースエンコーディングを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:191 ../lib/rabbit/command/rabbit.rb:197
-#: ../lib/rabbit/command/rabbit.rb:358 ../lib/rabbit/command/rabbit.rb:365
-#: ../lib/rabbit/command/rabbit.rb:372 ../lib/rabbit/command/rabbit.rb:379
-#: ../lib/rabbit/command/rabbit.rb:404 ../lib/rabbit/command/rabbit.rb:411
-#: ../lib/rabbit/command/rabbit.rb:418 ../lib/rabbit/command/rabbit.rb:425
-#: ../lib/rabbit/command/rabbit.rb:546 ../lib/rabbit/console.rb:146
+#: ../lib/rabbit/command/rabbit.rb:187 ../lib/rabbit/command/rabbit.rb:193
+#: ../lib/rabbit/command/rabbit.rb:354 ../lib/rabbit/command/rabbit.rb:361
+#: ../lib/rabbit/command/rabbit.rb:368 ../lib/rabbit/command/rabbit.rb:375
+#: ../lib/rabbit/command/rabbit.rb:400 ../lib/rabbit/command/rabbit.rb:407
+#: ../lib/rabbit/command/rabbit.rb:414 ../lib/rabbit/command/rabbit.rb:421
+#: ../lib/rabbit/command/rabbit.rb:542 ../lib/rabbit/console.rb:146
 msgid "(auto)"
 msgstr "(自動)"
 
-#: ../lib/rabbit/command/rabbit.rb:196
+#: ../lib/rabbit/command/rabbit.rb:192
 msgid "Specify base URI or path of source as [BASE]."
 msgstr "ソースのベースURIまたはベースパスを[BASE]とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:202
+#: ../lib/rabbit/command/rabbit.rb:198
 msgid "Initial state"
 msgstr "初期状態"
 
-#: ../lib/rabbit/command/rabbit.rb:205
+#: ../lib/rabbit/command/rabbit.rb:201
 msgid "Toggle full screen mode."
 msgstr "フルスクリーンモードに切替えます．"
 
-#: ../lib/rabbit/command/rabbit.rb:211
+#: ../lib/rabbit/command/rabbit.rb:207
 msgid "Toggle index mode."
 msgstr "一覧モードに切替えます．"
 
-#: ../lib/rabbit/command/rabbit.rb:217
+#: ../lib/rabbit/command/rabbit.rb:213
 msgid "Size"
 msgstr "サイズ"
 
-#: ../lib/rabbit/command/rabbit.rb:220
+#: ../lib/rabbit/command/rabbit.rb:216
 msgid "Set window geometry [GEOMETRY]."
 msgstr "ウィンドウの位置を[GEOMETRY]にします．"
 
-#: ../lib/rabbit/command/rabbit.rb:221
+#: ../lib/rabbit/command/rabbit.rb:217
 msgid "Format: WIDTHxHEIGHT+X+Y"
 msgstr "フォーマット: WIDTHxHEIGHT+X+Y"
 
-#: ../lib/rabbit/command/rabbit.rb:228 ../bin/rabbit-theme-manager:43
+#: ../lib/rabbit/command/rabbit.rb:224 ../bin/rabbit-theme-manager:43
 msgid "Set window width to [WIDTH]."
 msgstr "ウィンドウの幅を[WIDTH]にします．"
 
-#: ../lib/rabbit/command/rabbit.rb:235 ../bin/rabbit-theme-manager:50
+#: ../lib/rabbit/command/rabbit.rb:231 ../bin/rabbit-theme-manager:50
 msgid "Set window height to [HEIGHT]."
 msgstr "ウィンドウの高さを[HEIGHT]にします．"
 
-#: ../lib/rabbit/command/rabbit.rb:240 ../bin/rabbit-theme-manager:55
+#: ../lib/rabbit/command/rabbit.rb:236 ../bin/rabbit-theme-manager:55
 msgid "Set window width and height to\n[WIDTH] and [HEIGHT]."
 msgstr "ウィンドウの幅と高さを\n[WIDTH]と[HEIGHT]にします．"
 
-#: ../lib/rabbit/command/rabbit.rb:253
+#: ../lib/rabbit/command/rabbit.rb:249
 msgid "Save"
 msgstr "保存"
 
-#: ../lib/rabbit/command/rabbit.rb:256
+#: ../lib/rabbit/command/rabbit.rb:252
 msgid "Save as image and exit."
 msgstr "画像として保存し終了します．"
 
-#: ../lib/rabbit/command/rabbit.rb:261
+#: ../lib/rabbit/command/rabbit.rb:257
 msgid "Specify saved image type as [TYPE]."
 msgstr "保存する画像の種類を[TYPE]にします．"
 
-#: ../lib/rabbit/command/rabbit.rb:268
+#: ../lib/rabbit/command/rabbit.rb:264
 msgid "Specify saved image base name as [BASE_NAME]."
 msgstr "保存する画像のベース名を[BASE_NAME]にします．"
 
-#: ../lib/rabbit/command/rabbit.rb:269 ../lib/rabbit/command/rabbit.rb:307
+#: ../lib/rabbit/command/rabbit.rb:265 ../lib/rabbit/command/rabbit.rb:303
 msgid "Title of slide"
 msgstr "スライドのタイトル"
 
-#: ../lib/rabbit/command/rabbit.rb:274
+#: ../lib/rabbit/command/rabbit.rb:270
 msgid "Output HTML for viewing saved images."
 msgstr "保存した画像を閲覧するためのHTMLを出力します．"
 
-#: ../lib/rabbit/command/rabbit.rb:280
+#: ../lib/rabbit/command/rabbit.rb:276
 msgid "Output index HTML for navigating slides."
 msgstr "保存した画像を閲覧するための索引用HTMLを出力します．"
 
-#: ../lib/rabbit/command/rabbit.rb:286
+#: ../lib/rabbit/command/rabbit.rb:282
 msgid "Specify base URI of RSS as [URI]."
 msgstr "RSS のベース URI を [URI] と指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:287
+#: ../lib/rabbit/command/rabbit.rb:283
 msgid "RSS is generated only when HTML is output."
 msgstr "RSS は、HTML が出力されるときだけ生成されます。"
 
-#: ../lib/rabbit/command/rabbit.rb:293
+#: ../lib/rabbit/command/rabbit.rb:289
 msgid "Specify source filenam as [FILENAME]."
 msgstr "[FILENAME]をソースファイル名とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:298 ../lib/rabbit/action/basic.rb:83
+#: ../lib/rabbit/command/rabbit.rb:294 ../lib/rabbit/action/basic.rb:83
 msgid "Print"
 msgstr "印刷"
 
-#: ../lib/rabbit/command/rabbit.rb:301
+#: ../lib/rabbit/command/rabbit.rb:297
 msgid "Print and exit."
 msgstr "印刷し終了します．"
 
-#: ../lib/rabbit/command/rabbit.rb:306
+#: ../lib/rabbit/command/rabbit.rb:302
 msgid "Specify printed out filename as [FILENAME]."
 msgstr "[FILENAME]を印刷するファイル名とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:313
+#: ../lib/rabbit/command/rabbit.rb:309
 msgid "Set slides per page."
 msgstr "1ページ中のスライドの枚数を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:319
+#: ../lib/rabbit/command/rabbit.rb:315
 msgid "Draw scaled image."
 msgstr "拡大・縮小した画面を描画します。"
 
-#: ../lib/rabbit/command/rabbit.rb:320
+#: ../lib/rabbit/command/rabbit.rb:316
 msgid "Better look for displaying but lesser look for printing."
 msgstr "画面表示時にはよりキレイになりますが、印刷時には少し見栄えが悪くなります。"
 
-#: ../lib/rabbit/command/rabbit.rb:325
+#: ../lib/rabbit/command/rabbit.rb:321
 msgid "Paper"
 msgstr "用紙"
 
-#: ../lib/rabbit/command/rabbit.rb:329
+#: ../lib/rabbit/command/rabbit.rb:325
 msgid "Set paper width to [WIDTH] Pt."
 msgstr "用紙幅を[WIDTH] Ptにします．"
 
-#: ../lib/rabbit/command/rabbit.rb:330
+#: ../lib/rabbit/command/rabbit.rb:326
 msgid "(landscape A4 width)"
 msgstr "(横置きA4の幅)"
 
-#: ../lib/rabbit/command/rabbit.rb:336
+#: ../lib/rabbit/command/rabbit.rb:332
 msgid "Set paper height to [HEIGHT] Pt."
 msgstr "用紙の高さを[HEIGHT] Ptにします．"
 
-#: ../lib/rabbit/command/rabbit.rb:337
+#: ../lib/rabbit/command/rabbit.rb:333
 msgid "(landscape A4 height)"
 msgstr "(横置きA4の高さ)"
 
-#: ../lib/rabbit/command/rabbit.rb:341
+#: ../lib/rabbit/command/rabbit.rb:337
 msgid "Set paper width and height to\n[WIDTH] Pt and [HEIGHT] Pt."
 msgstr "用紙の幅と高さを\n[WIDTH] Ptと[HEIGHT] Ptにします．"
 
-#: ../lib/rabbit/command/rabbit.rb:343
+#: ../lib/rabbit/command/rabbit.rb:339
 msgid "(landscape A4 size)"
 msgstr "(横置きA4サイズ)"
 
-#: ../lib/rabbit/command/rabbit.rb:353
+#: ../lib/rabbit/command/rabbit.rb:349
 msgid "Margin"
 msgstr "余白"
 
-#: ../lib/rabbit/command/rabbit.rb:357
+#: ../lib/rabbit/command/rabbit.rb:353
 msgid "Set left margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの左余白を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:364
+#: ../lib/rabbit/command/rabbit.rb:360
 msgid "Set right margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの右余白を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:371
+#: ../lib/rabbit/command/rabbit.rb:367
 msgid "Set top margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの上余白を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:378
+#: ../lib/rabbit/command/rabbit.rb:374
 msgid "Set bottom margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの下余白を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:383
+#: ../lib/rabbit/command/rabbit.rb:379
 msgid "[ALL]"
 msgstr "[全部]"
 
-#: ../lib/rabbit/command/rabbit.rb:384
+#: ../lib/rabbit/command/rabbit.rb:380
 msgid "[TOP_BOTTOM],[LEFT_RIGHT]"
 msgstr "[上下],[左右]"
 
-#: ../lib/rabbit/command/rabbit.rb:385
+#: ../lib/rabbit/command/rabbit.rb:381
 msgid "[TOP],[LEFT_RIGHT],[BOTTOM]"
 msgstr "[上],[左右],[下]"
 
-#: ../lib/rabbit/command/rabbit.rb:386
+#: ../lib/rabbit/command/rabbit.rb:382
 msgid "[TOP],[RIGHT],[BOTTOM],[LEFT]"
 msgstr "[上],[右],[下],[左]"
 
-#: ../lib/rabbit/command/rabbit.rb:389
+#: ../lib/rabbit/command/rabbit.rb:385
 msgid "Set margin for slides per page mode print."
 msgstr "1ページ複数スライド印刷モードの余白を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:403
+#: ../lib/rabbit/command/rabbit.rb:399
 msgid "Set left page margin."
 msgstr "左ページ余白を設定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:410
+#: ../lib/rabbit/command/rabbit.rb:406
 msgid "Set right page margin."
 msgstr "右ページ余白を指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:417
+#: ../lib/rabbit/command/rabbit.rb:413
 msgid "Set top page margin."
 msgstr "上ページ余白を指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:424
+#: ../lib/rabbit/command/rabbit.rb:420
 msgid "Set bottom page margin."
 msgstr "下ページ余白を指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:431
+#: ../lib/rabbit/command/rabbit.rb:427
 msgid "Set page margin."
 msgstr "ページ余白を指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:443
+#: ../lib/rabbit/command/rabbit.rb:439
 msgid "dRuby"
 msgstr "dRuby"
 
-#: ../lib/rabbit/command/rabbit.rb:446
+#: ../lib/rabbit/command/rabbit.rb:442
 msgid "Specify whether to use dRuby."
 msgstr "dRubyを使うかどうかを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:452
+#: ../lib/rabbit/command/rabbit.rb:448
 msgid "Specify dRuby URI."
 msgstr "dRuby URIを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:458
+#: ../lib/rabbit/command/rabbit.rb:454
 msgid "Specify whether to output dRuby URI."
 msgstr "dRuby URIを出力するかどうかを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:463
+#: ../lib/rabbit/command/rabbit.rb:459
 msgid "SOAP"
 msgstr "SOAP"
 
-#: ../lib/rabbit/command/rabbit.rb:466
+#: ../lib/rabbit/command/rabbit.rb:462
 msgid "Specify whether to use SOAP."
 msgstr "SOAPを使うかどうかを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:472
+#: ../lib/rabbit/command/rabbit.rb:468
 msgid "Specify SOAP host as [HOST]."
 msgstr "SOAPのホスト名を[HOST]とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:479
+#: ../lib/rabbit/command/rabbit.rb:475
 msgid "Specify SOAP port as [PORT]."
 msgstr "SOAPのポートを[PORT]とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:484
+#: ../lib/rabbit/command/rabbit.rb:480
 msgid "XML-RPC"
 msgstr "XML-RPC"
 
-#: ../lib/rabbit/command/rabbit.rb:487
+#: ../lib/rabbit/command/rabbit.rb:483
 msgid "Specify whether to use XML-RPC."
 msgstr "XML-RPCを使うかどうかを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:493
+#: ../lib/rabbit/command/rabbit.rb:489
 msgid "Specify XML-RPC host as [HOST]."
 msgstr "XML-RPCのホスト名を[HOST]とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:500
+#: ../lib/rabbit/command/rabbit.rb:496
 msgid "Specify XML-RPC port as [PORT]."
 msgstr "XML-RPCのポートを[PORT]とします．"
 
-#: ../lib/rabbit/command/rabbit.rb:505
+#: ../lib/rabbit/command/rabbit.rb:501
 msgid "Server"
 msgstr "サーバ"
 
-#: ../lib/rabbit/command/rabbit.rb:508
+#: ../lib/rabbit/command/rabbit.rb:504
 msgid "Specify whether to run as server."
 msgstr "サーバとして動作するかどうかを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:513
+#: ../lib/rabbit/command/rabbit.rb:509
 msgid "Public level"
 msgstr "公開レベル"
 
-#: ../lib/rabbit/command/rabbit.rb:520
+#: ../lib/rabbit/command/rabbit.rb:516
 msgid "Specify public level."
 msgstr "公開レベルを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:521
+#: ../lib/rabbit/command/rabbit.rb:517
 msgid "Select from the following:"
 msgstr "以下から選択します．"
 
-#: ../lib/rabbit/command/rabbit.rb:530
+#: ../lib/rabbit/command/rabbit.rb:526
 msgid "\"(#{options.default_public_level})\""
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:535 ../lib/rabbit/theme/stream-comment/property.rb:1
+#: ../lib/rabbit/command/rabbit.rb:531 ../lib/rabbit/theme/stream-comment/property.rb:1
 #: ../lib/rabbit/theme/clutter-comment/property.rb:1 ../lib/rabbit/theme/footer-comment/property.rb:1
 msgid "Comment"
 msgstr "コメント"
 
-#: ../lib/rabbit/command/rabbit.rb:538 ../lib/rabbit/command/rabbit.rb:544
+#: ../lib/rabbit/command/rabbit.rb:534 ../lib/rabbit/command/rabbit.rb:540
 msgid "Deprecated. Just ignored."
 msgstr "非推奨です。無視してください。"
 
-#: ../lib/rabbit/command/rabbit.rb:539
+#: ../lib/rabbit/command/rabbit.rb:535
 msgid "Specify initial comment source."
 msgstr "初期コメントソースを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:540
+#: ../lib/rabbit/command/rabbit.rb:536
 msgid "(default source)"
 msgstr "(デフォルトソース)"
 
-#: ../lib/rabbit/command/rabbit.rb:545
+#: ../lib/rabbit/command/rabbit.rb:541
 msgid "Specify comment source encoding."
 msgstr "コメントソースのエンコーディングを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:549
+#: ../lib/rabbit/command/rabbit.rb:545
 msgid "Migemo"
 msgstr "Migemo"
 
-#: ../lib/rabbit/command/rabbit.rb:554
+#: ../lib/rabbit/command/rabbit.rb:550
 msgid "Specify search paths for Migemo static dictionary."
 msgstr "Migemoの静的辞書の検索パスを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:555
+#: ../lib/rabbit/command/rabbit.rb:551
 msgid "\"(#{search_path})\""
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:561
+#: ../lib/rabbit/command/rabbit.rb:557
 msgid "Specify static dictionary name for Migemo."
 msgstr "Migemoの静的辞書名を指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:562
+#: ../lib/rabbit/command/rabbit.rb:558
 msgid "\"(#{options.migemo_dictionary_name})\""
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:566
+#: ../lib/rabbit/command/rabbit.rb:562
 msgid "3D"
 msgstr "3D"
 
-#: ../lib/rabbit/command/rabbit.rb:569
+#: ../lib/rabbit/command/rabbit.rb:565
 msgid "Specify whether to use OpenGL if available."
 msgstr "可能ならOpenGLを使うかどうかを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:574
+#: ../lib/rabbit/command/rabbit.rb:570
 msgid "Display"
 msgstr "画面表示"
 
-#: ../lib/rabbit/command/rabbit.rb:577
+#: ../lib/rabbit/command/rabbit.rb:573
 msgid "Specify whether to keep above window."
 msgstr "ウィンドウを常に前面に表示するかどうかを指定します。"
 
-#: ../lib/rabbit/command/rabbit.rb:582
+#: ../lib/rabbit/command/rabbit.rb:578
 msgid "Others"
 msgstr "その他"
 
-#: ../lib/rabbit/command/rabbit.rb:585
+#: ../lib/rabbit/command/rabbit.rb:581
 msgid "Show a native window ID of the Rabbit window if available."
 msgstr "可能ならウィンドウシステムに依存したRabbitのウィンドウのIDを表示します。"
 
-#: ../lib/rabbit/command/rabbit.rb:586
+#: ../lib/rabbit/command/rabbit.rb:582
 msgid "e.g. The ID is the ID of X resource on X window system."
 msgstr "例えば、Xウィンドウシステム上ではXリソースのIDになります。"
 
-#: ../lib/rabbit/command/rabbit.rb:608
+#: ../lib/rabbit/command/rabbit.rb:643
 msgid "Choose a Rabbit source file"
 msgstr "Rabbitのソースファイルを選んでください。"
 
-#: ../lib/rabbit/command/rabbit.rb:724
+#: ../lib/rabbit/command/rabbit.rb:759
 msgid "dRuby URI <%s> is in use."
 msgstr "dRuby URI<%s>は使用中です．"
 
-#: ../lib/rabbit/command/rabbit.rb:743
+#: ../lib/rabbit/command/rabbit.rb:778
 msgid "port <%s> for SOAP is in use."
 msgstr "SOAP用ポート<%s>は使用中です．"
 
-#: ../lib/rabbit/command/rabbit.rb:764
+#: ../lib/rabbit/command/rabbit.rb:799
 msgid "port <%s> for XML-RPC is in use."
 msgstr "XML-RPC用ポート<%s>は使用中です．"
 
-#: ../lib/rabbit/command/rabbit.rb:825
+#: ../lib/rabbit/command/rabbit.rb:860
 msgid "Window ID: %d"
 msgstr "ウィンドウID: %d"
 
-#: ../lib/rabbit/command/rabbit.rb:871
+#: ../lib/rabbit/command/rabbit.rb:906
 msgid "going to shutdown..."
 msgstr "終了中です．．．"
 
-#: ../lib/rabbit/command/rabbit.rb:873
+#: ../lib/rabbit/command/rabbit.rb:908
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
 
@@ -756,7 +765,7 @@ msgstr "一覧"
 msgid "PDF"
 msgstr "PDF"
 
-#: ../lib/rabbit/parser.rb:12
+#: ../lib/rabbit/parser.rb:14
 msgid "unsupported format. (supported: %s)"
 msgstr "サポートしていない形式です。（サポートしている形式: %s）"
 
@@ -2464,47 +2473,47 @@ msgstr "[何も指定しない(標準入力から読込)]か\n[ファイル名(�
 msgid "[USER] and [TITLE]"
 msgstr "[USER]と[TITLE]"
 
-#: ../lib/rabbit/task.rb:53
+#: ../lib/rabbit/task.rb:54
 msgid "To run rabbit, create '%{options_file}'!"
 msgstr "rabbitを実行するために'%{options_file}'を作ってください！"
 
-#: ../lib/rabbit/task.rb:57
+#: ../lib/rabbit/task.rb:58
 msgid "Show slide"
 msgstr "スライドを表示"
 
-#: ../lib/rabbit/task.rb:62
+#: ../lib/rabbit/task.rb:63
 msgid "Create gem: %{gem_path}"
 msgstr "gemを作成: %{gem_path}"
 
-#: ../lib/rabbit/task.rb:72
+#: ../lib/rabbit/task.rb:73
 msgid "Write %{item} in %{where}: %{content}"
 msgstr "%{where}の%{item}を書いてください: %{content}"
 
-#: ../lib/rabbit/task.rb:97
+#: ../lib/rabbit/task.rb:98
 msgid "Generate PDF: %{pdf_path}"
 msgstr "PDFを生成: %{pdf_path}"
 
-#: ../lib/rabbit/task.rb:100
+#: ../lib/rabbit/task.rb:101
 msgid "Publish the slide to all available targets"
 msgstr "すべての公開可能な公開場所にスライドを公開します"
 
-#: ../lib/rabbit/task.rb:106
+#: ../lib/rabbit/task.rb:107
 msgid "Publish the slide to RubyGems.org"
 msgstr "スライドをRubyGems.orgに公開"
 
-#: ../lib/rabbit/task.rb:114
+#: ../lib/rabbit/task.rb:115
 msgid "Publish the slide to SlideShare"
 msgstr "スライドをSlideShareに公開"
 
-#: ../lib/rabbit/task.rb:126
+#: ../lib/rabbit/task.rb:127
 msgid "Uploaded successfully!"
 msgstr "無事にアップロードできました！"
 
-#: ../lib/rabbit/task.rb:127
+#: ../lib/rabbit/task.rb:128
 msgid "See %s"
 msgstr "%sを見てください"
 
-#: ../lib/rabbit/task.rb:135
+#: ../lib/rabbit/task.rb:136
 msgid "Publish the slide to Spearker Deck"
 msgstr "スライドをSpearker Deckに公開"
 
