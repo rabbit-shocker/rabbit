@@ -49,8 +49,6 @@ end
 @default_description_item1_mark_color = ranguba_color
 @default_block_quote_item1_mark_color = ranguba_color
 
-@slide_number_uninstall = !print?
-
 include_theme("default")
 
 @icon_images = ["ranguba-mark.png"]
@@ -64,16 +62,6 @@ end
   slide[0].first_line_height
 end
 include_theme("slide-logo")
-
-unless print?
-  @image_slide_number_image ||= "mini-usa-taro.png"
-  @image_slide_number_show_text = true
-  include_theme("image-slide-number")
-  if canvas.allotted_time
-    @image_timer_image ||= "mini-kame-taro.png"
-    include_theme("image-timer")
-  end
-end
 
 @slide_footer_info_left_text ||= canvas.title.gsub(/\n+/, ' ')
 @slide_footer_info_right_text ||= "Powered by Rabbit #{Rabbit::VERSION}"

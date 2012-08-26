@@ -47,18 +47,7 @@ add_image_path("rabbit-images")
 
 @margin_bottom = canvas.height * 0.05
 
-@slide_number_uninstall = !print?
 include_theme("default")
-
-unless print?
-  @image_slide_number_image ||= "mini-usa-taro.png"
-  @image_slide_number_show_text = true
-  include_theme("image-slide-number")
-  if canvas.allotted_time
-    @image_timer_image ||= "mini-kame-taro.png"
-    include_theme("image-timer")
-  end
-end
 
 match(TitleSlide, "*") do |elements|
   elements.horizontal_centering = false

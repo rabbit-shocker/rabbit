@@ -48,10 +48,12 @@ add_image_path("rabbit-images")
 @font_family = find_font_family("Times")
 @monospace_font_family = find_font_family("Times")
 
-@slide_number_uninstall = !print?
-if print?
-  include_theme("slide-number")
-end
+add_image_path("nari-images")
+@image_slide_number_image ||= "gc_kun.png"
+@image_slide_number_show_text = false
+@image_slide_number_start_image = "nari-start-flag.png"
+@image_slide_number_goal_image = "nari-goal-flag.png"
+@image_timer_image ||= "chibi_nari.png"
 
 include_theme("default")
 include_theme("newline-in-title")
@@ -83,18 +85,6 @@ match(Slide, Body) do |bodies|
     next if body.elements.any? {|element| element.is_a?(Table)}
     body.margin_left = canvas.width * 0.05
     body.margin_right = canvas.width * 0.05
-  end
-end
-
-add_image_path("nari-images")
-unless print?
-  @image_slide_number_image ||= "gc_kun.png"
-  @image_slide_number_start_image = "nari-start-flag.png"
-  @image_slide_number_goal_image = "nari-goal-flag.png"
-  include_theme("image-slide-number")
-  if canvas.allotted_time
-    @image_timer_image ||= "chibi_nari.png"
-    include_theme("image-timer")
   end
 end
 

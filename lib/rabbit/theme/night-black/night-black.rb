@@ -19,7 +19,3 @@
 @table_body_fill_color = "#101010"
 
 include_theme("default")
-
-@image_slide_number_show_text = true
-include_theme("image-slide-number")
-include_theme("image-timer")

@@ -40,7 +40,6 @@ include_theme("powered-by")
 if print?
   include_theme("slide-number")
 else
-  @image_slide_number_show_text = true
   include_theme("image-slide-number")
 
   @image_timer_limit ||= canvas.allotted_time || 5 * 60

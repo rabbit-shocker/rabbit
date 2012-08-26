@@ -34,10 +34,6 @@ match("**", Emphasis) do |ems|
   ems.prop_set("foreground", @ruby_gnome2_emphasis_color)
 end
 
-@image_slide_number_image = "mini-usa-taro.png"
-@image_slide_number_show_text = true
-include_theme("image-slide-number")
-
 if print?
   @powered_by_text = "Powered by Rabbit #{VERSION}, Ruby-GNOME2 and COZMIXNG"
 end
@@ -47,6 +43,13 @@ end
    "rabbit-banner-pink.png",
 ]
 include_theme("powered-by")
+
+unless print?
+  include_theme("image-slide-number")
+  if canvas.allotted_time
+    include_theme("image-timer")
+  end
+end
 
 @lightning_talk_proc_name = "lightning-ruby-gnome2"
 @lightning_talk_as_large_as_possible = true

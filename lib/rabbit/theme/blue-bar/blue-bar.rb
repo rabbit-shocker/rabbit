@@ -31,22 +31,11 @@ bar_gradation_thick_rgb = [0x2d, 0x38, 0x8c].collect {|x| x / 255.0}
 @default_description_item1_mark_color = base_color
 @description_term_line_color = base_color
 
-@slide_number_uninstall = !print?
 include_theme("default")
 
 set_progress_foreground(bar_gradation_middle_rgb)
 set_progress_background(bar_gradation_light_rgb)
 
-
-unless print?
-  @image_slide_number_image = "mini-usa-taro.png"
-  @image_slide_number_show_text = true
-  include_theme("image-slide-number")
-  if canvas.allotted_time
-    @image_timer_image = "mini-kame-taro.png"
-    include_theme("image-timer")
-  end
-end
 
 match(Slide, HeadLine) do |heads|
   name = "head-line"

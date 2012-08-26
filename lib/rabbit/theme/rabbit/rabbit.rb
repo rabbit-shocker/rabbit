@@ -35,12 +35,6 @@ include_theme("rabbit-headline-logo")
 @title_shadow_color = "#c09090cc"
 include_theme("title-shadow")
 
-@slide_number_uninstall = true
-include_theme("slide-number")
-
-@image_slide_number_show_text = true
-include_theme("image-slide-number")
-
 include_theme("rabbit-powered-by")
 include_theme("rabbit-icon")
 
