@@ -217,6 +217,7 @@ module Rabbit
       include Element
       include Searcher
       include DirtyCount
+      include GetText
 
       extend Forwardable
 
