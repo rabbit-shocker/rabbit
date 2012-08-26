@@ -133,7 +133,7 @@ module Rabbit
           parser.on("--tags=TAG,TAG,...",
                     Array,
                     _("Tags of the new slide"),
-                    _("(e.g.: --tags=Rabbit,Presentation,Ruby)"),
+                    _("(e.g.: --tags=rabbit,presentation,ruby)"),
                  _("(optional)")) do |tags|
             @tags.concat(tags)
           end
