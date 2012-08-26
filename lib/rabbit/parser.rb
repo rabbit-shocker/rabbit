@@ -5,6 +5,8 @@ Rabbit::Utils.require_files_under_directory_in_load_path(dir)
 
 module Rabbit
   module Parser
+    include GetText
+
     module_function
     def parse(canvas, source)
       parser = Base.find_loader(source)
