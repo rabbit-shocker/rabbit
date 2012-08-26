@@ -15,6 +15,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "English"
+
 require "rabbit/gettext"
 
 module Rabbit
@@ -63,13 +65,7 @@ module Rabbit
       def parse_command_line_arguments(arguments)
         Console.parse!(arguments) do |parser, options|
           options.after_hooks << lambda do |console, _, _|
-            if options.rest.size == 1
-              options_file = File.join(options.rest[0], options.options_file)
-              if File.exist?(options_file)
-                options.rest.clear
-                console.read_options_file(parser, options, options_file)
-              end
-            end
+            adjust_rest_arguments(console, parser, options)
           end
 
           options.options_file = ".rabbit"
@@ -588,6 +584,45 @@ module Rabbit
               options.show_native_window_id = bool
           end
         end
+      end
+
+      def adjust_rest_arguments(console, parser, options)
+        return unless options.rest.size == 1
+
+        source = options.rest[0]
+        if /\.gem\z/i =~ source
+          gem_name = $PREMATCH
+          spec = load_slide_gem(gem_name)
+          source = spec.gem_dir
+        end
+
+        options_file = File.join(source, options.options_file)
+        if File.exist?(options_file)
+          options.rest.clear
+          console.read_options_file(parser, options, options_file)
+        end
+      end
+
+      def load_slide_gem(gem_name)
+        normalized_gem_name = gem_name.downcase.gsub(/\A(?:rabbit-slide-)?/,
+                                                     "rabbit-slide-")
+        retried = false
+        spec = nil
+        begin
+          spec = Gem::Specification.find_by_name(gem_name)
+        rescue Gem::LoadError
+          begin
+            spec = Gem::Specification.find_by_name(normalized_gem_name)
+          rescue Gem::LoadError
+            unless retried
+              retried = true
+              isntaller = Gem::DependencyInstaller.new
+              installer.install(normalized_gem_name, Gem::Requirement.default)
+              retry
+            end
+          end
+        end
+        spec
       end
 
       def make_canvas(renderer)
