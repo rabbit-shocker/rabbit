@@ -24,9 +24,6 @@ module Rabbit
     class RabbitSlide
       include GetText
 
-      class ValidationError < StandardError
-      end
-
       class << self
         def run(*arguments)
           new.run(arguments)
