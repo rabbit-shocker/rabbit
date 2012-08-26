@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-26 18:36+0900\n"
-"PO-Revision-Date: 2012-08-26 18:38+0900\n"
+"POT-Creation-Date: 2012-08-26 18:39+0900\n"
+"PO-Revision-Date: 2012-08-26 18:42+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -26,11 +26,11 @@ msgstr "制限無し"
 
 #: ../lib/rabbit/slideshare.rb:72
 msgid "Enter password on SlideShare"
-msgstr ""
+msgstr "SlideShareのパスワードを入力してください"
 
 #: ../lib/rabbit/slideshare.rb:100
 msgid "Failed to upload: %s"
-msgstr ""
+msgstr "アップロードに失敗しました: %s"
 
 #: ../lib/rabbit/logger/gui.rb:72
 msgid "Rabbit Error Dialog"
@@ -64,11 +64,11 @@ msgstr "未知"
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr "UTF-8から現在のロケールに変換できません: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:52 ../lib/rabbit/command/rabbit-theme.rb:56
+#: ../lib/rabbit/command/rabbit-slide.rb:52 ../lib/rabbit/command/rabbit-theme.rb:52
 msgid "See --help for example"
 msgstr "--helpで例を確認できます"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:69
+#: ../lib/rabbit/command/rabbit-slide.rb:69 ../lib/rabbit/command/rabbit-theme.rb:69
 msgid ""
 "Usage: %s new [options]\n"
 " e.g.: %s new \\\n"
@@ -81,12 +81,22 @@ msgid ""
 "          --slideshare-user kou \\\n"
 "          --speaker-deck-user kou"
 msgstr ""
+"使い方: %s new [オプション]\n"
+"    例: %s new \\\n"
+"          --id rubykaigi2012 \\\n"
+"          --base-name rabbit-introduction \\\n"
+"          --markup-language rd \\\n"
+"          --name \"Kouhei Sutou\" \\\n"
+"          --email kou@cozmixng.org \\\n"
+"          --rubygems-user kou \\\n"
+"          --slideshare-user kou \\\n"
+"          --speaker-deck-user kou"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:85 ../lib/rabbit/command/rabbit-theme.rb:88
+#: ../lib/rabbit/command/rabbit-slide.rb:85 ../lib/rabbit/command/rabbit-theme.rb:85
 msgid "Slide information"
 msgstr "スライドの情報"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:88 ../lib/rabbit/command/rabbit-theme.rb:91
+#: ../lib/rabbit/command/rabbit-slide.rb:88 ../lib/rabbit/command/rabbit-theme.rb:88
 msgid "Slide ID"
 msgstr "スライドID"
 
@@ -96,33 +106,38 @@ msgstr "スライドID"
 #: ../lib/rabbit/command/rabbit-slide.rb:144 ../lib/rabbit/command/rabbit-slide.rb:153
 #: ../lib/rabbit/command/rabbit-slide.rb:166 ../lib/rabbit/command/rabbit-slide.rb:180
 #: ../lib/rabbit/command/rabbit-slide.rb:194 ../lib/rabbit/command/rabbit-slide.rb:208
+#: ../lib/rabbit/command/rabbit-theme.rb:89 ../lib/rabbit/command/rabbit-theme.rb:96
+#: ../lib/rabbit/command/rabbit-theme.rb:108 ../lib/rabbit/command/rabbit-theme.rb:122
+#: ../lib/rabbit/command/rabbit-theme.rb:130 ../lib/rabbit/command/rabbit-theme.rb:137
+#: ../lib/rabbit/command/rabbit-theme.rb:144 ../lib/rabbit/command/rabbit-theme.rb:153
+#: ../lib/rabbit/command/rabbit-theme.rb:166 ../lib/rabbit/command/rabbit-theme.rb:180
+#: ../lib/rabbit/command/rabbit-theme.rb:194 ../lib/rabbit/command/rabbit-theme.rb:208
 msgid "(e.g.: %s)"
 msgstr "（例: %s）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:90 ../lib/rabbit/command/rabbit-slide.rb:97
-#: ../lib/rabbit/command/rabbit-theme.rb:93 ../lib/rabbit/command/rabbit-theme.rb:100
-#: ../lib/rabbit/command/rabbit-theme.rb:117
+#: ../lib/rabbit/command/rabbit-theme.rb:90 ../lib/rabbit/command/rabbit-theme.rb:97
 msgid "(must)"
 msgstr "（必須）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:95 ../lib/rabbit/command/rabbit-theme.rb:98
+#: ../lib/rabbit/command/rabbit-slide.rb:95 ../lib/rabbit/command/rabbit-theme.rb:95
 msgid "Base name for the slide source file and generated PDF file"
 msgstr "スライドのソースファイルとソースから生成するPDFファイルのベースファイル名"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:107 ../lib/rabbit/command/rabbit-theme.rb:110
+#: ../lib/rabbit/command/rabbit-slide.rb:107 ../lib/rabbit/command/rabbit-theme.rb:107
 msgid "Markup language for the new slide"
 msgstr "新しいスライドのマークアップ言語"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:109
+#: ../lib/rabbit/command/rabbit-slide.rb:109 ../lib/rabbit/command/rabbit-theme.rb:109
 msgid "(available markup languages: %s)"
 msgstr "（利用可能なマークアップ言語: %s）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:112 ../lib/rabbit/command/rabbit-slide.rb:156
 #: ../lib/rabbit/command/rabbit-slide.rb:169 ../lib/rabbit/command/rabbit-slide.rb:183
 #: ../lib/rabbit/command/rabbit-slide.rb:197 ../lib/rabbit/command/rabbit-slide.rb:211
-#: ../lib/rabbit/command/rabbit-theme.rb:115 ../lib/rabbit/command/rabbit-theme.rb:159
-#: ../lib/rabbit/command/rabbit-theme.rb:172 ../lib/rabbit/command/rabbit-theme.rb:186
-#: ../lib/rabbit/command/rabbit-theme.rb:200 ../lib/rabbit/command/rabbit-theme.rb:214
+#: ../lib/rabbit/command/rabbit-theme.rb:112 ../lib/rabbit/command/rabbit-theme.rb:156
+#: ../lib/rabbit/command/rabbit-theme.rb:169 ../lib/rabbit/command/rabbit-theme.rb:183
+#: ../lib/rabbit/command/rabbit-theme.rb:197 ../lib/rabbit/command/rabbit-theme.rb:211
 msgid "(default: %s)"
 msgstr "(デフォルト: %s)"
 
@@ -131,132 +146,131 @@ msgstr "(デフォルト: %s)"
 #: ../lib/rabbit/command/rabbit-slide.rb:145 ../lib/rabbit/command/rabbit-slide.rb:158
 #: ../lib/rabbit/command/rabbit-slide.rb:171 ../lib/rabbit/command/rabbit-slide.rb:185
 #: ../lib/rabbit/command/rabbit-slide.rb:199 ../lib/rabbit/command/rabbit-slide.rb:213
-#: ../lib/rabbit/command/rabbit-theme.rb:126 ../lib/rabbit/command/rabbit-theme.rb:134
-#: ../lib/rabbit/command/rabbit-theme.rb:141 ../lib/rabbit/command/rabbit-theme.rb:148
-#: ../lib/rabbit/command/rabbit-theme.rb:161 ../lib/rabbit/command/rabbit-theme.rb:174
-#: ../lib/rabbit/command/rabbit-theme.rb:188 ../lib/rabbit/command/rabbit-theme.rb:202
-#: ../lib/rabbit/command/rabbit-theme.rb:216
+#: ../lib/rabbit/command/rabbit-theme.rb:114 ../lib/rabbit/command/rabbit-theme.rb:123
+#: ../lib/rabbit/command/rabbit-theme.rb:131 ../lib/rabbit/command/rabbit-theme.rb:138
+#: ../lib/rabbit/command/rabbit-theme.rb:145 ../lib/rabbit/command/rabbit-theme.rb:158
+#: ../lib/rabbit/command/rabbit-theme.rb:171 ../lib/rabbit/command/rabbit-theme.rb:185
+#: ../lib/rabbit/command/rabbit-theme.rb:199 ../lib/rabbit/command/rabbit-theme.rb:213
 msgid "(optional)"
 msgstr "（省略可能）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:121 ../lib/rabbit/command/rabbit-theme.rb:124
+#: ../lib/rabbit/command/rabbit-slide.rb:121 ../lib/rabbit/command/rabbit-theme.rb:121
 msgid "Title of the new slide"
 msgstr "新しいスライドのタイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:122
+#: ../lib/rabbit/command/rabbit-slide.rb:122 ../lib/rabbit/command/rabbit-theme.rb:122
 msgid "--title=\"Rabbit Introduction\""
 msgstr "--title=\"Rabbitの紹介\""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:129 ../lib/rabbit/command/rabbit-theme.rb:132
+#: ../lib/rabbit/command/rabbit-slide.rb:129 ../lib/rabbit/command/rabbit-theme.rb:129
 msgid "Tags of the new slide"
 msgstr "新しいスライドのタグ"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:136 ../lib/rabbit/command/rabbit-theme.rb:139
+#: ../lib/rabbit/command/rabbit-slide.rb:136 ../lib/rabbit/command/rabbit-theme.rb:136
 msgid "Allotted time in presentaion"
 msgstr "プレゼンの持ち時間"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:143 ../lib/rabbit/command/rabbit-theme.rb:146
+#: ../lib/rabbit/command/rabbit-slide.rb:143 ../lib/rabbit/command/rabbit-theme.rb:143
 msgid "Presentation date with the new slide"
 msgstr "新しいスライドでプレゼンする日"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:149 ../lib/rabbit/command/rabbit-theme.rb:152
+#: ../lib/rabbit/command/rabbit-slide.rb:149 ../lib/rabbit/command/rabbit-theme.rb:149
 msgid "Your information"
 msgstr "あなたの情報"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:152
+#: ../lib/rabbit/command/rabbit-slide.rb:152 ../lib/rabbit/command/rabbit-theme.rb:152
 msgid "Author name of the new slide"
 msgstr "新しいスライドの作者の名前"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:165 ../lib/rabbit/command/rabbit-theme.rb:168
+#: ../lib/rabbit/command/rabbit-slide.rb:165 ../lib/rabbit/command/rabbit-theme.rb:165
 msgid "Author e-mail of the new slide"
 msgstr "新しいスライドの作者のEメールアドレス"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:178 ../lib/rabbit/command/rabbit-slide.rb:192
-#: ../lib/rabbit/command/rabbit-slide.rb:206 ../lib/rabbit/command/rabbit-theme.rb:181
-#: ../lib/rabbit/command/rabbit-theme.rb:195 ../lib/rabbit/command/rabbit-theme.rb:209
+#: ../lib/rabbit/command/rabbit-slide.rb:206 ../lib/rabbit/command/rabbit-theme.rb:178
+#: ../lib/rabbit/command/rabbit-theme.rb:192 ../lib/rabbit/command/rabbit-theme.rb:206
 msgid "Account for %s"
 msgstr "%sのアカウント"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:179 ../lib/rabbit/command/rabbit-slide.rb:193
-#: ../lib/rabbit/command/rabbit-slide.rb:207 ../lib/rabbit/command/rabbit-theme.rb:182
-#: ../lib/rabbit/command/rabbit-theme.rb:196 ../lib/rabbit/command/rabbit-theme.rb:210
+#: ../lib/rabbit/command/rabbit-slide.rb:207 ../lib/rabbit/command/rabbit-theme.rb:179
+#: ../lib/rabbit/command/rabbit-theme.rb:193 ../lib/rabbit/command/rabbit-theme.rb:207
 msgid "It is used to publish your slide to %s"
 msgstr "%sにスライドを公開するときに使います"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:233 ../lib/rabbit/command/rabbit-theme.rb:237
+#: ../lib/rabbit/command/rabbit-slide.rb:233 ../lib/rabbit/command/rabbit-theme.rb:233
 msgid "too many commands: %s"
 msgstr "コマンドが多過ぎます: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:238 ../lib/rabbit/command/rabbit-theme.rb:242
+#: ../lib/rabbit/command/rabbit-slide.rb:238 ../lib/rabbit/command/rabbit-theme.rb:238
 msgid "invalid command: <%s>: available commands: %s"
 msgstr "不正なコマンド: <%s>: 利用可能なコマンド: %s"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:246 ../lib/rabbit/command/rabbit-slide.rb:252
-#: ../lib/rabbit/command/rabbit-theme.rb:250 ../lib/rabbit/command/rabbit-theme.rb:256
-#: ../lib/rabbit/command/rabbit-theme.rb:262
+#: ../lib/rabbit/command/rabbit-theme.rb:246 ../lib/rabbit/command/rabbit-theme.rb:252
 msgid "%s is missing"
 msgstr "%sがありません"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:308 ../lib/rabbit/command/rabbit-theme.rb:318
+#: ../lib/rabbit/command/rabbit-slide.rb:308 ../lib/rabbit/command/rabbit-theme.rb:308
 msgid "TODO: SLIDE TITLE"
 msgstr "TODO: スライドのタイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:310 ../lib/rabbit/command/rabbit-theme.rb:320
+#: ../lib/rabbit/command/rabbit-slide.rb:310 ../lib/rabbit/command/rabbit-theme.rb:310
 msgid "TODO: SLIDE DESCRIPTION"
 msgstr "TODO: スライドの説明"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:313 ../lib/rabbit/command/rabbit-theme.rb:323
+#: ../lib/rabbit/command/rabbit-slide.rb:313 ../lib/rabbit/command/rabbit-theme.rb:313
 msgid "For author"
 msgstr "作者向け"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:315 ../lib/rabbit/command/rabbit-slide.rb:331
-#: ../lib/rabbit/command/rabbit-theme.rb:325 ../lib/rabbit/command/rabbit-theme.rb:341
+#: ../lib/rabbit/command/rabbit-theme.rb:315 ../lib/rabbit/command/rabbit-theme.rb:331
 #: ../lib/rabbit/action/radio.rb:37
 msgid "Show"
 msgstr "表示"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:319 ../lib/rabbit/command/rabbit-theme.rb:329
+#: ../lib/rabbit/command/rabbit-slide.rb:319 ../lib/rabbit/command/rabbit-theme.rb:319
 msgid "Publish"
 msgstr "公開"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:324 ../lib/rabbit/command/rabbit-theme.rb:334
+#: ../lib/rabbit/command/rabbit-slide.rb:324 ../lib/rabbit/command/rabbit-theme.rb:324
 msgid "For viewers"
 msgstr "閲覧者向け"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:326 ../lib/rabbit/command/rabbit-theme.rb:336
+#: ../lib/rabbit/command/rabbit-slide.rb:326 ../lib/rabbit/command/rabbit-theme.rb:326
 msgid "Install"
 msgstr "インストール"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:454 ../lib/rabbit/command/rabbit-slide.rb:463
-#: ../lib/rabbit/command/rabbit-theme.rb:464 ../lib/rabbit/command/rabbit-theme.rb:473
+#: ../lib/rabbit/command/rabbit-theme.rb:454 ../lib/rabbit/command/rabbit-theme.rb:463
 msgid "TITLE"
 msgstr "タイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:456 ../lib/rabbit/command/rabbit-theme.rb:466
+#: ../lib/rabbit/command/rabbit-slide.rb:456 ../lib/rabbit/command/rabbit-theme.rb:456
 msgid "FIRST SLIDE"
 msgstr "最初のスライド"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:458 ../lib/rabbit/command/rabbit-theme.rb:468
+#: ../lib/rabbit/command/rabbit-slide.rb:458 ../lib/rabbit/command/rabbit-theme.rb:458
 msgid "SECOND SLIDE"
 msgstr "二番目のスライド"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:469 ../lib/rabbit/command/rabbit-theme.rb:479
+#: ../lib/rabbit/command/rabbit-slide.rb:469 ../lib/rabbit/command/rabbit-theme.rb:469
 msgid "SUBTITLE"
 msgstr "サブタイトル"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:470 ../lib/rabbit/command/rabbit-theme.rb:480
+#: ../lib/rabbit/command/rabbit-slide.rb:470 ../lib/rabbit/command/rabbit-theme.rb:470
 msgid "AUTHOR"
 msgstr "作者"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:471 ../lib/rabbit/command/rabbit-theme.rb:481
+#: ../lib/rabbit/command/rabbit-slide.rb:471 ../lib/rabbit/command/rabbit-theme.rb:471
 msgid "INSTITUTION"
 msgstr "所属"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:472 ../lib/rabbit/command/rabbit-theme.rb:482
+#: ../lib/rabbit/command/rabbit-slide.rb:472 ../lib/rabbit/command/rabbit-theme.rb:472
 msgid "EVENT NAME"
 msgstr "イベント名"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:494 ../lib/rabbit/command/rabbit-theme.rb:504
+#: ../lib/rabbit/command/rabbit-slide.rb:494 ../lib/rabbit/command/rabbit-theme.rb:494
 msgid "ITEM %d"
 msgstr "項目%d"
 
@@ -593,9 +607,10 @@ msgstr "公開レベルを指定します．"
 msgid "Select from the following:"
 msgstr "以下から選択します．"
 
-#: ../lib/rabbit/command/rabbit.rb:526
-msgid "\"(#{options.default_public_level})\""
-msgstr ""
+#: ../lib/rabbit/command/rabbit.rb:526 ../lib/rabbit/command/rabbit.rb:551
+#: ../lib/rabbit/command/rabbit.rb:558
+msgid "(%s)"
+msgstr "（%s）"
 
 #: ../lib/rabbit/command/rabbit.rb:531 ../lib/rabbit/theme/stream-comment/property.rb:1
 #: ../lib/rabbit/theme/clutter-comment/property.rb:1 ../lib/rabbit/theme/footer-comment/property.rb:1
@@ -626,17 +641,9 @@ msgstr "Migemo"
 msgid "Specify search paths for Migemo static dictionary."
 msgstr "Migemoの静的辞書の検索パスを指定します．"
 
-#: ../lib/rabbit/command/rabbit.rb:551
-msgid "\"(#{search_path})\""
-msgstr ""
-
 #: ../lib/rabbit/command/rabbit.rb:557
 msgid "Specify static dictionary name for Migemo."
 msgstr "Migemoの静的辞書名を指定します．"
-
-#: ../lib/rabbit/command/rabbit.rb:558
-msgid "\"(#{options.migemo_dictionary_name})\""
-msgstr ""
 
 #: ../lib/rabbit/command/rabbit.rb:562
 msgid "3D"
@@ -693,102 +700,6 @@ msgstr "終了中です．．．"
 #: ../lib/rabbit/command/rabbit.rb:908
 msgid "DRb.thread done."
 msgstr "DRB.threadは終了しました．"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:72
-msgid ""
-"Usage: %s new [options]\n"
-" e.g.: %s new \\\n"
-"          --id rubykaigi2012 \\\n"
-"          --base-name rabbit-introduction \\\n"
-"          --markup rd \\\n"
-"          --author \"Kouhei Sutou\" \\\n"
-"          --email kou@cozmixng.org \\\n"
-"          --rubygems-user kou \\\n"
-"          --slideshare-user kou \\\n"
-"          --speaker-deck-user kou"
-msgstr ""
-"使い方: %s new [オプション]\n"
-"    例: %s new \\\n"
-"          --id rubykaigi2012 \\\n"
-"          --base-name rabbit-introduction \\\n"
-"          --markup rd \\\n"
-"          --author \"Kouhei Sutou\" \\\n"
-"          --email kou@cozmixng.org \\\n"
-"          --rubygems-user kou \\\n"
-"          --slideshare-user kou \\\n"
-"          --speaker-deck-user kou"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:92
-msgid "(e.g.: --id=rubykaigi2012)"
-msgstr "（例: --id=rubykaigi2012）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:99
-msgid "(e.g.: --base-name=rabbit-introduction)"
-msgstr "（例: --base-name=rabbit-introduction）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:111
-msgid "(e.g.: --markup=rd)"
-msgstr "（例: --markup=rd）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:112
-msgid "(available markups: %s)"
-msgstr "（利用可能なマークアップ言語: %s）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:125
-msgid "(e.g.: --title=\"Rabbit Introduction\")"
-msgstr "（例: --title=\"Rabbitの紹介\"）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:133
-msgid "(e.g.: --tags=rabbit,presentation,ruby)"
-msgstr "（例:: --tags=rabbit,presentation,ruby）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:140
-msgid "(e.g.: --allotted-time=5m)"
-msgstr "（例: --allotted-time=5m）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:147
-msgid "(e.g.: --presentation-date=2012/06/29)"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-theme.rb:155
-msgid "Author of the new slide"
-msgstr "新しいスライドの作者"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:156
-msgid "(e.g.: --author=\"Kouhei Sutou\")"
-msgstr "（例: --author=\"Kouhei Sutou\"）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:169
-msgid "(e.g.: --email=kou@cozmixng.org)"
-msgstr "（例: --email=kou@cozmixng.org）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:183
-msgid "(e.g.: --rubygems-user=kou)"
-msgstr "（例: --rubygems-user=kou）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:197
-msgid "(e.g.: --slideshare-user=kou)"
-msgstr "（例: --slideshare-user=kou）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:211
-msgid "(e.g.: --speaker-deck-user=kou)"
-msgstr "（例: --speaker-deck-user=kou）"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:573 ../lib/rabbit/path-manipulatable.rb:28
-msgid "Creating directory: %s"
-msgstr "ディレクトリを作成中: %s"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:581 ../lib/rabbit/path-manipulatable.rb:36
-msgid "Creating file:      %s"
-msgstr "ファイルを作成中:     %s"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:595
-msgid "Failed to read slide configuration: %s: %s"
-msgstr "スライド設定の読み込みに失敗しました: %s: %s"
-
-#: ../lib/rabbit/command/rabbit-theme.rb:613
-msgid "Failed to write slide configuration: %s: %s"
-msgstr "スライド設定の書き込みに失敗しました: %s: %s"
 
 #: ../lib/rabbit/image/pdf.rb:49
 msgid "%s page isn't exist in PDF"
@@ -1323,7 +1234,7 @@ msgstr "このツールキットをアンインストールするか否か。こ
 
 #: ../lib/rabbit/theme/syntax-highlighting/property.rb:2
 msgid "Syntax Highlighting"
-msgstr ""
+msgstr "シンタックスハイライト"
 
 #: ../lib/rabbit/theme/syntax-highlighting/property.rb:3
 msgid "Toolkit for syntax highlighting"
@@ -2420,11 +2331,19 @@ msgstr "スライドの見出しに画像をロゴとして表示します。"
 
 #: ../lib/rabbit/author-configuration.rb:51
 msgid "Failed to read author configuration: %s: %s"
-msgstr ""
+msgstr "作者設定の読み込みに失敗しました: %s: %s"
 
 #: ../lib/rabbit/author-configuration.rb:69
 msgid "Failed to write author configuration: %s: %s"
-msgstr ""
+msgstr "作者設定の書き込みに失敗しました: %s: %s"
+
+#: ../lib/rabbit/path-manipulatable.rb:28
+msgid "Creating directory: %s"
+msgstr "ディレクトリを作成中: %s"
+
+#: ../lib/rabbit/path-manipulatable.rb:36
+msgid "Creating file:      %s"
+msgstr "ファイルを作成中:     %s"
 
 #: ../lib/rabbit/renderer/print/cairo.rb:122
 msgid "can't find printer for %s"
