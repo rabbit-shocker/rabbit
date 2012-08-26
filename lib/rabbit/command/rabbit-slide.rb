@@ -14,15 +14,17 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "fileutils"
 require "yaml"
 
 require "rabbit/console"
+require "rabbit/author-configuration"
+require "rabbit/path-manipulatable"
 
 module Rabbit
   module Command
     class RabbitSlide
       include GetText
+      include PathManipulatable
 
       class << self
         def run(*arguments)
@@ -31,20 +33,14 @@ module Rabbit
       end
 
       def initialize
-        @author_conf_path = File.expand_path("~/.rabbit/author.yaml")
         @config_yaml_path = "config.yaml"
         @id = nil
         @base_name = nil
-        @markup = nil
         @title = nil
         @tags = []
         @allotted_time = nil
         @presentation_date = nil
-        @author = nil
-        @email = nil
-        @rubygems_user = nil
-        @slideshare_user = nil
-        @speaker_deck_user = nil
+        @author_conf = nil
         @logger = nil
       end
 
@@ -59,7 +55,7 @@ module Rabbit
         end
 
         generate
-        save_author_conf
+        @author_conf.save
         true
       end
 
@@ -67,14 +63,15 @@ module Rabbit
       def parse_command_line_arguments(arguments)
         Rabbit::Console.parse!(ARGV) do |parser, options|
           @logger = options.default_logger
-          load_author_conf
+          @author_conf = AuthorConfiguration.new(@logger)
+          @author_conf.load
 
           format = _("Usage: %s new [options]\n" \
                      " e.g.: %s new \\\n" \
                      "          --id rubykaigi2012 \\\n" \
                      "          --base-name rabbit-introduction \\\n" \
-                     "          --markup rd \\\n" \
-                     "          --author \"Kouhei Sutou\" \\\n" \
+                     "          --markup-language rd \\\n" \
+                     "          --name \"Kouhei Sutou\" \\\n" \
                      "          --email kou@cozmixng.org \\\n" \
                      "          --rubygems-user kou \\\n" \
                      "          --slideshare-user kou \\\n" \
@@ -104,20 +101,20 @@ module Rabbit
             @base_name = base_name
           end
 
-          available_markups = [:rd, :hiki, :markdown]
-          available_markups_label = "[" + available_markups.join(", ") + "]"
+          available_markup_languages = [:rd, :hiki, :markdown]
+          label = "[" + available_markup_languages.join(", ") + "]"
           messages = [
             _("Markup language for the new slide"),
-            _("(e.g.: --markup=rd)"),
-            _("(available markups: %s)") % available_markups_label,
+            _("(e.g.: --markup-language=rd)"),
+            _("(available markup languages: %s)") % label,
           ]
-          if @markup
-            messages << _("(default: %s)") % @markup
+          if @author_conf.markup_language
+            messages << _("(default: %s)") % @author_conf.markup_language
           end
-          messages << _("(must)")
-          parser.on("--markup=MARKUP", available_markups,
-                    *messages) do |markup|
-            @markup = markup
+          messages << _("(optional)")
+          parser.on("--markup-language=LANGUAGE", available_markup_languages,
+                    *messages) do |language|
+            @author_conf.markup_language = language
           end
 
           parser.on("--title=TITLE",
@@ -152,29 +149,29 @@ module Rabbit
           parser.separator(_("Your information"))
 
           messages = [
-            _("Author of the new slide"),
-            _("(e.g.: --author=\"Kouhei Sutou\")"),
+            _("Author name of the new slide"),
+            _("(e.g.: --name=\"Kouhei Sutou\")"),
           ]
-          if @author
-            messages << _("(default: %s)") % @author
+          if @author_conf.name
+            messages << _("(default: %s)") % @author_conf.name
           end
           messages << _("(optional)")
-          parser.on("--author=AUTHOR",
-                    *messages) do |author|
-            @author = author
+          parser.on("--name=NAME",
+                    *messages) do |name|
+            @author_conf.name = name
           end
 
           messages = [
             _("Author e-mail of the new slide"),
             _("(e.g.: --email=kou@cozmixng.org)"),
           ]
-          if @email
-            messages << _("(default: %s)") % @email
+          if @author_conf.email
+            messages << _("(default: %s)") % @author_conf.email
           end
           messages << _("(optional)")
           parser.on("--email=EMAIL",
                     *messages) do |email|
-            @email = email
+            @author_conf.email = email
           end
 
           messages = [
@@ -182,13 +179,13 @@ module Rabbit
             _("It is used to publish your slide to %s") % "RubyGems.org",
             _("(e.g.: --rubygems-user=kou)"),
           ]
-          if @rubygems_user
-            messages << _("(default: %s)") % @rubygems_user
+          if @author_conf.rubygems_user
+            messages << _("(default: %s)") % @author_conf.rubygems_user
           end
           messages << _("(optional)")
           parser.on("--rubygems-user=USER",
                     *messages) do |user|
-            @rubygems_user = user
+            @author_conf.rubygems_user = user
           end
 
           messages = [
@@ -196,13 +193,13 @@ module Rabbit
             _("It is used to publish your slide to %s") % "SlideShare",
             _("(e.g.: --slideshare-user=kou)"),
           ]
-          if @slideshare_user
-            messages << _("(default: %s)") % @slideshare_user
+          if @author_conf.slideshare_user
+            messages << _("(default: %s)") % @author_conf.slideshare_user
           end
           messages << _("(optional)")
           parser.on("--slideshare-user=USER",
                     *messages) do |user|
-            @slideshare_user = user
+            @author_conf.slideshare_user = user
           end
 
           messages = [
@@ -210,13 +207,13 @@ module Rabbit
             _("It is used to publish your slide to %s") % "Speaker Deck",
             _("(e.g.: --speaker-deck-user=kou)"),
           ]
-          if @speaker_deck_user
-            messages << _("(default: %s)") % @speaker_deck_user
+          if @author_conf.speaker_deck_user
+            messages << _("(default: %s)") % @author_conf.speaker_deck_user
           end
           messages << _("(optional)")
           parser.on("--speaker-deck-user=USER",
                     *messages) do |user|
-            @speaker_deck_user = user
+            @author_conf.speaker_deck_user = user
           end
         end
       end
@@ -226,7 +223,6 @@ module Rabbit
         validate_command
         validate_id
         validate_base_name
-        validate_markup
       end
 
       def validate_command
@@ -257,12 +253,6 @@ module Rabbit
         end
       end
 
-      def validate_markup
-        if @markup.nil?
-          @validation_errors << (_("%s is missing") % "--markup")
-        end
-      end
-
       def generate
         generate_directory
         generate_dot_rabbit
@@ -279,7 +269,7 @@ module Rabbit
       def generate_dot_rabbit
         create_file(".rabbit") do |dot_rabbit|
           options = []
-          if @markup.nil? and @allotted_time
+          if @author_conf.markup_language.nil? and @allotted_time
             options << "--allotted-time #{@allotted_time}"
           end
           options << slide_path
@@ -293,12 +283,12 @@ module Rabbit
             "id"                => @id,
             "tags"              => @tags,
             "base_name"         => @base_name,
-            "author"            => @author,
+            "name"              => @author_conf.name,
             "presentation_date" => @presentation_date,
-            "email"             => @email,
-            "rubygems_user"     => @rubygems_user,
-            "slideshare_user"   => @slideshare_user,
-            "speaker_deck_user" => @speaker_deck_user,
+            "email"             => @author_conf.email,
+            "rubygems_user"     => @author_conf.rubygems_user,
+            "slideshare_user"   => @author_conf.slideshare_user,
+            "speaker_deck_user" => @author_conf.speaker_deck_user,
           }
           config_yaml.puts(config.to_yaml)
         end
@@ -311,8 +301,8 @@ module Rabbit
       end
 
       def readme_content
-        markup = @markup || :rd
-        syntax = markup_syntax(markup)
+        markup_language = @author_conf.markup_language || :rd
+        syntax = markup_syntax(markup_language)
 
         content = ""
         content << (syntax[:heading1] % {:title => _("TODO: SLIDE TITLE")})
@@ -373,7 +363,7 @@ if presentation_date
 end
 version ||= "1.0.0"
 
-author = config["author"]
+name = config["name"]
 email = config["email"]
 rubygems_user = config["rubygems_user"]
 slideshare_user = config["slideshare_user"]
@@ -390,7 +380,7 @@ specification = Gem::Specification.new do |spec|
   spec.name = "\#{prefix}-\#{rubygems_user}-\#{slide_id}"
   spec.version = version
   spec.homepage = "http://slide.rabbit-shockers.org/\#{rubygems_user}/\#{slide_id}/"
-  spec.authors = [author]
+  spec.authors = [name]
   spec.email = [email]
   spec.summary = summary
   spec.description = description
@@ -431,7 +421,7 @@ EOR
       end
 
       def slide_source_extension
-        case @markup
+        case @author_conf.markup_language
         when :rd
           "rab"
         when :hiki
@@ -444,7 +434,7 @@ EOR
       end
 
       def readme_extension
-        case @markup
+        case @author_conf.markup_language
         when :rd
           "rd"
         when :hiki
@@ -477,7 +467,7 @@ EOR
       def slide_source_metadata(source, syntax)
         slide_metadata = [
           ["subtitle",       nil,                _("SUBTITLE")],
-          ["author",         @author,            _("AUTHOR")],
+          ["author",         @author_conf.name,  _("AUTHOR")],
           ["institution",    nil,                _("INSTITUTION")],
           ["content-source", nil,                _("EVENT NAME")],
           ["date",           @presentation_date, Time.now.strftime("%Y/%m/%d")],
@@ -518,11 +508,11 @@ EOR
       end
 
       def slide_source_syntax
-        markup_syntax(@markup)
+        markup_syntax(@author_conf.markup_language)
       end
 
-      def markup_syntax(markup)
-        case markup
+      def markup_syntax(markup_language)
+        case markup_language
         when :rd
           {
             :heading1             => "= %{title}",
@@ -569,53 +559,8 @@ EOR
         end
       end
 
-      def create_directory(path)
-        @logger.info(_("Creating directory: %s") % path)
-        FileUtils.mkdir_p(path)
-      end
-
-      def create_file(path, &block)
-        unless Pathname(path).absolute?
-          path = File.join(@id, path)
-        end
-        @logger.info(_("Creating file:      %s") % path)
-        File.open(path, "w", &block)
-      end
-
-      def load_author_conf
-        return unless File.exist?(@author_conf_path)
-        conf = YAML.load(File.read(@author_conf_path))
-        @markup            = conf["markup"]
-        @author            = conf["author"]
-        @email             = conf["email"]
-        @rubygems_user     = conf["rubygems_user"]
-        @slideshare_user   = conf["slideshare_user"]
-        @speaker_deck_user = conf["speaker_deck_user"]
-      rescue
-        format = _("Failed to read slide configuration: %s: %s")
-        @logger.error(format % [@author_conf_path, $!.message])
-      end
-
-      def save_author_conf
-        conf = {
-          "markup"            => @markup,
-          "author"            => @author,
-          "email"             => @email,
-          "rubygems_user"     => @rubygems_user,
-          "slideshare_user"   => @slideshare_user,
-          "speaker_deck_user" => @speaker_deck_user,
-        }
-        create_directory(File.dirname(@author_conf_path))
-        create_file(@author_conf_path) do |author_conf|
-          author_conf.print(conf.to_yaml)
-        end
-      rescue
-        format = _("Failed to write slide configuration: %s: %s")
-        @logger.error(format % [@author_conf_path, $!.message])
-      end
-
       def gem_name
-        "rabbit-slide-#{@rubygems_user}-#{@id}"
+        "rabbit-slide-#{@author_conf.rubygems_user}-#{@id}"
       end
     end
   end
