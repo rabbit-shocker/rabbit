@@ -399,8 +399,8 @@ specification = Gem::Specification.new do |spec|
   spec.description = description
   spec.licenses = [] # ["CC BY-SA 3.0"]
 
-  spec.files = [".rabbit"]
-  spec.files += Dir.glob("{COPYING,GPL,Rakefile,README*}")
+  spec.files = [".rabbit", "#{@config_yaml_path}", "Rakefile"]
+  spec.files += Dir.glob("{COPYING,GPL,README*}")
   spec.files += Dir.glob("rabbit/**/*.*")
   spec.files += Dir.glob("**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
   spec.files += Dir.glob("*.{rd,rab,hiki,md,pdf}")
