@@ -48,7 +48,7 @@ module Rabbit
         end
 
         unless only_image
-          entry = SingleFileEntry.new(base_directory, theme_name)
+          entry = SingleFileEntry.new(@logger, base_directory, theme_name)
           return entry if entry.available?
         end
 
@@ -60,7 +60,16 @@ module Rabbit
           end
         end
 
-        raise LoadError, "can't find theme: #{theme_name}." if found_entry.nil?
+        if found_entry.nil?
+          if only_image
+            entry = ImageGemEntry.new(@logger, theme_name)
+          else
+            entry = GemEntry.new(@logger, theme_name)
+          end
+          return entry if entry.available?
+          raise LoadError, "can't find theme: #{theme_name}."
+        end
+
         found_entry
       end
 
@@ -119,7 +128,7 @@ module Rabbit
               next if /\A..?\z/ =~ theme
               next if theme_names.has_key?(theme)
               theme_dir = File.join(File.expand_path(base_name), theme)
-              entry = entry_class.new(theme_dir)
+              entry = entry_class.new(@logger, theme_dir)
               if entry.available?
                 block.call(entry) if block
                 themes << entry

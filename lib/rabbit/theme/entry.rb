@@ -1,6 +1,23 @@
+# Copyright (C) 2005-2012  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require 'erb'
 
 require 'rabbit/rabbit'
+require "rabbit/gem-finder"
 
 module Rabbit
   module Theme
@@ -11,6 +28,7 @@ module Rabbit
       include ERB::Util
       include GetText
 
+      THEME_BASE_NAME = "theme"
       PROPERTY_BASE_NAME = "property"
 
       class << self
@@ -47,8 +65,8 @@ module Rabbit
       attr_reader :dependencies, :parameters
       attr_accessor :logger
 
-      def initialize(theme_dir, name)
-        @logger = nil
+      def initialize(logger, theme_dir, name)
+        @logger = logger
         @theme_dir = theme_dir
         @name = name
         @title = @name
@@ -114,10 +132,8 @@ module Rabbit
     end
 
     class DirectoryEntry < Entry
-      THEME_BASE_NAME = "theme"
-
-      def initialize(theme_dir)
-        super(theme_dir, File.basename(theme_dir))
+      def initialize(logger, theme_dir)
+        super(logger, theme_dir, File.basename(theme_dir))
       end
 
       def theme_file
@@ -141,8 +157,8 @@ module Rabbit
     end
 
     class SingleFileEntry < Entry
-      def initialize(theme_dir, name)
-        super(theme_dir, name)
+      def initialize(logger, theme_dir, name)
+        super(logger, theme_dir, name)
       end
 
       def property_editable?
@@ -163,6 +179,46 @@ module Rabbit
 
       private
       def parse_property
+      end
+    end
+
+    class GemEntry < Entry
+      def initialize(logger, name)
+        finder = Gem::Finder.new(logger)
+        @spec = finder.find(name, "rabbit-theme")
+        theme_dir = nil
+        theme_dir = @spec.gem_dir if @spec
+        super(theme_dir, name)
+      end
+
+      def available?
+        @theme_dir and super
+      end
+
+      def theme_file
+        File.join(@theme_dir, "#{THEME_BASE_NAME}.rb")
+      end
+
+      def full_path(target)
+        File.join(image_dir, target)
+      end
+
+      def images_dir
+        File.join(@theme_dir, "images")
+      end
+
+      def files
+        Dir.glob(File.join(images_dir, "*")).sort
+      end
+    end
+
+    class ImageGemEntry < GemEntry
+      def available?
+        @theme_dir and File.directory?(images_dir)
+      end
+
+      def image_theme?
+        true
       end
     end
   end
