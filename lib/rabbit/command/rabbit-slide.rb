@@ -42,6 +42,7 @@ module Rabbit
         @title = nil
         @tags = []
         @allotted_time = nil
+        @presentation_date = nil
         @author = nil
         @email = nil
         @rubygems_user = nil
@@ -142,6 +143,13 @@ module Rabbit
                     _("(e.g.: --allotted-time=5m)"),
                     _("(optional)")) do |allotted_time|
             @allotted_time = allotted_time
+          end
+
+          parser.on("--presentation-date=DATE",
+                    _("Presentation date with the new slide"),
+                    _("(e.g.: --presentation-date=2012/06/29)"),
+                    _("(optional)")) do |date|
+            @presentation_date = date
           end
 
           parser.separator(_("Your information"))
@@ -289,6 +297,7 @@ module Rabbit
             "tags"              => @tags,
             "base_name"         => @base_name,
             "author"            => @author,
+            "presentation_date" => @presentation_date,
             "email"             => @email,
             "rubygems_user"     => @rubygems_user,
             "slideshare_user"   => @slideshare_user,
@@ -342,6 +351,7 @@ module Rabbit
       def generate_rakefile
         create_file("Rakefile") do |rakefile|
           rakefile.puts(<<-EOR)
+require "time"
 require "yaml"
 require "rabbit/task"
 
@@ -351,6 +361,20 @@ slide_id = config["id"]
 tags = config["tags"]
 base_name = config["base_name"]
 pdf_base_path = "\#{base_name}.pdf"
+
+version = nil
+presentation_date = config["presentation_date"]
+parsed_presentation_date = nil
+if presentation_date
+  begin
+    parsed_presentation_date = Time.parse(presentation_date)
+  rescue ArgumentError
+  end
+  if parsed_presentation_date
+    version = parsed_presentation_date.strftime("%Y.%m.%d")
+  end
+end
+version ||= "1.0.0"
 
 author = config["author"]
 email = config["email"]
@@ -367,7 +391,7 @@ description = readme_blocks[1] || "TODO"
 specification = Gem::Specification.new do |spec|
   prefix = "rabbit-slide"
   spec.name = "\#{prefix}-\#{rubygems_user}-\#{slide_id}"
-  spec.version = "1.0.0"
+  spec.version = version
   spec.homepage = "http://slide.rabbit-shockers.org/\#{rubygems_user}/\#{slide_id}/"
   spec.authors = [author]
   spec.email = [email]
@@ -391,6 +415,7 @@ Rabbit::Task::Slide.new(specification) do |task|
   task.speaker_deck_user = speaker_deck_user
   task.pdf_base_path = pdf_base_path
   task.tags = tags
+  task.presentation_date = parsed_presentation_date
 end
 EOR
         end
@@ -454,13 +479,13 @@ EOR
 
       def slide_source_metadata(source, syntax)
         slide_metadata = [
-          ["subtitle",       nil,            _("SUBTITLE")],
-          ["author",         @author,        _("AUTHOR")],
-          ["institution",    nil,            _("INSTITUTION")],
-          ["content-source", nil,            _("EVENT NAME")],
-          ["date",           nil,            Time.now.strftime("%Y/%m/%d")],
-          ["allotted-time",  @allotted_time, "5m"],
-          ["theme",          nil,            "default"],
+          ["subtitle",       nil,                _("SUBTITLE")],
+          ["author",         @author,            _("AUTHOR")],
+          ["institution",    nil,                _("INSTITUTION")],
+          ["content-source", nil,                _("EVENT NAME")],
+          ["date",           @presentation_date, Time.now.strftime("%Y/%m/%d")],
+          ["allotted-time",  @allotted_time,     "5m"],
+          ["theme",          nil,                "default"],
         ]
         slide_metadata.each do |key, value, default_value|
           data = {:item => key, :description => value || default_value}

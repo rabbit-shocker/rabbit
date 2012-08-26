@@ -28,7 +28,7 @@ module Rabbit
 
       attr_reader :spec
       attr_accessor :package_dir, :pdf_dir, :pdf_base_path
-      attr_accessor :tags
+      attr_accessor :tags, :presentation_date
       attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
       def initialize(spec)
         @logger = Logger.default
@@ -37,6 +37,7 @@ module Rabbit
         @pdf_dir = "pdf"
         @pdf_base_path = nil
         @tags = []
+        @presentation_date = nil
         @rubygems_user = nil
         @slideshare_user = nil
         @speaker_deck_user = nil
