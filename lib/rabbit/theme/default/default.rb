@@ -20,7 +20,15 @@ include_theme("default-description")
 include_theme("image")
 include_theme("table")
 include_theme("newline-in-slides")
-include_theme("slide-number")
+
+if print?
+  include_theme("slide-number")
+else
+  include_theme("image-slide-number")
+  if canvas.allotted_time
+    include_theme("image-timer")
+  end
+end
 
 include_theme("per-slide-background-color")
 
