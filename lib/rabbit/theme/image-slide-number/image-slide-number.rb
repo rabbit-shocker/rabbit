@@ -3,7 +3,10 @@ add_image_path("rabbit-images")
 proc_name = "image-slide-number"
 
 @image_slide_number_image ||= "mini-usa-taro.png"
-@image_slide_number_show_text ||= false
+if !defined?(@image_slide_number_show_text) or
+    @image_slide_number_show_text.nil?
+  @image_slide_number_show_text = true
+end
 @image_slide_number_font_size ||= @xx_small_font_size
 @image_slide_number_text_color ||= "white"
 if !defined?(@image_slide_number_show_flag) or
