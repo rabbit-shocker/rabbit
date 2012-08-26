@@ -340,7 +340,7 @@ module Rabbit
           rakefile.puts(<<-EOR)
 require "time"
 require "yaml"
-require "rabbit/task"
+require "rabbit/task/slide"
 
 config = YAML.load(File.read("#{@config_yaml_path}"))
 
