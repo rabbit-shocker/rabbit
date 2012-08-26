@@ -60,10 +60,31 @@ module Rabbit
         end
 
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
-        task :gem do
+        task :gem => "gem:validate" do
           mkdir_p(@package_dir)
           Gem::Builder.new(@spec).build
           mv(File.basename(@spec.cache_file), gem_path)
+        end
+
+        namespace :gem do
+          task :validate do
+            errors = []
+            format = _("Write %{item} in %{where}: %{content}")
+            data = {
+              :where => Dir.glob("README*")[0],
+            }
+            [:summary, :description].each do |item|
+              content = @spec.send(item)
+              if /TODO|FIXME/ =~ content
+                data[:item] = item
+                data[:content] = content
+                errors << (format % data)
+              end
+            end
+            unless errors.empty?
+              raise errors.join("\n")
+            end
+          end
         end
 
         pdf_path = File.join(@pdf_dir, @pdf_base_path || default_pdf_base_path)
@@ -91,7 +112,7 @@ module Rabbit
 
           if @slideshare_user
             desc(_("Publish the slide to SlideShare"))
-            task :slideshare => :pdf do
+            task :slideshare => [:pdf, "gem:validate"] do
               require "rabbit/slideshare"
               slideshare = SlideShare.new(@logger)
               slideshare.user = @slideshare_user
