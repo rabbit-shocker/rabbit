@@ -11,6 +11,7 @@ module Rabbit
       include ERB::Util
       include GetText
 
+      THEME_BASE_NAME = "theme"
       PROPERTY_BASE_NAME = "property"
 
       class << self
@@ -69,7 +70,16 @@ module Rabbit
       end
 
       def theme_file
-        File.join(@theme_dir, "#{@name}.rb")
+        @theme_file ||= candidate_theme_files.find do |candidate|
+          File.readable?(candidate)
+        end
+        @theme_file ||= candidate_theme_files.first
+      end
+
+      def candidate_theme_files
+        [THEME_BASE_NAME, @name].collect do |base_name|
+          File.join(@theme_dir, "#{base_name}.rb")
+        end
       end
 
       def <=>(other)
@@ -93,7 +103,7 @@ module Rabbit
       end
 
       def files
-        rejected_files = [theme_file, property_file]
+        rejected_files = candidate_theme_files + [property_file]
         Dir[File.join(@theme_dir, "*")].delete_if do |name|
           rejected_files.include?(name)
         end.sort
