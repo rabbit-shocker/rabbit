@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-26 14:02+0900\n"
+"POT-Creation-Date: 2012-08-26 14:31+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -116,7 +116,7 @@ msgid "(e.g.: --markup=rd)"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:114
-msgid "(available markups: %s"
+msgid "(available markups: %s)"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:117 ../lib/rabbit/command/rabbit-slide.rb:154
@@ -149,7 +149,7 @@ msgid "(e.g.: --tags=Rabbit,Presentation,Ruby)"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:141
-msgid "Allotted time of the new slide"
+msgid "Allotted time in presentaion"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:142
@@ -165,7 +165,7 @@ msgid "Author of the new slide"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:151
-msgid "(e.g.: --author=\"Kouhei Sutou\""
+msgid "(e.g.: --author=\"Kouhei Sutou\")"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:163
@@ -173,39 +173,25 @@ msgid "Author e-mail of the new slide"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:164
-msgid "(e.g.: --email=kou@cozmixng.org"
+msgid "(e.g.: --email=kou@cozmixng.org)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:176
-msgid "Account for RubyGems.org"
+#: ../lib/rabbit/command/rabbit-slide.rb:176 ../lib/rabbit/command/rabbit-slide.rb:190
+#: ../lib/rabbit/command/rabbit-slide.rb:204
+msgid "Account for %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:177
-msgid "It is used to publish your slide to RubyGems.org"
+#: ../lib/rabbit/command/rabbit-slide.rb:177 ../lib/rabbit/command/rabbit-slide.rb:191
+#: ../lib/rabbit/command/rabbit-slide.rb:205
+msgid "It is used to publish your slide to %s"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:178
 msgid "(e.g.: --rubygems-user=kou)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:190
-msgid "Account for SlideShare"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:191
-msgid "It is used to publish your slide to SlideShare"
-msgstr ""
-
 #: ../lib/rabbit/command/rabbit-slide.rb:192
 msgid "(e.g.: --slideshare-user=kou)"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:204
-msgid "Account for Speaker Deck"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:205
-msgid "It is used to publish your slide to Speaker Deck"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:206
@@ -225,19 +211,80 @@ msgstr ""
 msgid "%s is missing"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:555
+#: ../lib/rabbit/command/rabbit-slide.rb:312
+msgid "TODO: SLIDE TITLE"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:314
+msgid "TODO: SLIDE DESCRIPTION"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:317
+msgid "For author"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:319 ../lib/rabbit/command/rabbit-slide.rb:335
+#: ../lib/rabbit/action/radio.rb:37
+msgid "Show"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:323
+msgid "Publish"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:328
+msgid "For viewers"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:330
+msgid "Install"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:442 ../lib/rabbit/command/rabbit-slide.rb:451
+msgid "TITLE"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:444
+msgid "FIRST SLIDE"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:446
+msgid "SECOND SLIDE"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:457
+msgid "SUBTITLE"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:458
+msgid "AUTHOR"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:459
+msgid "INSTITUTION"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:460
+msgid "EVENT NAME"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:482
+msgid "ITEM %d"
+msgstr ""
+
+#: ../lib/rabbit/command/rabbit-slide.rb:551
 msgid "Creating directory: %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:563
+#: ../lib/rabbit/command/rabbit-slide.rb:559
 msgid "Creating file:      %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:577
+#: ../lib/rabbit/command/rabbit-slide.rb:573
 msgid "Failed to read slide configuration: %s: %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:595
+#: ../lib/rabbit/command/rabbit-slide.rb:591
 msgid "Failed to write slide configuration: %s: %s"
 msgstr ""
 
@@ -858,10 +905,6 @@ msgstr ""
 
 #: ../lib/rabbit/action/toggle.rb:72
 msgid "Magnifier"
-msgstr ""
-
-#: ../lib/rabbit/action/radio.rb:37
-msgid "Show"
 msgstr ""
 
 #: ../lib/rabbit/action/radio.rb:48 ../lib/rabbit/theme/show-frame/property.rb:1
@@ -2717,7 +2760,47 @@ msgid "Available commands: %s"
 msgstr ""
 
 
-#. #: ../lib/rabbit/task.rb:74
-#. msgid "Publish the slide to RubyGems.org, SlideShare and Speaker Deck"
+#. #: ../lib/rabbit/command/rabbit-slide.rb:114
+#. msgid "(available markups: %s"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:141
+#. msgid "Allotted time of the new slide"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:151
+#. msgid "(e.g.: --author=\"Kouhei Sutou\""
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:164
+#. msgid "(e.g.: --email=kou@cozmixng.org"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:176
+#. msgid "Account for RubyGems.org"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:177
+#. msgid "It is used to publish your slide to RubyGems.org"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:190
+#. msgid "Account for SlideShare"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:191
+#. msgid "It is used to publish your slide to SlideShare"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:204
+#. msgid "Account for Speaker Deck"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:205
+#. msgid "It is used to publish your slide to Speaker Deck"
+#. msgstr ""
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:460
+#. msgid "CONTENT SOURCE"
 #. msgstr ""
 

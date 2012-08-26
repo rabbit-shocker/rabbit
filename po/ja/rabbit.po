@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-26 14:02+0900\n"
-"PO-Revision-Date: 2012-08-26 14:13+0900\n"
+"POT-Creation-Date: 2012-08-26 14:31+0900\n"
+"PO-Revision-Date: 2012-08-26 14:34+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:58
 msgid "See --help for example"
-msgstr ""
+msgstr "--helpで例を確認できます"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:74
 msgid ""
@@ -81,165 +81,222 @@ msgid ""
 "          --slideshare-user kou \\\n"
 "          --speaker-deck-user kou"
 msgstr ""
+"使い方: %s new [オプション]\n"
+"    例: %s new \\\n"
+"          --id rubykaigi2012 \\\n"
+"          --base-name rabbit-introduction \\\n"
+"          --markup rd \\\n"
+"          --author \"Kouhei Sutou\" \\\n"
+"          --email kou@cozmixng.org \\\n"
+"          --rubygems-user kou \\\n"
+"          --slideshare-user kou \\\n"
+"          --speaker-deck-user kou"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:90
 msgid "Slide information"
-msgstr ""
+msgstr "スライドの情報"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:93
 msgid "Slide ID"
-msgstr ""
+msgstr "スライドID"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:94
 msgid "(e.g.: --id=rubykaigi2012)"
-msgstr ""
+msgstr "（例: --id=rubykaigi2012）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:95 ../lib/rabbit/command/rabbit-slide.rb:102
 #: ../lib/rabbit/command/rabbit-slide.rb:119
 msgid "(must)"
-msgstr ""
+msgstr "（必須）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:100
 msgid "Base name for the slide source file and generated PDF file"
-msgstr ""
+msgstr "スライドのソースファイルとソースから生成するPDFファイルのベースファイル名"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:101
 msgid "(e.g.: --base-name=rabbit-introduction)"
-msgstr ""
+msgstr "（例: --base-name=rabbit-introduction）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:112
 msgid "Markup language for the new slide"
-msgstr ""
+msgstr "新しいスライドで使うマークアップ言語"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:113
 msgid "(e.g.: --markup=rd)"
-msgstr ""
+msgstr "（例: --markup=rd）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:114
-msgid "(available markups: %s"
-msgstr ""
+msgid "(available markups: %s)"
+msgstr "（利用可能なマークアップ言語: %s）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:117 ../lib/rabbit/command/rabbit-slide.rb:154
 #: ../lib/rabbit/command/rabbit-slide.rb:167 ../lib/rabbit/command/rabbit-slide.rb:181
 #: ../lib/rabbit/command/rabbit-slide.rb:195 ../lib/rabbit/command/rabbit-slide.rb:209
 msgid "(default: %s)"
-msgstr ""
+msgstr "（デフォルト: %s）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:126
 msgid "Title of the new slide"
-msgstr ""
+msgstr "新しいスライドのタイトル"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:127
 msgid "(e.g.: --title=\"Rabbit Introduction\")"
-msgstr ""
+msgstr "（例: --title=\"Rabbitの紹介\"）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:128 ../lib/rabbit/command/rabbit-slide.rb:136
 #: ../lib/rabbit/command/rabbit-slide.rb:143 ../lib/rabbit/command/rabbit-slide.rb:156
 #: ../lib/rabbit/command/rabbit-slide.rb:169 ../lib/rabbit/command/rabbit-slide.rb:183
 #: ../lib/rabbit/command/rabbit-slide.rb:197 ../lib/rabbit/command/rabbit-slide.rb:211
 msgid "(optional)"
-msgstr ""
+msgstr "（省略可能）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:134
 msgid "Tags of the new slide"
-msgstr ""
+msgstr "新しいスライドのタグ"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:135
 msgid "(e.g.: --tags=Rabbit,Presentation,Ruby)"
-msgstr ""
+msgstr "（例: --tags=Rabbit,Presentation,Ruby）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:141
-msgid "Allotted time of the new slide"
+msgid "Allotted time in presentaion"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:142
 msgid "(e.g.: --allotted-time=5m)"
-msgstr ""
+msgstr "（例: --allotted-time=5m）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:147
 msgid "Your information"
-msgstr ""
+msgstr "あなたの情報"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:150
 msgid "Author of the new slide"
-msgstr ""
+msgstr "新しいスライドの作者"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:151
-msgid "(e.g.: --author=\"Kouhei Sutou\""
-msgstr ""
+msgid "(e.g.: --author=\"Kouhei Sutou\")"
+msgstr "（例: --author=\"Kouhei Sutou\"）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:163
 msgid "Author e-mail of the new slide"
-msgstr ""
+msgstr "新しいスライドの作者のEメールアドレス"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:164
-msgid "(e.g.: --email=kou@cozmixng.org"
-msgstr ""
+msgid "(e.g.: --email=kou@cozmixng.org)"
+msgstr "（例: --email=kou@cozmixng.org）"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:176
-msgid "Account for RubyGems.org"
-msgstr ""
+#: ../lib/rabbit/command/rabbit-slide.rb:176 ../lib/rabbit/command/rabbit-slide.rb:190
+#: ../lib/rabbit/command/rabbit-slide.rb:204
+msgid "Account for %s"
+msgstr "%sのアカウント"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:177
-msgid "It is used to publish your slide to RubyGems.org"
-msgstr ""
+#: ../lib/rabbit/command/rabbit-slide.rb:177 ../lib/rabbit/command/rabbit-slide.rb:191
+#: ../lib/rabbit/command/rabbit-slide.rb:205
+msgid "It is used to publish your slide to %s"
+msgstr "%sにスライドを公開するときに使います"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:178
 msgid "(e.g.: --rubygems-user=kou)"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:190
-msgid "Account for SlideShare"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:191
-msgid "It is used to publish your slide to SlideShare"
-msgstr ""
+msgstr "（例: --rubygems-user=kou）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:192
 msgid "(e.g.: --slideshare-user=kou)"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:204
-msgid "Account for Speaker Deck"
-msgstr ""
-
-#: ../lib/rabbit/command/rabbit-slide.rb:205
-msgid "It is used to publish your slide to Speaker Deck"
-msgstr ""
+msgstr "（例: --slideshare-user=kou）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:206
 msgid "(e.g.: --speaker-deck-user=kou)"
-msgstr ""
+msgstr "（例: --speaker-deck-user=kou）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:232
 msgid "too many commands: %s"
-msgstr ""
+msgstr "コマンドが多過ぎます: %s"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:237
 msgid "invalid command: <%s>: available commands: %s"
-msgstr ""
+msgstr "不正なコマンド: <%s>: 利用可能なコマンド: %s"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:245 ../lib/rabbit/command/rabbit-slide.rb:251
 #: ../lib/rabbit/command/rabbit-slide.rb:257
 msgid "%s is missing"
-msgstr ""
+msgstr "%sがありません"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:555
+#: ../lib/rabbit/command/rabbit-slide.rb:312
+msgid "TODO: SLIDE TITLE"
+msgstr "TODO: スライドのタイトル"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:314
+msgid "TODO: SLIDE DESCRIPTION"
+msgstr "TODO: スライドの説明"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:317
+msgid "For author"
+msgstr "作者向け"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:319 ../lib/rabbit/command/rabbit-slide.rb:335
+#: ../lib/rabbit/action/radio.rb:37
+msgid "Show"
+msgstr "表示"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:323
+msgid "Publish"
+msgstr "公開"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:328
+msgid "For viewers"
+msgstr "閲覧者向け"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:330
+msgid "Install"
+msgstr "インストール"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:442 ../lib/rabbit/command/rabbit-slide.rb:451
+msgid "TITLE"
+msgstr "タイトル"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:444
+msgid "FIRST SLIDE"
+msgstr "最初のスライド"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:446
+msgid "SECOND SLIDE"
+msgstr "二番目のスライド"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:457
+msgid "SUBTITLE"
+msgstr "サブタイトル"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:458
+msgid "AUTHOR"
+msgstr "作者"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:459
+msgid "INSTITUTION"
+msgstr "所属"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:460
+msgid "EVENT NAME"
+msgstr "イベント名"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:482
+msgid "ITEM %d"
+msgstr "項目%d"
+
+#: ../lib/rabbit/command/rabbit-slide.rb:551
 msgid "Creating directory: %s"
-msgstr ""
+msgstr "ディレクトリを作成中: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:563
+#: ../lib/rabbit/command/rabbit-slide.rb:559
 msgid "Creating file:      %s"
-msgstr ""
+msgstr "ファイルを作成中:     %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:577
+#: ../lib/rabbit/command/rabbit-slide.rb:573
 msgid "Failed to read slide configuration: %s: %s"
-msgstr ""
+msgstr "スライド設定の読み込みに失敗しました: %s: %s"
 
-#: ../lib/rabbit/command/rabbit-slide.rb:595
+#: ../lib/rabbit/command/rabbit-slide.rb:591
 msgid "Failed to write slide configuration: %s: %s"
-msgstr ""
+msgstr "スライド設定の書き込みに失敗しました: %s: %s"
 
 #: ../lib/rabbit/command/rabbit.rb:133 ../lib/rabbit/theme-browser/tree.rb:54
 #: ../lib/rabbit/theme/lightning-simple/property.rb:1 ../lib/rabbit/theme/cozmixng/property.rb:1
@@ -860,10 +917,6 @@ msgstr ""
 msgid "Magnifier"
 msgstr ""
 
-#: ../lib/rabbit/action/radio.rb:37
-msgid "Show"
-msgstr ""
-
 #: ../lib/rabbit/action/radio.rb:48 ../lib/rabbit/theme/show-frame/property.rb:1
 msgid "Debug"
 msgstr ""
@@ -918,39 +971,39 @@ msgstr ""
 
 #: ../lib/rabbit/console.rb:110
 msgid "Usage: %s [options]"
-msgstr ""
+msgstr "使い方: %s [オプション]"
 
 #: ../lib/rabbit/console.rb:125
 msgid "Common options"
-msgstr ""
+msgstr "共通のオプション"
 
 #: ../lib/rabbit/console.rb:135
 msgid "Load options from FILE."
-msgstr ""
+msgstr "FILEからオプションを読み込みます。"
 
 #: ../lib/rabbit/console.rb:136
 msgid "(none)"
-msgstr ""
+msgstr "（なし）"
 
 #: ../lib/rabbit/console.rb:145
 msgid "Specify locale dir as [DIR]."
-msgstr ""
+msgstr "ロケールディレクトリを[DIR]とします。"
 
 #: ../lib/rabbit/console.rb:160
 msgid "Specify logger type as [TYPE]."
-msgstr ""
+msgstr "[TYPE]ロガーを使います。"
 
 #: ../lib/rabbit/console.rb:177
 msgid "Specify log level as [LEVEL]."
-msgstr ""
+msgstr "ログレベルを[LEVEL]とします。"
 
 #: ../lib/rabbit/console.rb:187
 msgid "Show this message."
-msgstr ""
+msgstr "このメッセージを表示します。"
 
 #: ../lib/rabbit/console.rb:191
 msgid "Show version."
-msgstr ""
+msgstr "バージョンを表示します。"
 
 #: ../lib/rabbit/theme/slide-show/property.rb:1 ../lib/rabbit/theme/clock/property.rb:1
 #: ../lib/rabbit/theme/timer/property.rb:1 ../lib/rabbit/theme/image-timer/property.rb:1
@@ -2715,3 +2768,9 @@ msgstr ""
 #: ../bin/rabbit-theme-manager:125
 msgid "Available commands: %s"
 msgstr ""
+
+
+#. #: ../lib/rabbit/command/rabbit-slide.rb:141
+#. msgid "Allotted time in presentation"
+#. msgstr "プレゼンの持ち時間"
+
