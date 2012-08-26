@@ -360,7 +360,7 @@ speaker_deck_user = config["speaker_deck_user"]
 
 readme = File.read(Dir.glob("README*")[0])
 
-readme_blocks = readme.split(/(\\r?\\n){2,}/)
+readme_blocks = readme.split(/(?:\\r?\\n){2,}/)
 summary = (readme_blocks[0] || "TODO").gsub(/\\A(?:[=*!]+|h\\d\\.)\s*/, "")
 description = readme_blocks[1] || "TODO"
 
