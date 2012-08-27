@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-27 23:15+0900\n"
+"POT-Creation-Date: 2012-08-27 23:23+0900\n"
 "PO-Revision-Date: 2007-12-15 20:07+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
@@ -266,8 +266,7 @@ msgstr ""
 #: ../lib/rabbit/theme/image-viewer/property.rb:1 ../lib/rabbit/theme/dark-gradation/property.rb:1
 #: ../lib/rabbit/theme/green-circle/property.rb:1 ../lib/rabbit/theme/rubykaigi2011/property.rb:1
 #: ../lib/rabbit/theme/ruby-gnome2/property.rb:1 ../lib/rabbit/theme/lightning-monochrome/property.rb:1
-#: ../lib/rabbit/theme/pdf/property.rb:1 ../sample/rabbit/theme/kof2005/property.rb:1
-#: ../sample/rabbit/theme/pdf/property.rb:1
+#: ../lib/rabbit/theme/pdf/property.rb:1
 msgid "Theme"
 msgstr ""
 
@@ -2647,22 +2646,6 @@ msgstr ""
 msgid "Provides images related to Debian"
 msgstr ""
 
-#: ../sample/rabbit/theme/kof2005/property.rb:2
-msgid "KOF2005"
-msgstr ""
-
-#: ../sample/rabbit/theme/kof2005/property.rb:3
-msgid "Theme for KOF2005 based on Ruby-GNOME2 theme"
-msgstr ""
-
-#: ../sample/rabbit/theme/pdf/property.rb:2
-msgid "PDF with Rabbit and Tortoise"
-msgstr ""
-
-#: ../sample/rabbit/theme/pdf/property.rb:3
-msgid "A sample theme for PDF with image-slide number and image-timer"
-msgstr ""
-
 #: ../bin/rabbit-command:18
 msgid "Specify Rabbit's dRuby URI as [URI]."
 msgstr ""
@@ -2774,3 +2757,21 @@ msgstr ""
 #: ../bin/rabbit-theme-manager:125
 msgid "Available commands: %s"
 msgstr ""
+
+
+#. #: ../sample/rabbit/theme/kof2005/property.rb:2
+#. msgid "KOF2005"
+#. msgstr ""
+
+#. #: ../sample/rabbit/theme/kof2005/property.rb:3
+#. msgid "Theme for KOF2005 based on Ruby-GNOME2 theme"
+#. msgstr ""
+
+#. #: ../sample/rabbit/theme/pdf/property.rb:2
+#. msgid "PDF with Rabbit and Tortoise"
+#. msgstr ""
+
+#. #: ../sample/rabbit/theme/pdf/property.rb:3
+#. msgid "A sample theme for PDF with image-slide number and image-timer"
+#. msgstr ""
+
