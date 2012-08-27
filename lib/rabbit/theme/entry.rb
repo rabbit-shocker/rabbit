@@ -200,21 +200,21 @@ module Rabbit
       end
 
       def full_path(target)
-        File.join(image_dir, target)
+        File.join(data_dir, target)
       end
 
-      def images_dir
-        File.join(@theme_dir, "images")
+      def data_dir
+        File.join(@theme_dir, "data")
       end
 
       def files
-        Dir.glob(File.join(images_dir, "*")).sort
+        Dir.glob(File.join(data_dir, "*")).sort
       end
     end
 
     class ImageGemEntry < GemEntry
       def available?
-        @theme_dir and File.directory?(images_dir)
+        @theme_dir and File.directory?(data_dir)
       end
 
       def image_theme?

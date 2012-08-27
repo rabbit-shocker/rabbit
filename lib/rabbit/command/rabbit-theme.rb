@@ -156,7 +156,7 @@ module Rabbit
 
       def generate
         generate_directory
-        generate_images_directory
+        generate_data_directory
         generate_readme
         generate_rakefile
         generate_property_rb
@@ -167,8 +167,8 @@ module Rabbit
         create_directory(@id)
       end
 
-      def generate_images_directory
-        create_directory(File.join(@id, "images"))
+      def generate_data_directory
+        create_directory(File.join(@id, "data"))
       end
 
       def generate_readme
@@ -248,7 +248,7 @@ specification = Gem::Specification.new do |spec|
 
   spec.files = ["#{@config_yaml_path}", "Rakefile"]
   spec.files += Dir.glob("{theme.rb,COPYING,GPL,README*}")
-  spec.files += Dir.glob("images/**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
+  spec.files += Dir.glob("data/**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
   spec.files += Dir.glob("locale/**/*.mo")
   spec.files += Dir.glob("po/*/*.po")
 
