@@ -356,11 +356,11 @@ EOT
       end
 
       def gem_name
-        "#{gem_name_prefix}#{@id}"
+        "#{gem_name_prefix}-#{@id}"
       end
 
       def gem_name_prefix
-        "rabbit-theme-"
+        "rabbit-theme"
       end
     end
   end
