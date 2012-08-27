@@ -207,7 +207,8 @@ module Rabbit
         content << "\n\n"
         content << (syntax[:heading3] % {:title => _("Show")})
         content << "\n\n"
-        show_command = "rabbit -t #{gem_name} theme-bench.sample"
+        theme_benchmark_gem = _("rabbit-theme-benchmark-en.gem")
+        show_command = "rabbit -t #{gem_name} #{theme_benchmark_gem}"
         content << (syntax[:preformatted_line] % {:content => show_command})
         content << "\n\n"
       end
