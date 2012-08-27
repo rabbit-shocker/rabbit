@@ -560,11 +560,11 @@ EOR
       end
 
       def gem_name
-        "#{gem_name_prefix}#{@author_conf.rubygems_user}-#{@id}"
+        "#{gem_name_prefix}-#{@author_conf.rubygems_user}-#{@id}"
       end
 
       def gem_name_prefix
-        "rabbit-slide-"
+        "rabbit-slide"
       end
     end
   end
