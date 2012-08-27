@@ -49,6 +49,7 @@ def spec.extra_rdoc_files
 end
 
 GetText::Task.new(spec) do |task|
+  task.files -= Dir.glob("sample/**/*.*")
   task.mo_base_directory = "data"
 end
 
