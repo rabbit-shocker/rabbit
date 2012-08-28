@@ -41,10 +41,13 @@ module Rabbit
       end
 
       def find_theme(theme_name=name, only_image=false)
-        if only_image
-          collector = "collect_image_theme"
-        else
-          collector = "collect_all_theme"
+        if theme_name == "."
+          if only_image
+            entry = ImageDirectoryEntry.new(@logger, ".", ".")
+          else
+            entry = DirectoryEntry.new(@logger, ".", ".")
+          end
+          return entry if entry.available?
         end
 
         unless only_image
@@ -52,6 +55,11 @@ module Rabbit
           return entry if entry.available?
         end
 
+        if only_image
+          collector = "collect_image_theme"
+        else
+          collector = "collect_all_theme"
+        end
         found_entry = nil
         __send__(collector) do |entry|
           if theme_name == entry.name
