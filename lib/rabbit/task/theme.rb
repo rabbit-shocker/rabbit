@@ -46,7 +46,7 @@ module Rabbit
 
         desc(_("Show theme benchmark slide with this theme"))
         task :run do
-          rabbit("--theme", "theme", _("rabbit-theme-benchmark-en.gem"))
+          rabbit("--theme", ".", _("rabbit-theme-benchmark-en.gem"))
         end
 
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
@@ -80,9 +80,10 @@ module Rabbit
         pdf_path = File.join(@pdf_dir, @pdf_base_path || default_pdf_base_path)
         file pdf_path => [*@spec.files] do
           mkdir_p(@pdf_dir)
-          rabbit("--print",
+          rabbit("--theme", ".",
+                 "--print",
                  "--output-filename", pdf_path,
-                 _("rabbit-theme-behcnmark-en.gem"))
+                 _("rabbit-theme-benchmark-en.gem"))
         end
 
         desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
