@@ -1,8 +1,8 @@
 markdown: rdiscount
 pygments: true
-version: 1.0.9
-release_date: 2012-07-21
-rabbiter_version: 1.1.0
+version: 2.0.0
+release_date: 2012-08-29
+rabbiter_version: 2.0.0
 rabbiter_release_date: 2012-08-29
-rabbirack_version: 1.1.0
+rabbirack_version: 2.0.0
 rabbirack_release_date: 2012-08-29
