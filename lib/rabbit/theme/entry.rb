@@ -95,7 +95,7 @@ module Rabbit
       end
 
       def full_path(target)
-        File.join(@theme_dir, target)
+        File.join(exported_dir, target)
       end
 
       def category
@@ -103,14 +103,38 @@ module Rabbit
       end
 
       def image_theme?
-        false
+        have_data_dir?
+      end
+
+      def have_data_dir?
+        File.directory?(data_dir)
+      end
+
+      def data_dir
+        File.join(@theme_dir, "data")
+      end
+
+      def exported_dir
+        if have_data_dir?
+          data_dir
+        else
+          @theme_dir
+        end
       end
 
       def files
-        rejected_files = [theme_file, property_file]
-        Dir[File.join(@theme_dir, "*")].delete_if do |name|
-          rejected_files.include?(name)
-        end.sort
+        if have_data_dir?
+          Dir.glob(File.join(data_dir, "*")).sort
+        else
+          rejected_files = [theme_file, property_file]
+          Dir[File.join(@theme_dir, "*")].delete_if do |name|
+            rejected_files.include?(name)
+          end.sort
+        end
+      end
+
+      def theme_file
+        File.join(@theme_dir, "#{@name}.rb")
       end
 
       private
@@ -131,7 +155,7 @@ module Rabbit
       end
     end
 
-    class DirectoryEntry < Entry
+    class Version1StyleEntry < Entry
       def initialize(logger, theme_dir)
         super(logger, theme_dir, File.basename(theme_dir))
       end
@@ -150,35 +174,9 @@ module Rabbit
       end
     end
 
-    class ImageDirectoryEntry < DirectoryEntry
+    class ImageVersion1StyleEntry < Version1StyleEntry
       def image_theme?
         true
-      end
-    end
-
-    class SingleFileEntry < Entry
-      def initialize(logger, theme_dir, name)
-        super(logger, theme_dir, name)
-      end
-
-      def property_editable?
-        false
-      end
-
-      def theme_file
-        File.join(@theme_dir, "#{@name}.rb")
-      end
-
-      def files
-        []
-      end
-
-      def have_file?(target)
-        name == target
-      end
-
-      private
-      def parse_property
       end
     end
 
@@ -188,7 +186,7 @@ module Rabbit
         @spec = finder.find(name, "rabbit-theme-")
         theme_dir = nil
         theme_dir = @spec.gem_dir if @spec
-        super(theme_dir, name)
+        super(logger, theme_dir, name)
       end
 
       def available?
@@ -203,12 +201,16 @@ module Rabbit
         File.join(data_dir, target)
       end
 
-      def data_dir
-        File.join(@theme_dir, "data")
+      def exported_dir
+        data_dir
       end
 
       def files
-        Dir.glob(File.join(data_dir, "*")).sort
+        if have_data_dir?
+          super
+        else
+          []
+        end
       end
     end
 

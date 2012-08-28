@@ -49,7 +49,7 @@ module Rabbit
 
         unless only_image
           [base_directory, "."].each do |directory|
-            entry = SingleFileEntry.new(@logger, directory, theme_name)
+            entry = Entry.new(@logger, directory, theme_name)
             return entry if entry.available?
           end
         end
@@ -104,11 +104,12 @@ module Rabbit
       end
 
       def collect_theme(&block)
-        _collect_theme(theme_load_path, DirectoryEntry, &block)
+        _collect_theme(theme_load_path, Version1StyleEntry, &block)
       end
 
       def collect_image_theme(&block)
-        _collect_theme(image_load_path, ImageDirectoryEntry, "image_dir", &block)
+        _collect_theme(image_load_path, ImageVersion1StyleEntry, "image_dir",
+                       &block)
       end
 
       def theme_load_path
