@@ -95,7 +95,12 @@ module Rabbit
       end
 
       def full_path(target)
-        File.join(exported_dir, target)
+        if have_data_dir?
+          File.join(data_dir, target)
+        else
+          # backward compatibility
+          File.join(@theme_dir, target)
+        end
       end
 
       def category
@@ -106,26 +111,15 @@ module Rabbit
         have_data_dir?
       end
 
-      def have_data_dir?
-        File.directory?(data_dir)
-      end
-
       def data_dir
         File.join(@theme_dir, "data")
-      end
-
-      def exported_dir
-        if have_data_dir?
-          data_dir
-        else
-          @theme_dir
-        end
       end
 
       def files
         if have_data_dir?
           Dir.glob(File.join(data_dir, "*")).sort
         else
+          # backward compatibility
           rejected_files = [theme_file, property_file]
           Dir[File.join(@theme_dir, "*")].delete_if do |name|
             rejected_files.include?(name)
@@ -133,13 +127,9 @@ module Rabbit
         end
       end
 
-      def theme_file
-        File.join(@theme_dir, "#{@name}.rb")
-      end
-
       private
       def property_file
-         File.join(@theme_dir, "#{PROPERTY_BASE_NAME}.rb")
+        File.join(@theme_dir, "#{PROPERTY_BASE_NAME}.rb")
       end
 
       def parse_property
@@ -153,28 +143,31 @@ module Rabbit
           end
         end
       end
+
+      def have_data_dir?
+        File.directory?(data_dir)
+      end
     end
 
-    class Version1StyleEntry < Entry
-      def initialize(logger, theme_dir)
-        super(logger, theme_dir, File.basename(theme_dir))
-      end
-
+    class FileEntry < Entry
       def theme_file
-        @theme_file ||= candidate_theme_files.find do |candidate|
-          File.readable?(candidate)
-        end
-        @theme_file ||= candidate_theme_files.first
-      end
-
-      def candidate_theme_files
-        [THEME_BASE_NAME, @name].collect do |base_name|
-          File.join(@theme_dir, "#{base_name}.rb")
-        end
+        File.join(@theme_dir, "#{@name}.rb")
       end
     end
 
-    class ImageVersion1StyleEntry < Version1StyleEntry
+    class ImageFileEntry < FileEntry
+      def image_theme?
+        true
+      end
+    end
+
+    class DirectoryEntry < Entry
+      def theme_file
+        File.join(@theme_dir, "#{THEME_BASE_NAME}.rb")
+      end
+    end
+
+    class ImageDirectoryEntry < DirectoryEntry
       def image_theme?
         true
       end
@@ -201,16 +194,8 @@ module Rabbit
         File.join(data_dir, target)
       end
 
-      def exported_dir
-        data_dir
-      end
-
       def files
-        if have_data_dir?
-          super
-        else
-          []
-        end
+        Dir.glob(File.join(data_dir, "*")).sort
       end
     end
 

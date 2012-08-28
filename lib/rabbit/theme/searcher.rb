@@ -48,10 +48,8 @@ module Rabbit
         end
 
         unless only_image
-          [base_directory, "."].each do |directory|
-            entry = Entry.new(@logger, directory, theme_name)
-            return entry if entry.available?
-          end
+          entry = FileEntry.new(@logger, base_directory, theme_name)
+          return entry if entry.available?
         end
 
         found_entry = nil
@@ -104,12 +102,12 @@ module Rabbit
       end
 
       def collect_theme(&block)
-        _collect_theme(theme_load_path, Version1StyleEntry, &block)
+        _collect_theme(theme_load_path, [FileEntry, DirectoryEntry], &block)
       end
 
       def collect_image_theme(&block)
-        _collect_theme(image_load_path, ImageVersion1StyleEntry, "image_dir",
-                       &block)
+        _collect_theme(image_load_path, [ImageFileEntry, ImageDirectoryEntry],
+                       "image_dir", &block)
       end
 
       def theme_load_path
@@ -120,7 +118,7 @@ module Rabbit
         Config::IMAGE_PATH + $LOAD_PATH
       end
 
-      def _collect_theme(path, entry_class, converter=nil, &block)
+      def _collect_theme(path, entry_classes, converter=nil, &block)
         converter ||= "theme_dir"
         themes = []
         theme_names = {}
@@ -131,11 +129,14 @@ module Rabbit
               next if /\A..?\z/ =~ theme
               next if theme_names.has_key?(theme)
               theme_dir = File.join(File.expand_path(base_name), theme)
-              entry = entry_class.new(@logger, theme_dir)
-              if entry.available?
-                block.call(entry) if block
-                themes << entry
-                theme_names[theme] = true
+              entry_classes.each do |entry_class|
+                entry = entry_class.new(@logger, theme_dir, theme)
+                if entry.available?
+                  block.call(entry) if block
+                  themes << entry
+                  theme_names[theme] = true
+                  break
+                end
               end
             end
           end
