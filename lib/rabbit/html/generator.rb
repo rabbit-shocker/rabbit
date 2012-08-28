@@ -14,6 +14,7 @@ require 'rabbit/keys'
 module Rabbit
   module HTML
     class Generator
+      include GetText
       include ERB::Util
       public :h
 
