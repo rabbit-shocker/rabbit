@@ -5,7 +5,7 @@ lang_suffix: true
 no_sidebar: true
 ---
 <div class="latest-release">
-  <p>2012-07-21にリリースされた<a href="/ja/news.html">1.0.9</a>が最新リリースです。</p>
+  <p>{{ site.release_date }}にリリースされた<a href="/ja/news.html">{{ site.version }}</a>が最新リリースです。</p>
 </div>
 
 <section class="screenshots">
