@@ -184,8 +184,8 @@ module Rabbit
 
     class GemEntry < Entry
       def initialize(logger, name)
-        finder = Gem::Finder.new(logger)
-        @spec = finder.find(name, "rabbit-theme")
+        finder = GemFinder.new(logger)
+        @spec = finder.find(name, "rabbit-theme-")
         theme_dir = nil
         theme_dir = @spec.gem_dir if @spec
         super(theme_dir, name)
