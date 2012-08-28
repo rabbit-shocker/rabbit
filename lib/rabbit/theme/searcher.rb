@@ -48,8 +48,10 @@ module Rabbit
         end
 
         unless only_image
-          entry = SingleFileEntry.new(@logger, base_directory, theme_name)
-          return entry if entry.available?
+          [base_directory, "."].each do |directory|
+            entry = SingleFileEntry.new(@logger, directory, theme_name)
+            return entry if entry.available?
+          end
         end
 
         found_entry = nil
