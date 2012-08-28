@@ -157,6 +157,7 @@ module Rabbit
       def generate
         generate_directory
         generate_data_directory
+        generate_config_yaml
         generate_readme
         generate_rakefile
         generate_property_rb
@@ -169,6 +170,18 @@ module Rabbit
 
       def generate_data_directory
         create_directory(File.join(@id, "data"))
+      end
+
+      def generate_config_yaml
+        create_file(@config_yaml_path) do |config_yaml|
+          config = {
+            "id"                => @id,
+            "name"              => @author_conf.name,
+            "email"             => @author_conf.email,
+            "rubygems_user"     => @author_conf.rubygems_user,
+          }
+          config_yaml.puts(config.to_yaml)
+        end
       end
 
       def generate_readme
