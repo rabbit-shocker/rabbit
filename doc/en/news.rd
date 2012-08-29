@@ -3,6 +3,92 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.0: 2012-08-29
+
+Major version up!
+
+Slides and themes can be shared. Both of them can be registered as gem
+at RubyGems.org. If you specify a slide gem, ((%rabbit%)) command
+installs and shows it automatically. If you specify a theme gem,
+((%rabbit%)) command installs and uses it automatically.
+
+A tool that publishes your slide to SlideShare with one command is
+also added. You can share your slide more easily.
+
+Some utilities such as RabbiRack and Rabbiter are splited as new
+packages. You needed to install related libraries manually. Now, you
+can install them automatically by installing those tools. It's easy to
+install.
+
+=== Improvements
+
+==== rabbit
+
+  * Made gettext gem required library.
+  * Made rttool gem required library.
+  * Supported relative path image in slide that is specified as URL.
+  * Supported .rabbit file in the current directory. If the file exists,
+    command line arguments are read from the file.
+  * Supported a directory that has .rabbit as source file.
+  * Supported a slide that is published as gem.
+  * Supported a theme that is published as gem.
+  * Added --options-file option that reads command line arguments from
+    the specified file.
+  * Removed setup.rb.
+  * Removed obsoleted --druby-uri option.
+  * Removed the default image directory customization feature on
+    install. It's not neeed now.
+  * Used (({theme.rb})) as the Ruby script file for theme.
+    (({#{THEME_NAME}.rb})) is still available but it's obsoleted.
+  * Supported (({.})) as the special theme name. It uses a theme in
+    the current directory.
+
+==== rabbit-slide
+
+New feature. It provides the following slide related features.
+
+  * Scaffolds a new slide.
+  * Uploads a slide to RubyGems.org.
+  * Uploads a slide to SlideShare.
+  * Shows a slide easily.
+  * Generates a PDF easily.
+
+==== rabbit-theme
+
+New feature. It proves the following theme related features.
+
+  * Scaffolds a new theme.
+  * Uploads a theme to RubyGems.org.
+  * Shows a theme by benchmark slide.
+  * Generates a PDF easily.
+
+==== Theme
+
+  * background-image-toolkit: Supported a background image specified by URL.
+    [Suggested by Youhei SASAKI]
+  * image-slide-number: Showed page number in flags by default.
+  * default: Enabled hare and tortoise by default.
+
+=== Fixes
+
+==== Documentation
+
+  * Fixed wrong description of numerical character reference.
+    [Reported by znz]
+
+=== Changes
+
+  * Split up RabbiRack into rabbirack gem.
+  * Split up Rabbiter into rabbiter gem.
+  * Split up RabWii into rabwii gem.
+  * Split up theme benchmark slide to
+    rabbit-slide-rabbit-theme-benchmark-en gem.
+
+=== Thanks
+
+  * znz
+  * Youhei SASAKI
+
 == 1.0.9: 2012-07-21
 
 A bug fix release of 1.0.8.
