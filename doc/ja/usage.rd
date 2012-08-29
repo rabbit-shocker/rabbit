@@ -9,6 +9,8 @@ Rabbitはスライドを表示する((%rabbit%))コマンドがメインのツ�
 ぞれ別ページで詳しく説明します。
 
   * ((<"usage/rabbit.rd"/rabbitコマンドの使い方>))
+  * ((<"usage/rabbit-slide.rd"/rabbit-slideコマンドの使い方>))
+  * ((<"usage/rabbit-theme.rd"/rabbit-themeコマンドの使い方>))
   * ((<"rabbirack/"/RabbiRack>)): RabbitのWebインターフェイス。Rabbitを
     Webブラウザーから操作できるようになる。
   * ((<"rabbiter/"/Rabbiter>)): Twitterからコメントを収集してRabbitに渡

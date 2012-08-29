@@ -9,6 +9,8 @@ Rabbit. Rabbit also provides convenient tools. They are described in
 other pages.
 
   * ((<"usage/rabbit.rd"/rabbit command usage>))
+  * ((<"usage/rabbit-slide.rd"/rabbit-slide command usage>))
+  * ((<"usage/rabbit-theme.rd"/rabbit-theme command usage>))
   * ((<"rabbirack/"/RabbiRack>)): A Web interface for Rabbit. You can
     control Rabbit on your Web browser.
   * ((<"rabbiter/"/Rabbiter>)): It's a tool that receives comments
