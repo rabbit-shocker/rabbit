@@ -66,6 +66,17 @@ module Rabbit
         Console.parse!(arguments) do |parser, options|
           @logger = options.logger
 
+          rest_arguments_from_options_file = []
+          options.before_hooks << lambda do |_, _, _|
+            rest_arguments_from_options_file = options.rest.dup
+            options.rest.clear
+          end
+          options.after_hooks << lambda do |console, _, _|
+            if options.rest.empty?
+              options.rest = rest_arguments_from_options_file
+            end
+          end
+
           options.after_hooks << lambda do |console, _, _|
             adjust_rest_arguments(console, parser, options)
           end

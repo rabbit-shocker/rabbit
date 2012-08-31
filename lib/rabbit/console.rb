@@ -57,6 +57,7 @@ module Rabbit
       options.version = VERSION
       options.options_file = nil
       options.rest = []
+      options.before_hooks = []
       options.after_hooks = []
 
       process_locale_options(args)
@@ -70,6 +71,9 @@ module Rabbit
         options_file = options.options_file
         if options_file and File.exist?(options_file)
           read_options_file(parser, options, options_file)
+        end
+        options.before_hooks.each do |hook|
+          hook.call(self, parser, options)
         end
         options.rest.concat(parser.parse!(args))
         options.after_hooks.each do |hook|
