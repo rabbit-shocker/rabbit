@@ -190,30 +190,3 @@ namespace :package do
     rm(htaccess)
   end
 end
-
-namespace :doc do
-  namespace :release do
-    desc "update release information."
-    task :update do
-      old_release = ENV["OLD_RELEASE"]
-      old_release_date = ENV["OLD_RELEASE_DATE"]
-      new_release_date = ENV["NEW_RELEASE_DATE"]
-      if old_release.nil? or old_release_date.nil? or new_release_date.nil?
-        message = "OLD_RELEASE, OLD_RELEASE_DATE and NEW_RELEASE_DATE " +
-          "must be specified."
-        raise message
-      end
-      files = FileList["doc/*.html*", "doc/_layouts/*"]
-      files.each do |file|
-        path = Pathname.new(file)
-        content = path.read
-        replaced_content = content.gsub(old_release, version)
-        replaced_content = replaced_content.gsub(old_release_date,
-                                                 new_release_date)
-        path.open("w") do |output|
-          output.print(replaced_content)
-        end
-      end
-    end
-  end
-end
