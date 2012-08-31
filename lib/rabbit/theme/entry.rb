@@ -176,7 +176,11 @@ module Rabbit
     class GemEntry < Entry
       def initialize(logger, name)
         finder = GemFinder.new(logger)
-        @spec = finder.find(name, "rabbit-theme-")
+        begin
+          @spec = finder.find(name, "rabbit-theme-")
+        rescue Gem::GemNotFoundException
+          raise LoadError, $!.message
+        end
         theme_dir = nil
         theme_dir = @spec.gem_dir if @spec
         super(logger, theme_dir, name)
