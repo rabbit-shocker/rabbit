@@ -28,6 +28,10 @@ $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 rsync_base_path = "rabbit@rabbit-shockers.org:public_html/"
 
 helper = Bundler::GemHelper.new(base_dir)
+def helper.version_tag
+  version
+end
+
 helper.install
 spec = helper.gemspec
 version = spec.version.to_s
@@ -162,11 +166,6 @@ EOC
        "doc/_site/",
        rsync_base_path)
   end
-end
-
-desc "Tag the current revision."
-task :tag do
-  sh("git tag -a #{version} -m 'release #{version}!!!'")
 end
 
 task :build => "gettext"
