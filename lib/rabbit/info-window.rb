@@ -11,6 +11,7 @@ require 'rabbit/renderer/display/menu'
 module Rabbit
   class InfoWindow
     include ERB::Util
+    include GetText
 
     include Renderer::Display::HookHandler
     include Renderer::Display::KeyHandler
