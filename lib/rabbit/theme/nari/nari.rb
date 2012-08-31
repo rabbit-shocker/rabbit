@@ -151,6 +151,7 @@ match(Slide) do |slides|
     headline_position = slide["headline-position"]
     next if headline_position.nil?
 
+    slide.horizontal_centering = false
     head = slide.headline
     head.horizontal_centering = false
     head.vertical_centering = false
@@ -182,6 +183,7 @@ match(Slide) do |slides|
     headline_align = slide["headline-align"]
     next if headline_align.nil?
 
+    slide.horizontal_centering = false
     slide.headline.horizontal_centering = false
   end
 end
