@@ -3,6 +3,33 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.1: 2012-08-31
+
+A bug fix release.
+
+=== Improvements
+
+==== rabbit
+
+  * The slide source specified by command line is use rather than the
+    slide source specified by .rabbit.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that information window doesn't work.
+    [Fixed by Narihiro Nakamura]
+  * Fixed a bug that index mode doesn't work.
+    [Reported by Masaomi Hatakeyama]
+  * Fixed a bug that TeX formater doesn't work.
+    [Reported by Masaomi Hatakeyama]
+
+=== THanks
+
+  * Narihiro Nakamura
+  * Masaomi Hatakeyama
+
 == 2.0.0: 2012-08-29
 
 Major version up!
