@@ -175,10 +175,13 @@ module Rabbit
 
     class GemEntry < Entry
       def initialize(logger, name)
+        @spec = nil
+        if valid_gem_name?(name)
         finder = GemFinder.new(logger)
         begin
           @spec = finder.find(name, "rabbit-theme-")
         rescue Gem::GemNotFoundException
+        end
         end
         theme_dir = nil
         theme_dir = @spec.gem_dir if @spec
@@ -199,6 +202,11 @@ module Rabbit
 
       def files
         Dir.glob(File.join(data_dir, "*")).sort
+      end
+
+      private
+      def valid_gem_name?(name)
+        /\A[a-z\d_\-]\z/i =~ name
       end
     end
 
