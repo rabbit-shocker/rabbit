@@ -6,6 +6,8 @@ require 'rabbit/element/base/draw-hook'
 module Rabbit
   module Element
     module Base
+      include GetText
+
       include Utils
 
       include DrawHook

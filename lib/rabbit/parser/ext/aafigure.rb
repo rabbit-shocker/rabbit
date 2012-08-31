@@ -2,6 +2,8 @@ module Rabbit
   module Parser
     module Ext
       module AAFigure
+        include GetText
+
         module_function
         AVAILABLE_OPTIONS = ["linewidth", "foreground", "fill", "background",
                              "option"]

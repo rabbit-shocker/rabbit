@@ -2,6 +2,8 @@ module Rabbit
   module Parser
     module Ext
       module TeX
+        include GetText
+
         module_function
         def make_image_by_LaTeX(path, prop, logger)
           image_file = Tempfile.new("rabbit-image")

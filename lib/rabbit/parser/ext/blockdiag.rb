@@ -2,6 +2,8 @@ module Rabbit
   module Parser
     module Ext
       module BlockDiag
+        include GetText
+
         module_function
         AVAILABLE_FLAG_OPTIONS = ["antialias"]
         # "font" is treated as specially.
