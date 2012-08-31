@@ -18,7 +18,9 @@ module Rabbit
       class << self
         def match?(source)
           return true if /\A(?:rd|rab)\z/i =~ source.extension.to_s
-          /^= /.match(source.read)
+          head = source.read[0, 500]
+          head.force_encoding("ASCII-8BIT") if head.respond_to?(:force_encoding)
+          /^= /.match(head)
         end
       end
 
