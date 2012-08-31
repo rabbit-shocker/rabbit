@@ -104,7 +104,7 @@ module Rabbit
         publish_tasks = []
         namespace :publish do
           if @rubygems_user
-            desc(_("Publish the slide to RubyGems.org"))
+            desc(_("Publish the slide to %s" % "RubyGems.org"))
             task :rubygems => :gem do
               ruby("-S", "gem", "push", "--verbose", gem_path)
             end
@@ -112,7 +112,7 @@ module Rabbit
           end
 
           if @slideshare_user
-            desc(_("Publish the slide to SlideShare"))
+            desc(_("Publish the slide to %s" % "SlideShare"))
             task :slideshare => [:pdf, "gem:validate"] do
               require "rabbit/slideshare"
               slideshare = SlideShare.new(@logger)
@@ -133,7 +133,7 @@ module Rabbit
           end
 
           if @speaker_deck_user
-            desc(_("Publish the slide to Spearker Deck"))
+            desc(_("Publish the slide to %s" % "Spearker Deck"))
             task :speaker_deck => :pdf do
               raise "Not implemented yet."
             end
