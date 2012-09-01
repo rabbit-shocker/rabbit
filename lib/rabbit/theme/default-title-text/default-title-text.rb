@@ -25,8 +25,6 @@ end
 match(TitleSlide, ContentSource) do |sources|
   sources.prop_set("size", @title_slide_content_source_font_size)
   sources.prop_set("style", "italic")
-
-  sources.margin_bottom = @space
 end
 
 match(TitleSlide, Institution) do |institutions|
