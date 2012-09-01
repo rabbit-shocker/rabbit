@@ -206,7 +206,7 @@ module Rabbit
 
       private
       def valid_gem_name?(name)
-        /\A[a-z\d_\-]\z/i =~ name
+        /\A[a-z\d_\-]+\z/i =~ name
       end
     end
 
