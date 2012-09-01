@@ -32,6 +32,8 @@ end
 match(TitleSlide, Institution) do |institutions|
   institutions.prop_set("size", @title_slide_institution_font_size)
   institutions.prop_set("style", "italic")
+
+  institutions.margin_bottom = @space
 end
 
 match(TitleSlide, Place) do |places|
