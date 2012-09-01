@@ -305,7 +305,8 @@ module Rabbit
         syntax = markup_syntax(markup_language)
 
         content = ""
-        content << (syntax[:heading1] % {:title => _("TODO: SLIDE TITLE")})
+        title = @title || _("TODO: SLIDE TITLE")
+        content << (syntax[:heading1] % {:title => title})
         content << "\n\n"
         content << _("TODO: SLIDE DESCRIPTION")
         content << "\n\n"
@@ -451,7 +452,7 @@ EOR
         return nil if syntax.nil?
 
         source = ""
-        slide_source_title(source, syntax, _("TITLE"))
+        slide_source_title(source, syntax, @title || _("TITLE"))
         slide_source_metadata(source, syntax)
         slide_source_title(source, syntax, _("FIRST SLIDE"))
         slide_source_items(source, syntax)
