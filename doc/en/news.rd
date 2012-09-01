@@ -3,6 +3,20 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.2: 2012-09-02
+
+A bug fix release.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that gem theme isn't searched.
+
+==== Theme
+
+  * nari: Fixed a potential bug that headline may be centered.
+
 == 2.0.1: 2012-08-31
 
 A bug fix release.
