@@ -17,7 +17,7 @@
 require "rabbit/gettext"
 
 module Rabbit
-  module Generator
+  module SourceGenerator
     class Hiki
       include GetText
       include PathManipulatable

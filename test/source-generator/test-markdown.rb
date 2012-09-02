@@ -14,33 +14,35 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/generator/hiki"
+require "rabbit/source-generator/markdown"
 
-class TestGeneratorHiki < Test::Unit::TestCase
+class TestSourceGeneratorMarkdown < Test::Unit::TestCase
   def setup
-    @generator = Rabbit::Generator::Hiki.new
+    @generator = Rabbit::SourceGenerator::Markdown.new
   end
 
   def test_heading1
-    assert_equal("! Hello",
+    assert_equal("# Hello",
                  @generator.heading(1, "Hello"))
   end
 
   def test_heading2
-    assert_equal("!! Hello",
+    assert_equal("## Hello",
                  @generator.heading(2, "Hello"))
   end
 
   def test_heading3
-    assert_equal("!!! Hello",
+    assert_equal("### Hello",
                  @generator.heading(3, "Hello"))
   end
 
   def test_definition_list_item
     item = @generator.definition_list_item("Rabbit",
                                            "The presentation tool for Rubyist")
-    assert_equal(":Rabbit:The presentation tool for Rubyist",
-                 item)
+    assert_equal(<<-EOM.rstrip, item)
+Rabbit
+   The presentation tool for Rubyist
+EOM
   end
 
   def test_unordered_list_item
@@ -51,18 +53,15 @@ class TestGeneratorHiki < Test::Unit::TestCase
   def test_image
     image = @generator.image("lavie.png", :relative_height => 90)
     assert_equal(<<-EOR.rstrip, image)
-{{image("lavie.png",
-        {
-           "relative_height" => 90,
-        })}}
+![](lavie.png){:relative_height='90'}
 EOR
   end
 
   def test_preformatted_line
-    assert_equal(" Hello", @generator.preformatted_line("Hello"))
+    assert_equal("    Hello", @generator.preformatted_line("Hello"))
   end
 
   def test_comment
-    assert_equal("// Hello", @generator.comment("Hello"))
+    assert_equal("", @generator.comment("Hello"))
   end
 end

@@ -17,7 +17,7 @@
 require "rabbit/gettext"
 
 module Rabbit
-  module Generator
+  module SourceGenerator
     class Markdown
       include GetText
       include PathManipulatable
