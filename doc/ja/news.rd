@@ -5,7 +5,78 @@ apply_data: false
 ---
 == 2.0.2: 2012-09-02
 
-バグフィックスリリース。
+スライド・テーマ管理機能を使いやすくしたリリース。
+
+2.0.1以前とは非互換になっています。2.0.1以前で生成したスライド・テーマ
+がある場合は変更点にあるRakefileとconfig.yamlを参考に手動でアップグレー
+ドしてください。自動アップグレード機能はありません。
+
+=== 改良
+
+==== rabbit-slide
+
+  * Rakefileを短くした。（非互換）
+
+      require "rabbit/task/slide"
+      Rabbit::Task::Slide.new
+
+  * 設定はconfig.yamlで行うようにした。（非互換）
+
+      ---
+      id: theme-benchmark-en
+      base_name: theme-benchmark
+      tags:
+      - rabbit
+      presentation_date: 2012/09/02
+      version: 1.0.0
+      licenses:
+      - GPLv3+
+      - GFDL
+      - CC BY-SA 3.0
+      author:
+        markup_language: :rd
+        name: Kouhei Sutou
+        email: kou@cozmixng.org
+        rubygems_user: kou
+        slideshare_user: kou
+        speaker_deck_user: kou
+
+  * ライセンスを指定できるようにした。
+  * .gitignoreも生成するようにした。
+  * gemにPDFも含めるようにした。
+
+==== rabbit-theme
+
+  * Rakefileを短くした。（非互換）
+
+      require "rabbit/task/theme"
+      Rabbit::Task::Theme.new
+
+  * 設定はconfig.yamlで行うようにした。（非互換）
+
+      ---
+      id: clear-blue
+      tags:
+      - rabbit
+      version: 1.0.0
+      licenses:
+      - GPLv3+
+      - GFDL
+      - CC BY-SA 3.0
+      author:
+        name: Kouhei Sutou
+        email: kou@cozmixng.org
+        rubygems_user: kou
+
+  * ライセンスを指定できるようにした。
+  * .gitignoreも生成するようにした。
+
+==== テーマ
+
+  * default-title-text: 「所属」の下にマージンを設定した。
+  * default-title-text: 「出典」の下からマージンを削除した。
+  * slide-number: デフォルトのマージンではなくスライドに設定したマージ
+    ンを使うようにした。
 
 === 修正
 
