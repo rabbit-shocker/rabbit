@@ -30,9 +30,6 @@ module Rabbit
     end
 
     def create_file(path, &block)
-      unless Pathname(path).absolute?
-        path = File.join(@id, path)
-      end
       @logger.info(_("Creating file:      %s") % path)
       File.open(path, "w", &block)
     end

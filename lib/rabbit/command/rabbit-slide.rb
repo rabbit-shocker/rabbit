@@ -18,6 +18,7 @@ require "yaml"
 
 require "rabbit/console"
 require "rabbit/author-configuration"
+require "rabbit/slide-configuration"
 require "rabbit/path-manipulatable"
 
 module Rabbit
@@ -33,13 +34,9 @@ module Rabbit
       end
 
       def initialize
-        @config_yaml_path = "config.yaml"
-        @id = nil
-        @base_name = nil
         @title = nil
-        @tags = []
         @allotted_time = nil
-        @presentation_date = nil
+        @slide_conf = nil
         @author_conf = nil
         @logger = nil
       end
@@ -65,6 +62,8 @@ module Rabbit
           @logger = options.default_logger
           @author_conf = AuthorConfiguration.new(@logger)
           @author_conf.load
+          @slide_conf = SlideConfiguration.new(@logger)
+          @slide_conf.author = @author_conf
 
           format = _("Usage: %s new [options]\n" \
                      " e.g.: %s new \\\n" \
@@ -88,7 +87,7 @@ module Rabbit
                     _("Slide ID"),
                     _("(e.g.: %s)") % "--id=rubykaigi2012",
                     _("(must)")) do |id|
-            @id = id
+            @slide_conf.id = id
           end
 
           messages = [
@@ -98,7 +97,7 @@ module Rabbit
           ]
           parser.on("--base-name=NAME",
                     *messages) do |base_name|
-            @base_name = base_name
+            @slide_conf.base_name = base_name
           end
 
           available_markup_languages = [:rd, :hiki, :markdown]
@@ -129,7 +128,7 @@ module Rabbit
                     _("Tags of the new slide"),
                     _("(e.g.: %s)") % "--tags=rabbit,presentation,ruby",
                  _("(optional)")) do |tags|
-            @tags.concat(tags)
+            @slide_conf.tags.concat(tags)
           end
 
           parser.on("--allotted-time=TIME",
@@ -143,7 +142,7 @@ module Rabbit
                     _("Presentation date with the new slide"),
                     _("(e.g.: %s)") % "--presentation-date=2012/06/29",
                     _("(optional)")) do |date|
-            @presentation_date = date
+            @slide_conf.presentation_date = date
           end
 
           parser.separator(_("Your information"))
@@ -242,13 +241,13 @@ module Rabbit
       end
 
       def validate_id
-        if @id.nil?
+        if @slide_conf.id.nil?
           @validation_errors << (_("%s is missing") % "--id")
         end
       end
 
       def validate_base_name
-        if @base_name.nil?
+        if @slide_conf.base_name.nil?
           @validation_errors << (_("%s is missing") % "--base-name")
         end
       end
@@ -256,14 +255,14 @@ module Rabbit
       def generate
         generate_directory
         generate_dot_rabbit
-        generate_config_yaml
+        generate_slide_configuration
         generate_readme
         generate_rakefile
         generate_slide
       end
 
       def generate_directory
-        create_directory(@id)
+        create_directory(@slide_conf.id)
       end
 
       def generate_dot_rabbit
@@ -277,21 +276,8 @@ module Rabbit
         end
       end
 
-      def generate_config_yaml
-        create_file(@config_yaml_path) do |config_yaml|
-          config = {
-            "id"                => @id,
-            "tags"              => @tags,
-            "base_name"         => @base_name,
-            "name"              => @author_conf.name,
-            "presentation_date" => @presentation_date,
-            "email"             => @author_conf.email,
-            "rubygems_user"     => @author_conf.rubygems_user,
-            "slideshare_user"   => @author_conf.slideshare_user,
-            "speaker_deck_user" => @author_conf.speaker_deck_user,
-          }
-          config_yaml.puts(config.to_yaml)
-        end
+      def generate_slide_configuration
+        @slide_conf.save(@slide_conf.id)
       end
 
       def generate_readme
@@ -326,12 +312,12 @@ module Rabbit
         content << "\n\n"
         content << (syntax[:heading3] % {:title => _("Install")})
         content << "\n\n"
-        install_command = "gem install #{gem_name}"
+        install_command = "gem install #{@slide_conf.gem_name}"
         content << (syntax[:preformatted_line] % {:content => install_command})
         content << "\n\n"
         content << (syntax[:heading3] % {:title => _("Show")})
         content << "\n\n"
-        show_command = "rabbit #{gem_name}.gem"
+        show_command = "rabbit #{@slide_conf.gem_name}.gem"
         content << (syntax[:preformatted_line] % {:content => show_command})
         content << "\n\n"
       end
@@ -339,71 +325,15 @@ module Rabbit
       def generate_rakefile
         create_file("Rakefile") do |rakefile|
           rakefile.puts(<<-EOR)
-require "time"
-require "yaml"
 require "rabbit/task/slide"
 
-config = YAML.load(File.read("#{@config_yaml_path}"))
+# Edit ./config.yaml to customize meta data
 
-slide_id = config["id"]
-tags = config["tags"]
-base_name = config["base_name"]
-pdf_base_path = "\#{base_name}.pdf"
-
-version = nil
-presentation_date = config["presentation_date"]
-parsed_presentation_date = nil
-if presentation_date
-  begin
-    parsed_presentation_date = Time.parse(presentation_date)
-  rescue ArgumentError
-  end
-  if parsed_presentation_date
-    version = parsed_presentation_date.strftime("%Y.%m.%d")
-  end
-end
-version ||= "1.0.0"
-
-name = config["name"]
-email = config["email"]
-rubygems_user = config["rubygems_user"]
-slideshare_user = config["slideshare_user"]
-speaker_deck_user = config["speaker_deck_user"]
-
-readme = File.read(Dir.glob("README*")[0])
-
-readme_blocks = readme.split(/(?:\\r?\\n){2,}/)
-summary = (readme_blocks[0] || "TODO").gsub(/\\A(?:[=*!]+|h\\d\\.)\s*/, "")
-description = readme_blocks[1] || "TODO"
-
-specification = Gem::Specification.new do |spec|
-  prefix = "#{gem_name_prefix}"
-  spec.name = "\#{prefix}-\#{rubygems_user}-\#{slide_id}"
-  spec.version = version
-  spec.homepage = "http://slide.rabbit-shockers.org/\#{rubygems_user}/\#{slide_id}/"
-  spec.authors = [name]
-  spec.email = [email]
-  spec.summary = summary
-  spec.description = description
-  spec.licenses = [] # ["CC BY-SA 3.0"]
-
-  spec.files = [".rabbit", "#{@config_yaml_path}", "Rakefile"]
-  spec.files += Dir.glob("{COPYING,GPL,README*}")
-  spec.files += Dir.glob("rabbit/**/*.*")
-  spec.files += Dir.glob("**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
-  spec.files += Dir.glob("*.{rd,rab,hiki,md,pdf}")
-  spec.files -= Dir.glob("{pkg,pdf}/**/*.*")
-
-  spec.add_runtime_dependency("rabbit")
-end
-
-Rabbit::Task::Slide.new(specification) do |task|
-  task.rubygems_user = rubygems_user
-  task.slideshare_user = slideshare_user
-  task.speaker_deck_user = speaker_deck_user
-  task.pdf_base_path = pdf_base_path
-  task.tags = tags
-  task.presentation_date = parsed_presentation_date
+Rabbit::Task::Slide.new do |task|
+  # task.spec.licenses = ["CC BY-SA 3.0"]
+  # task.spec.files += Dir.glob("doc/**/*.*")
+  # task.spec.files -= Dir.glob("private/**/*.*")
+  # task.spec.add_runtime_dependency("YOUR THEME")
 end
 EOR
         end
@@ -418,7 +348,7 @@ EOR
       end
 
       def slide_path
-        "#{@base_name}.#{slide_source_extension}"
+        "#{@slide_conf.base_name}.#{slide_source_extension}"
       end
 
       def slide_source_extension
@@ -466,12 +396,13 @@ EOR
       end
 
       def slide_source_metadata(source, syntax)
+        presentation_date = @slide_conf.presentation_date
         slide_metadata = [
           ["subtitle",       nil,                _("SUBTITLE")],
           ["author",         @author_conf.name,  _("AUTHOR")],
           ["institution",    nil,                _("INSTITUTION")],
           ["content-source", nil,                _("EVENT NAME")],
-          ["date",           @presentation_date, Time.now.strftime("%Y/%m/%d")],
+          ["date",           presentation_date,  Time.now.strftime("%Y/%m/%d")],
           ["allotted-time",  @allotted_time,     "5m"],
           ["theme",          nil,                "default"],
         ]
@@ -560,12 +491,8 @@ EOR
         end
       end
 
-      def gem_name
-        "#{gem_name_prefix}-#{@author_conf.rubygems_user}-#{@id}"
-      end
-
-      def gem_name_prefix
-        "rabbit-slide"
+      def create_file(path, &block)
+        super(File.join(@slide_conf.id, path), &block)
       end
     end
   end

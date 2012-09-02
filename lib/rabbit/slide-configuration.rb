@@ -31,7 +31,7 @@ module Rabbit
     attr_accessor :id, :base_name, :tags, :presentation_date
     attr_accessor :licenses
     attr_writer :version
-    attr_reader :author
+    attr_accessor :author
     def initialize(logger=nil)
       @logger = logger || Logger.default
       @id = nil
@@ -52,13 +52,14 @@ module Rabbit
       @logger.error(format % [path, $!.message])
     end
 
-    def save
-      create_file(path) do |conf_file|
+    def save(base_dir)
+      config_path = File.join(base_dir, path)
+      create_file(config_path) do |conf_file|
         conf_file.print(to_yaml)
       end
     rescue
       format = _("Failed to write slide configuration: %s: %s")
-      @logger.error(format % [path, $!.message])
+      @logger.error(format % [config_path, $!.message])
     end
 
     def merge!(conf)
@@ -69,7 +70,7 @@ module Rabbit
       @version           = conf["version"]
       @licenses          = conf["licenses"]
 
-      @author = AuthorConfiguration.new
+      @author = AuthorConfiguration.new(@logger)
       @author.merge!(conf["author"] || {})
     end
 

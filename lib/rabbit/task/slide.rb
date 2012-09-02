@@ -19,6 +19,8 @@ require "rake"
 require "rabbit/gettext"
 require "rabbit/logger"
 require "rabbit/command/rabbit"
+require "rabbit/slide-configuration"
+require "rabbit/readme-parser"
 
 module Rabbit
   module Task
@@ -27,25 +29,50 @@ module Rabbit
       include GetText
 
       attr_reader :spec
-      attr_accessor :package_dir, :pdf_dir, :pdf_base_path
-      attr_accessor :tags, :presentation_date
-      attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
-      def initialize(spec)
+      attr_accessor :package_dir, :pdf_dir
+      def initialize
         @logger = Logger.default
-        @spec = spec
+        @slide = load_slide_configuration
+        @spec = create_spec
         @package_dir = "pkg"
         @pdf_dir = "pdf"
-        @pdf_base_path = nil
-        @tags = []
-        @presentation_date = nil
-        @rubygems_user = nil
-        @slideshare_user = nil
-        @speaker_deck_user = nil
         yield(self) if block_given?
         define
       end
 
       private
+      def load_slide_configuration
+        slide_conf = SlideConfiguration.new(@logger)
+        slide_conf.load
+        slide_conf
+      end
+
+      def create_spec
+        readme_parser = READMEParser.new(@logger)
+        readme_parser.parse
+
+        Gem::Specification.new do |spec|
+          spec.name = @slide.gem_name
+          spec.version = @slide.version
+          spec.homepage = homepage
+          spec.authors = [@slide.author.name]
+          spec.email = [@slide.author.email]
+          spec.summary = readme_parser.title || "TODO"
+          spec.description = readme_parser.description || "TODO"
+          spec.licenses = @slide.licenses
+
+          slide_conf_path = @slide.path
+          spec.files = [".rabbit", slide_conf_path, "Rakefile"]
+          spec.files += Dir.glob("{COPYING,GPL,README*}")
+          spec.files += Dir.glob("rabbit/**/*.*")
+          spec.files += Dir.glob("**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
+          spec.files += Dir.glob("*.{rd,rab,hiki,md,pdf}")
+          spec.files -= Dir.glob("{pkg,pdf}/**/*.*")
+
+          spec.add_runtime_dependency("rabbit")
+        end
+      end
+
       def define
         task :default => :run
 
@@ -88,7 +115,7 @@ module Rabbit
           end
         end
 
-        pdf_path = File.join(@pdf_dir, @pdf_base_path || default_pdf_base_path)
+        pdf_path = File.join(@pdf_dir, pdf_base_path)
         file pdf_path => [options_file, *@spec.files] do
           mkdir_p(@pdf_dir)
           rabbit("--print",
@@ -103,7 +130,7 @@ module Rabbit
 
         publish_tasks = []
         namespace :publish do
-          if @rubygems_user
+          if @slide.author.rubygems_user
             desc(_("Publish the slide to %s" % "RubyGems.org"))
             task :rubygems => :gem do
               ruby("-S", "gem", "push", "--verbose", gem_path)
@@ -111,19 +138,20 @@ module Rabbit
             publish_tasks << :rubygems
           end
 
-          if @slideshare_user
+          slideshare_user = @slide.author.slideshare_user
+          if slideshare_user
             desc(_("Publish the slide to %s" % "SlideShare"))
             task :slideshare => [:pdf, "gem:validate"] do
               require "rabbit/slideshare"
               slideshare = SlideShare.new(@logger)
-              slideshare.user = @slideshare_user
+              slideshare.user = slideshare_user
               slideshare.pdf_path = pdf_path
               slideshare.title = @spec.summary
               slideshare.description = @spec.description
               slideshare.tags = @tags if @tags
               id = slideshare.upload
               if id
-                url = "http://www.slideshare.net/#{@slideshare_user}/ss-#{id}"
+                url = "http://www.slideshare.net/#{slideshare_user}/ss-#{id}"
                 @logger.info(_("Uploaded successfully!"))
                 @logger.info(_("See %s") % url)
                 Gtk.show_uri(url) if Gtk.respond_to?(:show_uri)
@@ -132,7 +160,7 @@ module Rabbit
             publish_tasks << :slideshare
           end
 
-          if @speaker_deck_user
+          if @slide.author.speaker_deck_user
             desc(_("Publish the slide to %s" % "Spearker Deck"))
             task :speaker_deck => :pdf do
               raise "Not implemented yet."
@@ -147,11 +175,13 @@ module Rabbit
         File.join(@package_dir, "#{@spec.name}-#{@spec.version}.gem")
       end
 
-      def default_pdf_base_path
-        user_name_and_slide_id = @spec.name.gsub(/\Arabbit-slide-/, "")
-        escaped_user = Regexp.escape(@rubygems_user)
-        slide_id = user_name_and_slide_id.gsub(/\A#{escaped_user}-/, "")
-        "#{slide_id}.pdf"
+      def pdf_base_path
+        "#{@slide.id}.pdf"
+      end
+
+      def homepage
+        rubygems_user = @slide.author.rubygems_user
+        "http://slide.rabbit-shockers.org/#{rubygems_user}/\#{@slide.id}/"
       end
 
       def rabbit(*arguments)
