@@ -27,6 +27,8 @@ module Rabbit
     include GetText
     include PathManipulatable
 
+    GEM_NAME_PREFIX = "rabbit-slide"
+
     attr_accessor :logger
     attr_accessor :id, :base_name, :tags, :presentation_date
     attr_accessor :licenses
@@ -96,7 +98,7 @@ module Rabbit
     end
 
     def gem_name
-      "#{gem_name_prefix}-#{@author.rubygems_user}-#{@id}"
+      "#{GEM_NAME_PREFIX}-#{@author.rubygems_user}-#{@id}"
     end
 
     def path
@@ -104,10 +106,6 @@ module Rabbit
     end
 
     private
-    def gem_name_prefix
-      "rabbit-slide"
-    end
-
     def parsed_presentation_date
       return nil if @presentation_date.nil?
       begin

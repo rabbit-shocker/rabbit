@@ -25,6 +25,8 @@ module Rabbit
     include GetText
     include PathManipulatable
 
+    GEM_NAME_PREFIX = "rabbit-theme"
+
     attr_accessor :logger
     attr_accessor :id, :tags, :licenses
     attr_writer :version
@@ -87,7 +89,7 @@ module Rabbit
     end
 
     def gem_name
-      "#{gem_name_prefix}-#{@id}"
+      "#{GEM_NAME_PREFIX}-#{@id}"
     end
 
     def path
@@ -95,10 +97,6 @@ module Rabbit
     end
 
     private
-    def gem_name_prefix
-      "rabbit-theme"
-    end
-
     def default_version
       "1.0.0"
     end

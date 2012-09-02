@@ -18,6 +18,7 @@
 require "English"
 
 require "rabbit/gettext"
+require "rabbit/slide-configuration"
 
 module Rabbit
   module Command
@@ -607,7 +608,7 @@ module Rabbit
           gem_name = $PREMATCH
           require "rabbit/gem-finder"
           finder = GemFinder.new(@logger)
-          spec = finder.find(gem_name, "rabbit-slide-")
+          spec = finder.find(gem_name, "#{SlideConfiguration::GEM_NAME_PREFIX}-")
           source = spec.gem_dir if spec
         end
 

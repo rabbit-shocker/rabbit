@@ -18,6 +18,7 @@ require 'erb'
 
 require 'rabbit/rabbit'
 require "rabbit/gem-finder"
+require "rabbit/theme-configuration"
 
 module Rabbit
   module Theme
@@ -179,7 +180,7 @@ module Rabbit
         if valid_gem_name?(name)
           finder = GemFinder.new(logger)
           begin
-            @spec = finder.find(name, "rabbit-theme-")
+            @spec = finder.find(name, "#{ThemeConfiguration::GEM_NAME_PREFIX}-")
           rescue Gem::GemNotFoundException
           end
         end
