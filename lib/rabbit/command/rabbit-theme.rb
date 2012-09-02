@@ -18,6 +18,7 @@ require "yaml"
 
 require "rabbit/console"
 require "rabbit/author-configuration"
+require "rabbit/theme-configuration"
 require "rabbit/path-manipulatable"
 
 module Rabbit
@@ -33,8 +34,7 @@ module Rabbit
       end
 
       def initialize
-        @config_yaml_path = "config.yaml"
-        @id = nil
+        @theme_conf = nil
         @author_conf = nil
         @logger = nil
       end
@@ -60,6 +60,8 @@ module Rabbit
           @logger = options.default_logger
           @author_conf = AuthorConfiguration.new(@logger)
           @author_conf.load
+          @theme_conf = ThemeConfiguration.new(@logger)
+          @theme_conf.author = @author_conf
 
           format = _("Usage: %s new [options]\n" \
                      " e.g.: %s new \\\n" \
@@ -79,7 +81,7 @@ module Rabbit
                     _("Theme ID"),
                     _("(e.g.: %s)") % "--id=rubykaigi2012",
                     _("(must)")) do |id|
-            @id = id
+            @theme_conf.id = id
           end
 
           parser.separator(_("Your information"))
@@ -149,7 +151,7 @@ module Rabbit
       end
 
       def validate_id
-        if @id.nil?
+        if @theme_conf.id.nil?
           @validation_errors << (_("%s is missing") % "--id")
         end
       end
@@ -157,7 +159,8 @@ module Rabbit
       def generate
         generate_directory
         generate_data_directory
-        generate_config_yaml
+        generate_dot_gitignore
+        generate_theme_configuration
         generate_readme
         generate_rakefile
         generate_property_rb
@@ -165,23 +168,25 @@ module Rabbit
       end
 
       def generate_directory
-        create_directory(@id)
+        create_directory(@theme_conf.id)
       end
 
       def generate_data_directory
-        create_directory(File.join(@id, "data"))
+        create_directory(File.join(@theme_conf.id, "data"))
       end
 
-      def generate_config_yaml
-        create_file(@config_yaml_path) do |config_yaml|
-          config = {
-            "id"                => @id,
-            "name"              => @author_conf.name,
-            "email"             => @author_conf.email,
-            "rubygems_user"     => @author_conf.rubygems_user,
-          }
-          config_yaml.puts(config.to_yaml)
+      def generate_dot_gitignore
+        create_file(".gitignore") do |dot_gitignore|
+          dot_gitignore.puts(<<-EOD)
+/.tmp/
+/pkg/
+/pdf/
+EOD
         end
+      end
+
+      def generate_theme_configuration
+        @theme_conf.save(@theme_conf.id)
       end
 
       def generate_readme
@@ -215,13 +220,13 @@ module Rabbit
         content << "\n\n"
         content << (syntax[:heading3] % {:title => _("Install")})
         content << "\n\n"
-        install_command = "gem install #{gem_name}"
+        install_command = "gem install #{@theme_conf.gem_name}"
         content << (syntax[:preformatted_line] % {:content => install_command})
         content << "\n\n"
         content << (syntax[:heading3] % {:title => _("Show")})
         content << "\n\n"
         theme_benchmark_gem = _("rabbit-theme-benchmark-en.gem")
-        show_command = "rabbit -t #{gem_name} #{theme_benchmark_gem}"
+        show_command = "rabbit -t #{@theme_conf.gem_name} #{theme_benchmark_gem}"
         content << (syntax[:preformatted_line] % {:content => show_command})
         content << "\n\n"
       end
@@ -229,48 +234,15 @@ module Rabbit
       def generate_rakefile
         create_file("Rakefile") do |rakefile|
           rakefile.puts(<<-EOR)
-require "time"
-require "yaml"
 require "rabbit/task/theme"
 
-config = YAML.load(File.read("#{@config_yaml_path}"))
+# Edit ./config.yaml to customize meta data
 
-theme_id = config["id"]
-
-version = "1.0.0"
-
-name = config["name"]
-email = config["email"]
-rubygems_user = config["rubygems_user"]
-
-readme = File.read(Dir.glob("README*")[0])
-
-readme_blocks = readme.split(/(?:\\r?\\n){2,}/)
-summary = (readme_blocks[0] || "TODO").gsub(/\\A(?:[=*!]+|h\\d\\.)\s*/, "")
-description = readme_blocks[1] || "TODO"
-
-specification = Gem::Specification.new do |spec|
-  prefix = "#{gem_name_prefix}"
-  spec.name = "\#{prefix}-\#{theme_id}"
-  spec.version = version
-  spec.homepage = "http://theme.rabbit-shockers.org/\#{theme_id}/"
-  spec.authors = [name]
-  spec.email = [email]
-  spec.summary = summary
-  spec.description = description
-  spec.licenses = [] # ["CC BY-SA 3.0"]
-
-  spec.files = ["#{@config_yaml_path}", "Rakefile"]
-  spec.files += Dir.glob("{theme.rb,COPYING,GPL,README*}")
-  spec.files += Dir.glob("data/**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
-  spec.files += Dir.glob("locale/**/*.mo")
-  spec.files += Dir.glob("po/*/*.po")
-
-  spec.add_runtime_dependency("rabbit")
-end
-
-Rabbit::Task::Theme.new(specification) do |task|
-  task.rubygems_user = rubygems_user
+Rabbit::Task::Theme.new do |task|
+  # task.spec.licenses = ["CC BY-SA 3.0"]
+  # task.spec.files += Dir.glob("doc/**/*.*")
+  # task.spec.files -= Dir.glob("private/**/*.*")
+  # task.spec.add_runtime_dependency("DEPENDED THEME")
 end
 EOR
         end
@@ -280,7 +252,7 @@ EOR
         create_file("property.rb") do |property_rb|
           property_rb.puts(<<-EOP)
 @category = N_("#{category}")
-@title = N_("#{@id}")
+@title = N_("#{@theme_conf.id}")
 # @abstract = N_("TODO")
 # @description = N_("TODO")
 EOP
@@ -297,7 +269,7 @@ EOT
       end
 
       def image_theme?
-        @id.end_with?("-images")
+        @theme_conf.id.end_with?("-images")
       end
 
       def category
@@ -369,12 +341,8 @@ EOT
         end
       end
 
-      def gem_name
-        "#{gem_name_prefix}-#{@id}"
-      end
-
-      def gem_name_prefix
-        "rabbit-theme"
+      def create_file(path, &block)
+        super(File.join(@theme_conf.id, path), &block)
       end
     end
   end

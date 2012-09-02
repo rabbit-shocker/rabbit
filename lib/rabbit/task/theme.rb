@@ -19,6 +19,8 @@ require "rake"
 require "rabbit/gettext"
 require "rabbit/logger"
 require "rabbit/command/rabbit"
+require "rabbit/theme-configuration"
+require "rabbit/readme-parser"
 
 module Rabbit
   module Task
@@ -27,20 +29,50 @@ module Rabbit
       include GetText
 
       attr_reader :spec
-      attr_accessor :package_dir, :pdf_dir, :pdf_base_path
-      attr_accessor :rubygems_user
-      def initialize(spec)
+      attr_accessor :package_dir, :pdf_dir, :required_rabbit_version
+      def initialize
         @logger = Logger.default
-        @spec = spec
+        @theme = load_theme_configuration
+        @spec = create_spec
         @package_dir = "pkg"
         @pdf_dir = "pdf"
-        @pdf_base_path = nil
-        @rubygems_user = nil
+        @required_rabbit_version = ">= 2.0.2"
         yield(self) if block_given?
         define
       end
 
       private
+      def load_theme_configuration
+        theme_conf = ThemeConfiguration.new(@logger)
+        theme_conf.load
+        theme_conf
+      end
+
+      def create_spec
+        readme_parser = READMEParser.new(@logger)
+        readme_parser.parse
+
+        Gem::Specification.new do |spec|
+          spec.name = @theme.gem_name
+          spec.version = @theme.version
+          spec.homepage = homepage
+          spec.authors = [@theme.author.name]
+          spec.email = [@theme.author.email]
+          spec.summary = readme_parser.title || "TODO"
+          spec.description = readme_parser.description || "TODO"
+          spec.licenses = @theme.licenses
+
+          theme_conf_path = @theme.path
+          spec.files = [theme_conf_path, "Rakefile"]
+          spec.files += Dir.glob("{theme.rb,COPYING,GPL,README*}")
+          spec.files += Dir.glob("data/**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
+          spec.files += Dir.glob("locale/**/*.mo")
+          spec.files += Dir.glob("po/*/*.po")
+
+          spec.add_runtime_dependency("rabbit", @required_rabbit_version)
+        end
+      end
+
       def define
         task :default => :run
 
@@ -77,7 +109,7 @@ module Rabbit
           end
         end
 
-        pdf_path = File.join(@pdf_dir, @pdf_base_path || default_pdf_base_path)
+        pdf_path = File.join(@pdf_dir, pdf_base_path)
         file pdf_path => [*@spec.files] do
           mkdir_p(@pdf_dir)
           rabbit("--theme", ".",
@@ -109,9 +141,12 @@ module Rabbit
         File.join(@package_dir, "#{@spec.name}-#{@spec.version}.gem")
       end
 
-      def default_pdf_base_path
-        theme_id = @spec.name.gsub(/\Arabbit-theme-/, "")
-        "#{theme_id}.pdf"
+      def pdf_base_path
+        "#{@theme.id}.pdf"
+      end
+
+      def homepage
+        "http://theme.rabbit-shockers.org/#{@theme.id}/"
       end
 
       def rabbit(*arguments)
