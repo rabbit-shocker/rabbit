@@ -20,6 +20,7 @@ require "rabbit/console"
 require "rabbit/author-configuration"
 require "rabbit/theme-configuration"
 require "rabbit/path-manipulatable"
+require "rabbit/source-generator"
 
 module Rabbit
   module Command
@@ -197,37 +198,37 @@ EOD
 
       def readme_content
         markup_language = @author_conf.markup_language || :rd
-        syntax = markup_syntax(markup_language)
+        generator = Rabbit::SourceGenerator.find(markup_language)
 
         content = ""
-        content << (syntax[:heading1] % {:title => _("TODO: THEME TITLE")})
+        content << generator.heading(1, _("TODO: THEME TITLE"))
         content << "\n\n"
         content << _("TODO: THEME DESCRIPTION")
         content << "\n\n"
 
-        content << (syntax[:heading2] % {:title => _("For author")})
+        content << generator.heading(2, _("For author"))
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Show")})
+        content << generator.heading(3, _("Show"))
         content << "\n\n"
-        content << (syntax[:preformatted_line] % {:content => "rake"})
+        content << generator.preformatted_line("rake")
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Publish")})
+        content << generator.heading(3, _("Publish"))
         content << "\n\n"
-        content << (syntax[:preformatted_line] % {:content => "rake publish"})
+        content << generator.preformatted_line("rake publish")
         content << "\n\n"
 
-        content << (syntax[:heading2] % {:title => _("For users")})
+        content << generator.heading(2, _("For users"))
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Install")})
+        content << generator.heading(3, _("Install"))
         content << "\n\n"
         install_command = "gem install #{@theme_conf.gem_name}"
-        content << (syntax[:preformatted_line] % {:content => install_command})
+        content << generator.preformatted_line(install_command)
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Show")})
+        content << generator.heading(3, _("Show"))
         content << "\n\n"
         theme_benchmark_gem = _("rabbit-theme-benchmark-en.gem")
         show_command = "rabbit -t #{@theme_conf.gem_name} #{theme_benchmark_gem}"
-        content << (syntax[:preformatted_line] % {:content => show_command})
+        content << generator.preformatted_line(show_command)
         content << "\n\n"
       end
 
@@ -290,54 +291,6 @@ EOT
           "md"
         else
           "rd"
-        end
-      end
-
-      def markup_syntax(markup_language)
-        case markup_language
-        when :rd
-          {
-            :heading1             => "= %{title}",
-            :heading2             => "== %{title}",
-            :heading3             => "=== %{title}",
-            :definition_list_item => ": %{item}\n   %{description}",
-            :unorderd_list_item   => "  * %{item}",
-            :image                =>
-              "  # image\n" +
-              "  # src = %{src}\n" +
-              "  # relative_height = %{relative_height}",
-            :preformatted_line    => "  %{content}",
-            :comment              => "# %{content}",
-          }
-        when :hiki
-          {
-            :heading1             => "! %{title}",
-            :heading2             => "!! %{title}",
-            :heading3             => "!!! %{title}",
-            :definition_list_item => ":%{item}:%{description}",
-            :unorderd_list_item   => "* %{item}",
-            :image                =>
-              "{{image(\"%{src}\",\n" +
-              "        {\n" +
-              "          :relative_height => %{relative_height},\n" +
-              "        })}}",
-            :preformatted_line    => " %{content}",
-            :comment              => "// %{content}",
-          }
-        when :markdown
-          {
-            :heading1             => "# %{title}",
-            :heading2             => "## %{title}",
-            :heading3             => "### %{title}",
-            :definition_list_item => "%{item}\n   %{description}",
-            :unorderd_list_item   => "* %{item}",
-            :image                =>
-              "![](%{src}){:relative_height='%{relative_height}'}",
-            :preformatted_line    => "    %{content}",
-            :comment              => "",
-          }
-        else
-          nil
         end
       end
 

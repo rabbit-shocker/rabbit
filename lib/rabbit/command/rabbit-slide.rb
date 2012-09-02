@@ -20,6 +20,7 @@ require "rabbit/console"
 require "rabbit/author-configuration"
 require "rabbit/slide-configuration"
 require "rabbit/path-manipulatable"
+require "rabbit/source-generator"
 
 module Rabbit
   module Command
@@ -299,37 +300,37 @@ EOD
 
       def readme_content
         markup_language = @author_conf.markup_language || :rd
-        syntax = markup_syntax(markup_language)
+        generator = Rabbit::SourceGenerator.find(markup_language)
 
         content = ""
         title = @title || _("TODO: SLIDE TITLE")
-        content << (syntax[:heading1] % {:title => title})
+        content << generator.heading(1, title)
         content << "\n\n"
         content << _("TODO: SLIDE DESCRIPTION")
         content << "\n\n"
 
-        content << (syntax[:heading2] % {:title => _("For author")})
+        content << generator.heading(2, _("For author"))
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Show")})
+        content << generator.heading(3, _("Show"))
         content << "\n\n"
-        content << (syntax[:preformatted_line] % {:content => "rake"})
+        content << generator.preformatted_line("rake")
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Publish")})
+        content << generator.heading(3, _("Publish"))
         content << "\n\n"
-        content << (syntax[:preformatted_line] % {:content => "rake publish"})
+        content << generator.preformatted_line("rake publish")
         content << "\n\n"
 
-        content << (syntax[:heading2] % {:title => _("For viewers")})
+        content << generator.heading(2, _("For viewers"))
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Install")})
+        content << generator.heading(3, _("Install"))
         content << "\n\n"
         install_command = "gem install #{@slide_conf.gem_name}"
-        content << (syntax[:preformatted_line] % {:content => install_command})
+        content << generator.preformatted_line(install_command)
         content << "\n\n"
-        content << (syntax[:heading3] % {:title => _("Show")})
+        content << generator.heading(3, _("Show"))
         content << "\n\n"
         show_command = "rabbit #{@slide_conf.gem_name}.gem"
-        content << (syntax[:preformatted_line] % {:content => show_command})
+        content << generator.preformatted_line(show_command)
         content << "\n\n"
       end
 
@@ -389,24 +390,24 @@ EOR
       end
 
       def slide_source
-        syntax = slide_source_syntax
-        return nil if syntax.nil?
+        generator = Rabbit::SourceGenerator.find(@author_conf.markup_language)
+        return nil if generator.nil?
 
         source = ""
-        slide_source_title(source, syntax, @title || _("TITLE"))
-        slide_source_metadata(source, syntax)
-        slide_source_title(source, syntax, _("FIRST SLIDE"))
-        slide_source_items(source, syntax)
-        slide_source_title(source, syntax, _("SECOND SLIDE"))
-        slide_source_image(source, syntax)
+        slide_source_title(source, generator, @title || _("TITLE"))
+        slide_source_metadata(source, generator)
+        slide_source_title(source, generator, _("FIRST SLIDE"))
+        slide_source_items(source, generator)
+        slide_source_title(source, generator, _("SECOND SLIDE"))
+        slide_source_image(source, generator)
       end
 
-      def slide_source_title(source, syntax, title)
-        source << (syntax[:heading1] % {:title => _("TITLE")})
+      def slide_source_title(source, generator, title)
+        source << generator.heading(1, _("TITLE"))
         source << "\n\n"
       end
 
-      def slide_source_metadata(source, syntax)
+      def slide_source_metadata(source, generator)
         presentation_date = @slide_conf.presentation_date
         slide_metadata = [
           ["subtitle",       nil,                _("SUBTITLE")],
@@ -418,88 +419,34 @@ EOR
           ["theme",          nil,                "default"],
         ]
         slide_metadata.each do |key, value, default_value|
-          data = {:item => key, :description => value || default_value}
-          item = syntax[:definition_list_item] % data
+          item = generator.definition_list_item(key, value || default_value)
           item << "\n"
           if value
             source << item
           else
             item.each_line do |line|
-              source << (syntax[:comment] % {:content => line})
+              source << generator.comment(line)
             end
           end
         end
         source << "\n\n"
       end
 
-      def slide_source_items(source, syntax)
+      def slide_source_items(source, generator)
         1.upto(3) do |i|
-          source << syntax[:unorderd_list_item] % {:item => _("ITEM %d") % i}
+          source << generator.unordered_list_item(_("ITEM %d") % i)
           source << "\n"
         end
         source << "\n"
       end
 
-      def slide_source_image(source, syntax)
+      def slide_source_image(source, generator)
         lavie = "https://raw.github.com/shockers/rabbit/master/sample/lavie.png"
-        data = {
-          :src => lavie,
+        options = {
           :relative_height => 100,
         }
-        source << syntax[:image] % data
+        source << generator.image(lavie, options)
         source << "\n"
-      end
-
-      def slide_source_syntax
-        markup_syntax(@author_conf.markup_language)
-      end
-
-      def markup_syntax(markup_language)
-        case markup_language
-        when :rd
-          {
-            :heading1             => "= %{title}",
-            :heading2             => "== %{title}",
-            :heading3             => "=== %{title}",
-            :definition_list_item => ": %{item}\n   %{description}",
-            :unorderd_list_item   => "  * %{item}",
-            :image                =>
-              "  # image\n" +
-              "  # src = %{src}\n" +
-              "  # relative_height = %{relative_height}",
-            :preformatted_line    => "  %{content}",
-            :comment              => "# %{content}",
-          }
-        when :hiki
-          {
-            :heading1             => "! %{title}",
-            :heading2             => "!! %{title}",
-            :heading3             => "!!! %{title}",
-            :definition_list_item => ":%{item}:%{description}",
-            :unorderd_list_item   => "* %{item}",
-            :image                =>
-              "{{image(\"%{src}\",\n" +
-              "        {\n" +
-              "          :relative_height => %{relative_height},\n" +
-              "        })}}",
-            :preformatted_line    => " %{content}",
-            :comment              => "// %{content}",
-          }
-        when :markdown
-          {
-            :heading1             => "# %{title}",
-            :heading2             => "## %{title}",
-            :heading3             => "### %{title}",
-            :definition_list_item => "%{item}\n   %{description}",
-            :unorderd_list_item   => "* %{item}",
-            :image                =>
-              "![](%{src}){:relative_height='%{relative_height}'}",
-            :preformatted_line    => "    %{content}",
-            :comment              => "",
-          }
-        else
-          nil
-        end
       end
 
       def create_file(path, &block)
