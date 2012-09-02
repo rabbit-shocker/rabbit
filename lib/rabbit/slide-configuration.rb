@@ -28,8 +28,9 @@ module Rabbit
     include PathManipulatable
 
     attr_accessor :logger
-    attr_accessor :id, :base_name, :tags, :presentation_date, :version
+    attr_accessor :id, :base_name, :tags, :presentation_date
     attr_accessor :licenses
+    attr_writer :version
     attr_reader :author
     def initialize(logger=nil)
       @logger = logger || Logger.default
@@ -78,7 +79,7 @@ module Rabbit
         "base_name"         => @base_name,
         "tags"              => @tags,
         "presentation_date" => @presentation_date,
-        "version"           => @version || default_version,
+        "version"           => version,
         "licenses"          => @licenses,
       }
       config["author"] = @author.to_hash if @author
@@ -87,6 +88,10 @@ module Rabbit
 
     def to_yaml
       to_hash.to_yaml
+    end
+
+    def version
+      @version || default_version
     end
 
     def gem_name

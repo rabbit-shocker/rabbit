@@ -46,11 +46,11 @@ class TestSlideConfiguration < Test::Unit::TestCase
   class TestDefaultVersion < self
     def test_have_presentation_date
       @slide.presentation_date = "2012/09/16"
-      assert_equal("2012.09.16", @slide.to_hash["version"])
+      assert_equal("2012.09.16", @slide.version)
     end
 
     def test_no_presentation_date
-      assert_equal("1.0.0", @slide.to_hash["version"])
+      assert_equal("1.0.0", @slide.version)
     end
   end
 end
