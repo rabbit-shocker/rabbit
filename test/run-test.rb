@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require "test-unit"
+require "test/unit/notify"
+require "test/unit/rr"
 
 test_file = "test/test-*.rb"
 
