@@ -65,8 +65,8 @@ module Rabbit
       @speaker_deck_user = conf["speaker_deck_user"]
     end
 
-    def to_yaml
-      conf = {
+    def to_hash
+      {
         "markup_language"   => @markup_language,
         "name"              => @name,
         "email"             => @email,
@@ -74,7 +74,10 @@ module Rabbit
         "slideshare_user"   => @slideshare_user,
         "speaker_deck_user" => @speaker_deck_user,
       }
-      conf.to_yaml
+    end
+
+    def to_yaml
+      to_hash.to_yaml
     end
 
     private
