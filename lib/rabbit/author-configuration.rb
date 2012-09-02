@@ -29,7 +29,6 @@ module Rabbit
     attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
     def initialize(logger=nil)
       @logger = logger || Logger.default
-      @conf_path = File.expand_path("~/.rabbit/author.yaml")
       @markup_language = nil
       @name = nil
       @email = nil
@@ -39,8 +38,8 @@ module Rabbit
     end
 
     def load
-      return unless File.exist?(@conf_path)
-      conf = YAML.load(File.read(@conf_path))
+      return unless File.exist?(path)
+      conf = YAML.load(File.read(path))
       @markup_language   = conf["markup_language"]
       @name              = conf["name"]
       @email             = conf["email"]
@@ -49,7 +48,7 @@ module Rabbit
       @speaker_deck_user = conf["speaker_deck_user"]
     rescue
       format = _("Failed to read author configuration: %s: %s")
-      @logger.error(format % [@conf_path, $!.message])
+      @logger.error(format % [path, $!.message])
     end
 
     def save
@@ -61,13 +60,18 @@ module Rabbit
         "slideshare_user"   => @slideshare_user,
         "speaker_deck_user" => @speaker_deck_user,
       }
-      create_directory(File.dirname(@conf_path))
-      create_file(@conf_path) do |conf_file|
+      create_directory(File.dirname(path))
+      create_file(path) do |conf_file|
         conf_file.print(conf.to_yaml)
       end
     rescue
       format = _("Failed to write author configuration: %s: %s")
-      @logger.error(format % [@conf_path, $!.message])
+      @logger.error(format % [path, $!.message])
+    end
+
+    private
+    def path
+      File.expand_path("~/.rabbit/author.yaml")
     end
   end
 end
