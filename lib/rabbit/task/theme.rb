@@ -126,7 +126,7 @@ module Rabbit
 
         publish_tasks = []
         namespace :publish do
-          if @rubygems_user
+          if @theme.author.rubygems_user
             desc(_("Publish the theme to %s") % "RubyGems.org")
             task :rubygems => :gem do
               ruby("-S", "gem", "push", "--verbose", gem_path)
