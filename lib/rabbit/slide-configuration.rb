@@ -14,6 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "time"
+
 require "yaml"
 
 require "rabbit/gettext"
@@ -76,7 +78,7 @@ module Rabbit
         "base_name"         => @base_name,
         "tags"              => @tags,
         "presentation_date" => @presentation_date,
-        "version"           => @version,
+        "version"           => @version || default_version,
         "licenses"          => @licenses,
       }
       config["author"] = @author.to_hash if @author
@@ -98,6 +100,24 @@ module Rabbit
     private
     def gem_name_prefix
       "rabbit-slide"
+    end
+
+    def parsed_presentation_date
+      return nil if @presentation_date.nil?
+      begin
+        Time.parse(@presentation_date)
+      rescue ArgumentError
+        nil
+      end
+    end
+
+    def default_version
+      date = parsed_presentation_date
+      if date
+        date.strftime("%Y.%m.%d")
+      else
+        "1.0.0"
+      end
     end
   end
 end
