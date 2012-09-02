@@ -56,7 +56,7 @@ module Rabbit
       @logger.error(format % [path, $!.message])
     end
 
-    def merge!(configuration)
+    def merge!(conf)
       @markup_language   = conf["markup_language"]
       @name              = conf["name"]
       @email             = conf["email"]
