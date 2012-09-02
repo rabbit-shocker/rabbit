@@ -23,9 +23,9 @@ match(Slide) do |slides|
       layout.set_width(w * Pango::SCALE)
       case @slide_number_position
       when :bottom
-        number_y = canvas.height - @margin_bottom - text.height
+        number_y = canvas.height - slide.margin_bottom - text.height
       when :top
-        number_y = @margin_top
+        number_y = slide.margin_top
       end
       canvas.draw_layout(text.layout, x, number_y, @slide_number_color)
     end
