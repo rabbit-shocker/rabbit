@@ -28,17 +28,19 @@ module Rabbit
       include Rake::DSL
       include GetText
 
-      attr_reader :spec
       attr_accessor :package_dir, :pdf_dir, :required_rabbit_version
       def initialize
         @logger = Logger.default
         @slide = load_slide_configuration
-        @spec = create_spec
         @package_dir = "pkg"
         @pdf_dir = "pdf"
         @required_rabbit_version = ">= 2.0.2"
         yield(self) if block_given?
         define
+      end
+
+      def spec
+        @spec ||= create_spec
       end
 
       private
@@ -69,6 +71,7 @@ module Rabbit
           spec.files += Dir.glob("**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
           spec.files += Dir.glob("*.{rd,rab,hiki,md,pdf}")
           spec.files -= Dir.glob("{pkg,pdf}/**/*.*")
+          spec.files += [pdf_path]
 
           spec.add_runtime_dependency("rabbit", @required_rabbit_version)
         end
@@ -89,10 +92,10 @@ module Rabbit
         end
 
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
-        task :gem => "gem:validate" do
+        task :gem => ["gem:validate", :pdf] do
           mkdir_p(@package_dir)
-          Gem::Builder.new(@spec).build
-          mv(File.basename(@spec.cache_file), gem_path)
+          Gem::Builder.new(spec).build
+          mv(File.basename(spec.cache_file), gem_path)
         end
 
         namespace :gem do
@@ -103,7 +106,7 @@ module Rabbit
               :where => Dir.glob("README*")[0],
             }
             [:summary, :description].each do |item|
-              content = @spec.send(item)
+              content = spec.send(item)
               if /TODO|FIXME/ =~ content
                 data[:item] = item
                 data[:content] = content
@@ -116,8 +119,7 @@ module Rabbit
           end
         end
 
-        pdf_path = File.join(@pdf_dir, pdf_base_path)
-        file pdf_path => [options_file, *@spec.files] do
+        file pdf_path => [options_file, *(spec.files - [pdf_path])] do
           mkdir_p(@pdf_dir)
           rabbit("--print",
                  "--output-filename", pdf_path)
@@ -147,8 +149,8 @@ module Rabbit
               slideshare = SlideShare.new(@logger)
               slideshare.user = slideshare_user
               slideshare.pdf_path = pdf_path
-              slideshare.title = @spec.summary
-              slideshare.description = @spec.description
+              slideshare.title = spec.summary
+              slideshare.description = spec.description
               slideshare.tags = @tags if @tags
               id = slideshare.upload
               if id
@@ -173,7 +175,11 @@ module Rabbit
       end
 
       def gem_path
-        File.join(@package_dir, "#{@spec.name}-#{@spec.version}.gem")
+        File.join(@package_dir, "#{spec.name}-#{spec.version}.gem")
+      end
+
+      def pdf_path
+        File.join(@pdf_dir, pdf_base_path)
       end
 
       def pdf_base_path
