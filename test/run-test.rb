@@ -4,7 +4,7 @@ require "test-unit"
 require "test/unit/notify"
 require "test/unit/rr"
 
-test_file = "test/test-*.rb"
+test_file = "test/**/test-*.rb"
 
 $LOAD_PATH.unshift(File.join(File.expand_path("."), "lib"))
 $LOAD_PATH.unshift(File.join(File.expand_path("."), "test"))
