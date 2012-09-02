@@ -162,11 +162,11 @@ The images above are copyright their respective owners.
 
 == License
 
-Licensed under GPLv2 or later. For more information see
-'GPL' file. Provided patches, codes and so on are also
-licensed under GPLv2 or later. Kouhei Sutou can change their
-license. Authores of them are cosidered agreeing with those
-rules when they contribute their patches, codes and so on.
+Licensed under GPLv2 or later. For more information see 'GPL'
+file. Provided patches, codes and so on are also licensed under GPLv2
+or later. Kouhei Sutou can change the license of them. He considers
+that authores of them agree with the rule when they contribute their
+patches, codes and so on.
 
 lib/rabbit/div/prototype.js released under an MIT-style
 licence. For more information see ((<Prototype JavaScript
