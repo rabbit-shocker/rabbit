@@ -2,7 +2,7 @@
 
 require "test-unit"
 
-test_file = "test/test_*.rb"
+test_file = "test/test-*.rb"
 
 $LOAD_PATH.unshift(File.join(File.expand_path("."), "lib"))
 $LOAD_PATH.unshift(File.join(File.expand_path("."), "test"))
