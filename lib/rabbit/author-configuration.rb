@@ -40,18 +40,32 @@ module Rabbit
     def load
       return unless File.exist?(path)
       conf = YAML.load(File.read(path))
-      @markup_language   = conf["markup_language"]
-      @name              = conf["name"]
-      @email             = conf["email"]
-      @rubygems_user     = conf["rubygems_user"]
-      @slideshare_user   = conf["slideshare_user"]
-      @speaker_deck_user = conf["speaker_deck_user"]
+      merge!(conf)
     rescue
       format = _("Failed to read author configuration: %s: %s")
       @logger.error(format % [path, $!.message])
     end
 
     def save
+      create_directory(File.dirname(path))
+      create_file(path) do |conf_file|
+        conf_file.print(to_yaml)
+      end
+    rescue
+      format = _("Failed to write author configuration: %s: %s")
+      @logger.error(format % [path, $!.message])
+    end
+
+    def merge!(configuration)
+      @markup_language   = conf["markup_language"]
+      @name              = conf["name"]
+      @email             = conf["email"]
+      @rubygems_user     = conf["rubygems_user"]
+      @slideshare_user   = conf["slideshare_user"]
+      @speaker_deck_user = conf["speaker_deck_user"]
+    end
+
+    def to_yaml
       conf = {
         "markup_language"   => @markup_language,
         "name"              => @name,
@@ -60,13 +74,7 @@ module Rabbit
         "slideshare_user"   => @slideshare_user,
         "speaker_deck_user" => @speaker_deck_user,
       }
-      create_directory(File.dirname(path))
-      create_file(path) do |conf_file|
-        conf_file.print(conf.to_yaml)
-      end
-    rescue
-      format = _("Failed to write author configuration: %s: %s")
-      @logger.error(format % [path, $!.message])
+      conf.to_yaml
     end
 
     private
