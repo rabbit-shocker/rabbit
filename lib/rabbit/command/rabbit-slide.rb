@@ -254,6 +254,7 @@ module Rabbit
 
       def generate
         generate_directory
+        generate_dot_gitignore
         generate_dot_rabbit
         generate_slide_configuration
         generate_readme
@@ -263,6 +264,16 @@ module Rabbit
 
       def generate_directory
         create_directory(@slide_conf.id)
+      end
+
+      def generate_dot_gitignore
+        create_file(".gitignore") do |dot_gitignore|
+          dot_gitignore.puts(<<-EOD)
+/.tmp/
+/pkg/
+/pdf/
+EOD
+        end
       end
 
       def generate_dot_rabbit
