@@ -29,13 +29,14 @@ module Rabbit
       include GetText
 
       attr_reader :spec
-      attr_accessor :package_dir, :pdf_dir
+      attr_accessor :package_dir, :pdf_dir, :required_rabbit_version
       def initialize
         @logger = Logger.default
         @slide = load_slide_configuration
         @spec = create_spec
         @package_dir = "pkg"
         @pdf_dir = "pdf"
+        @required_rabbit_version = ">= 2.0.2"
         yield(self) if block_given?
         define
       end
@@ -69,7 +70,7 @@ module Rabbit
           spec.files += Dir.glob("*.{rd,rab,hiki,md,pdf}")
           spec.files -= Dir.glob("{pkg,pdf}/**/*.*")
 
-          spec.add_runtime_dependency("rabbit")
+          spec.add_runtime_dependency("rabbit", @required_rabbit_version)
         end
       end
 
