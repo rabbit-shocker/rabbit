@@ -36,6 +36,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "tags"              => ["rabbit", "sprk2012", "clear code"],
       "presentation_date" => ["2012/09/16"],
       "version"           => "2012.09.16",
+      "licenses"          => ["GPLv3+", "GFDL", "CC BY-SA 3.0"],
       "author"            => author_conf,
     }
     @slide.merge!(conf)

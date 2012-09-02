@@ -27,6 +27,7 @@ module Rabbit
 
     attr_accessor :logger
     attr_accessor :id, :base_name, :tags, :presentation_date, :version
+    attr_accessor :licenses
     attr_reader :author
     def initialize(logger=nil)
       @logger = logger || Logger.default
@@ -35,6 +36,7 @@ module Rabbit
       @tags = []
       @presentation_date = nil
       @version = nil
+      @licenses = []
       @author = nil
     end
 
@@ -62,6 +64,7 @@ module Rabbit
       @tags              = conf["tags"]
       @presentation_date = conf["presentation_date"]
       @version           = conf["version"]
+      @licenses          = conf["licenses"]
 
       @author = AuthorConfiguration.new
       @author.merge!(conf["author"] || {})
@@ -74,6 +77,7 @@ module Rabbit
         "tags"              => @tags,
         "presentation_date" => @presentation_date,
         "version"           => @version,
+        "licenses"          => @licenses,
       }
       config["author"] = @author.to_hash if @author
       config
