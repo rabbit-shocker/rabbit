@@ -28,7 +28,7 @@ class TestAuthorConfiguration < Test::Unit::TestCase
       "email"              => "kou@cozmixng.org",
       "rubygems_user"      => "kou",
       "slideshare_user"    => "kou",
-      "spearker_deck_user" => "kou",
+      "speaker_deck_user"  => "kou",
     }
     @author.merge!(conf)
     assert_equal(conf, @author.to_hash)
