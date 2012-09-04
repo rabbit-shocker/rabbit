@@ -40,4 +40,4 @@ gem install を実行します。
 
 お使いのシェルの環境変数に次の値を追加します
 
-DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
+  export DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
