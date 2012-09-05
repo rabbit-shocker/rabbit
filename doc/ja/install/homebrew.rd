@@ -11,7 +11,7 @@ Rabbit をインストール、利用する手順について説明します。
 
 * Intel Mac
 * Mac OS X Leopard 以上
-* Xcode と X11
+* Xcode と X11(XQuartzをインストール)
 
 === Homebrew のインストール
 
