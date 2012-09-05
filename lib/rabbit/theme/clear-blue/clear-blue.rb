@@ -77,6 +77,14 @@ match(Slide, Body) do |bodies|
   end
 end
 
+match("**", BlockQuote) do |quotes|
+  quotes.each do |quote|
+    first_element = quote.elements.first
+    next unless first_element.is_a?(Paragraph)
+    first_element.indent = first_element.prop_get("size")
+  end
+end
+
 @slide_logo_image ||= "clear-blue-headline-background.png"
 include_theme("slide-logo")
 
