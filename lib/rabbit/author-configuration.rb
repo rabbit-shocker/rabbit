@@ -17,6 +17,7 @@
 require "yaml"
 
 require "rabbit/gettext"
+require "rabbit/logger"
 require "rabbit/path-manipulatable"
 
 module Rabbit

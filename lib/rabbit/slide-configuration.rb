@@ -19,6 +19,7 @@ require "time"
 require "yaml"
 
 require "rabbit/gettext"
+require "rabbit/logger"
 require "rabbit/author-configuration"
 require "rabbit/path-manipulatable"
 
