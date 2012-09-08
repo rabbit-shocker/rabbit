@@ -188,7 +188,7 @@ module Rabbit
 
       def homepage
         rubygems_user = @slide.author.rubygems_user
-        "http://slide.rabbit-shocker.org/#{rubygems_user}/#{@slide.id}/"
+        "http://slide.rabbit-shocker.org/authors/#{rubygems_user}/#{@slide.id}/"
       end
 
       def rabbit(*arguments)
