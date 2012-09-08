@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-08-31 22:36+0900\n"
-"PO-Revision-Date: 2012-08-31 22:37+0900\n"
+"PO-Revision-Date: 2012-09-08 15:09+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -134,7 +134,7 @@ msgstr "（利用可能なマークアップ言語: %s）"
 #: ../lib/rabbit/command/rabbit-theme.rb:92 ../lib/rabbit/command/rabbit-theme.rb:105
 #: ../lib/rabbit/command/rabbit-theme.rb:119
 msgid "(default: %s)"
-msgstr "(デフォルト: %s)"
+msgstr "（デフォルト: %s）"
 
 #: ../lib/rabbit/command/rabbit-slide.rb:114 ../lib/rabbit/command/rabbit-slide.rb:123
 #: ../lib/rabbit/command/rabbit-slide.rb:131 ../lib/rabbit/command/rabbit-slide.rb:138
