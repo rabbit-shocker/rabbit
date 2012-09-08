@@ -154,10 +154,13 @@ module Rabbit
               slideshare.tags = @tags if @tags
               id = slideshare.upload
               if id
-                url = "http://www.slideshare.net/#{slideshare_user}/ss-#{id}"
+                url = "http://www.slideshare.net/#{slideshare_user}/#{id}"
                 @logger.info(_("Uploaded successfully!"))
                 @logger.info(_("See %s") % url)
                 Gtk.show_uri(url) if Gtk.respond_to?(:show_uri)
+
+                @slide.slideshare_id = id
+                @slide.save(".")
               end
             end
             publish_tasks << :slideshare
