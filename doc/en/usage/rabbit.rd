@@ -104,7 +104,7 @@ with the following.
      performance reasons.
 
      Example:
-       % rabbit --type uri http://www.cozmixng.org/repos/rabbit/trunk/sample/rabbit-implementation.rd
+       % rabbit --type uri https://raw.github.com/rabbit-shocker/rabbit/master/sample/rabbit-implementation.rd
      or
        % rabbit --type uri ftp://.../XXX.rd
      or ...

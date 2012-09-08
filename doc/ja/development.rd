@@ -5,8 +5,7 @@ title: 開発
 == リポジトリ
 
 Rabbitのリポジトリは
-((<GitHub|URL:https://github.com/shockers/rabbit/>))にありま
-す。
+((<GitHub|URL:https://github.com/rabbit-shocker/rabbit/>))にあります。
 
 == コミットメール
 
@@ -23,11 +22,11 @@ Rabbitのリポジトリは
 
 == バグの報告方法
 
-ご意見ご要望不具合報告等は作者へのメール、メーリングリスト
-（メーリングリストについては((<users.rd/ユーザー>))ページを見
-てください）、((<GitHubの
-Issues|URL:https://github.com/shockers/rabbit/issues>))をご利
-用ください。
+ご意見ご要望不具合報告等は作者へのメール、メーリングリスト（メーリング
+リストについては((<users.rd/ユーザー>))ページを見てください）、
+((<GitHubの
+Issues|URL:https://github.com/rabbit-shocker/rabbit/issues>))をご利用く
+ださい。
 
 == 開発へ参加
 

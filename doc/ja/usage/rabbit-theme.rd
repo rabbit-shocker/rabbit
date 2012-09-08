@@ -19,7 +19,7 @@ rabbit-themeはテーマの雛形を生成するコマンドです。
 Rabbitでよいテーマを作成し、よい発表をし、そして、共有しましょう！
 
 TODO: RubyGems.orgに公開したスライドは
-((<URL:http://theme.rabbit-shockers.org/>))で閲覧できるようになる予定で
+((<URL:http://theme.rabbit-shocker.org/>))で閲覧できるようになる予定で
 す。
 
 == 雛形作成
@@ -63,7 +63,7 @@ RubyGems.orgで公開する場合は((%--name%))、((%--email%))、
                                        （省略可能）
           --email=EMAIL                新しいスライドの作者のEメールアドレス
                                        （例: --email=kou@cozmixng.org）
-                                       (デフォルト: lavie@rabbit-shockers.org)
+                                       (デフォルト: lavie@rabbit-shocker.org)
                                        （省略可能）
           --rubygems-user=USER         RubyGems.orgのアカウント
                                        RubyGems.orgにスライドを公開するときに使います

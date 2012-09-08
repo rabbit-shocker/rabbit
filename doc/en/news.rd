@@ -1096,7 +1096,7 @@ SASAKI]
   * Added missing GPL license file.
   * Fixed a problem that PDF isn't resized on display size change.
   * Fixed a problem that index mode doesn't work for title
-    only slide. [rabbit-shockers:654] [OBATA Akio]
+    only slide. [rabbit-shocker:654] [OBATA Akio]
   * Fixed a problem that block wait doesn't work. [OBATA Akio]
 
 == Changes 0.6.0 from 0.5.9: 2009-05-23

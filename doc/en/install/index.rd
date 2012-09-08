@@ -53,13 +53,13 @@ See ((<windows.rd/Install on Windows>)).
 == How to install from tar.gz
 
 You just download the latest Rabbit from
-((<URL:http://rabbit-shockers.org/download/rabbit.tar.gz>))
+((<URL:http://rabbit-shocker.org/download/rabbit.tar.gz>))
 and run setup.rb. The URL always specifies the latest Rabbit
 archive.
 
   % mkdir tmp
   % cd tmp
-  % wget http://rabbit-shockers.org/download/rabbit.tar.gz
+  % wget http://rabbit-shocker.org/download/rabbit.tar.gz
   % tar xvzf rabbit.tar.gz
   % cd rabbit-*
   % sudo ruby setup.rb

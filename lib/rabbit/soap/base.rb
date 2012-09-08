@@ -1,6 +1,6 @@
 module Rabbit
   module SOAP
-    NS = "http://rabbit-shockers.org/ns/rabbit/0.0.1/"
+    NS = "http://rabbit-shocker.org/ns/rabbit/0.0.1/"
 
     module_function
     def element_name(name)

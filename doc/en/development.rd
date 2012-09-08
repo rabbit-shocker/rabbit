@@ -5,7 +5,7 @@ title: Development
 == Repository
 
 Rabbit's repository is
-((<GitHub|URL:https://github.com/shockers/rabbit/>)).
+((<GitHub|URL:https://github.com/rabbit-shocker/rabbit/>)).
 
 == Commit mail
 
@@ -23,7 +23,7 @@ to the ML, send an e-mail like the following.
 
 Use mailing list (see ((<users.rd/Users>)) page about
 mailing list) or ((<Issues on
-GitHub|URL:https://github.com/shockers/rabbit/issues>)) for
+GitHub|URL:https://github.com/rabbit-shocker/rabbit/issues>)) for
 reporting a bug or a request.
 
 == Contribution

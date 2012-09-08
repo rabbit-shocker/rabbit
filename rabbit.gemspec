@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.name = "rabbit"
   spec.version = Rabbit::VERSION.dup
   spec.rubyforge_project = "rabbit"
-  spec.homepage = "http://rabbit-shockers.org/"
+  spec.homepage = "http://rabbit-shocker.org/"
   spec.authors = ["Kouhei Sutou"]
   spec.email = ["kou@cozmixng.org"]
   spec.summary = 'Rabbit is an RD-document-based presentation application.'

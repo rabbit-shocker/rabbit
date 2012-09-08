@@ -40,7 +40,7 @@ install automatically.
 
 Now you can run Rabbit by the following command:
 
-  > rabbit https://raw.github.com/shockers/rabbit/master/sample/thema-bench-en.hiki
+  > rabbit rabbit-theme-benchmark-en.gem
 
 === Install optional softwares
 

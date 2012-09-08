@@ -103,7 +103,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
      いてもソースを再読み込みしません．
 
      例:
-       % rabbit --type uri https://raw.github.com/shockers/rabbit/master/sample/rabbit-implementation.rd
+       % rabbit --type uri https://raw.github.com/rabbit-shocker/rabbit/master/sample/rabbit-implementation.rd
      とか
        % rabbit --type uri ftp://.../XXX.rd
      とか

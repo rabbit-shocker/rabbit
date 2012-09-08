@@ -146,7 +146,7 @@ module Rabbit
       end
 
       def homepage
-        "http://theme.rabbit-shockers.org/#{@theme.id}/"
+        "http://theme.rabbit-shocker.org/#{@theme.id}/"
       end
 
       def rabbit(*arguments)

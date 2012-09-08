@@ -25,7 +25,7 @@ require "gettext/task"
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
-rsync_base_path = "rabbit@rabbit-shockers.org:public_html/"
+rsync_base_path = "rabbit@rabbit-shocker.org:public_html/"
 
 helper = Bundler::GemHelper.new(base_dir)
 def helper.version_tag

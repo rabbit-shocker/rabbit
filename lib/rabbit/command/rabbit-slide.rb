@@ -441,7 +441,7 @@ EOR
       end
 
       def slide_source_image(source, generator)
-        lavie = "https://raw.github.com/shockers/rabbit/master/sample/lavie.png"
+        lavie = "https://raw.github.com/rabbit-shocker/rabbit/master/sample/lavie.png"
         options = {
           :relative_height => 100,
         }

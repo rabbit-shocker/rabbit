@@ -19,7 +19,7 @@ RubyGems.orgやSlideShareへの公開をコマンド一発で実行できます�
 Rabbitでよいスライドを作成し、よい発表をし、そして、共有しましょう！
 
 TODO: RubyGems.orgに公開したスライドは
-((<URL:http://slide.rabbit-shockers.org/>))で閲覧できるようになる予定で
+((<URL:http://slide.rabbit-shocker.org/>))で閲覧できるようになる予定で
 す。
 
 == 雛形作成
@@ -92,21 +92,21 @@ TODO: すべてのパラメーターの説明を書く。
   あなたの情報
           --name=NAME                  新しいスライドの作者の名前
                                        （例: --name="Kouhei Sutou"）
-                                       (デフォルト: Rabbit)
+                                       (デフォルト: nil)
                                        （省略可能）
           --email=EMAIL                新しいスライドの作者のEメールアドレス
                                        （例: --email=kou@cozmixng.org）
-                                       (デフォルト: lavie@rabbit-shockers.org)
+                                       (デフォルト: nil)
                                        （省略可能）
           --rubygems-user=USER         RubyGems.orgのアカウント
                                        RubyGems.orgにスライドを公開するときに使います
                                        （例: --rubygems-user=kou）
-                                       (デフォルト: rabbit)
+                                       (デフォルト: nil)
                                        （省略可能）
           --slideshare-user=USER       SlideShareのアカウント
                                        SlideShareにスライドを公開するときに使います
                                        （例: --slideshare-user=kou）
-                                       (デフォルト: kou)
+                                       (デフォルト: nil)
                                        （省略可能）
           --speaker-deck-user=USER     Speaker Deckのアカウント
                                        Speaker Deckにスライドを公開するときに使います

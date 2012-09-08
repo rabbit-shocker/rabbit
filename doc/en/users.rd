@@ -13,14 +13,14 @@ some other active spots.
 
 === Mailing list
 
-There is a rabbit-shockers-en mailing list for Shockers.
-(((<archive|URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shockers-en/>)))
+There is a rabbit-shocker-en mailing list for Rabbit Shocker.
+(((<archive|URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shocker-en/>)))
 
 
 You can subscribe the mailing list by sending the following
 mail:
 
-  To: rabbit-shockers-en@ml.cozmixng.org
+  To: rabbit-shocker-en@ml.cozmixng.org
   Cc: kou@cozmixng.org
   Subject: Subscribe
   

@@ -13,13 +13,13 @@ Rabbitユーザのコミュニティとして「ショッカー」がありま�
 
 === メーリングリスト
 
-ショッカーのためにrabbit-shockersというメーリングリストがあ
+ショッカーのためにrabbit-shockerというメーリングリストがあ
 ります。
-（((<アーカイブ|URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shockers/>))）
+（((<アーカイブ|URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shocker/>))）
 
 以下のようなメールを送るとメーリングリストへ参加できます。
 
-  To: rabbit-shockers@ml.cozmixng.org
+  To: rabbit-shocker@ml.cozmixng.org
   Cc: kou@cozmixng.org
   Subject: イー
   
