@@ -1,21 +1,21 @@
 ---
 layout: ja
-title: ショッカー - ユーザのみなさん
+title: Rabbitショッカー - ユーザーのみなさん
 ---
-== ショッカーとは？
+== Rabbitショッカーとは？
 
-Rabbitユーザのコミュニティとして「ショッカー」があります。
+Rabbitユーザのコミュニティとして「Rabbitショッカー」があります。
 
 == 活動の場
 
-ショッカーの活動場所はプレゼンテーションの場以外にもいくつか
+Rabbitショッカーの活動場所はプレゼンテーションの場以外にもいくつか
 あります。
 
 === メーリングリスト
 
-ショッカーのためにrabbit-shockerというメーリングリストがあ
-ります。
-（((<アーカイブ|URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shocker/>))）
+Rabbitショッカーのためにrabbit-shockerというメーリングリストがあります。
+（((<アーカイブ
+|URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shocker/>))）
 
 以下のようなメールを送るとメーリングリストへ参加できます。
 
@@ -23,7 +23,7 @@ Rabbitユーザのコミュニティとして「ショッカー」がありま�
   Cc: kou@cozmixng.org
   Subject: イー
   
-  ショッカーに入りたいです！
+  Rabbitショッカーに入りたいです！
 
 また、Rabbitを使っていると強制的に加入させられることもありま
 す。
@@ -62,7 +62,7 @@ Rabbitユーザのコミュニティとして「ショッカー」がありま�
 
 # LLDN後
 
-  * ((<かくたに|URL:http://kakutani.com/>))さん（((*ショッカー代表*))／もっともRabbitを使いこないしているユーザの一人／もっともRabbitを宣伝してくれるユーザの一人）
+  * ((<かくたに|URL:http://kakutani.com/>))さん（((*Rabbitショッカー代表*))／もっともRabbitを使いこないしているユーザの一人／もっともRabbitを宣伝してくれるユーザの一人）
     * 中長期的な目標としてパッチを投げられるようになりたいです。
     * ((<『ビルドツールを知ろう』|URL:http://kakutani.com/articles/esm-tokyo-study/buildtool/>))
     * ((<『self.wake_up :from => "The Matrix"』|URL:http://kakutani.com/articles/xpmatsuri2005/>))

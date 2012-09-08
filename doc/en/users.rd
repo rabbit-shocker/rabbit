@@ -1,14 +1,14 @@
 ---
 layout: en
-title: Shockers - Users
+title: Rabbit Shocker - Users
 ---
-== What is Shockers?
+== What is Rabbit Shocker?
 
-Shockers is a community for Rabbit users.
+Rabbit Shocker is a community for Rabbit users.
 
 == Activities
 
-Rostrum is the most active spot for Shockers but there are
+Rostrum is the most active spot for Rabbit Shocker but there are
 some other active spots.
 
 === Mailing list
@@ -24,7 +24,7 @@ mail:
   Cc: kou@cozmixng.org
   Subject: Subscribe
   
-  I want to join Shockers!
+  I want to join Rabbit Shocker!
 
 == Members
 
