@@ -32,7 +32,7 @@ module Rabbit
 
     attr_accessor :logger
     attr_accessor :id, :base_name, :tags, :presentation_date
-    attr_accessor :licenses
+    attr_accessor :licenses, :slideshare_id, :speaker_deck_id
     attr_writer :version
     attr_accessor :author
     def initialize(logger=nil)
@@ -43,6 +43,8 @@ module Rabbit
       @presentation_date = nil
       @version = nil
       @licenses = []
+      @slideshare_id = nil
+      @speaker_deck_id = nil
       @author = nil
     end
 
@@ -72,6 +74,8 @@ module Rabbit
       @presentation_date = conf["presentation_date"]
       @version           = conf["version"]
       @licenses          = conf["licenses"]
+      @slideshare_id     = conf["slideshare_id"]
+      @speaker_deck_id   = conf["speaker_deck_id"]
 
       @author = AuthorConfiguration.new(@logger)
       @author.merge!(conf["author"] || {})
@@ -85,6 +89,8 @@ module Rabbit
         "presentation_date" => @presentation_date,
         "version"           => version,
         "licenses"          => @licenses,
+        "slideshare_id"     => @slideshare_id,
+        "speaker_deck_id"   => @speaker_deck_id,
       }
       config["author"] = @author.to_hash if @author
       config
