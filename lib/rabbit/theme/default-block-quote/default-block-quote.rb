@@ -30,13 +30,14 @@ load_quote = lambda do |file|
 end
 
 compute_padding = lambda do |open_quote, close_quote|
-  return {} if @block_quote_image_frame
   padding = {
     :left   => @block_quote_padding_left,
     :right  => @block_quote_padding_right,
     :top    => @block_quote_padding_top,
     :bottom => @block_quote_padding_bottom,
   }
+  return padding if @block_quote_image_frame
+
   unless @block_quote_image_background_alpha
     padding[:left]  += @block_quote_image_width if open_quote
     padding[:right] += @block_quote_image_width if close_quote
@@ -61,7 +62,9 @@ render_open_quote = lambda do |open_quote, block, canvas, x, y, w, h|
   quote_x = x
   quote_y = y
   if @block_quote_image_frame
+    quote_x -= block.padding_left
     quote_x -= open_quote.width / 2
+    quote_y -= block.padding_top
     quote_y -= open_quote.height / 2
   else
     quote_x -= block.padding_left / 2
@@ -79,7 +82,9 @@ render_close_quote = lambda do |close_quote, block, canvas, x, y, w, h|
   quote_x = x + w
   quote_y = y + block.height
   if @block_quote_image_frame
+    quote_x += block.padding_right
     quote_x -= close_quote.width / 2
+    quote_y -= block.padding_bottom
     quote_y -= close_quote.height / 2
   else
     quote_x -= (block.padding_right - close_quote.width) / 2
@@ -101,15 +106,15 @@ match("**", BlockQuote) do
 
   prop_set("style", "italic")
 
+  params = {
+    :proc_name => name,
+    :fill_color => @block_quote_fill_color,
+  }
   unless @block_quote_image_frame
-    params = {
-      :proc_name => name,
-      :frame_color => @block_quote_frame_color,
-      :frame_width =>  @block_quote_frame_width,
-      :fill_color => @block_quote_fill_color,
-    }
-    draw_frame(params)
+    params[:frame_color] = @block_quote_frame_color
+    params[:frame_width] = @block_quote_frame_width
   end
+  draw_frame(params)
 
   each do |block|
     name = "block-quote-image"
@@ -144,8 +149,8 @@ match("**", BlockQuote) do
           title.align = Pango::Layout::ALIGN_RIGHT
           set_font_family(title)
           title_w = w + block.padding_left + block.padding_right
-          if @block_quote_image_frame and close_quote
-            title_w -= close_quote.width / 2
+          if @block_quote_image_frame
+            title_w -= close_quote.width if close_quote
           end
           title.compile(canvas, x, y, title_w, h)
           layout = title.layout
@@ -153,7 +158,10 @@ match("**", BlockQuote) do
         end
         unless simulation
           base_x = (block.ox || x) - block.padding_left
-          base_y = y + block.padding_bottom + @block_quote_frame_width
+          base_y = y + block.padding_bottom
+          unless @block_quote_image_frame
+            base_y += @block_quote_frame_width
+          end
           canvas.draw_layout(layout, base_x, base_y, @block_quote_title_color)
         end
         [x, y, w, h]
