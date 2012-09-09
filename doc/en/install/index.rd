@@ -48,17 +48,3 @@ See ((<homebrew.rd/Install with Homebrew>)).
 == How to install on Windows.
 
 See ((<windows.rd/Install on Windows>)).
-
-== How to install from tar.gz
-
-You just download the latest Rabbit from
-((<URL:http://rabbit-shocker.org/download/rabbit.tar.gz>))
-and run setup.rb. The URL always specifies the latest Rabbit
-archive.
-
-  % mkdir tmp
-  % cd tmp
-  % wget http://rabbit-shocker.org/download/rabbit.tar.gz
-  % tar xvzf rabbit.tar.gz
-  % cd rabbit-*
-  % sudo ruby setup.rb
