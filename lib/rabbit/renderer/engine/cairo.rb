@@ -251,25 +251,40 @@ module Rabbit
 
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = from_screen(x, y)
-
-          draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
-          draw_scaled_pixbuf = @draw_scaled_image if draw_scaled_pixbuf.nil?
-          width = (params[:width] || pixbuf.width).to_f
-          height = (params[:height] || pixbuf.height).to_f
-          if draw_scaled_pixbuf and
-              [width, height] != [pixbuf.width, pixbuf.height]
-            pixbuf = pixbuf.scale(width, height)
-          end
           @context.save do
             @context.translate(x, y)
-            unless draw_scaled_pixbuf
-              @context.scale(width / pixbuf.width, height / pixbuf.height)
-            end
+            pixbuf = scale_pixbuf(pixbuf, params)
             @context.set_source_pixbuf(pixbuf, 0, 0)
             @context.paint(params[:alpha])
           end
 
           _draw_reflected_pixbuf(pixbuf, x, y, params[:reflect])
+        end
+
+        def scale_pixbuf(pixbuf, params)
+          draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
+          draw_scaled_pixbuf = @draw_scaled_image if draw_scaled_pixbuf.nil?
+          width = (params[:width] || pixbuf.width).to_f
+          height = (params[:height] || pixbuf.height).to_f
+
+          return pixbuf if [width, height] == [pixbuf.width, pixbuf.height]
+          case draw_scaled_image
+          when true
+            return pixbuf.scale(width, height)
+          when false
+            @context.scale(width / pixbuf.width, height / pixbuf.height)
+            return pixbuf
+          else
+            scales = [4, 3, 2]
+            scales.each do |scale|
+              if width * scale < pixbuf.width and height * scale < pixbuf.height
+                @context.scale(1.0 / scale, 1.0 / scale)
+                return pixbuf.scale(width * scale, height * scale)
+              end
+            end
+            @context.scale(width / pixbuf.width, height / pixbuf.height)
+            return pixbuf
+          end
         end
 
         def rsvg_available?

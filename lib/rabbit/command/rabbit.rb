@@ -106,7 +106,7 @@ module Rabbit
           options.print = false
           options.print_out_filename = nil
           options.slides_per_page = 1
-          options.draw_scaled_image = true
+          options.draw_scaled_image = nil
           options.margin_left = nil
           options.margin_right = nil
           options.margin_top = nil
@@ -328,7 +328,7 @@ module Rabbit
           parser.on("--[no-]draw-scaled-image",
                     _("Draw scaled image."),
                     _("Better look for displaying but lesser look for printing."),
-                    "(#{options.draw_scaled_image})") do |boolean|
+                    "(auto)") do |boolean|
             options.draw_scaled_image = boolean
           end
 
