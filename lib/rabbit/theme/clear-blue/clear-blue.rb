@@ -45,6 +45,12 @@ add_image_path("rabbit-images")
 @block_quote_open_quote_image = "open-quote-blue.png"
 @block_quote_close_quote_image = "close-quote-blue.png"
 
+@block_quote_frame_width = 0
+@block_quote_fill_color = "#fff0"
+@block_quote_padding_left = 0
+@block_quote_padding_right = 0
+@block_quote_padding_top = 0
+@block_quote_padding_bottom = 0
 @block_quote_image_background_alpha = 0.3
 @block_quote_image_frame = true
 
