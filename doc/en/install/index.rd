@@ -11,8 +11,7 @@ your platform.
 == Hot to install by RubyGems
 
   % gem install rabbit
-  % gem install twitter-stream # If you want to use Twitter related features
-  % gem install twitter_oauth  # If you want to use Twitter related features
+  % gem install rabbiter # If you want to use Twitter related features
 
 == How to install on Debian GNU/Linux
 
