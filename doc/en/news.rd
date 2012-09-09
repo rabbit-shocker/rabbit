@@ -3,6 +3,74 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.3: 2012-09-10
+
+This release improves block quote style.
+
+=== Improvements
+
+==== All
+
+  * Changed user group id to "rabbit-shocker".
+  * Changed user group name to "Rabbit Shocker".
+  * Added rabbit.gemspec to gem.
+
+==== rabbit
+
+  * Supported gzip-ed Dia file. [Reported by okkez]
+  * Changed Dia file backend to SVG.
+  * Changed the default PDF size to 360mm,270mm that is 4:3 ratio from
+    A4 landscape.
+
+==== rabbit-slide
+
+  * Supported slide ID on SlideShare saving.
+  * Supported slide ID on Speaker Deck saving.
+  * Changed PDF file name to "#{slide ID}-#{slide base name}.pdf".
+
+==== rabbit-theme
+
+  * Changed to generate PDFs of theme benchmark slide for all
+    available locales (English and Japanese).
+
+==== Theme
+
+  * Supported Rabbit::Format::Size as indent value.
+  * Supported foreground color of image caption change.
+  * title-on-image-toolkit: Added background of title.
+  * default-block-quote:
+    * Deprecated @block_quote_image_max_width. Use
+      @block_quote_image_width instead.
+    * Supported image instead of line as frame.
+    * Reduced font size for title of cited content.
+    * Enabled quoted text justification.
+  * clear-blue:
+    * Added indentation to the first paragraph in block quote.
+    * Changed to use image instead of line as frame.
+  * color-circle-block-quote:
+    * Changed to use image instead of line as frame.
+  * rabbit-block-quote:
+    * Changed to use image instead of line as frame.
+
+==== Documentation
+
+  * Updated install document by Homebrew. [Updated by hokkai7go]
+
+=== Fixes
+
+==== rabbit-slide
+
+  * Fixed slide URL on slide.rabbit-shocker.org.
+
+==== rabbit-theme
+
+  * Fixed slide URL on theme.rabbit-shocker.org.
+
+=== Thanks
+
+  * hokkai7go
+  * okkez
+
 == 2.0.2: 2012-09-02
 
 This release improves slide management feature and theme management

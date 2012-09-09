@@ -3,6 +3,73 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 2.0.3: 2012-09-10
+
+引用のみばえがよくなったリリース。
+
+=== 改良
+
+==== 全体
+
+  * ユーザーグループIDを「rabbit-shocker」に変更した。
+  * ユーザーグループ名を「Rabbitショッカー」に変更した。
+  * rabbit.gemspecをgemに含めるようにした。
+
+==== rabbit
+
+  * gzipで圧縮されたDiaファイルをサポート。 [okkezさんが報告]
+  * Diaファイルを表示するときはSVGに変換して表示するようにした。
+  * PDF出力時のサイズをA4横から縦横比4:3の360mm,270mmに変更した。
+
+==== rabbit-slide
+
+  * SlideShareでのスライドIDを保存するようにした。
+  * Speaker DeckでのスライドIDを保存するようにした。
+  * 出力するPDFファイル名を"#{スライドのID}-#{スライドのベース名}.pdf"
+    にした。
+
+==== rabbit-theme
+
+  * 英語と日本語のテーマベンチマーク用スライドのPDFを保存するようにした。
+
+==== テーマ
+
+  * インデントの値にRabbit::Format::Sizeも指定できるようになった。
+  * 画像のキャプションの文字の色を変更できるようにした。
+  * title-on-image-toolkit: タイトルに背景色をつけるようにした。
+  * default-block-quote:
+    * @block_quote_image_max_widthを非推奨とした。代わりに
+      @block_quote_image_widthを使ってください。
+    * 枠線の代わりに画像を使えるようにした。
+    * 引用元を示す文字列のフォントサイズを小さくした。
+    * 引用文を両端揃いにするようにした。
+  * clear-blue:
+    * 引用ブロックの最初の段落をインデントするようにした。
+    * 枠線の代わりに画像を使うようにした。
+  * color-circle-block-quote:
+    * 枠線の代わりに画像を使うようにした。
+  * rabbit-block-quote:
+    * 枠線の代わりに画像を使うようにした。
+
+==== ドキュメント
+
+  * Homebrewのインストール方法を更新した。 [菅井祐太朗さんが更新]
+
+=== 修正
+
+==== rabbit-slide
+
+  * slide.rabbit-shocker.orgでのスライドURLを修正。
+
+==== rabbit-theme
+
+  * theme.rabbit-shocker.orgでのテーマURLを修正。
+
+=== 感謝
+
+  * 菅井祐太朗さん
+  * okkezさん
+
 == 2.0.2: 2012-09-02
 
 スライド・テーマ管理機能を使いやすくしたリリース。
