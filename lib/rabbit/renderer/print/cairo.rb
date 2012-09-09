@@ -95,6 +95,12 @@ module Rabbit
           @background = make_color(@background_color)
         end
 
+        def init_dpi
+          super
+          @x_dpi = 300
+          @y_dpi = 300
+        end
+
         def create_context(output=nil)
           surface = find_surface(filename, output)
           surface.set_fallback_resolution(@x_dpi, @y_dpi)
