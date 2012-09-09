@@ -161,3 +161,7 @@ match("**", BlockQuote) do
     end
   end
 end
+
+match("**", BlockQuote, TextContainerElement) do |texts|
+  texts.justify = true
+end
