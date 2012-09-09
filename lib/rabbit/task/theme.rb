@@ -68,6 +68,7 @@ module Rabbit
           spec.files += Dir.glob("data/**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
           spec.files += Dir.glob("locale/**/*.mo")
           spec.files += Dir.glob("po/*/*.po")
+          spec.files += Dir.glob("#{@pdf_dir}/*.pdf")
 
           spec.add_runtime_dependency("rabbit", @required_rabbit_version)
         end
@@ -109,17 +110,29 @@ module Rabbit
           end
         end
 
-        pdf_path = File.join(@pdf_dir, pdf_base_path)
-        file pdf_path => [*@spec.files] do
-          mkdir_p(@pdf_dir)
-          rabbit("--theme", ".",
-                 "--print",
-                 "--output-filename", pdf_path,
-                 _("rabbit-theme-benchmark-en.gem"))
-        end
+        desc(_("Generate all PDFs"))
+        task :pdf
 
-        desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
-        task :pdf => pdf_path
+        namespace :pdf do
+          theme_benchmark_locales.each do |locale|
+            pdf_path = File.join(@pdf_dir, "theme-benchmark-#{locale}.pdf")
+            files_without_pdf = @spec.files - Dir.glob("#{@pdf_dir}/*/*.pdf")
+            file pdf_path => files_without_pdf do
+              mkdir_p(@pdf_dir)
+              rabbit("--theme", ".",
+                     "--print",
+                     "--output-filename", pdf_path,
+                     "rabbit-theme-benchmark-#{locale}.gem")
+            end
+
+            desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
+            task locale => pdf_path do
+            end
+          end
+        end
+        theme_benchmark_locales.each do |locale|
+          task :pdf => "pdf:#{locale}"
+        end
 
         desc(_("Publish the theme to all available targets"))
         task :publish
@@ -141,12 +154,12 @@ module Rabbit
         File.join(@package_dir, "#{@spec.name}-#{@spec.version}.gem")
       end
 
-      def pdf_base_path
-        "#{@theme.id}.pdf"
-      end
-
       def homepage
         "http://theme.rabbit-shocker.org/themes/#{@theme.id}/"
+      end
+
+      def theme_benchmark_locales
+        ["en", "ja"]
       end
 
       def rabbit(*arguments)
