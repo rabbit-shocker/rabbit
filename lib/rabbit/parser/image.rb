@@ -12,7 +12,11 @@ module Rabbit
       class << self
         def match?(source)
           begin
-            Rabbit::TemporaryFile.make(source.read, "image") do |input|
+            options = {
+              :prefix => "image-parser-match",
+              :source  => source,
+            }
+            Rabbit::TemporaryFile.make(options) do |input|
               Rabbit::ImageLoader.new(input.path)
             end
             true
@@ -24,7 +28,11 @@ module Rabbit
 
       include Element
       def parse
-        TemporaryFile.make(@source.read, "image") do |image|
+        options = {
+          :prefix => "image-parser-parse",
+          :source => @source,
+        }
+        TemporaryFile.make(options) do |image|
           @image = image
           @canvas << ImageTitleSlide.new(@image.path)
         end

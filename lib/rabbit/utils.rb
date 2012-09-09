@@ -505,9 +505,22 @@ module Rabbit
 
   module TemporaryFile
     module_function
-    def make(content=nil, prefix=nil)
-      base = ["rabbit", prefix].compact.join("-")
-      temp = Tempfile.new(base)
+    def make(options={})
+      extension = options[:extension]
+      content = options[:content]
+      source = options[:source]
+      if source
+        extension ||= source.extension
+        content   ||= source.read
+      end
+
+      prefix = ["rabbit", options[:prefix]].compact.join("-") + "-"
+      if extension
+        basename = [prefix, ".#{extension}"]
+      else
+        basename = prefix
+      end
+      temp = Tempfile.new(basename)
       if content
         temp.binmode
         temp.print(content)
