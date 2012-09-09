@@ -16,14 +16,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "test-unit"
-require "test/unit/notify"
-require "test/unit/rr"
-
-test_file = "test/**/test-*.rb"
-
 $LOAD_PATH.unshift(File.join(File.expand_path("."), "lib"))
 $LOAD_PATH.unshift(File.join(File.expand_path("."), "test"))
+
+require "rabbit-test-utils"
+
+test_file = "test/**/test-*.rb"
 
 Dir.glob(test_file) do |file|
   require file.gsub(/\.rb$/, '')
