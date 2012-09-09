@@ -25,7 +25,7 @@ Rabbit をインストール、利用する手順について説明します。
   $ brew link cairo
   $ brew install pango
   $ brew install gtk+
-  $ brew install poppler
+  $ brew install poppler --with-glib
 
 === Rabbit のインストール
 
