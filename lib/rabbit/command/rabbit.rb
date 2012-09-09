@@ -807,7 +807,7 @@ module Rabbit
         parse(canvas, source)
         canvas.print
         canvas.quit
-      rescue Rabbit::NoPrintSupportError
+      rescue ::Rabbit::NoPrintSupportError
         @logger.error($!.message)
       end
 
