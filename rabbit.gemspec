@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.license = "GPLv2+"
 
   spec.files = ["Rakefile", "COPYING", "GPL", "README", "Gemfile"]
+  spec.files += ["#{spec.name}.gemspec"]
   spec.files += Dir.glob("{lib,data,entities,sample,misc,doc,po}/**/*")
   spec.files -= Dir.glob("doc/_site/**/*")
   spec.files += Dir.glob("*.rb")
