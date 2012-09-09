@@ -68,7 +68,9 @@ module Rabbit
           spec.files += Dir.glob("data/**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
           spec.files += Dir.glob("locale/**/*.mo")
           spec.files += Dir.glob("po/*/*.po")
-          spec.files += Dir.glob("#{@pdf_dir}/*.pdf")
+          theme_benchmark_locales.each do |locale|
+            spec.files += [theme_benchmark_pdf_path(locale)]
+          end
 
           spec.add_runtime_dependency("rabbit", @required_rabbit_version)
         end
@@ -136,7 +138,7 @@ module Rabbit
 
         namespace :pdf do
           theme_benchmark_locales.each do |locale|
-            pdf_path = File.join(@pdf_dir, "theme-benchmark-#{locale}.pdf")
+            pdf_path = theme_benchmark_pdf_path(locale)
             files_without_pdf = @spec.files - Dir.glob("#{@pdf_dir}/*/*.pdf")
             file pdf_path => files_without_pdf do
               mkdir_p(@pdf_dir)
@@ -174,12 +176,16 @@ module Rabbit
         File.join(@package_dir, "#{@spec.name}-#{@spec.version}.gem")
       end
 
-      def homepage
-        "http://theme.rabbit-shocker.org/themes/#{@theme.id}/"
+      def theme_benchmark_pdf_path(locale)
+        File.join(@pdf_dir, "theme-benchmark-#{locale}.pdf")
       end
 
       def theme_benchmark_locales
         ["en", "ja"]
+      end
+
+      def homepage
+        "http://theme.rabbit-shocker.org/themes/#{@theme.id}/"
       end
 
       def rabbit(*arguments)
