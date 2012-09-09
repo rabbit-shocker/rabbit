@@ -73,10 +73,10 @@ end
 render_close_quote = lambda do |close_quote, block, canvas, x, y, w, h|
   return unless close_quote
   quote_x = x + w
-  quote_y = y
-  if @blockquote_image_frame
-    quote_x += close_quote.width / 2
-    quote_y += close_quote.width / 2
+  quote_y = y + block.height
+  if @block_quote_image_frame
+    quote_x -= close_quote.width / 2
+    quote_y -= close_quote.height / 2
   else
     quote_x -= (block.padding_right - close_quote.width) / 2
     if @block_quote_image_background_alpha
@@ -84,7 +84,6 @@ render_close_quote = lambda do |close_quote, block, canvas, x, y, w, h|
     else
       quote_x += close_quote.width / 2
     end
-    quote_y += block.height
     quote_y -= close_quote.height
     quote_y -= block.padding_bottom
     quote_y -= block.padding_bottom / 2
@@ -98,14 +97,15 @@ match("**", BlockQuote) do
 
   prop_set("style", "italic")
 
-  params = {
-    :proc_name => name,
-    :frame_color => @block_quote_frame_color,
-    :frame_width =>  @block_quote_frame_width,
-    :fill_color => @block_quote_fill_color,
-  }
-
-  draw_frame(params)
+  unless @block_quote_image_frame
+    params = {
+      :proc_name => name,
+      :frame_color => @block_quote_frame_color,
+      :frame_width =>  @block_quote_frame_width,
+      :fill_color => @block_quote_fill_color,
+    }
+    draw_frame(params)
+  end
 
   each do |block|
     name = "block-quote-image"
