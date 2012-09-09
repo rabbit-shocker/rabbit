@@ -505,7 +505,7 @@ module Rabbit
 
   module TemporaryFile
     module_function
-    def make(options={})
+    def create(options={})
       extension = options[:extension]
       content = options[:content]
       source = options[:source]

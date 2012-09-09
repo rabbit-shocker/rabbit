@@ -15,7 +15,7 @@ module Rabbit
             :prefix => "image-parser-match",
             :source  => source,
           }
-          Rabbit::TemporaryFile.make(options) do |input|
+          Rabbit::TemporaryFile.create(options) do |input|
             begin
               Rabbit::ImageLoader.new(input.path)
               true
@@ -32,7 +32,7 @@ module Rabbit
           :prefix => "image-parser-parse",
           :source => @source,
         }
-        TemporaryFile.make(options) do |image|
+        TemporaryFile.create(options) do |image|
           @image = image
           @canvas << ImageTitleSlide.new(@image.path)
         end
