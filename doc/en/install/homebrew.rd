@@ -33,7 +33,7 @@ Exec gem install.
   $ sudo gem install rabbit
   $ sudo gem install rabbiter # If you want to use Twitter related features
 
-=== Set DYLD_LIBRARY_PATH environment variable
+=== Set environment variable
 
 Add the following to your ~/.bach_login or ~/.zshenv:
 
