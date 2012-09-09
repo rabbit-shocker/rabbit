@@ -16,6 +16,7 @@ module Rabbit
 
       class << self
         def match?(filename)
+          return true if File.extname(filename).downcase.end_with?(".dia")
           File.open(filename) do |f|
             if /^<\?xml/ =~ f.gets and
                 /http:\/\/www\.lysator\.liu\.se\/~alla\/dia\// =~ f.gets
