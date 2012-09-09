@@ -32,9 +32,7 @@ Rabbit をインストール、利用する手順について説明します。
 gem install を実行します。
 
   $ sudo gem install rabbit
-  $ sudo gem install twitter-stream # Twitter連携機能を使う場合
-  $ sudo gem install twitter_oauth  # Twitter連携機能を使う場合
-
+  $ sudo gem install rabbiter # Twitter連携機能を使う場合
 
 === 環境変数にDYLD_LIBRARY_PATHを追加します
 
