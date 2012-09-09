@@ -140,6 +140,9 @@ match("**", BlockQuote) do
           title.align = Pango::Layout::ALIGN_RIGHT
           set_font_family(title)
           title_w = w + block.padding_left + block.padding_right
+          if @block_quote_image_frame and close_quote
+            title_w -= close_quote.width / 2
+          end
           title.compile(canvas, x, y, title_w, h)
           layout = title.layout
           block.margin_bottom += title.height + @block_quote_frame_width
