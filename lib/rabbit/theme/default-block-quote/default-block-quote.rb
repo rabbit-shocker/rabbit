@@ -15,8 +15,83 @@
 
 @block_quote_open_quote_image ||= nil
 @block_quote_close_quote_image ||= nil
-@block_quote_image_max_width ||= canvas.width * 0.1
+@block_quote_image_max_width ||= nil # deprecated
+@block_quote_image_width ||= @block_quote_image_max_width
+@block_quote_image_width ||= canvas.width * 0.1
 @block_quote_image_background_alpha ||= nil
+@block_quote_image_frame ||= nil
+
+load_quote = lambda do |file|
+  return nil if file.nil?
+  quote = ImageLoader.new(find_file(file))
+  quote.keep_ratio = true
+  quote.resize(@block_quote_image_width, nil)
+  quote
+end
+
+compute_padding = lambda do
+  return {} if @block_quote_image_frame
+  padding = {
+    :left   => @block_quote_padding_left,
+    :right  => @block_quote_padding_right,
+    :top    => @block_quote_padding_top,
+    :bottom => @block_quote_padding_bottom,
+  }
+  unless @block_quote_image_background_alpha
+    padding[:left]  += @block_quote_image_width
+    padding[:right] += @block_quote_image_width
+  end
+  padding
+end
+
+compute_margin = lambda do
+  {
+    :left   => @block_quote_margin_left,
+    :right  => @block_quote_margin_right,
+    :bottom => @space,
+  }
+end
+
+render_open_quote = lambda do |open_quote, block, canvas, x, y, w, h|
+  return unless open_quote
+  quote_x = x
+  quote_y = y
+  if @block_quote_image_frame
+    quote_x -= open_quote.width / 2
+    quote_y -= open_quote.height / 2
+  else
+    quote_x -= block.padding_left / 2
+    unless @block_quote_image_background_alpha
+      quote_x -= open_quote.width / 2
+    end
+    quote_y -= block.padding_top / 2
+  end
+  open_quote.draw(canvas, quote_x, quote_y,
+                  :alpha => @block_quote_image_background_alpha)
+end
+
+render_close_quote = lambda do |close_quote, block, canvas, x, y, w, h|
+  return unless close_quote
+  quote_x = x + w
+  quote_y = y
+  if @blockquote_image_frame
+    quote_x += close_quote.width / 2
+    quote_y += close_quote.width / 2
+  else
+    quote_x -= (block.padding_right - close_quote.width) / 2
+    if @block_quote_image_background_alpha
+      quote_x -= close_quote.width
+    else
+      quote_x += close_quote.width / 2
+    end
+    quote_y += block.height
+    quote_y -= close_quote.height
+    quote_y -= block.padding_bottom
+    quote_y -= block.padding_bottom / 2
+  end
+  close_quote.draw(canvas, quote_x, quote_y,
+                   :alpha => @block_quote_image_background_alpha)
+end
 
 match("**", BlockQuote) do
   name = "block-quote"
@@ -35,67 +110,18 @@ match("**", BlockQuote) do
   each do |block|
     name = "block-quote-image"
 
-    padding_left = @block_quote_padding_left
-    padding_right = @block_quote_padding_right
+    open_quote = load_quote.call(@block_quote_open_quote_image)
+    close_quote = load_quote.call(@block_quote_close_quote_image)
 
-    open_quote = nil
-    close_quote = nil
-    if @block_quote_open_quote_image
-      open_quote = ImageLoader.new(find_file(@block_quote_open_quote_image))
-      if open_quote.width > @block_quote_image_max_width
-        open_quote.resize(@block_quote_image_max_width, nil)
-      end
-      unless @block_quote_image_background_alpha
-        padding_left += open_quote.width
-      end
-    end
-    if @block_quote_close_quote_image
-      close_quote = ImageLoader.new(find_file(@block_quote_close_quote_image))
-      if close_quote.width > @block_quote_image_max_width
-        close_quote.resize(@block_quote_image_max_width, nil)
-      end
-      unless @block_quote_image_background_alpha
-        padding_right += close_quote.width
-      end
-    end
-
-    block.padding_with(:left => padding_left,
-                       :right => padding_right,
-                       :top => @block_quote_padding_top,
-                       :bottom => @block_quote_padding_bottom)
-    block.margin_with(:left => @block_quote_margin_left,
-                      :right => @block_quote_margin_right,
-                      :bottom => @space)
+    block.padding_with(compute_padding.call)
+    block.margin_with(compute_margin.call)
 
     block.delete_pre_draw_proc_by_name(name)
     if open_quote or close_quote
       block.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
         unless simulation
-          if open_quote
-            adjust_open_quote_x = @block_quote_padding_left / 2
-            adjust_open_quote_y = @block_quote_padding_top / 2
-            unless @block_quote_image_background_alpha
-              adjust_open_quote_x += open_quote.width
-            end
-            open_quote.draw(canvas,
-                            x - adjust_open_quote_x,
-                            y - adjust_open_quote_y,
-                            :alpha => @block_quote_image_background_alpha)
-          end
-          if close_quote
-            adjust_close_quote_x = -@block_quote_padding_right / 2
-            if @block_quote_image_background_alpha
-              adjust_close_quote_x += close_quote.width
-            end
-            adjust_close_quote_y = block.height
-            adjust_close_quote_y -= close_quote.height
-            adjust_close_quote_y -= @block_quote_padding_bottom / 2
-            adjust_close_quote_y -= block.padding_bottom
-            close_quote.draw(canvas,
-                             x + w - adjust_close_quote_x,
-                             y + adjust_close_quote_y,
-                             :alpha => @block_quote_image_background_alpha)
-          end
+          render_open_quote.call(open_quote, block, canvas, x, y, w, h)
+          render_close_quote.call(close_quote, block, canvas, x, y, w, h)
         end
         [x, y, w, h]
       end
