@@ -50,8 +50,8 @@ compute_margin = lambda do |open_quote, close_quote|
     :right  => @block_quote_margin_right,
     :bottom => @space,
   }
-  if @block_quote_image_frame and close_quote
-    margin[:bottom] = close_quote.height / 2
+  if @block_quote_image_frame
+    margin[:bottom] = close_quote.height / 2 if close_quote
   end
   margin
 end
