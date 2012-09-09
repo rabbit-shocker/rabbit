@@ -29,7 +29,7 @@ load_quote = lambda do |file|
   quote
 end
 
-compute_padding = lambda do
+compute_padding = lambda do |open_quote, close_quote|
   return {} if @block_quote_image_frame
   padding = {
     :left   => @block_quote_padding_left,
@@ -38,8 +38,8 @@ compute_padding = lambda do
     :bottom => @block_quote_padding_bottom,
   }
   unless @block_quote_image_background_alpha
-    padding[:left]  += @block_quote_image_width
-    padding[:right] += @block_quote_image_width
+    padding[:left]  += @block_quote_image_width if open_quote
+    padding[:right] += @block_quote_image_width if close_quote
   end
   padding
 end
@@ -117,7 +117,7 @@ match("**", BlockQuote) do
     open_quote = load_quote.call(@block_quote_open_quote_image)
     close_quote = load_quote.call(@block_quote_close_quote_image)
 
-    block.padding_with(compute_padding.call)
+    block.padding_with(compute_padding.call(open_quote, close_quote))
     block.margin_with(compute_margin.call(open_quote, close_quote))
 
     block.delete_pre_draw_proc_by_name(name)
