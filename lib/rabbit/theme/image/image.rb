@@ -1,6 +1,7 @@
 proc_name = "image"
 
 @image_frame_width ||= 1
+@image_caption_color ||= nil
 @image_caption_font_size ||= @normal_font_size
 
 match("**", Image) do |images|
@@ -65,7 +66,8 @@ match("**", Image) do |images|
       if !simulation and layout
         base_x = image.ox || x
         base_y = y
-        canvas.draw_layout(layout, base_x, base_y, @image_caption_color)
+        caption_color = image["caption-color"] || @image_caption_color
+        canvas.draw_layout(layout, base_x, base_y, caption_color)
       end
       [x, y, w, h]
     end

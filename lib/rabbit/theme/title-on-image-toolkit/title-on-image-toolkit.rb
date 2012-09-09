@@ -85,6 +85,8 @@ def setup_title_on_image_slide(slide)
       end
 
       headline.title_on_image(params)
+
+      body.elements[0]["caption-color"] = params[:color]
     end
 
     def title_on_image?
