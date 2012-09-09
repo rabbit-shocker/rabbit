@@ -11,17 +11,17 @@ module Rabbit
 
       class << self
         def match?(source)
-          begin
-            options = {
-              :prefix => "image-parser-match",
-              :source  => source,
-            }
-            Rabbit::TemporaryFile.make(options) do |input|
+          options = {
+            :prefix => "image-parser-match",
+            :source  => source,
+          }
+          Rabbit::TemporaryFile.make(options) do |input|
+            begin
               Rabbit::ImageLoader.new(input.path)
+              true
+            rescue Rabbit::ImageLoadError
+              false
             end
-            true
-          rescue Rabbit::ImageLoadError
-            false
           end
         end
       end
