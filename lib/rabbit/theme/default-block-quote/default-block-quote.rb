@@ -3,7 +3,7 @@
 @block_quote_fill_color ||= "#fcfae2"
 
 @block_quote_title_color ||= "#666"
-@block_quote_title_font_size ||= @x_small_font_size
+@block_quote_title_font_size ||= @xx_small_font_size
 
 @block_quote_padding_left ||= screen_x(5)
 @block_quote_padding_right ||= screen_x(5)
