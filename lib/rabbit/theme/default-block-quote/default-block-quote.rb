@@ -150,7 +150,7 @@ match("**", BlockQuote) do
           set_font_family(title)
           title_w = w + block.padding_left + block.padding_right
           if @block_quote_image_frame
-            title_w -= close_quote.width if close_quote
+            title_w -= close_quote.width / 2 if close_quote
           end
           title.compile(canvas, x, y, title_w, h)
           layout = title.layout
