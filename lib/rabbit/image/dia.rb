@@ -18,15 +18,12 @@ module Rabbit
         def match?(filename)
           return true if File.extname(filename).downcase.end_with?(".dia")
           File.open(filename) do |f|
-            if /^<\?xml/ =~ f.gets and
-                /http:\/\/www\.lysator\.liu\.se\/~alla\/dia\// =~ f.gets
-              true
-            else
-              false
-            end
+            first_line = f.gets
+            second_line = f.gets
+            return false unless first_line.start_with?("<?xml")
+            return false unless second_line.start_with?("<dia:diagram")
+            true
           end
-        rescue ArgumentError
-          false
         end
       end
 
