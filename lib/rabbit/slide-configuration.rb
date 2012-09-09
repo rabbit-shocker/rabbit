@@ -80,8 +80,8 @@ module Rabbit
       @slideshare_id     ||= conf["slideshare_id"]
       @speaker_deck_id   ||= conf["speaker_deck_id"]
 
-      @tags              |=  conf["tags"]
-      @licenses          |=  conf["licenses"]
+      @tags              |=  (conf["tags"] || [])
+      @licenses          |=  (conf["licenses"] || [])
 
       @author = AuthorConfiguration.new(@logger)
       @author.merge!(conf["author"] || {})
