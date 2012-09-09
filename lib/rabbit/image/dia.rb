@@ -30,26 +30,26 @@ module Rabbit
         end
       end
 
-      def_delegators(:@eps_loader, :keep_ratio, :keep_ratio=)
-      def_delegators(:@eps_loader, :pixbuf, :internal_pixbuf)
-      def_delegators(:@eps_loader, :width, :height)
-      def_delegators(:@eps_loader, :original_width, :original_height)
-      def_delegators(:@eps_loader, :resize, :ensure_resize)
-      def_delegators(:@eps_loader, :update_size)
+      def_delegators(:@svg_loader, :keep_ratio, :keep_ratio=)
+      def_delegators(:@svg_loader, :pixbuf, :internal_pixbuf)
+      def_delegators(:@svg_loader, :width, :height)
+      def_delegators(:@svg_loader, :original_width, :original_height)
+      def_delegators(:@svg_loader, :resize, :ensure_resize)
+      def_delegators(:@svg_loader, :update_size)
 
       def initialize(filename, keep_ratio)
-        init_eps_loader(filename, keep_ratio)
+        init_svg_loader(filename, keep_ratio)
         super
       end
 
       private
-      def init_eps_loader(filename, keep_ratio)
-        @eps_file = Tempfile.new("rabbit-loader-dia")
-        args = ["--export=#{@eps_file.path}"]
-        args << "--filter=eps"
+      def init_svg_loader(filename, keep_ratio)
+        @svg_file = Tempfile.new(["rabbit-loader-dia", ".svg"])
+        args = ["--export=#{@svg_file.path}"]
+        args << "--filter=svg"
         args << filename
         if DIA_COMMANDS.any? {|dia| run(dia, *args)}
-          @eps_loader = EPS.new(@eps_file.path, keep_ratio)
+          @svg_loader = SVG.new(@svg_file.path, keep_ratio)
         else
           raise DiaCanNotHandleError.new("dia #{args.join(' ')}",
                                          DIA_COMMANDS)
