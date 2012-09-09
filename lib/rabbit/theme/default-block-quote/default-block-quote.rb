@@ -44,12 +44,16 @@ compute_padding = lambda do
   padding
 end
 
-compute_margin = lambda do
-  {
+compute_margin = lambda do |open_cuote, close_quote|
+  margin = {
     :left   => @block_quote_margin_left,
     :right  => @block_quote_margin_right,
     :bottom => @space,
   }
+  if @block_quote_image_frame and close_quote
+    margin[:bottom] = close_quote.height / 2
+  end
+  margin
 end
 
 render_open_quote = lambda do |open_quote, block, canvas, x, y, w, h|
@@ -114,7 +118,7 @@ match("**", BlockQuote) do
     close_quote = load_quote.call(@block_quote_close_quote_image)
 
     block.padding_with(compute_padding.call)
-    block.margin_with(compute_margin.call)
+    block.margin_with(compute_margin.call(open_quote, close_quote))
 
     block.delete_pre_draw_proc_by_name(name)
     if open_quote or close_quote
