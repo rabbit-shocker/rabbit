@@ -17,3 +17,10 @@
 require "test-unit"
 require "test/unit/notify"
 require "test/unit/rr"
+
+module RabbitTestUtils
+  private
+  def fixture_path(*components)
+    File.join(File.dirname(__FILE__), "fixtures", *components)
+  end
+end
