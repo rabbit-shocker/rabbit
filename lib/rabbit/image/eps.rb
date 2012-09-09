@@ -15,7 +15,7 @@ module Rabbit
       class << self
         def match?(filename)
           File.open(filename) do |f|
-            f.each do |line|
+            f.each_line do |line|
               case line
               when /^%!PS-Adobe-\d+.\d+ EPS/i
                 return true
