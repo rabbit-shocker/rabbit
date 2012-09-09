@@ -77,18 +77,34 @@ module Rabbit
       def define
         task :default => :run
 
+        define_run_task
+        define_gem_task
+        define_pdf_task
+        define_publish_task
+      end
+
+      def define_run_task
         desc(_("Show theme benchmark slide with this theme"))
         task :run do
           rabbit("--theme", ".", _("rabbit-theme-benchmark-en.gem"))
         end
+      end
 
+      def define_gem_task
+        define_gem_create_task
+        define_gem_validate_task
+      end
+
+      def define_gem_create_task
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
         task :gem => "gem:validate" do
           mkdir_p(@package_dir)
           Gem::Builder.new(@spec).build
           mv(File.basename(@spec.cache_file), gem_path)
         end
+      end
 
+      def define_gem_validate_task
         namespace :gem do
           task :validate do
             errors = []
@@ -109,9 +125,14 @@ module Rabbit
             end
           end
         end
+      end
 
+      def define_pdf_task
         desc(_("Generate all PDFs"))
         task :pdf
+        theme_benchmark_locales.each do |locale|
+          task :pdf => "pdf:#{locale}"
+        end
 
         namespace :pdf do
           theme_benchmark_locales.each do |locale|
@@ -130,10 +151,9 @@ module Rabbit
             end
           end
         end
-        theme_benchmark_locales.each do |locale|
-          task :pdf => "pdf:#{locale}"
-        end
+      end
 
+      def define_publish_task
         desc(_("Publish the theme to all available targets"))
         task :publish
 
