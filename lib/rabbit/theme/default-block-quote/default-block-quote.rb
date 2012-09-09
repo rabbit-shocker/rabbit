@@ -44,7 +44,7 @@ compute_padding = lambda do
   padding
 end
 
-compute_margin = lambda do |open_cuote, close_quote|
+compute_margin = lambda do |open_quote, close_quote|
   margin = {
     :left   => @block_quote_margin_left,
     :right  => @block_quote_margin_right,
