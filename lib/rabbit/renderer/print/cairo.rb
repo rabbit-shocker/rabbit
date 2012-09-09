@@ -85,8 +85,10 @@ module Rabbit
 
         private
         def init_paper
-          @page_width = @paper_width || A4_HEIGHT
-          @page_height = @paper_height || A4_WIDTH
+          default_width_mm = 360
+          default_height_mm = 270
+          @page_width = @paper_width || default_width_mm
+          @page_height = @paper_height || default_height_mm
         end
         
         def init_color
