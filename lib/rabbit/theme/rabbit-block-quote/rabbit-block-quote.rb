@@ -1,6 +1,8 @@
 @block_quote_open_quote_image = "open-quote-brown.png"
 @block_quote_close_quote_image = "close-quote-brown.png"
 
+@block_quote_image_frame = true
+
 include_theme("default-block-quote")
 
 block_quote = [Slide, Body, BlockQuote]
