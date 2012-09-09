@@ -34,8 +34,8 @@ gem install を実行します。
   $ sudo gem install rabbit
   $ sudo gem install rabbiter # Twitter連携機能を使う場合
 
-=== 環境変数にDYLD_LIBRARY_PATHを追加します
+=== 環境変数の設定
 
-お使いのシェルの環境変数に次の値を追加します
+~/.bash_loginあるいは~/.zshenvで以下のようにDYLD_LIBRARY_PATH環境変数を設定します。
 
   export DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
