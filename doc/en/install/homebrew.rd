@@ -10,7 +10,7 @@ This document describes how to install Rabbit with Homebrew and RubyGems on Mac 
 
 * An Intel CPU
 * OS X Leopard or higher
-* Xcode with X11
+* Xcode with X11 (XQuartz is required)
 
 === Install Homebrew
 
