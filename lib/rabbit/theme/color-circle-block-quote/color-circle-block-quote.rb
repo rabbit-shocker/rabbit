@@ -5,6 +5,8 @@
 @block_quote_open_quote_image = @color_circle_open_quote_image
 @block_quote_close_quote_image = @color_circle_close_quote_image
 
+@block_quote_image_frame = true
+
 include_theme("default-block-quote")
 
 block_quote = [Slide, Body, BlockQuote]
