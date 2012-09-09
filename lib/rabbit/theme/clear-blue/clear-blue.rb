@@ -45,9 +45,6 @@ add_image_path("rabbit-images")
 @block_quote_open_quote_image = "open-quote-blue.png"
 @block_quote_close_quote_image = "close-quote-blue.png"
 
-@block_quote_image_background_alpha = 0.3
-@block_quote_image_frame = true
-
 @margin_bottom = canvas.height * 0.05
 
 include_theme("default")
