@@ -21,7 +21,7 @@ class TestImageDia < Test::Unit::TestCase
 
   private
   def fixture_path(base_name)
-    super("image", base_name)
+    super("image", "dia", base_name)
   end
 
   class TestMatch < self
