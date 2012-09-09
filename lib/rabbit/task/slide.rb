@@ -186,7 +186,7 @@ module Rabbit
       end
 
       def pdf_base_path
-        "#{@slide.id}.pdf"
+        "#{@slide.id}-#{@slide.base_name}.pdf"
       end
 
       def homepage
