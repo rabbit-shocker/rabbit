@@ -30,17 +30,13 @@ module Rabbit
     attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
     def initialize(logger=nil)
       @logger = logger || Logger.default
-      @markup_language = nil
-      @name = nil
-      @email = nil
-      @rubygems_user = nil
-      @slideshare_user = nil
-      @speaker_deck_user = nil
+      clear
     end
 
     def load
       return unless File.exist?(path)
       conf = YAML.load(File.read(path))
+      clear
       merge!(conf)
     rescue
       format = _("Failed to read author configuration: %s: %s")
@@ -57,13 +53,22 @@ module Rabbit
       @logger.error(format % [path, $!.message])
     end
 
+    def clear
+      @markup_language   = nil
+      @name              = nil
+      @email             = nil
+      @rubygems_user     = nil
+      @slideshare_user   = nil
+      @speaker_deck_user = nil
+    end
+
     def merge!(conf)
-      @markup_language   = conf["markup_language"]
-      @name              = conf["name"]
-      @email             = conf["email"]
-      @rubygems_user     = conf["rubygems_user"]
-      @slideshare_user   = conf["slideshare_user"]
-      @speaker_deck_user = conf["speaker_deck_user"]
+      @markup_language   ||= conf["markup_language"]
+      @name              ||= conf["name"]
+      @email             ||= conf["email"]
+      @rubygems_user     ||= conf["rubygems_user"]
+      @slideshare_user   ||= conf["slideshare_user"]
+      @speaker_deck_user ||= conf["speaker_deck_user"]
     end
 
     def to_hash

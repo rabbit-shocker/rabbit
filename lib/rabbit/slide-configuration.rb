@@ -37,20 +37,13 @@ module Rabbit
     attr_accessor :author
     def initialize(logger=nil)
       @logger = logger || Logger.default
-      @id = nil
-      @base_name = nil
-      @tags = []
-      @presentation_date = nil
-      @version = nil
-      @licenses = []
-      @slideshare_id = nil
-      @speaker_deck_id = nil
-      @author = nil
+      clear
     end
 
     def load
       return unless File.exist?(path)
       conf = YAML.load(File.read(path))
+      clear
       merge!(conf)
     rescue
       format = _("Failed to read slide configuration: %s: %s")
@@ -67,15 +60,28 @@ module Rabbit
       @logger.error(format % [config_path, $!.message])
     end
 
+    def clear
+      @id                = nil
+      @base_name         = nil
+      @tags              = []
+      @presentation_date = nil
+      @version           = nil
+      @licenses          = []
+      @slideshare_id     = nil
+      @speaker_deck_id   = nil
+      @author            = nil
+    end
+
     def merge!(conf)
-      @id                = conf["id"]
-      @base_name         = conf["base_name"]
-      @tags              = conf["tags"]
-      @presentation_date = conf["presentation_date"]
-      @version           = conf["version"]
-      @licenses          = conf["licenses"]
-      @slideshare_id     = conf["slideshare_id"]
-      @speaker_deck_id   = conf["speaker_deck_id"]
+      @id                ||= conf["id"]
+      @base_name         ||= conf["base_name"]
+      @presentation_date ||= conf["presentation_date"]
+      @version           ||= conf["version"]
+      @slideshare_id     ||= conf["slideshare_id"]
+      @speaker_deck_id   ||= conf["speaker_deck_id"]
+
+      @tags              |=  conf["tags"]
+      @licenses          |=  conf["licenses"]
 
       @author = AuthorConfiguration.new(@logger)
       @author.merge!(conf["author"] || {})
