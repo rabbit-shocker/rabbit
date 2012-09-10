@@ -143,7 +143,7 @@ end
 render_avatar = lambda do |avatar, block, canvas, x, y, w, h|
   avatar.image_draw(canvas,
                     x - block.padding_left - block.margin_left,
-                    y)
+                    y - block.padding_bottom)
 end
 
 
