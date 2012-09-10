@@ -403,7 +403,7 @@ EOR
       end
 
       def slide_source_title(source, generator, title)
-        source << generator.heading(1, _("TITLE"))
+        source << generator.heading(1, title)
         source << "\n\n"
       end
 
