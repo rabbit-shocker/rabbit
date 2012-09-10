@@ -80,24 +80,39 @@ module Rabbit
       def define
         task :default => :run
 
-        options_file = ".rabbit"
-        file options_file do
-          format = _("To run rabbit, create '%{options_file}'!")
-          raise(format % {:options_file => options_file})
+        define_run_task
+        define_gem_task
+        define_pdf_task
+        define_publish_task
+      end
+
+      def define_run_task
+        file options_path do
+          format = _("To run rabbit, create '%{options_path}'!")
+          raise(format % {:options_path => options_path})
         end
 
         desc(_("Show slide"))
-        task :run => options_file do
+        task :run => options_path do
           rabbit
         end
+      end
 
+      def define_gem_task
+        define_gem_create_task
+        define_gem_validate_task
+      end
+
+      def define_gem_create_task
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
         task :gem => ["gem:validate", :pdf] do
           mkdir_p(@package_dir)
           Gem::Builder.new(spec).build
           mv(File.basename(spec.cache_file), gem_path)
         end
+      end
 
+      def define_gem_validate_task
         namespace :gem do
           task :validate do
             errors = []
@@ -118,8 +133,10 @@ module Rabbit
             end
           end
         end
+      end
 
-        file pdf_path => [options_file, *(spec.files - [pdf_path])] do
+      def define_pdf_task
+        file pdf_path => [options_path, *(spec.files - [pdf_path])] do
           mkdir_p(@pdf_dir)
           rabbit("--print",
                  "--output-filename", pdf_path)
@@ -127,54 +144,72 @@ module Rabbit
 
         desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
         task :pdf => pdf_path
+      end
 
+      def define_publish_task
         desc(_("Publish the slide to all available targets"))
         task :publish
 
         publish_tasks = []
         namespace :publish do
           if @slide.author.rubygems_user
-            desc(_("Publish the slide to %s" % "RubyGems.org"))
-            task :rubygems => :gem do
-              ruby("-S", "gem", "push", gem_path)
-            end
+            define_publish_rubygems_task
             publish_tasks << :rubygems
           end
 
           slideshare_user = @slide.author.slideshare_user
           if slideshare_user
-            desc(_("Publish the slide to %s" % "SlideShare"))
-            task :slideshare => [:pdf, "gem:validate"] do
-              require "rabbit/slideshare"
-              slideshare = SlideShare.new(@logger)
-              slideshare.user = slideshare_user
-              slideshare.pdf_path = pdf_path
-              slideshare.title = spec.summary
-              slideshare.description = spec.description
-              slideshare.tags = @tags if @tags
-              id = slideshare.upload
-              if id
-                url = "http://www.slideshare.net/#{slideshare_user}/#{id}"
-                @logger.info(_("Uploaded successfully!"))
-                @logger.info(_("See %s") % url)
-                Gtk.show_uri(url) if Gtk.respond_to?(:show_uri)
-
-                @slide.slideshare_id = id
-                @slide.save(".")
-              end
-            end
+            define_publish_slideshare_task
             publish_tasks << :slideshare
           end
 
           if @slide.author.speaker_deck_user
-            desc(_("Publish the slide to %s" % "Spearker Deck"))
-            task :speaker_deck => :pdf do
-              raise "Not implemented yet."
-            end
+            define_publish_speaker_deck_task
             publish_tasks << :speaker_deck
           end
         end
         task :publish => publish_tasks.collect {|task| "publish:#{task}"}
+      end
+
+      def define_publish_rubygems_task
+        desc(_("Publish the slide to %s" % "RubyGems.org"))
+        task :rubygems => :gem do
+          ruby("-S", "gem", "push", gem_path)
+        end
+      end
+
+      def define_publish_slideshare_task
+        desc(_("Publish the slide to %s" % "SlideShare"))
+        task :slideshare => [:pdf, "gem:validate"] do
+          require "rabbit/slideshare"
+          slideshare = SlideShare.new(@logger)
+          slideshare.user = slideshare_user
+          slideshare.pdf_path = pdf_path
+          slideshare.title = spec.summary
+          slideshare.description = spec.description
+          slideshare.tags = @tags if @tags
+          id = slideshare.upload
+          if id
+            url = "http://www.slideshare.net/#{slideshare_user}/#{id}"
+            @logger.info(_("Uploaded successfully!"))
+            @logger.info(_("See %s") % url)
+            Gtk.show_uri(url) if Gtk.respond_to?(:show_uri)
+
+            @slide.slideshare_id = id
+            @slide.save(".")
+          end
+        end
+      end
+
+      def define_publish_speaker_deck_task
+        desc(_("Publish the slide to %s" % "Spearker Deck"))
+        task :speaker_deck => :pdf do
+          puts "Not implemented yet."
+        end
+      end
+
+      def options_path
+        ".rabbit"
       end
 
       def gem_path
