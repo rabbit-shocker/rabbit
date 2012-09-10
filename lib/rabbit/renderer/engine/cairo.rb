@@ -451,10 +451,10 @@ module Rabbit
         end
 
         def _draw_reflected_pixbuf(pixbuf, x, y, params)
-          return unless params
+          reflect_params = params[:reflect]
+          return unless reflect_params
 
-          params = {} if params == true
-          reflect_params = params[:reflect] || {}
+          reflect_params = {} if reflect_params == true
           ratio = reflect_params[:ratio] || 0.3
           start_alpha = reflect_params[:start_alpha] || 0.3
 
