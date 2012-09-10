@@ -102,6 +102,21 @@ render_close_quote = lambda do |close_quote, block, canvas, x, y, w, h|
                    :alpha => @block_quote_image_background_alpha)
 end
 
+create_title_layout = lambda do |close_quote, block, canvas, x, y, w, h|
+  title = Text.new(_("[cited from `%s']") % block.title)
+  title.font(:size => @block_quote_title_font_size,
+             :style => "italic")
+  title.align = Pango::Layout::ALIGN_RIGHT
+  set_font_family(title)
+  title_w = w + block.padding_left + block.padding_right
+  if @block_quote_image_frame
+    title_w -= close_quote.width / 2 if close_quote
+  end
+  title.compile(canvas, x, y, title_w, h)
+  block.margin_bottom += title.height + @block_quote_frame_width
+  title.layout
+end
+
 match("**", BlockQuote) do
   name = "block-quote"
 
@@ -143,20 +158,8 @@ match("**", BlockQuote) do
     if block.title
       layout = nil
       block.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
-        if layout.nil?
-          title = Text.new(_("[cited from `%s']") % block.title)
-          title.font(:size => @block_quote_title_font_size,
-                     :style => "italic")
-          title.align = Pango::Layout::ALIGN_RIGHT
-          set_font_family(title)
-          title_w = w + block.padding_left + block.padding_right
-          if @block_quote_image_frame
-            title_w -= close_quote.width / 2 if close_quote
-          end
-          title.compile(canvas, x, y, title_w, h)
-          layout = title.layout
-          block.margin_bottom += title.height + @block_quote_frame_width
-        end
+        layout ||= create_title_layout.call(close_quote,
+                                            block, canvas, x, y, w, h)
         unless simulation
           base_x = (block.ox || x) - block.padding_left
           base_y = y + block.padding_bottom
