@@ -10,8 +10,8 @@
 @block_quote_padding_top ||= screen_y(2)
 @block_quote_padding_bottom ||= screen_y(2)
 
-@block_quote_margin_left ||= screen_x(3)
-@block_quote_margin_right ||= screen_x(3)
+@block_quote_margin_left ||= screen_x(1)
+@block_quote_margin_right ||= screen_x(1)
 
 @block_quote_open_quote_image ||= nil
 @block_quote_close_quote_image ||= nil
@@ -52,8 +52,14 @@ compute_margin = lambda do |open_quote, close_quote|
     :bottom => @space,
   }
   if @block_quote_image_frame
-    margin[:top] = open_quote.height / 2 if open_quote
-    margin[:bottom] = close_quote.height / 2 if close_quote
+    if open_quote
+      margin[:left] += open_quote.width / 2
+      margin[:top] = open_quote.height / 2
+    end
+    if close_quote
+      margin[:right] += close_quote.width / 2
+      margin[:bottom] = close_quote.height / 2
+    end
   end
   margin
 end
