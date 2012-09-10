@@ -28,17 +28,20 @@ module Rabbit
       include Rake::DSL
       include GetText
 
-      attr_reader :spec
       attr_accessor :package_dir, :pdf_dir, :required_rabbit_version
       def initialize
         @logger = Logger.default
         @theme = load_theme_configuration
-        @spec = create_spec
+        @spec = nil
         @package_dir = "pkg"
         @pdf_dir = "pdf"
         @required_rabbit_version = ">= 2.0.2"
         yield(self) if block_given?
         define
+      end
+
+      def spec
+        @spec ||= create_spec
       end
 
       private
@@ -101,8 +104,8 @@ module Rabbit
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
         task :gem => "gem:validate" do
           mkdir_p(@package_dir)
-          Gem::Builder.new(@spec).build
-          mv(File.basename(@spec.cache_file), gem_path)
+          Gem::Builder.new(spec).build
+          mv(File.basename(spec.cache_file), gem_path)
         end
       end
 
@@ -115,7 +118,7 @@ module Rabbit
               :where => Dir.glob("README*")[0],
             }
             [:summary, :description].each do |item|
-              content = @spec.send(item)
+              content = spec.send(item)
               if /TODO|FIXME/ =~ content
                 data[:item] = item
                 data[:content] = content
@@ -139,7 +142,7 @@ module Rabbit
         namespace :pdf do
           theme_benchmark_locales.each do |locale|
             pdf_path = theme_benchmark_pdf_path(locale)
-            files_without_pdf = @spec.files - Dir.glob("#{@pdf_dir}/*/*.pdf")
+            files_without_pdf = spec.files - Dir.glob("#{@pdf_dir}/*/*.pdf")
             file pdf_path => files_without_pdf do
               mkdir_p(@pdf_dir)
               rabbit("--theme", ".",
@@ -173,7 +176,7 @@ module Rabbit
       end
 
       def gem_path
-        File.join(@package_dir, "#{@spec.name}-#{@spec.version}.gem")
+        File.join(@package_dir, "#{spec.name}-#{spec.version}.gem")
       end
 
       def theme_benchmark_pdf_path(locale)
