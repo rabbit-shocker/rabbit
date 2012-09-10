@@ -253,12 +253,12 @@ module Rabbit
           x, y = from_screen(x, y)
           @context.save do
             @context.translate(x, y)
-            pixbuf = scale_pixbuf(pixbuf, params)
-            @context.set_source_pixbuf(pixbuf, 0, 0)
+            scaled_pixbuf = scale_pixbuf(pixbuf, params)
+            @context.set_source_pixbuf(scaled_pixbuf, 0, 0)
             @context.paint(params[:alpha])
           end
 
-          _draw_reflected_pixbuf(pixbuf, x, y, params[:reflect])
+          _draw_reflected_pixbuf(pixbuf, x, y, params)
         end
 
         def scale_pixbuf(pixbuf, params)
@@ -306,7 +306,7 @@ module Rabbit
           end
 
           _draw_reflected_rsvg_handle(handle, x, y, width, height,
-                                      params[:reflect])
+                                      params)
         end
 
         def poppler_available?
@@ -454,15 +454,17 @@ module Rabbit
           return unless params
 
           params = {} if params == true
-          ratio = params[:ratio] || 0.3
-          start_alpha = params[:start_alpha] || 0.3
+          reflect_params = params[:reflect] || {}
+          ratio = reflect_params[:ratio] || 0.3
+          start_alpha = reflect_params[:start_alpha] || 0.3
 
           @context.save do
-            width = pixbuf.width
-            height = pixbuf.height
+            scaled_pixbuf = scale_pixbuf(pixbuf, params)
+            width = (params[:width] || scaled_pixbuf.width).to_f
+            height = (params[:height] || scaled_pixbuf.height).to_f
             @context.translate(x, y + height * 2)
             reflect_context(:x)
-            @context.set_source_pixbuf(pixbuf, 0, 0)
+            @context.set_source_pixbuf(scaled_pixbuf, 0, 0)
             pattern = ::Cairo::LinearPattern.new(width * 0.5, 0,
                                                  width * 0.5, height)
             pattern.add_color_stop_rgba(0, 0, 0, 0, 0)
