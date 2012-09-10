@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-10 21:00+0900\n"
-"PO-Revision-Date: 2012-09-10 21:08+0900\n"
+"POT-Creation-Date: 2012-09-10 21:08+0900\n"
+"PO-Revision-Date: 2012-09-10 21:20+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -725,7 +725,7 @@ msgstr "TODO: テーマの説明"
 msgid "For users"
 msgstr "利用者用"
 
-#: ../lib/rabbit/command/rabbit-theme.rb:229 ../lib/rabbit/task/theme.rb:91
+#: ../lib/rabbit/command/rabbit-theme.rb:229 ../lib/rabbit/task/theme.rb:94
 msgid "rabbit-theme-benchmark-en.gem"
 msgstr "rabbit-theme-benchmark-ja.gem"
 
@@ -2398,22 +2398,22 @@ msgid "%s does not support: %s"
 msgstr "%sはサポートしていません: %s"
 
 #: ../lib/rabbit/task/slide.rb:85
-msgid "To run rabbit, create '%{options_file}'!"
-msgstr "rabbitを実行するために'%{options_file}'を作ってください！"
+msgid "To run rabbit, create '%{options_path}'!"
+msgstr "rabbitを実行するために'%{options_path}'を作ってください！"
 
 #: ../lib/rabbit/task/slide.rb:89
 msgid "Show slide"
 msgstr "スライドを表示"
 
-#: ../lib/rabbit/task/slide.rb:94 ../lib/rabbit/task/theme.rb:101
+#: ../lib/rabbit/task/slide.rb:94 ../lib/rabbit/task/theme.rb:104
 msgid "Create gem: %{gem_path}"
 msgstr "gemを作成: %{gem_path}"
 
-#: ../lib/rabbit/task/slide.rb:104 ../lib/rabbit/task/theme.rb:113
+#: ../lib/rabbit/task/slide.rb:104 ../lib/rabbit/task/theme.rb:116
 msgid "Write %{item} in %{where}: %{content}"
 msgstr "%{where}の%{item}を書いてください: %{content}"
 
-#: ../lib/rabbit/task/slide.rb:128 ../lib/rabbit/task/theme.rb:151
+#: ../lib/rabbit/task/slide.rb:128 ../lib/rabbit/task/theme.rb:154
 msgid "Generate PDF: %{pdf_path}"
 msgstr "PDFを生成: %{pdf_path}"
 
@@ -2433,19 +2433,19 @@ msgstr "無事にアップロードできました！"
 msgid "See %s"
 msgstr "%sを見てください"
 
-#: ../lib/rabbit/task/theme.rb:89
+#: ../lib/rabbit/task/theme.rb:92
 msgid "Show theme benchmark slide with this theme"
 msgstr "このテーマでテーマベンチマーク用のスライドを表示"
 
-#: ../lib/rabbit/task/theme.rb:133
+#: ../lib/rabbit/task/theme.rb:136
 msgid "Generate all PDFs"
 msgstr "すべてのPDFを生成"
 
-#: ../lib/rabbit/task/theme.rb:159
+#: ../lib/rabbit/task/theme.rb:162
 msgid "Publish the theme to all available targets"
 msgstr "すべての公開可能な公開場所にこのテーマを公開"
 
-#: ../lib/rabbit/task/theme.rb:165
+#: ../lib/rabbit/task/theme.rb:168
 msgid "Publish the theme to %s"
 msgstr "このテーマを%sに公開"
 

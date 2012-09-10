@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-10 21:00+0900\n"
-"PO-Revision-Date: 2011-07-15 16:08+0900\n"
+"POT-Creation-Date: 2012-09-10 21:08+0900\n"
+"PO-Revision-Date: 2012-09-10 21:20+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language: \n"
@@ -706,7 +706,7 @@ msgstr ""
 msgid "For users"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:229 ../lib/rabbit/task/theme.rb:91
+#: ../lib/rabbit/command/rabbit-theme.rb:229 ../lib/rabbit/task/theme.rb:94
 msgid "rabbit-theme-benchmark-en.gem"
 msgstr ""
 
@@ -2351,22 +2351,22 @@ msgid "%s does not support: %s"
 msgstr ""
 
 #: ../lib/rabbit/task/slide.rb:85
-msgid "To run rabbit, create '%{options_file}'!"
+msgid "To run rabbit, create '%{options_path}'!"
 msgstr ""
 
 #: ../lib/rabbit/task/slide.rb:89
 msgid "Show slide"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:94 ../lib/rabbit/task/theme.rb:101
+#: ../lib/rabbit/task/slide.rb:94 ../lib/rabbit/task/theme.rb:104
 msgid "Create gem: %{gem_path}"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:104 ../lib/rabbit/task/theme.rb:113
+#: ../lib/rabbit/task/slide.rb:104 ../lib/rabbit/task/theme.rb:116
 msgid "Write %{item} in %{where}: %{content}"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:128 ../lib/rabbit/task/theme.rb:151
+#: ../lib/rabbit/task/slide.rb:128 ../lib/rabbit/task/theme.rb:154
 msgid "Generate PDF: %{pdf_path}"
 msgstr ""
 
@@ -2386,19 +2386,19 @@ msgstr ""
 msgid "See %s"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:89
+#: ../lib/rabbit/task/theme.rb:92
 msgid "Show theme benchmark slide with this theme"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:133
+#: ../lib/rabbit/task/theme.rb:136
 msgid "Generate all PDFs"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:159
+#: ../lib/rabbit/task/theme.rb:162
 msgid "Publish the theme to all available targets"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:165
+#: ../lib/rabbit/task/theme.rb:168
 msgid "Publish the theme to %s"
 msgstr ""
 
