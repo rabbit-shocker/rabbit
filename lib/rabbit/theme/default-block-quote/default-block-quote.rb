@@ -117,6 +117,16 @@ create_title_layout = lambda do |close_quote, block, canvas, x, y, w, h|
   title.layout
 end
 
+render_title_layout = lambda do |layout, block, canvas, x, y, w, h|
+  base_x = (block.ox || x) - block.padding_left
+  base_y = y + block.padding_bottom
+  unless @block_quote_image_frame
+    base_y += @block_quote_frame_width
+  end
+  canvas.draw_layout(layout, base_x, base_y, @block_quote_title_color)
+
+end
+
 match("**", BlockQuote) do
   name = "block-quote"
 
@@ -161,12 +171,7 @@ match("**", BlockQuote) do
         layout ||= create_title_layout.call(close_quote,
                                             block, canvas, x, y, w, h)
         unless simulation
-          base_x = (block.ox || x) - block.padding_left
-          base_y = y + block.padding_bottom
-          unless @block_quote_image_frame
-            base_y += @block_quote_frame_width
-          end
-          canvas.draw_layout(layout, base_x, base_y, @block_quote_title_color)
+          render_title_layout.call(layout, block, canvas, x, y, w, h)
         end
         [x, y, w, h]
       end
