@@ -44,6 +44,7 @@ This release improves block quote style.
     * Supported image instead of line as frame.
     * Reduced font size for title of cited content.
     * Enabled quoted text justification.
+    * Supported avatar.
   * clear-blue:
     * Added indentation to the first paragraph in block quote.
     * Changed to use image instead of line as frame.
