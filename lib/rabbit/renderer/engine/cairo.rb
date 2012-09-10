@@ -268,7 +268,7 @@ module Rabbit
           height = (params[:height] || pixbuf.height).to_f
 
           return pixbuf if [width, height] == [pixbuf.width, pixbuf.height]
-          case draw_scaled_image
+          case draw_scaled_pixbuf
           when true
             return pixbuf.scale(width, height)
           when false
