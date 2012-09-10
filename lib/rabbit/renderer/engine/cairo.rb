@@ -253,15 +253,14 @@ module Rabbit
           x, y = from_screen(x, y)
           @context.save do
             @context.translate(x, y)
-            scaled_pixbuf = scale_pixbuf(pixbuf, params)
-            @context.set_source_pixbuf(scaled_pixbuf, 0, 0)
+            set_source_pixbuf(pixbuf, params)
             @context.paint(params[:alpha])
           end
 
           _draw_reflected_pixbuf(pixbuf, x, y, params)
         end
 
-        def scale_pixbuf(pixbuf, params)
+        def set_source_pixbuf(pixbuf, params)
           draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
           draw_scaled_pixbuf = @draw_scaled_image if draw_scaled_pixbuf.nil?
           width = (params[:width] || pixbuf.width).to_f
@@ -270,20 +269,28 @@ module Rabbit
           return pixbuf if [width, height] == [pixbuf.width, pixbuf.height]
           case draw_scaled_pixbuf
           when true
-            return pixbuf.scale(width, height)
+            scaled_pixbuf = pixbuf.scale(width, height)
+            @context.set_source_pixbuf(scaled_pixbuf, 0, 0)
           when false
-            @context.scale(width / pixbuf.width, height / pixbuf.height)
-            return pixbuf
+            @context.set_source_pixbuf(pixbuf, 0, 0)
+            matrix = ::Cairo::Matrix.scale(pixbuf.width / width,
+                                           pixbuf.height / height)
+            @context.source.matrix = matrix
           else
             scales = [4, 3, 2]
             scales.each do |scale|
               if width * scale < pixbuf.width and height * scale < pixbuf.height
-                @context.scale(1.0 / scale, 1.0 / scale)
-                return pixbuf.scale(width * scale, height * scale)
+                scaled_pixbuf = pixbuf.scale(width * scale, height * scale)
+                @context.set_source_pixbuf(scaled_pixbuf)
+                matrix = ::Cairo::Matrix.scale(scale, scale)
+                @context.source.matrix = matrix
+                return
               end
             end
-            @context.scale(width / pixbuf.width, height / pixbuf.height)
-            return pixbuf
+            @context.set_source_pixbuf(pixbuf, 0, 0)
+            matrix = ::Cairo::Matrix.scale(pixbuf.width / width,
+                                           pixbuf.height / height)
+            @context.source.matrix = matrix
           end
         end
 
@@ -459,12 +466,11 @@ module Rabbit
           start_alpha = reflect_params[:start_alpha] || 0.3
 
           @context.save do
-            scaled_pixbuf = scale_pixbuf(pixbuf, params)
-            width = (params[:width] || scaled_pixbuf.width).to_f
-            height = (params[:height] || scaled_pixbuf.height).to_f
+            width = (params[:width] || pixbuf.width).to_f
+            height = (params[:height] || pixbuf.height).to_f
             @context.translate(x, y + height * 2)
             reflect_context(:x)
-            @context.set_source_pixbuf(scaled_pixbuf, 0, 0)
+            set_source_pixbuf(pixbuf, params)
             pattern = ::Cairo::LinearPattern.new(width * 0.5, 0,
                                                  width * 0.5, height)
             pattern.add_color_stop_rgba(0, 0, 0, 0, 0)
