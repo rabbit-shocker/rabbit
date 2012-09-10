@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-31 22:36+0900\n"
+"POT-Creation-Date: 2012-09-10 21:00+0900\n"
 "PO-Revision-Date: 2011-07-15 16:08+0900\n"
 "Last-Translator: Vincent Isambart <vincent.isambart@gmail.com>\n"
 "Language-Team: Vincent Isambart <vincent.isambart@gmail.com>\n"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:52 ../lib/rabbit/command/rabbit-theme.rb:47
+#: ../lib/rabbit/command/rabbit-slide.rb:50 ../lib/rabbit/command/rabbit-theme.rb:48
 msgid "See --help for example"
 msgstr ""
 
@@ -96,13 +96,13 @@ msgstr ""
 #: ../lib/rabbit/command/rabbit-slide.rb:144 ../lib/rabbit/command/rabbit-slide.rb:153
 #: ../lib/rabbit/command/rabbit-slide.rb:166 ../lib/rabbit/command/rabbit-slide.rb:180
 #: ../lib/rabbit/command/rabbit-slide.rb:194 ../lib/rabbit/command/rabbit-slide.rb:208
-#: ../lib/rabbit/command/rabbit-theme.rb:80 ../lib/rabbit/command/rabbit-theme.rb:89
-#: ../lib/rabbit/command/rabbit-theme.rb:102 ../lib/rabbit/command/rabbit-theme.rb:116
+#: ../lib/rabbit/command/rabbit-theme.rb:83 ../lib/rabbit/command/rabbit-theme.rb:92
+#: ../lib/rabbit/command/rabbit-theme.rb:105 ../lib/rabbit/command/rabbit-theme.rb:119
 msgid "(e.g.: %s)"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:90 ../lib/rabbit/command/rabbit-slide.rb:97
-#: ../lib/rabbit/command/rabbit-theme.rb:81
+#: ../lib/rabbit/command/rabbit-theme.rb:84
 msgid "(must)"
 msgstr ""
 
@@ -121,8 +121,8 @@ msgstr ""
 #: ../lib/rabbit/command/rabbit-slide.rb:112 ../lib/rabbit/command/rabbit-slide.rb:156
 #: ../lib/rabbit/command/rabbit-slide.rb:169 ../lib/rabbit/command/rabbit-slide.rb:183
 #: ../lib/rabbit/command/rabbit-slide.rb:197 ../lib/rabbit/command/rabbit-slide.rb:211
-#: ../lib/rabbit/command/rabbit-theme.rb:92 ../lib/rabbit/command/rabbit-theme.rb:105
-#: ../lib/rabbit/command/rabbit-theme.rb:119
+#: ../lib/rabbit/command/rabbit-theme.rb:95 ../lib/rabbit/command/rabbit-theme.rb:108
+#: ../lib/rabbit/command/rabbit-theme.rb:122
 msgid "(default: %s)"
 msgstr ""
 
@@ -131,8 +131,8 @@ msgstr ""
 #: ../lib/rabbit/command/rabbit-slide.rb:145 ../lib/rabbit/command/rabbit-slide.rb:158
 #: ../lib/rabbit/command/rabbit-slide.rb:171 ../lib/rabbit/command/rabbit-slide.rb:185
 #: ../lib/rabbit/command/rabbit-slide.rb:199 ../lib/rabbit/command/rabbit-slide.rb:213
-#: ../lib/rabbit/command/rabbit-theme.rb:94 ../lib/rabbit/command/rabbit-theme.rb:107
-#: ../lib/rabbit/command/rabbit-theme.rb:121
+#: ../lib/rabbit/command/rabbit-theme.rb:97 ../lib/rabbit/command/rabbit-theme.rb:110
+#: ../lib/rabbit/command/rabbit-theme.rb:124
 msgid "(optional)"
 msgstr ""
 
@@ -156,104 +156,104 @@ msgstr ""
 msgid "Presentation date with the new slide"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:149 ../lib/rabbit/command/rabbit-theme.rb:85
+#: ../lib/rabbit/command/rabbit-slide.rb:149 ../lib/rabbit/command/rabbit-theme.rb:88
 msgid "Your information"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:152 ../lib/rabbit/command/rabbit-theme.rb:88
+#: ../lib/rabbit/command/rabbit-slide.rb:152 ../lib/rabbit/command/rabbit-theme.rb:91
 msgid "Author name of the new slide"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:165 ../lib/rabbit/command/rabbit-theme.rb:101
+#: ../lib/rabbit/command/rabbit-slide.rb:165 ../lib/rabbit/command/rabbit-theme.rb:104
 msgid "Author e-mail of the new slide"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:178 ../lib/rabbit/command/rabbit-slide.rb:192
-#: ../lib/rabbit/command/rabbit-slide.rb:206 ../lib/rabbit/command/rabbit-theme.rb:114
+#: ../lib/rabbit/command/rabbit-slide.rb:206 ../lib/rabbit/command/rabbit-theme.rb:117
 msgid "Account for %s"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:179 ../lib/rabbit/command/rabbit-slide.rb:193
-#: ../lib/rabbit/command/rabbit-slide.rb:207 ../lib/rabbit/command/rabbit-theme.rb:115
+#: ../lib/rabbit/command/rabbit-slide.rb:207 ../lib/rabbit/command/rabbit-theme.rb:118
 msgid "It is used to publish your slide to %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:233 ../lib/rabbit/command/rabbit-theme.rb:140
+#: ../lib/rabbit/command/rabbit-slide.rb:233 ../lib/rabbit/command/rabbit-theme.rb:143
 msgid "too many commands: %s"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:238 ../lib/rabbit/command/rabbit-theme.rb:145
+#: ../lib/rabbit/command/rabbit-slide.rb:238 ../lib/rabbit/command/rabbit-theme.rb:148
 msgid "invalid command: <%s>: available commands: %s"
 msgstr ""
 
 #: ../lib/rabbit/command/rabbit-slide.rb:246 ../lib/rabbit/command/rabbit-slide.rb:252
-#: ../lib/rabbit/command/rabbit-theme.rb:153
+#: ../lib/rabbit/command/rabbit-theme.rb:156
 msgid "%s is missing"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:308
+#: ../lib/rabbit/command/rabbit-slide.rb:306
 msgid "TODO: SLIDE TITLE"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:310
+#: ../lib/rabbit/command/rabbit-slide.rb:309
 msgid "TODO: SLIDE DESCRIPTION"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:313 ../lib/rabbit/command/rabbit-theme.rb:203
+#: ../lib/rabbit/command/rabbit-slide.rb:312 ../lib/rabbit/command/rabbit-theme.rb:209
 msgid "For author"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:315 ../lib/rabbit/command/rabbit-slide.rb:331
-#: ../lib/rabbit/command/rabbit-theme.rb:205 ../lib/rabbit/command/rabbit-theme.rb:221
+#: ../lib/rabbit/command/rabbit-slide.rb:314 ../lib/rabbit/command/rabbit-slide.rb:330
+#: ../lib/rabbit/command/rabbit-theme.rb:211 ../lib/rabbit/command/rabbit-theme.rb:227
 #: ../lib/rabbit/action/radio.rb:37
 msgid "Show"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:319 ../lib/rabbit/command/rabbit-theme.rb:209
+#: ../lib/rabbit/command/rabbit-slide.rb:318 ../lib/rabbit/command/rabbit-theme.rb:215
 msgid "Publish"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:324
+#: ../lib/rabbit/command/rabbit-slide.rb:323
 msgid "For viewers"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:326 ../lib/rabbit/command/rabbit-theme.rb:216
+#: ../lib/rabbit/command/rabbit-slide.rb:325 ../lib/rabbit/command/rabbit-theme.rb:222
 msgid "Install"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:454 ../lib/rabbit/command/rabbit-slide.rb:463
+#: ../lib/rabbit/command/rabbit-slide.rb:397 ../lib/rabbit/command/rabbit-slide.rb:406
 msgid "TITLE"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:456
+#: ../lib/rabbit/command/rabbit-slide.rb:399
 msgid "FIRST SLIDE"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:458
+#: ../lib/rabbit/command/rabbit-slide.rb:401
 msgid "SECOND SLIDE"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:469
+#: ../lib/rabbit/command/rabbit-slide.rb:413
 msgid "SUBTITLE"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:470
+#: ../lib/rabbit/command/rabbit-slide.rb:414
 msgid "AUTHOR"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:471
+#: ../lib/rabbit/command/rabbit-slide.rb:415
 msgid "INSTITUTION"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:472
+#: ../lib/rabbit/command/rabbit-slide.rb:416
 msgid "EVENT NAME"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-slide.rb:494
+#: ../lib/rabbit/command/rabbit-slide.rb:437
 msgid "ITEM %d"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:142 ../lib/rabbit/theme-browser/tree.rb:54
+#: ../lib/rabbit/command/rabbit.rb:143 ../lib/rabbit/theme-browser/tree.rb:54
 #: ../lib/rabbit/theme/lightning-simple/property.rb:1 ../lib/rabbit/theme/cozmixng/property.rb:1
 #: ../lib/rabbit/theme/blue-bar/property.rb:1 ../lib/rabbit/theme/lightning-clear-blue/property.rb:1
 #: ../lib/rabbit/theme/enishi-green/property.rb:1 ../lib/rabbit/theme/clear-blue/property.rb:1
@@ -270,413 +270,413 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:145 ../bin/rabbit-theme-manager:27
+#: ../lib/rabbit/command/rabbit.rb:146 ../bin/rabbit-theme-manager:27
 msgid "Add [PATH] to load path."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:150
+#: ../lib/rabbit/command/rabbit.rb:151
 msgid "Use [THEME] as theme."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:157
+#: ../lib/rabbit/command/rabbit.rb:158
 msgid "Use [THEME] for comment."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:163
+#: ../lib/rabbit/command/rabbit.rb:164
 msgid "Use [TIME] as allotted time."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:169 ../lib/rabbit/html/generator.rb:404
+#: ../lib/rabbit/command/rabbit.rb:170 ../lib/rabbit/html/generator.rb:404
 msgid "Source"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:176
+#: ../lib/rabbit/command/rabbit.rb:177
 msgid ""
 "When select %s\n"
 "specify %s\n"
 "as [SOURCE_INFOS]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:183
+#: ../lib/rabbit/command/rabbit.rb:184
 msgid "Specify source type as [TYPE]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:184 ../lib/rabbit/console.rb:165 ../lib/rabbit/console.rb:182
+#: ../lib/rabbit/command/rabbit.rb:185 ../lib/rabbit/console.rb:165 ../lib/rabbit/console.rb:182
 msgid "Select from [%s]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:185
+#: ../lib/rabbit/command/rabbit.rb:186
 msgid "Note: case insensitive."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:199
+#: ../lib/rabbit/command/rabbit.rb:200
 msgid "Specify source encoding as [ENCODING]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:200 ../lib/rabbit/command/rabbit.rb:206
-#: ../lib/rabbit/command/rabbit.rb:367 ../lib/rabbit/command/rabbit.rb:374
-#: ../lib/rabbit/command/rabbit.rb:381 ../lib/rabbit/command/rabbit.rb:388
-#: ../lib/rabbit/command/rabbit.rb:413 ../lib/rabbit/command/rabbit.rb:420
-#: ../lib/rabbit/command/rabbit.rb:427 ../lib/rabbit/command/rabbit.rb:434
-#: ../lib/rabbit/command/rabbit.rb:555 ../lib/rabbit/console.rb:150
+#: ../lib/rabbit/command/rabbit.rb:201 ../lib/rabbit/command/rabbit.rb:207
+#: ../lib/rabbit/command/rabbit.rb:368 ../lib/rabbit/command/rabbit.rb:375
+#: ../lib/rabbit/command/rabbit.rb:382 ../lib/rabbit/command/rabbit.rb:389
+#: ../lib/rabbit/command/rabbit.rb:414 ../lib/rabbit/command/rabbit.rb:421
+#: ../lib/rabbit/command/rabbit.rb:428 ../lib/rabbit/command/rabbit.rb:435
+#: ../lib/rabbit/command/rabbit.rb:556 ../lib/rabbit/console.rb:150
 msgid "(auto)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:205
+#: ../lib/rabbit/command/rabbit.rb:206
 msgid "Specify base URI or path of source as [BASE]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:211
+#: ../lib/rabbit/command/rabbit.rb:212
 msgid "Initial state"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:214
+#: ../lib/rabbit/command/rabbit.rb:215
 msgid "Toggle full screen mode."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:220
+#: ../lib/rabbit/command/rabbit.rb:221
 msgid "Toggle index mode."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:226
+#: ../lib/rabbit/command/rabbit.rb:227
 msgid "Size"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:229
+#: ../lib/rabbit/command/rabbit.rb:230
 msgid "Set window geometry [GEOMETRY]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:230
+#: ../lib/rabbit/command/rabbit.rb:231
 msgid "Format: WIDTHxHEIGHT+X+Y"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:237 ../bin/rabbit-theme-manager:43
+#: ../lib/rabbit/command/rabbit.rb:238 ../bin/rabbit-theme-manager:43
 msgid "Set window width to [WIDTH]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:244 ../bin/rabbit-theme-manager:50
+#: ../lib/rabbit/command/rabbit.rb:245 ../bin/rabbit-theme-manager:50
 msgid "Set window height to [HEIGHT]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:249 ../bin/rabbit-theme-manager:55
+#: ../lib/rabbit/command/rabbit.rb:250 ../bin/rabbit-theme-manager:55
 msgid "Set window width and height to\n[WIDTH] and [HEIGHT]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:262
+#: ../lib/rabbit/command/rabbit.rb:263
 msgid "Save"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:265
+#: ../lib/rabbit/command/rabbit.rb:266
 msgid "Save as image and exit."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:270
+#: ../lib/rabbit/command/rabbit.rb:271
 msgid "Specify saved image type as [TYPE]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:277
+#: ../lib/rabbit/command/rabbit.rb:278
 msgid "Specify saved image base name as [BASE_NAME]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:278 ../lib/rabbit/command/rabbit.rb:316
+#: ../lib/rabbit/command/rabbit.rb:279 ../lib/rabbit/command/rabbit.rb:317
 msgid "Title of slide"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:283
+#: ../lib/rabbit/command/rabbit.rb:284
 msgid "Output HTML for viewing saved images."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:289
+#: ../lib/rabbit/command/rabbit.rb:290
 msgid "Output index HTML for navigating slides."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:295
+#: ../lib/rabbit/command/rabbit.rb:296
 msgid "Specify base URI of RSS as [URI]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:296
+#: ../lib/rabbit/command/rabbit.rb:297
 msgid "RSS is generated only when HTML is output."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:302
+#: ../lib/rabbit/command/rabbit.rb:303
 msgid "Specify source filenam as [FILENAME]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:307 ../lib/rabbit/action/basic.rb:83
+#: ../lib/rabbit/command/rabbit.rb:308 ../lib/rabbit/action/basic.rb:83
 msgid "Print"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:310
+#: ../lib/rabbit/command/rabbit.rb:311
 msgid "Print and exit."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:315
+#: ../lib/rabbit/command/rabbit.rb:316
 msgid "Specify printed out filename as [FILENAME]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:322
+#: ../lib/rabbit/command/rabbit.rb:323
 msgid "Set slides per page."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:328
+#: ../lib/rabbit/command/rabbit.rb:329
 msgid "Draw scaled image."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:329
+#: ../lib/rabbit/command/rabbit.rb:330
 msgid "Better look for displaying but lesser look for printing."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:334
+#: ../lib/rabbit/command/rabbit.rb:335
 msgid "Paper"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:338
+#: ../lib/rabbit/command/rabbit.rb:339
 msgid "Set paper width to [WIDTH] Pt."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:339
+#: ../lib/rabbit/command/rabbit.rb:340
 msgid "(landscape A4 width)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:345
+#: ../lib/rabbit/command/rabbit.rb:346
 msgid "Set paper height to [HEIGHT] Pt."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:346
+#: ../lib/rabbit/command/rabbit.rb:347
 msgid "(landscape A4 height)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:350
+#: ../lib/rabbit/command/rabbit.rb:351
 msgid "Set paper width and height to\n[WIDTH] Pt and [HEIGHT] Pt."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:352
+#: ../lib/rabbit/command/rabbit.rb:353
 msgid "(landscape A4 size)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:362
+#: ../lib/rabbit/command/rabbit.rb:363
 msgid "Margin"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:366
+#: ../lib/rabbit/command/rabbit.rb:367
 msgid "Set left margin for slides per page mode print."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:373
+#: ../lib/rabbit/command/rabbit.rb:374
 msgid "Set right margin for slides per page mode print."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:380
+#: ../lib/rabbit/command/rabbit.rb:381
 msgid "Set top margin for slides per page mode print."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:387
+#: ../lib/rabbit/command/rabbit.rb:388
 msgid "Set bottom margin for slides per page mode print."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:392
+#: ../lib/rabbit/command/rabbit.rb:393
 msgid "[ALL]"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:393
+#: ../lib/rabbit/command/rabbit.rb:394
 msgid "[TOP_BOTTOM],[LEFT_RIGHT]"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:394
+#: ../lib/rabbit/command/rabbit.rb:395
 msgid "[TOP],[LEFT_RIGHT],[BOTTOM]"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:395
+#: ../lib/rabbit/command/rabbit.rb:396
 msgid "[TOP],[RIGHT],[BOTTOM],[LEFT]"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:398
+#: ../lib/rabbit/command/rabbit.rb:399
 msgid "Set margin for slides per page mode print."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:412
+#: ../lib/rabbit/command/rabbit.rb:413
 msgid "Set left page margin."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:419
+#: ../lib/rabbit/command/rabbit.rb:420
 msgid "Set right page margin."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:426
+#: ../lib/rabbit/command/rabbit.rb:427
 msgid "Set top page margin."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:433
+#: ../lib/rabbit/command/rabbit.rb:434
 msgid "Set bottom page margin."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:440
+#: ../lib/rabbit/command/rabbit.rb:441
 msgid "Set page margin."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:452
+#: ../lib/rabbit/command/rabbit.rb:453
 msgid "dRuby"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:455
+#: ../lib/rabbit/command/rabbit.rb:456
 msgid "Specify whether to use dRuby."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:461
+#: ../lib/rabbit/command/rabbit.rb:462
 msgid "Specify dRuby URI."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:467
+#: ../lib/rabbit/command/rabbit.rb:468
 msgid "Specify whether to output dRuby URI."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:472
+#: ../lib/rabbit/command/rabbit.rb:473
 msgid "SOAP"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:475
+#: ../lib/rabbit/command/rabbit.rb:476
 msgid "Specify whether to use SOAP."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:481
+#: ../lib/rabbit/command/rabbit.rb:482
 msgid "Specify SOAP host as [HOST]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:488
+#: ../lib/rabbit/command/rabbit.rb:489
 msgid "Specify SOAP port as [PORT]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:493
+#: ../lib/rabbit/command/rabbit.rb:494
 msgid "XML-RPC"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:496
+#: ../lib/rabbit/command/rabbit.rb:497
 msgid "Specify whether to use XML-RPC."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:502
+#: ../lib/rabbit/command/rabbit.rb:503
 msgid "Specify XML-RPC host as [HOST]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:509
+#: ../lib/rabbit/command/rabbit.rb:510
 msgid "Specify XML-RPC port as [PORT]."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:514
+#: ../lib/rabbit/command/rabbit.rb:515
 msgid "Server"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:517
+#: ../lib/rabbit/command/rabbit.rb:518
 msgid "Specify whether to run as server."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:522
+#: ../lib/rabbit/command/rabbit.rb:523
 msgid "Public level"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:529
+#: ../lib/rabbit/command/rabbit.rb:530
 msgid "Specify public level."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:530
+#: ../lib/rabbit/command/rabbit.rb:531
 msgid "Select from the following:"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:539 ../lib/rabbit/command/rabbit.rb:564
-#: ../lib/rabbit/command/rabbit.rb:571
+#: ../lib/rabbit/command/rabbit.rb:540 ../lib/rabbit/command/rabbit.rb:565
+#: ../lib/rabbit/command/rabbit.rb:572
 msgid "(%s)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:544 ../lib/rabbit/theme/stream-comment/property.rb:1
+#: ../lib/rabbit/command/rabbit.rb:545 ../lib/rabbit/theme/stream-comment/property.rb:1
 #: ../lib/rabbit/theme/clutter-comment/property.rb:1 ../lib/rabbit/theme/footer-comment/property.rb:1
 msgid "Comment"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:547 ../lib/rabbit/command/rabbit.rb:553
+#: ../lib/rabbit/command/rabbit.rb:548 ../lib/rabbit/command/rabbit.rb:554
 msgid "Deprecated. Just ignored."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:548
+#: ../lib/rabbit/command/rabbit.rb:549
 msgid "Specify initial comment source."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:549
+#: ../lib/rabbit/command/rabbit.rb:550
 msgid "(default source)"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:554
+#: ../lib/rabbit/command/rabbit.rb:555
 msgid "Specify comment source encoding."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:558
+#: ../lib/rabbit/command/rabbit.rb:559
 msgid "Migemo"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:563
+#: ../lib/rabbit/command/rabbit.rb:564
 msgid "Specify search paths for Migemo static dictionary."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:570
+#: ../lib/rabbit/command/rabbit.rb:571
 msgid "Specify static dictionary name for Migemo."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:575
+#: ../lib/rabbit/command/rabbit.rb:576
 msgid "3D"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:578
+#: ../lib/rabbit/command/rabbit.rb:579
 msgid "Specify whether to use OpenGL if available."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:583
+#: ../lib/rabbit/command/rabbit.rb:584
 msgid "Display"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:586
+#: ../lib/rabbit/command/rabbit.rb:587
 msgid "Specify whether to keep above window."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:591
+#: ../lib/rabbit/command/rabbit.rb:592
 msgid "Others"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:594
+#: ../lib/rabbit/command/rabbit.rb:595
 msgid "Show a native window ID of the Rabbit window if available."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:595
+#: ../lib/rabbit/command/rabbit.rb:596
 msgid "e.g. The ID is the ID of X resource on X window system."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:636
+#: ../lib/rabbit/command/rabbit.rb:637
 msgid "Choose a Rabbit source file"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:752
+#: ../lib/rabbit/command/rabbit.rb:753
 msgid "dRuby URI <%s> is in use."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:771
+#: ../lib/rabbit/command/rabbit.rb:772
 msgid "port <%s> for SOAP is in use."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:792
+#: ../lib/rabbit/command/rabbit.rb:793
 msgid "port <%s> for XML-RPC is in use."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:853
+#: ../lib/rabbit/command/rabbit.rb:854
 msgid "Window ID: %d"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:899
+#: ../lib/rabbit/command/rabbit.rb:900
 msgid "going to shutdown..."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit.rb:901
+#: ../lib/rabbit/command/rabbit.rb:902
 msgid "DRb.thread done."
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:64
+#: ../lib/rabbit/command/rabbit-theme.rb:67
 msgid ""
 "Usage: %s new [options]\n"
 " e.g.: %s new \\\n"
@@ -686,27 +686,27 @@ msgid ""
 "          --rubygems-user kou"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:76
+#: ../lib/rabbit/command/rabbit-theme.rb:79
 msgid "Theme information"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:79
+#: ../lib/rabbit/command/rabbit-theme.rb:82
 msgid "Theme ID"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:198
+#: ../lib/rabbit/command/rabbit-theme.rb:204
 msgid "TODO: THEME TITLE"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:200
+#: ../lib/rabbit/command/rabbit-theme.rb:206
 msgid "TODO: THEME DESCRIPTION"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:214
+#: ../lib/rabbit/command/rabbit-theme.rb:220
 msgid "For users"
 msgstr ""
 
-#: ../lib/rabbit/command/rabbit-theme.rb:223 ../lib/rabbit/task/theme.rb:49 ../lib/rabbit/task/theme.rb:86
+#: ../lib/rabbit/command/rabbit-theme.rb:229 ../lib/rabbit/task/theme.rb:91
 msgid "rabbit-theme-benchmark-en.gem"
 msgstr ""
 
@@ -920,6 +920,14 @@ msgstr ""
 
 #: ../lib/rabbit/action/radio.rb:73
 msgid "Unknown"
+msgstr ""
+
+#: ../lib/rabbit/theme-configuration.rb:48 ../lib/rabbit/slide-configuration.rb:49
+msgid "Failed to read slide configuration: %s: %s"
+msgstr ""
+
+#: ../lib/rabbit/theme-configuration.rb:58 ../lib/rabbit/slide-configuration.rb:59
+msgid "Failed to write slide configuration: %s: %s"
 msgstr ""
 
 #: ../lib/rabbit/gem-finder.rb:46
@@ -1381,7 +1389,7 @@ msgstr ""
 msgid "Displays list items like ones in the website of the Ruby-GNOME2 Project; i.e. displays text of the first-level items colored blue and underlined, the second- and third-level items marked with black squares and circles."
 msgstr ""
 
-#: ../lib/rabbit/theme/default-block-quote/default-block-quote.rb:111
+#: ../lib/rabbit/theme/default-block-quote/default-block-quote.rb:112
 msgid "[cited from `%s']"
 msgstr ""
 
@@ -1777,7 +1785,7 @@ msgstr ""
 msgid "Displays an image as a background of slides."
 msgstr ""
 
-#: ../lib/rabbit/theme/entry.rb:107
+#: ../lib/rabbit/theme/entry.rb:108
 msgid "Etc"
 msgstr ""
 
@@ -2318,11 +2326,11 @@ msgstr ""
 msgid "Displays an image as a logo at the headlines of slides."
 msgstr ""
 
-#: ../lib/rabbit/author-configuration.rb:51
+#: ../lib/rabbit/author-configuration.rb:42
 msgid "Failed to read author configuration: %s: %s"
 msgstr ""
 
-#: ../lib/rabbit/author-configuration.rb:69
+#: ../lib/rabbit/author-configuration.rb:52
 msgid "Failed to write author configuration: %s: %s"
 msgstr ""
 
@@ -2330,11 +2338,11 @@ msgstr ""
 msgid "Creating directory: %s"
 msgstr ""
 
-#: ../lib/rabbit/path-manipulatable.rb:36
+#: ../lib/rabbit/path-manipulatable.rb:33
 msgid "Creating file:      %s"
 msgstr ""
 
-#: ../lib/rabbit/renderer/print/cairo.rb:122
+#: ../lib/rabbit/renderer/print/cairo.rb:130
 msgid "can't find printer for %s"
 msgstr ""
 
@@ -2342,51 +2350,55 @@ msgstr ""
 msgid "%s does not support: %s"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:54
+#: ../lib/rabbit/task/slide.rb:85
 msgid "To run rabbit, create '%{options_file}'!"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:58
+#: ../lib/rabbit/task/slide.rb:89
 msgid "Show slide"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:63 ../lib/rabbit/task/theme.rb:52
+#: ../lib/rabbit/task/slide.rb:94 ../lib/rabbit/task/theme.rb:101
 msgid "Create gem: %{gem_path}"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:73 ../lib/rabbit/task/theme.rb:62
+#: ../lib/rabbit/task/slide.rb:104 ../lib/rabbit/task/theme.rb:113
 msgid "Write %{item} in %{where}: %{content}"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:98 ../lib/rabbit/task/theme.rb:89
+#: ../lib/rabbit/task/slide.rb:128 ../lib/rabbit/task/theme.rb:151
 msgid "Generate PDF: %{pdf_path}"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:101
+#: ../lib/rabbit/task/slide.rb:131
 msgid "Publish the slide to all available targets"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:107 ../lib/rabbit/task/slide.rb:115 ../lib/rabbit/task/slide.rb:136
+#: ../lib/rabbit/task/slide.rb:137 ../lib/rabbit/task/slide.rb:146 ../lib/rabbit/task/slide.rb:170
 msgid "Publish the slide to %s"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:127
+#: ../lib/rabbit/task/slide.rb:158
 msgid "Uploaded successfully!"
 msgstr ""
 
-#: ../lib/rabbit/task/slide.rb:128
+#: ../lib/rabbit/task/slide.rb:159
 msgid "See %s"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:47
+#: ../lib/rabbit/task/theme.rb:89
 msgid "Show theme benchmark slide with this theme"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:92
+#: ../lib/rabbit/task/theme.rb:133
+msgid "Generate all PDFs"
+msgstr ""
+
+#: ../lib/rabbit/task/theme.rb:159
 msgid "Publish the theme to all available targets"
 msgstr ""
 
-#: ../lib/rabbit/task/theme.rb:98
+#: ../lib/rabbit/task/theme.rb:165
 msgid "Publish the theme to %s"
 msgstr ""
 
@@ -2484,6 +2496,10 @@ msgstr ""
 
 #: ../lib/rabbit/source/slide-share.rb:14
 msgid "[USER] and [TITLE]"
+msgstr ""
+
+#: ../lib/rabbit/readme-parser.rb:35
+msgid "No README found"
 msgstr ""
 
 #: ../lib/rabbit/canvas.rb:607
@@ -2761,17 +2777,3 @@ msgstr ""
 #: ../bin/rabbit-theme-manager:125
 msgid "Available commands: %s"
 msgstr ""
-
-
-#. #: ../lib/rabbit/task/slide.rb:107
-#. msgid "Publish the slide to RubyGems.org"
-#. msgstr ""
-
-#. #: ../lib/rabbit/task/slide.rb:115
-#. msgid "Publish the slide to SlideShare"
-#. msgstr ""
-
-#. #: ../lib/rabbit/task/slide.rb:136
-#. msgid "Publish the slide to Spearker Deck"
-#. msgstr ""
-
