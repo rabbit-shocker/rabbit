@@ -167,7 +167,7 @@ module Rabbit
           if @theme.author.rubygems_user
             desc(_("Publish the theme to %s") % "RubyGems.org")
             task :rubygems => :gem do
-              ruby("-S", "gem", "push", "--verbose", gem_path)
+              ruby("-S", "gem", "push", gem_path)
             end
             publish_tasks << :rubygems
           end
