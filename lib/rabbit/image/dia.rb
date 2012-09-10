@@ -20,6 +20,7 @@ module Rabbit
           File.open(filename) do |f|
             first_line = f.gets
             second_line = f.gets
+            return false unless second_line
             return false unless first_line.start_with?("<?xml")
             return false unless second_line.start_with?("<dia:diagram")
             true
