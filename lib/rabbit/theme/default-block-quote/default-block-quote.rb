@@ -133,6 +133,20 @@ render_title_layout = lambda do |layout, block, canvas, x, y, w, h|
 
 end
 
+load_avatar = lambda do |path|
+  return nil if path.nil?
+  image_element(path,
+                "width" => @block_quote_image_width,
+                "keep_ratio" => true)
+end
+
+render_avatar = lambda do |avatar, block, canvas, x, y, w, h|
+  avatar.image_draw(canvas,
+                    x - block.padding_left - block.margin_left,
+                    y)
+end
+
+
 match("**", BlockQuote) do
   name = "block-quote"
 
@@ -178,6 +192,19 @@ match("**", BlockQuote) do
                                             block, canvas, x, y, w, h)
         unless simulation
           render_title_layout.call(layout, block, canvas, x, y, w, h)
+        end
+        [x, y, w, h]
+      end
+    end
+
+    name = "block-quote-avatar"
+    block.delete_post_draw_proc_by_name(name)
+
+    avatar = load_avatar.call(block.avatar)
+    if avatar
+      block.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|
+        unless simulation
+          render_avatar.call(avatar, block, canvas, x, y, w, h)
         end
         [x, y, w, h]
       end

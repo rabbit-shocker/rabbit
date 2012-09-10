@@ -12,11 +12,11 @@ module Rabbit
       include BlockElement
       include BlockHorizontalCentering
 
-      attr_reader :cite, :title
+      attr_reader :cite, :title, :avatar
 
       def initialize(elems=[], prop={})
         super(elems)
-        %w(cite title).each do |name|
+        %w(cite title avatar).each do |name|
           instance_variable_set("@#{name}", prop[name])
         end
       end
