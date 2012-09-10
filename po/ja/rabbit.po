@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-10 21:00+0900\n"
-"PO-Revision-Date: 2012-09-08 15:09+0900\n"
+"PO-Revision-Date: 2012-09-10 21:08+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -943,11 +943,11 @@ msgstr "未知"
 
 #: ../lib/rabbit/theme-configuration.rb:48 ../lib/rabbit/slide-configuration.rb:49
 msgid "Failed to read slide configuration: %s: %s"
-msgstr ""
+msgstr "スライド設定の読み込みに失敗しました: %s: %s"
 
 #: ../lib/rabbit/theme-configuration.rb:58 ../lib/rabbit/slide-configuration.rb:59
 msgid "Failed to write slide configuration: %s: %s"
-msgstr ""
+msgstr "スライド設定の書き込みに失敗しました: %s: %s"
 
 #: ../lib/rabbit/gem-finder.rb:46
 msgid "Installing gem: %s"
@@ -2439,7 +2439,7 @@ msgstr "このテーマでテーマベンチマーク用のスライドを表示
 
 #: ../lib/rabbit/task/theme.rb:133
 msgid "Generate all PDFs"
-msgstr ""
+msgstr "すべてのPDFを生成"
 
 #: ../lib/rabbit/task/theme.rb:159
 msgid "Publish the theme to all available targets"
