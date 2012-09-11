@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -12,9 +13,8 @@
    height="120"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.46"
+   inkscape:version="0.48.3.1 r9886"
    version="1.0"
-   sodipodi:docbase="/.amd_mnt/home/host/nfs/home/kono/kou/work/rd/master-thesis"
    sodipodi:docname="quote.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
@@ -67,15 +67,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.1467795"
-     inkscape:cx="38.42163"
-     inkscape:cy="66.661656"
+     inkscape:cx="38.810223"
+     inkscape:cy="74.433506"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:window-width="941"
      inkscape:window-height="680"
-     inkscape:window-x="327"
-     inkscape:window-y="317"
-     showgrid="false" />
+     inkscape:window-x="2599"
+     inkscape:window-y="270"
+     showgrid="false"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -84,6 +85,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -92,8 +94,8 @@
      inkscape:groupmode="layer"
      id="layer1">
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
        sodipodi:linespacing="125%"
        id="text2389"
@@ -113,15 +115,15 @@
        id="text2192"
        sodipodi:linespacing="125%"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499"><tspan
          sodipodi:role="line"
          id="tspan2198"
          x="45.19878"
          y="60.068813">’</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
        xml:space="preserve"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3211);font-family:URW Bookman L"
@@ -141,15 +143,15 @@
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#458cff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        xml:space="preserve"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499"><tspan
          y="60.068813"
          x="57.198765"
          id="tspan2202"
          sodipodi:role="line">’</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
        xml:space="preserve"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3227);font-family:URW Bookman L"
@@ -169,15 +171,15 @@
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#458cff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        xml:space="preserve"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75"><tspan
          sodipodi:role="line"
          id="tspan2208"
          x="7.5053158"
          y="60.033108">‘</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
        sodipodi:linespacing="125%"
        id="text3215"
@@ -197,8 +199,8 @@
        id="text2210"
        sodipodi:linespacing="125%"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75"><tspan
          y="60.033108"
          x="19.505316"
          id="tspan2212"
@@ -212,11 +214,11 @@
        y="7.1325555"
        rx="9.0967817"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="292.48132"
-       inkscape:export-ydpi="292.48132" />
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75" />
     <rect
-       inkscape:export-ydpi="292.48132"
-       inkscape:export-xdpi="292.48132"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
        rx="9.0991526"
        y="7.1325555"
@@ -232,17 +234,17 @@
        y="88.569"
        id="text2405"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-light-blue.png"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499"><tspan
          sodipodi:role="line"
          id="tspan2407"
          x="45.699001"
          y="88.569">’</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-light-blue.png"
        sodipodi:linespacing="125%"
        id="text2409"
        y="88.068817"
@@ -260,17 +262,17 @@
        x="57.699001"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3211);font-family:URW Bookman L"
        xml:space="preserve"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-light-blue.png"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499"><tspan
          y="88.569"
          x="57.699001"
          id="tspan2415"
          sodipodi:role="line">’</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-light-blue.png"
        xml:space="preserve"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#dfecff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        x="57.198765"
@@ -288,17 +290,17 @@
        x="8.0050001"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3227);font-family:URW Bookman L"
        xml:space="preserve"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-light-blue.png"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75"><tspan
          sodipodi:role="line"
          id="tspan2423"
          x="8.0050001"
          y="88.532997">‘</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-light-blue.png"
        xml:space="preserve"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#dfecff;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        x="7.5053158"
@@ -316,17 +318,17 @@
        y="88.532997"
        id="text2429"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-light-blue.png"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75"><tspan
          y="88.532997"
          x="20.004999"
          id="tspan2431"
          sodipodi:role="line">‘</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-light-blue.png"
        sodipodi:linespacing="125%"
        id="text2433"
        y="88.033112"
@@ -338,8 +340,8 @@
          x="19.505316"
          y="88.033112">‘</tspan></text>
     <rect
-       inkscape:export-ydpi="292.48132"
-       inkscape:export-xdpi="292.48132"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-light-blue.png"
        rx="9.0967817"
        y="35.132553"
@@ -357,12 +359,12 @@
        y="35.132553"
        rx="9.0991526"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-light-blue.png"
-       inkscape:export-xdpi="292.48132"
-       inkscape:export-ydpi="292.48132" />
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499" />
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-brown.png"
        sodipodi:linespacing="125%"
        id="text2441"
        y="114.569"
@@ -380,17 +382,17 @@
        y="114.06882"
        id="text2445"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-brown.png"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499"><tspan
          sodipodi:role="line"
          id="tspan2447"
          x="45.19878"
          y="114.06882">’</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-brown.png"
        xml:space="preserve"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3211);font-family:URW Bookman L"
        x="57.699001"
@@ -408,17 +410,17 @@
        x="57.198765"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#553d0e;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        xml:space="preserve"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-brown.png"
+       inkscape:export-xdpi="2193.1499"
+       inkscape:export-ydpi="2193.1499"><tspan
          y="114.06882"
          x="57.198765"
          id="tspan2455"
          sodipodi:role="line">’</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-brown.png"
        xml:space="preserve"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter3227);font-family:URW Bookman L"
        x="8.0050001"
@@ -436,17 +438,17 @@
        x="7.5053158"
        style="font-size:76px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#553d0e;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:URW Bookman L"
        xml:space="preserve"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-brown.png"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75"><tspan
          sodipodi:role="line"
          id="tspan2463"
          x="7.5053158"
          y="114.03311">‘</tspan></text>
     <text
-       inkscape:export-ydpi="206.86398"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
+       inkscape:export-ydpi="2192.75"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-brown.png"
        sodipodi:linespacing="125%"
        id="text2465"
        y="114.53299"
@@ -464,9 +466,9 @@
        y="114.03311"
        id="text2469"
        sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-blue.png"
-       inkscape:export-xdpi="206.86398"
-       inkscape:export-ydpi="206.86398"><tspan
+       inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-brown.png"
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75"><tspan
          y="114.03311"
          x="19.505316"
          id="tspan2471"
@@ -480,11 +482,11 @@
        y="61.132553"
        rx="9.0967817"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/open-quote-brown.png"
-       inkscape:export-xdpi="292.48132"
-       inkscape:export-ydpi="292.48132" />
+       inkscape:export-xdpi="2192.75"
+       inkscape:export-ydpi="2192.75" />
     <rect
-       inkscape:export-ydpi="292.48132"
-       inkscape:export-xdpi="292.48132"
+       inkscape:export-ydpi="2193.1499"
+       inkscape:export-xdpi="2193.1499"
        inkscape:export-filename="/home/kou/work/ruby/rabbit/data/rabbit/image/rabbit-images/close-quote-brown.png"
        rx="9.0991526"
        y="61.132553"
