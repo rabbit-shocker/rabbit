@@ -3,6 +3,31 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.4: 2012-09-12
+
+A bug fix release.
+
+=== Improvements
+
+==== rabbit-slide
+
+  * --title is used for generated slide title.
+    [Reported by znz]
+
+==== Theme
+
+  * Increased quote image resolution.
+
+=== Fixes
+
+==== Theme
+
+  * Fix a bug that image reflection doesnt' work.
+
+=== Thanks
+
+  * znz
+
 == 2.0.3: 2012-09-10
 
 This release improves block quote style.
