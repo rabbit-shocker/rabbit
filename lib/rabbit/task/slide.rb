@@ -157,8 +157,7 @@ module Rabbit
             publish_tasks << :rubygems
           end
 
-          slideshare_user = @slide.author.slideshare_user
-          if slideshare_user
+          if @slide.author.slideshare_user
             define_publish_slideshare_task
             publish_tasks << :slideshare
           end
@@ -179,6 +178,7 @@ module Rabbit
       end
 
       def define_publish_slideshare_task
+        slideshare_user = @slide.author.slideshare_user
         desc(_("Publish the slide to %s" % "SlideShare"))
         task :slideshare => [:pdf, "gem:validate"] do
           require "rabbit/slideshare"
