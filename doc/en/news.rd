@@ -20,6 +20,12 @@ A bug fix release.
 
 === Fixes
 
+==== rabbit-slide
+
+  * Fixed a bug that rake publish:slideshare doesn't work. The task
+    publishes your slide to SlideShare.
+    [GitHub#8] [Patch by myokoym]
+
 ==== Theme
 
   * Fix a bug that image reflection doesnt' work.
@@ -27,6 +33,7 @@ A bug fix release.
 === Thanks
 
   * znz
+  * myokoym
 
 == 2.0.3: 2012-09-10
 

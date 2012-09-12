@@ -20,6 +20,11 @@ apply_data: false
 
 === 修正
 
+==== rabbit-slide
+
+  * SlideShareへアップロードするrake publish:slideshareが動かない問題を修正。
+    [GitHub#8] [myokoymさんがパッチ提供]
+
 ==== テーマ
 
   * 画像の鏡面反射が効かない問題を修正。
@@ -27,6 +32,7 @@ apply_data: false
 === 感謝
 
   * znzさん
+  * myokoymさん
 
 == 2.0.3: 2012-09-10
 
