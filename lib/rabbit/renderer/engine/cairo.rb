@@ -266,7 +266,11 @@ module Rabbit
           width = (params[:width] || pixbuf.width).to_f
           height = (params[:height] || pixbuf.height).to_f
 
-          return pixbuf if [width, height] == [pixbuf.width, pixbuf.height]
+          if [width, height] == [pixbuf.width, pixbuf.height]
+            @context.set_source_pixbuf(pixbuf, 0, 0)
+            return
+          end
+
           case draw_scaled_pixbuf
           when true
             scaled_pixbuf = pixbuf.scale(width, height)
