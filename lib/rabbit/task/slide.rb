@@ -202,7 +202,7 @@ module Rabbit
       end
 
       def define_publish_speaker_deck_task
-        desc(_("Publish the slide to %s" % "Spearker Deck"))
+        desc(_("Publish the slide to %s" % "Speaker Deck"))
         task :speaker_deck => :pdf do
           puts "Not implemented yet."
         end
