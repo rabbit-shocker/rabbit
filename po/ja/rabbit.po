@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-09-10 21:08+0900\n"
-"PO-Revision-Date: 2012-09-10 21:20+0900\n"
+"PO-Revision-Date: 2012-09-14 07:37+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@dolphin.c.u-tokyo.ac.jp>\n"
 "Language: \n"
@@ -2547,7 +2547,7 @@ msgstr "[USER]と[TITLE]"
 
 #: ../lib/rabbit/readme-parser.rb:35
 msgid "No README found"
-msgstr ""
+msgstr "READMEがありません"
 
 #: ../lib/rabbit/canvas.rb:607
 msgid "Unknown action: %s"
