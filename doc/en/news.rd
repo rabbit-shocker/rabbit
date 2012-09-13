@@ -3,6 +3,21 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.5: 2012-09-14
+
+A bug fix release.
+
+=== Fixes
+
+==== Theme
+
+  * Fixed a bug that resized image isn't drawn
+    [rabbit-shocker:1057] [Reported by znz]
+
+=== Thanks
+
+  * znz
+
 == 2.0.4: 2012-09-12
 
 A bug fix release.
