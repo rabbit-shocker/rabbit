@@ -142,7 +142,9 @@ module Rabbit
         namespace :pdf do
           theme_benchmark_locales.each do |locale|
             pdf_path = theme_benchmark_pdf_path(locale)
-            files_without_pdf = spec.files - Dir.glob("#{@pdf_dir}/*/*.pdf")
+            files_without_pdf = spec.files.reject do |file|
+              file.start_with?("#{@pdf_dir}/")
+            end
             file pdf_path => files_without_pdf do
               mkdir_p(@pdf_dir)
               rabbit("--theme", ".",
