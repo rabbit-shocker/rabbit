@@ -660,7 +660,7 @@ module Rabbit
         rest_arguments = @options.rest
         if @options.source_type == :auto
           if rest_arguments.empty?
-            file_name = choose_source_file_by_dialog(options)
+            file_name = choose_source_file_by_dialog(@options)
             exit if file_name.nil?
             rest_arguments = [file_name]
             @options.source_type = Source::File
