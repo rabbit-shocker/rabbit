@@ -26,6 +26,9 @@ require "rabbit/command/rabbit"
 module Rabbit
   module Task
     class SlideShare
+      class Error < StandardError
+      end
+
       include GetText
 
       BASE_URL = "https://www.slideshare.net"
@@ -50,6 +53,26 @@ module Rabbit
       end
 
       def upload
+        id = nil
+        begin
+          id = upload_slide
+        rescue Error
+          @logger.error(_("Feailed to upload: %s") % $!.message)
+          return nil
+        end
+
+        slide_url = nil
+        begin
+          sldie_url = slide_url(id)
+        rescue Error
+          @logger.error(_("Feailed to get slide URL: %s") % $!.message)
+          return nil
+        end
+        slide_url
+      end
+
+      private
+      def upload_slide
         payload = {
           :username              => @user,
           :password              => password,
@@ -59,15 +82,38 @@ module Rabbit
           :slideshow_description => @description,
           :tags                  => @tags.join(","),
         }
+        response = post("upload_slideshow", payload)
+        parse_upload_slideshow_response(response)
+      end
+
+      def slide_url(id)
+        payload = {
+          :slideshow_id => id,
+        }
+        response = get("get_slideshow", payload)
+        parse_get_slideshow_response(response)
+      end
+
+      def prepare_payload(payload)
         payload = common_payload.merge(payload)
         payload.keys.each do |key|
           payload.delete(key) if payload[key].nil?
         end
-        parse_response(@connection.post("#{API_PATH_PREFIX}/upload_slideshow",
-                                        payload))
+        payload
       end
 
-      private
+      def get(command, payload)
+        @connection.get(api_url(command), prepare_payload(payload))
+      end
+
+      def post(command, payload)
+        @connection.post(api_url(command), prepare_payload(payload))
+      end
+
+      def api_url(command)
+        "#{API_PATH_PREFIX}/#{command}"
+      end
+
       def password
         @password ||= read_password(_("Enter password on SlideShare"))
       end
@@ -96,20 +142,27 @@ module Rabbit
         @logger.debug(http_response.body)
 
         unless http_response.success?
-          detail = "#{http_response.status}\n#{http_response.body}"
-          @logger.error(_("Failed to upload: %s") % detail)
-          return nil
+          raise Error, "#{http_response.status}\n#{http_response.body}"
         end
 
-        puts http_response.body
         response = Nokogiri::XML(http_response.body)
         if response.root.name == "SlideShareServiceError"
           message = response.root.elements[0]
-          @logger.error("Failed to upload: %s" % message.text)
-          nil
-        else
-          response.xpath("/SlideShowUploaded/SlideShowID").text.to_i
+          raise Error, message
         end
+
+        response
+      end
+
+      def parse_upload_slideshow_response(http_response)
+        response = parse_response(http_response)
+        response.xpath("/SlideShowUploaded/SlideShowID").text.to_i
+      end
+
+
+      def parse_get_slideshow_response(http_response)
+        response = parse_response(http_response)
+        response.xpath("/Slideshow/URL").text
       end
     end
   end
