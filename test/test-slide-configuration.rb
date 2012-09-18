@@ -40,6 +40,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "slideshare_id"     => "rabbit-14073776",
       "speaker_deck_id"   => "rabbit-debian",
       "ustream_id"        => "25451894",
+      "vimeo_id"          => "00000000",
       "author"            => author_conf,
     }
     @slide.merge!(conf)
