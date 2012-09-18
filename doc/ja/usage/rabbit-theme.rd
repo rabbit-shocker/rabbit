@@ -29,7 +29,7 @@ TODO: RubyGems.orgに公開したスライドは
 
 以下は札幌Ruby会議2012用のテーマの雛形を生成するコマンドです。
 
-  % rabbit-slide new \
+  % rabbit-theme new \
      --id sprk2012 \
      --name "Kouhei Sutou" \
      --email kou@cozmixng.org \
