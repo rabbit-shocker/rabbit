@@ -8,9 +8,9 @@ no_sidebar: true
   <p>{{ site.release_date }}にリリースされた<a href="/ja/news.html">{{ site.version }}</a>が最新リリースです。</p>
 </div>
 
-<section class="screenshots">
+<section id="screenshots">
   <h2>スクリーンショット</h2>
-  <ul id="screenshots">
+  <ul>
     <li><img src="images/screenshots/ja/blue-circle.png"
              alt="青い円テーマ" /></li>
     <li><img src="images/screenshots/ja/clear-blue.png"

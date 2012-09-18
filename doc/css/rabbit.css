@@ -140,23 +140,29 @@ div.latest-release p
     margin: 0;
 }
 
-section.screenshots h2
+section#screenshots
+{
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+section#screenshots h2
 {
     display: none;
 }
 
-ul#screenshots
+section#screenshots ul
 {
     margin: 0;
     padding-bottom: 0;
     padding-top: 15px;
-    text-align: center;
     display: block;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-ul#screenshots li
+section#screenshots ul li
 {
     display: inline;
 }
