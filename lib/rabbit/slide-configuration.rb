@@ -32,7 +32,7 @@ module Rabbit
 
     attr_accessor :logger
     attr_accessor :id, :base_name, :tags, :presentation_date
-    attr_accessor :licenses, :slideshare_id, :speaker_deck_id
+    attr_accessor :licenses, :slideshare_id, :speaker_deck_id, :ustream_id
     attr_writer :version
     attr_accessor :author
     def initialize(logger=nil)
@@ -69,6 +69,7 @@ module Rabbit
       @licenses          = []
       @slideshare_id     = nil
       @speaker_deck_id   = nil
+      @ustream_id        = nil
       @author            = nil
     end
 
@@ -79,6 +80,7 @@ module Rabbit
       @version           ||= conf["version"]
       @slideshare_id     ||= conf["slideshare_id"]
       @speaker_deck_id   ||= conf["speaker_deck_id"]
+      @ustream_id        ||= conf["ustream_id"]
 
       @tags              |=  (conf["tags"] || [])
       @licenses          |=  (conf["licenses"] || [])
@@ -97,6 +99,7 @@ module Rabbit
         "licenses"          => @licenses,
         "slideshare_id"     => @slideshare_id,
         "speaker_deck_id"   => @speaker_deck_id,
+        "ustream_id"        => @ustream_id,
       }
       config["author"] = @author.to_hash if @author
       config

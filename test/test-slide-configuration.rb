@@ -39,6 +39,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "licenses"          => ["GPLv3+", "GFDL", "CC BY-SA 3.0"],
       "slideshare_id"     => "rabbit-14073776",
       "speaker_deck_id"   => "rabbit-debian",
+      "ustream_id"        => "25451894",
       "author"            => author_conf,
     }
     @slide.merge!(conf)
