@@ -246,6 +246,21 @@ div#body nav#sidebar
     width: 230px;
 }
 
+div#body nav#sidebar ul.related-sites
+{
+    display: block;
+    margin: 0;
+    padding: 0;
+    padding-left: 20px;
+}
+
+div#body nav#sidebar ul.related-sites li
+{
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
 nav p.note
 {
     position: absolute;
