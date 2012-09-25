@@ -61,14 +61,14 @@ module Rabbit
           return nil
         end
 
-        slide_url = nil
+        url = nil
         begin
-          sldie_url = slide_url(id)
+          url = slide_url(id)
         rescue Error
           @logger.error(_("Feailed to get slide URL: %s") % $!.message)
           return nil
         end
-        slide_url
+        url
       end
 
       private
