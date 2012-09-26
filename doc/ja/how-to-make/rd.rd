@@ -53,7 +53,17 @@ TODO: 他にもメタデータが増えているはず。
 verbatim blockとして記述します。詳しくはsample/rabbit.rdを見
 てください。
 
-TODO: ここに書き方を入れる。
+  # image
+  # src = lavie.png
+  # caption = Lavie
+  # width = 100
+  # height = 100
+この例では、スライドのあるディレクトリにある、lavie.pngとい
+ファイルをLavieというキャプションで表示します。
+  #  # normalized_width = 50
+  #  # normalized_height = 50
+  #  # relative_width = 100
+  #  # relative_height = 50
 
 === 実体参照
 
