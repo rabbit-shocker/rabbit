@@ -36,11 +36,12 @@ module Rabbit
       API_KEY = "NB1B0IzS"
       SHARED_SECRET = "iuTFlPzU"
 
-      attr_accessor :user, :pdf_path, :title, :description, :tags
+      attr_accessor :user, :pdf_path, :id, :title, :description, :tags
       def initialize(logger)
         @logger = logger
         @user = nil
         @pdf_path = nil
+        @id = nil
         @title = nil
         @description = nil
         @tags = []
@@ -61,6 +62,13 @@ module Rabbit
           return nil
         end
 
+        begin
+          edit_title(id)
+        rescue Error
+          @logger.error(_("Feailed to edit title: %s") % $!.message)
+          return nil
+        end
+
         url = nil
         begin
           url = slide_url(id)
@@ -76,7 +84,7 @@ module Rabbit
         payload = {
           :username              => @user,
           :password              => password,
-          :slideshow_title       => @title,
+          :slideshow_title       => upload_title,
           :slideshow_srcfile     => Faraday::UploadIO.new(@pdf_path,
                                                           "application/pdf"),
           :slideshow_description => @description,
@@ -84,6 +92,17 @@ module Rabbit
         }
         response = post("upload_slideshow", payload)
         parse_upload_slideshow_response(response)
+      end
+
+      def edit_title(id)
+        payload = {
+          :username              => @user,
+          :password              => password,
+          :slideshow_id          => id,
+          :slideshow_title       => @title,
+        }
+        response = get("edit_slideshow", payload)
+        parse_edit_slideshow_response(response)
       end
 
       def slide_url(id)
@@ -112,6 +131,10 @@ module Rabbit
 
       def api_url(command)
         "#{API_PATH_PREFIX}/#{command}"
+      end
+
+      def upload_title
+        @id.gsub(/-/, " ")
       end
 
       def password
@@ -159,6 +182,10 @@ module Rabbit
         response.xpath("/SlideShowUploaded/SlideShowID").text.to_i
       end
 
+      def parse_edit_slideshow_response(http_response)
+        response = parse_response(http_response)
+        response.xpath("/SlideShowEdited/SlideShowID").text.to_i
+      end
 
       def parse_get_slideshow_response(http_response)
         response = parse_response(http_response)
