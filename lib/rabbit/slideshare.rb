@@ -54,16 +54,16 @@ module Rabbit
       end
 
       def upload
-        id = nil
+        slideshow_id = nil
         begin
-          id = upload_slide
+          slideshow_id = upload_slide
         rescue Error
           @logger.error(_("Feailed to upload: %s") % $!.message)
           return nil
         end
 
         begin
-          edit_title(id)
+          edit_title(slideshow_id)
         rescue Error
           @logger.error(_("Feailed to edit title: %s") % $!.message)
           return nil
@@ -71,7 +71,7 @@ module Rabbit
 
         url = nil
         begin
-          url = slide_url(id)
+          url = slide_url(slideshow_id)
         rescue Error
           @logger.error(_("Feailed to get slide URL: %s") % $!.message)
           return nil
@@ -94,20 +94,20 @@ module Rabbit
         parse_upload_slideshow_response(response)
       end
 
-      def edit_title(id)
+      def edit_title(slideshow_id)
         payload = {
           :username              => @user,
           :password              => password,
-          :slideshow_id          => id,
+          :slideshow_id          => slideshow_id,
           :slideshow_title       => @title,
         }
         response = get("edit_slideshow", payload)
         parse_edit_slideshow_response(response)
       end
 
-      def slide_url(id)
+      def slide_url(slideshow_id)
         payload = {
-          :slideshow_id => id,
+          :slideshow_id => slideshow_id,
         }
         response = get("get_slideshow", payload)
         parse_get_slideshow_response(response)
