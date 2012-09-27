@@ -185,6 +185,7 @@ module Rabbit
           slideshare = SlideShare.new(@logger)
           slideshare.user = slideshare_user
           slideshare.pdf_path = pdf_path
+          slideshare.id = @slide.id
           slideshare.title = spec.summary
           slideshare.description = spec.description
           slideshare.tags = @tags if @tags
