@@ -50,20 +50,37 @@ TODO: 他にもメタデータが増えているはず。
 
 === 画像
 
-verbatim blockとして記述します。詳しくはsample/rabbit.rdを見
-てください。
+verbatim blockとして記述します。
+
+最初の行は「(({# image}))」からはじめます。「(({src = 画像のパス}))」は
+必ず指定しなければいけません。以下はスライドと同じディレクトリにある
+(({lavie.png}))を表示する例です。
+
+  # image
+  # src = lavie.png
+
+「(({caption = キャプション}))」でキャプションも指定できます。
 
   # image
   # src = lavie.png
   # caption = Lavie
-  # width = 100
-  # height = 100
-この例では、スライドのあるディレクトリにある、lavie.pngとい
-ファイルをLavieというキャプションで表示します。
-  #  # normalized_width = 50
-  #  # normalized_height = 50
-  #  # relative_width = 100
-  #  # relative_height = 50
+
+「(({relative_width = 90}))」を指定するとスライドの横幅ほとんどを使って
+大きく画像を表示します。横長の画像を大きく表示するときはこの指定をする
+とよいでしょう。
+
+  # image
+  # src = lavie.png
+  # relative_width = 90
+
+縦長の画像は「(({relative_height = 90}))」を指定してください。スライド
+の縦幅ほとんどを使って大きく画像を表示します。
+
+  # image
+  # src = lavie.png
+  # relative_height = 90
+
+TODO: 指定できるオプションのリストを書く
 
 === 実体参照
 
