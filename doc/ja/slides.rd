@@ -7,7 +7,7 @@ title: スライド
 Rabbitで作ったスライドがたくさん公開されています。Rabbitで作っ
 たスライドを公開したら自由に追加してください。
 
-* ((<kou|URL:http://pub.cozmixng.org/~kou/archives/TokyoRubyKaigi01/>))
+* ((<kou|URL:http://slide.rabbit-shocker.org/authors/kou/>))
 * ((<zunda|URL:http://zunda.freeshell.org/d/?year=2004;month=3Q;category=rabbit>))さん
 * ((<oxy|URL:http://mono.kmc.gr.jp/~oxy/d/?date=20041019#p02>))さん
 * かずひこさん
