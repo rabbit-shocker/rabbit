@@ -7,6 +7,7 @@ require "rabbit/image/base"
 module Rabbit
   module ImageManipulable
     class PDF < Base
+      include GetText
 
       unshift_loader(self)
 
