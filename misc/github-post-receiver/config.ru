@@ -116,7 +116,7 @@ class GitHubPostReceiver
   end
 
   def tmp_dir
-    File.join(File.dirname(__FILE__), "tmp")
+    File.expand_path(File.join(File.dirname(__FILE__), "tmp"))
   end
 end
 
