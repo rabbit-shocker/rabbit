@@ -50,10 +50,12 @@ module Rabbit
         begin
           index = Integer(index)
         rescue ArgumentError
+          message = _("invalid PDF page number: <%s>") % index.inspect
+          raise ImageLoadError.new("#{@filename}: #{message}")
         end
         _page = @document[index - 1]
         if _page.nil?
-          message = _("%s page doesn't exist in PDF") % index.inspect
+          message = _("%s page doesn't exist in PDF") % index
           raise ImageLoadError.new("#{@filename}: #{message}")
         end
         _page
