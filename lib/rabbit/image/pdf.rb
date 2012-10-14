@@ -28,7 +28,7 @@ module Rabbit
       end
 
       def draw(canvas, x, y, params={})
-        if @doc and canvas.poppler_available?
+        if @document and canvas.poppler_available?
           default_params = {
             :width => width,
             :height => height,
@@ -50,7 +50,7 @@ module Rabbit
           index = Integer(index)
         rescue ArgumentError
         end
-        _page = @doc[index]
+        _page = @document[index]
         if _page.nil?
           message = _("%s page doesn't exist in PDF") % index.inspect
           raise ImageLoadError.new("#{@filename}: #{message}")
@@ -59,7 +59,7 @@ module Rabbit
       end
 
       def update_size
-        @doc = Poppler::Document.new(uri)
+        @document = Poppler::Document.new(uri)
         @width, @height = page.size
       end
 
