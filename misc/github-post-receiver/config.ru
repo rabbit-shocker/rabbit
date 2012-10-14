@@ -107,12 +107,18 @@ class GitHubPostReceiver
   def update
     env = {}
     rake = Gem.bin_path("rake", "rake")
-    Process.spawn(env,
-                  Gem.ruby, rake, "update", "html:publish:local",
-                  {
-                    :chdir => top_dir,
-                    [:out, :err] => File.join(tmp_dir, "update.log"),
-                  })
+    File.open("/dev/null") do |null|
+      File.open(File.join(tmp_dir, "update.log")) do |log|
+        options = {
+          :chdir => top_dir,
+          :in => null,
+          [:out, :err] => log,
+        }
+        Process.spawn(env,
+                      Gem.ruby, rake, "update", "html:publish:local",
+                      options)
+      end
+    end
   end
 
   def top_dir
