@@ -182,6 +182,14 @@ end
 
 task :update do
   sh("git", "pull", "--rebase")
+  related_projects = ["rabbirack", "rabbiter", "rabwii"]
+  related_projects.each do |project|
+    project_dir = "../#{project}"
+    next unless File.exist?(project_dir)
+    Dir.chdir(project_dir) do
+      sh("git", "pull", "--rebase")
+    end
+  end
 end
 
 task :build => "gettext"
