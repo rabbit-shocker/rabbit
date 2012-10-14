@@ -100,7 +100,7 @@ class GitHubPostReceiver
     end
   end
 
-  def rabbit_shorker_repository?(repository)
+  def rabbit_shocker_repository?(repository)
     repository["owner"]["name"] == "rabbit-shocker"
   end
 
