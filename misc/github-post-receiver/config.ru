@@ -107,10 +107,8 @@ class GitHubPostReceiver
   end
 end
 
-map "/post-receiver/" do
-  receiver = lambda do |env|
-    receiver = GitHubPostReceiver.new(env)
-    receiver.run
-  end
-  run receiver
+receiver = lambda do |env|
+  receiver = GitHubPostReceiver.new(env)
+  receiver.run
 end
+run receiver
