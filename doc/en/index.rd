@@ -176,7 +176,7 @@ The author of
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-white.jpg
 and
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg
-is norio. And it's licensed by CC-by-3.0.
+is norio. And it's licensed by CC-BY-3.0.
 
 If you want to get a copy of the mascot character PSD files
 ask the program author. He'll forward the request to the

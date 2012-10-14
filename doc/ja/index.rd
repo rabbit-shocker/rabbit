@@ -175,7 +175,7 @@ Framework|URL:http://prototype.conio.net/>))を見てください。
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-white.jpg
 と
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg
-の作者はnorioさんでラインセンスはCC-by-3.0です。
+の作者はnorioさんでラインセンスはCC-BY-3.0です。
 
 == メーリングリスト
 
