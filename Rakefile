@@ -25,7 +25,8 @@ require "gettext/task"
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
-rsync_base_path = "rabbit@rabbit-shocker.org:public_html/"
+rsync_local_path = "~/public_html/"
+rsync_base_path = "rabbit@rabbit-shocker.org:#{rsync_local_path}"
 
 helper = Bundler::GemHelper.new(base_dir)
 def helper.version_tag
@@ -150,21 +151,32 @@ EOC
   desc "generate HTML and needed files."
   task :generate => screenshots do
     Dir.chdir("doc") do
+      rm_rf("_site")
       sh("ruby", "-S", "jekyll")
     end
   end
 
-  desc "publish HTML."
-  task :publish => :generate do
-    sh("rsync", "-avz", "--delete",
-       "--exclude", "*.svn",
-       "--exclude", "*-raw.png",
-       "--exclude", "*.svg",
-       "--exclude", "*.rab",
-       "--exclude", "/download/",
-       "--exclude", "/samples/",
-       "doc/_site/",
-       rsync_base_path)
+  namespace :publish do
+    dependencies = ["html:generate"]
+    rsync_command_line = [
+      "rsync", "-avz", "--delete",
+      "--exclude", "*.svn",
+      "--exclude", "*-raw.png",
+      "--exclude", "*.svg",
+      "--exclude", "*.rab",
+      "--exclude", "/download/",
+      "--exclude", "/samples/",
+      "doc/_site/",
+    ]
+    desc "publish HTML to remote."
+    task :remote => dependencies do
+      sh(*(rsync_command_line + [rsync_base_path]))
+    end
+
+    desc "publish HTML to local."
+    task :local => dependencies do
+      sh(*(rsync_command_line + [File.expand_path(rsync_local_path)]))
+    end
   end
 end
 
