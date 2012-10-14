@@ -180,6 +180,10 @@ EOC
   end
 end
 
+task :update do
+  sh("git", "pull", "--rebase")
+end
+
 task :build => "gettext"
 task :package => "gettext"
 
