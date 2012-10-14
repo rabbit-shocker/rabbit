@@ -45,12 +45,12 @@ module Rabbit
 
       private
       def page
-        index = self["page"] || 0
+        index = self["page"] || 1
         begin
           index = Integer(index)
         rescue ArgumentError
         end
-        _page = @document[index]
+        _page = @document[index - 1]
         if _page.nil?
           message = _("%s page doesn't exist in PDF") % index.inspect
           raise ImageLoadError.new("#{@filename}: #{message}")
