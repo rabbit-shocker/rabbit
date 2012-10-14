@@ -13,8 +13,8 @@ module Rabbit
       class << self
         def match?(filename)
           return true if File.extname(filename) == ".pdf"
-          File.open(filename) do |f|
-            line = f.gets
+          File.open(filename) do |file|
+            line = file.gets
             return false if line.nil?
 
             begin
