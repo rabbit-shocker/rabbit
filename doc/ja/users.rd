@@ -8,8 +8,22 @@ Rabbitユーザのコミュニティとして「Rabbitショッカー」があ�
 
 == 活動の場
 
-Rabbitショッカーの活動場所はプレゼンテーションの場以外にもいくつか
-あります。
+Rabbitショッカーの主な活動場所はプレゼンテーションの場です。ただし、プ
+レゼンテーションの場に限らずいくつか活動場所があります。
+
+=== slide.rabbit-shocker.org
+
+RabbitショッカーのみなさんはRabbitを使ってプレゼンテーションした後は使っ
+たスライドを
+((<slide.rabbit-shocker.org|URL:http://slide.rabbit-shocker.org/>))へアッ
+プロードしています。slide.rabbit-shocker.orgへ行けばRabbitでどんなスラ
+イドを作れるかを確認することができます。
+
+あなたもRabbitショッカーとしてプレゼンテーションしたらスライドを
+slide.rabbit-shocker.orgへアップロードしましょう。
+
+アップロード方法については((<"usage/rabbit-slide.rb"|rabbit-slideコマン
+ドの使い方>))に書かれています。
 
 === メーリングリスト
 
