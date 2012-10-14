@@ -93,7 +93,7 @@ class GitHubPostReceiver
   end
 
   def update
-    Process.spawn(["rake", "html:publish:local"],
+    Process.spawn(["rake", "update", "html:publish:local"],
                   :chdir => top_dir,
                   [:out, :err] => File.open(File.join(tmp_dir, "update.log")))
   end
