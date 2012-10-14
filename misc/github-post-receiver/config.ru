@@ -52,9 +52,10 @@ class GitHubPostReceiver
     payload = parse_payload
     return if payload.nil?
 
-    return unless rabbit_repository?(payload["repository"])
-    update if need_update?(payload)
-    restart if need_restart?(payload)
+    return unless rabbit_shocker_repository?(payload["repository"])
+
+    update_site if need_update_site?(payload)
+    update_github_post_receiver if need_update_github_post_receiver?(payload)
   end
 
   def parse_payload
@@ -85,21 +86,22 @@ class GitHubPostReceiver
     end
   end
 
-  def need_update?(payload)
+  def need_update_site?(payload)
     payload["commits"].any? do |commit|
       doc_directory_changed?(commit)
     end
   end
 
-  def need_restart(payload)
+  def need_update_github_post_receiver?(payload)
+    return false unless payload["repository"]["name"] == "rabbit"
+
     payload["commits"].any? do |commit|
       github_post_receiver_changed?(commit)
     end
   end
 
-  def rabbit_repository?(repository)
-    repository["name"] == "rabbit" and
-      repository["owner"]["name"] == "rabbit-shocker"
+  def rabbit_shorker_repository?(repository)
+    repository["owner"]["name"] == "rabbit-shocker"
   end
 
   def effected_files(commit)
@@ -122,27 +124,34 @@ class GitHubPostReceiver
     end
   end
 
-  def update
+  def update_site
+    rake(["update", "html:publish:local"],
+         :log_file_name => "update-site.log")
+  end
+
+  def update_github_post_receiver
+    rake(["update", "github:post_receiver:restart"],
+         :log_file_name => "update-github-post-receiver.log")
+  end
+
+  def rake(rake_options, options={})
+    log_file_name = File.join(tmp_dir, options[:log_file_name] || "rake.log")
     env = {
       "LANG" => "ja_JP.UTF-8",
     }
     rake = Gem.bin_path("rake", "rake")
     File.open("/dev/null") do |null|
-      File.open(File.join(tmp_dir, "update.log"), "w") do |log|
+      File.open(log_file_name, "w") do |log|
         options = {
           :chdir => top_dir,
           :in => null,
           [:out, :err] => log,
         }
         Process.spawn(env,
-                      "xvfb-run", Gem.ruby, rake, "update", "html:publish:local",
+                      "xvfb-run", Gem.ruby, rake, *rake_options,
                       options)
       end
     end
-  end
-
-  def restart
-    FileUtils.touch(tmp_dir, "restart.txt")
   end
 
   def top_dir

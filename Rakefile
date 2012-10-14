@@ -215,3 +215,12 @@ namespace :package do
     rm(htaccess)
   end
 end
+
+namespace :github do
+  namespace :post_receiver do
+    desc "Restart GitHub POST receiver"
+    task :restart do
+      touch("misc/github-post-receiver/tmp/restart.txt")
+    end
+  end
+end
