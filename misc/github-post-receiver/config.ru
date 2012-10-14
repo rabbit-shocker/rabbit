@@ -105,7 +105,9 @@ class GitHubPostReceiver
   end
 
   def update
-    env = {}
+    env = {
+      "LANG" => "ja_JP.UTF-8",
+    }
     rake = Gem.bin_path("rake", "rake")
     File.open("/dev/null") do |null|
       File.open(File.join(tmp_dir, "update.log"), "w") do |log|
