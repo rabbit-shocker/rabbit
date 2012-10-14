@@ -181,13 +181,14 @@ EOC
 end
 
 task :update do
-  sh("git", "pull", "--rebase")
+  update_command = ["git", "pull", "--quiet", "--rebase"]
+  sh(*update_command)
   related_projects = ["rabbirack", "rabbiter", "rabwii"]
   related_projects.each do |project|
     project_dir = "../#{project}"
     next unless File.exist?(project_dir)
     Dir.chdir(project_dir) do
-      sh("git", "pull", "--rebase")
+      sh(*update_command)
     end
   end
 end
