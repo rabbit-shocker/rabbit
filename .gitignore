@@ -6,3 +6,4 @@
 /po/*/rabbit.po~
 /po/rabbit.pot
 /data/locale/*/LC_MESSAGES/*.mo
+/misc/github-post-receiver/config.yaml
