@@ -108,7 +108,7 @@ class GitHubPostReceiver
     env = {}
     rake = Gem.bin_path("rake", "rake")
     File.open("/dev/null") do |null|
-      File.open(File.join(tmp_dir, "update.log")) do |log|
+      File.open(File.join(tmp_dir, "update.log"), "w") do |log|
         options = {
           :chdir => top_dir,
           :in => null,
