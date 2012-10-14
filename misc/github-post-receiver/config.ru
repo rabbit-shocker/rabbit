@@ -115,7 +115,7 @@ class GitHubPostReceiver
           [:out, :err] => log,
         }
         Process.spawn(env,
-                      Gem.ruby, rake, "update", "html:publish:local",
+                      "xvfb-run", Gem.ruby, rake, "update", "html:publish:local",
                       options)
       end
     end
