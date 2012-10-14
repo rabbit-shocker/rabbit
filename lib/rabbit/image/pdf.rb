@@ -15,10 +15,14 @@ module Rabbit
           return true if File.extname(filename) == ".pdf"
           File.open(filename) do |f|
             line = f.gets
-            line and /\A%PDF-1\.\d\z/ =~ line.chomp
+            return false if line.nil?
+
+            begin
+              /\A%PDF-1\.\d\z/ =~ line.chomp
+            rescue ArgumentError
+              false
+            end
           end
-        rescue ArgumentError
-          false
         end
       end
 
