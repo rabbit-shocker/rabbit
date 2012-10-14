@@ -17,10 +17,22 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "json"
+require "yaml"
+require "pathname"
+require "racknga"
 
 use Rack::CommonLogger
 use Rack::Runtime
 use Rack::ContentLength
+
+base_dir = Pathname(__FILE__).dirname
+config_file = base_dir + "config.yaml"
+if config_file.exist?
+  options = YAML.load_file(config_file.to_s)
+  notifier_options = options[:exception_notifier]
+  notifiers = [Racknga::ExceptionMailNotifier.new(notifier_options)]
+  use Racknga::Middleware::ExceptionNotifier, :notifiers => notifiers
+end
 
 class GitHubPostReceiver
   def initialize(env)
