@@ -16,6 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+requier "fileutils"
 require "json"
 require "yaml"
 require "pathname"
@@ -51,7 +52,9 @@ class GitHubPostReceiver
     payload = parse_payload
     return if payload.nil?
 
+    return unless rabbit_repository?(payload["repository"])
     update if need_update?(payload)
+    restart if need_restart?(payload)
   end
 
   def parse_payload
@@ -83,9 +86,14 @@ class GitHubPostReceiver
   end
 
   def need_update?(payload)
-    return false unless rabbit_repository?(payload["repository"])
     payload["commits"].any? do |commit|
       doc_directory_changed?(commit)
+    end
+  end
+
+  def need_restart(payload)
+    payload["commits"].any? do |commit|
+      github_post_receiver_changed?(commit)
     end
   end
 
@@ -94,13 +102,23 @@ class GitHubPostReceiver
       repository["owner"]["name"] == "rabbit-shocker"
   end
 
+  def effected_files(commit)
+    files = []
+    files |= (commit["added"] || [])
+    files |= (commit["removed"] || [])
+    files |= (commit["modified"] || [])
+    files
+  end
+
   def doc_directory_changed?(commit)
-    effected_files = []
-    effected_files |= (commit["added"] || [])
-    effected_files |= (commit["removed"] || [])
-    effected_files |= (commit["modified"] || [])
-    effected_files.any? do |effected_file|
+    effected_files(commit).any? do |effected_file|
       effected_file.start_with?("doc/")
+    end
+  end
+
+  def github_post_receiver_changed?(commit)
+    effected_files(commit).any? do |effected_file|
+      effected_file.start_with?("misc/github-post-receiver/")
     end
   end
 
@@ -121,6 +139,10 @@ class GitHubPostReceiver
                       options)
       end
     end
+  end
+
+  def restart
+    FileUtils.touch(tmp_dir, "restart.txt")
   end
 
   def top_dir
