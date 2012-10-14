@@ -12,6 +12,7 @@ module Rabbit
 
       class << self
         def match?(filename)
+          return true if File.extname(filename) == ".pdf"
           File.open(filename) do |f|
             line = f.gets
             line and /\A%PDF-1\.\d\z/ =~ line.chomp
