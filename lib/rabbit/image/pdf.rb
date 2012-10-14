@@ -52,7 +52,7 @@ module Rabbit
         end
         _page = @doc[index]
         if _page.nil?
-          message = _("%s page isn't exist in PDF") % index.inspect
+          message = _("%s page doesn't exist in PDF") % index.inspect
           raise ImageLoadError.new("#{@filename}: #{message}")
         end
         _page
