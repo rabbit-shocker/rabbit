@@ -55,7 +55,7 @@ class GitHubPostReceiver
   end
 
   def parse_payload
-    payload = @request.params("payload")
+    payload = @request.params["payload"]
     if payload.nil?
       @response.status = Rack::Utils.status_code(:bad_request)
       @response.write("No payload.")
