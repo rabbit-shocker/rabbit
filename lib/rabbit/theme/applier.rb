@@ -395,7 +395,7 @@ module Rabbit
       end
 
       def font_families
-        canvas.font_families.collect{|x| x.name}
+        canvas.font_families.collect {|x| x.name}
       end
 
       def find_font_family(target_name)
