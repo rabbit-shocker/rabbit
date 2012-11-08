@@ -613,7 +613,7 @@ module Rabbit
         end
 
         options_file = File.join(source, options.options_file)
-        if File.exist?(options_file)
+        if File.file?(options_file)
           options.rest.clear
           console.read_options_file(parser, options, options_file)
         end

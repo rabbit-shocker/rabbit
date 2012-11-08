@@ -69,7 +69,7 @@ module Rabbit
 
       begin
         options_file = options.options_file
-        if options_file and File.exist?(options_file)
+        if options_file and File.file?(options_file)
           read_options_file(parser, options, options_file)
         end
         options.before_hooks.each do |hook|
