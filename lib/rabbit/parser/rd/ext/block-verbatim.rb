@@ -8,6 +8,7 @@ rescue LoadError
 end
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
+require 'rabbit/parser/rd/ext/video'
 require 'rabbit/parser/ext/enscript'
 require 'rabbit/parser/ext/tex'
 require 'rabbit/parser/ext/aafigure'
@@ -21,6 +22,7 @@ module Rabbit
       module Ext
         class BlockVerbatim < Base
           include Image
+          include Video
           include GetText
 
           def default_ext_block_verbatim(label, source, content, visitor)
@@ -58,6 +60,14 @@ module Rabbit
             else
               make_image(visitor, prop['src'], prop)
             end
+          end
+
+          def ext_block_verb_video(label, source, content, visitor)
+            return nil unless /^video$/i =~ label
+            src, prop = parse_source(source)
+            return nil if prop['src'].nil?
+
+            make_video(visitor, prop['src'], prop)
           end
 
           def ext_block_verb_enscript(label, source, content, visitor)
