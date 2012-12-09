@@ -62,6 +62,7 @@ module Rabbit
         Rabbit::Console.parse!(ARGV) do |parser, options|
           setup_options(parser, options)
         end
+        @command = @options.rest.first || default_command
       end
 
       def setup_options(parser, options)
@@ -223,6 +224,14 @@ module Rabbit
         end
       end
 
+      def default_command
+        if File.file(".rabbit")
+          "change"
+        else
+          "new"
+        end
+      end
+
       def validate
         @validation_errors = []
         validate_command
@@ -231,14 +240,10 @@ module Rabbit
       end
 
       def validate_command
-        if @options.rest.empty?
-          @options.rest << "new"
-        end
-        if @options.rest.size != 1
+        if @options.rest.size > 1
           message = _("too many commands: %s") % @options.rest.inspect
           @validation_errors << message
         end
-        @command = @options.rest[0]
         if @command != "new"
           format = _("invalid command: <%s>: available commands: %s")
           message = format % [@command, "[new]"]
