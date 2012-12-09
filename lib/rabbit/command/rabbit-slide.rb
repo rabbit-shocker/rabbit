@@ -73,7 +73,7 @@ module Rabbit
         @slide_conf = SlideConfiguration.new(@logger)
         @slide_conf.author = @author_conf
 
-        format = _("Usage: %s new [options]\n" \
+        format = _("Usage: %s COMMAND [OPTIONS]\n" \
                    " e.g.: %s new \\\n" \
                    "          --id rubykaigi2012 \\\n" \
                    "          --base-name rabbit-introduction \\\n" \
@@ -88,7 +88,11 @@ module Rabbit
         parser.banner = format % [program, program]
 
         parser.separator("")
+        parser.separator(_("COMMAND"))
+        parser.separator(_("  new:    create a new slide"))
+        parser.separator(_("  change: change an existing slide"))
 
+        parser.separator("")
         parser.separator(_("Slide information"))
 
         parser.on("--id=ID",
@@ -232,6 +236,10 @@ module Rabbit
         end
       end
 
+      def available_commands
+        ["new", "change"]
+      end
+
       def validate
         @validation_errors = []
         validate_command
@@ -244,9 +252,9 @@ module Rabbit
           message = _("too many commands: %s") % @options.rest.inspect
           @validation_errors << message
         end
-        if @command != "new"
+        unless available_commands.include?(@command)
           format = _("invalid command: <%s>: available commands: %s")
-          message = format % [@command, "[new]"]
+          message = format % [@command, "[#{available_commands.join(', ')}]"]
           @validation_errors << message
         end
       end
