@@ -229,7 +229,7 @@ module Rabbit
       end
 
       def default_command
-        if File.file(".rabbit")
+        if File.file("config.yaml")
           "change"
         else
           "new"
@@ -277,19 +277,33 @@ module Rabbit
 
       def run_command_new
         generate_directory
+        generate_template
+      end
+
+      def run_command_change
+        merge_config_yaml
+        generate_template
+      end
+
+      def merge_config_yaml
+        existing_slide_conf = SlideConfiguration.new(@logger)
+        existing_slide_conf.load
+        existing_slide_conf.merge!(@slide_conf.to_hash)
+        @slide_conf = existing_slide_conf
+        @author_conf = @slide_conf.author
+      end
+
+      def generate_directory
+        create_directory(base_directory)
+      end
+
+      def generate_template
         generate_dot_gitignore
         generate_dot_rabbit
         generate_slide_configuration
         generate_readme
         generate_rakefile
         generate_slide
-      end
-
-      def run_command_change
-      end
-
-      def generate_directory
-        create_directory(@slide_conf.id)
       end
 
       def generate_dot_gitignore
@@ -314,7 +328,7 @@ EOD
       end
 
       def generate_slide_configuration
-        @slide_conf.save(@slide_conf.id)
+        @slide_conf.save(base_directory)
       end
 
       def generate_readme
@@ -474,8 +488,17 @@ EOR
         source << "\n"
       end
 
+      def base_directory
+        case @command
+        when "change"
+          "."
+        else
+          @slide_conf.id
+        end
+      end
+
       def create_file(path, &block)
-        super(File.join(@slide_conf.id, path), &block)
+        super(File.join(base_directory, path), &block)
       end
     end
   end
