@@ -467,7 +467,7 @@ EOR
             end
           end
         end
-        source << "\n\n"
+        source << "\n"
       end
 
       def slide_source_items(source, generator)
