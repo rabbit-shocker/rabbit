@@ -76,19 +76,19 @@ module Rabbit
     end
 
     def merge!(conf)
-      @id                ||= conf["id"]
-      @base_name         ||= conf["base_name"]
-      @presentation_date ||= conf["presentation_date"]
-      @version           ||= conf["version"]
-      @slideshare_id     ||= conf["slideshare_id"]
-      @speaker_deck_id   ||= conf["speaker_deck_id"]
-      @ustream_id        ||= conf["ustream_id"]
-      @vimeo_id          ||= conf["vimeo_id"]
+      @id                = conf["id"]                || @id
+      @base_name         = conf["base_name"]         || @base_name
+      @presentation_date = conf["presentation_date"] || @presentation_date
+      @version           = conf["version"]           || @version
+      @slideshare_id     = conf["slideshare_id"]     || @slideshare_id
+      @speaker_deck_id   = conf["speaker_deck_id"]   || @speaker_deck_id
+      @ustream_id        = conf["ustream_id"]        || @ustream_id
+      @vimeo_id          = conf["vimeo_id"]          || @vimeo_id
 
       @tags              |=  (conf["tags"] || [])
       @licenses          |=  (conf["licenses"] || [])
 
-      @author = AuthorConfiguration.new(@logger)
+      @author ||= AuthorConfiguration.new(@logger)
       @author.merge!(conf["author"] || {})
     end
 

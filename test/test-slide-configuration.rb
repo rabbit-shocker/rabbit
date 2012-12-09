@@ -43,6 +43,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "vimeo_id"          => "00000000",
       "author"            => author_conf,
     }
+    @slide.id = "RubyKaigi2012"
     @slide.merge!(conf)
     assert_equal(conf, @slide.to_hash)
   end
