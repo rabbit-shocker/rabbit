@@ -60,6 +60,11 @@ module Rabbit
       private
       def parse_command_line_arguments(arguments)
         Rabbit::Console.parse!(ARGV) do |parser, options|
+          setup_options(parser, options)
+        end
+      end
+
+      def setup_options(parser, options)
           @logger = options.default_logger
           @author_conf = AuthorConfiguration.new(@logger)
           @author_conf.load
@@ -215,7 +220,6 @@ module Rabbit
                     *messages) do |user|
             @author_conf.speaker_deck_user = user
           end
-        end
       end
 
       def validate
