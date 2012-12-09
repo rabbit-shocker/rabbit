@@ -30,6 +30,7 @@ class TestAuthorConfiguration < Test::Unit::TestCase
       "slideshare_user"    => "kou",
       "speaker_deck_user"  => "kou",
     }
+    @author.markup_language = "hiki"
     @author.merge!(conf)
     assert_equal(conf, @author.to_hash)
   end

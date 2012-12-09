@@ -63,12 +63,12 @@ module Rabbit
     end
 
     def merge!(conf)
-      @markup_language   ||= conf["markup_language"]
-      @name              ||= conf["name"]
-      @email             ||= conf["email"]
-      @rubygems_user     ||= conf["rubygems_user"]
-      @slideshare_user   ||= conf["slideshare_user"]
-      @speaker_deck_user ||= conf["speaker_deck_user"]
+      @markup_language   = conf["markup_language"]   || @markup_language
+      @name              = conf["name"]              || @name
+      @email             = conf["email"]             || @email
+      @rubygems_user     = conf["rubygems_user"]     || @rubygems_user
+      @slideshare_user   = conf["slideshare_user"]   || @slideshare_user
+      @speaker_deck_user = conf["speaker_deck_user"] || @spearker_deck_user
     end
 
     def to_hash
