@@ -65,161 +65,161 @@ module Rabbit
       end
 
       def setup_options(parser, options)
-          @logger = options.default_logger
-          @author_conf = AuthorConfiguration.new(@logger)
-          @author_conf.load
-          @slide_conf = SlideConfiguration.new(@logger)
-          @slide_conf.author = @author_conf
+        @logger = options.default_logger
+        @author_conf = AuthorConfiguration.new(@logger)
+        @author_conf.load
+        @slide_conf = SlideConfiguration.new(@logger)
+        @slide_conf.author = @author_conf
 
-          format = _("Usage: %s new [options]\n" \
-                     " e.g.: %s new \\\n" \
-                     "          --id rubykaigi2012 \\\n" \
-                     "          --base-name rabbit-introduction \\\n" \
-                     "          --markup-language rd \\\n" \
-                     "          --name \"Kouhei Sutou\" \\\n" \
-                     "          --email kou@cozmixng.org \\\n" \
-                     "          --rubygems-user kou \\\n" \
-                     "          --slideshare-user kou \\\n" \
-                     "          --speaker-deck-user kou")
+        format = _("Usage: %s new [options]\n" \
+                   " e.g.: %s new \\\n" \
+                   "          --id rubykaigi2012 \\\n" \
+                   "          --base-name rabbit-introduction \\\n" \
+                   "          --markup-language rd \\\n" \
+                   "          --name \"Kouhei Sutou\" \\\n" \
+                   "          --email kou@cozmixng.org \\\n" \
+                   "          --rubygems-user kou \\\n" \
+                   "          --slideshare-user kou \\\n" \
+                   "          --speaker-deck-user kou")
 
-          program = File.basename($0, ".*")
-          parser.banner = format % [program, program]
+        program = File.basename($0, ".*")
+        parser.banner = format % [program, program]
 
-          parser.separator("")
+        parser.separator("")
 
-          parser.separator(_("Slide information"))
+        parser.separator(_("Slide information"))
 
-          parser.on("--id=ID",
-                    _("Slide ID"),
-                    _("(e.g.: %s)") % "--id=rubykaigi2012",
-                    _("(must)")) do |id|
-            @slide_conf.id = id
-          end
+        parser.on("--id=ID",
+                  _("Slide ID"),
+                  _("(e.g.: %s)") % "--id=rubykaigi2012",
+                  _("(must)")) do |id|
+          @slide_conf.id = id
+        end
 
-          messages = [
-            _("Base name for the slide source file and generated PDF file"),
-            _("(e.g.: %s)") % "--base-name=rabbit-introduction",
-            _("(must)"),
-          ]
-          parser.on("--base-name=NAME",
-                    *messages) do |base_name|
-            @slide_conf.base_name = base_name
-          end
+        messages = [
+          _("Base name for the slide source file and generated PDF file"),
+          _("(e.g.: %s)") % "--base-name=rabbit-introduction",
+          _("(must)"),
+        ]
+        parser.on("--base-name=NAME",
+                  *messages) do |base_name|
+          @slide_conf.base_name = base_name
+        end
 
-          available_markup_languages = [:rd, :hiki, :markdown]
-          label = "[" + available_markup_languages.join(", ") + "]"
-          messages = [
-            _("Markup language for the new slide"),
-            _("(e.g.: %s)") % "--markup-language=rd",
-            _("(available markup languages: %s)") % label,
-          ]
-          if @author_conf.markup_language
-            messages << _("(default: %s)") % @author_conf.markup_language
-          end
-          messages << _("(optional)")
-          parser.on("--markup-language=LANGUAGE", available_markup_languages,
-                    *messages) do |language|
-            @author_conf.markup_language = language
-          end
+        available_markup_languages = [:rd, :hiki, :markdown]
+        label = "[" + available_markup_languages.join(", ") + "]"
+        messages = [
+          _("Markup language for the new slide"),
+          _("(e.g.: %s)") % "--markup-language=rd",
+          _("(available markup languages: %s)") % label,
+        ]
+        if @author_conf.markup_language
+          messages << _("(default: %s)") % @author_conf.markup_language
+        end
+        messages << _("(optional)")
+        parser.on("--markup-language=LANGUAGE", available_markup_languages,
+                  *messages) do |language|
+          @author_conf.markup_language = language
+        end
 
-          parser.on("--title=TITLE",
-                    _("Title of the new slide"),
-                    _("(e.g.: %s)") % _("--title=\"Rabbit Introduction\""),
-                    _("(optional)")) do |title|
-            @title = title
-          end
+        parser.on("--title=TITLE",
+                  _("Title of the new slide"),
+                  _("(e.g.: %s)") % _("--title=\"Rabbit Introduction\""),
+                  _("(optional)")) do |title|
+          @title = title
+        end
 
-          parser.on("--tags=TAG,TAG,...",
-                    Array,
-                    _("Tags of the new slide"),
-                    _("(e.g.: %s)") % "--tags=rabbit,presentation,ruby",
-                 _("(optional)")) do |tags|
-            @slide_conf.tags.concat(tags)
-          end
+        parser.on("--tags=TAG,TAG,...",
+                  Array,
+                  _("Tags of the new slide"),
+                  _("(e.g.: %s)") % "--tags=rabbit,presentation,ruby",
+               _("(optional)")) do |tags|
+          @slide_conf.tags.concat(tags)
+        end
 
-          parser.on("--allotted-time=TIME",
-                    _("Allotted time in presentaion"),
-                    _("(e.g.: %s)") % "--allotted-time=5m",
-                    _("(optional)")) do |allotted_time|
-            @allotted_time = allotted_time
-          end
+        parser.on("--allotted-time=TIME",
+                  _("Allotted time in presentaion"),
+                  _("(e.g.: %s)") % "--allotted-time=5m",
+                  _("(optional)")) do |allotted_time|
+          @allotted_time = allotted_time
+        end
 
-          parser.on("--presentation-date=DATE",
-                    _("Presentation date with the new slide"),
-                    _("(e.g.: %s)") % "--presentation-date=2012/06/29",
-                    _("(optional)")) do |date|
-            @slide_conf.presentation_date = date
-          end
+        parser.on("--presentation-date=DATE",
+                  _("Presentation date with the new slide"),
+                  _("(e.g.: %s)") % "--presentation-date=2012/06/29",
+                  _("(optional)")) do |date|
+          @slide_conf.presentation_date = date
+        end
 
-          parser.separator(_("Your information"))
+        parser.separator(_("Your information"))
 
-          messages = [
-            _("Author name of the new slide"),
-            _("(e.g.: %s)") % "--name=\"Kouhei Sutou\"",
-          ]
-          if @author_conf.name
-            messages << _("(default: %s)") % @author_conf.name
-          end
-          messages << _("(optional)")
-          parser.on("--name=NAME",
-                    *messages) do |name|
-            @author_conf.name = name
-          end
+        messages = [
+          _("Author name of the new slide"),
+          _("(e.g.: %s)") % "--name=\"Kouhei Sutou\"",
+        ]
+        if @author_conf.name
+          messages << _("(default: %s)") % @author_conf.name
+        end
+        messages << _("(optional)")
+        parser.on("--name=NAME",
+                  *messages) do |name|
+          @author_conf.name = name
+        end
 
-          messages = [
-            _("Author e-mail of the new slide"),
-            _("(e.g.: %s)") % "--email=kou@cozmixng.org",
-          ]
-          if @author_conf.email
-            messages << _("(default: %s)") % @author_conf.email
-          end
-          messages << _("(optional)")
-          parser.on("--email=EMAIL",
-                    *messages) do |email|
-            @author_conf.email = email
-          end
+        messages = [
+          _("Author e-mail of the new slide"),
+          _("(e.g.: %s)") % "--email=kou@cozmixng.org",
+        ]
+        if @author_conf.email
+          messages << _("(default: %s)") % @author_conf.email
+        end
+        messages << _("(optional)")
+        parser.on("--email=EMAIL",
+                  *messages) do |email|
+          @author_conf.email = email
+        end
 
-          messages = [
-            _("Account for %s") % "RubyGems.org",
-            _("It is used to publish your slide to %s") % "RubyGems.org",
-            _("(e.g.: %s)") % "--rubygems-user=kou",
-          ]
-          if @author_conf.rubygems_user
-            messages << _("(default: %s)") % @author_conf.rubygems_user
-          end
-          messages << _("(optional)")
-          parser.on("--rubygems-user=USER",
-                    *messages) do |user|
-            @author_conf.rubygems_user = user
-          end
+        messages = [
+          _("Account for %s") % "RubyGems.org",
+          _("It is used to publish your slide to %s") % "RubyGems.org",
+          _("(e.g.: %s)") % "--rubygems-user=kou",
+        ]
+        if @author_conf.rubygems_user
+          messages << _("(default: %s)") % @author_conf.rubygems_user
+        end
+        messages << _("(optional)")
+        parser.on("--rubygems-user=USER",
+                  *messages) do |user|
+          @author_conf.rubygems_user = user
+        end
 
-          messages = [
-            _("Account for %s") % "SlideShare",
-            _("It is used to publish your slide to %s") % "SlideShare",
-            _("(e.g.: %s)") % "--slideshare-user=kou",
-          ]
-          if @author_conf.slideshare_user
-            messages << _("(default: %s)") % @author_conf.slideshare_user
-          end
-          messages << _("(optional)")
-          parser.on("--slideshare-user=USER",
-                    *messages) do |user|
-            @author_conf.slideshare_user = user
-          end
+        messages = [
+          _("Account for %s") % "SlideShare",
+          _("It is used to publish your slide to %s") % "SlideShare",
+          _("(e.g.: %s)") % "--slideshare-user=kou",
+        ]
+        if @author_conf.slideshare_user
+          messages << _("(default: %s)") % @author_conf.slideshare_user
+        end
+        messages << _("(optional)")
+        parser.on("--slideshare-user=USER",
+                  *messages) do |user|
+          @author_conf.slideshare_user = user
+        end
 
-          messages = [
-            _("Account for %s") % "Speaker Deck",
-            _("It is used to publish your slide to %s") % "Speaker Deck",
-            _("(e.g.: %s)") % "--speaker-deck-user=kou",
-          ]
-          if @author_conf.speaker_deck_user
-            messages << _("(default: %s)") % @author_conf.speaker_deck_user
-          end
-          messages << _("(optional)")
-          parser.on("--speaker-deck-user=USER",
-                    *messages) do |user|
-            @author_conf.speaker_deck_user = user
-          end
+        messages = [
+          _("Account for %s") % "Speaker Deck",
+          _("It is used to publish your slide to %s") % "Speaker Deck",
+          _("(e.g.: %s)") % "--speaker-deck-user=kou",
+        ]
+        if @author_conf.speaker_deck_user
+          messages << _("(default: %s)") % @author_conf.speaker_deck_user
+        end
+        messages << _("(optional)")
+        parser.on("--speaker-deck-user=USER",
+                  *messages) do |user|
+          @author_conf.speaker_deck_user = user
+        end
       end
 
       def validate
