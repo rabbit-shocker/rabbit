@@ -43,7 +43,7 @@ module Rabbit
       end
 
       def run(arguments)
-        @options, @logger = parse_command_line_arguments(arguments)
+        parse_command_line_arguments(arguments)
 
         validate
         unless @validation_errors.empty?
@@ -65,7 +65,8 @@ module Rabbit
       end
 
       def setup_options(parser, options)
-        @logger = options.default_logger
+        @options = options
+        @logger = @options.default_logger
         @author_conf = AuthorConfiguration.new(@logger)
         @author_conf.load
         @slide_conf = SlideConfiguration.new(@logger)
