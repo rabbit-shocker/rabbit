@@ -52,7 +52,7 @@ module Rabbit
           return false
         end
 
-        generate
+        run_command
         @author_conf.save
         true
       end
@@ -271,7 +271,11 @@ module Rabbit
         end
       end
 
-      def generate
+      def run_command
+        __send__("run_command_#{@command}")
+      end
+
+      def run_command_new
         generate_directory
         generate_dot_gitignore
         generate_dot_rabbit
@@ -279,6 +283,9 @@ module Rabbit
         generate_readme
         generate_rakefile
         generate_slide
+      end
+
+      def run_command_change
       end
 
       def generate_directory
