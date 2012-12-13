@@ -256,8 +256,8 @@ module Rabbit
           shadow_layout = canvas.make_layout(shadow_text)
           setup_layout(shadow_layout, @layout.width / Pango::SCALE)
           line_height = shadow_layout.pixel_size[1] / shadow_layout.line_count
-          shadow_x = prop_value("shadow-x") || (line_height * 0.08)
-          shadow_y = prop_value("shadow-y") || (line_height * 0.06)
+          shadow_x = prop_value("shadow-x") || (line_height * 0.03)
+          shadow_y = prop_value("shadow-y") || (line_height * 0.02)
           canvas.draw_layout(shadow_layout, x + shadow_x, y + shadow_y,
                              shadow_color)
         end
