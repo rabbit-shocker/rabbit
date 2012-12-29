@@ -3,6 +3,52 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.6: 2012-12-29
+
+Video support release!
+
+=== Improvements
+
+==== rabbit-slide
+
+  * Supported Ustream.
+  * Supported Vimeo.
+  * Use slide ID instead of slide title for SlideShare URL.
+    [Patch by Masafumi Yokoyama]
+  * Added change command that changes the current configuration.
+
+==== Documentation
+
+  * Added a documentation about how to use image in RD format.
+    [Added by hokkai7go]
+
+==== rabbit
+
+  * Supported PDF file detection by extension.
+  * [incompatible] Changed PDF page number origin from 0-origin to 1-origin
+    when PDF is used as image. Because PDF uses 1-origin.
+  * [experimental] Supported video embed in slide.
+    [Patch by Narihiro Nakamura]
+  * Text shadow is closed to the original text.
+
+==== rabbit-theme-manager
+
+  * Removed because it is needless.
+
+=== Fixes
+
+==== rabbit
+
+  * Don't handle .rabbit directory as a file that describes rabbit
+    run options. [Reported by Koichi Akabe]
+
+=== Thanks
+
+  * Masafumi Yokoyama
+  * Koichi Akabe
+  * hokkai7go
+  * Narihiro Nakamura
+
 == 2.0.5: 2012-09-14
 
 A bug fix release.
