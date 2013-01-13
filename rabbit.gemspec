@@ -1,4 +1,4 @@
-# Copyright (C) 2012 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2013 Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,8 @@ Gem::Specification.new do |spec|
 
   spec.files = ["Rakefile", "COPYING", "GPL", "README", "Gemfile"]
   spec.files += ["#{spec.name}.gemspec"]
-  spec.files += Dir.glob("{lib,data,entities,sample,misc,doc,po}/**/*")
+  spec.files += Dir.glob("{lib,data,entities,sample,misc,doc}/**/*")
+  spec.files += Dir.glob("po/*/*.po")
   spec.files -= Dir.glob("doc/_site/**/*")
   spec.files += Dir.glob("*.rb")
   spec.files.reject! do |file|
