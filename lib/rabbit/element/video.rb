@@ -3,7 +3,6 @@ require "rabbit/utils"
 require "rabbit/image"
 require "rabbit/element"
 require "rabbit/parser/base"
-require "rabbit/video-window"
 
 module Rabbit
   module Element
@@ -76,6 +75,7 @@ module Rabbit
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
           if canvas.display?
+            require "rabbit/video-window"
             @video_window ||= VideoWindow.new(self)
             @video_window.show(canvas.window)
           else
