@@ -38,12 +38,18 @@ module Rabbit
     end
 
     private
+    HEADING_MARK_RE = /\A(?:[=*!]+|h\d\.)\s*/
     def parse_content(content)
       blocks = content.split(/(?:\r?\n){2,}/)
       if blocks[0]
-        @title = blocks[0].gsub(/\A(?:[=*!]+|h\d\.)\s*/, "")
+        @title = blocks[0].gsub(HEADING_MARK_RE, "")
       end
-      @description = blocks[1]
+      first_paragraph_blocks = []
+      blocks[1..-1].each do |block|
+        break if HEADING_MARK_RE =~ block
+        first_paragraph_blocks << block
+      end
+      @description = first_paragraph_blocks.join("\n\n")
     end
   end
 end

@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2013  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@ class TestREADMEParser < Test::Unit::TestCase
     description = <<-EOD.strip
 It's a slide for checking a Rabbit's theme. It contains many
 elements. So it's useful for confirming your theme.
+
+Please try to create your original theme!
 EOD
 
     assert_parse(title, description, <<-EOR)
