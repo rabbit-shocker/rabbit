@@ -17,10 +17,16 @@ module Rabbit
       unshift_loader(self)
       class << self
         def match?(source)
-          return true if /\A(?:hiki|wiki)\z/i =~ source.extension.to_s
-          head = source.read[0, 500]
-          head.force_encoding("ASCII-8BIT") if head.respond_to?(:force_encoding)
-          /^!/.match(head)
+          extension = source.extension
+          if extension.nil?
+            head = source.read[0, 500]
+            if head.respond_to?(:force_encoding)
+              head.force_encoding("ASCII-8BIT")
+            end
+            /^!/.match(head)
+          else
+            /\A(?:hiki|wiki)\z/i =~ extension
+          end
         end
       end
 

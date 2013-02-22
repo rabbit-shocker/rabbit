@@ -11,8 +11,12 @@ module Rabbit
       unshift_loader(self)
       class << self
         def match?(source)
-          return true if /\Apdf\z/i =~ source.extension.to_s
-          source.read.start_with?("%PDF-1.")
+          extension = source.extension
+          if extension.nil?
+            source.read.start_with?("%PDF-1.")
+          else
+            /\Apdf\z/i =~ extension
+          end
         end
       end
 
