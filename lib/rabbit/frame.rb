@@ -12,8 +12,6 @@ module Rabbit
     include ScreenInfo
     extend Forwardable
 
-    FALLBACK_LIMIT = 250
-    
     def_delegators(:@window, :icon, :icon=, :set_icon)
     def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@window, :iconify, :show, :hide, :visible?)
@@ -62,14 +60,12 @@ module Rabbit
       @fullscreen_toggled = false
       @fullscreen = true
       @window.fullscreen
-      fallback_fullscreen
     end
 
     def unfullscreen
       @fullscreen_toggled = false
       @fullscreen = false
       @window.unfullscreen
-      fallback_unfullscreen
     end
     
     def toggle_fullscreen
@@ -195,44 +191,6 @@ module Rabbit
 
       @window.signal_connect("drag-drop") do |widget, context, x, y, time|
         true
-      end
-    end
-
-    def fallback_fullscreen
-      @prev_width = @prev_height = nil
-      @prev_x = @prev_y = nil
-      Gtk.timeout_add(FALLBACK_LIMIT) do
-        unless @fullscreen_toggled
-          @prev_width, @prev_height = width, height
-          @prev_x, @prev_y = @window.position
-          @window.hide
-          @window.set_size_request(screen_width, screen_height)
-          @window.decorated = false
-          @window.keep_above = true
-          @window.show
-          @window.move(0, 0)
-          @window.present
-          @canvas.fullscreened
-        end
-        false
-      end
-    end
-
-    def fallback_unfullscreen
-      Gtk.timeout_add(FALLBACK_LIMIT) do
-        if !@fullscreen_toggled and
-            @prev_width and @prev_height and
-            @prev_x and @prev_y
-          @window.hide
-          @window.set_size_request(@prev_width, @prev_height)
-          @window.decorated = true
-          @window.keep_above = !@main_window
-          @window.show
-          @window.move(@prev_x, @prev_y)
-          @window.present
-          @canvas.unfullscreened
-        end
-        false
       end
     end
   end
