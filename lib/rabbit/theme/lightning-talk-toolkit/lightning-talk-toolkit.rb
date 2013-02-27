@@ -148,7 +148,13 @@ def setup_lightning_talk_headline(head)
         end
       end
 
-      if params[:as_large_as_possible]
+      as_large_as_possible = slide["as-large-as-possible"]
+      if as_large_as_possible.nil?
+        as_large_as_possible = params[:as_large_as_possible]
+      else
+        as_large_as_possible = as_large_as_possible == "true"
+      end
+      if as_large_as_possible
         lightning_talk_as_large_as_possible(params)
       end
     end
