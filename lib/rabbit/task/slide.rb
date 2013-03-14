@@ -152,11 +152,6 @@ module Rabbit
 
         publish_tasks = []
         namespace :publish do
-          if @slide.author.rubygems_user
-            define_publish_rubygems_task
-            publish_tasks << :rubygems
-          end
-
           if @slide.author.slideshare_user
             define_publish_slideshare_task
             publish_tasks << :slideshare
@@ -165,6 +160,11 @@ module Rabbit
           if @slide.author.speaker_deck_user
             define_publish_speaker_deck_task
             publish_tasks << :speaker_deck
+          end
+
+          if @slide.author.rubygems_user
+            define_publish_rubygems_task
+            publish_tasks << :rubygems
           end
         end
         task :publish => publish_tasks.collect {|task| "publish:#{task}"}
