@@ -107,7 +107,12 @@ module Rabbit
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
         task :gem => ["gem:validate", :pdf] do
           mkdir_p(@package_dir)
+          begin
           Gem::Builder.new(spec).build
+          rescue NameError
+            require "rubygems/package"
+            Gem::Package.build(spec)
+          end
           mv(File.basename(spec.cache_file), gem_path)
         end
       end
