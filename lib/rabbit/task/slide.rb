@@ -108,7 +108,7 @@ module Rabbit
         task :gem => ["gem:validate", :pdf] do
           mkdir_p(@package_dir)
           begin
-          Gem::Builder.new(spec).build
+            Gem::Builder.new(spec).build
           rescue NameError
             require "rubygems/package"
             Gem::Package.build(spec)
