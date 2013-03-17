@@ -1,4 +1,4 @@
-# Copyright (C) 2012 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2013 Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ require "rabbit/logger"
 require "rabbit/command/rabbit"
 require "rabbit/theme-configuration"
 require "rabbit/readme-parser"
+require "rabbit/gem-builder"
 
 module Rabbit
   module Task
@@ -104,12 +105,7 @@ module Rabbit
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
         task :gem => "gem:validate" do
           mkdir_p(@package_dir)
-          begin
-            Gem::Builder.new(spec).build
-          rescue NameError
-            require "rubygems/package"
-            Gem::Package.build(spec)
-          end
+          GemBuilder.build(spec)
           mv(File.basename(spec.cache_file), gem_path)
         end
       end
