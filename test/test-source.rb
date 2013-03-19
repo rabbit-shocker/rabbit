@@ -13,8 +13,8 @@ class RabbitSourceTest < Test::Unit::TestCase
     @argf_input, @argf_output = IO.pipe
     @argf = Rabbit::Source::ARGF.new("UTF-8", logger, @argf_input)
 
-    @file_name = "test/sample.rd"
-    @file_dir_name = File.dirname(@file_name)
+    @file_dir_name = File.dirname(__FILE__)
+    @file_name = File.join(@file_dir_name, "sample.rd")
     FileUtils.touch(@file_name)
     @file = Rabbit::Source::File.new("UTF-8", logger, @file_name)
 
