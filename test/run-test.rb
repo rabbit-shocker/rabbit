@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Copyright (C) 2004-2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2013  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,4 @@ $LOAD_PATH.unshift(File.join(File.expand_path("."), "test"))
 
 require "rabbit-test-utils"
 
-test_file = "test/**/test-*.rb"
-
-Dir.glob(test_file) do |file|
-  require file.gsub(/\.rb$/, '')
-end
+exit Test::Unit::AutoRunner.run(true)
