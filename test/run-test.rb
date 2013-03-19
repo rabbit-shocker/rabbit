@@ -16,7 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-base_dir = File.expand_path(".")
+base_dir = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 $LOAD_PATH.unshift(base_dir)
 $LOAD_PATH.unshift(File.join(base_dir, "lib"))
 $LOAD_PATH.unshift(File.join(base_dir, "test"))
