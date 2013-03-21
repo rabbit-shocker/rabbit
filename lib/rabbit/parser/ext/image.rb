@@ -69,14 +69,7 @@ module Rabbit
           def local_path_to_image_filename(canvas, path)
             path = Pathname.new(GLib.filename_from_utf8(path))
             return path.to_s if path.absolute?
-
-            expanded_path = canvas.full_path(path.to_s)
-            expanded_uri = URI(expanded_path)
-            if expanded_uri.scheme.nil?
-              expanded_path
-            else
-              uri_to_image_filename(canvas, expanded_uri)
-            end
+            canvas.full_path(path.to_s)
           end
 
           def tmp_filename(canvas, key)
