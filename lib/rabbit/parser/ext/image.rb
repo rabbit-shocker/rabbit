@@ -9,17 +9,11 @@ module Rabbit
   module Parser
     module Ext
       module Image
-        ALLOWED_IMG_URL_SCHEME = ['http', 'https', 'file', '']
-
         module_function
         def make_image(canvas, uri_str, prop={})
-          uri = URI.parse(uri_str)
-          scheme = uri.scheme
-          unless ALLOWED_IMG_URL_SCHEME.include?(scheme.to_s.downcase)
-            return nil
-          end
+          path = Private.uri_string_to_image_filename(canvas, uri_str)
           begin
-            Element::Image.new(Private.image_filename(canvas, uri), prop)
+            Element::Image.new(path, prop)
           rescue Error
             canvas.logger.warn($!.message)
             nil
@@ -45,24 +39,43 @@ module Rabbit
         end
 
         module Private
+          ALLOWED_IMG_URL_SCHEME = ['http', 'https', 'file']
+
           module_function
-          def image_filename(canvas, uri)
+          def uri_string_to_image_filename(canvas, uri_string)
+            if /\A[a-z][a-z\d+\-.]+:/i =~ uri_string
+              uri = URI.parse(uri_string)
+              scheme = uri.scheme
+              unless ALLOWED_IMG_URL_SCHEME.include?(scheme.to_s.downcase)
+                return nil
+              end
+              uri_to_image_filename(canvas, uri)
+            else
+              local_path_to_image_filename(canvas, uri_string)
+            end
+          end
+
+          def uri_to_image_filename(canvas, uri)
             case uri.scheme.to_s.downcase
             when "file"
               GLib.filename_from_utf8(uri.path)
             when "http", "https", "ftp"
               other_uri_filename(canvas, uri)
             else
-              path = Pathname.new(GLib.filename_from_utf8(uri.path))
-              return path.to_s if path.absolute?
+              nil
+            end
+          end
 
-              expanded_path = canvas.full_path(path.to_s)
-              expanded_uri = URI(expanded_path)
-              if expanded_uri.scheme.nil?
-                expanded_path
-              else
-                image_filename(canvas, expanded_uri)
-              end
+          def local_path_to_image_filename(canvas, path)
+            path = Pathname.new(GLib.filename_from_utf8(path))
+            return path.to_s if path.absolute?
+
+            expanded_path = canvas.full_path(path.to_s)
+            expanded_uri = URI(expanded_path)
+            if expanded_uri.scheme.nil?
+              expanded_path
+            else
+              uri_to_image_filename(canvas, expanded_uri)
             end
           end
 
