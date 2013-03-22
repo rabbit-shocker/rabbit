@@ -43,7 +43,7 @@ module Rabbit
 
           module_function
           def uri_string_to_image_filename(canvas, uri_string)
-            if /\A[a-z][a-z\d+\-.]+:/i =~ uri_string
+            if start_with_scheme?(uri_string)
               uri = URI.parse(uri_string)
               scheme = uri.scheme
               unless ALLOWED_IMG_URL_SCHEME.include?(scheme.to_s.downcase)
@@ -71,7 +71,11 @@ module Rabbit
             return path.to_s if path.absolute?
 
             expanded_path = canvas.full_path(path.to_s)
-            uri_string_to_image_filename(canvas, expanded_path)
+            if start_with_scheme?(expanded_path)
+              uri_string_to_image_filename(canvas, expanded_path)
+            else
+              expanded_path
+            end
           end
 
           def tmp_filename(canvas, key)
@@ -96,6 +100,10 @@ module Rabbit
             rescue SocketError, OpenURI::HTTPError
               canvas.logger.warn("#{$!.message}: #{uri}")
             end
+          end
+
+          def start_with_scheme?(uri_string)
+            /\A[a-z][a-z\d+\-.]+:/i =~ uri_string
           end
         end
       end
