@@ -72,7 +72,7 @@ module Rabbit
 
             expanded_path = canvas.full_path(path.to_s)
             if start_with_scheme?(expanded_path)
-            uri_string_to_image_filename(canvas, expanded_path)
+              uri_string_to_image_filename(canvas, expanded_path)
             else
               expanded_path
             end
