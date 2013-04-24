@@ -44,8 +44,7 @@ module Rabbit
           if /\Autf-?8\z/i =~ enc
             @source.force_encoding(enc) if @source.respond_to?(:force_encoding)
           else
-            require "iconv"
-            @source = Iconv.conv("UTF-8", enc, @source)
+            @source = convert_encoding("UTF-8", enc, @source)
           end
         end
         @source
@@ -142,6 +141,15 @@ module Rabbit
           "UTF-32"
         else
           "UTF-8"
+        end
+      end
+
+      def convert_encoding(to, from, str)
+        if str.respond_to?(:encode)
+          str.encode(to, from)
+        else
+          require "iconv"
+          Iconv.conv(to, from, str)
         end
       end
 
