@@ -27,13 +27,13 @@ slide.rabbit-shocker.orgへアップロードしましょう。
 
 === メーリングリスト
 
-Rabbitショッカーのためにrabbit-shockerというメーリングリストがあります。
+Rabbitショッカーのためにshocker-jaというメーリングリストがあります。
 （((<アーカイブ
 |URL:http://www.cozmixng.org/~w3ml/index.rb/rabbit-shocker/>))）
 
 以下のようなメールを送るとメーリングリストへ参加できます。
 
-  To: rabbit-shocker@ml.cozmixng.org
+  To: shocker-ja@ml.rabbit-shocker.org
   Cc: kou@cozmixng.org
   Subject: イー
   

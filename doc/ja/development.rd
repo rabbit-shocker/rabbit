@@ -14,7 +14,7 @@ Rabbitのリポジトリは
 リングリストに参加するには以下のようなメールを送信してくださ
 い。
 
-  To: rabbit-commit@ml.cozmixng.org
+  To: commit@ml.rabbit-shocker.org
   Cc: null@cozmixng.org
   Subject: 登録
 
