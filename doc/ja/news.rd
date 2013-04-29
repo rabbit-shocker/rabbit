@@ -3,6 +3,77 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 2.0.7: 2013-04-29
+
+安定性向上リリース！
+
+=== 改良
+
+==== パッケージ
+
+  * [GitHub#13] 不要なファイルをパッケージに含めないようにした。
+    [Youhei SASAKIさんが報告]
+  * Ruby/GStreamerを依存パッケージから外した。
+    [rabbit-shocker:1089] [znzさんが報告]
+
+==== rabbit
+
+  * 不必要な実行属性を削除した。
+  * Mac OS X 10.6.8でクラッシュするため、必要なときだけRuby/GStreamerを
+    読みこむようにした。
+    [masaさんが報告]
+  * 拡張子でソースのマークアップが判断できる場合は、誤検出を避けるため
+    ソースの内容から推測しないようにした。
+  * フルスクリーン・フルスクリーン解除のフォールバック機能を削除した。
+    最近のGTK+ではフォールバックが必要なことがないため。
+    [Youhei SASAKIさんが報告]
+  * 非ASCIIのファイル名をサポート。
+    [GitHub#15][GitHub#16][GitHub#17] [Masafumi Yokoyamaさんがパッチ提供]
+  * iconvの代わりにString#encodeを使うようにした。
+    [GitHub#18] [Masafumi Yokoyamaさんがパッチ提供]
+
+==== テーマ
+
+  * lightning-talk-toolkit: as-large-as-possibleスライドプロパティをサ
+    ポート。
+
+      そのスライドだけ有効にする場合:
+
+        = 大きなタイトル
+
+        == プロパティ
+
+        : as_large_as_possible
+           true
+
+      そのスライドだけ無効にする場合:
+
+        = 大きなタイトル
+
+        == プロパティ
+
+        : as_large_as_possible
+           false
+
+==== テスト
+
+  * $LOAD_PATHが足りなかった問題を修正。
+    [GitHub#14] [Masafumi Yokoyamaさんが報告]
+
+==== rabbit-slide
+
+  * 複数段落の説明文に対応。
+  * SlideShareの情報を使うため、RubyGems.orgへの公開を最後にした。
+    [Masafumi Yokoyamaさん]
+  * RubyGems 2.0対応。 [Masafumi Yokoyamaさん]
+
+=== 感謝
+
+  * Youhei SASAKIさん
+  * masaさん
+  * Masafumi Yokoyamaさん
+  * znzさん
+
 == 2.0.6: 2012-12-29
 
 ビデオサポートリリース！2012年最後のリリース！

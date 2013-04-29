@@ -3,6 +3,77 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.7: 2013-04-29
+
+Stability improvement release!
+
+=== Improvements
+
+==== Package
+
+  * [GitHub#13] Removed needless files from package.
+    [Reported by Youhei SASAKI]
+  * Removed Ruby/GStreamer from dependency package.
+    [rabbit-shocker:1089] [Reported by znz]
+
+==== rabbit
+
+  * Removed needless executable permission.
+  * Stopped requiring Ruby/GStreamer on initialize because it crashes Rabbit on
+    Mac OS X 10.6.8.
+    [Reported by masa]
+  * Stopped guessing from source content when source has extension to avoid
+    false detection.
+  * Removed needless fallback fullscreen/unfullscreen features because they
+    are needless with latest GTK+.
+    [Reported by Youhei SASAKI]
+  * Supported non-ASCII file name.
+    [GitHub#15][GitHub#16][GitHub#17] [Patch by Masafumi Yokoyama]
+  * Stopped to use iconv when String#encode is available.
+    [GitHub#18] [Patch by Masafumi Yokoyama]
+
+==== Theme
+
+  * lightning-talk-toolkit: Supported as-large-as-possible slide property.
+
+      Force enable:
+
+        = Large Title
+
+        == property
+
+        : as_large_as_possible
+           true
+
+      Force disable:
+
+        = Large Title
+
+        == property
+
+        : as_large_as_possible
+           false
+
+==== Test
+
+  * Added missing load path to $LOAD_PATH.
+    [GitHub#14] [Reported by Masafumi Yokoyama]
+
+==== rabbit-slide
+
+  * Supported multi-paragraph description.
+  * Published to RubyGems.org after publishing to SlideShare.
+    It is for using SlideShare information on RubyGems.org publishing.
+    [Masafumi Yokoyama]
+  * Supported RubyGems 2.0. [Masafumi Yokoyama]
+
+=== Thanks
+
+  * Youhei SASAKI
+  * masa
+  * Masafumi Yokoyama
+  * znz
+
 == 2.0.6: 2012-12-29
 
 Video support release!
