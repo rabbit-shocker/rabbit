@@ -25,7 +25,7 @@ module Rabbit
             end
             /^= /.match(head)
           else
-            /\A(?:rd|rab)\z/i =~ extension
+            /\A(?:rd|rab|rbt)\z/i =~ extension
           end
         end
       end
