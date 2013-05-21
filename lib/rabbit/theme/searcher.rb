@@ -1,3 +1,5 @@
+require "pathname"
+
 require 'rabbit/theme/entry'
 
 module Rabbit
@@ -82,6 +84,7 @@ module Rabbit
       end
 
       def find_file(target, themes=nil)
+        return target if absolute_path?(target)
         themes ||= @theme_stack + @image_entries
         found_entry = themes.find do |entry|
           entry.have_file?(target)
@@ -92,6 +95,10 @@ module Rabbit
                 "can't find file in themes #{names.inspect}: #{target}."
         end
         found_entry.full_path(target)
+      end
+
+      def absolute_path?(path)
+        Pathname.new(path).absolute?
       end
 
       def collect_all_theme(&block)
