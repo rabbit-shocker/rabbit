@@ -137,6 +137,10 @@ module Rabbit
       def theme_file
         File.join(@theme_dir, "#{THEME_BASE_NAME}.rb")
       end
+
+      def data_dir
+        @theme_dir
+      end
     end
 
     class ImageDirectoryEntry < DirectoryEntry
