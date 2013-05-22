@@ -1,4 +1,4 @@
-require 'jekyll/converters/markdown'
+require "jekyll/converters/markdown"
 
 module Jekyll
   module Converters
