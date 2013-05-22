@@ -152,7 +152,7 @@ EOC
   task :generate => screenshots do
     Dir.chdir("doc") do
       rm_rf("_site")
-      sh("ruby", "-S", "jekyll")
+      sh("ruby", "-S", "jekyll", "build")
     end
   end
 
