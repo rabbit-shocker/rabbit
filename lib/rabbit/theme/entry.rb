@@ -139,7 +139,12 @@ module Rabbit
       end
 
       def data_dir
-        @theme_dir
+        dedicated_dir = File.join(@theme_dir, "data")
+        if File.directory?(dedicated_dir)
+          dedicated_dir
+        else
+          @theme_dir
+        end
       end
     end
 
