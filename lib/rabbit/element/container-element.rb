@@ -235,6 +235,10 @@ module Rabbit
         self_info + (elem_info.empty? ? "" : "\n") + elem_info
       end
 
+      def have_tag?(name)
+        @elements.any? {|element| element.have_tag?(name)}
+      end
+
       def have_wait_tag?
         @elements.any? {|element| element.have_wait_tag?}
       end

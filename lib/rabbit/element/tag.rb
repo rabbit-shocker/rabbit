@@ -35,6 +35,10 @@ module Rabbit
         super(elements)
         @name = name
       end
+
+      def have_tag?(name)
+        @name == name
+      end
     end
   end
 end

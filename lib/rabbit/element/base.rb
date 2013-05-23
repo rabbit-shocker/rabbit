@@ -84,6 +84,10 @@ module Rabbit
         slide.register_wait_proc(self, *args, &block) if slide
       end
 
+      def have_tag?(name)
+        false
+      end
+
       def have_wait_tag?
         false
       end
