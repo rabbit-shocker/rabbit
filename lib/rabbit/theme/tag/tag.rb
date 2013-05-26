@@ -47,10 +47,12 @@ match("**", CustomTag) do |tags|
       find_target.call(tag).prop_set("size", @large_font_size)
     when "x-large"
       find_target.call(tag).prop_set("size", @x_large_font_size)
-    when "margin-top"
-      find_outer_block.call(tag).margin_top += @space
-    when "margin-bottom"
-      find_outer_block.call(tag).margin_bottom += @space
+    when /\Amargin-(top|bottom)(?:\s*\*\s*(\d+))\z/
+      target = "margin_#{$1}"
+      scale = Integer($2 || 1)
+      outer_block = find_outer_block.call(tag)
+      current_value = outer_block.send(target)
+      outer_block.send("#{target}=", current_value + (@space * scale))
     else
       handler = find_handler.call(tag)
       if handler
