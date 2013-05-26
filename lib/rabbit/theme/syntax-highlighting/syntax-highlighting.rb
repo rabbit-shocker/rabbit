@@ -151,7 +151,6 @@ match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|
     case tag.name
     when /\Asyntax-(.+)\z/
       style = (scheme[$1.gsub(/-/, '_').to_sym] || {})
-      p tag.name if style.empty?
       next if style.empty?
       find_markup_target.call(tag).font(style)
     end
