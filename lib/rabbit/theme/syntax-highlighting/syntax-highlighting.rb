@@ -80,6 +80,9 @@ theme_exit if @syntax_highlighting_uninstall
   :pre_type => {
     :color => "#5c35cc",
   },
+  :predefined_type => {
+    :color => "#5c35cc",
+  },
   :directive => {
     :color => "#5c35cc",
   },
