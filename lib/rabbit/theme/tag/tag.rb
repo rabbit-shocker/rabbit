@@ -33,6 +33,8 @@ match("**", CustomTag) do |tags|
 
   tags.each do |tag|
     case tag.name
+    when "left"
+      find_outer_block.call(tag).align = "left"
     when "center"
       find_outer_block.call(tag).horizontal_centering = true
     when "right"
