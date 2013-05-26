@@ -29,11 +29,29 @@ theme_exit if @syntax_highlighting_uninstall
   :reserved => {
     :color => "#204a87",
   },
+  :keyword => {
+    :color => "#204a87",
+  },
   :method => {
     :color => "#000000",
   },
-  :string => {
+  :constant => {
     :color => "#4e9a06",
+  },
+  :string => {
+    :color => "#a40000",
+  },
+  :delimiter => {
+    :color => "#ef2929",
+  },
+  :content => {
+    :color => "#a40000",
+  },
+  :symbol => {
+    :color => "#4e9a06",
+  },
+  :integer => {
+    :color => "#c4a000",
   },
   :variable => {
     :color => "#ce5c00",
@@ -133,6 +151,7 @@ match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|
     case tag.name
     when /\Asyntax-(.+)\z/
       style = (scheme[$1.gsub(/-/, '_').to_sym] || {})
+      p tag.name if style.empty?
       next if style.empty?
       find_markup_target.call(tag).font(style)
     end
