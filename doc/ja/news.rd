@@ -3,6 +3,49 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 2.0.8: 2013-06-01
+
+テーマ関連を細々と改良したリリース！
+
+=== 改良
+
+==== rabbit
+
+  * .rbtもRDのソースファイルとして受け付けるようにした。
+    [socker-ja:1109] [OBATA Akioさんが報告]
+  * 画像ファイルのパスに絶対パスを指定できるようにした。
+  * Rabbit::Element::Base#have_tag?を追加。
+
+    これは要素がカスタムタグを持っているかを探したいときに便利です。
+    例:
+
+        if element.have_tag?("as-large-as-possible")
+          elsement.as_large_as_possible
+        end
+
+==== テーマ
+
+  * ディレクトリーテーマスタイルのときにカレントディレクトリのファイルを
+    データファイルとして使えるようにした。
+    ディレクトリーテーマスタイルとは名前が「.」のテーマです。例:
+       : theme
+          .
+
+  * $LOAD_PATHにあるテーマでもTHEME_DIR/data/をデータディレクトリーとして
+    使えるようにした。これはgemで提供しているテーマと同じルールです。
+
+  * syntax-highlighting: サポートしているシンタックスを追加。
+
+  * tag: 「left」タグをサポート。
+
+  * tag: 「margin-top * N」をサポート。 margin-leftとmargin-bottomと
+    margin-rightも同様。
+
+=== 感謝
+
+  * OBATA Akioさん
+  * Masafumi Yokoyamaさん
+
 == 2.0.7: 2013-04-29
 
 安定性向上リリース！

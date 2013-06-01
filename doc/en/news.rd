@@ -3,6 +3,48 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.8: 2013-06-01
+
+Minor theme improving release.
+
+=== Improvements
+
+==== rabbit
+
+  * Accepted .rbt as RD source.
+    [socker-ja:1109] [Reported by OBATA Akio]
+  * Accepted absolute path for image file path.
+  * Added Rabbit::Element::Base#have_tag?.
+
+    It is a convenience method to find a custom tag in an element.
+    For example:
+
+        if element.have_tag?("as-large-as-possible")
+          elsement.as_large_as_possible
+        end
+
+==== Theme
+
+  * Accepted files in the current directory for directory theme style.
+    Directory theme style is specialy theme that name is ".":
+       : theme
+          .
+
+  * Accepted THEME_DIR/data/ as data directory for theme in $LOAD_PATH.
+    It is the same rule for gemified theme.
+
+  * syntax-highlighting: Added more supported syntaxes.
+
+  * tag: Supported "left" tag.
+
+  * tag: Supported "margin-top * N" tag. margin-left, margin-bottom
+    and margin-right were also supported.
+
+=== Thanks
+
+  * OBATA Akio
+  * Masafumi Yokoyama
+
 == 2.0.7: 2013-04-29
 
 Stability improvement release!
