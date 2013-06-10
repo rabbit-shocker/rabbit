@@ -1,7 +1,8 @@
 require "rabbit/utils"
 
 require "rabbit/image"
-require "rabbit/element"
+require "rabbit/element/block-element"
+require "rabbit/element/text-renderer"
 require "rabbit/parser/base"
 
 module Rabbit
