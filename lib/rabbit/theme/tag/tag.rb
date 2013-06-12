@@ -47,6 +47,8 @@ match("**", CustomTag) do |tags|
       find_target.call(tag).prop_set("size", @large_font_size)
     when "x-large"
       find_target.call(tag).prop_set("size", @x_large_font_size)
+    when /\A(normal|oblique|italic)\z/
+      find_target.call(tag).prop_set("style", $1)
     when /\Amargin-(top|bottom|left|right)(?:\s*\*\s*(\d+))?\z/
       target = "margin_#{$1}"
       scale = Integer($2 || 1)
