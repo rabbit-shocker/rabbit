@@ -200,7 +200,7 @@ module Rabbit
     def output_info_and_exit(options, message)
       if options.logger.is_a?(Logger::STDERR) and
           options.default_logger == options.logger
-        print(GLib.locale_from_utf8(message))
+        print(message)
       else
         options.logger.info(message)
       end
