@@ -3,11 +3,41 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.1.0: 2013-06-16
+
+A bug fix release of 2.0.9.
+
+=== Improvements
+
+==== rabbit
+
+  * Ignored backup files when detecting a README file.
+    [GitHub:#21] [Reported by TOMITA Masahiro]
+  * Added Ruby version check on RubyGems install.
+    If you install with Ruby 1.8, RubyGems reports an error.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that encoding conversion error handling is bad.
+    [Reported by Junichi Oya]
+  * Supported Ruby/GLib2 2.0.2 or ealier.
+
+=== Thanks
+
+  * TOMITA Masahiro
+  * Junichi Oya
+
 == 2.0.9: 2013-06-16
 
 Boot related fix release.
 
 === Improvements
+
+==== All
+
+  * Dropped Ruby 1.8 support.
 
 ==== rabbit
 
