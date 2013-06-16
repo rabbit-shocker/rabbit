@@ -3,6 +3,44 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 2.0.9: 2013-06-16
+
+起動まわりを修正したリリース。
+
+=== 改良
+
+==== rabbit
+
+  * GLibのエンコーディング変換機能ではなくRubyのエンコーディング変換機
+    能を使うようにした。
+
+==== テーマ
+
+  * tag: スタイルを変更するタグをサポート。
+
+      (('tag:normal:XXX'))
+      (('tag:oblique:XXX'))
+      (('tag:italic:XXX'))
+
+=== 修正
+
+==== rabbit
+
+  * 環境によって起動できない問題を修正。
+    [shocker-ja:1128] [znzさんが報告]
+    [GitHub:#19] [Steve Klabnikさんが報告]
+  * UTF-8以外のロケールでコマンドラインオプションのヘルプメッセージを表
+    示できない問題を修正。
+    [shocker-ja:1109] [OBATA Akioさんが報告]
+    [Masafumi Yokoyamaさんがパッチ作成]
+
+=== 感謝
+
+  * znzさん
+  * Steve Klabnikさん
+  * Masafumi Yokoyamaさん
+  * OBATA Akioさん
+
 == 2.0.8: 2013-06-01
 
 テーマ関連を細々と改良したリリース！

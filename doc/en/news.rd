@@ -3,6 +3,42 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.0.9: 2013-06-16
+
+Boot related fix release.
+
+=== Improvements
+
+==== rabbit
+
+  * Migrated to Ruby's encoding converter from GLib's encoding converter.
+
+==== Theme
+
+  * tag: Supported style change tags
+
+      (('tag:normal:XXX'))
+      (('tag:oblique:XXX'))
+      (('tag:italic:XXX'))
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed boot failure on some environments.
+    [shocker-ja:1128] [Reported by znz]
+    [GitHub:#19] [Reported by Steve Klabnik]
+  * Fixed command line option help isn't displayed on non UTF-8 encoding.
+    [shocker-ja:1109] [Reported by OBATA Akio]
+    [Patch by Masafumi Yokoyama]
+
+=== Thanks
+
+  * znz
+  * Steve Klabnik
+  * Masafumi Yokoyama
+  * OBATA Akio
+
 == 2.0.8: 2013-06-01
 
 Minor theme improving release.
