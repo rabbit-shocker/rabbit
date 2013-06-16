@@ -31,7 +31,7 @@ module Rabbit
     end
 
     def parse(path=nil)
-      path ||= Dir.glob("README*")[0]
+      path ||= Dir.glob("README*").sort[0]
       raise _("No README found") if path.nil?
 
       parse_content(File.read(path))
