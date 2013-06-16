@@ -10,8 +10,8 @@ module Rabbit
       private
       def do_log(severity, prog_name, message)
         begin
-          message = GLib.locale_from_utf8(message)
-        rescue GLib::ConvertError
+          message = message.encode("locale")
+        rescue Encoding::Error
           format = _("can't convert to current locale from UTF-8: %s")
           ::STDERR.puts(format % message)
         end
