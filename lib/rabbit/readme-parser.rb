@@ -31,7 +31,7 @@ module Rabbit
     end
 
     def parse(path=nil)
-      path ||= Dir.glob("README*")[0]
+      path ||= remove_backup_paths(Dir.glob("README*"))[0]
       raise _("No README found") if path.nil?
 
       parse_content(File.read(path))
@@ -50,6 +50,12 @@ module Rabbit
         first_paragraph_blocks << block
       end
       @description = first_paragraph_blocks.join("\n\n")
+    end
+
+    def remove_backup_paths(paths)
+      paths.reject do |path|
+        path.end_with?("~")
+      end
     end
   end
 end
