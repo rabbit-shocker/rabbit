@@ -43,6 +43,8 @@ Gem::Specification.new do |spec|
     spec.executables = Dir.glob("*")
   end
 
+  spec.required_ruby_version = ">= 1.9.3"
+
   spec.add_runtime_dependency("gtk2")
   spec.add_runtime_dependency("rsvg2")
   spec.add_runtime_dependency("poppler")
