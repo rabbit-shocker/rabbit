@@ -886,7 +886,7 @@ module Rabbit
 
         front = make_front(canvas)
         setup_druby(front) if @options.use_druby
-                    if @options.use_soap
+        if @options.use_soap
           soap_server_thread = setup_soap(front)
         end
         if @options.use_xmlrpc
