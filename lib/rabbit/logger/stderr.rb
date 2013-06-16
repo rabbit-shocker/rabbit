@@ -11,7 +11,7 @@ module Rabbit
       def do_log(severity, prog_name, message)
         begin
           message = message.encode("locale")
-        rescue Encoding::Error
+        rescue EncodingError
           format = _("can't convert to current locale from UTF-8: %s")
           ::STDERR.puts(format % message)
         end
