@@ -4,7 +4,6 @@ require "rabbit/logger/base"
 
 module Rabbit
   module Logger
-
     class STDERR
       include Base
 
@@ -21,8 +20,6 @@ module Rabbit
         ::STDERR.puts(message)
         exit if severity >= Severity::FATAL
       end
-      
     end
-    
   end
 end
