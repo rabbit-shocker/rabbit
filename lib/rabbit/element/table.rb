@@ -1,4 +1,4 @@
-require 'rabbit/element/text-element'
+require 'rabbit/element/text-container-element'
 require 'rabbit/element/container-element'
 require 'rabbit/element/block-element'
 
