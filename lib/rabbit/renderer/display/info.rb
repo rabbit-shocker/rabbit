@@ -25,6 +25,11 @@ module Rabbit
           @info_window.hide
         end
 
+        def post_parse
+          super
+          @info_window.parsed
+        end
+
         def post_move(old_index, index)
           super
           @info_window.moved(index)

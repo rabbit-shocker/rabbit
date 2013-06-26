@@ -58,9 +58,13 @@ module Rabbit
 
     def moved(index)
       return unless showing?
-      check_timer
-      update_note_text if on_note_mode?
-      adjust_slide(index)
+      update(index)
+    end
+
+    def parsed
+      return unless showing?
+      update_source
+      update
     end
 
     def index_mode_on
@@ -190,6 +194,12 @@ module Rabbit
       @note_label.wrap = true
       @note_label.markup = markupped_note_text(width, height)
       @note_label.set_size_request(width, height)
+    end
+
+    def update(index=nil)
+      check_timer
+      update_note_text if on_note_mode?
+      adjust_slide(index)
     end
 
     def update_note_text
