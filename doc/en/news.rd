@@ -3,6 +3,21 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.1.1: 2013-06-26
+
+A bug fix release of 2.1.0.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that rabbit can't start by NameError.
+    [GitHub#25] [Reported by Yoshihide Chubachi]
+
+=== Thanks
+
+  * Yoshihide Chubachi
+
 == 2.1.0: 2013-06-16
 
 A bug fix release of 2.0.9.

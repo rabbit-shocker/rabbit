@@ -3,6 +3,21 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 2.1.1: 2013-06-26
+
+2.1.0のバグフィックスリリース。
+
+=== 修正
+
+==== rabbit
+
+  * 起動時にNameErrorがでて起動できない問題を修正。
+    [GitHub#25] [Yoshihide Chubachiさんが報告]
+
+=== 感謝
+
+  * Yoshihide Chubachiさん
+
 == 2.1.0: 2013-06-16
 
 2.0.9のバグフィックスリリース。
