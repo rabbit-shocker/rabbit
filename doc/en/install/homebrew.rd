@@ -22,6 +22,7 @@ Then add /usr/local/bin to your PATH.
 
   $ brew install cairo
   $ brew link cairo
+  $ brew link --overwrite pixman
   $ brew install pango
   $ brew install gtk+
   $ brew install poppler --with-glib
