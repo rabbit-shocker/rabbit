@@ -18,13 +18,13 @@ Here are required softwares.
 
 ==== Install Ruby
 
-Install Ruby 1.8.7 from ((<download page of RubyInstall for
+Install Ruby 2.0.0 from ((<download page of RubyInstall for
 Windows|URL:http://rubyinstaller.org/downloads/>)). For
-example, Ruby 1.8.7-p334 installer can be downloaded via the
+example, Ruby 2.0.0-p247 installer can be downloaded via the
 following URL.
 
-: rubyinstaller-1.8.7-p334.exe
-   ((<URL:http://rubyforge.org/frs/download.php/74293/rubyinstaller-1.8.7-p334.exe>))
+: rubyinstaller-2.0.0-p247.exe
+   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p247.exe>))
 
 ==== Install Rabbit
 
