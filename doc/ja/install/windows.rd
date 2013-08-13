@@ -22,17 +22,18 @@ Windows上でRabbitをインストール、利用する手順について説明�
 ==== Ruby 本体のインストール
 
 ((<RubyInstall for Windowsのダウンロードページ（英語）
-|URL:http://rubyinstaller.org/downloads/>))からRuby 1.8.7 の
-インストーラをダウンロードします。Ruby 1.8.7-p334のインストー
+|URL:http://rubyinstaller.org/downloads/>))からRuby 2.0.0 の
+インストーラをダウンロードします。Ruby 2.0.0-p247のインストー
 ラは以下のURLからダウンロードできます。
 
-: rubyinstaller-1.8.7-p334.exe
-   ((<URL:http://rubyforge.org/frs/download.php/74293/rubyinstaller-1.8.7-p334.exe>))
+: rubyinstaller-2.0.0-p247.exe
+   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p247.exe>))
 
 ==== Rabbitのインストール
 
 RubyInstallerをインストールするとスタートメニューに「Start
-Command Prompt with Ruby」というプログラムが追加されます。こ
+Command Prompt with Ruby」（日本語の場合は「Ruby コマンド
+プロンプトを開く」）というプログラムが追加されます。こ
 のプログラムを実行するとruby.exeにパスが通ったコマンドプロン
 プトが表示されます。ここで以下のコマンドを実行することで
 Rabbitをインストールできます。Ruby/GTK2など関連するソフトウェ
