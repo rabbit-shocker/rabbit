@@ -20,7 +20,7 @@ require "find"
 require "rubygems"
 require "rubygems/package_task"
 require "bundler/gem_helper"
-require "gettext/task"
+require "gettext/tools/task"
 
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
@@ -53,7 +53,7 @@ def spec.extra_rdoc_files
   @extra_rdoc_files = force_array(super)
 end
 
-GetText::Task.new(spec) do |task|
+GetText::Tools::Task.new(spec) do |task|
   task.files -= Dir.glob("sample/**/*.*")
   task.mo_base_directory = "data"
 end

@@ -54,7 +54,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("rttool")
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
   spec.add_runtime_dependency("kramdown")
-  spec.add_runtime_dependency("gettext")
+  spec.add_runtime_dependency("gettext", ">= 3.0.0")
   spec.add_runtime_dependency("faraday")
   # spec.add_runtime_dependency("gstreamer")
 
