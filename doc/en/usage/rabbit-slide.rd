@@ -211,8 +211,8 @@ publish:rubygems%)):
 
   % rake publish:rubygems
 
-You can display a slide published on RubyGems.org by ((%rabbit
-#{the user name on RubyGems.org}-#{the slide ID}.gem%)).
+You can display a slide published on RubyGems.org by
+((%rabbit #{the user name on RubyGems.org}-#{the slide ID}.gem%)).
 For theme-benchmark-en case, "the user name on RubyGems.org" is
 ((%rabbit%)) and "the slide ID" is ((%theme-benchmark-en%)). So you
 can display by the following command:
