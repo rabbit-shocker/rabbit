@@ -207,11 +207,11 @@ Here is a contributor list. Thanks to them!!!
     * Makes presentations with Rabbit.
     * Updated INSTALL.win32.ja.
     * Updated INSTALL.macosx-macports.{ja,en}.
-  * Vincent: Helped make Rabbit work on Max OS X. He also 
+  * Vincent: Helped make Rabbit work on Max OS X. He also
     made french messages.
   * sode: Made the cool rabbit, cute rabbit and cute
     turtle.
-  * Kazuhiko: Sent me many bug reports. He also makes 
+  * Kazuhiko: Sent me many bug reports. He also makes
     presentations with Rabbit and gives me ideas for theme
     design.
   * noritada: Sent me a bug report for document.
