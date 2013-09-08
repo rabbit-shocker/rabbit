@@ -18,9 +18,8 @@ RubyGems.orgやSlideShareへの公開をコマンド一発で実行できます�
 
 Rabbitでよいスライドを作成し、よい発表をし、そして、共有しましょう！
 
-TODO: RubyGems.orgに公開したスライドは
-((<URL:http://slide.rabbit-shocker.org/>))で閲覧できるようになる予定で
-す。
+RubyGems.orgに公開したスライドは
+((<URL:http://slide.rabbit-shocker.org/>))で閲覧できるます。
 
 == 雛形作成
 
