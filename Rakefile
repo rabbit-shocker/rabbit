@@ -53,7 +53,8 @@ def spec.extra_rdoc_files
   @extra_rdoc_files = force_array(super)
 end
 
-GetText::Tools::Task.new(spec) do |task|
+GetText::Tools::Task.define do |task|
+  task.spec = spec
   task.files -= Dir.glob("sample/**/*.*")
   task.mo_base_directory = "data"
 end
