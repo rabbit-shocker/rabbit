@@ -4,4 +4,3 @@
 * support GStreamer.
 * support MeCab for clever wrapping.
 * [nori] write manpage (converted from something like RD or DocBook XML).
-* support GooCanvas.
