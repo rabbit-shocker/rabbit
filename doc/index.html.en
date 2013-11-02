@@ -8,9 +8,9 @@ no_sidebar: true
   <p><a href="/en/news.html">{{ site.version }}</a> is the latest release. It had been released at {{ site.release_date }}.</p>
 </div>
 
-<section class="screenshots">
+<section id="screenshots">
   <h2>Screenshots</h2>
-  <ul id="screenshots">
+  <ul>
     <li><img src="images/screenshots/en/blue-circle.png"
              alt="Blue Circle theme" /></li>
     <li><img src="images/screenshots/en/clear-blue.png"
@@ -40,7 +40,7 @@ no_sidebar: true
   </ul>
 </section>
 
-<div class="main">
+<div id="main">
   <section class="contents">
     <h2>About Rabbit</h2>
     <nav>
