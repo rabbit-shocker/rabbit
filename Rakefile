@@ -22,6 +22,10 @@ require "rubygems/package_task"
 require "bundler/gem_helper"
 require "gettext/tools/task"
 
+def ruby(*args)
+  sh(Gem.ruby, *args)
+end
+
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
@@ -153,7 +157,7 @@ EOC
   task :generate => screenshots do
     Dir.chdir("doc") do
       rm_rf("_site")
-      sh("ruby", "-S", "jekyll", "build")
+      ruby("-S", "jekyll", "build")
     end
   end
 
