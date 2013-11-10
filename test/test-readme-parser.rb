@@ -23,14 +23,14 @@ class TestREADMEParser < Test::Unit::TestCase
 
   def test_rd
     title = "Theme benchmark"
-    description = <<-EOD.strip
+    description = <<-DESCRIPTION.strip
 It's a slide for checking a Rabbit's theme. It contains many
 elements. So it's useful for confirming your theme.
 
 Please try to create your original theme!
-EOD
+    DESCRIPTION
 
-    assert_parse(title, description, <<-EOR)
+    assert_parse(title, description, <<-README)
 = #{title}
 
 #{description}
@@ -40,7 +40,7 @@ EOD
 === Show
 
   rake
-EOR
+    README
   end
 
   private
