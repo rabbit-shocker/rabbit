@@ -19,12 +19,20 @@ require "rabbit/readme-parser"
 class TestREADMEParser < Test::Unit::TestCase
   def setup
     @parser = Rabbit::READMEParser.new
+    @title = "Theme benchmark"
+    @description = <<-DESCRIPTION.strip
+It's a slide for checking a Rabbit's theme. It contains many
+elements. So it's useful for confirming your theme.
+
+Please try to create your original theme!
+    DESCRIPTION
   end
 
   private
-  def assert_parse(title, description, content)
-    stub(File).read("README") {content}
-    @parser.parse("README")
+  def assert_parse(title, description, content, extension=nil)
+    readme_path = "README#{extension}"
+    stub(File).read(readme_path) {content}
+    @parser.parse(readme_path)
     assert_equal({
                    :title       => title,
                    :description => description,
@@ -36,26 +44,23 @@ class TestREADMEParser < Test::Unit::TestCase
   end
 
   class TestRD < self
-  def test_without_extension
-    title = "Theme benchmark"
-    description = <<-DESCRIPTION.strip
-It's a slide for checking a Rabbit's theme. It contains many
-elements. So it's useful for confirming your theme.
+    def test_without_extension
+      assert_parse(@title, @description, readme_content)
+    end
 
-Please try to create your original theme!
-    DESCRIPTION
+    private
+    def readme_content
+      <<-README
+= #{@title}
 
-    assert_parse(title, description, <<-README)
-= #{title}
-
-#{description}
+#{@description}
 
 == For author
 
 === Show
 
   rake
-    README
-  end
+      README
+    end
   end
 end
