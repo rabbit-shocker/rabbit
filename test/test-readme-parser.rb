@@ -21,7 +21,22 @@ class TestREADMEParser < Test::Unit::TestCase
     @parser = Rabbit::READMEParser.new
   end
 
-  def test_rd
+  private
+  def assert_parse(title, description, content)
+    stub(File).read("README") {content}
+    @parser.parse("README")
+    assert_equal({
+                   :title       => title,
+                   :description => description,
+                 },
+                 {
+                   :title       => @parser.title,
+                   :description => @parser.description,
+                 })
+  end
+
+  class TestRD < self
+  def test_without_extension
     title = "Theme benchmark"
     description = <<-DESCRIPTION.strip
 It's a slide for checking a Rabbit's theme. It contains many
@@ -42,18 +57,5 @@ Please try to create your original theme!
   rake
     README
   end
-
-  private
-  def assert_parse(title, description, content)
-    stub(File).read("README") {content}
-    @parser.parse("README")
-    assert_equal({
-                   :title       => title,
-                   :description => description,
-                 },
-                 {
-                   :title       => @parser.title,
-                   :description => @parser.description,
-                 })
   end
 end
