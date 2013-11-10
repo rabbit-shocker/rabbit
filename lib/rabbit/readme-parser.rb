@@ -34,22 +34,75 @@ module Rabbit
       path ||= remove_backup_paths(Dir.glob("README*"))[0]
       raise _("No README found") if path.nil?
 
-      parse_content(File.read(path))
+      parse_content(File.read(path), File.extname(path))
     end
 
     private
-    HEADING_MARK_RE = /\A(?:[=*!]+|h\d\.)\s*/
-    def parse_content(content)
+    def parse_content(content, extension)
+      type = guess_type(content, extension)
+      _heading_mark_pattern = heading_mark_pattern(type)
+
       blocks = content.split(/(?:\r?\n){2,}/)
       if blocks[0]
-        @title = blocks[0].gsub(HEADING_MARK_RE, "")
+        @title = blocks[0].gsub(_heading_mark_pattern, "")
       end
       first_paragraph_blocks = []
       blocks[1..-1].each do |block|
-        break if HEADING_MARK_RE =~ block
+        break if _heading_mark_pattern =~ block
         first_paragraph_blocks << block
       end
       @description = first_paragraph_blocks.join("\n\n")
+    end
+
+    def guess_type(content, extension)
+      guess_type_from_extension(extension) ||
+        guess_type_from_content(content) ||
+        :rd
+    end
+
+    def guess_type_from_extension(extension)
+      case extension.downcase
+      when ".rd", ".rab"
+        :rd
+      when ".hiki"
+        :hiki
+      when ".md"
+        :markdown
+      when ".textile"
+        :textile
+      else
+        nil
+      end
+    end
+
+    def guess_type_from_content(content)
+      case content
+      when /^==/
+        :rd
+      when /^!!/
+        :hiki
+      when /^\#\#/
+        :markdown
+      when /^h\d\./
+        :textile
+      else
+        nil
+      end
+    end
+
+    def heading_mark_pattern(type)
+      case type
+      when :rd
+        /\A=+\s*/
+      when :hiki
+        /\A!+\s*/
+      when :markdown
+        /\A\#+\s*/
+      when :textile
+        /\Ah\d\.\s*/
+      else
+        heading_mark_pattern(:rd)
+      end
     end
 
     def remove_backup_paths(paths)

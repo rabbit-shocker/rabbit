@@ -100,4 +100,31 @@ Please try to create your original theme!
       end
     end
   end
+
+  class TestMarkdown < self
+    private
+    def readme_content
+      <<-README
+# #{@title}
+
+#{@description}
+
+## For author
+
+### Show
+
+  rake
+      README
+    end
+
+    class TestExtension < self
+      def test_no_extension
+        assert_parse(readme_content)
+      end
+
+      def test_hiki
+        assert_parse(readme_content, ".md")
+      end
+    end
+  end
 end
