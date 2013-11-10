@@ -73,4 +73,31 @@ Please try to create your original theme!
       end
     end
   end
+
+  class TestHiki < self
+    private
+    def readme_content
+      <<-README
+! #{@title}
+
+#{@description}
+
+!! For author
+
+!!!
+
+  rake
+      README
+    end
+
+    class TestExtension < self
+      def test_no_extension
+        assert_parse(readme_content)
+      end
+
+      def test_hiki
+        assert_parse(readme_content, ".hiki")
+      end
+    end
+  end
 end
