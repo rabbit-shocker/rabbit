@@ -48,6 +48,14 @@ Please try to create your original theme!
       assert_parse(readme_content)
     end
 
+    def test_with_extension_rd
+      assert_parse(readme_content, ".rd")
+    end
+
+    def test_with_extension_rab
+      assert_parse(readme_content, ".rab")
+    end
+
     private
     def readme_content
       <<-README
