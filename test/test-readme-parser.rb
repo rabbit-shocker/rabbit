@@ -84,7 +84,7 @@ Please try to create your original theme!
 
 !! For author
 
-!!!
+!!! Show
 
   rake
       README
