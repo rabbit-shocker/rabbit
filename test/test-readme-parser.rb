@@ -122,7 +122,7 @@ Please try to create your original theme!
         assert_parse(readme_content)
       end
 
-      def test_hiki
+      def test_md
         assert_parse(readme_content, ".md")
       end
     end
