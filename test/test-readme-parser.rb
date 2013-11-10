@@ -127,4 +127,31 @@ Please try to create your original theme!
       end
     end
   end
+
+  class TestTextile < self
+    private
+    def readme_content
+      <<-README
+h1. #{@title}
+
+#{@description}
+
+h2. For author
+
+h3. Show
+
+  rake
+      README
+    end
+
+    class TestExtension < self
+      def test_no_extension
+        assert_parse(readme_content)
+      end
+
+      def test_textile
+        assert_parse(readme_content, ".textile")
+      end
+    end
+  end
 end
