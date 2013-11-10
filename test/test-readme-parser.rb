@@ -60,17 +60,17 @@ Please try to create your original theme!
     end
 
     class TestExtension < self
-    def test_no_extension
-      assert_parse(readme_content)
-    end
+      def test_no_extension
+        assert_parse(readme_content)
+      end
 
-    def test_rd
-      assert_parse(readme_content, ".rd")
-    end
+      def test_rd
+        assert_parse(readme_content, ".rd")
+      end
 
-    def test_rab
-      assert_parse(readme_content, ".rab")
-    end
+      def test_rab
+        assert_parse(readme_content, ".rab")
+      end
     end
   end
 end
