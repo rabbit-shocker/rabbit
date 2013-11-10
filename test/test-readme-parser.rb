@@ -29,13 +29,13 @@ Please try to create your original theme!
   end
 
   private
-  def assert_parse(title, description, content, extension=nil)
+  def assert_parse(content, extension=nil)
     readme_path = "README#{extension}"
     stub(File).read(readme_path) {content}
     @parser.parse(readme_path)
     assert_equal({
-                   :title       => title,
-                   :description => description,
+                   :title       => @title,
+                   :description => @description,
                  },
                  {
                    :title       => @parser.title,
@@ -45,7 +45,7 @@ Please try to create your original theme!
 
   class TestRD < self
     def test_without_extension
-      assert_parse(@title, @description, readme_content)
+      assert_parse(readme_content)
     end
 
     private
