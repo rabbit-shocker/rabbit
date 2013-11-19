@@ -375,7 +375,7 @@ EOD
 
       def generate_rakefile
         create_file("Rakefile") do |rakefile|
-          rakefile.puts(<<-'EOR')
+          rakefile.puts(<<-'RAKEFILE')
 require "rabbit/task/slide"
 
 # Edit ./config.yaml to customize meta data
@@ -393,7 +393,7 @@ task :tag do
   sh("git", "tag", "-a", spec.version.to_s, "-m", "Publish #{spec.version}")
   sh("git", "push", "--tags")
 end
-EOR
+RAKEFILE
         end
       end
 
