@@ -36,7 +36,7 @@ match(SlideElement) do
         logo_y = 0
       else
         if @slide_logo_position.respond_to?(:call)
-          logo_x, logo_y = @slide_logo_position.call(slide, canvas)
+          logo_x, logo_y = @slide_logo_position.call(slide, canvas, loader)
         else
           logo_x, logo_y = @slide_logo_position
         end
