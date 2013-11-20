@@ -32,12 +32,12 @@ module Rabbit
 
       # for backward compatibility
       alias add_theme_path add_image_path
-      
+
       module_function
       def theme_dir(base_dir)
         File.join(base_dir, 'rabbit', 'theme')
       end
-      
+
       def image_dir(base_dir)
         File.join(base_dir, 'rabbit', 'image')
       end
