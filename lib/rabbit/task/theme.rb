@@ -103,7 +103,7 @@ module Rabbit
 
       def define_gem_create_task
         desc(_("Create gem: %{gem_path}") % {:gem_path => gem_path})
-        task :gem => "gem:validate" do
+        task :gem => ["gem:validate", :pdf] do
           mkdir_p(@package_dir)
           GemBuilder.build(spec)
           mv(File.basename(spec.cache_file), gem_path)
