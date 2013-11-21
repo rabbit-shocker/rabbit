@@ -55,6 +55,8 @@ module Rabbit
           do_print
         elsif @options.server
           do_server
+        elsif @options.syntax_check
+          do_syntax_check
         else
           do_display
         end
@@ -136,7 +138,7 @@ module Rabbit
           options.show_native_window_id = false
           options.keep_above = false
           options.source_filename = nil
-
+          options.syntax_check = false
 
           parser.banner = "#{parser.banner} [SOURCE_INFOS]"
 
@@ -208,6 +210,11 @@ module Rabbit
             options.base = base
           end
 
+          parser.on("-c", "--[no-]syntax-check",
+                    _("Toggle syntax check mode."),
+                    "(#{options.syntax_check ? 'on' : 'off'})") do |bool|
+            options.syntax_check = bool
+          end
 
           parser.category _("Initial state")
 
@@ -827,6 +834,15 @@ module Rabbit
         canvas.activate("ToggleIndexMode") if @options.index_mode
         canvas.save_as_image
         canvas.quit
+      end
+
+      def do_syntax_check
+        source = make_source
+        begin
+          Parser.parse(self, source)
+        rescue ::Rabbit::ParseError
+          puts $!.message
+        end
       end
 
       def do_display
