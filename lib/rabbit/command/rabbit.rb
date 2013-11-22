@@ -49,15 +49,7 @@ module Rabbit
         require "rabbit/canvas"
         GC.enable
 
-        if @options.save_as_image
-          do_save_as_image
-        elsif @options.print
-          do_print
-        elsif @options.server
-          do_server
-        else
-          do_display
-        end
+        __send__("do_#{@options.action}")
 
         ::Rabbit.cleanup
       end
@@ -82,6 +74,7 @@ module Rabbit
             adjust_rest_arguments(console, parser, options)
           end
 
+          options.action = :display
           options.options_file = ".rabbit"
           options.theme = "default"
           options.theme_specified = false
@@ -96,14 +89,12 @@ module Rabbit
           options.height = 600
           options.paper_width = nil
           options.paper_height = nil
-          options.save_as_image = false
           options.saved_image_base_name = nil
           options.saved_image_type = "png"
           options.output_html = false
           options.output_index_html = false
           options.rss_base_uri = nil
           options.encoding = nil
-          options.print = false
           options.print_out_filename = nil
           options.slides_per_page = 1
           options.draw_scaled_image = nil
@@ -123,7 +114,6 @@ module Rabbit
           options.use_xmlrpc = false
           options.xmlrpc_host = "0.0.0.0"
           options.xmlrpc_port = 10104
-          options.server = false
           options.default_public_level = "all"
           options.public_level = nil
           options.migemo_dictionary_search_path = [
@@ -264,7 +254,7 @@ module Rabbit
 
           parser.on("-s", "--save-as-image",
                     _("Save as image and exit.")) do
-            options.save_as_image = true
+            options.action = :save_as_image
           end
 
           parser.on("-i", "--saved-image-type=TYPE",
@@ -309,7 +299,7 @@ module Rabbit
 
           parser.on("-p", "--print",
                     _("Print and exit.")) do
-            options.print = true
+            options.action = :print
           end
 
           parser.on("-o", "--output-filename=FILENAME",
@@ -516,8 +506,8 @@ module Rabbit
 
           parser.on("--[no-]server",
                     _("Specify whether to run as server."),
-                    "(#{options.server})") do |bool|
-            options.server = bool
+                    "(#{options.server})") do
+            options.action = :server
           end
 
           parser.category _("Public level")
