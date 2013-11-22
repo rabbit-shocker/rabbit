@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2004-2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2013  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -49,9 +48,11 @@ module Rabbit
         require "rabbit/canvas"
         GC.enable
 
-        __send__("do_#{@options.action}")
+        succeeded = __send__("do_#{@options.action}")
 
         ::Rabbit.cleanup
+
+        succeeded
       end
 
       private
@@ -797,8 +798,10 @@ module Rabbit
         parse(canvas, source)
         canvas.print
         canvas.quit
+        true
       rescue ::Rabbit::NoPrintSupportError
         @logger.error($!.message)
+        false
       end
 
       def do_save_as_image
@@ -817,6 +820,8 @@ module Rabbit
         canvas.activate("ToggleIndexMode") if @options.index_mode
         canvas.save_as_image
         canvas.quit
+
+        true
       end
 
       def do_display
@@ -853,6 +858,9 @@ module Rabbit
         setup_xmlrpc(front) if @options.use_xmlrpc
 
         Gtk.main
+
+        true
+        false
       end
 
       def do_server
@@ -894,6 +902,8 @@ module Rabbit
           end
           DRb.thread.join
         end
+
+        true
       end
     end
   end

@@ -232,7 +232,11 @@ module Rabbit
       end
 
       def rabbit(*arguments)
-        Rabbit::Command::Rabbit.run(*arguments)
+        unless Rabbit::Command::Rabbit.run(*arguments)
+          message = "failed to run Rabbit"
+          message << ": #{arguments.join(', ')}" unless arguments.empty?
+          raise message
+        end
       end
     end
   end
