@@ -582,6 +582,11 @@ module Rabbit
 
           parser.category _("Others")
 
+          parser.on("--check-syntax",
+                    _("Check slide source syntax and exit.")) do
+            options.action = :check_syntax
+          end
+
           parser.on("--[no-]show-native-window-id",
                     _("Show a native window ID of the Rabbit window if available."),
                     _("e.g. The ID is the ID of X resource on X window system."),
@@ -904,6 +909,27 @@ module Rabbit
         end
 
         true
+      end
+
+      def do_check_syntax
+        source = make_source
+        renderer = Renderer.printable_renderer(1)
+        canvas = make_canvas(renderer)
+        exception = nil
+        begin
+          canvas.parse(source) do |_exception|
+            exception = _exception
+          end
+        rescue
+          exception = $!
+        end
+
+        if exception
+          @logger.info(exception.message)
+          false
+        else
+          true
+        end
       end
     end
   end
