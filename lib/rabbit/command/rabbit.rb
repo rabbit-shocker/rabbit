@@ -504,7 +504,7 @@ module Rabbit
 
           parser.category _("Server")
 
-          parser.on("--[no-]server",
+          parser.on("--server",
                     _("Specify whether to run as server."),
                     "(#{options.server})") do
             options.action = :server
