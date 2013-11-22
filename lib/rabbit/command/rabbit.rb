@@ -586,7 +586,7 @@ module Rabbit
                     _("Show a native window ID of the Rabbit window if available."),
                     _("e.g. The ID is the ID of X resource on X window system."),
                     "(#{options.show_native_window_id})") do |bool|
-              options.show_native_window_id = bool
+            options.show_native_window_id = bool
           end
         end
       end
