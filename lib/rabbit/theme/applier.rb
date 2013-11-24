@@ -248,7 +248,7 @@ module Rabbit
 
       def apply_theme(name)
         entry = find_theme(name)
-        src = File.open(entry.theme_file) do |f|
+        src = File.open(entry.theme_file, "r:utf-8") do |f|
           f.read
         end
         in_theme(entry) do
