@@ -173,7 +173,7 @@ module Rabbit
               args = size + [fill_color]
               canvas.draw_rectangle(true, *args)
             end
-            
+
             if frame_color
               args = size + [frame_color, {:line_width => frame_width}]
               canvas.draw_rectangle(false, *args)
@@ -186,7 +186,7 @@ module Rabbit
               usw = fw + shadow_width - shadow_offset
               ush = shadow_width
               canvas.draw_rectangle(true, usx, usy, usw, ush, shadow_color)
-      
+
               # Right Shadow
               rsx = fx + fw + frame_width
               rsy = fy + shadow_offset
@@ -312,7 +312,7 @@ module Rabbit
           "@#{x}_large_#{$2}font_size"
         end
       end
-      
+
       def include_theme(name)
         begin
           apply_theme(name)
@@ -340,7 +340,7 @@ module Rabbit
       def logger
         canvas.logger
       end
-      
+
       def print?
         canvas.printable?
       end
@@ -352,11 +352,11 @@ module Rabbit
       def theme_exit(message=nil)
         raise ThemeExit.new(message)
       end
-      
+
       def slides_per_page
         canvas.slides_per_page
       end
-      
+
       def set_foreground(color)
         canvas.foreground = canvas.make_color(color)
       end
@@ -444,7 +444,7 @@ module Rabbit
           super
         end
       end
-      
+
       def _match(current, *paths)
         last_path_index = paths.size - 1
         paths.each_with_index do |path, i|
@@ -462,7 +462,7 @@ module Rabbit
                   path === element
                 end
               end
-              
+
               if i != last_path_index
                 working.inject([]) do |result, elem|
                   if elem.respond_to?(:elements)
@@ -474,7 +474,7 @@ module Rabbit
               else
                 working
               end
-              
+
             end
           end
         end
