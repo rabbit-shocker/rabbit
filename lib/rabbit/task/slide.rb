@@ -67,6 +67,7 @@ module Rabbit
 
           slide_conf_path = @slide.path
           spec.files = [".rabbit", slide_conf_path, "Rakefile"]
+          spec.files += Dir.glob("theme.rb")
           spec.files += Dir.glob("{COPYING,GPL,README*}")
           spec.files += Dir.glob("rabbit/**/*.*")
           spec.files += Dir.glob("**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
