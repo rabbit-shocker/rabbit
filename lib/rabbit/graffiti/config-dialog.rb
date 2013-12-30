@@ -5,6 +5,8 @@ require 'rabbit/renderer/color'
 module Rabbit
   module Graffiti
     class ConfigDialog
+      include GetText
+
       attr_reader :color, :line_width
       def initialize(color, line_width)
         @original_color = @color = color
