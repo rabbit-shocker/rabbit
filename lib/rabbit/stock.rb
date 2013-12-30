@@ -5,11 +5,11 @@ require 'rabbit/rabbit'
 module Rabbit
   module Stock
     include GetText
-    
+
     RABBIT = :rabbit_rabbit
-    
+
     @@loaded = false
-    
+
     module_function
     def init(canvas)
       return if @@loaded
