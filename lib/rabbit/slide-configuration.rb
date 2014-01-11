@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,11 @@ module Rabbit
     attr_accessor :logger
     attr_accessor :id, :base_name, :tags, :presentation_date
     attr_accessor :licenses
-    attr_accessor :slideshare_id, :speaker_deck_id, :ustream_id, :vimeo_id
+    attr_accessor :slideshare_id
+    attr_accessor :speaker_deck_id
+    attr_accessor :ustream_id
+    attr_accessor :vimeo_id
+    attr_accessor :youtube_id
     attr_writer :version
     attr_accessor :author
     def initialize(logger=nil)
@@ -72,6 +76,7 @@ module Rabbit
       @speaker_deck_id   = nil
       @ustream_id        = nil
       @vimeo_id          = nil
+      @youtube_id        = nil
       @author            = nil
     end
 
@@ -84,6 +89,7 @@ module Rabbit
       @speaker_deck_id   = conf["speaker_deck_id"]   || @speaker_deck_id
       @ustream_id        = conf["ustream_id"]        || @ustream_id
       @vimeo_id          = conf["vimeo_id"]          || @vimeo_id
+      @youtube_id        = conf["youtube_id"]        || @youtube_id
 
       @tags              |=  (conf["tags"] || [])
       @licenses          |=  (conf["licenses"] || [])
@@ -104,6 +110,7 @@ module Rabbit
         "speaker_deck_id"   => @speaker_deck_id,
         "ustream_id"        => @ustream_id,
         "vimeo_id"          => @vimeo_id,
+        "youtube_id"        => @youtube_id,
       }
       config["author"] = @author.to_hash if @author
       config
