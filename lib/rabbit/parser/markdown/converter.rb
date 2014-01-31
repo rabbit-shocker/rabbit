@@ -257,6 +257,10 @@ module Rabbit
           ref.to = element.attr['href']
           ref
         end
+
+        def convert_codespan(element)
+          Code.new(Text.new(element.value))
+        end
       end
     end
   end
