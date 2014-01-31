@@ -258,6 +258,10 @@ module Rabbit
           ref
         end
 
+        def convert_br(element)
+          Text.new("\n")
+        end
+
         def convert_codespan(element)
           Code.new(Text.new(element.value))
         end
