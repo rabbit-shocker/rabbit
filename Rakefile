@@ -22,6 +22,8 @@ require "rubygems/package_task"
 require "bundler/gem_helper"
 require "gettext/tools/task"
 
+task :default => :test
+
 def ruby(*args)
   sh(Gem.ruby, *args)
 end
@@ -228,4 +230,9 @@ namespace :github do
       touch("misc/github-post-receiver/tmp/restart.txt")
     end
   end
+end
+
+desc "Run test"
+task :test do
+  ruby("test/run-test.rb")
 end
