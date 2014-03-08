@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2008-2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2008-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@ end
 GetText::Tools::Task.define do |task|
   task.spec = spec
   task.files -= Dir.glob("sample/**/*.*")
-  task.mo_base_directory = "data"
+  task.mo_base_directory = "data/locale"
 end
 
 Gem::PackageTask.new(spec) do |package|
