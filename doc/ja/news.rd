@@ -3,6 +3,59 @@ layout: ja
 title: お知らせ
 apply_data: false
 ---
+== 2.1.2: 2014-03-08
+
+2.1.1のバグフィックスリリース。
+
+=== 改良
+
+==== rabbit
+
+  * 情報ウィンドウがソースの自動再読み込みに対応。
+    [GitHub#23] [Kazuhiro NISHIYAMAさんが報告]
+  * ソースの構文をチェックして終了する((%--check-syntax%))オプションを追加。
+    [GitHub#27] [HAYASHI Kentaroさんが提案]
+  * Markdownでインラインコード用の「(({`...`}))」記法を使えるようになった。
+    [GitHub#29] [KITAITI Makotoさんがパッチを提供]
+  * Markdownで改行用の「(({\\}))」記法を使えるようになった。
+    [GitHub#29] [KITAITI Makotoさんがパッチを提供]
+
+==== rabbit-slide
+
+   * Markdownで書かれたREADMEに対応。
+   * Gitのタグを打つ「tag」タスクを追加。
+   * 「theme.rb」ファイルがあったら自動でgemに追加するようにした。
+   * config.yamlにプレゼンテーションに対応するYouTubeの動画を指定する
+     (({youtube_id}))パラメーターを書けるようにした。指定すると
+     slide.rabbit-shocker.orgでリンクが出る。
+
+==== ドキュメント
+
+  * Homebrewでのインストール方法を更新。
+    [Yutaro Sugaiさん]
+  * Windowsでのインストール方法を更新。
+    [Masafumi Yokoyamaさん]
+
+=== 修正
+
+==== rabbit
+
+  * 落書きモードの設定ダイアログを開けない問題を修正。
+    [shocker-en:63] [Enrico Rivarolaさんが報告]
+
+==== rabbit-slide
+
+  * PDFを作らなくてもgemを作れてしまう問題を修正。
+
+=== 感謝
+
+  * Kazuhiro NISHIYAMAさん
+  * Yutaro Sugaiさん
+  * Masafumi Yokoyamaさん
+  * HAYASHI Kentaroさん
+  * Enrico Rivarolaさん
+  * KITAITI Makotoさん
+
 == 2.1.1: 2013-06-26
 
 2.1.0のバグフィックスリリース。

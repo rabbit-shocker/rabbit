@@ -3,6 +3,60 @@ layout: en
 title: News
 apply_data: false
 ---
+== 2.1.2: 2014-03-08
+
+A bug fix release of 2.1.1.
+
+=== Improvements
+
+==== rabbit
+
+  * Supported auto source reloading in information window.
+    [GitHub#23] [Reported by Kazuhiro NISHIYAMA]
+  * Add ((%--check-syntax%)) option that checks source syntax and exits.
+    [GitHub#27] [Reported by HAYASHI Kentaro]
+  * Supported inline code markup "(({`...`}))" in Markdown.
+    [GitHub#29] [Patch by KITAITI Makoto]
+  * Supported newline markup "(({\\}))" in Markdown.
+    [GitHub#29] [Patch by KITAITI Makoto]
+
+==== rabbit-slide
+
+   * Supported README written in Markdown.
+   * Added "tag" task that tags by Git.
+   * Supported auto adding "theme.rb" file to gem if the file exists.
+   * Supported (({youtube_id})) parameter in config.yaml.
+     You can specify YouTube video that is associated with your
+     presentation. You will find a link at slide.rabbit-shocker.org
+     when you specify it.
+
+==== Document
+
+  * Updated install document for Homebrew.
+    [Yutaro Sugai]
+  * Updated install document on Windows.
+    [Masafumi Yokoyama]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that configuration dialog for graffiti mode can't be opened.
+    [shocker-en:63] [Reported by Enrico Rivarola]
+
+==== rabbit-slide
+
+  * Fixed a bug that gem can be created without PDF.
+
+=== Thanks
+
+  * Kazuhiro NISHIYAMA
+  * Yutaro Sugai
+  * Masafumi Yokoyama
+  * HAYASHI Kentaro
+  * Enrico Rivarola
+  * KITAITI Makoto
+
 == 2.1.1: 2013-06-26
 
 A bug fix release of 2.1.0.
