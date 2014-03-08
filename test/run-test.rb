@@ -17,9 +17,11 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 base_dir = File.expand_path(File.join(File.dirname(__FILE__), ".."))
+test_dir = File.join(base_dir, "test")
+
 $LOAD_PATH.unshift(File.join(base_dir, "lib"))
-$LOAD_PATH.unshift(File.join(base_dir, "test"))
+$LOAD_PATH.unshift(test_dir)
 
 require "rabbit-test-utils"
 
-exit Test::Unit::AutoRunner.run(true)
+exit Test::Unit::AutoRunner.run(true, test_dir)
