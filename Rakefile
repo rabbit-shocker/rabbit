@@ -24,10 +24,6 @@ require "gettext/tools/task"
 
 task :default => :test
 
-def ruby(*args)
-  sh(Gem.ruby, *args)
-end
-
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
