@@ -33,7 +33,6 @@ module Rabbit
         def convert_root(element)
           target = nil
           mode = :ignore
-          require 'pp'
           convert_container(element).each do |content|
             case content
             when :no_element
