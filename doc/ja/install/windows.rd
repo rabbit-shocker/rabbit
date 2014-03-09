@@ -23,11 +23,11 @@ Windows上でRabbitをインストール、利用する手順について説明�
 
 ((<RubyInstall for Windowsのダウンロードページ（英語）
 |URL:http://rubyinstaller.org/downloads/>))からRuby 2.0.0 の
-インストーラをダウンロードします。Ruby 2.0.0-p247のインストー
+インストーラをダウンロードします。Ruby 2.0.0-p451のインストー
 ラは以下のURLからダウンロードできます。
 
-: rubyinstaller-2.0.0-p247.exe
-   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p247.exe>))
+: rubyinstaller-2.0.0-p451.exe
+   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p451.exe>))
 
 ==== Rabbitのインストール
 
