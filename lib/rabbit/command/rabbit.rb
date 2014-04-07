@@ -865,7 +865,6 @@ module Rabbit
         Gtk.main
 
         true
-        false
       end
 
       def do_server
