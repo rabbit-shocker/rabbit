@@ -1,5 +1,5 @@
 ---
-layout: ja
+layout: en
 title: Development
 ---
 == Repository
