@@ -2,6 +2,7 @@ require "rabbit/utils"
 
 Rabbit::Utils.require_safe "poppler"
 
+require "rabbit/gettext"
 require "rabbit/image/base"
 
 module Rabbit
