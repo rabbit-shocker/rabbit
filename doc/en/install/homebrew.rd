@@ -26,7 +26,7 @@ Then add /usr/local/bin to your PATH.
   $ brew install pango
   $ brew install gtk+
   $ brew install poppler --with-glib
-  $ brew insatll libsvg
+  $ brew install libsvg
 
 === Install Rabbit
 
