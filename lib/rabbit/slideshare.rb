@@ -88,7 +88,7 @@ module Rabbit
           :slideshow_srcfile     => Faraday::UploadIO.new(@pdf_path,
                                                           "application/pdf"),
           :slideshow_description => @description,
-          :tags                  => @tags.join(","),
+          :slideshow_tags        => @tags.join(","),
         }
         response = post("upload_slideshow", payload)
         parse_upload_slideshow_response(response)
