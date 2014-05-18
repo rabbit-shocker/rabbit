@@ -232,3 +232,29 @@ desc "Run test"
 task :test do
   ruby("test/run-test.rb")
 end
+
+namespace :doc do
+  related_products = [
+    "rabwii",
+    "rabbirack",
+    "rabbiter",
+  ]
+  related_product_directories = []
+  related_products.each do |related_product|
+    related_product_directory = "../#{related_product}"
+    related_product_directories << related_product_directory
+    directory related_product_directory do
+      sh("git",
+         "clone",
+         "https://github.com/rabbit-shocker/#{related_product}.git",
+         related_product_directory)
+    end
+  end
+
+  desc "Run documentation server"
+  task :server => related_product_directories do
+    Dir.chdir("doc") do
+      sh("jekyll", "server", "--watch")
+    end
+  end
+end
