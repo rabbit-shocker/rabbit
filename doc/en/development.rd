@@ -10,8 +10,8 @@ Rabbit's repository is
 == Commit mail
 
 You can stay up to date on the latest development by
-subscribing to the git commit ML. If you want to subscribe
-to the ML, send an e-mail like the following.
+subscribing to the git commit ML. If you want to join,
+send an e-mail like the following.
 
   To: commit@ml.rabbit-shocker.org
   Cc: null@cozmixng.org
@@ -28,22 +28,22 @@ reporting a bug or a request.
 
 == Contribution
 
-We welcome to your contribution. :)
+We welcome your contribution. :)
 
 === Theme
 
-We always welcome to a new theme. Please send your theme
-when you create a theme.
+We always welcome new theme. Please tell us your own theme
+when you create one.
 
 === Documentation
 
-Rabbit lacks documentation in English. Please consider that
-you write your tips to ((<faq.rd/FAQ>)) page.
+Rabbit lacks of documentation in English. Please consider 
+to write your tips to ((<faq.rd/FAQ>)) page.
 
 === Translation
 
 Please translate messages in Rabbit into your native
-language. You can make po/#{LANG}/rabbit.po by the running
+language. You can make po/#{LANG}/rabbit.po by running
 the following:
 
   % mkdir po/#{LANG}

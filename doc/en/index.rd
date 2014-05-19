@@ -2,47 +2,37 @@
 layout: en
 title: README
 ---
-== What is Rabbit?
+== About Rabbit
 
-Rabbit is a presentation tool for programmer, especially
-Rubyist.
+Rabbit is a presentation tool for programmer, especially Rubyist.
 
-You can create presentation slides as a text format. So you
-can use your favorite editor and version control system for
-creating presentation slides.
+Slide is written in text format, so you can use your favorite editor or versioning tool to make it.
 
-Rabbit has programmer-friendly keybord interface. If you
-type a key then you will get what you want because Rabbit
-uses Emacs/Vi like key bindings by default.
+Rabbit also has programmer-friendly keybord interface. 
+You can use Rabbit just as a slide viewer because Rabbit also supports PDF format.
+It means even after making slide in other tool like Keynote, you can use Rabbit for displaying it.
 
-You can just use Rabbit as a slide viewer because Rabbit can
-also show PDF format slide. You can create by Keynote or
-what you like and use Rabbit as a slide viewer for
-programmer-friendly keybord interface.
-
-You can customize slide look and feed by Ruby. It's very
-important for Rubyist that you can program when you make
-presentation slides.
+You can customize its look with Ruby code, so you can hack even when making slides! 
 
 === Format
 
-Rabbit supports RD, Wiki notation and Markdown for text format.
+Rabbit supports RD, Wiki markup and Markdown for its format.
 
-((<rd.rd/RD>)) is an abbreviation of Ruby Document. It's
-easy to read text format.
+((<rd.rd/RD>)) is an abbreviation of Ruby Document, which is
+easy to read for its simple text format.
 
-Rabbit supports a ((<hiki.rd/Hiki notation>)) that is a
-dialect of Wiki notations.
+Rabbit supports a ((<hiki.rd/Hiki notation>)); one of
+the dialects of Wiki notations.
 
 === Interface
 
-Rabbit has useful slide operation interface.
+Rabbit has useful slide operation interface as follows.
 
-  * Keybord interface: If you type a key then you will get
+  * Keybord interface: If you hit a key, then you will get
     what you want.
-  * Mouse gesture: Just for a fun. It'll not be used while
-    presentation but it's fun while creating.
-  * Here and tortoise: Visualize remaining time.
+  * Mouse gesture: Just for a fun. It'll not be used during
+    presentation but it's fun for creating.
+  * Hare and tortoise: Visualize remaining time with animation of their race.
 
 == Install
 
@@ -158,14 +148,14 @@ other words the committer retains copyright of his or her
 committed code and patch authors retain the copyright of
 their submitted patch code.
 
-The images above are copyright their respective owners.
+The images above are copyrighted by their respective owners.
 
 == License
 
 Licensed under GPLv2 or later. For more information see 'GPL'
 file. Provided patches, codes and so on are also licensed under GPLv2
 or later. Kouhei Sutou can change the license of them. He considers
-that authores of them agree with the rule when they contribute their
+that authors of them agree with the rule when they contribute their
 patches, codes and so on.
 
 lib/rabbit/div/prototype.js released under an MIT-style
