@@ -1,8 +1,8 @@
 ---
 layout: ja
 title: "サンプルスライド: Rabbit"
-apply_data: false
 ---
+{% raw %}
 <<<
 // To run with it without system install.
 //  % ruby -I./lib bin/rabbit -f sample/rabbit.hiki
@@ -405,3 +405,4 @@ EOA
 * キーボード重視
 ** UI・テキストベースのソース
 >>>
+{% endraw %}

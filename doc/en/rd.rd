@@ -1,8 +1,8 @@
 ---
 layout: en
 title: RD
-apply_data: false
 ---
+{% raw %}
 == What is RD?
 
 RD is Ruby's POD, embeddable documentation format in script file. 
@@ -479,3 +479,4 @@ Of course, you can use the text for the display for Reference to URL resource.
 When the text for the display is omitted, you can use ((<Inline>)) for Label.
    ((<((*Label*))>))
 ((<((*Label*))>))
+{% endraw %}

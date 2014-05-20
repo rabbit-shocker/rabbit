@@ -1,8 +1,8 @@
 ---
 layout: ja
 title: RD
-apply_data: false
 ---
+{% raw %}
 == RDとは何か
 
 RDとはRuby版のPODです。つまりRubyスクリプトファイルの中に埋め込む事を意図して
@@ -487,3 +487,4 @@ Reference内では"|"や"/"は特殊文字なのでこれらを使いたい時�
 表示用のテキストが無い場合には代わりにLabelに((<Inline>))を使えます。
    ((<((*Label*))>))
 ((<((*Label*))>))
+{% endraw %}

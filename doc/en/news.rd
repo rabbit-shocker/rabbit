@@ -1,8 +1,8 @@
 ---
 layout: en
 title: News
-apply_data: false
 ---
+{% raw %}
 == 2.1.2: 2014-03-08
 
 A bug fix release of 2.1.1.
@@ -1786,3 +1786,4 @@ SASAKI]
 === Other news
 
   * Mac OS X package (DarwinPorts) is available by kimura wataru.
+{% endraw %}

@@ -1,8 +1,8 @@
 ---
 layout: ja
 title: Hiki記法
-apply_data: false
 ---
+{% raw %}
 !パラグラフ
 
 連続した複数行は連結されて一つのパラグラフになります。
@@ -317,3 +317,4 @@ http://jp.rubyist.net/theme/clover/clover_h1.png
   パラメータ２
   パラメータ３
  )}}
+{% endraw %}

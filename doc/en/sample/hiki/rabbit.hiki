@@ -1,8 +1,8 @@
 ---
 layout: en
 title: "Sample slide: Rabbit"
-apply_data: false
 ---
+{% raw %}
 <<<
 // To run with it without system install.
 //  % ruby -I./lib bin/rabbit -f sample/rabbit-en.rd
@@ -389,3 +389,4 @@ End of source code.
 * Emphasize keybord shortcuts
 ** UI/text based source
 >>>
+{% endraw %}

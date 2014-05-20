@@ -1,8 +1,8 @@
 ---
 layout: ja
 title: Hiki notation
-apply_data: false
 ---
+{% raw %}
 !Paragraphs
 
 Consecutive lines are concatenated into a single paragraph.
@@ -323,3 +323,4 @@ which is not surrounded by <p> ... </p>.
  {{pre('
  ...
  ')}}
+{% endraw %}
