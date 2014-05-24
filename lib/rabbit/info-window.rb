@@ -98,7 +98,8 @@ module Rabbit
       @window = Gtk::Window.new
       @window.signal_connect("configure-event") do
         update
-        false
+        stop_event = false
+        stop_event
       end
       @window_destroy_id = @window.signal_connect("destroy") do
         @canvas.activate("ToggleInfoWindow")
