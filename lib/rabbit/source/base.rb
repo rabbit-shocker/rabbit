@@ -40,9 +40,9 @@ module Rabbit
           end
 
           if /\Autf-?8\z/i =~ enc
-            @source.force_encoding(enc) if @source.respond_to?(:force_encoding)
+            @source.force_encoding(enc)
           else
-            @source = convert_encoding("UTF-8", enc, @source)
+            @source = @source.encode("UTF-8", enc)
           end
         end
         @source
@@ -146,15 +146,6 @@ module Rabbit
 
       def utf8_encoding?(string)
         string.dup.force_encoding("UTF-8").valid_encoding?
-      end
-
-      def convert_encoding(to, from, str)
-        if str.respond_to?(:encode)
-          str.encode(to, from)
-        else
-          require "iconv"
-          Iconv.conv(to, from, str)
-        end
       end
 
       def extract_extension(path)
