@@ -33,16 +33,19 @@ module Rabbit
       def read
         if need_read?
           @source = _read
-          if @encoding.nil?
+          case @encoding
+          when nil
             enc = guess_encoding(@source)
-          else
+          when Encoding
             enc = @encoding
+          else
+            enc = Encoding.find(@encoding)
           end
 
-          if /\Autf-?8\z/i =~ enc
+          if enc == Encoding::UTF_8
             @source.force_encoding(enc)
           else
-            @source = @source.encode("UTF-8", enc)
+            @source = @source.encode(Encoding::UTF_8, enc)
           end
         end
         @source
@@ -125,27 +128,14 @@ module Rabbit
       end
 
       def guess_encoding(str)
-        return "UTF-8" if utf8_encoding?(str)
+        return Encoding::UTF_8 if utf8_encoding?(str)
 
         require 'nkf'
-        case NKF.guess(str)
-        when NKF::JIS
-          "ISO-2022-JP"
-        when NKF::EUC
-          "eucJP"
-        when NKF::SJIS
-          "CP932"
-        when NKF::UTF16
-          "UTF-16"
-        when NKF::UTF32
-          "UTF-32"
-        else
-          "UTF-8"
-        end
+        NKF.guess(str)
       end
 
       def utf8_encoding?(string)
-        string.dup.force_encoding("UTF-8").valid_encoding?
+        string.dup.force_encoding(Encoding::UTF_8).valid_encoding?
       end
 
       def extract_extension(path)

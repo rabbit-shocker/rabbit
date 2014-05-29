@@ -11,7 +11,7 @@ class RabbitSourceTest < Test::Unit::TestCase
   class BaseTest < self
     class EncodingDetectionTest < self
       def test_euc_jp_like_utf8
-        assert_equal("UTF-8", guess_encoding("résumé"))
+        assert_equal(Encoding::UTF_8, guess_encoding("résumé"))
       end
 
       private
