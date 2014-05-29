@@ -125,6 +125,8 @@ module Rabbit
       end
 
       def guess_encoding(str)
+        return "UTF-8" if utf8_encoding?(str)
+
         require 'nkf'
         case NKF.guess(str)
         when NKF::JIS
@@ -140,6 +142,10 @@ module Rabbit
         else
           "UTF-8"
         end
+      end
+
+      def utf8_encoding?(string)
+        string.dup.force_encoding("UTF-8").valid_encoding?
       end
 
       def convert_encoding(to, from, str)
