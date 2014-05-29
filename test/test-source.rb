@@ -9,7 +9,7 @@ class RabbitSourceTest < Test::Unit::TestCase
 
   def setup
     logger = Rabbit::Logger::STDERR.new
-    
+
     @argf_input, @argf_output = IO.pipe
     @argf = Rabbit::Source::ARGF.new("UTF-8", logger, @argf_input)
 
@@ -26,7 +26,7 @@ class RabbitSourceTest < Test::Unit::TestCase
   def teardown
     FileUtils.rm_f(@file_name)
   end
-  
+
   def test_base
     assert_equal(".", @argf.base)
     assert_equal(File.dirname(@file_name), @file.base)
@@ -38,10 +38,10 @@ class RabbitSourceTest < Test::Unit::TestCase
 
   def test_full_path
     image = "sample.png"
-    
+
     assert_equal(File.join(".", image), @argf.full_path(image))
     assert_equal(File.join(@file_dir_name, image), @file.full_path(image))
     assert_equal(File.join(@uri_base_name, image), @uri.full_path(image))
   end
-  
+
 end
