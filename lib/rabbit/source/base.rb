@@ -12,7 +12,7 @@ module Rabbit
         super
         klass.send(:include, GetText)
       end
-      
+
       attr_reader :base, :tmp_base
       attr_accessor :encoding, :force_modified
 
@@ -31,7 +31,7 @@ module Rabbit
 
       def reset
       end
-      
+
       def read
         if need_read?
           @source = _read
@@ -49,15 +49,15 @@ module Rabbit
         end
         @source
       end
-      
+
       def modified?
         @force_modified or need_read?
       end
-      
+
       def need_read?
         @source.nil?
       end
-      
+
       def full_path(path)
         if @base_uri.nil? or @base_uri.relative?
           ::File.join(@base, path)
@@ -67,24 +67,24 @@ module Rabbit
           (uri + path).to_s
         end
       end
-      
+
       def open_full_path(path, mode="rb")
         open(full_path(path), mode) do |f|
           yield f
         end
       end
-      
+
       def old?(current, get_latest_method_name)
         current.nil? or
           (current and __send__(get_latest_method_name) > current)
       end
-      
+
       def tmp_dir_name
-        dir = ::File.join(@tmp_base, TMP_DIR_NAME)  
+        dir = ::File.join(@tmp_base, TMP_DIR_NAME)
         FileUtils.mkdir_p(dir) unless ::File.exist?(dir)
         dir
       end
-      
+
       def base=(new_value)
         if new_value.nil?
           init_base
@@ -173,7 +173,7 @@ module Rabbit
         update_last_access_time if result
         result
       end
-      
+
       private
       def update_last_access_time
         @last_access_time = Time.now
@@ -183,6 +183,6 @@ module Rabbit
         Time.now - @last_access_time > MINIMUM_ACCESS_TIME
       end
     end
-    
+
   end
 end
