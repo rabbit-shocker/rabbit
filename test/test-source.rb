@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require 'fileutils'
 
 require "rabbit-test-utils"
@@ -6,6 +8,22 @@ require "rabbit/source"
 require "rabbit/logger"
 
 class RabbitSourceTest < Test::Unit::TestCase
+  class BaseTest < self
+    class EncodingDetectionTest < self
+      def test_euc_jp_like_utf8
+        assert_equal("UTF-8", guess_encoding("résumé"))
+      end
+
+      private
+      def guess_encoding(string)
+        logger = Rabbit::Logger::STDERR.new
+        source = Rabbit::Source::Memory.new(nil, logger)
+        source.source = string
+        source.__send__(:guess_encoding, string)
+      end
+    end
+  end
+
   class ARGFTest < self
     def setup
       logger = Rabbit::Logger::STDERR.new
