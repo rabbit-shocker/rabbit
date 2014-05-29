@@ -18,3 +18,7 @@ other pages.
     comments on the current slide.
   * ((<"rabwii/"/RabWii>)): A Wii Remote interface for Rabbit. You can
     control Rabbit by your Wii Remote.
+
+Here are platform specific usages:
+
+  * ((<"usage/platform/os-x.rd"/OS X specific Rabbit usage>))
