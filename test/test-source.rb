@@ -6,26 +6,6 @@ require "rabbit/source"
 require "rabbit/logger"
 
 class RabbitSourceTest < Test::Unit::TestCase
-  def setup
-    logger = Rabbit::Logger::STDERR.new
-
-    @uri_name = "http://example.com/sample/rabbit.rd"
-    @uri_base_name = File.dirname(@uri_name)
-    @uri = Rabbit::Source::URI.new("UTF-8", logger, @uri_name)
-  end
-
-  def test_base
-    base_uri = URI.parse(@uri_name)
-    base_uri.path = File.dirname(base_uri.path)
-    assert_equal(base_uri.to_s, @uri.base)
-  end
-
-  def test_full_path
-    image = "sample.png"
-
-    assert_equal(File.join(@uri_base_name, image), @uri.full_path(image))
-  end
-
   class ARGFTest < self
     def setup
       logger = Rabbit::Logger::STDERR.new
@@ -72,6 +52,26 @@ class RabbitSourceTest < Test::Unit::TestCase
       image = "sample.png"
 
       assert_equal(File.join(@dir, image), @source.full_path(image))
+    end
+  end
+
+  class URITest < self
+    def setup
+      logger = Rabbit::Logger::STDERR.new
+
+      @base = "http://example.com/sample"
+      @uri = "#{@base}/rabbit.rd"
+      @source = Rabbit::Source::URI.new("UTF-8", logger, @uri)
+    end
+
+    def test_base
+      assert_equal(@base, @source.base)
+    end
+
+    def test_full_path
+      image = "sample.png"
+
+      assert_equal("#{@base}/#{image}", @source.full_path(image))
     end
   end
 end
