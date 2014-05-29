@@ -5,9 +5,7 @@ require 'rabbit/rabbit'
 
 module Rabbit
   module Source
-
     module Base
-
       def self.append_features(klass)
         super
         klass.send(:include, GetText)
@@ -183,6 +181,5 @@ module Rabbit
         Time.now - @last_access_time > MINIMUM_ACCESS_TIME
       end
     end
-
   end
 end
