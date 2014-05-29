@@ -6,7 +6,6 @@ require "rabbit/source"
 require "rabbit/logger"
 
 class RabbitSourceTest < Test::Unit::TestCase
-
   def setup
     logger = Rabbit::Logger::STDERR.new
 
@@ -43,5 +42,4 @@ class RabbitSourceTest < Test::Unit::TestCase
     assert_equal(File.join(@file_dir_name, image), @file.full_path(image))
     assert_equal(File.join(@uri_base_name, image), @uri.full_path(image))
   end
-
 end
