@@ -12,10 +12,10 @@ default_slide_show_span *= 1000 # milliseconds -> seconds
 @@slide_show_timeout_id ||= nil
 
 unless @@slide_show_timeout_id.nil?
-  Gtk.timeout_remove(@@slide_show_timeout_id)
+  GLib::Source.remove(@@slide_show_timeout_id)
 end
 
-@@slide_show_timeout_id = Gtk.timeout_add(@slide_show_span) do
+@@slide_show_timeout_id = GLib::Timeout.add(@slide_show_span) do
   if canvas.last_slide?
     if @slide_show_loop
       canvas.reset_timer

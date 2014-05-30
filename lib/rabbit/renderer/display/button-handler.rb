@@ -129,9 +129,9 @@ module Rabbit
           else
             @button_handling = true
             @button_event_coming = false
-            Gtk.timeout_add(BUTTON_PRESS_ACCEPTING_TIME) do
+            GLib::Timeout.add(BUTTON_PRESS_ACCEPTING_TIME) do
               if @button_event_coming
-                Gtk.timeout_add(BUTTON_PRESS_ACCEPTING_TIME) do
+                GLib::Timeout.add(BUTTON_PRESS_ACCEPTING_TIME) do
                   call_button_handler
                   @button_handling = false
                   false

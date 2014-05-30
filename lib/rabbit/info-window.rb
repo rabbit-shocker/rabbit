@@ -214,7 +214,7 @@ module Rabbit
     def check_timer
       return if @timer_started
 
-      Gtk.timeout_add(1000) do
+      GLib::Timeout.add(1000) do
         @timer_label.markup = markupped_timer_label if showing?
         @timer_started = (showing? and @canvas.rest_time)
       end

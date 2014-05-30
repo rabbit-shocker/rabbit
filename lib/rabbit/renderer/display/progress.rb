@@ -39,7 +39,7 @@ module Rabbit
 
         def end_progress
           @progress.end_progress
-          Gtk.timeout_add(100) do
+          GLib::Timeout.add(100) do
             @progress.window.hide
             update_menu
             false

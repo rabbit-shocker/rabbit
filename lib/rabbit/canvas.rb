@@ -553,11 +553,7 @@ module Rabbit
 
     def stop_auto_redraw_timer
       if @auto_redraw_timer
-        if GLib::Source.respond_to?(:remove)
-          GLib::Source.remove(@auto_redraw_timer)
-        else
-          Gtk.timeout_remove(@auto_redraw_timer)
-        end
+        GLib::Source.remove(@auto_redraw_timer)
         @auto_redraw_timer = nil
       end
     end
