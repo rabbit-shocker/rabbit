@@ -22,7 +22,7 @@ module Rabbit
     def initialize(canvas)
       @canvas = canvas
       @window = nil
-      @timer_started = false
+      @timer_id = nil
       init_hook_handler
       init_key_handler
       init_button_handler
@@ -48,7 +48,8 @@ module Rabbit
       @window.destroy
       @window = @window_destroy_id = nil
       @canvas_widgets = @outer_box = nil
-      @timer_started = false
+      GLib::Source.remove(@timer_id) if @timer_id
+      @timer_id = nil
       @previous_canvas = @current_canvas = @next_canvas = nil
     end
 
@@ -189,8 +190,6 @@ module Rabbit
       @timer_label = Gtk::Label.new
       @timer_label.justify = :center
       @timer_label.markup = markupped_timer_label(width, height)
-      @timer_started = false
-      check_timer
     end
 
     def init_note_text(width, height)
@@ -202,7 +201,7 @@ module Rabbit
     end
 
     def update(index=nil)
-      check_timer
+      start_timer if @timer_id.nil?
       update_note_text if on_note_mode?
       adjust_slide(index)
     end
@@ -211,12 +210,15 @@ module Rabbit
       @note_label.markup = markupped_note_text
     end
 
-    def check_timer
-      return if @timer_started
-
-      GLib::Timeout.add(1000) do
+    def start_timer
+      @timer_id = GLib::Timeout.add(1000) do
         @timer_label.markup = markupped_timer_label if showing?
-        @timer_started = (showing? and @canvas.rest_time)
+        if showing? and @canvas.rest_time
+          GLib::Source::CONTINUE
+        else
+          @timer_id = nil
+          GLib::Source::REMOVE
+        end
       end
     end
 
