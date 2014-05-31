@@ -24,6 +24,7 @@ module Rabbit
       @canvas = canvas
       @window = nil
       @timer_id = nil
+      @note_area = nil
       init_hook_handler
       init_key_handler
       init_button_handler
@@ -198,7 +199,7 @@ module Rabbit
 
     def update(index=nil)
       start_timer if @timer_id.nil?
-      @note_area.queue_draw
+      @note_area.queue_draw if @note_area
       adjust_slide(index)
     end
 
