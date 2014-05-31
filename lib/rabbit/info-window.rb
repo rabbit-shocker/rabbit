@@ -1,5 +1,6 @@
 require 'erb'
 
+require 'rabbit/gtk'
 require 'rabbit/dependency-canvas'
 require 'rabbit/renderer/display/drawing-area-view-only'
 require 'rabbit/renderer/display/hook-handler'
@@ -97,11 +98,6 @@ module Rabbit
 
     def init_window(width, height)
       @window = Gtk::Window.new
-      @window.signal_connect("configure-event") do
-        update
-        stop_event = false
-        stop_event
-      end
       @window_destroy_id = @window.signal_connect("destroy") do
         @canvas.activate("ToggleInfoWindow")
       end
@@ -154,7 +150,7 @@ module Rabbit
 
     def init_widgets_on_note_mode(width, height)
       init_timer_label(width * (1.0 / 5.0), height * (2.0 / 5.0))
-      init_note_text(width * (5.0 / 5.0), height * (3.0 / 5.0))
+      init_note_area
       @outer_box = Gtk::VBox.new
 
       current_box = Gtk::HBox.new
@@ -174,8 +170,8 @@ module Rabbit
       @outer_box.pack_start(current_box, false, false)
 
       bottom_box = Gtk::HBox.new
-      bottom_box.pack_start(@note_label, false, true, 20)
-      @outer_box.pack_start(bottom_box, true, false)
+      bottom_box.pack_start(@note_area, true, true, 20)
+      @outer_box.pack_start(bottom_box, true, true, 20)
 
       @outer_box.show
     end
@@ -192,22 +188,56 @@ module Rabbit
       @timer_label.markup = markupped_timer_label(width, height)
     end
 
-    def init_note_text(width, height)
-      @note_label = Gtk::Label.new
-      @note_label.justify = :left
-      @note_label.wrap = true
-      @note_label.markup = markupped_note_text(width, height)
-      @note_label.set_size_request(width, height)
+    def init_note_area
+      @note_area = Gtk::DrawingArea.new
+      @note_area.signal_connect("expose-event") do |area, event|
+        draw_text_as_large_as_possible(area, note_text)
+        Gdk::Event::PROPAGATE
+      end
     end
 
     def update(index=nil)
       start_timer if @timer_id.nil?
-      update_note_text if on_note_mode?
+      @note_area.queue_draw
       adjust_slide(index)
     end
 
-    def update_note_text
-      @note_label.markup = markupped_note_text
+    def note_text
+      note = @canvas.current_slide["note"]
+      return note if note.nil?
+      note.gsub(/\\n/, "\n")
+    end
+
+    def draw_text_as_large_as_possible(area, text)
+      return if text.nil?
+
+      area_width, area_height = area.window.size
+
+      context = area.window.create_cairo_context
+      layout = context.create_pango_layout
+      layout.context.resolution = @canvas.font_resolution
+      layout.text = text
+      layout.width = area_width * Pango::SCALE
+      set_as_large_as_font_description(layout, area_height)
+
+      context.update_pango_layout(layout)
+      context.show_pango_layout(layout)
+    end
+
+    def set_as_large_as_font_description(layout, max_height)
+      family = "Sans"
+      size = 14
+      last_font_description = nil
+      loop do
+        font_description = Pango::FontDescription.new("#{family} #{size}")
+        layout.font_description = font_description
+        layout_height = layout.pixel_size[1]
+        break if layout_height > max_height
+        last_font_description = font_description
+        size = [size * 1.2, size + 5].min
+      end
+      last_font_description ||= Pango::FontDescription.new("#{family} #{size}")
+      layout.font_description = last_font_description
     end
 
     def start_timer
