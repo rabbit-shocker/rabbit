@@ -219,6 +219,7 @@ module Rabbit
       layout.context.resolution = @canvas.font_resolution
       layout.text = text
       layout.width = area_width * Pango::SCALE
+      layout.wrap = :word_char
       set_as_large_as_font_description(layout, area_height)
 
       context.update_pango_layout(layout)
