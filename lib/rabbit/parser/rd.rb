@@ -23,7 +23,7 @@ module Rabbit
             if head.respond_to?(:force_encoding)
               head.force_encoding("ASCII-8BIT")
             end
-            /^= /.match(head)
+            /^=(?:\s+\S|[^=])/ === head
           else
             /\A(?:rd|rab|rbt)\z/i =~ extension
           end
