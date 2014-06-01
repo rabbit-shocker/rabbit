@@ -343,7 +343,7 @@ module Rabbit
           attributes, text = Pango.parse_markup(text)
           layout = @context.create_pango_layout
           layout.text = text
-          layout.set_attributes(attributes)
+          layout.attributes = attributes
           set_font_resolution(layout.context)
           @context.update_pango_layout(layout)
           layout
