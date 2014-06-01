@@ -340,10 +340,10 @@ module Rabbit
         end
 
         def make_layout(text)
-          attrs, text = Pango.parse_markup(text)
+          attributes, text = Pango.parse_markup(text)
           layout = @context.create_pango_layout
           layout.text = text
-          layout.set_attributes(attrs)
+          layout.set_attributes(attributes)
           set_font_resolution(layout.context)
           @context.update_pango_layout(layout)
           layout
