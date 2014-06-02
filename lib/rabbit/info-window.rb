@@ -217,7 +217,9 @@ module Rabbit
       context = area.window.create_cairo_context
       layout = context.create_pango_layout
       layout.context.resolution = @canvas.font_resolution
-      layout.text = text
+      attrs, mk_text = Pango.parse_markup(text)
+      layout.text = mk_text
+      layout.set_attributes(attrs)
       layout.width = area_width * Pango::SCALE
       layout.wrap = :word_char
       set_as_large_as_font_description(layout, area_height)
