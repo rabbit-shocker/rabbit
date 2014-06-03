@@ -219,7 +219,7 @@ module Rabbit
       layout.context.resolution = @canvas.font_resolution
       attributes, text = Pango.parse_markup(markupped_text)
       layout.text = text
-      layout.set_attributes(attributes)
+      layout.attributes = attributes
       layout.width = area_width * Pango::SCALE
       layout.wrap = :word_char
       set_as_large_as_font_description(layout, area_height)
