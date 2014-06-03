@@ -209,16 +209,16 @@ module Rabbit
       note.gsub(/\\n/, "\n")
     end
 
-    def draw_text_as_large_as_possible(area, text)
-      return if text.nil?
+    def draw_text_as_large_as_possible(area, markupped_text)
+      return if markupped_text.nil?
 
       area_width, area_height = area.window.size
 
       context = area.window.create_cairo_context
       layout = context.create_pango_layout
       layout.context.resolution = @canvas.font_resolution
-      attrs, mk_text = Pango.parse_markup(text)
-      layout.text = mk_text
+      attrs, text = Pango.parse_markup(markupped_text)
+      layout.text = text
       layout.set_attributes(attrs)
       layout.width = area_width * Pango::SCALE
       layout.wrap = :word_char
