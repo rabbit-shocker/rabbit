@@ -65,8 +65,12 @@ module Rabbit
       def draw_mark(indent_width, width_or_proc, height_or_proc, name=nil)
         indent(indent_width, name) do |item, canvas, x, y, w, h|
           first_text = item.elements.first
-          text_height = first_text.first_line_height
-          text_height += first_text.padding_top + first_text.padding_bottom
+          if first_text
+            text_height = first_text.first_line_height
+            text_height += first_text.padding_top + first_text.padding_bottom
+          else
+            text_height = item.height
+          end
 
           if width_or_proc.respond_to?(:call)
             mark_width = width_or_proc.call(item, canvas)
@@ -82,7 +86,8 @@ module Rabbit
           adjust_y = ((text_height / 2.0) - (mark_height / 2.0)).ceil
 
           indent_base_x = item.x - mark_width
-          indent_base_y = item.base_y + first_text.margin_top + adjust_y
+          indent_base_y = item.base_y + adjust_y
+          indent_base_y += first_text.margin_top if first_text
           width = mark_width
           height = mark_height
           yield(item, canvas, indent_base_x, indent_base_y, width, height)
