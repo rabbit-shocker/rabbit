@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2013  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2014  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -85,6 +85,7 @@ module Rabbit
           options.source_type = :auto
           options.full_screen = false
           options.index_mode = false
+          options.initial_slide = 0
           options.geometry = nil
           options.width = 800
           options.height = 600
@@ -212,6 +213,12 @@ module Rabbit
                     _("Toggle index mode."),
                     "(#{options.index_mode ? 'on' : 'off'})") do |bool|
             options.index_mode = bool
+          end
+
+          parser.on("--initial-slide=N", Integer,
+                    _("Show the Nth slide. (zero-based)"),
+                    "(#{options.initial_slide})") do |n|
+            options.initial_slide = n
           end
 
 
@@ -855,6 +862,7 @@ module Rabbit
         end
         apply_theme_if_need(frame)
         parse(frame, source, !Utils.windows?)
+        canvas.move_to_if_can(@options.initial_slide)
         canvas.activate("ToggleIndexMode") if @options.index_mode
 
         front = make_front(canvas)
