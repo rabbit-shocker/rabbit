@@ -77,8 +77,9 @@ module Rabbit
       end
 
       def draw_elements(canvas, x, y, w, h, simulation)
+        @centering_adjusted_height = 0
+
         args = [x, y, w, h]
-        adjust_height = 0
         if do_vertical_centering?
           adjust_height = ((h - height - @padding_bottom) / 2.0).ceil
           if y + adjust_height > 0
@@ -86,9 +87,10 @@ module Rabbit
           else
             adjust_height = 0
           end
+          @centering_adjusted_height = adjust_height
+          compile_elements(canvas, *args)
         end
-        @centering_adjusted_height = adjust_height
-        compile_elements(canvas, *args)
+
         base_x, base_w = x, w
         @elements.each do |element|
           x, y, w, h = element.draw(simulation)
