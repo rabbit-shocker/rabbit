@@ -18,7 +18,10 @@ end
 
 match("**", PreformattedBlock) do |blocks|
   name = "preformatted-block"
-  
+
+  blocks.prop_set("size", @normal_font_size)
+  set_font_family(blocks, @monospace_font_family)
+
   blocks.horizontal_centering = @preformatted_centering
 
   params = {

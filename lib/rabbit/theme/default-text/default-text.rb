@@ -72,16 +72,6 @@ match("**", Title, "**", Superscript) do |texts|
   texts.prop_set("rise", (@x_large_script_font_size * 5 / 3.0).to_i)
 end
 
-match("**", PreformattedText) do |texts|
-  texts.prop_set("size", @normal_font_size)
-  set_font_family(texts, @monospace_font_family)
-end
-
-match("**", SyntaxHighlightingText) do |texts|
-  texts.prop_set("size", @normal_font_size)
-  set_font_family(texts, @monospace_font_family)
-end
-
 match("**", Keyword) do |texts|
   texts.prop_set("weight", "bold")
 end

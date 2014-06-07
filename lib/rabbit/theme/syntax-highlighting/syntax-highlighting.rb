@@ -106,6 +106,9 @@ end
 match("**", SyntaxHighlightingBlock) do |blocks|
   name = "syntax-highlighting-block"
 
+  blocks.prop_set("size", @normal_font_size)
+  set_font_family(blocks, @monospace_font_family)
+
   blocks.horizontal_centering = true
 
   params = {
