@@ -190,7 +190,7 @@ module Rabbit
           slideshare.id = @slide.id
           slideshare.title = spec.summary
           slideshare.description = spec.description
-          slideshare.tags = @tags if @tags
+          slideshare.tags = @slide.tags if @slide.tags
           url = slideshare.upload
           if url
             @logger.info(_("Uploaded successfully!"))
