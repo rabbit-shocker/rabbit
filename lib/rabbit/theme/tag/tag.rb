@@ -43,10 +43,14 @@ match("**", CustomTag) do |tags|
       find_target.call(tag).prop_set("size", @small_font_size)
     when "x-small"
       find_target.call(tag).prop_set("size", @x_small_font_size)
+    when "xx-small"
+      find_target.call(tag).prop_set("size", @xx_small_font_size)
     when "large"
       find_target.call(tag).prop_set("size", @large_font_size)
     when "x-large"
       find_target.call(tag).prop_set("size", @x_large_font_size)
+    when "xx-large"
+      find_target.call(tag).prop_set("size", @xx_large_font_size)
     when /\A(normal|oblique|italic)\z/
       find_target.call(tag).prop_set("style", $1)
     when /\Amargin-(top|bottom|left|right)(?:\s*\*\s*(\d+))?\z/
