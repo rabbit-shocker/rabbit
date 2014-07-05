@@ -1,0 +1,12 @@
+= Image reflection
+
+: author
+   Kouhei Sutou
+
+= SVG
+
+  # image
+  # src = rabbit-slide-show-logo.svg
+  # relative_width = 80
+  # reflect_ratio = 0.5
+
