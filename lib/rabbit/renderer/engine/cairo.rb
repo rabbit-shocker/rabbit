@@ -492,11 +492,16 @@ module Rabbit
           context = ::Cairo::Context.new(surface)
           context.scale(width / dim.width, height / dim.height)
           context.render_rsvg_handle(handle)
-          png = Tempfile.new("rabbit-cairo-svg-renderer")
-          context.target.write_to_png(png.path)
-          context.target.finish
-          pixbuf = Gdk::Pixbuf.new(png.path)
-          _draw_reflected_pixbuf(pixbuf, x, y, params)
+          begin
+            png = Tempfile.new("rabbit-cairo-svg-renderer")
+            context.target.write_to_png(png.path)
+            context.target.finish
+            pixbuf = Gdk::Pixbuf.new(png.path)
+            _draw_reflected_pixbuf(pixbuf, x, y, params)
+          ensure
+            png.close
+            png.unlink
+          end
         end
 
         def set_line_options(params)
