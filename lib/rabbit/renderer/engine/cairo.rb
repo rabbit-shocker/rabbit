@@ -1,8 +1,8 @@
-require 'cairo'
-require 'stringio'
+require "cairo"
+require "stringio"
 
-require 'rabbit/image-data-loader'
-require 'rabbit/renderer/kernel'
+require "rabbit/image-data-loader"
+require "rabbit/renderer/kernel"
 
 module Cairo
   class Context
