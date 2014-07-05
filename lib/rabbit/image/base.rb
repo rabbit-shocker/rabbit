@@ -1,6 +1,7 @@
 require "gdk_pixbuf2"
 
 require "rabbit/utils"
+require "rabbit/image-data-loader"
 
 module Rabbit
   module ImageManipulable
@@ -84,20 +85,17 @@ module Rabbit
         key.to_s.gsub(/-/, "_")
       end
 
-      def load_by_pixbuf_loader(data)
-        loader = Gdk::PixbufLoader.new
-        id = loader.signal_connect("size_prepared") do |l, width, height|
-          @width = width
-          @height = height
-        end
+      def load_data(data)
+        loader = ImageDataLoader.new(data)
         begin
-          loader.last_write(data)
-        rescue Gdk::PixbufError
-          loader.close rescue Gdk::PixbufError
+          loader.load
+        rescue ImageLoadError
           raise ImageLoadError.new("#{@filename}: #{$!.message}")
         end
-        loader.signal_handler_disconnect(id)
-        loader
+
+        @width = loader.width
+        @height = loader.height
+        loader.pixbuf
       end
     end
   end

@@ -34,7 +34,7 @@ module Rabbit
 
       private
       def update_size
-        @pixbuf = load_image.pixbuf
+        @pixbuf = load_image
       end
 
       def load_image(width=nil, height=nil)
@@ -43,7 +43,7 @@ module Rabbit
                rescue EPSCanNotHandleError
                  eps_to_pnm(width, height)
                end
-        load_by_pixbuf_loader(data)
+        load_data(data)
       end
       
       def eps_to_png(width=nil, height=nil)
