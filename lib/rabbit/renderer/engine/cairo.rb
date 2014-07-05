@@ -1,5 +1,7 @@
 require 'cairo'
+require 'stringio'
 
+require 'rabbit/image-data-loader'
 require 'rabbit/renderer/kernel'
 
 module Cairo
@@ -492,16 +494,12 @@ module Rabbit
           context = ::Cairo::Context.new(surface)
           context.scale(width / dim.width, height / dim.height)
           context.render_rsvg_handle(handle)
-          begin
-            png = Tempfile.new("rabbit-cairo-svg-renderer")
-            context.target.write_to_png(png.path)
-            context.target.finish
-            pixbuf = Gdk::Pixbuf.new(png.path)
-            _draw_reflected_pixbuf(pixbuf, x, y, params)
-          ensure
-            png.close
-            png.unlink
-          end
+          png = StringIO.new
+          context.target.write_to_png(png)
+          context.target.finish
+          loader = ImageDataLoader.new(png.string)
+          loader.load
+          _draw_reflected_pixbuf(loader.pixbuf, x, y, params)
         end
 
         def set_line_options(params)
