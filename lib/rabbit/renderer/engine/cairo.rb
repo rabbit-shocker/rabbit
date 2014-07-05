@@ -490,16 +490,17 @@ module Rabbit
           return unless params
 
           dim = handle.dimensions
-          surface = ::Cairo::ImageSurface.new(:argb32, width, height)
-          context = ::Cairo::Context.new(surface)
-          context.scale(width / dim.width, height / dim.height)
-          context.render_rsvg_handle(handle)
-          png = StringIO.new
-          context.target.write_to_png(png)
-          context.target.finish
-          loader = ImageDataLoader.new(png.string)
-          loader.load
-          _draw_reflected_pixbuf(loader.pixbuf, x, y, params)
+          ::Cairo::ImageSurface.new(:argb32, width, height) do |surface|
+            ::Cairo::Context.new(surface) do |context|
+              context.scale(width / dim.width, height / dim.height)
+              context.render_rsvg_handle(handle)
+              png = StringIO.new
+              context.target.write_to_png(png)
+              loader = ImageDataLoader.new(png.string)
+              loader.load
+              _draw_reflected_pixbuf(loader.pixbuf, x, y, params)
+            end
+          end
         end
 
         def set_line_options(params)
