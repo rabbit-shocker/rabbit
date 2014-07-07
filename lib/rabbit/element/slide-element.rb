@@ -34,6 +34,7 @@ module Rabbit
             compile(canvas, 0, 0, canvas.width, canvas.height)
             super(simulation)
           end
+          run_gc unless simulation
         end
       end
 
@@ -92,6 +93,16 @@ module Rabbit
           end
         end
         procs
+      end
+
+      private
+      def run_gc
+        lazy_gc_timout_msec = 1000
+        @compressed_gc_task_id ||= GLib::Timeout.add(lazy_gc_timout_msec) do
+          GC.start
+          @compressed_gc_task_id = nil
+          GLib::Source::REMOVE
+        end
       end
     end
   end
