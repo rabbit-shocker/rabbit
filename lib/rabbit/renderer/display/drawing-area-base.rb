@@ -305,12 +305,8 @@ module Rabbit
 
         def draw_slide(slide, simulation, &block)
           super do |*args|
-            # block.call(*args)
-            # magnify {block.call(*args)} unless simulation
-            ## the below codes are workaround for
-            ## http://redmine.ruby-lang.org/issues/show/2600
-            yield(*args)
-            magnify {yield(*args)} unless simulation
+            block.call(*args)
+            magnify {block.call(*args)} unless simulation
           end
         end
 
