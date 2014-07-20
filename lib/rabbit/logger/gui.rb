@@ -56,16 +56,13 @@ module Rabbit
       end
 
       def log_message(message)
-        unless GLib.utf8_validate(message)
-          message = GLib.filename_to_utf8(message)
-        end
         append(message, "message")
         append("\n")
       end
 
       def append(text, *tags)
         iter = @buffer.get_iter_at_offset(-1)
-        @buffer.insert_with_tags(iter, text, *tags)
+        @buffer.insert_with_tags(iter, text.encode("UTF-8"), *tags)
       end
 
       def title
