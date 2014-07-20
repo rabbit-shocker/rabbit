@@ -54,7 +54,7 @@ module Rabbit
           append("#{prog_name}: ", "prog_name")
         end
       end
-      
+
       def log_message(message)
         unless GLib.utf8_validate(message)
           message = GLib.filename_to_utf8(message)
@@ -71,7 +71,7 @@ module Rabbit
       def title
         _("Rabbit Error Dialog")
       end
-      
+
       def init_dialog(width=@width, height=@height)
         flags = 0
         buttons = [
@@ -93,7 +93,7 @@ module Rabbit
           true
         end
       end
-      
+
       def set_dialog_response
         @dialog.signal_connect("response") do |widget, event|
           case event
@@ -112,7 +112,7 @@ module Rabbit
           false
         end
       end
-      
+
       def set_dialog_accel_group
         accel_group = Gtk::AccelGroup.new
         mod = Gdk::Window::ModifierType.new
