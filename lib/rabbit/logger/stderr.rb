@@ -9,10 +9,6 @@ module Rabbit
 
       private
       def do_log(severity, prog_name, message)
-        # TODO: Remove me. It is workaround until Ruby/GLib2 2.0.3 is released.
-        if message.encoding == Encoding::ASCII_8BIT
-          message.force_encoding("UTF-8")
-        end
         begin
           message = message.encode("locale")
         rescue EncodingError
