@@ -13,11 +13,11 @@ module Rabbit
           message = message.encode("locale")
         rescue EncodingError
           format = _("can't convert to current locale from UTF-8: %s")
-          ::STDERR.puts(format % message)
+          $stderr.puts(format % message)
         end
-        ::STDERR.puts(format_severity(severity))
-        ::STDERR.print("[#{prog_name}]: ") if prog_name
-        ::STDERR.puts(message)
+        $stderr.puts(format_severity(severity))
+        $stderr.print("[#{prog_name}]: ") if prog_name
+        $stderr.puts(message)
         exit if severity >= Severity::FATAL
       end
     end
