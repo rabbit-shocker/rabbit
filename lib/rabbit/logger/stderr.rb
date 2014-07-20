@@ -1,4 +1,4 @@
-require 'glib2'
+require "glib2"
 
 require "rabbit/logger/base"
 
