@@ -29,6 +29,9 @@ Windows上でRabbitをインストール、利用する手順について説明�
 : rubyinstaller-2.0.0-p451.exe
    ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p451.exe>))
 
+注意：64bit版Windowsを使っている場合でも、32bit版のRubyをインストールしてください。
+現在のところ、RabbitはWindows上の64bit版Rubyでは動作しません。
+
 ==== Rabbitのインストール
 
 RubyInstallerをインストールするとスタートメニューに「Start
