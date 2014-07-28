@@ -26,6 +26,9 @@ following URL.
 : rubyinstaller-2.0.0-p451.exe
    ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p451.exe>))
 
+Note: You need to install 32bit version Ruby instead of 64bit, even if you use 64bit Windows.
+Currently Rabbit doesn't work with 64bit Ruby on Windows.
+
 ==== Install Rabbit
 
 RubyInstaller install "Start Command Prompt with Ruby"
