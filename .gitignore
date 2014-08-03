@@ -4,6 +4,8 @@
 /doc/images/screenshots/
 /sample/.tmp/
 /po/*/rabbit.po~
+/po/*/*.edit.po
+/po/*/*.po.time_stamp
 /po/rabbit.pot
 /data/locale/*/LC_MESSAGES/*.mo
 /misc/github-post-receiver/config.yaml
