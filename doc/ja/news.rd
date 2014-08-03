@@ -4,6 +4,72 @@ title: お知らせ
 apply_data: false
 ---
 {% raw %}
+== 2.1.3: 2014-08-03
+
+描画速度を改善したリリース。
+
+=== 改良
+
+==== rabbit
+
+  * UTF-8な入力ファイルのエンコーディング検出処理を改良。
+    [GitHub#34] [Colin Deanさんが報告]
+  * Markdown: 項目の内容がないリストをサポート。
+    [GitHub#37] [Colin Deanさんが報告]
+  * 縦方向の中央揃えを使っていない時の描画性能を改善。
+    [GitHub#35] [Colin Deanさんが報告]
+  * メモリー使用量の増加を抑えた。o
+    [GitHub#41] [Enrico Rivarolaさんが報告]
+
+==== テーマ
+
+  * default-preformatted: (({PreformattedText}))ではなく、
+    (({PreformattedBlock}))にテキストサイズを設定するように変更。
+  * tag: (({xx-small}))タグと(({xx-large}))タグに対応。
+    [GitHub#39] [Enrico Rivarolaさんがパッチ提供]
+  * syntax-highlighting: 浮動小数点リテラルに対応。
+
+==== ドキュメント
+
+  * Ruby Installerのバージョンを更新。 [Masafumi Yokoyamaさん]
+  * Homebrewでのインストール方法を更新。
+    [GitHub#30] [Bert Changさんがパッチ提供]
+  * 英語の翻訳と改良。
+    [GitHub#33] [Tomohiro Imaizumiさんがパッチ提供]
+  * Windowsでは64bit版Rubyに未対応であるという説明を追加。
+    [GitHub#43] [YUKI Hiroshiさんがパッチ提供]
+
+=== 修正
+
+==== rabbit
+
+  * rabbitコマンドの終了ステータスが常に0以外の問題を修正。
+  * ウィンドウシステムがない環境で起動するとエラーを出力して終了するのではなく、
+    クラッシュする問題を修正。
+    [shocker-ja:1189] [Kazuhiro NISHIYAMAさんが報告]
+  * 情報ウィンドウ: ウィンドウサイズが変更してもノートテキストの大きさ
+    が反映されない問題を修正。
+    [shocker-en:71][shocker-en:74] [Enrico Rivarolaさんが報告]
+  * 情報ウィンドウ: ノートに長い単語があると切れてしまう問題を修正。
+    [shocker-en:78] [Enrico Rivarolaさんが報告]
+  * 情報ウィンドウ: ノートのマークアップが反映されない問題を修正。
+    [GitHub#38] [Enrico Rivarolaさんがパッチ提供]
+  * 一時ファイルをすぐに削除しない問題を修正。
+    [GitHub#40] [Enrico Rivarolaさんがパッチ提供]
+
+==== rabbit-slide
+
+  * SlideShareに公開するときにタグが反映されない問題を修正。
+
+=== 感謝
+
+  * Masafumi Yokoyamaさん
+  * Kazuhiro NISHIYAMAさん
+  * Bert Changさん
+  * Enrico Rivarolaさん
+  * Colin Deanさん
+  * YUKI Hiroshiさん
+
 == 2.1.2: 2014-03-08
 
 2.1.1のバグフィックスリリース。

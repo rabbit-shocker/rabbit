@@ -3,6 +3,72 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.3: 2014-08-03
+
+A drawing performance improved release.
+
+=== Improvements
+
+==== rabbit
+
+  * Improved input encoding detection for UTF-8 case.
+    [GitHub#34] [Reported by Colin Dean]
+  * Markdown: Supported no text item list.
+    [GitHub#37] [Reported by Colin Dean]
+  * Improved drawing performance when vertical centering isn't used.
+    [GitHub#35] [Reported by Colin Dean]
+  * Avoided memory usage growing.
+    [GitHub#41] [Reported by Enrico Rivarola]
+
+==== Theme
+
+  * default-preformatted: Changed text size element to
+    (({PreformattedBlock})) from (({PreformattedText})).
+  * tag: Supported (({xx-small})) tag and (({xx-large})) tag.
+    [GitHub#39] [Patch by Enrico Rivarola]
+  * syntax-highlighting: Supported float literal.
+
+==== Document
+
+  * Updated Ruby Installer version. [Masafumi Yokoyama]
+  * Updated how to install with Homebrew.
+    [GitHub#30] [Patch by Bert Chang]
+  * Improved English and translated into English.
+    [GitHub#33] [Patch by Tomohiro Imaizumi]
+  * Added a description about Rabbit doesn't support 64bit Ruby on Windows.
+    [GitHub#43] [Patch by YUKI Hiroshi]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that rabbit command's exit code is always non-zero.
+  * Fixed a crash bug when rabbit command is ran on no window system
+    environment.
+    [shocker-ja:1189] [Reported by Kazuhiro NISHIYAMA]
+  * Information window: Fixed a bug that note text isn't changed when
+    window size is changed.
+    [shocker-en:71][shocker-en:74] [Reported by Enrico Rivarola]
+  * Information window: Fixed a bug that long word in note text is cut.
+    [shocker-en:78] [Reported by Enrico Rivarola]
+  * Information window: Fixed a bug that markup in note text isn't applied.
+    [GitHub#38] [Patch by Enrico Rivarola]
+  * Fixed a bug that temporary files aren't removed when they aren't needed.
+    [GitHub#40] [Patch by Enrico Rivarola]
+
+==== rabbit-slide
+
+  * Fixed a bug that tags are ignored on uploading SlideShare.
+
+=== Thanks
+
+  * Masafumi Yokoyama
+  * Kazuhiro NISHIYAMA
+  * Bert Chang
+  * Enrico Rivarola
+  * Colin Dean
+  * YUKI Hiroshi
+
 == 2.1.2: 2014-03-08
 
 A bug fix release of 2.1.1.
