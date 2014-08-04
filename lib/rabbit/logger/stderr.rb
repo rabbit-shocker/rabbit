@@ -13,7 +13,10 @@ module Rabbit
           message = message.encode("locale")
         rescue EncodingError
           format = _("can't convert to current locale from UTF-8: %s")
-          $stderr.puts(format % message.encode(format.encoding))
+          sanitized_message = message.encode(format.encoding,
+                                             :invalid => :replace,
+                                             :undef   => :replace)
+          $stderr.puts(format % sanitized_message)
         end
         $stderr.puts(format_severity(severity))
         $stderr.print("[#{prog_name}]: ") if prog_name
