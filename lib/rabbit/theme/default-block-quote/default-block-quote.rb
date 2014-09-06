@@ -213,5 +213,7 @@ match("**", BlockQuote) do
 end
 
 match("**", BlockQuote, TextContainerElement) do |texts|
-  texts.justify = true
+  texts.each do |text|
+    texts.justify = true unless text.text.ascii_only?
+  end
 end
