@@ -42,7 +42,8 @@ module Rabbit
             enc = Encoding.find(@encoding)
           end
 
-          if enc == Encoding::UTF_8
+          case enc
+          when Encoding::UTF_8, Encoding::ASCII_8BIT
             @source.force_encoding(enc)
           else
             @source = @source.encode(Encoding::UTF_8, enc)

@@ -22,6 +22,23 @@ class RabbitSourceTest < Test::Unit::TestCase
         source.__send__(:guess_encoding, string)
       end
     end
+
+    class ReadTest < self
+      def test_binary
+        pdf_header = "%PDF-1.5\n%\xb5\xed\xae\xfb\n"
+        pdf_header.force_encoding("ASCII-8BIT")
+        assert_equal(pdf_header, read(pdf_header))
+      end
+
+      private
+      def read(string)
+        logger = Rabbit::Logger::STDERR.new
+
+        source = Rabbit::Source::Memory.new(string.encoding, logger)
+        source.source = string
+        source.read
+      end
+    end
   end
 
   class ARGFTest < self
