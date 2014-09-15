@@ -126,6 +126,9 @@ module Rabbit
             surface = ::Cairo::SVGSurface.new(*args)
             surface.restrict_to_version(::Cairo::SVG_VERSION_1_2)
             surface
+          when /\.cs/i
+            args[0] = ::Cairo::ScriptDevice.new(args[0])
+            ::Cairo::ScriptSurface.new(*args)
           else
             @canvas.logger.warn(_("can't find printer for %s") % filename)
             args[0] = "default.ps"
