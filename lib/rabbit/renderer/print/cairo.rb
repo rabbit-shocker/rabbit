@@ -28,7 +28,7 @@ module Rabbit
             end
           end
         end
-        
+
         def initialize(canvas)
           super
           init_paper
@@ -44,19 +44,19 @@ module Rabbit
           return if canceled
           @context.target.finish
         end
-        
+
         def pre_parse
         end
-        
+
         def post_parse
         end
-        
+
         def post_apply_theme
         end
-        
+
         def post_move(old_index, index)
         end
-        
+
         def post_move_in_slide(old_index, index)
         end
 
@@ -90,7 +90,7 @@ module Rabbit
           @page_width = @paper_width || default_width_mm
           @page_height = @paper_height || default_height_mm
         end
-        
+
         def init_color
           super
           @foreground = make_color("black")
