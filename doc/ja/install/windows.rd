@@ -22,12 +22,12 @@ Windows上でRabbitをインストール、利用する手順について説明�
 ==== Ruby 本体のインストール
 
 ((<RubyInstall for Windowsのダウンロードページ（英語）
-|URL:http://rubyinstaller.org/downloads/>))からRuby 2.0.0 の
-インストーラをダウンロードします。Ruby 2.0.0-p451のインストー
+|URL:http://rubyinstaller.org/downloads/>))からRuby 2.0.0 以降の
+インストーラをダウンロードします。Ruby 2.0.0-p576のインストー
 ラは以下のURLからダウンロードできます。
 
-: rubyinstaller-2.0.0-p451.exe
-   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p451.exe>))
+: rubyinstaller-2.0.0-p576.exe
+   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p576.exe>))
 
 注意：64bit版Windowsを使っている場合でも、32bit版のRubyをインストールしてください。
 現在のところ、RabbitはWindows上の64bit版Rubyでは動作しません。
