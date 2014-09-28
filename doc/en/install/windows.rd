@@ -18,13 +18,13 @@ Here are required softwares.
 
 ==== Install Ruby
 
-Install Ruby 2.0.0 from ((<download page of RubyInstall for
+Install Ruby 2.0.0 or later from ((<download page of RubyInstall for
 Windows|URL:http://rubyinstaller.org/downloads/>)). For
-example, Ruby 2.0.0-p451 installer can be downloaded via the
+example, Ruby 2.0.0-p576 installer can be downloaded via the
 following URL.
 
-: rubyinstaller-2.0.0-p451.exe
-   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p451.exe>))
+: rubyinstaller-2.0.0-p576.exe
+   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p576.exe>))
 
 Note: You need to install 32bit version Ruby instead of 64bit, even if you use 64bit Windows.
 Currently Rabbit doesn't work with 64bit Ruby on Windows.
