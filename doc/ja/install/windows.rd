@@ -59,7 +59,7 @@ Rabbitをインストールできます。Ruby/GTK2など関連するソフト�
 
 ((<RAA:rdtool>)) をインストールする。
 
-アーカイブを展開して，setup.rb を実行してインストールする．
+アーカイブを展開して，setup.rb を実行してインストールする。
 
 : rdtool-0.6.20.tar.gz
    ((<URL:http://www.moonwolf.com/ruby/archive/rdtool-0.6.20.tar.gz>))
@@ -89,7 +89,7 @@ Rabbitをインストールできます。Ruby/GTK2など関連するソフト�
 
 (4) ((<RAA:htree>)) をインストールする。
 
-    アーカイブを展開して，install.rb を実行してインストールする。
+    アーカイブを展開して、install.rb を実行してインストールする。
 
     : htree.tar.gz
         ((<URL:http://cvs.m17n.org/viewcvs/ruby/htree.tar.gz>))
@@ -98,7 +98,7 @@ Rabbitをインストールできます。Ruby/GTK2など関連するソフト�
 
 ((<RAA:div>)) をインストールする。
 
-アーカイブを展開して，install.rb を実行してインストールする。
+アーカイブを展開して、install.rb を実行してインストールする。
 
 : div-1.3.2.tar.gz
    ((<URL:http://www2a.biglobe.ne.jp/~seki/ruby/div-1.3.2.tar.gz>))

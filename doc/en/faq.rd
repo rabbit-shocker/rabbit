@@ -81,11 +81,11 @@ You can resolve the issue with including theme. Some themes which are mixed with
 
   = I am
 
-  = ．．．
+  = ...
 
-    * ．．．
-    * ．．．
-    * ．．．
+    * ...
+    * ...
+    * ...
 
   = a Rubyist
 
@@ -141,7 +141,7 @@ This is available in both content and title.
 TODO: Formery we should use &NewLine; but now can use \n
 , which means following sentence is oblsolate. Oh my god...
 
-Rabbit has got into the magic as well as Ruby, which "makes what you shouldn't looks ugly". ((-Using (({$})) for global vars is a kind of "Magic Powder" for Ruby. -))．
+Rabbit has got into the magic as well as Ruby, which "makes what you shouldn't looks ugly". ((-Using (({$})) for global vars is a kind of "Magic Powder" for Ruby. -))。
 
 The reason it is difficult to put new lines in Rabbit and they makes source dirty is that Rabbit wants you not to use so many new lines.
 

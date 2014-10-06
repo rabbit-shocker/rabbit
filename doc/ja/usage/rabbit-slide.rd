@@ -116,18 +116,18 @@ TODO: すべてのパラメーターの説明を書く。
           --options-file=FILE          FILEからオプションを読み込みます。
                                        （なし）
 
-          --locale-dir=DIR             ロケールディレクトリを[DIR]にします．
+          --locale-dir=DIR             ロケールディレクトリを[DIR]にします。
                                        (自動)
 
-          --logger-type=TYPE           ログの出力種類を[TYPE]にします．
-                                       [gui, stderr]から選びます．
+          --logger-type=TYPE           ログの出力種類を[TYPE]にします。
+                                       [gui, stderr]から選びます。
                                        (STDERR)
-          --log-level=LEVEL            ログの出力レベルを[LEVEL]にします．
-                                       [debug, info, warning, error, fatal, unknown]から選びます．
+          --log-level=LEVEL            ログの出力レベルを[LEVEL]にします。
+                                       [debug, info, warning, error, fatal, unknown]から選びます。
                                        (info)
 
-          --help                       このメッセージを表示します．
-          --version                    バージョンを表示します．
+          --help                       このメッセージを表示します。
+          --version                    バージョンを表示します。
 
 == 表示
 

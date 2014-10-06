@@ -1789,54 +1789,54 @@ Debianオフィシャルパッケージになりました！[佐々木さん]
 
 == 0.4.2から0.5.0の変更点: 2006-11-03
 
-  * GtkGLExtのロード絡みのバグを修正．（かくたにさん）
-  * rabbit-mode.elの改良．（武田くん）
-  * emerge関係のドキュメントの更新．（あかぴさん）
-  * MacPorts用のドキュメントの追加．（きむらさん）
-  * RSVGのパス解決に対応策を追加．
-  * （役に立たない）Ruby/Anthyのサポート．
-  * マルチディスプレイ用情報ウィンドウのサポート．
-  * フォント名にRabbit/Rabbit Monospaceがあったら，優先的に
-    使うようにした．
-  * アフィン変換系のAPIの追加．
+  * GtkGLExtのロード絡みのバグを修正。（かくたにさん）
+  * rabbit-mode.elの改良。（武田くん）
+  * emerge関係のドキュメントの更新。（あかぴさん）
+  * MacPorts用のドキュメントの追加。（きむらさん）
+  * RSVGのパス解決に対応策を追加。
+  * （役に立たない）Ruby/Anthyのサポート。
+  * マルチディスプレイ用情報ウィンドウのサポート。
+  * フォント名にRabbit/Rabbit Monospaceがあったら、優先的に
+    使うようにした。
+  * アフィン変換系のAPIの追加。
     * canvas.rotate_context
     * canvas.scale_context
     * canvas.translate_context
     * canvas.reflect_context
     * canvas.shear_context
-  * 描画情報を保存しておくAPIの追加．
+  * 描画情報を保存しておくAPIの追加。
     * canvas.save_context
     * canvas.restore_context
-  * lightning-talkテーマでは"\n"で改行できるようにした．
-  * aroundフックの追加．
-  * 新しいテーマの追加．
+  * lightning-talkテーマでは"\n"で改行できるようにした。
+  * aroundフックの追加。
+  * 新しいテーマの追加。
     * rotate-zoom-effect
     * emphasize-keyword
     * scroll-effect
     * mirror-effect
-  * スポットライト機能の追加．
+  * スポットライト機能の追加。
     ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/spotlight/>))
-  * 虫眼鏡機能の追加．
+  * 虫眼鏡機能の追加。
     ((<URL:http://pub.cozmixng.org/~gallery/kou/screenshot/rabbit/magnifier/>))
-  * グラデーションのサポート．
-  * setup.rb 3.4.1を使うように変更．
+  * グラデーションのサポート。
+  * setup.rb 3.4.1を使うように変更。
 
 == 0.4.1から0.4.2の変更点
 
-  * 検索時の正規表現のバグを修正．（西川さん）
-  * ドキュメントを修正．（西川さん，きたさん）
+  * 検索時の正規表現のバグを修正。（西川さん）
+  * ドキュメントを修正。（西川さん，きたさん）
   * rabbit-mode.elの追加（武田くん）
-  * HTML生成のバグの修正．（かくたにさん）
-  * アリスの画像を追加．（朝日奈さん）
-  * rabbit-mode.lの修正．（みやむこさん，id:wata_dさん）
-  * 高橋エイリアスから高橋メソッドへ．
-  * Ruby/Popplerを用いたPDF表示のサポート．
-  * OpenGLサポートの改良．
-  * RabrickでのAJAXをサポート．
-  * 携帯電話をサポート．
-  * メモり使用を改善．
+  * HTML生成のバグの修正。（かくたにさん）
+  * アリスの画像を追加。（朝日奈さん）
+  * rabbit-mode.lの修正。（みやむこさん，id:wata_dさん）
+  * 高橋エイリアスから高橋メソッドへ。
+  * Ruby/Popplerを用いたPDF表示のサポート。
+  * OpenGLサポートの改良。
+  * RabrickでのAJAXをサポート。
+  * 携帯電話をサポート。
+  * メモり使用を改善。
 
 === 他のニュース
 
-  * きむらさんがMac OS Xのパッケージ（DarwinPorts用）を作ってくれました．
+  * きむらさんがMac OS Xのパッケージ（DarwinPorts用）を作ってくれました。
 {% endraw %}
