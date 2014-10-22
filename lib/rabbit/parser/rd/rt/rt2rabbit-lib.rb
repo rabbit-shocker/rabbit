@@ -50,7 +50,7 @@ module Rabbit
       end
       table << block
     end
-    
+
     def process_header(table)
       process_block(table, @header, Element::TableHead, Element::TableHeader)
     end
@@ -84,6 +84,6 @@ module Rabbit
       end
       target.align = target.default_align
     end
-    
+
   end
 end

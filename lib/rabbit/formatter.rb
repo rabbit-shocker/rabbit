@@ -5,18 +5,18 @@ module Rabbit
   module Format
 
     extend Utils
-    
+
     module Formatter
       include ERB::Util
 
       def text_formatter?
         false
       end
-      
+
       def html_formatter?
         false
       end
-      
+
       def tagged_text(text, name, attrs)
         attrs = attrs.collect do |key, value|
           %Q[ #{h(key)}="#{h(value)}"]
@@ -45,15 +45,15 @@ module Rabbit
       def initialize(value)
         @value = value
       end
-      
+
       def text_formatter?
         true
       end
-      
+
       def html_formatter?
         true
       end
-      
+
       def format(text)
         tagged_text(text, "span", normalize_attribute(name, @value))
       end
@@ -67,7 +67,7 @@ module Rabbit
       def normalize_attribute(name, value)
         {name => value}
       end
-      
+
       def pango2css(name, value)
         css_name = PANGO2CSS[name]
         if css_name.respond_to?(:call)
@@ -77,7 +77,7 @@ module Rabbit
         end
       end
     end
-    
+
     %w(font_desc font_family face size style weight variant
         stretch foreground background underline
         underline_color rise strikethrough
@@ -85,7 +85,7 @@ module Rabbit
       module_eval(<<-EOC)
         class #{to_class_name(name)}
           include SpanTextFormatter
-          
+
           def name
             #{name.dump}
           end

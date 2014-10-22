@@ -33,7 +33,7 @@ module Rabbit
           @margin_bottom = renderer.margin_bottom
         end
       end
-      
+
       class Layout2 < LayoutBase
 
         def initialize(renderer)
@@ -43,7 +43,7 @@ module Rabbit
           @margin_top ||= 30
           @margin_bottom ||= 30
         end
-        
+
         def slide_width
           page_width - @margin_left - @margin_right
         end
@@ -51,7 +51,7 @@ module Rabbit
         def slide_height
           (page_height / 2) - @margin_top - @margin_bottom
         end
-        
+
         def normalize_x(x)
           x + @margin_left
         end
@@ -69,7 +69,7 @@ module Rabbit
           (current_index % 2) == 1
         end
       end
-      
+
       class LayoutMore < LayoutBase
         def initialize(renderer)
           super
@@ -78,7 +78,7 @@ module Rabbit
           @margin_top ||= 10
           @margin_bottom ||= 10
         end
-        
+
         def slide_width
           (page_width / 2) - @margin_left - @margin_right
         end
@@ -87,7 +87,7 @@ module Rabbit
           base = page_height / (slides_per_page / 2.0).ceil
           base - @margin_top - @margin_bottom
         end
-        
+
         def normalize_x(x)
           base = @margin_left
           unless left?

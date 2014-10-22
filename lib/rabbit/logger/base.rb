@@ -50,18 +50,18 @@ module Rabbit
         @prog_name = prog_name
         @webrick_mode = false
       end
-      
+
       def debug?; @level <= Severity::DEBUG; end
       def info?; @level <= Severity::INFO; end
       def warning?; @level <= Severity::WARNING; end
       def error?; @level <= Severity::ERROR; end
       def fatal?; @level <= Severity::FATAL; end
       def unknown?; @level <= Severity::UNKNOWN; end
-    
+
       def debug(message_or_error=nil, &block)
         log(Severity::DEBUG, message_or_error, &block)
       end
-      
+
       def info(message_or_error=nil, &block)
         log(Severity::INFO, message_or_error, &block)
       end
@@ -78,7 +78,7 @@ module Rabbit
       def fatal(message_or_error=nil, &block)
         log(Severity::FATAL, message_or_error, &block)
       end
-      
+
       def unknown(message_or_error=nil, &block)
         log(Severity::UNKNOWN, message_or_error, &block)
       end
@@ -86,7 +86,7 @@ module Rabbit
       def <<(message_or_error)
         info(message_or_error)
       end
-      
+
       def log(severity, message_or_error, prog_name=nil, &block)
         severity ||= Severity::UNKNOWN
         prog_name ||= @prog_name

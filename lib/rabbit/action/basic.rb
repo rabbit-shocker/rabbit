@@ -152,7 +152,7 @@ module Rabbit
     def quit_action_label(canvas)
       canvas.processing? ? @@quit_with_confirmation_label : @@quit_label
     end
-    
+
     def act_quit(action, group, canvas)
       if !canvas.processing? or
           canvas.confirm(_("Now processing... Do you really quit?"))

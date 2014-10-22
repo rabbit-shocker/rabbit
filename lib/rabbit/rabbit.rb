@@ -167,7 +167,7 @@ module Rabbit
       super(_("immutable source type: %s") % @source_type)
     end
   end
-  
+
   class ThemeExit < Error
     def initialize(message=nil)
       @have_message = !message.nil?

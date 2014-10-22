@@ -24,7 +24,7 @@ module Rabbit
       include DirtyCount
 
       def_delegators(:@canvas, :reload_source)
-      
+
       attr_reader :x_dpi, :y_dpi
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :margin_left, :margin_right
@@ -71,19 +71,19 @@ module Rabbit
       def page_margin_left
         @page_margin_left || 0
       end
-      
+
       def page_margin_right
         @page_margin_right || 0
       end
-      
+
       def page_margin_top
         @page_margin_top || 0
       end
-      
+
       def page_margin_bottom
         @page_margin_bottom || 0
       end
-      
+
       def font_families
         if @font_families.nil? or @font_families.empty?
           @font_families = create_pango_context.families
@@ -148,7 +148,7 @@ module Rabbit
       def create_pango_context
         Pango::Context.new
       end
-      
+
       def printable?
         false
       end
@@ -163,7 +163,7 @@ module Rabbit
 
       def setup_event(area)
       end
-      
+
       def to_attrs(hash)
         hash.collect do |key, value|
           if value
@@ -228,11 +228,11 @@ module Rabbit
       def graffiti_mode?
         false
       end
-      
+
       def have_graffiti?
         false
       end
-      
+
       def can_undo_graffiti?
         false
       end
@@ -269,7 +269,7 @@ module Rabbit
       def off_screen_renderer?
         false
       end
-      
+
       def do_print(&block)
         pre_print(@canvas.slide_size)
         canceled = false
@@ -296,7 +296,7 @@ module Rabbit
         canvas.toggle_index_mode if @canvas.index_mode?
         canvas
       end
-      
+
       def make_canvas_with_printable_renderer
         renderer = Renderer.printable_renderer(@canvas.slides_per_page)
         make_canvas_with_renderer(renderer) do |canvas|
@@ -308,7 +308,7 @@ module Rabbit
           canvas.slides_per_page = @canvas.slides_per_page
         end
       end
-      
+
       def make_canvas_with_off_screen_renderer
         make_canvas_with_renderer(Pixmap) do |canvas|
           canvas.width = @canvas.width
@@ -347,7 +347,7 @@ module Rabbit
 
       def setup_flag_params(pole_height, default_flag_width_ratio, params)
         params = params.dup
-        
+
         text = params["text"]
         text_attrs = params["text_attributes"] || {}
         if text
@@ -366,7 +366,7 @@ module Rabbit
           params["layout"] = nil
           flag_width_default = flag_height_default = nil
         end
-        
+
         params["pole_width"] = params["pole_width"] || 2
         params["pole_color"] ||= "black"
         flag_height = params["flag_height"] ||

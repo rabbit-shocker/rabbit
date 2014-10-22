@@ -349,13 +349,13 @@ module Rabbit
       end
     end
   end
-  
+
   module ScreenInfo
     module_function
     def default_screen
       Gdk::Screen.default
     end
-    
+
     def screen_width
       default_screen.width
     end
@@ -407,16 +407,16 @@ module Rabbit
     def dirty?
       @dirty_count >= TOO_DIRTY
     end
-    
+
     def dirty(factor=0.1)
       @dirty_count += TOO_DIRTY * factor
       dirtied if dirty?
     end
-    
+
     def very_dirty
       dirty(1)
     end
-    
+
     def bit_dirty
       dirty(0.01)
     end
@@ -429,7 +429,7 @@ module Rabbit
     def dirtied
       dirty_count_clean
     end
-    
+
     def check_dirty
       if dirty?
         dirtied

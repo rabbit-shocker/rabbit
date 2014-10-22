@@ -51,9 +51,9 @@ module Rabbit
     end
 
     include MonitorMixin
-    
+
     attr_reader :image_type, :public_level, :last_modified
-    
+
     def initialize(canvas, public_level=nil)
       super()
       @canvas = canvas

@@ -6,13 +6,13 @@ module Rabbit
     class Default < Base
 
       push_loader(self)
-      
+
       class << self
         def match?(filename)
           true
         end
       end
-      
+
       private
       def update_size
         File.open(@filename, "rb") do |file|

@@ -8,13 +8,13 @@ module Rabbit
       def self.initial_args_description
         N_("[FILENAME]")
       end
-      
+
       def initialize(encoding, logger, name)
         @name = name
         super(encoding, logger)
         @mtime = nil
       end
-      
+
       def _read
         begin
           check_file
@@ -28,7 +28,7 @@ module Rabbit
           ""
         end
       end
-      
+
       def need_read?
         super or old?(@mtime, :mtime)
       end
@@ -49,7 +49,7 @@ module Rabbit
           raise NotReadableError.new(@name)
         end
       end
-      
+
       def mtime
         begin
           check_file
@@ -58,12 +58,12 @@ module Rabbit
           Time.now
         end
       end
-      
+
       def init_base
         set_base(::File.dirname(@name))
       end
-      
+
     end
-    
+
   end
 end

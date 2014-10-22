@@ -89,7 +89,7 @@ module Rabbit
                       action.name, Gtk::UIManager::AUTO, false)
       end
     end
-    
+
     def update_ui
       @merge_ui = @merge.add_ui(ui_xml)
       @menu = @merge.get_widget("/popup")
@@ -101,13 +101,13 @@ module Rabbit
     def update_theme_menu(canvas)
       @merge.remove_ui(@theme_merge_id) if @theme_merge_id
       @merge.remove_action_group(@theme_actions) if @theme_actions
-      
+
       @theme_merge_id = @merge.new_merge_id
       @theme_actions = Gtk::ActionGroup.new("ThemeActions")
       @merge.insert_action_group(@theme_actions, 0)
 
       themes = Theme::Searcher.collect_theme
-      
+
       categories = themes.collect do |entry|
         entry.category
       end.uniq.sort_by {|cat| _(cat)}
@@ -220,7 +220,7 @@ module Rabbit
         end
       end
     end
-    
+
     def items
       [
         [:item, "ToggleIndexMode"],
