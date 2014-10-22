@@ -25,7 +25,7 @@ module Rabbit
           N_("URI")
         end
       end
-      
+
       def initialize(encoding, logger, uri)
         @uri = ::URI.parse(uri)
         super(encoding, logger)

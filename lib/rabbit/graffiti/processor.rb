@@ -20,28 +20,28 @@ module Rabbit
       def have_graffiti?
         not @segments.empty?
       end
-      
+
       def can_undo?
         not @undo_stack.empty?
       end
-      
+
       def button_press(x, y, width, height)
         @pressed = true
         @undo_index = nil
         @segments << [[x.to_f / width, y.to_f / height]]
       end
-      
+
       def button_release(x, y, width, height)
         @pressed = false
         @undo_stack << [:push]
       end
-      
+
       def button_motion(x, y, width, height)
         if @pressed
           @segments.last << [x.to_f / width, y.to_f / height]
         end
       end
-      
+
       def draw_last_segment(renderer)
         points = @segments.last
         if points.size >= 2
@@ -55,7 +55,7 @@ module Rabbit
                              @color, {:line_width => @line_width})
         end
       end
-      
+
       def draw_all_segment(renderer)
         return if @segments.empty?
         args = [@color, {:line_width => @line_width, :opened => true}]
@@ -68,11 +68,11 @@ module Rabbit
           renderer.draw_lines(converted_points, *args)
         end
       end
-      
+
       def dragging?
         @pressed
       end
-      
+
       def clear
         @pressed = false
         @segments = []
@@ -104,7 +104,7 @@ module Rabbit
           @segments << segment
           @undo_stack << [:push]
         end
-        
+
         if @undo_index > 0
           @undo_index -= 1
         else

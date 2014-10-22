@@ -4,7 +4,7 @@ require 'rabbit/source/base'
 
 module Rabbit
   module Source
-    
+
     class Hiki
 
       include Base

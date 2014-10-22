@@ -7,7 +7,7 @@ module Rabbit
     class EPS < Base
 
       unshift_loader(self)
-      
+
       GS_COMMANDS = %w(gs gswin32c)
 
       include SystemRunner
@@ -45,15 +45,15 @@ module Rabbit
                end
         load_data(data)
       end
-      
+
       def eps_to_png(width=nil, height=nil)
         eps_to(width, height, "pngalpha")
       end
-      
+
       def eps_to_pnm(width=nil, height=nil)
         eps_to(width, height, "pnm")
       end
-      
+
       def eps_to(width, height, device, *gs_options)
         x, y, w, h, r = eps_size
         resolution = (r || Canvas::INTERNAL_DPI).round
@@ -81,7 +81,7 @@ module Rabbit
           end
         end
       end
-      
+
       def eps_size
         sx, sy, w, h, r = nil
         File.read(@filename).split(/(?:\r\n?|\n)/).each do |line|

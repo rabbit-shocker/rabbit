@@ -12,7 +12,7 @@ module Rabbit
         mount(PATH, servlet)
       end
     end
-    
+
     class Servlet < ::XMLRPC::WEBrickServlet
       def initialize(front, *args)
         super(*args)

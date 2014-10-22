@@ -15,7 +15,7 @@ module Rabbit
         info.concat(Utils.arg_list(Front.instance_method(name).arity))
         @@method_infos << info
       end
-      
+
       def initialize(end_point, soap_action=nil)
         super(end_point, Rabbit::SOAP::NS, soap_action)
 

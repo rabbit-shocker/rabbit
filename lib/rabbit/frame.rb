@@ -37,7 +37,7 @@ module Rabbit
     def destroyed?
       @window.nil? or @window.destroyed?
     end
-    
+
     def quit
       @window.destroy unless destroyed?
       @window = nil
@@ -67,7 +67,7 @@ module Rabbit
       @fullscreen = false
       @window.unfullscreen
     end
-    
+
     def toggle_fullscreen
       if fullscreen?
         unfullscreen
@@ -87,7 +87,7 @@ module Rabbit
     def main_window?
       @main_window
     end
-    
+
     def update_title(new_title)
       @window.title = Utils.unescape_title(new_title)
     end
@@ -219,7 +219,7 @@ module Rabbit
       false
     end
   end
-  
+
   class EmbedFrame < Frame
 
     def update_title(new_title)
@@ -232,7 +232,7 @@ module Rabbit
     def iconify_available?
       false
     end
-    
+
     def init_gui(width, height, main_window, window_type=nil)
       @window = Gtk::EventBox.new
       @window.set_size_request(width, height)

@@ -107,7 +107,7 @@ module Rabbit
         super
         @layout = nil
       end
-      
+
       def dirty?
         super or text_dirty?
       end

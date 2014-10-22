@@ -11,17 +11,17 @@ module Rabbit
         include Base
         include Kernel
         extend Forwardable
-      
+
         def_delegators(:@canvas, :current_index)
-        
+
         def_delegators(:@print, :filename, :filename=)
         def_delegators(:@print, :foreground=, :background=)
         def_delegators(:@print, :background_image=)
-        
+
         def_delegators(:@print, :page_width, :page_width=)
         def_delegators(:@print, :page_height, :page_height=)
         def_delegators(:@print, :width, :height)
-        
+
         def_delegators(:@print, :pre_print, :post_print, :post_apply_theme)
         def_delegators(:@print, :post_move, :post_move_in_slide, :post_iconify)
         def_delegators(:@print, :post_fullscreen, :post_unfullscreen)
@@ -31,7 +31,7 @@ module Rabbit
 
         def_delegators(:@print, :make_color, :make_layout)
         def_delegators(:@print, :create_pango_context)
-        
+
         def_delegators(:@print, :clear_theme)
 
         def_delegators(:@print, :rsvg_available?, :poppler_available?)
@@ -41,7 +41,7 @@ module Rabbit
           @print = Print.new(canvas)
           super
         end
-        
+
         def width
           @slide_width ||= @layout.slide_width
         end
@@ -59,12 +59,12 @@ module Rabbit
           super
           @print.page_margin_right = margin
         end
-        
+
         def page_margin_top=(margin)
           super
           @print.page_margin_top = margin
         end
-        
+
         def page_margin_bottom=(margin)
           super
           @print.page_margin_bottom = margin
@@ -79,18 +79,18 @@ module Rabbit
           super
           @print.margin_right = margin
         end
-        
+
         def margin_top=(margin)
           super
           @print.margin_top = margin
         end
-        
+
         def margin_bottom=(margin)
           super
           @print.margin_bottom = margin
         end
 
-        
+
         def draw_slide(slide, simulation)
           @print.show_page = need_show_page?
           @print.internal_draw_slide(slide, simulation) do

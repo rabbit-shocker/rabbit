@@ -10,7 +10,7 @@ module Rabbit
 
         attr_writer :filename
         attr_accessor :show_page
-        
+
         def initialize(canvas)
           super
           @filename = nil
@@ -19,11 +19,11 @@ module Rabbit
         def page_width
           @page_width - page_margin_left - page_margin_right
         end
-        
+
         def page_height
           @page_height - page_margin_top - page_margin_bottom
         end
-        
+
         def width
           page_width
         end
@@ -36,12 +36,12 @@ module Rabbit
           super
           init_paper
         end
-        
+
         def paper_height=(value)
           super
           init_paper
         end
-        
+
         def pre_print(slide_size)
           @show_page = true
         end

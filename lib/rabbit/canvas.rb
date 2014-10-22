@@ -74,18 +74,18 @@ module Rabbit
 
     def_delegators(:@renderer, :gl_compile, :gl_call_list)
     def_delegators(:@renderer, :new_list_id)
-    
+
     def_delegators(:@renderer, :z_far, :z_view)
-    
+
     def_delegators(:@renderer, :to_attrs, :flag_size)
-    
+
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
 
     def_delegators(:@renderer, :confirm)
 
     def_delegators(:@renderer, :display?, :printable?)
     def_delegators(:@renderer, :x_dpi, :y_dpi)
-    
+
     def_delegators(:@renderer, :whiteouting?, :blackouting?)
     def_delegators(:@renderer, :toggle_whiteout, :toggle_blackout)
 
@@ -119,7 +119,7 @@ module Rabbit
 
     attr_reader :logger, :renderer, :last_modified
     attr_reader :comments, :actions
-    
+
     attr_writer :saved_image_base_name
     attr_writer :use_gl, :allotted_time
 
@@ -177,7 +177,7 @@ module Rabbit
       @quitted = true
       @frame.quit
     end
-    
+
     def front(public_level=nil)
       Front.new(self, public_level)
     end
@@ -186,12 +186,12 @@ module Rabbit
       @frame = frame if frame
       @renderer.attach_to(window, container, &block) if window
     end
-    
+
     def detach
       @frame = NullFrame.new
       @renderer.detach
     end
-    
+
     def title
       ts = title_slide
       if ts
@@ -304,7 +304,7 @@ module Rabbit
     def apply_theme(name=nil, &block)
       _apply_theme(name, Object.new.__id__, &block)
     end
-    
+
     def theme_name
       @theme_name || default_theme || "default"
     end
@@ -377,7 +377,7 @@ module Rabbit
       current_slide.flush
       @renderer.to_pixbuf(current_slide)
     end
-    
+
     def save_as_image
       process do
         generator = HTML::Generator.new(self,
@@ -397,7 +397,7 @@ module Rabbit
         @renderer.print(&block)
       end
     end
-    
+
     def fullscreened
       @renderer.post_fullscreen
     end
@@ -507,7 +507,7 @@ module Rabbit
     def first_slide?
       current_index.zero?
     end
-    
+
     def last_slide?
       slide_size.zero? or current_index == (slide_size - 1)
     end
@@ -680,11 +680,11 @@ module Rabbit
         Action.update_status(self)
       end
     end
-    
+
     def modified
       @last_modified = Time.now
     end
-    
+
     def clear
       clear_comments
       reset_timer
@@ -703,7 +703,7 @@ module Rabbit
       @current_index = 0
       @slides = []
     end
-    
+
     def clear_index_slides
       activate("ToggleIndexMode") if @index_mode
       @index_current_index = 0
@@ -728,7 +728,7 @@ module Rabbit
       @index_current_index = index_index
       @index_mode = index_mode
     end
-    
+
     def default_theme
       ts = title_slide
       ts and ts.theme

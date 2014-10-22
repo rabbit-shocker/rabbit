@@ -28,6 +28,6 @@ EOS
         add_rpc_servant(front)
       end
     end
-    
+
   end
 end

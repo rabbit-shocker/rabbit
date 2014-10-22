@@ -65,11 +65,11 @@ module Rabbit
       def draw_circle(filled, x, y, w, h, color=nil, params={})
         draw_arc(filled, x, y, w, h, 0, 360, color, params)
       end
-      
+
       def draw_circle_by_radius(filled, x, y, r, color=nil, params={})
         draw_arc_by_radius(filled, x, y, r, 0, 360, color, params)
       end
-      
+
       def draw_flag(x, y, pole_height, params)
         if params["flag_type"] == "triangle"
           draw_triangle_flag(x, y, pole_height, params)
@@ -77,7 +77,7 @@ module Rabbit
           draw_rectangle_flag(x, y, pole_height, params)
         end
       end
-      
+
       def draw_triangle_flag(x, y, pole_height, params)
         params = setup_flag_params(pole_height, 1.5, params)
 
@@ -184,36 +184,36 @@ module Rabbit
       def draw_cube(filled, x, y, z, size, color=nil)
         not_support_method("draw_cube")
       end
-      
+
       def draw_sphere(filled, x, y, z, radius, slices, stacks, color=nil)
         not_support_method("draw_sphere")
       end
-      
+
       def draw_cone(filled, x, y, z, base, height, slices, stacks, color=nil)
         not_support_method("draw_cone")
       end
-      
+
       def draw_torus(filled, x, y, z, inner_radius, outer_radius,
                      n_sides, rings, color=nil)
         not_support_method("draw_torus")
       end
-      
+
       def draw_tetrahedron(filled, x, y, z, color=nil)
         not_support_method("draw_tetrahedron")
       end
-      
+
       def draw_octahedron(filled, x, y, z, color=nil)
         not_support_method("draw_octahedron")
       end
-      
+
       def draw_dodecahedron(filled, x, y, z, color=nil)
         not_support_method("draw_dodecahedron")
       end
-      
+
       def draw_icosahedron(filled, x, y, z, color=nil)
         not_support_method("draw_icosahedron")
       end
-      
+
       def draw_teapot(filled, x, y, z, scale, color=nil)
         not_support_method("draw_teapot")
       end

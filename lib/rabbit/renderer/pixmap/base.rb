@@ -10,11 +10,11 @@ module Rabbit
         include Renderer::Base
 
         @@depth = nil
-        
+
         attr_accessor :width, :height, :pango_context
-        
+
         attr_accessor :filename
-        
+
         def initialize(canvas, width=nil, height=nil)
           super(canvas)
           @width = width

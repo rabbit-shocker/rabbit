@@ -24,11 +24,11 @@ module Rabbit
       def source=(new_source)
         @current_source = new_source
       end
-      
+
       def _read
         @current_source
       end
-      
+
       def need_read?
         super or @current_source != @source
       end
