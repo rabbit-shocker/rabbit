@@ -22,9 +22,9 @@ module Rabbit
 
     def restore(drawable, name)
       if name.nil?
-	type = @current
+        type = @current
       else
-	type = @stocks[name].pop
+        type = @stocks[name].pop
       end
       drawable.cursor = type_to_cursor(type)
     end
@@ -36,24 +36,24 @@ module Rabbit
     private
     def type_to_cursor(type)
       if type.nil?
-	nil
+        nil
       else
-	name = "@#{type}_cursor"
-	unless instance_variable_defined?(name)
-	  raise UnknownCursorTypeError.new(type)
-	end
-	instance_variable_get(name)
+        name = "@#{type}_cursor"
+        unless instance_variable_defined?(name)
+          raise UnknownCursorTypeError.new(type)
+        end
+        instance_variable_get(name)
       end
     end
 
     def blank_cursor
       if @@blank_cursor.nil?
-	source = Gdk::Pixmap.new(nil, 1, 1, 1)
-	mask = Gdk::Pixmap.new(nil, 1, 1, 1)
-	gc = Gdk::GC.new(source)
-	fg = gc.foreground
-	bg = gc.background
-	@@blank_cursor = Gdk::Cursor.new(source, mask, fg, bg, 1, 1)
+        source = Gdk::Pixmap.new(nil, 1, 1, 1)
+        mask = Gdk::Pixmap.new(nil, 1, 1, 1)
+        gc = Gdk::GC.new(source)
+        fg = gc.foreground
+        bg = gc.background
+        @@blank_cursor = Gdk::Cursor.new(source, mask, fg, bg, 1, 1)
       end
       @@blank_cursor
     end
