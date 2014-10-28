@@ -9,6 +9,10 @@ module Rabbit
         super(@page)
       end
 
+      def pdf_page
+        @page
+      end
+
       def headline
         @page
       end

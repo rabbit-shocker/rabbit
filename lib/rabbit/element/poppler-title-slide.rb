@@ -11,6 +11,10 @@ module Rabbit
         super(@page)
       end
 
+      def pdf_page
+        @page
+      end
+
       def title
         (@document.title || super).chomp
       end
