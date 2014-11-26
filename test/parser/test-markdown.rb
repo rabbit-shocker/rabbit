@@ -23,16 +23,16 @@ require "rabbit/parser/markdown"
 class RabbitParserMarkdownTest < Test::Unit::TestCase
   private
   def parse(markdown)
-    slide = Rabbit::Slide.new
+    canvas = []
     source = Rabbit::Source::Memory.new("UTF-8", nil)
     source.source = markdown
-    parser = Rabbit::Parser::Markdown.new(slide, source)
+    parser = Rabbit::Parser::Markdown.new(canvas, source)
     parser.parse
-    inspect_slide(slide)
+    canvas
   end
 
-  def inspect_slide(slide)
-    slide.collect do |page|
+  def inspect_canvas(canvas)
+    canvas.collect do |page|
       inspect_element(page)
     end
   end
@@ -48,6 +48,10 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
   end
 
   class TitlePageTest < self
+    def parse(markdown)
+      inspect_canvas(super(markdown))
+    end
+
     def test_title
       assert_equal([
                      [
@@ -60,6 +64,35 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                      ],
                    ],
                    parse("# Title"))
+    end
+  end
+
+  class BodyTest < self
+    def parse(markdown)
+      full_markdown = <<-MARKDOWN
+\# Title
+
+\# Page
+
+#{markdown}
+      MARKDOWN
+      inspect_element(super(full_markdown)[1].body)
+    end
+
+    class TextEscapeTest < self
+      def test_html_tag
+        assert_equal([
+                       "Body", [
+                         "Paragraph", [
+                           "Code", [
+                             "Text",
+                             "&#60;pre&#62;",
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse("`<pre>`"))
+      end
     end
   end
 end

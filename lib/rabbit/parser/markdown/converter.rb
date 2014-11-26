@@ -39,7 +39,7 @@ module Rabbit
               next
             when nil
               mode = :ignore
-            when Slide
+            when Element::Slide
               target = content.body
               @canvas << content
               mode = :display
@@ -69,7 +69,7 @@ module Rabbit
             if @slides.empty?
               @slide = TitleSlide.new(Title.new(contents))
             else
-              @slide = Slide.new(HeadLine.new(contents))
+              @slide = Element::Slide.new(HeadLine.new(contents))
               @slide << Body.new
             end
             @slides << @slide
@@ -262,7 +262,7 @@ module Rabbit
         end
 
         def convert_codespan(element)
-          Code.new(Text.new(element.value))
+          Code.new(text(element.value))
         end
       end
     end
