@@ -309,6 +309,7 @@ module Rabbit
       def generate_dot_gitignore
         create_file(".gitignore") do |dot_gitignore|
           dot_gitignore.puts(<<-EOD)
+.DS_Store
 /.tmp/
 /pkg/
 /pdf/
