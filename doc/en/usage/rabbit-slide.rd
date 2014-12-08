@@ -226,7 +226,7 @@ RubyGems.org}/#{the slide ID}/%)).
 
 Rabbit Slide Show collects and displays all slides published on
 RubyGems.org automatically. So you don't need to publish your slide to
-Rabbit Slide Share explicitly. You only need to publish your slide to
+Rabbit Slide Show explicitly. You only need to publish your slide to
 RubyGems.org.
 
 === Publication for SlideShare

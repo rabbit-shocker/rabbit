@@ -208,7 +208,7 @@ Show|URL:http://slide.rabbit-shocker.org/>))で閲覧できます。URLは
 名}/#{スライドID}/%))です。
 
 Rabbit Slide ShowはRubyGems.orgに公開されているスライドを自動で収集して
-表示しているので、明示的にRabbit Slide Shareにスライドを公開する操作を
+表示しているので、明示的にRabbit Slide Showにスライドを公開する操作を
 する必要はありません。RubyGems.orgに公開するだけでOKです。
 
 === SlideShareへ公開
