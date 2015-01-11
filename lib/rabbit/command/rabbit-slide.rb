@@ -461,7 +461,7 @@ end
           ["author",         @author_conf.name,  _("AUTHOR")],
           ["institution",    nil,                _("INSTITUTION")],
           ["content-source", nil,                _("EVENT NAME")],
-          ["date",           presentation_date,  Time.now.strftime("%Y/%m/%d")],
+          ["date",           presentation_date,  Time.now.strftime("%Y-%m-%d")],
           ["allotted-time",  @allotted_time,     "5m"],
           ["theme",          nil,                "default"],
         ]
