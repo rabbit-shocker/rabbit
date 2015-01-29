@@ -14,8 +14,10 @@ module Rabbit
         def new(encoding, logger, uri)
           parsed_uri = ::URI.parse(uri)
           case parsed_uri.scheme
-          when nil, /file/i
+          when nil
             File.new(encoding, logger, parsed_uri.path)
+          when /\Afile\z/i
+            File.new(encoding, logger, uri.gsub(/\Afile:\/\//i, ""))
           else
             super
           end

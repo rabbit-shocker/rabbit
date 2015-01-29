@@ -667,7 +667,8 @@ module Rabbit
             exit if file_name.nil?
             rest_arguments = [file_name]
             @options.source_type = Source::File
-          elsif rest_arguments.size == 1 and /\Ahttps?:\/\// =~ rest_arguments[0]
+          elsif rest_arguments.size == 1 and
+               /\A(?:https?|file):\/\//i =~ rest_arguments[0]
             @options.source_type = Source::URI
           else
             @options.source_type = Source::File
