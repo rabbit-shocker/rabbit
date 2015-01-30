@@ -48,21 +48,9 @@ Rabbitをインストールできます。Ruby/GTK2など関連するソフト�
 
 以下がなくても動くけどあると便利なソフトウェアです。
 
-  * RDtool
   * Ghostscript
-  * Enscript
-  * div
 
 それではあると便利なソフトウェアをインストールしましょう。
-
-==== RDTool のインストール
-
-((<RAA:rdtool>)) をインストールする。
-
-アーカイブを展開して，setup.rb を実行してインストールする。
-
-: rdtool-0.6.20.tar.gz
-   ((<URL:http://www.moonwolf.com/ruby/archive/rdtool-0.6.20.tar.gz>))
 
 ==== EPS を表示する
 
@@ -72,33 +60,3 @@ Rabbitをインストールできます。Ruby/GTK2など関連するソフト�
         ((<URL:http://www.cs.wisc.edu/~ghost/>))
 
 (2) インストール後 <インストール先>/gs/gs8.53/bin に PATH を通す。
-
-==== ソースコードの色づけを行う
-
-(1) Enscript をインストールする。
-
-    : enscript-1.6.3-9-bin.exe
-        ((<URL:http://sourceforge.net/project/showfiles.php?group_id=23617&package_id=16960>))
-
-(2) <Enscript のインストール先>/bin に PATH を通す。
-
-(3) ruby コードを色づけする場合は、以下のコマンドで ruby.st もインストールする。
-
-      > cd <Enscript のインストール先>\share\enscript\hl
-      > ruby -ropen-uri -e "puts open('http://viewvc.rubyforge.mmmultiworks.com/cgi/viewvc.cgi/trunk/support/ruby.st?root=support&view=co').read" > ruby.st
-
-(4) ((<RAA:htree>)) をインストールする。
-
-    アーカイブを展開して、install.rb を実行してインストールする。
-
-    : htree.tar.gz
-        ((<URL:http://cvs.m17n.org/viewcvs/ruby/htree.tar.gz>))
-
-==== rabrick を使う
-
-((<RAA:div>)) をインストールする。
-
-アーカイブを展開して、install.rb を実行してインストールする。
-
-: div-1.3.2.tar.gz
-   ((<URL:http://www2a.biglobe.ne.jp/~seki/ruby/div-1.3.2.tar.gz>))
