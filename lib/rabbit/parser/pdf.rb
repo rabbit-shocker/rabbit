@@ -22,11 +22,7 @@ module Rabbit
 
       include Element
       def parse
-        @pdf = Tempfile.new("rabbit-pdf")
-        @pdf.binmode
-        @pdf.print(@source.read)
-        @pdf.close
-        doc = Poppler::Document.new("file://#{@pdf.path}")
+        doc = Poppler::Document.new(@source.read)
 
         title_page, *rest = doc.to_a
 
