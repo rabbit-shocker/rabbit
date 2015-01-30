@@ -18,7 +18,7 @@ module Rabbit
       def _read
         begin
           check_file
-          ::File.open(@name) do |f|
+          ::File.open(@name, "rb") do |f|
             @mtime = f.mtime
             f.read
           end
