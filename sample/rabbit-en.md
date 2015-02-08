@@ -53,7 +53,8 @@ A presentation tool
 
 * Index page
 * Graffiti
-* I18N
+* {::wait/}Pause
+* {::wait/}I18N
 * Search
 
 # Features: UI (3)

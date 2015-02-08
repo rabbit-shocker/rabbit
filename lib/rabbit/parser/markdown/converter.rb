@@ -3,6 +3,7 @@ module Rabbit
     class Markdown
       class Converter
         include Element
+        include PauseSupport
 
         def initialize(canvas)
           @canvas = canvas
@@ -59,6 +60,7 @@ module Rabbit
               end
             end
           end
+          burn_out_pause_targets
         end
 
         def convert_header(element)
@@ -114,8 +116,14 @@ module Rabbit
           list
         end
 
+        def create_paragraph(elements)
+          paragraph = Paragraph.new(elements)
+          register_pause(paragraph) if paragraph.have_wait_tag?
+          paragraph
+        end
+
         def convert_dt(element)
-          DescriptionTerm.new(Paragraph.new(convert_container(element)))
+          DescriptionTerm.new(create_paragraph(convert_container(element)))
         end
 
         def convert_dd(element)
@@ -130,17 +138,49 @@ module Rabbit
               raise ParseError,
                       _("multiple ![alt]{image} in a paragraph isn't supported.")
             else
-              Paragraph.new(convert_container(element))
+              create_paragraph(convert_container(element))
             end
           end
         end
 
+        def create_list(list_class, contents)
+          list = list_class.new
+          contents.each do |content|
+            list << content
+            if block_given?
+              yield(list, content)
+            end
+          end
+          list
+        end
+
+        def create_list_item(list_item_class, contents)
+          list_item = list_item_class.new(contents)
+
+          waited_paragraphs = list_item.elements.find_all do |element|
+            element.is_a?(Paragraph) and element.have_wait_tag?
+          end
+          unless waited_paragraphs.empty?
+            waited_paragraphs.each do |paragraph|
+              paragraph.default_visible = true
+              paragraph.clear_theme
+              unregister_pause(paragraph)
+            end
+
+            list_item.default_visible = false
+            list_item.clear_theme
+            register_pause(list_item)
+          end
+
+          list_item
+        end
+
         def convert_ul(element)
-          ItemList.new(convert_container(element))
+          create_list(ItemList, convert_container(element))
         end
 
         def convert_li(element)
-          ItemListItem.new(convert_container(element))
+          create_list_item(ItemListItem, convert_container(element))
         end
 
         def convert_smart_quote(element)
@@ -263,6 +303,10 @@ module Rabbit
 
         def convert_codespan(element)
           Code.new(text(element.value))
+        end
+
+        def convert_wait(element)
+          WaitTag.new
         end
       end
     end

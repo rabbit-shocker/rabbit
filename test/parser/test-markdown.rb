@@ -1,4 +1,4 @@
-# Copyright (C) 2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2015  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -92,6 +92,24 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                        ],
                      ],
                      parse("`<pre>`"))
+      end
+    end
+
+    class WaitTest < self
+      def test_in_list_item
+        assert_equal([
+                       "Body", [
+                         "ItemList", [
+                           "ItemListItem", [
+                             "Paragraph",
+                             ["Text", "Hello"],
+                             ["WaitTag", ""],
+                             ["Text", " World"],
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse("* Hello{::wait/} World"))
       end
     end
   end
