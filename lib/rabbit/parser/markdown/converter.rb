@@ -12,15 +12,17 @@ module Rabbit
           @slide_property_mode = false
         end
 
-        def convert(element)
-          __send__("convert_#{element.type}", element)
+        def convert(element, context=nil)
+          method_name = "convert_#{element.type}"
+          method_name << "_#{context}" if context
+          __send__(method_name, element)
         end
 
         private
-        def convert_container(element)
+        def convert_container(element, context=nil)
           elements = []
           element.children.each do |child|
-            element = convert(child)
+            element = convert(child, context)
             case element
             when nil, :no_element
               # ignore
@@ -176,11 +178,23 @@ module Rabbit
         end
 
         def convert_ul(element)
-          create_list(ItemList, convert_container(element))
+          create_list(ItemList, convert_container(element, "ul"))
         end
 
-        def convert_li(element)
+        def convert_li_ul(element)
           create_list_item(ItemListItem, convert_container(element))
+        end
+
+        def convert_ol(element)
+          i = 1
+          create_list(EnumList, convert_container(element, "ol")) do |list, item|
+            item.order = i
+            i += 1
+          end
+        end
+
+        def convert_li_ol(element)
+          create_list_item(EnumListItem, convert_container(element))
         end
 
         def convert_smart_quote(element)

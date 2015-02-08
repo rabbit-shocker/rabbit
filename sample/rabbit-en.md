@@ -225,12 +225,12 @@ End of source code.
 
 # Enumeration
 
-* Level 1-1
-  * Level 2-1
-    * Level 3-1
-    * Level 3-2
-  * Level 2-2
-* Level 1-2
+1. Level 1-1
+   1. Level 2-1
+      1. Level 3-1
+      2. Level 3-2
+   2. Level 2-2
+2. Level 1-2
 
 # Labeled list
 
