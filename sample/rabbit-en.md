@@ -156,7 +156,7 @@ Relative image sizes
 
 Download an image from a URL
 
-![](http://www.cozmixng.org/repos/images/cozmixchu.png "COZMIX Chu")
+![](https://raw.githubusercontent.com/rabbit-shocker/rabbit/master/data/rabbit/image/cozmixng-images/cozmixchu.png "COZMIX Chu")
 
 # Math. expressions
 
