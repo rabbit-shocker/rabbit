@@ -24,6 +24,9 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
   private
   def parse(markdown)
     canvas = []
+    def canvas.logger
+      nil
+    end
     source = Rabbit::Source::Memory.new("UTF-8", nil)
     source.source = markdown
     parser = Rabbit::Parser::Markdown.new(canvas, source)
@@ -110,6 +113,40 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                        ],
                      ],
                      parse("* Hello{::wait/} World"))
+      end
+    end
+
+    class SyntaxHighlightTest < self
+      def test_indent_lang
+        assert_equal([
+                       "Body", [
+                         "SyntaxHighlightingBlock", [
+                           "TextContainer",
+                           [
+                             "CustomTag",
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "\""],
+                             ],
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "Hello World"],
+                             ],
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "\""],
+                             ],
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse(<<-MARKDOWN))
+    "Hello World"
+{: lang="ruby"}
+                           MARKDOWN
       end
     end
   end
