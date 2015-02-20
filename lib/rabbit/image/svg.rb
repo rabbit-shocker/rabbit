@@ -20,7 +20,7 @@ module Rabbit
       end
 
       def draw(canvas, x, y, params={})
-        if @handle and canvas.rsvg_available?
+        if @handle
           default_params = {
             :width => width,
             :height => height,
