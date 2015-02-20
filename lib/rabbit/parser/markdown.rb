@@ -1,5 +1,6 @@
 require "kramdown"
 require "kramdown/parser/kramdown"
+require "kramdown/parser/gfm"
 
 require "rabbit/parser/base"
 
@@ -14,6 +15,29 @@ module Kramdown
           true
         else
           handle_extension_raw(name, opts, body, type, line_no)
+        end
+      end
+
+      alias_method :configure_parser_raw, :configure_parser
+      def configure_parser
+        position = @block_parsers.index(:codeblock_fenced)
+        @block_parsers.insert(position, :codeblock_fenced_gfm)
+
+        configure_parser_raw
+      end
+
+      parser(:codeblock_fenced_gfm).method = "parse_codeblock_fenced_gfm"
+
+      def parse_codeblock_fenced_gfm
+        original_match = self.class::FENCED_CODEBLOCK_MATCH
+        begin
+          self.class.send(:remove_const, :FENCED_CODEBLOCK_MATCH)
+          self.class.const_set(:FENCED_CODEBLOCK_MATCH,
+                               GFM::FENCED_CODEBLOCK_MATCH)
+          parse_codeblock_fenced
+        ensure
+          self.class.send(:remove_const, :FENCED_CODEBLOCK_MATCH)
+          self.class.const_set(:FENCED_CODEBLOCK_MATCH, original_match)
         end
       end
     end

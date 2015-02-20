@@ -181,6 +181,39 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
 ~~~
                            MARKDOWN
       end
+
+      def test_fence_gfm
+        assert_equal([
+                       "Body", [
+                         "SyntaxHighlightingBlock", [
+                           "TextContainer",
+                           [
+                             "CustomTag",
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "\""],
+                             ],
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "Hello World"],
+                             ],
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "\""],
+                             ],
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse(<<-MARKDOWN))
+```ruby
+"Hello World"
+```
+                           MARKDOWN
+      end
     end
   end
 end
