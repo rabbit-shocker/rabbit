@@ -6,14 +6,6 @@ require "rabbit/rabbit"
 require "rabbit/trackball"
 require "rabbit/renderer/color"
 
-module Pango
-  class Context
-    unless method_defined?(:families)
-      alias families list_families
-    end
-  end
-end
-
 module Rabbit
   module Renderer
     module Base
