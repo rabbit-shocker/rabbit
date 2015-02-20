@@ -6,6 +6,7 @@ require 'rabbit/element'
 require 'rabbit/image'
 require 'rabbit/theme/searcher'
 require 'rabbit/renderer/color'
+require "rabbit/size"
 
 module Rabbit
   module Theme

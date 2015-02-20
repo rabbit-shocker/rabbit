@@ -6,21 +6,13 @@ match(SlideElement) do |slides|
 
     base_width  = pdf_page.width
     base_height = pdf_page.height
+    ratio = base_width.to_f / base_height.to_f
+    size = Size.new(canvas.width, canvas.height, ratio)
 
-    width_ratio  = canvas.width.to_f  / base_width.to_f
-    height_ratio = canvas.height.to_f / base_height.to_f
-
-    unless width_ratio == height_ratio
-      if width_ratio > height_ratio
-        width_margin = canvas.width - (base_width * height_ratio)
-        slide.margin_left  = width_margin / 2
-        slide.margin_right = width_margin / 2
-      else
-        height_margin = canvas.height - (base_height * width_ratio)
-        slide.margin_top    = height_margin / 2
-        slide.margin_bottom = height_margin / 2
-      end
-    end
+    slide.margin_left = size.logical_margin_left
+    slide.margin_right = size.logical_margin_right
+    slide.margin_top = size.logical_margin_top
+    slide.margin_bottom = size.logical_margin_bottom
   end
 end
 
