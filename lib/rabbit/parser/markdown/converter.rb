@@ -1,3 +1,4 @@
+require "English"
 require "rabbit/parser/pause-support"
 
 module Rabbit
@@ -254,12 +255,24 @@ module Rabbit
 
         def convert_codeblock(element)
           content = element.value.chomp
-          lang = element.attr["lang"]
+          lang = detect_codeblock_language(element)
           if lang
             highlighted = Ext::CodeRay.highlight(lang, content, @canvas.logger)
             return highlighted if highlighted
           end
           PreformattedBlock.new(PreformattedText.new(text(content)))
+        end
+
+        def detect_codeblock_language(element)
+          lang = element.attr["lang"]
+          return lang if lang
+
+          klass = element.attr["class"]
+          if klass and /\Alanguage-/ =~ klass
+            return $POSTMATCH
+          end
+
+          nil
         end
 
         def convert_blockquote(element)
