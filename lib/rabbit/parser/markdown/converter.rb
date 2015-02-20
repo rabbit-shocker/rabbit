@@ -255,9 +255,10 @@ module Rabbit
 
         def convert_codeblock(element)
           content = element.value.chomp
-          lang = detect_codeblock_language(element)
-          if lang
-            highlighted = Ext::CodeRay.highlight(lang, content, @canvas.logger)
+          language = detect_codeblock_language(element)
+          if language
+            logger = @canvas.logger
+            highlighted = Ext::CodeRay.highlight(language, content, logger)
             return highlighted if highlighted
           end
           PreformattedBlock.new(PreformattedText.new(text(content)))
@@ -266,6 +267,9 @@ module Rabbit
         def detect_codeblock_language(element)
           lang = element.attr["lang"]
           return lang if lang
+
+          language = element.attr["language"]
+          return language if language
 
           klass = element.attr["class"]
           if klass and /\Alanguage-/ =~ klass

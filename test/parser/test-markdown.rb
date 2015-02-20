@@ -149,6 +149,38 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                            MARKDOWN
       end
 
+      def test_indent_language
+        assert_equal([
+                       "Body", [
+                         "SyntaxHighlightingBlock", [
+                           "TextContainer",
+                           [
+                             "CustomTag",
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "\""],
+                             ],
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "Hello World"],
+                             ],
+                           ],
+                           [
+                             "CustomTag", [
+                               "SyntaxHighlightingText", ["Text", "\""],
+                             ],
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse(<<-MARKDOWN))
+    "Hello World"
+{: language="ruby"}
+                           MARKDOWN
+      end
+
       def test_fence_kramdown
         assert_equal([
                        "Body", [
