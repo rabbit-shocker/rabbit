@@ -321,7 +321,7 @@ module Rabbit
         canvas.margin_left = @canvas.margin_left
         canvas.margin_right = @canvas.margin_right
         canvas.margin_top = @canvas.margin_top
-        canvas.page_margin_bottom = @canvas.page_margin_bottom
+        canvas.margin_bottom = @canvas.margin_bottom
       end
 
       def setup_page_margin(canvas)
