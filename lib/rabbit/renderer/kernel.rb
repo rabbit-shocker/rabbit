@@ -3,10 +3,6 @@ require "rabbit/renderer/color"
 module Rabbit
   module Renderer
     module Kernel
-      def rsvg_available?
-        false
-      end
-
       def poppler_available?
         false
       end

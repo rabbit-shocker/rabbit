@@ -15,7 +15,6 @@ module Rabbit
     module Print
       class Cairo
         include Engine::Cairo
-        alias_method :cairo_rsvg_available?, :rsvg_available?
         alias_method :cairo_poppler_available?, :poppler_available?
         include Base
 
@@ -73,10 +72,6 @@ module Rabbit
 
         def internal_draw_background(x=0, y=0, w=width, h=height)
           draw_rectangle(true, x, y, w, h, @background)
-        end
-
-        def rsvg_available?
-          cairo_rsvg_available?
         end
 
         def poppler_available?

@@ -10,7 +10,6 @@ module Rabbit
       module Cairo
         include Kernel
 
-        @@rsvg_available = nil
         @@poppler_available = nil
 
         class << self
@@ -264,13 +263,6 @@ module Rabbit
                                            pixbuf.height / height)
             @context.source.matrix = matrix
           end
-        end
-
-        def rsvg_available?
-          if @@rsvg_available.nil?
-            @@rsvg_available = RSVG.cairo_available?
-          end
-          @@rsvg_available
         end
 
         def draw_rsvg_handle(handle, x, y, params={})
