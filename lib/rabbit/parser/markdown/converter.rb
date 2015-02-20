@@ -1,6 +1,7 @@
 require "English"
 
 require "rabbit/parser/pause-support"
+require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/escape"
 require "rabbit/parser/ext/image"
@@ -262,11 +263,9 @@ module Rabbit
           content = element.value.chomp
           language = detect_codeblock_language(element)
           if language
-            logger = @canvas.logger
-            highlighted = Ext::CodeRay.highlight(language, content, logger)
-            return highlighted if highlighted
+            converted = convert_codeblock_language(element, language, content)
           end
-          PreformattedBlock.new(PreformattedText.new(text(content)))
+          converted || PreformattedBlock.new(PreformattedText.new(text(content)))
         end
 
         def detect_codeblock_language(element)
@@ -282,6 +281,22 @@ module Rabbit
           end
 
           nil
+        end
+
+        def convert_codeblock_language(element, language, content)
+          case language
+          when "blockdiag"
+            args = [@canvas, content]
+            Ext::Image.make_image_from_file(*args) do |src_file_path|
+              [
+                Ext::BlockDiag.make_image(src_file_path, element.attr, @canvas),
+                element.attr,
+              ]
+            end
+          else
+            logger = @canvas.logger
+            Ext::CodeRay.highlight(language, content, logger)
+          end
         end
 
         def convert_blockquote(element)

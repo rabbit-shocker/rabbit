@@ -192,6 +192,24 @@ $$
 
 ![](rabbit.xcf){:relative_height="100"}
 
+# blockdiag
+
+```blockdiag
+{
+  default_fontsize = 25;
+  RD -> Rabbit;
+  Hiki -> Rabbit;
+  PDF -> Rabbit;
+  group {
+    Rabbit -> 画面;
+  }
+}
+```
+{:
+  relative_width="90"
+  fonts="/usr/share/fonts/opentype/ipafont/ipag.ttf, /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf"
+}
+
 # 折り返し
 
 なーーーーーーーーーーーーーーーーーーーーーーーーーーーーーがーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーい行は？

@@ -247,5 +247,23 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                            MARKDOWN
       end
     end
+
+    class BlockDiagTest < self
+      def test_codeblock_fence
+        assert_equal([
+                       "Body", [
+                         "Image",
+                         ""
+                       ],
+                     ],
+                     parse(<<-MARKDOWN))
+```blockdiag
+{
+  A -> B -> C;
+}
+```
+                           MARKDOWN
+      end
+    end
   end
 end
