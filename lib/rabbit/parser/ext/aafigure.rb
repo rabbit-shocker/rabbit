@@ -9,10 +9,12 @@ module Rabbit
                              "option"]
         def make_image(path, prop, logger)
           image_file = Tempfile.new("rabbit-image-aafigure")
-          command = ["aafigure",
-                     "--type", "svg",
-                     "--encoding", "utf-8",
-                     "--output", image_file.path]
+          command = [
+            "aafigure",
+            "--type", "svg",
+            "--encoding", "utf-8",
+            "--output", image_file.path,
+          ]
           aafigure_options = []
           AVAILABLE_OPTIONS.each do |name|
             command.concat(["--#{name}", prop[name]]) if prop.has_key?(name)
