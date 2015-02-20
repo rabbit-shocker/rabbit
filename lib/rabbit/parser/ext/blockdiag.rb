@@ -10,9 +10,11 @@ module Rabbit
         AVAILABLE_VALUE_OPTIONS = []
         def make_image(path, prop, logger)
           image_file = Tempfile.new("rabbit-image-blockdiag")
-          command = ["blockdiag",
-                     "-T", "svg",
-                     "-o", image_file.path]
+          command = [
+            "blockdiag",
+            "-T", "svg",
+            "-o", image_file.path,
+          ]
           font = find_font(prop)
           command.concat(["-f", font]) if font
           AVAILABLE_FLAG_OPTIONS.each do |name|
