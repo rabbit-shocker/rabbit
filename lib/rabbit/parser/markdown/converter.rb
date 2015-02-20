@@ -282,7 +282,7 @@ module Rabbit
             end
             body["background-image"] = uri
             options.each do |name, value|
-              name = name.to_s.gsub(/_/, '-')
+              name = name.to_s.gsub(/_/, "-")
               body["background-image-#{name}"] = value
             end
             :no_element
@@ -309,7 +309,7 @@ module Rabbit
 
         def convert_a(element)
           ref = ReferText.new(convert_container(element))
-          ref.to = element.attr['href']
+          ref.to = element.attr["href"]
           ref
         end
 
