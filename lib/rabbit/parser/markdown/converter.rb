@@ -1,3 +1,5 @@
+require "rabbit/parser/pause-support"
+
 module Rabbit
   module Parser
     class Markdown
