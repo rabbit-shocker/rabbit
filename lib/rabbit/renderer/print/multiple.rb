@@ -34,8 +34,6 @@ module Rabbit
 
         def_delegators(:@print, :clear_theme)
 
-        def_delegators(:@print, :poppler_available?)
-
         def initialize(canvas)
           @print = Print.new(canvas)
           super

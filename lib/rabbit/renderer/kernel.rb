@@ -3,10 +3,6 @@ require "rabbit/renderer/color"
 module Rabbit
   module Renderer
     module Kernel
-      def poppler_available?
-        false
-      end
-
       def make_color(color)
         return color if color.is_a?(Color)
         if color.nil?

@@ -30,7 +30,7 @@ module Rabbit
       end
 
       def draw(canvas, x, y, params={})
-        if @document and canvas.poppler_available?
+        if @document
           default_params = {
             :width => width,
             :height => height,

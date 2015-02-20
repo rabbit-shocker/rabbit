@@ -10,8 +10,6 @@ module Rabbit
       module Cairo
         include Kernel
 
-        @@poppler_available = nil
-
         class << self
           def available_with_gdk?
             Gdk.respond_to?(:cairo_available?) and Gdk.cairo_available?
@@ -278,13 +276,6 @@ module Rabbit
 
           _draw_reflected_rsvg_handle(handle, x, y, width, height,
                                       params)
-        end
-
-        def poppler_available?
-          if @@poppler_available.nil?
-            @@poppler_available = Poppler.cairo_available?
-          end
-          @@poppler_available
         end
 
         def draw_poppler_page(page, x, y, params={})
