@@ -191,6 +191,24 @@ Create EPS ahead of time
 
 ![](rabbit.xcf){:relative_height="100"}
 
+= blockdiag
+
+```blockdiag
+{
+  default_fontsize = 25;
+  RD -> Rabbit;
+  Hiki -> Rabbit;
+  PDF -> Rabbit;
+  group {
+    Rabbit -> Display;
+  }
+}
+```
+{:
+  relative_width="90"
+  fonts="/usr/share/fonts/opentype/ipafont/ipag.ttf, /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf"
+}
+
 # Word Wrapping
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
