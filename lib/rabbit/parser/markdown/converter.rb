@@ -1,5 +1,10 @@
 require "English"
+
 require "rabbit/parser/pause-support"
+require "rabbit/parser/ext/coderay"
+require "rabbit/parser/ext/escape"
+require "rabbit/parser/ext/image"
+require "rabbit/parser/ext/tex"
 
 module Rabbit
   module Parser
