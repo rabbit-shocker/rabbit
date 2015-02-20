@@ -258,7 +258,7 @@ N   O   P   Q   R   S   T   U   V   W   X   Y   Z
 
 {{blockdiag("
 {
-  fontsize = 25;
+  default_fontsize = 25;
   RD -> Rabbit;
   Hiki -> Rabbit;
   PDF -> Rabbit;
