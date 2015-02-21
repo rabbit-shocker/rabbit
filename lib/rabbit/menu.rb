@@ -59,7 +59,7 @@ module Rabbit
       name = "JumpTo#{i}"
       label = "#{i}: #{escape_label(Utils.unescape_title(title))}"
       tooltip = _("Jump to the %dth slide") % i
-      action = Gtk::Action.new(name, label, tooltip, nil)
+      action = Gtk::Action.new(name, label: label, tooltip: tooltip)
       action.signal_connect("activate") do
         jump_to_action.activate {i}
       end
@@ -129,7 +129,7 @@ module Rabbit
     def theme_menu_add_category(prefix, path, category)
       name = "#{prefix}ThemeCategory#{category}"
       label = _(category)
-      action = Gtk::Action.new(name, label, nil, nil)
+      action = Gtk::Action.new(name, label: label)
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, category, name,
                     Gtk::UIManager::MENU, false)
@@ -139,7 +139,7 @@ module Rabbit
       path = "#{path}/#{entry.category}"
       name = "#{prefix}ThemeEntry#{entry.name}"
       label = _(entry.title)
-      action = Gtk::Action.new(name, label, nil, nil)
+      action = Gtk::Action.new(name, label: label)
       action.signal_connect("activate") do
         canvas.activate("#{prefix}Theme") do
           [entry, Utils.process_pending_events_proc]
