@@ -9,9 +9,9 @@ module Rabbit
     def initialize
       @stocks = {}
       @current = nil
-      @pencil_cursor = Gdk::Cursor.new(Gdk::Cursor::PENCIL)
-      @hand_cursor = Gdk::Cursor.new(Gdk::Cursor::HAND1)
       @blank_cursor = Gdk::Cursor.new(Gdk::CursorType::BLANK_CURSOR)
+      @pencil_cursor = Gdk::Cursor.new(Gdk::CursorType::PENCIL)
+      @hand_cursor = Gdk::Cursor.new(Gdk::CursorType::HAND1)
     end
 
     def keep(name)
