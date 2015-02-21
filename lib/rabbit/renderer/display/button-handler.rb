@@ -46,9 +46,9 @@ module Rabbit
         end
 
         BUTTON_PRESS_HANDLER = {
-          Gdk::Event::Type::BUTTON_PRESS => "handle_button_press",
-          Gdk::Event::Type::BUTTON2_PRESS => "handle_button2_press",
-          Gdk::Event::Type::BUTTON3_PRESS => "handle_button3_press",
+          Gdk::EventType::BUTTON_PRESS => "handle_button_press",
+          Gdk::EventType::BUTTON2_PRESS => "handle_button2_press",
+          Gdk::EventType::BUTTON3_PRESS => "handle_button3_press",
         }
 
         def handle_button_release(event, last_button_press_event)
