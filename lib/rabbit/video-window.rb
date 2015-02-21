@@ -55,11 +55,11 @@ module Rabbit
     def init_keys
       @video_window.signal_connect("key_press_event") do |widget, key|
         case key.keyval
-        when Gdk::Keyval::GDK_KEY_space
+        when Gdk::Keyval::KEY_space
           @video.toggle
-        when Gdk::Keyval::GDK_KEY_plus
+        when Gdk::Keyval::KEY_plus
           @video.seek(10)
-        when Gdk::Keyval::GDK_KEY_minus
+        when Gdk::Keyval::KEY_minus
           @video.seek(-10)
         when *[
             Keys::MOVE_TO_NEXT_KEYS, Keys::MOVE_TO_PREVIOUS_KEYS,
