@@ -39,7 +39,7 @@ module Rabbit
       @video_window.modal = true
       @video_window.set_transient_for(window)
 
-      vbox = Gtk::VBox.new
+      vbox = Gtk::Box.new(:vertical)
       vbox.pack_start(@video)
       @video_window.add(vbox)
       @video_window.signal_connect('frame-event') do |widget, event|
