@@ -1,6 +1,6 @@
 require "forwardable"
 require "erb"
-require "gtk2"
+require "gtk3"
 
 require "rabbit/rabbit"
 require "rabbit/trackball"

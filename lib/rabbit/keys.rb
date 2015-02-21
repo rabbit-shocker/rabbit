@@ -1,4 +1,4 @@
-require "gtk2"
+require "gtk3"
 require "rabbit/utils"
 
 # For GTK+ < 2.22

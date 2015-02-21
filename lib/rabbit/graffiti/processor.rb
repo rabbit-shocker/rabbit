@@ -1,4 +1,4 @@
-require 'gtk2'
+require 'gtk3'
 
 require 'rabbit/renderer/engine'
 require 'rabbit/graffiti/config-dialog'

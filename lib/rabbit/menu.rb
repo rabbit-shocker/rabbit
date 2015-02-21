@@ -1,7 +1,7 @@
 require "erb"
 require "stringio"
 
-require "gtk2"
+require "gtk3"
 
 require "rabbit/gettext"
 require "rabbit/utils"

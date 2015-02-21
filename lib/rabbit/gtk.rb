@@ -15,7 +15,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # TODO: Upgrade to gtk3
-require "gtk2"
+require "gtk3"
 
 module Gdk
   class Event
