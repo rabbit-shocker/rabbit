@@ -7,12 +7,9 @@ module Rabbit
 
       def initialize(page, document)
         @document = document
+        @raw_page = page
         @page = PopplerPage.new(page)
         super(@page)
-      end
-
-      def pdf_page
-        @page
       end
 
       def title
@@ -21,6 +18,11 @@ module Rabbit
 
       def theme
         super || "pdf"
+      end
+
+      def size_ratio
+        w, h = @raw_page.size
+        w.to_f / h.to_f
       end
     end
   end

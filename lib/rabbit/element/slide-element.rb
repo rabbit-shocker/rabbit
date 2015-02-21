@@ -21,6 +21,10 @@ module Rabbit
         @elements.first.text
       end
 
+      def size_ratio
+        self["size-ratio"]
+      end
+
       def draw(canvas, simulation=nil)
         if simulation.nil?
           begin

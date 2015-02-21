@@ -11,6 +11,8 @@ module Rabbit
         def initialize(*args, &block)
           @drawable = nil
           @size = nil
+          @default_size_ratio = nil
+          @size_ratio = nil
           super
         end
 
@@ -85,6 +87,8 @@ module Rabbit
         end
 
         def draw_slide(slide, simulation)
+          set_size_ratio(slide.size_ratio || @default_size_ratio)
+
           if simulation
             super
           else
@@ -133,12 +137,23 @@ module Rabbit
         private
         def set_drawable(drawable)
           @drawable = drawable
-          set_size(*@drawable.size)
+          w, h = @drawable.size
+          @default_size_ratio = w.to_f / h.to_f
+          @size_ratio = @default_size_ratio
+          set_size(w, h)
         end
 
         def set_size(w, h)
-          ratio = 4.0 / 3.0 # TODO
-          @size = Size.new(w, h, ratio)
+          @size = Size.new(w, h, @size_ratio)
+        end
+
+        def set_size_ratio(ratio)
+          return if @size.ratio == ratio
+
+          w = @size.real_width
+          h = @size.real_height
+          @size_ratio = ratio
+          @size = Size.new(w, h, @size_ratio)
         end
 
         def set_configure_event
