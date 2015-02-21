@@ -76,14 +76,14 @@ module Rabbit
             mod = mod.inject(no_mod) do |result, item|
               result | item
             end
-            keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KEY_#{i}")}
+            keys = (0..9).collect{|i| Gdk::Keyval.const_get("KEY_#{i}")}
             set_keys(keys, mod) do |group, obj, val, modifier|
-              index = calc_slide_number(val - Gdk::Keyval::GDK_KEY_0, modifier)
+              index = calc_slide_number(val - Gdk::Keyval::KEY_0, modifier)
               @canvas.activate("JumpTo") {index}
             end
-            keys = (0..9).collect{|i| Gdk::Keyval.const_get("GDK_KEY_KP_#{i}")}
+            keys = (0..9).collect{|i| Gdk::Keyval.const_get("KEY_KP_#{i}")}
             set_keys(keys, mod) do |group, obj, val, modifier|
-              index = calc_slide_number(val - Gdk::Keyval::GDK_KEY_KP_0, modifier)
+              index = calc_slide_number(val - Gdk::Keyval::KEY_KP_0, modifier)
               @canvas.activate("JumpTo") {index}
             end
           end
@@ -254,16 +254,16 @@ module Rabbit
 
         def set_key_press_event(widget)
           prev_keys = [
-            Gdk::Keyval::GDK_KEY_Up,
-            Gdk::Keyval::GDK_KEY_Left,
-            Gdk::Keyval::GDK_KEY_KP_Up,
-            Gdk::Keyval::GDK_KEY_KP_Left,
+            Gdk::Keyval::KEY_Up,
+            Gdk::Keyval::KEY_Left,
+            Gdk::Keyval::KEY_KP_Up,
+            Gdk::Keyval::KEY_KP_Left,
           ]
           next_keys = [
-            Gdk::Keyval::GDK_KEY_Right,
-            Gdk::Keyval::GDK_KEY_Down,
-            Gdk::Keyval::GDK_KEY_KP_Right,
-            Gdk::Keyval::GDK_KEY_KP_Down,
+            Gdk::Keyval::KEY_Right,
+            Gdk::Keyval::KEY_Down,
+            Gdk::Keyval::KEY_KP_Right,
+            Gdk::Keyval::KEY_KP_Down,
           ]
           widget.signal_connect("key_press_event") do |_widget, event|
             handled = true
