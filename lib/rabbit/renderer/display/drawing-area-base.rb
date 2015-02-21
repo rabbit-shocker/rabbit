@@ -290,10 +290,10 @@ module Rabbit
 
           if whiteouting?
             @drawable.draw_rectangle(@white, true, 0, 0,
-                                     original_width, original_height)
+                                     @size.real_width, @size.real_height)
           elsif blackouting?
             @drawable.draw_rectangle(@black, true, 0, 0,
-                                     original_width, original_height)
+                                     @size.real_width, @size.real_height)
           else
             super
             draw_graffiti

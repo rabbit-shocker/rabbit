@@ -291,7 +291,7 @@ module Rabbit
 
         def set_map
           @embed.signal_connect("map") do |widget, event|
-            @drawable = widget.window
+            set_drawable(widget.window)
             false
           end
         end

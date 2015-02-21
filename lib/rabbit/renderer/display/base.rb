@@ -10,22 +10,25 @@ module Rabbit
 
         def initialize(*args, &block)
           @drawable = nil
+          @size = nil
           super
         end
 
         def width
-          if @drawable
-            @drawable.size[0]
+          if @size
+            @size.logical_width
+          else
+            nil
           end
         end
-        alias original_width width
 
         def height
-          if @drawable
-            @drawable.size[1]
+          if @size
+            @size.logical_height
+          else
+            nil
           end
         end
-        alias original_height height
 
         def redraw
           widget.queue_draw
@@ -81,7 +84,63 @@ module Rabbit
           @canvas.update_title(@canvas.slide_title)
         end
 
+        def draw_slide(slide, simulation)
+          if simulation
+            super
+          else
+            save_context do
+              translate_context(@size.logical_margin_left,
+                                @size.logical_margin_top)
+              super
+            end
+
+            unless @size.have_logical_margin?
+              return
+            end
+
+            margin_background = make_color("black")
+            if @size.have_logical_margin_x?
+              draw_rectangle(true,
+                             0,
+                             0,
+                             @size.logical_margin_left,
+                             @size.real_height,
+                             margin_background)
+              draw_rectangle(true,
+                             @size.real_width - @size.logical_margin_right,
+                             0,
+                             @size.logical_margin_right,
+                             @size.real_height,
+                             margin_background)
+            end
+            if @size.have_logical_margin_y?
+              draw_rectangle(true,
+                             0,
+                             0,
+                             @size.real_width,
+                             @size.logical_margin_top,
+                             margin_background)
+              draw_rectangle(true,
+                             0,
+                             @size.real_height - @size.logical_margin_bottom,
+                             @size.real_width,
+                             @size.logical_margin_bottom,
+                             margin_background)
+            end
+          end
+        end
+
         private
+        def set_drawable(drawable)
+          @drawable = drawable
+          set_size(*@drawable.size)
+        end
+
+        def set_size(w, h)
+          ratio = 4.0 / 3.0 # TODO
+          @size = Size.new(w, h, ratio)
+        end
+
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
             configured(event.x, event.y, event.width, event.height)
@@ -91,6 +150,7 @@ module Rabbit
         end
 
         def configured(x, y, w, h)
+          set_size(w, h)
         end
 
         def queue_draw

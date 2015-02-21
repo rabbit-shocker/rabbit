@@ -16,6 +16,20 @@ module Rabbit
       compute_logical_size
     end
 
+    def have_logical_margin_x?
+      @logical_margin_left > 0 or
+        @logical_margin_right > 0
+    end
+
+    def have_logical_margin_y?
+      @logical_margin_top > 0 or
+        @logical_margin_bottom > 0
+    end
+
+    def have_logical_margin?
+      have_logical_margin_x? or have_logical_margin_y?
+    end
+
     private
     def compute_logical_size
       real_ratio = @real_width.to_f / @real_height.to_f

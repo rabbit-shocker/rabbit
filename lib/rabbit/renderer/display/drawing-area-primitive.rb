@@ -131,7 +131,7 @@ module Rabbit
         end
 
         def mapped(widget)
-          @drawable = widget.window
+          set_drawable(widget.window)
           prepare_renderer(@drawable)
         end
 
