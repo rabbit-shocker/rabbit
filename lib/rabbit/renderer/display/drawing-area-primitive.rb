@@ -116,7 +116,7 @@ module Rabbit
           @area = Gtk::DrawingArea.new
           @area.can_focus = true
           set_map
-          set_expose_event
+          set_draw_event
           set_configure_event_after
         end
 
@@ -135,7 +135,7 @@ module Rabbit
           prepare_renderer(@drawable)
         end
 
-        def set_expose_event
+        def set_draw_event
           @area.signal_connect("draw") do |widget, event|
             init_renderer(@drawable)
             result = exposed(widget, event)
