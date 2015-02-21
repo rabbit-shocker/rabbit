@@ -90,7 +90,7 @@ module Rabbit
         end
 
         def init_no_prefix_keys
-          mod = Gdk::Window::ModifierType.new
+          mod = Gdk::ModifierType.new
 
           keys = Keys::QUIT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|

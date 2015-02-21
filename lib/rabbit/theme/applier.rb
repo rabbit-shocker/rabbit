@@ -597,7 +597,7 @@ module Rabbit
       end
 
       def connect_key(keyval, modifier=nil, flags=nil, &block)
-        modifier ||= Gdk::Window::ModifierType.new
+        modifier ||= Gdk::ModifierType.new
         flags ||= Gtk::AccelFlags::VISIBLE
         canvas.connect_key(keyval, modifier, flags, &block)
       end
