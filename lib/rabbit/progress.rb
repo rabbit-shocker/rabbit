@@ -52,7 +52,7 @@ module Rabbit
 
     private
     def setup_progress_color
-      style = @original_style.copy
+      style = @original_style #.copy
       if @foreground
         rgb = @foreground.to_gdk_rgb
         style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
