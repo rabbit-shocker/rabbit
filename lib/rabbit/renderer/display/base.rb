@@ -15,14 +15,14 @@ module Rabbit
 
         def width
           if @drawable
-            @drawable.size[0]
+            @drawable.width
           end
         end
         alias original_width width
 
         def height
           if @drawable
-            @drawable.size[1]
+            @drawable.height
           end
         end
         alias original_height height
