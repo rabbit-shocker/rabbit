@@ -91,7 +91,8 @@ module Rabbit
       @entry.has_focus = focus_in
       event = Gdk::EventFocus.new(Gdk::EventType::FOCUS_CHANGE)
       event.window = @entry.window
-      event.in = focus_in
+      # TODO accept true/false Gdk::EventFocus#in=
+      event.in = focus_in ? 1 : 0
       @entry.event(event)
       @entry.notify("has-focus")
     end
