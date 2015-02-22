@@ -188,7 +188,8 @@ module Rabbit
       window_x, window_y = window.origin
       window_width = window.width
       window_height = window.height
-      target_width, target_height = target.preferred_size
+      minimum_size, _natural_size = target.preferred_size
+      target_width, target_height = minimum_size
 
       args = [window_x, window_y, window_width, window_height]
       args.concat([target_width, target_height])
