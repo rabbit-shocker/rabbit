@@ -86,7 +86,7 @@ module Rabbit
         @jump_to_actions.add_action(action)
         @jump_to_actions_keeper << action # Workaround for > Ruby/GTK2 0.16
         @merge.add_ui(@jump_to_merge_id, jump_to_path, action.name,
-                      action.name, Gtk::UIManager::AUTO, false)
+                      action.name, Gtk::UIManager::ItemType::AUTO, false)
       end
     end
 
@@ -132,7 +132,7 @@ module Rabbit
       action = Gtk::Action.new(name, label: label)
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, category, name,
-                    Gtk::UIManager::MENU, false)
+                    Gtk::UIManager::ItemType::MENU, false)
     end
 
     def theme_menu_add_theme(prefix, path, entry, canvas)
@@ -147,7 +147,7 @@ module Rabbit
       end
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, entry.name, name,
-                    Gtk::UIManager::AUTO, false)
+                    Gtk::UIManager::ItemType::AUTO, false)
     end
 
     def show_tearoff(sub_menus=@menu.children)
