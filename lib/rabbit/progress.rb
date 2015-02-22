@@ -9,7 +9,6 @@ module Rabbit
       @bar = Gtk::ProgressBar.new
       @bar.show_text = true
       @window.add(@bar)
-      @original_style = @bar.style
       @foreground = nil
       @background = nil
     end
@@ -52,16 +51,17 @@ module Rabbit
 
     private
     def setup_progress_color
-      style = @original_style #.copy
+      style_context = @bar.style_context
+      style_context.save
       if @foreground
-        rgb = @foreground.to_gdk_rgb
-        style.set_bg(Gtk::StateType::PRELIGHT, *rgb)
+        # rgb = @foreground.to_gdk_rgb
+        # style_context.set_background(Gtk::StateType::PRELIGHT, *rgb)
       end
       if @background
-        rgb = @background.to_gdk_rgb
-        style.set_bg(Gtk::STATE_NORMAL, *rgb)
+        # rgb = @background.to_gdk_rgb
+        # style_context.set_background(Gtk::StateType::NORMAL, *rgb)
       end
-      @bar.style = style
+      style_context.restore
     end
   end
 end
