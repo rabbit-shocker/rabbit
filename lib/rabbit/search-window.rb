@@ -40,7 +40,7 @@ module Rabbit
 
     private
     def init_window
-      @window = Gtk::Window.new(Gtk::Window::POPUP)
+      @window = Gtk::Window.new(Gtk::Window::Type::POPUP)
       @window.modal = true
       init_frame
       init_box
@@ -70,7 +70,7 @@ module Rabbit
 
     def init_direction
       @direction = Gtk::ToggleButton.new
-      @arrow = Gtk::Arrow.new(Gtk::Arrow::LEFT, Gtk::SHADOW_NONE)
+      @arrow = Gtk::Arrow.new(Gtk::Arrow::Type::LEFT, Gtk::ShadowType::NONE)
       @arrow.show
       @direction.add(@arrow)
       @direction.can_focus = false
@@ -78,11 +78,11 @@ module Rabbit
       @box.add(@direction)
       @direction.signal_connect("toggled") do |button|
         if forward?
-          type = Gtk::Arrow::RIGHT
+          type = Gtk::Arrow::Type::RIGHT
         else
-          type = Gtk::Arrow::LEFT
+          type = Gtk::Arrow::Type::LEFT
         end
-        @arrow.set(type, Gtk::SHADOW_NONE)
+        @arrow.set(type, Gtk::ShadowType::NONE)
       end
       @direction.active = true
     end
