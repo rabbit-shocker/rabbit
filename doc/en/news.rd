@@ -3,6 +3,102 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.4: 2015-02-23
+
+Markdown support improved release.
+
+=== Improvement
+
+==== rabbit
+
+  * Replaced invalid encoding characters in log message.
+    [shocker-ja:1228] [Reported by OBATA Akio]
+  * Supported outputting as cairo script format. If you specify output
+    file extension as .cs, cairo script format is used for output.
+    * Example:
+        % rabbit --print --output-filename=slide.cs
+  * Remove needless spaces.
+    [GitHub#48] [Patch by Yuichi NANSAI]
+  * Untabified
+    [GitHub#49] [Patch by Yuichi NANSAI]
+  * Kept slide size ratio of PDF.
+    [Suggested by Kenshi Muto]
+  * Supported (({file:///})) URI.
+    [Reported by TOMITA Masahiro]
+  * Supported reading PDF on Windows.
+    [Reported by TOMITA Masahiro]
+  * Markdown: Supported wait tag.
+    [shocker-ja:1249] [Suggested by Isobe]
+    * Example:
+        {::wait/}
+  * Markdown: Supported enumeration list.
+  * Markdown: Supported syntax highlight in codeblock fence markup.
+    * Example of Kramdown style:
+        ~~~ruby
+        # Ruby code
+        ~~~
+    * Example of GitHub Flavor Markdown style:
+        ```ruby
+        # Ruby code
+        ```
+  * Markdown: Supported (({language})) as attribute name for syntax highlight
+    language.
+    * Example:
+          # Ruby code
+        {: language="ruby"}
+  * Markdown: Supported blockdiag.
+    * Example:
+        ```blockdiag
+        {
+          A -> B -> C;
+        }
+        ```
+  * Removed needless backward compatibility codes.
+  * Kept ratio of the initial slide size even when window size is
+    changed.
+
+==== rabbit-slide
+
+  * Changed date format to ISO 8601 format.
+
+==== Theme
+
+  * default-block-quote: Stopped to justify ASCII only block quoted text.
+
+==== Document
+
+  * Add description about how to use full screen feature on OS X.
+    [GitHub#45] [Patch by Shinta Koyanagi]
+  * Updated Ruby Installer version. [Masafumi Yokoyama]
+  * Added slide URLs that use Rabbit.
+    [GitHub#46] [Patch by Brett Chalupa]
+  * Fixed a typo.
+    [GitHub#47] [Patch by HAYASHI Kentaro]
+  * Remove old information for Windows.
+    [Reported by SATOH Kiyoshi]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that PDF can't be read.
+    [Reported by Junichi Oya]
+  * Markdown: Added missing meta character escape.
+    [GitHub#50] [Reported by Matthias Günther]
+
+=== Thanks
+
+  * OBATA Akio
+  * Junichi Oya
+  * Shinta Koyanagi
+  * Brett Chalupa
+  * Yuichi NANSAI
+  * Kenshi Muto
+  * Matthias Günther
+  * HAYASHI Kentaro
+  * TOMITA Masahiro
+  * SATOH Kiyoshi
+
 == 2.1.3: 2014-08-03
 
 A drawing performance improved release.

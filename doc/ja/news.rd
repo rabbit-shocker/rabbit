@@ -4,6 +4,103 @@ title: お知らせ
 apply_data: false
 ---
 {% raw %}
+== 2.1.4: 2015-02-23
+
+Markdownサポートを改善したリリース。
+
+=== 改良
+
+==== rabbit
+
+  * ログメッセージ中の不正なエンコーディングの文字を置き換えるようにした。
+    [shocker-ja:1228] [おばたさんが報告]
+  * cairoスクリプトの出力に対応した。出力ファイルの拡張子を.csにすると
+    cairoスクリプト形式で出力される。
+    * 例:
+        % rabbit --print --output-filename=slide.cs
+  * 不要なスペースを削除。
+    [GitHub#48] [Yuichi NANSAIさんがパッチ提供]
+  * インデントをスペースで統一。
+    [GitHub#49] [Yuichi NANSAIさんがパッチ提供]
+  * PDFでスライドの縦横比を維持するようにした。
+    [Kenshi Mutoさんが提案]
+  * (({file:///})) URIに対応。
+    [TOMITA Masahiroさんが報告]
+  * WindowsでもPDFを読み込めるようにした。
+    [TOMITA Masahiroさんが報告]
+  * Markdown: waitタグをサポート。
+    [shocker-ja:1249] [Isobeさんが提案]
+    * 例:
+        {::wait/}
+  * Markdown: 順序付きリストをサポート。
+  * Markdown: コードブロックフェンスでのシンタックスハイライトに対応。
+    * Kramdownスタイルの例:
+        ~~~ruby
+        # Rubyコード
+        ~~~
+    * GitHub Flavor Markdownスタイルの例:
+        ```ruby
+        # Rubyコード
+        ```
+  * Markdown: シンタックスハイライトの言語指定の属性名として
+    (({language}))もサポート。
+    * 例:
+          # Rubyコード
+        {: language="ruby"}
+  * Markdown: blockdiagに対応。
+    * 例:
+        ```blockdiag
+        {
+          A -> B -> C;
+        }
+        ```
+  * 後方互換性のための不要なコードを削除。
+  * ウィンドウサイズを変えてもスライドの初期表示サイズの縦横比を維持す
+    るようにした。
+
+==== rabbit-slide
+
+  * ISO 8601形式の日付フォーマットを使うようにした。
+
+==== テーマ
+
+  * default-block-quote: ASCIIのみの引用テキストは両端揃えにしないよう
+    にした。
+
+==== ドキュメント
+
+  * OS Xでフルスクリーン機能を使う方法を追加。
+    [GitHub#45] [Shinta Koyanagiさんがパッチ提供]
+  * Ruby Installerのバージョンを更新。 [Masafumi Yokoyamaさん]
+  * Rabbitを使ったスライドのURLを追加。
+    [GitHub#46] [Brett Chalupaさんがパッチ提供]
+  * typoを修正。
+    [GitHub#47] [HAYASHI Kentaroさんがパッチ提供]
+  * Windows向けの古い情報を削除。
+    [SATOH Kiyoshiさんが報告]
+
+=== 修正
+
+==== rabbit
+
+  * PDFを読み込めない問題を修正。
+    [Junichi Oyaさんが報告]
+  * Markdown: メタ文字のエスケープ漏れを修正。
+    [GitHub#50] [Matthias Güntherさんが報告]
+
+=== 感謝
+
+  * おばたさん
+  * Junichi Oyaさん
+  * Shinta Koyanagiさん
+  * Brett Chalupaさん
+  * Yuichi NANSAIさん
+  * Kenshi Mutoさん
+  * Matthias Güntherさん
+  * HAYASHI Kentaroさん
+  * TOMITA Masahiroさん
+  * SATOH Kiyoshiさん
+
 == 2.1.3: 2014-08-03
 
 描画速度を改善したリリース。
