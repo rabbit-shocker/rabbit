@@ -16,6 +16,7 @@
 
 require "rabbit-test-utils"
 
+require "rabbit/logger"
 require "rabbit/slide"
 require "rabbit/source/memory"
 require "rabbit/parser/markdown"
@@ -25,7 +26,7 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
   def parse(markdown)
     canvas = []
     def canvas.logger
-      nil
+      Rabbit::Logger.default
     end
     source = Rabbit::Source::Memory.new("UTF-8", nil)
     source.source = markdown
