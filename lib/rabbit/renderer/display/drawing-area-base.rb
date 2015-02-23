@@ -285,14 +285,15 @@ module Rabbit
           reload_source unless @caching
 
           if whiteouting?
-            context = widget.window.create_cairo_context
+            context = @drawable.create_cairo_context
             context.set_source_rgb(1, 1, 1)
             context.rectangle(0, 0, original_width, original_height)
+            context.fill
           elsif blackouting?
-            context = widget.window.create_cairo_context
-            context.set_source_rgb(1, 1, 1)
-            context.rectangle(0, 0,
-                              original_width, original_height)
+            context = @drawable.create_cairo_context
+            context.set_source_rgb(0, 0, 0)
+            context.rectangle(0, 0, original_width, original_height)
+            context.fill
           else
             super
             draw_graffiti
