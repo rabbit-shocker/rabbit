@@ -1,4 +1,4 @@
-require 'gtk2'
+require 'rabbit/gtk'
 
 module Rabbit
   module Renderer

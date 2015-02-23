@@ -1,5 +1,5 @@
 require "forwardable"
-require "gtk2"
+require "rabbit/gtk"
 require "rexml/text"
 
 require "rabbit/rabbit"
