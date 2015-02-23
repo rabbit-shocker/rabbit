@@ -1,4 +1,4 @@
-require 'gtk2'
+require 'rabbit/gtk'
 
 require 'rabbit/rabbit'
 require 'rabbit/renderer/engine'
