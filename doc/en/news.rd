@@ -3,6 +3,35 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.5: 2015-02-25
+
+A bug fix release of 2.1.4.
+
+=== Improvements
+
+==== rabbit
+
+  * Removed codes for old GTK+ 2.
+    [GitHub#56] [Patch by okkez]
+  * Started cleaning up for GTK+ 3 support.
+    [GitHub#55] [Patch by okkez]
+
+==== Test
+
+  * Avoided error in test when blockdiag isn't installed.
+    [GitHub#54] [Reported by Mamoru TASAKA]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that slides are broken in information window.
+
+=== Thanks
+
+  * Mamoru TASAKA
+  * okkez
+
 == 2.1.4: 2015-02-23
 
 Markdown support improved release.
