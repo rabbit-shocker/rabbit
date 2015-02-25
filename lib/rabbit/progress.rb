@@ -4,7 +4,7 @@ module Rabbit
   class Progress
     attr_reader :window, :foreground, :background
     def initialize
-      @window = Gtk::Window.new(Gtk::Window::POPUP)
+      @window = Gtk::Window.new(:popup)
       @window.app_paintable = true
       @bar = Gtk::ProgressBar.new
       @bar.show_text = true
