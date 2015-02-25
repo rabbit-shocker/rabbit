@@ -197,10 +197,10 @@ module Rabbit
         def grab
           Gtk.grab_add(@area)
           Gdk.pointer_grab(@area.window, false,
-                           Gdk::Event::BUTTON_PRESS_MASK |
-                           Gdk::Event::BUTTON_RELEASE_MASK |
-                           Gdk::Event::SCROLL_MASK |
-                           Gdk::Event::POINTER_MOTION_MASK,
+                           Gdk::EventMask::BUTTON_PRESS_MASK |
+                           Gdk::EventMask::BUTTON_RELEASE_MASK |
+                           Gdk::EventMask::SCROLL_MASK |
+                           Gdk::EventMask::POINTER_MOTION_MASK,
                            nil, nil,
                            Gdk::Event::CURRENT_TIME)
         end
