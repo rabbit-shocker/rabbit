@@ -165,7 +165,7 @@ module Rabbit
         end
 
         def configured(x, y, w, h)
-          set_size(w, h)
+          set_size(*@drawable.size)
         end
 
         def queue_draw
