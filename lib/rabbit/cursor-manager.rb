@@ -11,8 +11,8 @@ module Rabbit
       @stocks = {}
       @current = nil
       @blank_cursor = Gdk::Cursor.new(:blank_cursor)
-      @pencil_cursor = Gdk::Cursor.new(Gdk::Cursor::PENCIL)
-      @hand_cursor = Gdk::Cursor.new(Gdk::Cursor::HAND1)
+      @pencil_cursor = Gdk::Cursor.new(:pencil)
+      @hand_cursor = Gdk::Cursor.new(:hand1)
     end
 
     def keep(name)
