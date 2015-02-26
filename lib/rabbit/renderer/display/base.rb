@@ -137,7 +137,8 @@ module Rabbit
         private
         def set_drawable(drawable)
           @drawable = drawable
-          w, h = @drawable.size
+          w = @drawable.width
+          h = @drawable.height
           @default_size_ratio = w.to_f / h.to_f
           @size_ratio = @default_size_ratio
           set_size(w, h)
@@ -165,7 +166,7 @@ module Rabbit
         end
 
         def configured(x, y, w, h)
-          set_size(*@drawable.size)
+          set_size(@drawable.width, @drawable.height)
         end
 
         def queue_draw
