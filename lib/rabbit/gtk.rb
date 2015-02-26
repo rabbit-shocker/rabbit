@@ -1,4 +1,4 @@
-# Copyright (C) 2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2015  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# TODO: Upgrade to gtk3
-require "gtk2"
+if ENV["RABBIT_GTK_VERSION"] == "3"
+  require "gtk3"
+else
+  require "gtk2"
+end
 
 module Gdk
   class Event
