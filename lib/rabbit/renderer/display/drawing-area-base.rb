@@ -285,7 +285,7 @@ module Rabbit
           end
         end
 
-        def exposed(widget, event)
+        def exposed(widget, context)
           reload_source unless @caching
 
           if whiteouting?

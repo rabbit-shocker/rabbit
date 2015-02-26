@@ -191,9 +191,17 @@ module Rabbit
 
     def init_note_area
       @note_area = Gtk::DrawingArea.new
-      @note_area.signal_connect("expose-event") do |area, event|
-        draw_text_as_large_as_possible(area, note_text)
-        Gdk::Event::PROPAGATE
+      if @note_area.class.signals.include?("expose-event")
+        @note_area.signal_connect("expose-event") do |area, event|
+          context = area.window.create_cairo_context
+          draw_text_as_large_as_possible(area, context, note_text)
+          Gdk::Event::PROPAGATE
+        end
+      else
+        @note_area.signal_connect("draw") do |area, context|
+          draw_text_as_large_as_possible(area, context, note_text)
+          Gdk::Event::PROPAGATE
+        end
       end
     end
 
@@ -209,12 +217,11 @@ module Rabbit
       note.gsub(/\\n/, "\n")
     end
 
-    def draw_text_as_large_as_possible(area, markupped_text)
+    def draw_text_as_large_as_possible(area, context, markupped_text)
       return if markupped_text.nil?
 
       area_width, area_height = area.window.size
 
-      context = area.window.create_cairo_context
       layout = context.create_pango_layout
       layout.context.resolution = @canvas.font_resolution
       attributes, text = Pango.parse_markup(markupped_text)
