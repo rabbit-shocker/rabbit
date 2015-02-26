@@ -10,7 +10,7 @@ module Rabbit
     def initialize
       @stocks = {}
       @current = nil
-      @blank_cursor = blank_cursor
+      @blank_cursor = Gdk::Cursor.new(Gdk::Cursor::BLANK_CURSOR)
       @pencil_cursor = Gdk::Cursor.new(Gdk::Cursor::PENCIL)
       @hand_cursor = Gdk::Cursor.new(Gdk::Cursor::HAND1)
     end
@@ -44,18 +44,6 @@ module Rabbit
         end
         instance_variable_get(name)
       end
-    end
-
-    def blank_cursor
-      if @@blank_cursor.nil?
-        source = Gdk::Pixmap.new(nil, 1, 1, 1)
-        mask = Gdk::Pixmap.new(nil, 1, 1, 1)
-        gc = Gdk::GC.new(source)
-        fg = gc.foreground
-        bg = gc.background
-        @@blank_cursor = Gdk::Cursor.new(source, mask, fg, bg, 1, 1)
-      end
-      @@blank_cursor
     end
   end
 end
