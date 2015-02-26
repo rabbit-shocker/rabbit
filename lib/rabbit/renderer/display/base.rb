@@ -11,12 +11,14 @@ module Rabbit
         def initialize(*args, &block)
           @drawable = nil
           @size = nil
+          @size_dirty = true
           @default_size_ratio = nil
           @size_ratio = nil
           super
         end
 
         def width
+          refresh_size
           if @size
             @size.logical_width
           else
@@ -25,6 +27,7 @@ module Rabbit
         end
 
         def height
+          refresh_size
           if @size
             @size.logical_height
           else
@@ -156,6 +159,14 @@ module Rabbit
           @size = Size.new(w, h, @size_ratio)
         end
 
+        def refresh_size
+          return unless @size_dirty
+
+          w, h = @drawable.size
+          @size = Size.new(w, h, @size.ratio)
+          @size_dirty = false
+        end
+
         def set_configure_event
           id = @window.signal_connect("configure_event") do |widget, event|
             configured(event.x, event.y, event.width, event.height)
@@ -165,7 +176,7 @@ module Rabbit
         end
 
         def configured(x, y, w, h)
-          set_size(*@drawable.size)
+          @size_dirty = true
         end
 
         def queue_draw
