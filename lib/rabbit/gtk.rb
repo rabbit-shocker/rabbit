@@ -18,6 +18,7 @@ require "English"
 
 if ENV["RABBIT_GTK_VERSION"] == "3"
   require "gtk3"
+  Gtk.init if Gtk.respond_to?(:init)
 else
   require "gtk2"
 end
