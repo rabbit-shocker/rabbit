@@ -241,8 +241,8 @@ module Rabbit
         def add_widgets_to_container(container)
           @hbox = Gtk::Box.new(:horizontal)
           @vbox = Gtk::Box.new(:vertical)
-          @vbox.pack_start(@area, true, true, 0)
-          @hbox.pack_end(@vbox, true, true, 0)
+          @vbox.pack_start(@area, expand: true, fill: true, padding: 0)
+          @hbox.pack_end(@vbox, expand: true, fill: true, padding: 0)
           if block_given?
             yield(container, @hbox)
           else
