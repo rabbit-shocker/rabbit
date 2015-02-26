@@ -818,11 +818,10 @@ module Rabbit
       end
 
       def do_save_as_image
-        Renderer::Pixmap.init
         ::Rabbit.gui_init
 
         source = make_source
-        canvas = make_canvas(Renderer::Pixmap)
+        canvas = make_canvas(Renderer::Pixmap::Cairo)
         setup_size(canvas)
         setup_image_info(canvas)
         setup_print_info(canvas)
@@ -883,7 +882,7 @@ module Rabbit
         # GLib::Log.set_handler(nil, GLib::Log::LEVEL_ERROR)
 
         source = make_source
-        canvas = make_canvas(Renderer::Pixmap)
+        canvas = make_canvas(Renderer::Pixmap::Cairo)
         setup_size(canvas)
         setup_paper_size(canvas)
         setup_image_info(canvas)
