@@ -136,7 +136,7 @@ module Rabbit
         end
 
         def set_expose_event
-          @area.signal_connect("expose_event") do |widget, event|
+          @area.signal_connect("draw") do |widget, event|
             init_renderer(@drawable)
             result = exposed(widget, event)
             finish_renderer
