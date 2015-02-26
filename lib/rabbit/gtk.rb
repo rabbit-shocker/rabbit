@@ -28,6 +28,10 @@ module Gdk
     PROPAGATE = false unless const_defined?(:PROPAGATE)
   end
 
+  unless const_defined?(:EventType)
+    EventType = Event::Type
+  end
+
   module Keyval
     constants.each do |name|
       if /\AGDK_KEY_/ =~ name.to_s

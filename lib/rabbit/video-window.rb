@@ -43,7 +43,7 @@ module Rabbit
       vbox.pack_start(@video)
       @video_window.add(vbox)
       @video_window.signal_connect('frame-event') do |widget, event|
-        if event.event_type == Gdk::Event::Type::BUTTON_PRESS
+        if event.event_type == Gdk::EventType::BUTTON_PRESS
           @video.toggle
         end
       end
