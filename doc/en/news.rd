@@ -3,6 +3,21 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.6: 2015-02-26
+
+A bug fix release of 2.1.5.
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that full screen feature doesn't work.
+    [GitHub#58] [Reported by Mamoru TASAKA]
+
+=== Thanks
+
+  * Mamoru TASAKA
+
 == 2.1.5: 2015-02-25
 
 A bug fix release of 2.1.4.
