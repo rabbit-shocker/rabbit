@@ -78,9 +78,9 @@ module Rabbit
         @dialog = Gtk::Dialog.new(title, nil, flags, *buttons)
         @dialog.vbox.add(init_buffer)
         @dialog.set_default_size(width, height)
+        @dialog.title = title
         set_dialog_delete
         set_dialog_response
-        set_dialog_expose_event
         set_dialog_accel_group
       end
 
@@ -100,13 +100,6 @@ module Rabbit
             quit
           end
           true
-        end
-      end
-
-      def set_dialog_expose_event
-        @dialog.signal_connect("expose_event") do |widget, event|
-          @dialog.title = title
-          false
         end
       end
 
