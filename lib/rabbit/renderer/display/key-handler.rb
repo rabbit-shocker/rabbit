@@ -67,10 +67,10 @@ module Rabbit
         end
 
         def init_number_keys
-          no_mod = Gdk::Window::ModifierType.new
+          no_mod = Gdk::ModifierType.new
           mods = Utils.combination([
-                                    Gdk::Window::ModifierType::CONTROL_MASK,
-                                    Gdk::Window::ModifierType::MOD1_MASK,
+                                    Gdk::ModifierType::CONTROL_MASK,
+                                    Gdk::ModifierType::MOD1_MASK,
                                    ])
           mods.each do |mod|
             mod = mod.inject(no_mod) do |result, item|
@@ -90,7 +90,7 @@ module Rabbit
         end
 
         def init_no_prefix_keys
-          mod = Gdk::Window::ModifierType.new
+          mod = Gdk::ModifierType.new
 
           keys = Keys::QUIT_KEYS
           set_keys(keys, mod) do |group, obj, val, modifier|

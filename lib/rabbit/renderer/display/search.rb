@@ -55,7 +55,7 @@ module Rabbit
           entry = @search_window.entry
           direction = @search_window.direction
           entry.signal_connect("key_press_event") do |widget, key|
-            if key.state == Gdk::Window::ModifierType.new
+            if key.state == Gdk::ModifierType.new
               false
             else
               Gtk::AccelGroup.activate(@window, key.keyval, key.state)

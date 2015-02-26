@@ -48,11 +48,11 @@ module Rabbit
           @callback.call(nil, spin.value)
         end
         label = Gtk::Label.new(_("Line width:"))
-        hbox = Gtk::HBox.new
-        hbox.pack_end(spin, false, false, 5)
-        hbox.pack_end(label, false, false, 5)
+        hbox = Gtk::Box.new(:horizontal)
+        hbox.pack_end(spin, expand: false, fill: false, padding: 5)
+        hbox.pack_end(label, expand: false, fill: false, padding: 5)
         hbox.show_all
-        @dialog.vbox.pack_end(hbox, false, false, 5)
+        @dialog.vbox.pack_end(hbox, expand: false, fill: false, padding: 5)
       end
     end
   end

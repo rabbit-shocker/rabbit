@@ -117,7 +117,7 @@ module Rabbit
 
     private
     def init_window(width, height, window_type=nil)
-      window_type ||= Gtk::Window::TOPLEVEL
+      window_type ||= :toplevel
       @window = Gtk::Window.new(window_type)
       @window.set_default_size(width, height)
       @window.parse_geometry(@geometry) if @geometry
@@ -174,11 +174,10 @@ module Rabbit
     end
 
     def setup_dnd
-      Gtk::Drag.dest_set(@window,
-                         Gtk::Drag::DEST_DEFAULT_ALL,
-                         [["text/uri-list", 0, 0],
-                          ["_NETSCAPE_URL", 0, 0]],
-                         Gdk::DragAction::COPY)
+      @window.drag_dest_set(Gtk::Drag::DestDefaults::ALL,
+                            [["text/uri-list", 0, 0],
+                              ["_NETSCAPE_URL", 0, 0]],
+                            Gdk::DragAction::COPY)
       @window.signal_connect("drag-data-received") do |*args|
         widget, context, x, y, selection_data, info, time = args
         uri = selection_data.data.chomp

@@ -59,7 +59,7 @@ module Rabbit
       name = "JumpTo#{i}"
       label = "#{i}: #{escape_label(Utils.unescape_title(title))}"
       tooltip = _("Jump to the %dth slide") % i
-      action = Gtk::Action.new(name, label, tooltip, nil)
+      action = Gtk::Action.new(name, label: label, tooltip: tooltip)
       action.signal_connect("activate") do
         jump_to_action.activate {i}
       end
@@ -86,7 +86,7 @@ module Rabbit
         @jump_to_actions.add_action(action)
         @jump_to_actions_keeper << action # Workaround for > Ruby/GTK2 0.16
         @merge.add_ui(@jump_to_merge_id, jump_to_path, action.name,
-                      action.name, Gtk::UIManager::AUTO, false)
+                      action.name, :auto, false)
       end
     end
 
@@ -129,17 +129,17 @@ module Rabbit
     def theme_menu_add_category(prefix, path, category)
       name = "#{prefix}ThemeCategory#{category}"
       label = _(category)
-      action = Gtk::Action.new(name, label, nil, nil)
+      action = Gtk::Action.new(name, label: label)
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, category, name,
-                    Gtk::UIManager::MENU, false)
+                    :menu, false)
     end
 
     def theme_menu_add_theme(prefix, path, entry, canvas)
       path = "#{path}/#{entry.category}"
       name = "#{prefix}ThemeEntry#{entry.name}"
       label = _(entry.title)
-      action = Gtk::Action.new(name, label, nil, nil)
+      action = Gtk::Action.new(name, label: label)
       action.signal_connect("activate") do
         canvas.activate("#{prefix}Theme") do
           [entry, Utils.process_pending_events_proc]
@@ -147,7 +147,7 @@ module Rabbit
       end
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, entry.name, name,
-                    Gtk::UIManager::AUTO, false)
+                    :auto, false)
     end
 
     def show_tearoff(sub_menus=@menu.children)
