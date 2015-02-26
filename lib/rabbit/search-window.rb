@@ -89,7 +89,7 @@ module Rabbit
 
     def send_focus_change(focus_in)
       @entry.has_focus = focus_in
-      event = Gdk::EventFocus.new(Gdk::EventType::FOCUS_CHANGE)
+      event = Gdk::EventFocus.new(Gdk::EventFocus::FOCUS_CHANGE)
       event.window = @entry.window
       event.in = focus_in
       @entry.event(event)

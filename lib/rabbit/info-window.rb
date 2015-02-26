@@ -112,11 +112,11 @@ module Rabbit
       init_menu
       attach_key(@window)
       attach_menu(@window)
-      event_mask = Gdk::EventMask::BUTTON_PRESS_MASK
-      event_mask |= Gdk::EventMask::BUTTON_RELEASE_MASK
-      event_mask |= Gdk::EventMask::BUTTON1_MOTION_MASK
-      event_mask |= Gdk::EventMask::BUTTON2_MOTION_MASK
-      event_mask |= Gdk::EventMask::BUTTON3_MOTION_MASK
+      event_mask = Gdk::Event::BUTTON_PRESS_MASK
+      event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
+      event_mask |= Gdk::Event::BUTTON1_MOTION_MASK
+      event_mask |= Gdk::Event::BUTTON2_MOTION_MASK
+      event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
       @window.add_events(event_mask)
       set_button_event(@window)
       set_scroll_event(@window)

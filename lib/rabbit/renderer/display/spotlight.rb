@@ -33,7 +33,7 @@ module Rabbit
           @spotlight_center_y = nil
 
           target_button = 3
-          target_event_type = Gdk::EventType::BUTTON2_PRESS
+          target_event_type = Gdk::Event::BUTTON2_PRESS
           target_info = [target_button, target_event_type]
 
           add_button_press_hook do |event|
