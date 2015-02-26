@@ -175,7 +175,7 @@ module Rabbit
 
     def setup_dnd
       Gtk::Drag.dest_set(@window,
-                         Gtk::Drag::DEST_DEFAULT_ALL,
+                         Gtk::Drag::DestDefaults::ALL,
                          [["text/uri-list", 0, 0],
                           ["_NETSCAPE_URL", 0, 0]],
                          Gdk::DragAction::COPY)
