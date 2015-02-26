@@ -14,6 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "English"
+
 if ENV["RABBIT_GTK_VERSION"] == "3"
   require "gtk3"
 else
@@ -24,5 +26,13 @@ module Gdk
   class Event
     STOP = true unless const_defined?(:STOP)
     PROPAGATE = false unless const_defined?(:PROPAGATE)
+  end
+
+  module Keyval
+    constants.each do |name|
+      if /\AGDK_KEY_/ =~ name.to_s
+        const_set("KEY_#{$POSTMATCH}", const_get(name))
+      end
+    end
   end
 end
