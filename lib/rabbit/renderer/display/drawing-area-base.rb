@@ -271,6 +271,14 @@ module Rabbit
           set_scroll_event(@area)
         end
 
+        def mapped(widget)
+          super
+          @white = Gdk::GC.new(@drawable)
+          @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
+          @black = Gdk::GC.new(@drawable)
+          @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
+        end
+
         def set_motion_notify_event
           @area.signal_connect("motion_notify_event") do |widget, event|
             call_hook_procs(@motion_notify_hook_procs, event)
@@ -281,13 +289,11 @@ module Rabbit
           reload_source unless @caching
 
           if whiteouting?
-            draw_rectangle(true,
-                           0, 0, @size.real_width, @size.real_height,
-                           "white")
+            @drawable.draw_rectangle(@white, true, 0, 0,
+                                     @size.real_width, @size.real_height)
           elsif blackouting?
-            draw_rectangle(true,
-                           0, 0, @size.real_width, @size.real_height,
-                           "black")
+            @drawable.draw_rectangle(@black, true, 0, 0,
+                                     @size.real_width, @size.real_height)
           else
             super
             draw_graffiti
