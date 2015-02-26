@@ -5,7 +5,7 @@ module Rabbit
   module Renderer
     module Display
       class DrawingArea
-        include Renderer::Engine.renderer_module
+        include Renderer::Engine::Cairo
         include DrawingAreaBase
 
         class << self

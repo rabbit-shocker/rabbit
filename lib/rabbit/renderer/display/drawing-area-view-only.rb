@@ -5,7 +5,7 @@ module Rabbit
   module Renderer
     module Display
       class DrawingAreaViewOnly
-        include Renderer::Engine.renderer_module
+        include Renderer::Engine::Cairo
         include DrawingAreaPrimitive
 
         def attach_to(window, container=nil, &block)

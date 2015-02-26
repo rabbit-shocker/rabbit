@@ -10,12 +10,6 @@ module Rabbit
       module Cairo
         include Kernel
 
-        class << self
-          def priority
-            100
-          end
-        end
-
         attr_writer :foreground, :background
 
         def alpha_available?
