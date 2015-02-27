@@ -33,6 +33,10 @@ module Gdk
     EventType = Event::Type
   end
 
+  unless const_defined?(:ModifierType)
+    ModifierType = Window::ModifierType
+  end
+
   module Keyval
     constants.each do |name|
       if /\AGDK_KEY_/ =~ name.to_s
