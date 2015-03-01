@@ -117,7 +117,7 @@ module Rabbit
 
     private
     def init_window(width, height, window_type=nil)
-      window_type ||= Gtk::Window::TOPLEVEL
+      window_type ||= :toplevel
       @window = Gtk::Window.new(window_type)
       @window.set_default_size(width, height)
       @window.parse_geometry(@geometry) if @geometry

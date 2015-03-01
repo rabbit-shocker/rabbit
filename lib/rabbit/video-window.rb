@@ -35,7 +35,7 @@ module Rabbit
 
     private
     def init_window
-      @video_window = Gtk::Window.new(Gtk::Window::POPUP)
+      @video_window = Gtk::Window.new(:popup)
       @video_window.modal = true
       @video_window.set_transient_for(window)
 

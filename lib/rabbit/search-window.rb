@@ -40,7 +40,7 @@ module Rabbit
 
     private
     def init_window
-      @window = Gtk::Window.new(Gtk::Window::POPUP)
+      @window = Gtk::Window.new(:popup)
       @window.modal = true
       init_frame
       init_box
