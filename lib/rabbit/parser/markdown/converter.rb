@@ -142,15 +142,18 @@ module Rabbit
         end
 
         def convert_p(element)
-          if element.children.collect {|child| child.type} == [:img]
+          child_types = element.children.collect {|child| child.type}
+          if child_types == [:img]
             convert_container(element)[0]
           else
-            if element.children.any? {|child| child.type == :img}
+            if child_types.include?(:img)
               raise ParseError,
                       _("multiple ![alt]{image} in a paragraph isn't supported.")
-            else
-              create_paragraph(convert_container(element))
             end
+            if element.options[:transparent] and child_types == [:text]
+              element.children.first.value.chomp!
+            end
+            create_paragraph(convert_container(element))
           end
         end
 

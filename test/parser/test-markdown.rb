@@ -266,5 +266,56 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                            MARKDOWN
       end
     end
+
+    class ListTest < self
+      class UnorderedListTest < self
+        class NesetedTest < self
+          def test_no_new_line_after_first_line
+            assert_equal([
+                           "Body", [
+                             "ItemList", [
+                               "ItemListItem", [
+                                 "Paragraph", ["Text", "First"],
+                               ], [
+                                 "ItemList", [
+                                   "ItemListItem", [
+                                     "Paragraph", ["Text", "Second"],
+                                   ],
+                                 ],
+                               ],
+                             ],
+                           ],
+                         ],
+                         parse(<<-MARKDOWN))
+* First
+  * Second
+                         MARKDOWN
+          end
+
+          def test_have_new_line_after_first_line
+            assert_equal([
+                           "Body", [
+                             "ItemList", [
+                               "ItemListItem", [
+                                 "Paragraph", ["Text", "First"],
+                               ], [
+                                 "ItemList", [
+                                   "ItemListItem", [
+                                     "Paragraph", ["Text", "Second"],
+                                   ],
+                                 ],
+                               ],
+                             ],
+                           ],
+                         ],
+                         parse(<<-MARKDOWN))
+* First
+
+  * Second
+                         MARKDOWN
+          end
+        end
+      end
+    end
   end
 end
