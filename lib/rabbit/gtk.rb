@@ -41,3 +41,13 @@ module Gdk
     end
   end
 end
+
+module Gtk
+  class Widget
+    unless public_method_defined?(:drag_dest_set)
+      def drag_dest_set(flags, targets, actions)
+        Gtk::Drag.dest_set(self, flags, targets, actions)
+      end
+    end
+  end
+end
