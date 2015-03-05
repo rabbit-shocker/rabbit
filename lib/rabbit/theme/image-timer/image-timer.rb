@@ -30,7 +30,10 @@ end
 
 @image_timer_auto_updating = false
 
-@image_timer_draw_parameters ||= {:reflect => {:ratio => 0.5, :alpha => 0.5}}
+@image_timer_draw_parameters ||= {
+  :reflect => {:ratio => 0.5, :alpha => 0.5},
+  :draw_scaled_pixbuf => true,
+}
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
