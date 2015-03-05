@@ -31,9 +31,9 @@ end
 
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
-  
+
   break if @image_slide_number_uninstall
-  
+
   loader = ImageLoader.new(find_file(@image_slide_number_image))
   unless @image_slide_number_show_text
     start_loader = ImageLoader.new(find_file(@image_slide_number_start_image))
@@ -53,7 +53,7 @@ match(Slide) do |slides|
     "color" => @image_slide_number_text_color,
     "weight" => "heavy",
   }
-  
+
   slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     if simulation
       image_height =  canvas.height * @image_slide_number_space_ratio
