@@ -32,7 +32,7 @@ end
 
 @image_timer_draw_parameters ||= {
   :reflect => {:ratio => 0.5, :alpha => 0.5},
-  :draw_scaled_pixbuf => true,
+  :draw_scaled_pixbuf => false,
 }
 
 match(Slide) do |slides|
