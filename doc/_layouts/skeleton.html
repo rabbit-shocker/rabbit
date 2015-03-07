@@ -33,19 +33,19 @@
   <body>
     <header id="header">
       <h1 class="title">
-	<a href="/">
+        <a href="/">
           <span class="project">Rabbit</span>
           <span class="separator">-</span>
           <span class="description">{{ page.title }}</span>
         </a>
       </h1>
       <div class="facebook-buttons">
-	<fb:like href="http://www.facebook.com/pages/Rabbit/202603309766491"
+        <fb:like href="http://www.facebook.com/pages/Rabbit/202603309766491"
                  layout="standard"></fb:like>
       </div>
       <pre id="install" class="command">gem install rabbit</pre>
       <div class="other-language-links">
-	<ul>
+        <ul>
 {% if page.language != "en" %}
   {% capture en_url %}
     {% if page.lang_suffix %}
@@ -54,7 +54,7 @@
       /en{{ page.url | remove_first:page.language | replace:'//','/' | remove:"index.html" }}
     {% endif %}
   {% endcapture %}
-	  <li><a href="{{ en_url | remove:' ' | strip_newlines }}">English</a></li>
+          <li><a href="{{ en_url | remove:' ' | strip_newlines }}">English</a></li>
 {% endif %}
 {% if page.language != "ja" %}
   {% capture ja_url %}
@@ -64,9 +64,9 @@
       /ja{{ page.url | remove_first:page.language | replace:'//','/' | remove:"index.html" }}
     {% endif %}
   {% endcapture %}
-	  <li><a href="{{ ja_url | remove:' ' | strip_newlines }}">日本語</a></li>
+          <li><a href="{{ ja_url | remove:' ' | strip_newlines }}">日本語</a></li>
 {% endif %}
-	</ul>
+        </ul>
       </div>
     </header>
     {{ content }}
