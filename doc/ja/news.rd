@@ -82,7 +82,7 @@ Markdownサポートを改善したリリース。
         ~~~ruby
         # Rubyコード
         ~~~
-    * GitHub Flavor Markdownスタイルの例:
+    * GitHub Flavored Markdownスタイルの例:
         ```ruby
         # Rubyコード
         ```

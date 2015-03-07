@@ -81,7 +81,7 @@ Markdown support improved release.
         ~~~ruby
         # Ruby code
         ~~~
-    * Example of GitHub Flavor Markdown style:
+    * Example of GitHub Flavored Markdown style:
         ```ruby
         # Ruby code
         ```
