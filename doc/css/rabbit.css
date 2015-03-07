@@ -127,9 +127,9 @@ header div.other-language-links li
     margin: 0;
 }
 
-header div.other-language-links a img
+header div.other-language-links a
 {
-    border-style: none;
+    color: white;
 }
 
 div.latest-release p
