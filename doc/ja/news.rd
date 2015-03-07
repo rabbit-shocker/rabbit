@@ -89,7 +89,10 @@ Markdownサポートを改善したリリース。
   * Markdown: シンタックスハイライトの言語指定の属性名として
     (({language}))もサポート。
     * 例:
-          # Rubyコード
+        # タイトル
+
+            def hello
+            end
         {: language="ruby"}
   * Markdown: blockdiagに対応。
     * 例:

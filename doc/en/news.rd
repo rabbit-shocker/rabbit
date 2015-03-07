@@ -88,7 +88,10 @@ Markdown support improved release.
   * Markdown: Supported (({language})) as attribute name for syntax highlight
     language.
     * Example:
-          # Ruby code
+        # Title
+
+            def hello
+            end
         {: language="ruby"}
   * Markdown: Supported blockdiag.
     * Example:
