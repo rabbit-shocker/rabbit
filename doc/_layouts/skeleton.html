@@ -54,7 +54,7 @@
       /en{{ page.url | remove_first:page.language | replace:'//','/' | remove:"index.html" }}
     {% endif %}
   {% endcapture %}
-	  <li><a href="{{ en_url | remove:' ' | strip_newlines }}">English</li>
+	  <li><a href="{{ en_url | remove:' ' | strip_newlines }}">English</a></li>
 {% endif %}
 {% if page.language != "ja" %}
   {% capture ja_url %}
@@ -64,7 +64,7 @@
       /ja{{ page.url | remove_first:page.language | replace:'//','/' | remove:"index.html" }}
     {% endif %}
   {% endcapture %}
-	  <li><a href="{{ ja_url | remove:' ' | strip_newlines }}">日本語</li>
+	  <li><a href="{{ ja_url | remove:' ' | strip_newlines }}">日本語</a></li>
 {% endif %}
 	</ul>
       </div>
