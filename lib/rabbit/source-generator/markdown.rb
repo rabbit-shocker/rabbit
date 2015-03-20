@@ -34,7 +34,7 @@ module Rabbit
       def definition_list_item(item, description)
         [
           item,
-          "   #{description}",
+          ":   #{description}",
         ].join("\n")
       end
 

@@ -41,7 +41,7 @@ class TestSourceGeneratorMarkdown < Test::Unit::TestCase
                                            "The presentation tool for Rubyist")
     assert_equal(<<-EOM.rstrip, item)
 Rabbit
-   The presentation tool for Rubyist
+:   The presentation tool for Rubyist
 EOM
   end
 
