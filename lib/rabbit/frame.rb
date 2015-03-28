@@ -176,7 +176,7 @@ module Rabbit
     def setup_dnd
       @window.drag_dest_set(:all,
                             [["text/uri-list", 0, 0],
-                              ["_NETSCAPE_URL", 0, 0]],
+                             ["_NETSCAPE_URL", 0, 0]],
                             :copy)
       @window.signal_connect("drag-data-received") do |*args|
         widget, context, x, y, selection_data, info, time = args
