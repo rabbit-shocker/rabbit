@@ -174,11 +174,10 @@ module Rabbit
     end
 
     def setup_dnd
-      Gtk::Drag.dest_set(@window,
-                         Gtk::Drag::DEST_DEFAULT_ALL,
-                         [["text/uri-list", 0, 0],
-                          ["_NETSCAPE_URL", 0, 0]],
-                         Gdk::DragContext::ACTION_COPY)
+      @window.drag_dest_set(:all,
+                            [["text/uri-list", 0, 0],
+                              ["_NETSCAPE_URL", 0, 0]],
+                            :copy)
       @window.signal_connect("drag-data-received") do |*args|
         widget, context, x, y, selection_data, info, time = args
         uri = selection_data.data.chomp
