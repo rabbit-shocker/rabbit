@@ -105,7 +105,7 @@ module Rabbit
 
       def set_dialog_accel_group
         accel_group = Gtk::AccelGroup.new
-        mod = Gdk::Window::ModifierType.new
+        mod = Gdk::ModifierType.new
         flags = Gtk::AccelFlags::VISIBLE
         Keys::QUIT_KEYS.each do |val|
           accel_group.connect(val, mod, flags) do
