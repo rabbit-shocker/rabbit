@@ -254,11 +254,11 @@ module Rabbit
           set_expose_event
           set_configure_event_after
 
-          event_mask = Gdk::Event::BUTTON_PRESS_MASK
-          event_mask |= Gdk::Event::BUTTON_RELEASE_MASK
-          event_mask |= Gdk::Event::BUTTON1_MOTION_MASK
-          event_mask |= Gdk::Event::BUTTON2_MOTION_MASK
-          event_mask |= Gdk::Event::BUTTON3_MOTION_MASK
+          event_mask = Gdk::EventMask::BUTTON_PRESS_MASK
+          event_mask |= Gdk::EventMask::BUTTON_RELEASE_MASK
+          event_mask |= Gdk::EventMask::BUTTON1_MOTION_MASK
+          event_mask |= Gdk::EventMask::BUTTON2_MOTION_MASK
+          event_mask |= Gdk::EventMask::BUTTON3_MOTION_MASK
           @embed.add_events(event_mask)
           set_key_press_event(@embed)
           set_button_event(@embed)
@@ -494,10 +494,10 @@ module Rabbit
         def grab
           Gtk.grab_add(@embed)
           Gdk.pointer_grab(@embed.window, false,
-                           Gdk::Event::BUTTON_PRESS_MASK |
-                           Gdk::Event::BUTTON_RELEASE_MASK |
-                           Gdk::Event::SCROLL_MASK |
-                           Gdk::Event::POINTER_MOTION_MASK,
+                           Gdk::EventMask::BUTTON_PRESS_MASK |
+                           Gdk::EventMask::BUTTON_RELEASE_MASK |
+                           Gdk::EventMask::SCROLL_MASK |
+                           Gdk::EventMask::POINTER_MOTION_MASK,
                            nil, nil,
                            Gdk::Event::CURRENT_TIME)
         end
