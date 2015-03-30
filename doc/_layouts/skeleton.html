@@ -32,6 +32,15 @@
     </script>
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/{{ page.language }}_{{ page.country }}/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
     <header id="header">
       <h1 class="title">
         <a href="/">
@@ -41,8 +50,12 @@
         </a>
       </h1>
       <div class="facebook-buttons">
-        <fb:like href="http://www.facebook.com/pages/Rabbit/202603309766491"
-                 layout="standard"></fb:like>
+        <div class="fb-like"
+             data-href="http://www.facebook.com/pages/Rabbit/202603309766491"
+             data-layout="standard"
+             data-send="true"
+             data-show-faces="true"
+             data-width="320"></div>
       </div>
       <pre id="install" class="command">gem install rabbit</pre>
       <div class="other-language-links">
@@ -74,14 +87,5 @@
     <footer>
       <p class="copyright">&copy; 2004-{{ site.time | date:"%Y" }} Kouhei Sutou.</p>
     </footer>
-    <script src="http://connect.facebook.net/{{ page.language }}_{{ page.country }}/all.js"></script>
-    <script>
-    FB.init({
-      appId  : null,
-      status : true, // check login status
-      cookie : true, // enable cookies to allow the server to access the session
-      xfbml  : true  // parse XFBML
-    });
-    </script>
   </body>
 </html>

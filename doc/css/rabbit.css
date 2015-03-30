@@ -38,7 +38,7 @@ h1 a
     height: 90px;
     padding-top: 30px;
     padding-left: 130px;
-    margin-right: 570px;
+    margin-right: 440px;
 }
 
 h1 span.title
@@ -115,7 +115,7 @@ header div.other-language-links
 {
     position: absolute;
     top: 10px;
-    right: 500px;
+    right: 370px;
     /* width: 50px; */
 }
 
@@ -306,4 +306,61 @@ footer
 footer p.copyright
 {
     text-align: center;
+}
+
+@media screen and (max-width: 640px)
+{
+    h1
+    {
+        margin-left: 0;
+    }
+
+    h1 a
+    {
+        padding-left: 110px;
+        margin-right: 10px;
+    }
+
+    div.facebook-buttons
+    {
+        position: static;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    pre#install
+    {
+        display: none;
+    }
+
+    header div.other-language-links
+    {
+        right: 10px;
+    }
+
+    section#screenshots
+    {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    div.latest-release,
+    nav.menu
+    {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    div#body div#main
+    {
+        margin-right: 0px;
+    }
+
+    div#body nav#sidebar
+    {
+        position: static;
+        width: auto;
+        margin-top: 20px;
+    }
 }
