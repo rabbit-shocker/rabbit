@@ -12,31 +12,31 @@ no_sidebar: true
   <h2>Screenshots</h2>
   <ul>
     <li><img src="images/screenshots/en/blue-circle.png"
-             alt="Blue Circle theme" /></li>
+             alt="Blue Circle theme"></li>
     <li><img src="images/screenshots/en/clear-blue.png"
-             alt="Clear Blue theme" /></li>
+             alt="Clear Blue theme"></li>
     <li><img src="images/screenshots/en/cozmixng.png"
-             alt="COZMIXNG theme" /></li>
+             alt="COZMIXNG theme"></li>
     <li><img src="images/screenshots/en/dark-gradation.png"
-             alt="Dark Gradation theme" /></li>
+             alt="Dark Gradation theme"></li>
     <li><img src="images/screenshots/en/day-white.png"
-             alt="Day White theme" /></li>
+             alt="Day White theme"></li>
     <li><img src="images/screenshots/en/debian.png"
-             alt="Debian theme" /></li>
+             alt="Debian theme"></li>
     <li><img src="images/screenshots/en/green-circle.png"
-             alt="Green Circle theme" /></li>
+             alt="Green Circle theme"></li>
     <li><img src="images/screenshots/en/night-black.png"
-             alt="Night Black theme" /></li>
+             alt="Night Black theme"></li>
     <li><img src="images/screenshots/en/rabbit.png"
-             alt="Rabbit theme" /></li>
+             alt="Rabbit theme"></li>
     <li><img src="images/screenshots/en/ranguba.png"
-             alt="Ranguba theme" /></li>
+             alt="Ranguba theme"></li>
     <li><img src="images/screenshots/en/red-frame.png"
-             alt="Red Frame theme" /></li>
+             alt="Red Frame theme"></li>
     <li><img src="images/screenshots/en/ruby-gnome2.png"
-             alt="Ruby-GNOME2 theme" /></li>
+             alt="Ruby-GNOME2 theme"></li>
     <li><img src="images/screenshots/en/rubykaigi2011.png"
-             alt="RubyKaigi2011 theme" /></li>
+             alt="RubyKaigi2011 theme"></li>
   </ul>
 </section>
 

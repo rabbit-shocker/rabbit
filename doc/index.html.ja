@@ -12,31 +12,31 @@ no_sidebar: true
   <h2>スクリーンショット</h2>
   <ul>
     <li><img src="images/screenshots/ja/blue-circle.png"
-             alt="青い円テーマ" /></li>
+             alt="青い円テーマ"></li>
     <li><img src="images/screenshots/ja/clear-blue.png"
-             alt="きれいな青テーマ" /></li>
+             alt="きれいな青テーマ"></li>
     <li><img src="images/screenshots/ja/cozmixng.png"
-             alt="COZMIXNGテーマ" /></li>
+             alt="COZMIXNGテーマ"></li>
     <li><img src="images/screenshots/ja/dark-gradation.png"
-             alt="暗めのグラデーションテーマ" /></li>
+             alt="暗めのグラデーションテーマ"></li>
     <li><img src="images/screenshots/ja/day-white.png"
-             alt="Day Whiteテーマ" /></li>
+             alt="Day Whiteテーマ"></li>
     <li><img src="images/screenshots/ja/debian.png"
-             alt="Debianテーマ" /></li>
+             alt="Debianテーマ"></li>
     <li><img src="images/screenshots/ja/green-circle.png"
-             alt="緑の円テーマ" /></li>
+             alt="緑の円テーマ"></li>
     <li><img src="images/screenshots/ja/night-black.png"
-             alt="Night Blackテーマ" /></li>
+             alt="Night Blackテーマ"></li>
     <li><img src="images/screenshots/ja/rabbit.png"
-             alt="Rabbitテーマ" /></li>
+             alt="Rabbitテーマ"></li>
     <li><img src="images/screenshots/ja/ranguba.png"
-             alt="ラングバテーマ" /></li>
+             alt="ラングバテーマ"></li>
     <li><img src="images/screenshots/ja/red-frame.png"
-             alt="赤い枠テーマ" /></li>
+             alt="赤い枠テーマ"></li>
     <li><img src="images/screenshots/ja/ruby-gnome2.png"
-             alt="Ruby-GNOME2テーマ" /></li>
+             alt="Ruby-GNOME2テーマ"></li>
     <li><img src="images/screenshots/ja/rubykaigi2011.png"
-             alt="日本Ruby会議2011テーマ" /></li>
+             alt="日本Ruby会議2011テーマ"></li>
   </ul>
 </section>
 
