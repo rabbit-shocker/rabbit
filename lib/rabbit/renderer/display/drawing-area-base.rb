@@ -243,8 +243,8 @@ module Rabbit
             @hbox = Gtk::Box.new(:horizontal)
             @vbox = Gtk::Box.new(:vertical)
           rescue TypeError
-          @hbox = Gtk::HBox.new
-          @vbox = Gtk::VBox.new
+            @hbox = Gtk::HBox.new
+            @vbox = Gtk::VBox.new
           end
           @vbox.pack_start(@area, true, true, 0)
           @hbox.pack_end(@vbox, true, true, 0)
