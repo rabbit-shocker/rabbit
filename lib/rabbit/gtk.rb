@@ -29,6 +29,20 @@ module Gdk
     PROPAGATE = false unless const_defined?(:PROPAGATE)
   end
 
+  class Window
+    unless method_defined?(:width)
+      def width
+        size[0]
+      end
+    end
+
+    unless method_defined?(:height)
+      def height
+        size[1]
+      end
+    end
+  end
+
   unless const_defined?(:EventType)
     EventType = Event::Type
   end

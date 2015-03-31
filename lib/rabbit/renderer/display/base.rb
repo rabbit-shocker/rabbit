@@ -140,7 +140,8 @@ module Rabbit
         private
         def set_drawable(drawable)
           @drawable = drawable
-          w, h = @drawable.size
+          w = @drawable.width
+          h = @drawable.height
           @default_size_ratio = w.to_f / h.to_f
           @size_ratio = @default_size_ratio
           set_size(w, h)
