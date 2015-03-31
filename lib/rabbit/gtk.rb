@@ -58,4 +58,40 @@ module Gtk
       end
     end
   end
+
+  if Box.gtype.abstract?
+    class HBox
+      class << self
+        alias_method :new_raw, :new
+        def new(*arguments)
+          new_raw(*arguments)
+        end
+      end
+    end
+
+    class VBox
+      class << self
+        alias_method :new_raw, :new
+        def new(*arguments)
+          new_raw(*arguments)
+        end
+      end
+    end
+
+    class Box
+      class << self
+        def new(type)
+          case type
+          when :horizontal
+            HBox.new
+          when :vertical
+            VBox.new
+          else
+            raise ArgumentError,
+                  "Box type must be :horizontal or :vertical: #{type.inspect}"
+          end
+        end
+      end
+    end
+  end
 end

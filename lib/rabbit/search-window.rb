@@ -56,7 +56,7 @@ module Rabbit
     end
 
     def init_box
-      @box = Gtk::HBox.new
+      @box = Gtk::Box.new(:horizontal)
       @box.border_width = 3
       @box.show
       @frame.add(@box)
