@@ -159,6 +159,14 @@ module Gtk
           end
         end
       end
+
+      alias_method :pack_start_raw, :pack_start
+      def pack_start(child, options={})
+        expand  = options[:expand]  || true
+        fill    = options[:fill]    || true
+        padding = options[:padding] || 0
+        pack_start_raw(child, expand, fill, padding)
+      end
     end
   end
 end
