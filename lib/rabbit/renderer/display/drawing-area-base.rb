@@ -273,10 +273,6 @@ module Rabbit
 
         def mapped(widget)
           super
-          @white = Gdk::GC.new(@drawable)
-          @white.set_rgb_fg_color(Color.parse("white").to_gdk_color)
-          @black = Gdk::GC.new(@drawable)
-          @black.set_rgb_fg_color(Color.parse("black").to_gdk_color)
         end
 
         def set_motion_notify_event
@@ -285,15 +281,20 @@ module Rabbit
           end
         end
 
+        def paint_out(color_name)
+          context = @drawable.create_cairo_context
+          context.set_source_rgb(*Color.parse(color_name).to_gdk_rgb)
+          context.rectangle(0, 0, @size.real_width, @size.real_height)
+          context.fill
+        end
+
         def exposed(widget, context)
           reload_source unless @caching
 
           if whiteouting?
-            @drawable.draw_rectangle(@white, true, 0, 0,
-                                     @size.real_width, @size.real_height)
+            paint_out("white")
           elsif blackouting?
-            @drawable.draw_rectangle(@black, true, 0, 0,
-                                     @size.real_width, @size.real_height)
+            paint_out("black")
           else
             super
             draw_graffiti
