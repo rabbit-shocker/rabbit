@@ -145,7 +145,7 @@ module Rabbit
     def theme_menu_add_category(prefix, path, category)
       name = "#{prefix}ThemeCategory#{category}"
       label = _(category)
-      action = Gtk::Action.new(name, label, nil, nil)
+      action = Gtk::Action.new(name, :label => label)
       @theme_actions.add_action(action)
       @merge.add_ui(@theme_merge_id, path, category, name, :menu, false)
     end
@@ -154,7 +154,7 @@ module Rabbit
       path = "#{path}/#{entry.category}"
       name = "#{prefix}ThemeEntry#{entry.name}"
       label = _(entry.title)
-      action = Gtk::Action.new(name, label, nil, nil)
+      action = Gtk::Action.new(name, :label => label)
       action.signal_connect("activate") do
         canvas.activate("#{prefix}Theme") do
           [entry, Utils.process_pending_events_proc]

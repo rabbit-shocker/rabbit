@@ -72,6 +72,19 @@ module Gdk
 end
 
 module Gtk
+  unless const_defined?(:Actionable)
+    class Action
+      alias_method :initialize_raw
+      def initialize(name, options={})
+        initialize_raw(name,
+                       options[:label],
+                       options[:tooltip],
+                       options[:stock_id])
+
+      end
+    end
+  end
+
   unless const_defined?(:Application)
     class Application < Gio::Application
       def initialize(id, flags)
