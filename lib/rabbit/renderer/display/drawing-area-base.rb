@@ -297,7 +297,6 @@ module Rabbit
             draw_gesture
             draw_spotlight
           end
-          true
         end
 
         def draw_slide(slide, simulation, &block)

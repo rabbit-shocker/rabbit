@@ -136,26 +136,26 @@ module Rabbit
         end
 
         def set_expose_event
+          stop_events = false
           if @area.class.signals.include?("expose-event")
             @area.signal_connect("expose_event") do |widget, event|
               init_renderer(@drawable)
-              result = exposed(widget, @drawable.create_cairo_context)
+              exposed(widget, @drawable.create_cairo_context)
               finish_renderer
-              result
+              stop_events
             end
           else
             @area.signal_connect("draw") do |widget, context|
               init_context(context)
-              result = exposed(widget, context)
+              exposed(widget, context)
               finish_renderer
-              result
+              stop_events
             end
           end
         end
 
         def exposed(widget, context)
           draw_current_slide
-          true
         end
 
         def draw_current_slide
