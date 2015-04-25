@@ -283,7 +283,7 @@ module Rabbit
           context.paint
         end
 
-        def exposed(widget, context)
+        def draw(widget, context)
           reload_source unless @caching
 
           if whiteouting?

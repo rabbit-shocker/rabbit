@@ -116,7 +116,7 @@ module Rabbit
           @area = Gtk::DrawingArea.new
           @area.can_focus = true
           set_map
-          set_expose_event
+          set_draw
           set_configure_event_after
         end
 
@@ -135,26 +135,26 @@ module Rabbit
           prepare_renderer(@drawable)
         end
 
-        def set_expose_event
+        def set_draw
           stop_events = false
-          if @area.class.signals.include?("expose-event")
-            @area.signal_connect("expose_event") do |widget, event|
-              init_renderer(@drawable)
-              exposed(widget, @drawable.create_cairo_context)
+          if @area.class.signals.include?("draw")
+            @area.signal_connect("draw") do |widget, context|
+              init_context(context)
+              draw(widget, context)
               finish_renderer
               stop_events
             end
           else
-            @area.signal_connect("draw") do |widget, context|
-              init_context(context)
-              exposed(widget, context)
+            @area.signal_connect("expose_event") do |widget, event|
+              init_renderer(@drawable)
+              draw(widget, @drawable.create_cairo_context)
               finish_renderer
               stop_events
             end
           end
         end
 
-        def exposed(widget, context)
+        def draw(widget, context)
           draw_current_slide
         end
 
