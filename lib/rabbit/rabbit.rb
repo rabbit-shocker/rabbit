@@ -25,7 +25,7 @@ module Rabbit
   @@gui_init_procs = []
   @@cleanup_procs = []
 
-  module_function
+  class << self
   def add_gui_init_proc(proc=Proc.new)
     @@gui_init_procs << proc
   end
@@ -44,6 +44,7 @@ module Rabbit
     @@cleanup_procs.each do |proc|
       proc.call
     end
+  end
   end
 
   class Error < StandardError
