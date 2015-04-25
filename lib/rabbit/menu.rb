@@ -75,7 +75,7 @@ module Rabbit
       name = "JumpTo#{i}"
       label = "#{i}: #{escape_label(Utils.unescape_title(title))}"
       tooltip = _("Jump to the %dth slide") % i
-      action = Gtk::Action.new(name, label, tooltip, nil)
+      action = Gtk::Action.new(name, :label => label, :tooltip => tooltip)
       action.signal_connect("activate") do
         jump_to_action.activate {i}
       end
