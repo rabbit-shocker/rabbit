@@ -63,6 +63,12 @@ module Gdk
       end
     end
   end
+
+  class Screen
+    unless method_defined?(:get_monitor_geometry)
+      alias_method :get_monitor_geometry, :monitor_geometry
+    end
+  end
 end
 
 module Gtk

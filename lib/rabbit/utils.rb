@@ -184,7 +184,7 @@ module Rabbit
       window = base.window
       screen = window.screen
       num = screen.get_monitor(window)
-      monitor = screen.monitor_geometry(num)
+      monitor = screen.get_monitor_geometry(num)
       window_x, window_y = window.origin
       window_width, window_height = window.size
       target_width, target_height = target.size_request
