@@ -102,7 +102,7 @@ module Rabbit
         @jump_to_actions.add_action(action)
         @jump_to_actions_keeper << action # Workaround for > Ruby/GTK2 0.16
         @merge.add_ui(@jump_to_merge_id, jump_to_path, action.name,
-                      action.name, Gtk::UIManager::AUTO, false)
+                      action.name, :auto, false)
       end
     end
 
