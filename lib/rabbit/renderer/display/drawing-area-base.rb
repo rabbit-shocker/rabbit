@@ -271,10 +271,6 @@ module Rabbit
           set_scroll_event(@area)
         end
 
-        def mapped(widget)
-          super
-        end
-
         def set_motion_notify_event
           @area.signal_connect("motion_notify_event") do |widget, event|
             call_hook_procs(@motion_notify_hook_procs, event)
