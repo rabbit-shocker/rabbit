@@ -277,20 +277,19 @@ module Rabbit
           end
         end
 
-        def paint_out(color_name)
+        def paint(color_name)
           context = @drawable.create_cairo_context
           context.set_source_rgb(*Color.parse(color_name).to_gdk_rgb)
-          context.rectangle(0, 0, @size.real_width, @size.real_height)
-          context.fill
+          context.paint
         end
 
         def exposed(widget, context)
           reload_source unless @caching
 
           if whiteouting?
-            paint_out("white")
+            paint("white")
           elsif blackouting?
-            paint_out("black")
+            paint("black")
           else
             super
             draw_graffiti
