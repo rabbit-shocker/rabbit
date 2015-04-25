@@ -26,25 +26,25 @@ module Rabbit
   @@cleanup_procs = []
 
   class << self
-  def add_gui_init_proc(proc=Proc.new)
-    @@gui_init_procs << proc
-  end
-
-  def gui_init
-    @@gui_init_procs.each do |proc|
-      proc.call
+    def add_gui_init_proc(proc=Proc.new)
+      @@gui_init_procs << proc
     end
-  end
 
-  def add_cleanup_proc(proc=Proc.new)
-    @@cleanup_procs << proc
-  end
-
-  def cleanup
-    @@cleanup_procs.each do |proc|
-      proc.call
+    def gui_init
+      @@gui_init_procs.each do |proc|
+        proc.call
+      end
     end
-  end
+
+    def add_cleanup_proc(proc=Proc.new)
+      @@cleanup_procs << proc
+    end
+
+    def cleanup
+      @@cleanup_procs.each do |proc|
+        proc.call
+      end
+    end
   end
 
   class Error < StandardError
