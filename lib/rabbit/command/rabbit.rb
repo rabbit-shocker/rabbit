@@ -510,14 +510,6 @@ module Rabbit
             options.xmlrpc_port = port
           end
 
-          parser.category _("Server")
-
-          parser.on("--server",
-                    _("Specify whether to run as server."),
-                    "(#{options.server})") do
-            options.action = :server
-          end
-
           parser.category _("Public level")
 
           levels = Front::PublicLevel.constants.sort_by do |const|
@@ -871,49 +863,6 @@ module Rabbit
         setup_xmlrpc(front) if @options.use_xmlrpc
 
         Gtk.main
-
-        true
-      end
-
-      def do_server
-        ::Rabbit.gui_init
-
-        # GLib::Log.cancel_handler
-        # GLib::Log.set_handler(nil, GLib::Log::LEVEL_ERROR)
-
-        source = make_source
-        canvas = make_canvas(Renderer::Pixmap::Cairo)
-        setup_size(canvas)
-        setup_paper_size(canvas)
-        setup_image_info(canvas)
-        setup_print_info(canvas)
-        setup_3d_info(canvas)
-        apply_theme_if_need(canvas)
-        parse(canvas, source)
-
-        soap_server_thread = nil
-        xmlrpc_server_thread = nil
-
-        front = make_front(canvas)
-        setup_druby(front) if @options.use_druby
-        if @options.use_soap
-          soap_server_thread = setup_soap(front)
-        end
-        if @options.use_xmlrpc
-          xmlrpc_server_thread = setup_xmlrpc(front)
-        end
-
-        soap_server_thread.join if soap_server_thread
-        xmlrpc_server_thread.join if xmlrpc_server_thread
-        if @options.use_druby
-          prev = trap(:INT) do
-            @logger.info(_("going to shutdown..."))
-            DRb.thread.exit
-            @logger.info(_("DRb.thread done."))
-            trap(:INT, prev)
-          end
-          DRb.thread.join
-        end
 
         true
       end
