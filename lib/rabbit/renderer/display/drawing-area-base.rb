@@ -1,5 +1,5 @@
 require "rabbit/renderer/display/drawing-area-primitive"
-require 'rabbit/renderer/display/menu'
+require "rabbit/renderer/display/menu"
 require "rabbit/renderer/display/progress"
 require "rabbit/renderer/display/mask"
 require "rabbit/renderer/display/search"
