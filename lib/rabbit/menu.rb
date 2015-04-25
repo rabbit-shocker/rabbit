@@ -161,8 +161,7 @@ module Rabbit
         end
       end
       @theme_actions.add_action(action)
-      @merge.add_ui(@theme_merge_id, path, entry.name, name,
-                    Gtk::UIManager::AUTO, false)
+      @merge.add_ui(@theme_merge_id, path, entry.name, name, :auto, false)
     end
 
     def show_tearoff(sub_menus=@menu.children)
