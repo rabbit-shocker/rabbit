@@ -20,6 +20,7 @@ if ENV["RABBIT_GTK_VERSION"] == "3"
   require "gtk3"
   Gtk.init if Gtk.respond_to?(:init)
 else
+  require "gio2"
   require "gtk2"
 end
 
@@ -65,6 +66,39 @@ module Gdk
 end
 
 module Gtk
+  unless const_defined?(:Application)
+    class Application < Gio::Application
+      def initialize(id, flags)
+        super
+        signal_connect_after("activate") do
+          Gtk.main if ApplicationWindow.n_instances > 0
+        end
+      end
+    end
+  end
+
+  unless const_defined?(:ApplicationWindow)
+    class ApplicationWindow
+      @@n_instances = 0
+
+      class << self
+        def new(application)
+          window = Window.new
+          @@n_instances += 1
+          window.signal_connect("destroy") do
+            @@n_instances -= 1
+            Gtk.main_quit if @@n_instances.zero?
+          end
+          window
+        end
+
+        def n_instances
+          @@n_instances
+        end
+      end
+    end
+  end
+
   class Widget
     unless public_method_defined?(:drag_dest_set)
       def drag_dest_set(flags, targets, actions)

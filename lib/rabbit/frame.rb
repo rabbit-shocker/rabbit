@@ -118,7 +118,7 @@ module Rabbit
     private
     def init_window(width, height, window_type=nil)
       window_type ||= :toplevel
-      @window = Gtk::Window.new(window_type)
+      @window = Gtk::ApplicationWindow.new(::Rabbit.application)
       @window.set_default_size(width, height)
       @window.parse_geometry(@geometry) if @geometry
       @window.set_app_paintable(true)
@@ -167,9 +167,6 @@ module Rabbit
     def set_window_signal_destroy
       @window.signal_connect("destroy") do
         @canvas.detach
-        if main_window? and Gtk.main_level > 0
-          Gtk.main_quit
-        end
       end
     end
 

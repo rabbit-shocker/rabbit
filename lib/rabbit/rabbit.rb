@@ -19,31 +19,19 @@ require "rabbit/config"
 require "rabbit/gettext"
 require "rabbit/version"
 
+require "rabbit/gtk"
+
 module Rabbit
   TMP_DIR_NAME = ".tmp"
 
+  @@application = nil
   @@gui_init_procs = []
   @@cleanup_procs = []
 
   class << self
-    def add_gui_init_proc(proc=Proc.new)
-      @@gui_init_procs << proc
-    end
-
-    def gui_init
-      @@gui_init_procs.each do |proc|
-        proc.call
-      end
-    end
-
-    def add_cleanup_proc(proc=Proc.new)
-      @@cleanup_procs << proc
-    end
-
-    def cleanup
-      @@cleanup_procs.each do |proc|
-        proc.call
-      end
+    def application
+      @@application ||= Gtk::Application.new("org.rabbit-shocker.Rabbit",
+                                             :flags_none)
     end
   end
 

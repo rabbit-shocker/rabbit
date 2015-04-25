@@ -48,10 +48,12 @@ module Rabbit
         require "rabbit/canvas"
         GC.enable
 
-        succeeded = __send__("do_#{@options.action}")
-
-        ::Rabbit.cleanup
-
+        application = ::Rabbit.application
+        succeeded = nil
+        application.signal_connect("activate") do
+          succeeded = __send__("do_#{@options.action}")
+        end
+        application.run
         succeeded
       end
 
@@ -810,8 +812,6 @@ module Rabbit
       end
 
       def do_save_as_image
-        ::Rabbit.gui_init
-
         source = make_source
         canvas = make_canvas(Renderer::Pixmap::Cairo)
         setup_size(canvas)
@@ -834,7 +834,6 @@ module Rabbit
           display_init_options[:preferred_class_name] = "ClutterEmbed"
         end
         Renderer::Display.init(display_init_options)
-        ::Rabbit.gui_init
 
         source = make_source
         canvas = make_canvas(Renderer::Display)
@@ -861,8 +860,6 @@ module Rabbit
         setup_druby(front) if @options.use_druby
         setup_soap(front) if @options.use_soap
         setup_xmlrpc(front) if @options.use_xmlrpc
-
-        Gtk.main
 
         true
       end
