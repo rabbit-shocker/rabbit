@@ -74,7 +74,7 @@ end
 module Gtk
   unless const_defined?(:Actionable)
     class Action
-      alias_method :initialize_raw
+      alias_method :initialize_raw, :initialize
       def initialize(name, options={})
         initialize_raw(name,
                        options[:label],
