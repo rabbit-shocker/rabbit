@@ -398,7 +398,7 @@ module Rabbit
     end
 
     def screen_depth
-      default_screen.root_window.depth
+      default_screen.system_visual.depth
     end
 
     def mm_to_inch(mm)
