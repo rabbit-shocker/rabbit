@@ -20,8 +20,21 @@ if ENV["RABBIT_GTK_VERSION"] == "3"
   require "gtk3"
   Gtk.init if Gtk.respond_to?(:init)
 else
+  require "cairo"
   require "gio2"
   require "gtk2"
+end
+
+module Cairo
+  class Region
+    unless public_method_defined?(:each_rectangle)
+      def each_rectangle
+        num_rectangles.times do |i|
+          yield(self[i])
+        end
+      end
+    end
+  end
 end
 
 module Gdk
@@ -123,6 +136,22 @@ module Gtk
       def drag_dest_set(flags, targets, actions)
         Gtk::Drag.dest_set(self, flags, targets, actions)
       end
+    end
+
+    def shape_combine_region(cairo_region)
+      gdk_region = cairo_region_to_gdk_region(cairo_region)
+      window.shape_combine_region(gdk_region, 0, 0)
+    end
+
+    private
+    def cairo_region_to_gdk_region(cairo_region)
+      return nil if cairo_region.nil?
+
+      gdk_region = Gdk::Region.new
+      cairo_region.each_rectangle do |rectangle|
+        gdk_region.union(Gdk::Rectangle.new(*rectangle))
+      end
+      gdk_region
     end
   end
 

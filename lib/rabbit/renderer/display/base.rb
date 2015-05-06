@@ -35,6 +35,11 @@ module Rabbit
           end
         end
 
+        def size
+          refresh_size
+          @size
+        end
+
         def redraw
           widget.queue_draw
         end
