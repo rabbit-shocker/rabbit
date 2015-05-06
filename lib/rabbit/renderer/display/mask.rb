@@ -48,6 +48,7 @@ module Rabbit
             end
             @window.shape_combine_region(@mask)
           end
+          redraw
           update_title # for xfwm
         end
 
