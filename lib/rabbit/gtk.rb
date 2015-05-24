@@ -138,7 +138,7 @@ module Gtk
       end
     end
 
-    unless public_method_defined?(:shape_combine_mask)
+    unless public_method_defined?(:shape_combine_region)
       def shape_combine_region(cairo_region)
         gdk_region = cairo_region_to_gdk_region(cairo_region)
         window.shape_combine_region(gdk_region, 0, 0)
