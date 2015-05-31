@@ -22,33 +22,11 @@ require "rabbit/source/memory"
 require "rabbit/parser/markdown"
 
 class RabbitParserMarkdownTest < Test::Unit::TestCase
+  include RabbitTestUtils::Parser
+
   private
   def parse(markdown)
-    canvas = []
-    def canvas.logger
-      Rabbit::Logger.default
-    end
-    source = Rabbit::Source::Memory.new("UTF-8", nil)
-    source.source = markdown
-    parser = Rabbit::Parser::Markdown.new(canvas, source)
-    parser.parse
-    canvas
-  end
-
-  def inspect_canvas(canvas)
-    canvas.collect do |page|
-      inspect_element(page)
-    end
-  end
-
-  def inspect_element(element)
-    name = element.class.name.split(/::/).last
-    if element.respond_to?(:elements)
-      children = element.elements.collect {|child| inspect_element(child)}
-    else
-      children = [element.text]
-    end
-    [name, *children]
+    super(Rabbit::Parser::Markdown, markdown)
   end
 
   class TitlePageTest < self
