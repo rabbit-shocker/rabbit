@@ -15,8 +15,10 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 module RabbitTestUtils
-  private
-  def fixture_path(*components)
-    File.join(File.dirname(__FILE__), "..", "fixtures", *components)
+  module Fixture
+    private
+    def fixture_path(*components)
+      File.join(File.dirname(__FILE__), "..", "fixtures", *components)
+    end
   end
 end
