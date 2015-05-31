@@ -30,8 +30,10 @@ class RabbitParserWikiTest < Test::Unit::TestCase
     super(Rabbit::Parser::Wiki, wiki_text)
   end
 
-  sub_test_case "image" do
-    sub_test_case "inline" do
+  class ImageTest < self
+    include Rabbit::GetText
+
+    class InlineTest < self
       test "unsupported" do
         image_path = fixture_path("image/png/lavie.png")
         wiki_text = <<-WIKI
@@ -41,14 +43,14 @@ class RabbitParserWikiTest < Test::Unit::TestCase
 
 a {{image(#{image_path.dump})}}
         WIKI
-        message = "inline {{image(...)}} isn't supported."
+        message = _("inline {{image(...)}} isn't supported.")
         assert_raise(Rabbit::ParseError.new(message)) do
           parse(wiki_text)
         end
       end
     end
 
-    sub_test_case "block" do
+    class BlockTest < self
       test ":align => :right: twice" do
         image_path = fixture_path("image/png/lavie.png")
         wiki_text = <<-WIKI
@@ -61,7 +63,7 @@ a {{image(#{image_path.dump})}}
 {{image(#{image_path.dump}, :align => :right)}}
         WIKI
 
-        message = "multiple {{image(..., :align => :right)}} isn't supported."
+        message = _("multiple {{image(..., :align => :right)}} isn't supported.")
         assert_raise(Rabbit::ParseError.new(message)) do
           parse(wiki_text)
         end
