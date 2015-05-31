@@ -16,18 +16,18 @@
 
 require "tempfile"
 
-require 'rabbit/rabbit'
-require 'rabbit/utils'
-require 'rabbit/parser/rd/rt/rt2rabbit-lib'
-require 'rabbit/parser/rd/ext/base'
-require 'rabbit/parser/rd/ext/image'
-require 'rabbit/parser/rd/ext/video'
-require 'rabbit/parser/ext/enscript'
-require 'rabbit/parser/ext/tex'
-require 'rabbit/parser/ext/aafigure'
-require 'rabbit/parser/ext/blockdiag'
-require 'rabbit/parser/ext/coderay'
-require 'rabbit/parser/ext/emacs'
+require "rabbit/rabbit"
+require "rabbit/utils"
+require "rabbit/parser/rd/rt/rt2rabbit-lib"
+require "rabbit/parser/rd/ext/base"
+require "rabbit/parser/rd/ext/image"
+require "rabbit/parser/rd/ext/video"
+require "rabbit/parser/ext/enscript"
+require "rabbit/parser/ext/tex"
+require "rabbit/parser/ext/aafigure"
+require "rabbit/parser/ext/blockdiag"
+require "rabbit/parser/ext/coderay"
+require "rabbit/parser/ext/emacs"
 
 module Rabbit
   module Parser
@@ -52,16 +52,16 @@ module Rabbit
           def ext_block_verb_img(label, source, content, visitor)
             return nil unless /^(?:image|img)$/i =~ label
             src, prop = parse_source(source)
-            return nil if prop['src'].nil?
+            return nil if prop["src"].nil?
 
-            if prop['align'] == "right"
+            if prop["align"] == "right"
               body = visitor.current_body
               if body["background-image"]
                 raise ParseError,
                       _("multiple 'align = right' isn't supported.")
               end
               prop.each do |name, value|
-                name = name.gsub(/_/, '-')
+                name = name.gsub(/_/, "-")
                 if name == "src"
                   property_name = "background-image"
                 else
@@ -71,16 +71,16 @@ module Rabbit
               end
               :no_element
             else
-              make_image(visitor, prop['src'], prop)
+              make_image(visitor, prop["src"], prop)
             end
           end
 
           def ext_block_verb_video(label, source, content, visitor)
             return nil unless /^video$/i =~ label
             src, prop = parse_source(source)
-            return nil if prop['src'].nil?
+            return nil if prop["src"].nil?
 
-            make_video(visitor, prop['src'], prop)
+            make_video(visitor, prop["src"], prop)
           end
 
           def ext_block_verb_enscript(label, source, content, visitor)
