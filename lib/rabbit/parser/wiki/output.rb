@@ -366,6 +366,8 @@ module Rabbit
 
         def evaluate_block_plugin(src)
           BlockPlugin.new(self).instance_eval(src, "(block plugin)")
+        rescue ParseError
+          raise
         rescue
           @canvas.logger.warn($!)
           nil
@@ -459,7 +461,7 @@ module Rabbit
               body = @output.current_body
               if body["background-image"]
                 raise ParseError,
-                      _("multiple {{image, 'XXX.png', :align => :right}} " + \
+                      _("multiple {{image(..., :align => :right)}} " + \
                         "isn't supported.")
               end
               body["background-image"] = source
