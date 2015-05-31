@@ -17,7 +17,7 @@
 require "rabbit/image/eps"
 
 class TestImageEPS < Test::Unit::TestCase
-  include RabbitTestUtils::FIxture
+  include RabbitTestUtils::Fixture
 
   private
   def fixture_path(base_name)
