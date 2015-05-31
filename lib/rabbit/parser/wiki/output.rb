@@ -14,18 +14,18 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/element'
-require 'rabbit/parser/pause-support'
-require 'rabbit/parser/ext/escape'
-require 'rabbit/parser/ext/inline'
-require 'rabbit/parser/ext/image'
-require 'rabbit/parser/ext/enscript'
-require 'rabbit/parser/ext/tex'
-require 'rabbit/parser/ext/aafigure'
-require 'rabbit/parser/ext/blockdiag'
-require 'rabbit/parser/ext/coderay'
-require 'rabbit/parser/ext/emacs'
-require 'rabbit/parser/ext/entity'
+require "rabbit/element"
+require "rabbit/parser/pause-support"
+require "rabbit/parser/ext/escape"
+require "rabbit/parser/ext/inline"
+require "rabbit/parser/ext/image"
+require "rabbit/parser/ext/enscript"
+require "rabbit/parser/ext/tex"
+require "rabbit/parser/ext/aafigure"
+require "rabbit/parser/ext/blockdiag"
+require "rabbit/parser/ext/coderay"
+require "rabbit/parser/ext/emacs"
+require "rabbit/parser/ext/entity"
 
 module Rabbit
   module Parser
@@ -455,7 +455,7 @@ module Rabbit
               end
               body["background-image"] = source
               props.each do |name, value|
-                name = name.to_s.gsub(/_/, '-')
+                name = name.to_s.gsub(/_/, "-")
                 value = value.to_s if name == "align"
                 body["background-image-#{name}"] = value
               end
