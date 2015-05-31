@@ -19,3 +19,4 @@ require "test/unit/notify"
 require "test/unit/rr"
 
 require "rabbit-test-utils/fixture"
+require "rabbit-test-utils/parser"

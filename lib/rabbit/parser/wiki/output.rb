@@ -14,6 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "rabbit/gettext"
 require "rabbit/element"
 require "rabbit/parser/pause-support"
 require "rabbit/parser/ext/escape"
@@ -356,6 +357,8 @@ module Rabbit
 
         def evaluate_inline_plugin(src)
           InlinePlugin.new(self).instance_eval(src, "(inline plugin)")
+        rescue ParseError
+          raise
         rescue
           @canvas.logger.warn($!)
           nil
@@ -369,12 +372,18 @@ module Rabbit
         end
 
         class InlinePlugin
+          include GetText
           include Element
           include Parser::Ext::Inline
           include Parser::Ext::Entity
 
           def initialize(output)
             @private = Private.new(output)
+          end
+
+          def image(source, props={})
+            raise ParseError,
+                  _("inline {{image(...)}} isn't supported.")
           end
 
           def entity(entity, *rest)
