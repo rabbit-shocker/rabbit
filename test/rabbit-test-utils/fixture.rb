@@ -14,41 +14,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/image/dia"
-
-class TestImageDia < Test::Unit::TestCase
-  include RabbitTestUtils::Fixture
-
+module RabbitTestUtils
   private
-  def fixture_path(base_name)
-    super("image", "dia", base_name)
-  end
-
-  class TestMatch < self
-    private
-    def match?(base_name)
-      Rabbit::ImageManipulable::Dia.match?(fixture_path(base_name))
-    end
-
-    class TestWithExtension < self
-      def test_not_compressed
-        assert_true(match?("not-compressed.dia"))
-      end
-
-      def test_compressed
-        assert_true(match?("compressed.dia"))
-      end
-    end
-
-    class TestWithoutExtension < self
-      def test_not_compressed
-        assert_true(match?("not-compressed"))
-      end
-
-      def test_compressed
-        # Not supported yet.
-        assert_false(match?("compressed"))
-      end
-    end
+  def fixture_path(*components)
+    File.join(File.dirname(__FILE__), "..", "fixtures", *components)
   end
 end
