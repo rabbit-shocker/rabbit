@@ -32,8 +32,7 @@ module Rabbit
 
   class << self
     def application
-      @@application ||= Gtk::Application.new("org.rabbit-shocker.Rabbit",
-                                             :flags_none)
+      @@application ||= Gtk::Application.new(nil, :flags_none)
     end
   end
 end
