@@ -45,12 +45,12 @@ module Rabbit
           end
 
           def ext_block_verb_quote(label, source, content, visitor)
-            return nil unless /^_$/i =~ label
+            return nil unless /\A_\z/i =~ label
             default_ext_block_verbatim("", source, source, visitor)
           end
 
           def ext_block_verb_img(label, source, content, visitor)
-            return nil unless /^(?:image|img)$/i =~ label
+            return nil unless /\A(?:image|img)\z/i =~ label
             src, prop = parse_source(source)
             return nil if prop["src"].nil?
 
@@ -76,7 +76,7 @@ module Rabbit
           end
 
           def ext_block_verb_video(label, source, content, visitor)
-            return nil unless /^video$/i =~ label
+            return nil unless /\Avideo\z/i =~ label
             src, prop = parse_source(source)
             return nil if prop["src"].nil?
 
@@ -84,7 +84,7 @@ module Rabbit
           end
 
           def ext_block_verb_enscript(label, source, content, visitor)
-            return nil unless /^enscript (\w+)$/i =~ label
+            return nil unless /\Aenscript (\w+)\z/i =~ label
             lang = $1.downcase.untaint
 
             src, prop = parse_source(source)
@@ -98,14 +98,14 @@ module Rabbit
           end
 
           def ext_block_verb_LaTeX(label, source, content, visitor)
-            return nil unless /^LaTeX$/i =~ label
+            return nil unless /\ALaTeX\z/i =~ label
             make_image_from_file(source, visitor) do |src_file_path, prop|
               Parser::Ext::TeX.make_image_by_LaTeX(src_file_path, prop, visitor)
             end
           end
 
           def ext_block_verb_mimeTeX(label, source, content, visitor)
-            return nil unless /^mimeTeX$/i =~ label
+            return nil unless /\AmimeTeX\z/i =~ label
             make_image_from_file(source, visitor) do |src_file_path, prop|
               Parser::Ext::TeX.make_image_by_mimeTeX(src_file_path, prop,
                                                      visitor)
@@ -113,21 +113,21 @@ module Rabbit
           end
 
           def ext_block_verb_aafigure(label, source, content, visitor)
-            return nil unless /^aafigure$/i =~ label
+            return nil unless /\Aaafigure\z/i =~ label
             make_image_from_file(source, visitor) do |src_file_path, prop|
               Parser::Ext::AAFigure.make_image(src_file_path, prop, visitor)
             end
           end
 
           def ext_block_verb_blockdiag(label, source, content, visitor)
-            return nil unless /^blockdiag$/i =~ label
+            return nil unless /\Ablockdiag\z/i =~ label
             make_image_from_file(source, visitor) do |src_file_path, prop|
               Parser::Ext::BlockDiag.make_image(src_file_path, prop, visitor)
             end
           end
 
           def ext_block_verb_coderay(label, source, content, visitor)
-            return nil unless /^coderay (\w+)$/i =~ label
+            return nil unless /\Acoderay (\w+)\z/i =~ label
             lang = $1.downcase.untaint
 
             src, prop = parse_source(source)
@@ -138,7 +138,7 @@ module Rabbit
           end
 
           def ext_block_verb_emacs(label, source, content, visitor)
-            return nil unless /^emacs(?:\s+(.+))?$/i =~ label
+            return nil unless /\Aemacs(?:\s+(.+))?\z/i =~ label
             mode_line = $1.untaint
 
             src, prop = parse_source(source)
@@ -149,7 +149,7 @@ module Rabbit
           end
 
           def ext_block_verb_rt(label, source, content, visitor)
-            return nil unless /^rt$/i =~ label
+            return nil unless /\Art\z/i =~ label
             unless defined?(RT2RabbitVisitor)
               visitor.logger.warn(_("RTtool isn't available"))
               return nil
@@ -159,7 +159,7 @@ module Rabbit
           end
 
           def ext_block_verb_block_quote(label, source, content, visitor)
-            return nil unless /^block[_-]?quote$/i =~ label
+            return nil unless /\Ablock[_-]?quote\z/i =~ label
             src, prop = parse_source(source)
             tree = ::RD::RDTree.new("=begin\n#{src}\n=end\n")
             elems = tree.root.children.collect do |child|
@@ -169,7 +169,7 @@ module Rabbit
           end
 
           def ext_block_verb_wait(label, source, content, visitor)
-            return nil unless /^wait$/i =~ label
+            return nil unless /\Await\z/i =~ label
 
             src, prop = parse_source(source)
             tree = ::RD::RDTree.new("=begin\n#{src}\n=end\n")
