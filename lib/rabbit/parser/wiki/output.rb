@@ -85,7 +85,7 @@ module Rabbit
               @parent = slide
             else
               @title_slide = false
-              slide = Slide.new(HeadLine.new(title))
+              slide = Element::Slide.new(HeadLine.new(title))
               body = Body.new
               slide << body
               @parent = body
