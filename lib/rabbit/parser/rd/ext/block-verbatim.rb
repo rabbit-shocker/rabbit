@@ -18,10 +18,7 @@ require "tempfile"
 
 require 'rabbit/rabbit'
 require 'rabbit/utils'
-begin
-  require 'rabbit/parser/rd/rt/rt2rabbit-lib'
-rescue LoadError
-end
+require 'rabbit/parser/rd/rt/rt2rabbit-lib'
 require 'rabbit/parser/rd/ext/base'
 require 'rabbit/parser/rd/ext/image'
 require 'rabbit/parser/rd/ext/video'
