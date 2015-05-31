@@ -12,8 +12,10 @@ module Rabbit
       parser = Base.find_loader(source)
       if parser.nil?
         format = _("unsupported format. (supported: %s)")
-        loader_names = Base.loaders.collect {|loader| loader.name}
-        message = format % "[#{loader_names.join(', ')}]"
+        format_names = Base.loaders.collect do |loader|
+          loader.format_name
+        end
+        message = format % "[#{format_names.join(', ')}]"
         raise UnsupportedFormatError.new(message)
       end
       parser.new(canvas, source).parse

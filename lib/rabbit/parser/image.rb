@@ -10,6 +10,10 @@ module Rabbit
       push_loader(self)
 
       class << self
+        def format_name
+          "image"
+        end
+
         def match?(source)
           options = {
             :prefix => "image-parser-match",

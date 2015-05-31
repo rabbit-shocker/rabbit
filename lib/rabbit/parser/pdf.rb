@@ -10,6 +10,10 @@ module Rabbit
     class PDF < Base
       unshift_loader(self)
       class << self
+        def format_name
+          "PDF"
+        end
+
         def match?(source)
           extension = source.extension
           if extension.nil?

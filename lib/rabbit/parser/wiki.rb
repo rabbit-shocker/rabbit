@@ -16,6 +16,10 @@ module Rabbit
     class Wiki
       unshift_loader(self)
       class << self
+        def format_name
+          "Wiki"
+        end
+
         def match?(source)
           extension = source.extension
           if extension.nil?

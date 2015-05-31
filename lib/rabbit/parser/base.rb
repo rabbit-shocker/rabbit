@@ -5,12 +5,6 @@ module Rabbit
     class Base
       extend ModuleLoader
 
-      class << self
-        def name
-          super.split(/::/).last
-        end
-      end
-
       def initialize(canvas, source)
         @canvas = canvas
         @source = source

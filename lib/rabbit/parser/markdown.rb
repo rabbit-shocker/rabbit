@@ -58,6 +58,10 @@ module Rabbit
     class Markdown
       unshift_loader(self)
       class << self
+        def format_name
+          "Makrdown"
+        end
+
         def match?(source)
           /\A(?:md|markdown)\z/i =~ source.extension.to_s
         end
