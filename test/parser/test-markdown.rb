@@ -22,6 +22,7 @@ require "rabbit/source/memory"
 require "rabbit/parser/markdown"
 
 class RabbitParserMarkdownTest < Test::Unit::TestCase
+  include RabbitTestUtils::Fixture
   include RabbitTestUtils::Parser
 
   private
@@ -291,6 +292,22 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
 
   * Second
                          MARKDOWN
+          end
+        end
+      end
+    end
+
+    class ImageTest < self
+      class InlineTest < self
+        include Rabbit::GetText
+
+        def test_unsupported
+          image_path = fixture_path("image/png/lavie.png")
+          message = _("multiple ![alt]{image} in a paragraph isn't supported.")
+          assert_raise(Rabbit::ParseError.new(message)) do
+            parse(<<-MARKDOWN)
+a ![](#{image_path})
+            MARKDOWN
           end
         end
       end

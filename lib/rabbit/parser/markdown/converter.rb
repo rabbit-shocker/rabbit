@@ -1,5 +1,6 @@
 require "English"
 
+require "rabbit/gettext"
 require "rabbit/parser/pause-support"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/coderay"
@@ -11,6 +12,7 @@ module Rabbit
   module Parser
     class Markdown
       class Converter
+        include GetText
         include Element
         include PauseSupport
 
