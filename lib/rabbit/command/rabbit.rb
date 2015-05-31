@@ -49,7 +49,7 @@ module Rabbit
         GC.enable
 
         application = ::Rabbit.application
-        succeeded = nil
+        succeeded = false
         application.signal_connect("activate") do
           succeeded = __send__("do_#{@options.action}")
         end
