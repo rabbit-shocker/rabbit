@@ -130,21 +130,21 @@ module Rabbit
       current_box = Gtk::Box.new(:horizontal)
       @current_canvas.attach_to(nil, @window, current_box) do |container, widget|
         widget.set_size_request(width * (2.0 / 3.0), height * (2.0 / 3.0))
-        container.pack_start(widget, true, false)
+        container.pack_start(widget, :expand => true, :fill => false)
       end
-      @outer_box.pack_start(current_box, true, false)
+      @outer_box.pack_start(current_box, :expand => true, :fill => false)
 
       bottom_box = Gtk::Box.new(:horizontal)
       @previous_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
-        container.pack_start(widget, false, false)
+        container.pack_start(widget, :expand => false, :fill => false)
       end
-      bottom_box.pack_start(@timer_label, true, false)
+      bottom_box.pack_start(@timer_label, :expand => true, :fill => false)
       @next_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
-        container.pack_end(widget, false, false)
+        container.pack_end(widget, :expand => false, :fill => false)
       end
-      @outer_box.pack_end(bottom_box, false, false)
+      @outer_box.pack_end(bottom_box, exnapd: false, :fill => false)
 
       @outer_box.show
     end
@@ -155,24 +155,24 @@ module Rabbit
       @outer_box = Gtk::Box.new(:vertical)
 
       current_box = Gtk::Box.new(:horizontal)
-      current_box.pack_start(@timer_label, false, false)
+      current_box.pack_start(@timer_label, :expand => false, :fill => false)
       @previous_canvas.attach_to(nil, @window, current_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_start(widget, true, true, 10)
+        container.pack_start(widget, :expand => true, :fill => true, :padding => 10)
       end
       @current_canvas.attach_to(nil, @window, current_box) do |container, widget|
         widget.set_size_request(width * (2.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_start(widget, true, true)
+        container.pack_start(widget, :expand => true, :fill => true)
       end
       @next_canvas.attach_to(nil, @window, current_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_end(widget, true, true, 10)
+        container.pack_end(widget, :expand => true, :fill => true, :padding => 10)
       end
-      @outer_box.pack_start(current_box, false, false)
+      @outer_box.pack_start(current_box, :expand => false, :fill => false)
 
       bottom_box = Gtk::Box.new(:horizontal)
-      bottom_box.pack_start(@note_area, true, true, 20)
-      @outer_box.pack_start(bottom_box, true, true, 20)
+      bottom_box.pack_start(@note_area, :expand => true, :fill => true, :padding => 20)
+      @outer_box.pack_start(bottom_box, :expand => true, :fill => true, :padding => 20)
 
       @outer_box.show
     end
