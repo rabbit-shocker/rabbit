@@ -1,1 +1,1 @@
-See doc/ or http://rabbit-shocker.org/.
+See [doc/](doc/) or http://rabbit-shocker.org/.
