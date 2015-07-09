@@ -16,6 +16,15 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+if ENV['CI']=='true'
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter 'test/'
+  end
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
+
 base_dir = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 test_dir = File.join(base_dir, "test")
 
