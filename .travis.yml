@@ -3,7 +3,7 @@ env:
     - DISPLAY=":99.0"
 notifications:
   recipients:
-    - kou@cozmixng.org
+    - rabbit@ml.commit-email.info
 rvm:
   - 1.9.3
   - 2.0.0
