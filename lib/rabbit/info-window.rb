@@ -142,9 +142,9 @@ module Rabbit
       bottom_box.pack_start(@timer_label, :expand => true, :fill => false)
       @next_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
-        container.pack_end(widget, false, false)
+        container.pack_end(widget, :expand => false, :fill => false)
       end
-      @outer_box.pack_end(bottom_box, false, false)
+      @outer_box.pack_end(bottom_box, :expand => false, :fill => false)
 
       @outer_box.show
     end
@@ -166,7 +166,7 @@ module Rabbit
       end
       @next_canvas.attach_to(nil, @window, current_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_end(widget, true, true, 10)
+        container.pack_end(widget, :expand => true, :fill => true, :padding => 10)
       end
       @outer_box.pack_start(current_box, :expand => false, :fill => false)
 
