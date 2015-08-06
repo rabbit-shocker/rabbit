@@ -301,6 +301,7 @@ nav a:active
 footer
 {
     display: block;
+    z-index: -1;
 }
 
 footer p.copyright
