@@ -4,6 +4,62 @@ title: お知らせ
 apply_data: false
 ---
 {% raw %}
+== 2.1.7: 2015-09-05
+
+Markdownでのノートマークアップ対応リリース。
+
+=== 改良
+
+==== rabbit
+
+  * GDKレンダリングエンジンを削除。（だいぶ前からcairoが必須になってい
+    てGDKレンダリングエンジンがなくても問題なくなっていたため。）
+  * GTK+ 3対応を進めた。（まだ完成していない。） [okkezさんがパッチ提供]
+  * 使われていない(({--server}))オプションを削除。
+  * Wikiマークアップ: 未サポートの書き方のときのエラーメッセージを改善。
+  * Markdownマークアップ: 1つの段落内に複数の画像を指定したときに「未
+    サポートである」とメッセージを出力するようにした。
+    [GitHub#71][Colin Deanさんが報告]
+  * Markdownマークアップ: ノートマークアップ対応。 [yoku0825さんが提案]
+
+    書式は(('{::note}...{:/note}'))です。
+
+    例：
+
+      普通のテキスト{::note}ノート{:/note}普通のテキスト
+
+==== テーマ
+
+  * image-timer: メモリー使用量を削減。
+  * image-slide-number: メモリー使用量を削減。
+  * clear-blue: 引用ブロックでの最初の行のインデントをやめた。
+
+==== ドキュメント
+
+  * READMEをMarkdownでマークアップした。
+    [GitHub#72][Toshi MARUYAMAさんがパッチ提供]
+  * Rabbitの概要の説明を改良。 [GitHub#74][YU-TAYUさんがパッチ提供]
+
+=== 修正
+
+==== rabbit-slide
+
+  * 不正なMarkdownを出力する問題を修正。 [Matafumi Yokoyamaさん]
+
+==== ドキュメント
+
+  * サイドメニューが隠れている問題を修正。
+    [GitHub#75][YU-TAYUさんが報告]
+
+=== 感謝
+
+  * okkezさん
+  * Matafumi Yokoyamaさん
+  * Colin Deanさん
+  * Toshi MARUYAMAさん
+  * YU-TAYUさん
+  * yoku0825さん
+
 == 2.1.6: 2015-02-26
 
 2.1.5のバグフィックスリリース。

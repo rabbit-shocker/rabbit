@@ -3,6 +3,66 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.7: 2015-09-05
+
+Note markup support in Markdown release.
+
+=== Improvements
+
+==== rabbit
+
+  * Removed GDK rendering engine.
+    (Because cairo is always available since a few years ago. If we
+    can use cairo, there is no problem without GDK rendering engine.)
+  * Improved GTK+ 3 support. (It's not completed yet.) [Patch by okkez]
+  * Removed unused (({--server})) option.
+  * Wiki markup: Improved error message when unsupported markup is used.
+  * Markdown markup: Supported error message when multiple images
+    exist in a paragraph.
+    [GitHub#71][Reported by Colin Dean]
+
+  * Markdown markup: Supported note markup. [Suggested by yoku0825]
+
+    Syntax is (('{::note}...{:/note}')).
+
+    Example:
+
+      Normal text {::note}note{:/note} Normal text
+
+==== Theme
+
+  * image-timer: Reduced memory usage.
+  * image-slide-number: Reduced memory usage.
+  * clear-blue: Removed indent of the first line in block quote.
+
+==== Document
+
+  * Marked up README in Markdown.
+    [GitHub#72][Patch by Toshi MARUYAMA]
+  * Improved description about Rabbit in Japanese.
+    [GitHub#74][Patch by YU-TAYU]
+
+=== Fixes
+
+==== rabbit-slide
+
+  * Fixed a bug that invalid Markdown is generated.
+    [Matafumi Yokoyama]
+
+==== Document
+
+  * Fixed a bug that side menu is hidden.
+    [GitHub#75][Reported by YU-TAYU]
+
+=== Thanks
+
+  * okkez
+  * Matafumi Yokoyama
+  * Colin Dean
+  * Toshi MARUYAMA
+  * YU-TAYU
+  * yoku0825
+
 == 2.1.6: 2015-02-26
 
 A bug fix release of 2.1.5.
