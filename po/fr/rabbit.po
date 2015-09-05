@@ -683,12 +683,6 @@ msgstr ""
 msgid "Specify XML-RPC port as [PORT]."
 msgstr ""
 
-msgid "Server"
-msgstr ""
-
-msgid "Specify whether to run as server."
-msgstr ""
-
 msgid "Public level"
 msgstr ""
 
@@ -764,12 +758,6 @@ msgstr ""
 msgid "Window ID: %d"
 msgstr ""
 
-msgid "going to shutdown..."
-msgstr ""
-
-msgid "DRb.thread done."
-msgstr ""
-
 msgid "Usage: %s [options]"
 msgstr ""
 
@@ -798,6 +786,60 @@ msgid "Show version."
 msgstr ""
 
 msgid "Index"
+msgstr ""
+
+msgid "no such file: %s"
+msgstr ""
+
+msgid "can't handle %s because the following command can't be run successfully: %s"
+msgstr ""
+
+msgid "tried gs commands: %s"
+msgstr ""
+
+msgid "tried dia commands: %s"
+msgstr ""
+
+msgid "tried gimp commands: %s"
+msgstr ""
+
+msgid "Unknown property: %s"
+msgstr ""
+
+msgid "can't allocate color: %s"
+msgstr ""
+
+msgid "not exist: %s"
+msgstr ""
+
+msgid "not a file: %s"
+msgstr ""
+
+msgid "can not be read: %s"
+msgstr ""
+
+msgid "immutable source type: %s"
+msgstr ""
+
+msgid "not available interface: %s"
+msgstr ""
+
+msgid "can't find HTML template: %s"
+msgstr ""
+
+msgid "can't find theme RD template: %s"
+msgstr ""
+
+msgid "invalid motion: %s"
+msgstr ""
+
+msgid "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %{value}"
+msgstr ""
+
+msgid "unknown cursor type: %s"
+msgstr ""
+
+msgid "print isn't supported"
 msgstr ""
 
 msgid "Installing gem: %s"
@@ -902,67 +944,16 @@ msgstr ""
 msgid "unsupported list type: %s"
 msgstr ""
 
-msgid "multiple {{image, 'XXX.png', :align => :right}} isn't supported."
+msgid "inline {{image(...)}} isn't supported."
+msgstr ""
+
+msgid "multiple {{image(..., :align => :right)}} isn't supported."
 msgstr ""
 
 msgid "Creating directory: %s"
 msgstr ""
 
 msgid "Creating file:      %s"
-msgstr ""
-
-msgid "no such file: %s"
-msgstr ""
-
-msgid "can't handle %s because the following command can't be run successfully: %s"
-msgstr ""
-
-msgid "tried gs commands: %s"
-msgstr ""
-
-msgid "tried dia commands: %s"
-msgstr ""
-
-msgid "tried gimp commands: %s"
-msgstr ""
-
-msgid "Unknown property: %s"
-msgstr ""
-
-msgid "can't allocate color: %s"
-msgstr ""
-
-msgid "not exist: %s"
-msgstr ""
-
-msgid "not a file: %s"
-msgstr ""
-
-msgid "can not be read: %s"
-msgstr ""
-
-msgid "immutable source type: %s"
-msgstr ""
-
-msgid "not available interface: %s"
-msgstr ""
-
-msgid "can't find HTML template: %s"
-msgstr ""
-
-msgid "can't find theme RD template: %s"
-msgstr ""
-
-msgid "invalid motion: %s"
-msgstr ""
-
-msgid "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %{value}"
-msgstr ""
-
-msgid "unknown cursor type: %s"
-msgstr ""
-
-msgid "print isn't supported"
 msgstr ""
 
 msgid "No README found"
