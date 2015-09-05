@@ -5,6 +5,7 @@ require "rabbit/parser/pause-support"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/escape"
+require "rabbit/parser/ext/inline"
 require "rabbit/parser/ext/image"
 require "rabbit/parser/ext/tex"
 
@@ -365,6 +366,11 @@ module Rabbit
 
         def convert_wait(element)
           WaitTag.new
+        end
+
+        def convert_note(element)
+          # TODO: Should we validate element.options[:category] == "span"?
+          Ext::Inline.note(convert_container(element))
         end
       end
     end

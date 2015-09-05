@@ -20,7 +20,7 @@ theme
 * 動作: PC-UNIX/Win/Mac
 * 書式:
   Wiki/RD/Markdown/PDF
-* 見た目: Ruby
+* 見た目: Ruby{::note}（ソースと分離）{:/note}
 
 # 機能: 表示（1）
 
@@ -162,7 +162,7 @@ URL先の画像をダウンロード
 
 # 数式
 
-* 書式: TeX
+* 書式: TeX{::note}（っぽい）{:/note}
 * バックエンド
   * LaTeX
 

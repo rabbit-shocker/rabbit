@@ -20,7 +20,7 @@ A presentation tool
 * Env.: PC-UNIX/Win/Mac
 * Format:
   RD/Wiki/Markdown/PDF
-* View: Ruby
+* View: Ruby {::note}(separated with format){:/note}
 
 # Features: Display (1)
 
@@ -161,7 +161,7 @@ Download an image from a URL
 
 # Math. expressions
 
-* TeX format
+* TeX {::note}(like){:/note} format
 * Backends
   * LaTeX
 

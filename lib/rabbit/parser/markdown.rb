@@ -9,15 +9,28 @@ module Kramdown
     class Kramdown
       alias_method :handle_extension_raw, :handle_extension
       def handle_extension(name, opts, body, type, line_no=nil)
-        case name
-        when "wait"
-          @tree.children << Element.new(:wait, body, nil,
-                                        :category => type,
-                                        :location => line_no)
-          true
-        else
-          handle_extension_raw(name, opts, body, type, line_no)
+        return true if handle_extension_raw(name, opts, body, type, line_no)
+        element = Element.new(name.to_sym,
+                              nil,
+                              opts,
+                              :category => type,
+                              :location => line_no)
+        if body
+          root, warnings = self.class.parse(body, @options)
+          fix_location(root, line_no)
+          if type == :span
+            p_element = root.children.first
+            p_element.children.each do |sub_element|
+              element.children << sub_element
+            end
+          else
+            root.children.each do |sub_element|
+              element.children << sub_element
+            end
+          end
         end
+        @tree.children << element
+        true
       end
 
       alias_method :configure_parser_raw, :configure_parser
@@ -40,6 +53,14 @@ module Kramdown
         ensure
           self.class.send(:remove_const, :FENCED_CODEBLOCK_MATCH)
           self.class.const_set(:FENCED_CODEBLOCK_MATCH, original_match)
+        end
+      end
+
+      private
+      def fix_location(element, base_location)
+        element.options[:location] += base_location - 1
+        element.children.each do |sub_element|
+          fix_location(sub_element, base_location)
         end
       end
     end
