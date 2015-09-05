@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2014-08-03 22:32+0900\n"
+"PO-Revision-Date: 2015-09-05 23:04+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -331,10 +331,10 @@ msgid "COMMAND"
 msgstr ""
 
 msgid "  new:    create a new slide"
-msgstr ""
+msgstr "  new:    新しいスライドを作成"
 
 msgid "  change: change an existing slide"
-msgstr ""
+msgstr "  change: 既存のスライドを変更"
 
 msgid "Slide information"
 msgstr "スライドの情報"
@@ -707,12 +707,6 @@ msgstr "XML-RPCのホスト名を[HOST]とします．"
 msgid "Specify XML-RPC port as [PORT]."
 msgstr "XML-RPCのポートを[PORT]とします．"
 
-msgid "Server"
-msgstr "サーバ"
-
-msgid "Specify whether to run as server."
-msgstr "サーバとして動作するかどうかを指定します．"
-
 msgid "Public level"
 msgstr "公開レベル"
 
@@ -765,7 +759,7 @@ msgid "Others"
 msgstr "その他"
 
 msgid "Check slide source syntax and exit."
-msgstr ""
+msgstr "スライドのソースの構文をチェックして終了します。"
 
 msgid "Show a native window ID of the Rabbit window if available."
 msgstr "可能ならウィンドウシステムに依存したRabbitのウィンドウのIDを表示します。"
@@ -787,12 +781,6 @@ msgstr "XML-RPC用ポート<%s>は使用中です．"
 
 msgid "Window ID: %d"
 msgstr "ウィンドウID: %d"
-
-msgid "going to shutdown..."
-msgstr "終了中です．．．"
-
-msgid "DRb.thread done."
-msgstr "DRB.threadは終了しました．"
 
 msgid "Usage: %s [options]"
 msgstr "使用法: %s [オプション]"
@@ -824,6 +812,60 @@ msgstr "バージョンを表示します．"
 msgid "Index"
 msgstr "一覧"
 
+msgid "no such file: %s"
+msgstr "そのようなファイルはありません: %s"
+
+msgid "can't handle %s because the following command can't be run successfully: %s"
+msgstr "次のコマンドを正常に実行できなかったので%sを扱うことができません: %s"
+
+msgid "tried gs commands: %s"
+msgstr "実行したgsコマンド名: %s"
+
+msgid "tried dia commands: %s"
+msgstr "実行したdiaコマンド名: %s"
+
+msgid "tried gimp commands: %s"
+msgstr "実行したgimpコマンド名: %s"
+
+msgid "Unknown property: %s"
+msgstr "未知のプロパティ: %s"
+
+msgid "can't allocate color: %s"
+msgstr "色を割り当てることができません: %s"
+
+msgid "not exist: %s"
+msgstr "存在しません: %s"
+
+msgid "not a file: %s"
+msgstr "ファイルではありません: %s"
+
+msgid "can not be read: %s"
+msgstr "読み込むことができません: %s"
+
+msgid "immutable source type: %s"
+msgstr "変更不能なソースタイプです: %s"
+
+msgid "not available interface: %s"
+msgstr "利用可能なインターフェイスではありません: %s"
+
+msgid "can't find HTML template: %s"
+msgstr "HTML のテンプレートが見つかりません: %s"
+
+msgid "can't find theme RD template: %s"
+msgstr "テーマ RD のテンプレートが見つかりません: %s"
+
+msgid "invalid motion: %s"
+msgstr "不正な動きです: %s"
+
+msgid "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %{value}"
+msgstr "画像\"%{filename}のサイズプロパティ%{prop_name}の値が不正です: %{value}"
+
+msgid "unknown cursor type: %s"
+msgstr "未知のカーソルタイプ: %s"
+
+msgid "print isn't supported"
+msgstr "印刷をサポートしていません"
+
 msgid "Installing gem: %s"
 msgstr "gemをインストール中: %s"
 
@@ -846,7 +888,7 @@ msgid "PDF"
 msgstr "PDF"
 
 msgid "invalid PDF page number: <%s>"
-msgstr ""
+msgstr "不正なPDFのページ番号です: <%s>"
 
 msgid "%s page doesn't exist in PDF"
 msgstr "PDFの中に%sページはありません"
@@ -926,68 +968,17 @@ msgstr "水平線はサポートしていません"
 msgid "unsupported list type: %s"
 msgstr "サポートしていないリストの種類: %s"
 
-msgid "multiple {{image, 'XXX.png', :align => :right}} isn't supported."
-msgstr "複数の{{image, 'XXX.png', :align => :right}}はサポートしていません。"
+msgid "inline {{image(...)}} isn't supported."
+msgstr "インラインの{{image(...)}}は未サポートです。"
+
+msgid "multiple {{image(..., :align => :right)}} isn't supported."
+msgstr "複数の{{image(..., :align => :right)}}は未対応です。"
 
 msgid "Creating directory: %s"
 msgstr "ディレクトリを作成中: %s"
 
 msgid "Creating file:      %s"
 msgstr "ファイルを作成中:     %s"
-
-msgid "no such file: %s"
-msgstr "そのようなファイルはありません: %s"
-
-msgid "can't handle %s because the following command can't be run successfully: %s"
-msgstr "次のコマンドを正常に実行できなかったので%sを扱うことができません: %s"
-
-msgid "tried gs commands: %s"
-msgstr "実行したgsコマンド名: %s"
-
-msgid "tried dia commands: %s"
-msgstr "実行したdiaコマンド名: %s"
-
-msgid "tried gimp commands: %s"
-msgstr "実行したgimpコマンド名: %s"
-
-msgid "Unknown property: %s"
-msgstr "未知のプロパティ: %s"
-
-msgid "can't allocate color: %s"
-msgstr "色を割り当てることができません: %s"
-
-msgid "not exist: %s"
-msgstr "存在しません: %s"
-
-msgid "not a file: %s"
-msgstr "ファイルではありません: %s"
-
-msgid "can not be read: %s"
-msgstr "読み込むことができません: %s"
-
-msgid "immutable source type: %s"
-msgstr "変更不能なソースタイプです: %s"
-
-msgid "not available interface: %s"
-msgstr "利用可能なインターフェイスではありません: %s"
-
-msgid "can't find HTML template: %s"
-msgstr "HTML のテンプレートが見つかりません: %s"
-
-msgid "can't find theme RD template: %s"
-msgstr "テーマ RD のテンプレートが見つかりません: %s"
-
-msgid "invalid motion: %s"
-msgstr "不正な動きです: %s"
-
-msgid "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %{value}"
-msgstr "画像\"%{filename}のサイズプロパティ%{prop_name}の値が不正です: %{value}"
-
-msgid "unknown cursor type: %s"
-msgstr "未知のカーソルタイプ: %s"
-
-msgid "print isn't supported"
-msgstr "印刷をサポートしていません"
 
 msgid "No README found"
 msgstr "READMEがありません"
