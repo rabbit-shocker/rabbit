@@ -90,7 +90,6 @@ module Rabbit
         end
       end
 
-      include Element
       def parse
         document = Kramdown::Document.new(@source.read)
         converter = Converter.new(@canvas)
