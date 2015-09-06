@@ -3,6 +3,20 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.8: 2015-09-06
+
+A bug fix release for 2.1.7. 2.1.7 can't start on Windows.
+
+=== Fixes
+
+==== rabbit
+
+  * Windows: Fixed a bug that Rabbit can't start. [Reported by yoku0825]
+
+=== Thanks
+
+  * yoku0825
+
 == 2.1.7: 2015-09-05
 
 Note markup support in Markdown release.
