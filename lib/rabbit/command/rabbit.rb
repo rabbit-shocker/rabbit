@@ -50,6 +50,10 @@ module Rabbit
 
         application = ::Rabbit.application
         succeeded = false
+        application.signal_connect("command-line") do |_, command_line|
+          application.activate
+          0
+        end
         application.signal_connect("activate") do
           succeeded = __send__("do_#{@options.action}")
         end

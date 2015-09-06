@@ -32,7 +32,7 @@ module Rabbit
 
   class << self
     def application
-      @@application ||= Gtk::Application.new(nil, :flags_none)
+      @@application ||= Gtk::Application.new(nil, :handles_command_line)
     end
   end
 end
