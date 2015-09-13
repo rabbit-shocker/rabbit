@@ -1,6 +1,7 @@
 @title_slide_font_size ||= @large_font_size
 @title_slide_title_font_size ||= @x_large_font_size
 @title_slide_subtitle_font_size ||= @normal_font_size
+@title_slide_author_font_size ||= @title_slide_font_size
 @title_slide_content_source_font_size ||= @small_font_size
 @title_slide_institution_font_size ||= @normal_font_size
 @title_slide_place_font_size ||= @normal_font_size
@@ -20,6 +21,10 @@ end
 
 match(TitleSlide, Subtitle) do |titles|
   titles.prop_set("size", @title_slide_subtitle_font_size)
+end
+
+match(TitleSlide, Author) do |authors|
+  authors.prop_set("size", @title_slide_author_font_size)
 end
 
 match(TitleSlide, ContentSource) do |sources|
