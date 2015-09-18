@@ -2405,8 +2405,6 @@ module Rabbit
           "copysr" => "&#x02117;",
           # =ballot cross
           "cross" => "&#x02717;",
-          # /dagger B: =dagger
-          "dagger" => "&#x02020;",
           # =hyphen (true graphic)
           "dash" => "&#x02010;",
           # /diamondsuit =diamond suit symbol
