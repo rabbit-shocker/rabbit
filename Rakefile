@@ -82,7 +82,7 @@ end
 namespace :entity do
   desc "Update entities"
   task :update do
-    sh("entities/ent2rb.rb entities/*.ent")
+    ruby("entities/ent2rb.rb", *Dir.glob("entities/*.ent").sort)
   end
 end
 
