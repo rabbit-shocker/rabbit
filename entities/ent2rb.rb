@@ -47,7 +47,7 @@ module Rabbit
         TABLE = {
   HEADER
 
-  entities.keys.each do |key|
+  entities.keys.sort.each do |key|
     attributes = entities[key]
     value   = attributes[:value]
     comment = attributes[:comment]
