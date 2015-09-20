@@ -52,13 +52,16 @@ module Rabbit
         succeeded = false
         application.signal_connect("command-line") do |_, command_line|
           application.activate
-          0
+          succeeded ? 0 : 1
         end
         application.signal_connect("activate") do
-          succeeded = __send__("do_#{@options.action}")
+          begin
+            succeeded = __send__("do_#{@options.action}")
+          rescue
+            @logger.error($!)
+          end
         end
-        application.run
-        succeeded
+        application.run.zero?
       end
 
       private
