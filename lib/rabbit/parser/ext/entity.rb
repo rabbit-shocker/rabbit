@@ -3959,13 +3959,10 @@ module Rabbit
           "zeetrf" => "&#x02128;",
           # character showing function application in presentation tagging
           "af" => "&#x02061;",
-          #
           "aopf" => "&#x1D552;",
           # Old ISOAMSR asymp (for HTML compatibility)
           "asympeq" => "&#x0224D;",
-          #
           "bopf" => "&#x1D553;",
-          #
           "copf" => "&#x1D554;",
           # cross or vector product
           "Cross" => "&#x02A2F;",
@@ -3973,7 +3970,6 @@ module Rabbit
           "DD" => "&#x02145;",
           # d for use in differentials, e.g., within integrals
           "dd" => "&#x02146;",
-          #
           "dopf" => "&#x1D555;",
           # down arrow to bar
           "DownArrowBar" => "&#x02913;",
@@ -3993,7 +3989,6 @@ module Rabbit
           "EmptySmallSquare" => "&#x025FB;",
           # empty small square
           "EmptyVerySmallSquare" => "&#x025AB;",
-          #
           "eopf" => "&#x1D556;",
           # two consecutive equal signs
           "Equal" => "&#x02A75;",
@@ -4001,15 +3996,12 @@ module Rabbit
           "FilledSmallSquare" => "&#x025FC;",
           # filled very small square
           "FilledVerySmallSquare" => "&#x025AA;",
-          #
           "fopf" => "&#x1D557;",
-          #
           "gopf" => "&#x1D558;",
           # alias for GT
           "GreaterGreater" => "&#x02AA2;",
           # circumflex accent
           "Hat" => "&#x0005E;",
-          #
           "hopf" => "&#x1D559;",
           # short horizontal line
           "HorizontalLine" => "&#x02500;",
@@ -4017,13 +4009,10 @@ module Rabbit
           "ic" => "&#x02063;",
           # i for use as a square root of -1
           "ii" => "&#x02148;",
-          #
           "iopf" => "&#x1D55A;",
           # marks multiplication when it is understood without a mark
           "it" => "&#x02062;",
-          #
           "jopf" => "&#x1D55B;",
-          #
           "kopf" => "&#x1D55C;",
           # leftwards arrow to bar
           "larrb" => "&#x021E4;",
@@ -4047,7 +4036,6 @@ module Rabbit
           "LeftVectorBar" => "&#x02952;",
           # alias for Lt
           "LessLess" => "&#x02AA1;",
-          #
           "lopf" => "&#x1D55D;",
           # downwards arrow from bar
           "mapstodown" => "&#x021A7;",
@@ -4057,7 +4045,6 @@ module Rabbit
           "mapstoup" => "&#x021A5;",
           # space of width 4/18 em
           "MediumSpace" => "&#x0205F;",
-          #
           "mopf" => "&#x1D55E;",
           # not bumpy equals
           "nbump" => "&#x0224E;&#x00338;",
@@ -4069,7 +4056,6 @@ module Rabbit
           "NewLine" => "&#x0000A;",
           # never break line here
           "NoBreak" => "&#x02060;",
-          #
           "nopf" => "&#x1D55F;",
           # alias for &nasymp;
           "NotCupCap" => "&#x0226D;",
@@ -4089,7 +4075,6 @@ module Rabbit
           "NotSquareSuperset" => "&#x02290;&#x00338;",
           # not succeeds or similar
           "NotSucceedsTilde" => "&#x0227F;&#x00338;",
-          #
           "oopf" => "&#x1D560;",
           # over bar
           "OverBar" => "&#x000AF;",
@@ -4101,11 +4086,9 @@ module Rabbit
           "OverParenthesis" => "&#x0FE35;",
           # the ring (skew field) of quaternions
           "planckh" => "&#x0210E;",
-          #
           "popf" => "&#x1D561;",
           # alias for &prod;
           "Product" => "&#x0220F;",
-          #
           "qopf" => "&#x1D562;",
           # leftwards arrow to bar
           "rarrb" => "&#x021E5;",
@@ -4125,19 +4108,16 @@ module Rabbit
           "RightUpVectorBar" => "&#x02954;",
           # up-right harpoon to bar
           "RightVectorBar" => "&#x02953;",
-          #
           "ropf" => "&#x1D563;",
           # round implies
           "RoundImplies" => "&#x02970;",
           # rule-delayed (colon right arrow)
           "RuleDelayed" => "&#x029F4;",
-          #
           "sopf" => "&#x1D564;",
           # tabulator stop; horizontal tabulation
           "Tab" => "&#x00009;",
           # space of width 5/18 em
           "ThickSpace" => "&#x02009;&#x0200A;&#x0200A;",
-          #
           "topf" => "&#x1D565;",
           # under brace
           "UnderBrace" => "&#x0FE38;",
@@ -4145,7 +4125,6 @@ module Rabbit
           "UnderBracket" => "&#x023B5;",
           # under parenthesis
           "UnderParenthesis" => "&#x0FE36;",
-          #
           "uopf" => "&#x1D566;",
           # up arrow to bar
           "UpArrowBar" => "&#x02912;",
@@ -4155,17 +4134,12 @@ module Rabbit
           "VerticalLine" => "&#x0007C;",
           # vertical separating operator
           "VerticalSeparator" => "&#x02758;",
-          #
           "vopf" => "&#x1D567;",
-          #
           "wopf" => "&#x1D568;",
-          #
           "xopf" => "&#x1D569;",
-          #
           "yopf" => "&#x1D56A;",
           # zero width space
           "ZeroWidthSpace" => "&#x0200B;",
-          #
           "zopf" => "&#x1D56B;",
         }
       end
