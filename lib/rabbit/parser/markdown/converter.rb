@@ -376,6 +376,10 @@ module Rabbit
         def convert_strikethrough(element)
           DeletedText.new(text(element.value))
         end
+
+        def convert_html_element(element)
+          raise ParseError, _("HTML isn't supported.")
+        end
       end
     end
   end
