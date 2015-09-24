@@ -96,6 +96,40 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
       end
     end
 
+    class DeletedTextTest < self
+      def test_simple
+        assert_equal([
+                       "Body", [
+                         "Paragraph",
+                         ["Text", "Hello "],
+                         ["DeletedText", ["Text", "deleted"]],
+                         ["Text", " World"],
+                       ],
+                     ],
+                     parse("Hello ~~deleted~~ World"))
+      end
+
+      def test_start_only
+        assert_equal([
+                       "Body", [
+                         "Paragraph",
+                         ["Text", "Hello ~~ World"],
+                       ],
+                     ],
+                     parse("Hello ~~ World"))
+      end
+
+      def test_escaple
+        assert_equal([
+                       "Body", [
+                         "Paragraph",
+                         ["Text", "Hello ~~not deleted~~ World"],
+                       ],
+                     ],
+                     parse("Hello \\~\\~not deleted\\~\\~ World"))
+      end
+    end
+
     class SyntaxHighlightTest < self
       def test_indent_lang
         assert_equal([

@@ -372,6 +372,10 @@ module Rabbit
           # TODO: Should we validate element.options[:category] == "span"?
           Ext::Inline.note(convert_container(element))
         end
+
+        def convert_strikethrough(element)
+          DeletedText.new(text(element.value))
+        end
       end
     end
   end

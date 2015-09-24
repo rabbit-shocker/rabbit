@@ -35,14 +35,42 @@ module Kramdown
 
       alias_method :configure_parser_raw, :configure_parser
       def configure_parser
+        @span_parsers.unshift(:strikethrough)
         position = @block_parsers.index(:codeblock_fenced)
         @block_parsers.insert(position, :codeblock_fenced_gfm)
 
         configure_parser_raw
       end
 
-      parser(:codeblock_fenced_gfm).method = "parse_codeblock_fenced_gfm"
+      STRIKETHROUGH_DELIMITER = "~~"
+      STRIKETHROUGH_DELIMITER_PATTERN =
+        /#{Regexp.escape(STRIKETHROUGH_DELIMITER)}/
+      def parse_strikethrough
+        start_line_number = @src.current_line_number
 
+        delimiter = @src.scan(STRIKETHROUGH_DELIMITER_PATTERN)
+        saved_pos = @src.save_pos
+
+        text = @src.scan_until(STRIKETHROUGH_DELIMITER_PATTERN)
+        if text
+          text = text.sub(/#{STRIKETHROUGH_DELIMITER_PATTERN}\Z/, "")
+          @tree.children << Element.new(:strikethrough, text, nil,
+                                        :location => start_line_number)
+        else
+          @src.revert_pos(saved_pos)
+          add_text(delimiter)
+        end
+      end
+      define_parser(:strikethrough,
+                    STRIKETHROUGH_DELIMITER_PATTERN,
+                    STRIKETHROUGH_DELIMITER)
+
+      escaped_chars_start_re =
+        parser(:escaped_chars).start_re.to_s.sub(/(\]\)\))\z/, "~\\1")
+      parser(:escaped_chars).start_re = /#{escaped_chars_start_re}/
+
+
+      parser(:codeblock_fenced_gfm).method = "parse_codeblock_fenced_gfm"
       def parse_codeblock_fenced_gfm
         original_match = self.class::FENCED_CODEBLOCK_MATCH
         begin
