@@ -7,55 +7,39 @@ title: Install on Windows
 This document describes how to install and use Rabbit on
 Windows.
 
-There are required softwares and optional softwares.
+=== How to install
 
-=== Install required softwares
-
-Here are required softwares.
+Install the following software:
 
   * Ruby
   * Rabbit
 
-==== Install Ruby
+==== How to install Ruby
 
-Install Ruby 2.0.0 or later from ((<download page of RubyInstall for
-Windows|URL:http://rubyinstaller.org/downloads/>)). For
-example, Ruby 2.0.0-p576 installer can be downloaded via the
-following URL.
+Download and execute Ruby installer from ((<download page of
+RubyInstall for
+Windows|URL:http://rubyinstaller.org/downloads/>)). You can use both
+32bit version and 64bit version.
 
-: rubyinstaller-2.0.0-p576.exe
-   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p576.exe>))
+==== How to install Rabbit
 
-Note: You need to install 32bit version Ruby instead of 64bit, even if you use 64bit Windows.
-Currently Rabbit doesn't work with 64bit Ruby on Windows.
-
-==== Install Rabbit
-
-RubyInstaller install "Start Command Prompt with Ruby"
-program into start menu. This program shows command prompt
-with PATH configuration for ruby.exe. You can install Rabbit
-by the following command on the command prompt:
+RubyInstaller install "Start Command Prompt with Ruby" program into
+start menu. This program shows command prompt with PATH configuration
+for (({ruby.exe})). You can install Rabbit by the following command on
+the command prompt:
 
   > gem install rabbit
 
 Related softwares (e.g. Ruby/GTK2 and so on) are also
 install automatically.
 
-Now you can run Rabbit by the following command:
+=== How to run Rabbit
 
-  > rabbit rabbit-theme-benchmark-en.gem
+Run the following command on command prompt that is used for
+installing Rabbit:
 
-=== Install optional softwares
+  > rabbit
 
-Here are optional softwares:
+It opens a dialog to open a slide file.
 
-  * Ghostscript
-
-==== EPS format support
-
-(1) Install AFPL Ghostscript for Win32.
-
-    : gs853w32.exe
-        ((<URL:ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs853/gs853w32.exe>))
-
-(2) Add <Ghostscript Install Path>/gs/gs8.53/bin to the PATH environment variable.
+See also ((<How to make a slide source|URL:../how-to-make/>)).

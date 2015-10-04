@@ -4,59 +4,43 @@ title: Windowsへインストール
 ---
 == Windowsでのインストール方法
 
-Windows上でRabbitをインストール、利用する手順について説明し
-ます。
+Windows上でRabbitをインストールする方法、起動方法について説明します。
 
-必ずインストールしなければいけないソフトウェアと、なくても動
-くけどあると便利なソフトウェアがあります。
+=== インストール方法
 
-=== 必須のソフトウェアのインストール
-
-以下が必須のソフトウェアです。
+以下のソフトウェアをインストールします。
 
   * Ruby
   * Rabbit
 
-まずは必須のソフトウェアをインストールしましょう。
+それぞれ説明します。
 
-==== Ruby 本体のインストール
+==== Rubyのインストール方法
 
 ((<RubyInstall for Windowsのダウンロードページ（英語）
-|URL:http://rubyinstaller.org/downloads/>))からRuby 2.0.0 以降の
-インストーラをダウンロードします。Ruby 2.0.0-p576のインストー
-ラは以下のURLからダウンロードできます。
+|URL:http://rubyinstaller.org/downloads/>))からインストーラーをダウン
+ロードして実行します。32bit版のRubyでも64bit版のRubyでもかまいません。
 
-: rubyinstaller-2.0.0-p576.exe
-   ((<URL:http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.0.0-p576.exe>))
+==== Rabbitのインストール方法
 
-注意：64bit版Windowsを使っている場合でも、32bit版のRubyをインストールしてください。
-現在のところ、RabbitはWindows上の64bit版Rubyでは動作しません。
-
-==== Rabbitのインストール
-
-RubyInstallerをインストールするとスタートメニューに「Start
-Command Prompt with Ruby」（日本語の場合は「Ruby コマンド
-プロンプトを開く」）というプログラムが追加されます。こ
-のプログラムを実行するとruby.exeにパスが通ったコマンドプロン
-プトが表示されます。ここで以下のコマンドを実行することで
-Rabbitをインストールできます。Ruby/GTK2など関連するソフトウェ
-アも一緒にインストールされます。
+RubyInstallerをインストールするとスタートメニューに「Start Command
+Prompt with Ruby」（日本語の場合は「Ruby コマンドプロンプトを開く」）
+というプログラムが追加されます。このプログラムを実行すると
+(({ruby.exe}))にパスが通ったコマンドプロンプトが表示されます。ここで以
+下のコマンドを実行することでRabbitをインストールできます。Ruby/GTK2な
+ど関連するソフトウェアも一緒にインストールされます。
 
   > gem install rabbit
 
-=== 必須ではないソフトウェアのインストール
+=== 起動方法
 
-以下がなくても動くけどあると便利なソフトウェアです。
+Rabbitのインストール時に使ったコマンドプロンプトで次のコマンドを実行し
+ます。
 
-  * Ghostscript
+  > rabbit
 
-それではあると便利なソフトウェアをインストールしましょう。
+実行するとスライドファイルを開くダイアログが表示されるので作成したスラ
+イドファイルを指定します。
 
-==== EPS を表示する
-
-(1) AFPL Ghostscript 8.53 for Win32 をインストールする。
-
-    : gs853w32.exe
-        ((<URL:http://www.cs.wisc.edu/~ghost/>))
-
-(2) インストール後 <インストール先>/gs/gs8.53/bin に PATH を通す。
+スライドファイルの作成方法は((<スライドの作り方|URL:../how-to-make/>))
+を参考にしてください。
