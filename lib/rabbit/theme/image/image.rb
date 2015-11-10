@@ -40,17 +40,18 @@ match("**", Image) do |images|
   draw_frame(images, params) if @image_with_frame
   
   images.each do |image|
-    unless image.caption
+    caption_text = image.caption
+    if caption_text.nil? or caption_text.empty?
       image.margin_bottom = @space
       next
     end
-    
+
     layout = nil
     th = 0
 
     image.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if simulation
-        caption = Text.new(image.caption)
+        caption = Text.new(caption_text)
         caption.prop_set("size", @image_caption_font_size)
         set_font_family(caption)
         if image.horizontal_centering
