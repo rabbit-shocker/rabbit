@@ -32,7 +32,7 @@ Rabbit をインストール、利用する手順について説明します。
 
 gem install を実行します。
 
-  $ sudo gem install rabbit
+  $ sudo PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig gem install rabbit
   $ sudo gem install rabbiter # Twitter連携機能を使う場合
 
 === 環境変数の設定

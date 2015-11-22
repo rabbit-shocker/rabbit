@@ -32,7 +32,7 @@ Then add /usr/local/bin to your PATH.
 
 Exec gem install.
 
-  $ sudo gem install rabbit
+  $ sudo PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig gem install rabbit
   $ sudo gem install rabbiter # If you want to use Twitter related features
 
 === Set environment variable
