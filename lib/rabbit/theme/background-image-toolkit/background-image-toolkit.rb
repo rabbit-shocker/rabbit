@@ -42,12 +42,19 @@ def apply_background_image_property(element, options={})
 
       old_geometry = [_x, _y, _w, _h]
       image.compile(canvas, _x, _y, _w, _h)
-      if image.do_vertical_centering?
+
+      case vertical_align
+      when "center"
         adjust_height = ((_h - image.height - image.padding_bottom) / 2.0).ceil
         if _y + adjust_height > 0
           _y += adjust_height
           _h -= adjust_height
         end
+      when "bottom"
+        adjust_height =
+          image.height + image.padding_bottom + element.margin_bottom
+        _y = _h - adjust_height
+        _h -= adjust_height
       end
 
       case align
