@@ -148,10 +148,6 @@ module Rabbit
           set_keys(keys, mod) do |group, obj, val, modifier|
             @canvas.activate("SearchSlideForwardNext")
           end
-          keys = Keys::STOP_SLIDE_SEARCH_KEYS
-          set_keys(keys, mod) do |group, obj, val, modifier|
-            @canvas.activate("StopSlideSearch")
-          end
         end
 
         def init_shift_keys

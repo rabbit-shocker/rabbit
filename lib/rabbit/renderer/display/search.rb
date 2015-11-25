@@ -56,7 +56,12 @@ module Rabbit
           direction = @search_window.direction
           entry.signal_connect("key_press_event") do |widget, key|
             if key.state == Gdk::ModifierType.new
-              false
+              if Keys::STOP_SLIDE_SEARCH_KEYS.include?(key.keyval)
+                @canvas.activate("StopSlideSearch")
+                true
+              else
+                false
+              end
             else
               Gtk::AccelGroup.activate(@window, key.keyval, key.state)
             end
