@@ -1,3 +1,5 @@
+include_theme("default-comment")
+
 match("**", ImageTitleSlide) do |slides|
   slides.vertical_centering = true
 end
