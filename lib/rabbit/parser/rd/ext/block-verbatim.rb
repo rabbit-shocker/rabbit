@@ -182,6 +182,13 @@ module Rabbit
             end
             wait_block
           end
+
+          def ext_block_verb_pango(label, source, content, visitor)
+            return nil unless /\Apango\z/i =~ label
+            src, prop = parse_source(source)
+            text = Text.new(src)
+            PreformattedBlock.new(PreformattedText.new(text))
+          end
         end
       end
     end
