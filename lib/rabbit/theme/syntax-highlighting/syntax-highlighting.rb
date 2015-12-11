@@ -169,7 +169,6 @@ match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|
 
   scheme = @syntax_highlighting_scheme_default.merge(@syntax_highlighting_scheme)
   tags.each do |tag|
-    p [tag.name, tag.text]
     case tag.name
     when /\Asyntax-(.+)\z/
       style = (scheme[$1.gsub(/-/, '_').to_sym] || {})
