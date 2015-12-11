@@ -89,6 +89,18 @@ theme_exit if @syntax_highlighting_uninstall
   :directive => {
     :color => "#5c35cc",
   },
+  :head => {
+    :color => "#204a87",
+  },
+  :change => {
+    :color => "#8f5902",
+  },
+  :delete => {
+    :color => "#a40000",
+  },
+  :insert => {
+    :color => "#4e9a06",
+  },
 }
 
 @syntax_highlighting_foreground ||= "#000000"
@@ -157,6 +169,7 @@ match("**", SyntaxHighlightingBlock, "**", CustomTag) do |tags|
 
   scheme = @syntax_highlighting_scheme_default.merge(@syntax_highlighting_scheme)
   tags.each do |tag|
+    p [tag.name, tag.text]
     case tag.name
     when /\Asyntax-(.+)\z/
       style = (scheme[$1.gsub(/-/, '_').to_sym] || {})
