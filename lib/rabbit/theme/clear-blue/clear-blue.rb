@@ -30,6 +30,8 @@ set_progress_background(base_background_color)
 @preformatted_frame_color = base_color
 @preformatted_fill_color = base_background_color
 
+@syntax_highlighting_frame_color = base_color
+
 @block_quote_frame_color = base_color
 @block_quote_fill_color = base_background_color
 
