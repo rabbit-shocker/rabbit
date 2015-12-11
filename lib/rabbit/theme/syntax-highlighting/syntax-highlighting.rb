@@ -51,10 +51,10 @@ theme_exit if @syntax_highlighting_uninstall
     :color => "#4e9a06",
   },
   :integer => {
-    :color => "#c4a000",
+    # :color => "#c4a000",
   },
   :float => {
-    :color => "#c4a000",
+    # :color => "#c4a000",
   },
   :variable => {
     :color => "#ce5c00",
