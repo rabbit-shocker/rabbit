@@ -447,7 +447,7 @@ module Rabbit
                     Array,
                     _("Set page margin.")) do |margins|
             begin
-              top, right, bottom, left = Utils.parse_four_dimensions(margins)
+              top, right, bottom, left = Utils.parse_four_way(margins)
               options.page_margin_top = top
               options.page_margin_right = right
               options.page_margin_bottom = bottom
