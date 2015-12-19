@@ -651,6 +651,7 @@ module Rabbit
         add_source_dialog_filter(dialog, "RD files", "*.rd")
         add_source_dialog_filter(dialog, "Hiki files", "*.hiki")
         add_source_dialog_filter(dialog, "PDF files", "*.pdf")
+        add_source_dialog_filter(dialog, "Markdown files", "*.md")
         add_source_dialog_filter(dialog, "All files", "*")
         file_name = nil
         if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
