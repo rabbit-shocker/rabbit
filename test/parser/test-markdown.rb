@@ -346,5 +346,18 @@ a ![](#{image_path})
         end
       end
     end
+
+    class HorizontalRuleTest < self
+      include Rabbit::GetText
+
+      def test_unsupported
+        message = _("horizontal rule isn't supported.")
+        assert_raise(Rabbit::ParseError.new(message)) do
+          parse(<<-MARKDOWN)
+---
+          MARKDOWN
+        end
+      end
+    end
   end
 end

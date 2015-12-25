@@ -262,7 +262,7 @@ module Rabbit
         end
 
         def convert_hr(element)
-          :no_element
+          raise ParseError, _("horizontal rule isn't supported.")
         end
 
         def convert_comment(element)
