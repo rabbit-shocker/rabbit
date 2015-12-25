@@ -261,6 +261,10 @@ module Rabbit
           end
         end
 
+        def convert_hr(element)
+          :no_element
+        end
+
         def convert_comment(element)
           :no_element
         end
