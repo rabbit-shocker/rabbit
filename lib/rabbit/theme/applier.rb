@@ -65,10 +65,16 @@ module Rabbit
 
       def draw_mark(indent_width, width_or_proc, height_or_proc, name=nil)
         indent(indent_width, name) do |item, canvas, x, y, w, h|
-          first_text = item.elements.first
-          if first_text
+          first_element = item.elements.first
+          case first_element
+          when Element::TextRenderer
+            first_text = first_element
             text_height = first_text.first_line_height
             text_height += first_text.padding_top + first_text.padding_bottom
+          when Element::EnumList, Element::ItemList
+            first_item = first_element.elements.first
+            text_height = first_item.height
+            text_height += first_item.padding_top + first_item.padding_bottom
           else
             text_height = item.height
           end
