@@ -9,13 +9,16 @@ rvm:
   - 2.1
   - 2.2
   - ruby-head
+addons:
+  apt:
+    packages:
+#      - python-blockdiag
+      - python-pip
 matrix:
   allow_failures:
     - rvm: ruby-head
   fast_finish: true
 before_install:
-#  - sudo apt-get install -qq -y python-blockdiag
-  - sudo -H apt-get install -qq -y python-pip
   - sudo -H pip install blockdiag
 before_script:
   - sh -e /etc/init.d/xvfb start
