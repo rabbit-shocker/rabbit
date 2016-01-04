@@ -172,6 +172,7 @@ module Rabbit
         end
 
         def create_list_item(list_item_class, contents)
+          raise ParseError,_("invalid item in list.")  unless contents.first.is_a?(Paragraph)
           list_item = list_item_class.new(contents)
 
           waited_paragraphs = list_item.elements.find_all do |element|
