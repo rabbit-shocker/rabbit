@@ -8,7 +8,7 @@ Rabbit is a presentation tool for programmer, especially Rubyist.
 
 Slide is written in text format, so you can use your favorite editor or versioning tool to make it.
 
-Rabbit also has programmer-friendly keybord interface. 
+Rabbit also has programmer-friendly keybord interface.
 You can use Rabbit just as a slide viewer because Rabbit also supports PDF format.
 It means even after making slide in other tool like Keynote, you can use Rabbit for displaying it.
 
