@@ -40,14 +40,15 @@ match("**", Image) do |images|
   draw_frame(images, params) if @image_with_frame
   
   images.each do |image|
+    image.margin_bottom = @space
+
     caption_text = image.caption
     if caption_text.nil? or caption_text.empty?
-      image.margin_bottom = @space
       next
     end
 
     layout = nil
-    th = 0
+    caption_height = 0
 
     image.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
       if simulation
@@ -59,18 +60,18 @@ match("**", Image) do |images|
         end
         caption.compile(canvas, image.ox || x, y, image.ow || w, h)
         layout = caption.layout
-        th = caption.height
-
-        margin_bottom = @space + th
-        image.margin_bottom = margin_bottom
+        caption_height = caption.height
       end
       if !simulation and layout
         base_x = image.ox || x
         base_y = y
         caption_color = image["caption-color"] || @image_caption_color
-        canvas.draw_layout(layout, base_x, base_y, caption_color)
+        canvas.draw_layout(layout,
+                           base_x,
+                           base_y + image.margin_bottom,
+                           caption_color)
       end
-      [x, y, w, h]
+      [x, y + caption_height, w, h - caption_height]
     end
   end
 end
