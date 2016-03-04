@@ -43,27 +43,21 @@ institution is COZMIXNG.
 At the moment, you can specify subtitle, content_source and
 even the theme. "theme" is for the default theme of this slide.
 
-### ...
-
-TODO: Add other syntaxes...
-
 ### Emphasis
 
-You can emphasize strings. Enclose it with an asterisk.  
+You can emphasize strings. Enclose it with an asterisk.
 
-```
-*Emphasis*
-```
+    *Emphasis*
 
 ### Image
 
-You can describe as normal markdown format.  
+You can describe as normal markdown format.
 
     ![image](lavie.png)
 
 ### Table
 
-Also you can make table.  
+Also you can make table.
 
     |Head1       |Head2        |Head3         |
     |:-----------|------------:|:------------:|
