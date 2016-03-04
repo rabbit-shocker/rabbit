@@ -65,21 +65,17 @@ Also you can make table.
 
 ### Items
 
-Markdown has several list notation such as \*, \+, \-  
+Markdown has several list notation such as \*, \+, \-
 You can use any of the notation.
 
-```
-* Level1-1  
-  * Level2-1
-* Level1-2  
-* Level1-3  
-```
+    * Level1-1
+      * Level2-1
+    * Level1-2
+    * Level1-3
 
 ### Quotation
 
-If you put ">" on the head of the line, it will be quoted text.  
+If you put ">" on the head of the line, it will be quoted text.
 
-```
-> You take the *red pill*, you stay in Wonderland and
-> I show you how deep the *rabbit-hole* goes.
-```
+    > You take the *red pill*, you stay in Wonderland and
+    > I show you how deep the *rabbit-hole* goes.
