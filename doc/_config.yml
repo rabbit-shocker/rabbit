@@ -7,3 +7,23 @@ rabbirack_version: 2.0.0
 rabbirack_release_date: 2012-08-29
 rabwii_version: 2.0.0
 rabwii_release_date: 2012-08-29
+
+defaults:
+  - scope:
+      path: "index.html.ja"
+    values:
+      layout: "ja"
+      language: ja
+      country: JP
+  - scope:
+      path: "ja"
+    values:
+      layout: "ja"
+      language: ja
+      country: JP
+  - scope:
+      path: ""
+    values:
+      layout: "en"
+      language: en
+      country: US
