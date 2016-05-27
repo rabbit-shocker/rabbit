@@ -3,6 +3,105 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.1.9: 2016-05-27
+
+Markdown support improvement release.
+
+=== Improvements
+
+==== rabbit
+
+  * Suppressed warnings on Ruby 2.3.
+    [GitHub#77][Patch by takiy33]
+
+  * Markdown markup: Supported strike through markup in GFM (GitHub
+    Flavored Markdown).
+    [Suggested by yoku0825]
+
+    Syntax:
+
+      ~~deleted text~~
+
+  * Markdown markup: Supported reporting an error for using HTML
+    because using HTML isn't supported.
+
+  * Supported stopping search by escape key.
+
+  * RD markup: Supported (({pango})) block verbatim.
+    You can text with ((<Pango
+    markup|URL:https://developer.gnome.org/pango/stable/PangoMarkupFormat.html>))
+    in the block.
+
+    Syntax:
+
+      # pango
+
+      <span foreground="red">Red Text</span>
+
+  * Supported filtering Markdown files in file choose dialog.
+    [GitHub#83][Patch by tSU_Root]
+
+  * Markdown markup: Supported reporting an error for using horizontal
+    rule because horizontal rule isn't supported.
+    [GitHub#84][Reported by tSU_RooT]
+
+  * Markdown markup: Supported list in list.
+    [GitHub#85][Reported by tSU_RooT]
+
+==== Theme
+
+  * default-title-text: Supported customizing author font size by
+    (({@title_slide_font_size})).
+
+  * background-image-toolkit: Supported (({bottom})) vertical align.
+
+  * image-viewer: Supported comment.
+
+  * syntax-highlighting: Supported diff format.
+
+  * syntax-highlighting: Stopped highlighing numbers.
+
+  * clear-blue: Supported frame color in syntax highlight.
+
+==== Document
+
+  * Added links to licenses.
+    [GitHub#86][Patch by tSU_Root]
+
+  * Updated document about how to write a slide in Markdown.
+    [GitHub#89][Patch by tSU_Root]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that slide with invalid format crashes Rabbit.
+    [GitHub#76][Reported by takiy33]
+
+  * Fixed a bug that (({--margin})) option value is parsed wrongly.
+    [GitHub#82][Patch by zunda]
+
+==== Theme
+
+   * image: Fixed a bug that image size reduced with Markdown markup
+     with image-timer theme.
+     [GitHub#78][Reported by TOMITA Masahiro]
+
+   * image: Fixed a bug that image size isn't stable for image with caption.
+     [GitHub#88][Reported by TOMITA Masahiro]
+
+=== Thanks
+
+  * takiy33
+
+  * yoku0825
+
+  * TOMITA Masahiro
+
+  * zunda
+
+  * tSU_Root
+
 == 2.1.8: 2015-09-06
 
 A bug fix release for 2.1.7. 2.1.7 can't start on Windows.

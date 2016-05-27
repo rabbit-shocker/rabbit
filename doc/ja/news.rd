@@ -4,6 +4,105 @@ title: お知らせ
 apply_data: false
 ---
 {% raw %}
+== 2.1.9: 2016-05-27
+
+Markdownサポートを強化したリリース。
+
+=== 改良
+
+==== rabbit
+
+  * Ruby 2.3での警告を削除。
+    [GitHub#77][takiy33さんがパッチ提供]
+
+  * Markdownマークアップ: GFM（GitHub Flavored Markdown）での取り消し
+    線マークアップに対応した。
+    [yoku0825さんが提案]
+
+    構文:
+
+      ~~deleted text~~
+
+  * Markdownマークアップ: 直接HTMLを記述する方法をサポートしていないた
+    め、HTMLを書いたらエラーになるようにした。
+
+  * エスケープキーで検索を止められるようにした。
+
+  * RDマークアップ: (({pango})) block verbatimをサポートした。
+    ((<Pangoのマークアップ|URL:https://developer.gnome.org/pango/stable/PangoMarkupFormat.html>))をしたテキストを指定できる。
+
+    構文:
+
+      # pango
+
+      <span foreground="red">Red Text</span>
+
+  * ファイル選択ダイアログでMarkdownファイルのみを絞り込めるようにした。
+    [GitHub#83][tSU_Rootさんがパッチ提供]
+
+  * Markdownマークアップ: サポートしていない平行線マークアップを使った
+    場合はエラーを報告するようにした。
+    [GitHub#84][tSU_RooTさんが報告]
+
+  * Markdownマークアップ: リスト内でのリストをサポートした。
+    [GitHub#85][tSU_RooTさんが報告]
+
+==== テーマ
+
+  * default-title-text: (({@title_slide_font_size}))で作者のフォントサ
+    イズをカスタマイズできるようにした。
+
+  * background-image-toolkit: 縦方向の整列方法として(({bottom}))をサポー
+    トした。
+
+  * image-viewer: コメントをサポートした。
+
+  * syntax-highlighting: diff形式をサポートした。
+
+  * syntax-highlighting: 数字を色付けすることをやめた。
+
+  * clear-blue: シンタックスハイライト部分の枠の色を指定した。
+
+==== ドキュメント
+
+  * ライセンスの詳細をリンクにした。
+    [GitHub#86][tSU_Rootさんがパッチ提供]
+
+  * Markdownでのスライドの書き方ドキュメントを更新した。
+    [GitHub#89][tSU_Rootさんがパッチ提供]
+
+=== 修正
+
+==== rabbit
+
+  * 不正な内容のスライドを指定するとクラッシュする問題を修正した。
+    [GitHub#76][takiy33さんが報告]
+
+  * (({--margin}))オプションの値のパース方法が間違っていた問題を修正し
+    た。
+    [GitHub#82][zundaさんがパッチ提供]
+
+==== テーマ
+
+   * image: Markdownマークアップとimage-timerテーマを一緒に使うと画像
+     が小さくなる問題を修正した。
+     [GitHub#78][とみたまさひろさんが報告]
+
+   * image: キャプション付き画像のサイズが安定しない問題を修正した。
+     [GitHub#88][とみたまさひろさんが報告]
+
+=== 感謝
+
+  * takiy33さん
+
+  * yoku0825さん
+
+  * とみたまさひろさん
+
+  * zundaさん
+
+  * tSU_Rootさん
+
 == 2.1.8: 2015-09-06
 
 2.1.7がWindowsで動かない問題を修正したリリース
