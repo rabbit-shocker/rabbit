@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2015-09-05 23:04+0900\n"
+"PO-Revision-Date: 2016-05-27 13:29+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -950,8 +950,14 @@ msgstr "実行したmimeTeXコマンド名: %s"
 msgid "multiple ![alt]{image} in a paragraph isn't supported."
 msgstr "ひとつの段落中で複数の「![alt]{image}」を使うことはできません。"
 
+msgid "horizontal rule isn't supported."
+msgstr "水平線はサポートしていません"
+
 msgid "multiple ![]('XXX.png'){:align='right'} isn't supported."
 msgstr "複数の「![]('XXX.png'){:align='right'}」はサポートしていません。"
+
+msgid "HTML isn't supported."
+msgstr "HTMLはサポートしていません"
 
 msgid "multiple 'align = right' isn't supported."
 msgstr "複数の'align = right'はサポートしていません。"

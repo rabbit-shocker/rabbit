@@ -927,7 +927,13 @@ msgstr ""
 msgid "multiple ![alt]{image} in a paragraph isn't supported."
 msgstr ""
 
+msgid "horizontal rule isn't supported."
+msgstr ""
+
 msgid "multiple ![]('XXX.png'){:align='right'} isn't supported."
+msgstr ""
+
+msgid "HTML isn't supported."
 msgstr ""
 
 msgid "multiple 'align = right' isn't supported."
