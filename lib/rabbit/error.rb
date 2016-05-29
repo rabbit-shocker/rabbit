@@ -26,7 +26,13 @@ module Rabbit
     attr_reader :filename
     def initialize(filename)
       @filename = filename
-      super(_("no such file: %s") % filename)
+      utf8_filename = GLib.filename_to_utf8(filename)
+      # TODO: Remove me when glib2 3.0.9 is released.
+      # This is a workaround.
+      unless utf8_filename.encoding == Encoding::UTF_8
+        utf8_filename.force_encoding(Encoding::UTF_8)
+      end
+      super(_("no such file: %s") % utf8_filename)
     end
   end
 
