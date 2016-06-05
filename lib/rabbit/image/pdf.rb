@@ -70,7 +70,7 @@ module Rabbit
       end
 
       def uri
-        "file://#{filename}"
+        GLib.filename_to_uri(filename)
       end
 
       def to_pixbuf
