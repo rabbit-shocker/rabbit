@@ -12,7 +12,11 @@ module Rabbit
       class << self
         def match?(filename)
           File.open(filename) do |f|
-            /<svg|<!DOCTYPE\s+svg/ =~ f.read(200)
+            begin
+              /<svg|<!DOCTYPE\s+svg/ =~ f.read(200)
+            rescue EncodingError
+              false
+            end
           end
         end
       end

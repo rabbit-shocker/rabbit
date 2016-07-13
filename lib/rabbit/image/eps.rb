@@ -15,20 +15,22 @@ module Rabbit
       class << self
         def match?(filename)
           File.open(filename) do |f|
-            f.each_line do |line|
-              case line
-              when /^%!PS-Adobe-\d+.\d+ EPS/i
-                return true
-              when /^%%/
-                # ignore
-              else
-                return false
+            begin
+              f.each_line do |line|
+                case line
+                when /^%!PS-Adobe-\d+.\d+ EPS/i
+                  return true
+                when /^%%/
+                  # ignore
+                else
+                  return false
+                end
               end
+              false
+            rescue EncodingError, ArgumentError
+              false
             end
           end
-          false
-        rescue ArgumentError
-          false
         end
       end
 

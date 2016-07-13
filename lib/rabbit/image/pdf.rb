@@ -14,15 +14,11 @@ module Rabbit
         def match?(filename)
           return true if File.extname(filename) == ".pdf"
 
-          File.open(filename) do |file|
-            line = file.gets
-            return false if line.nil?
+          File.open(filename, "rb") do |file|
+            data = file.read(10)
+            return false if data.nil?
 
-            begin
-              /\A%PDF-1\.\d\z/ =~ line.chomp
-            rescue ArgumentError
-              false
-            end
+            data.start_with?("%PDF-1.")
           end
         end
       end

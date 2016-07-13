@@ -15,7 +15,7 @@ module Rabbit
 
       class << self
         def match?(filename)
-          File.open(filename) do |f|
+          File.open(filename, "rb") do |f|
             HEADER == f.read(HEADER_SIZE)
           end
         end

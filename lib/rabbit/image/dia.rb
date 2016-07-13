@@ -17,13 +17,18 @@ module Rabbit
       class << self
         def match?(filename)
           return true if File.extname(filename).downcase.end_with?(".dia")
+
           File.open(filename) do |f|
-            first_line = f.gets
-            second_line = f.gets
-            return false unless second_line
-            return false unless first_line.start_with?("<?xml")
-            return false unless second_line.start_with?("<dia:diagram")
-            true
+            begin
+              first_line = f.gets
+              second_line = f.gets
+              return false unless second_line
+              return false unless first_line.start_with?("<?xml")
+              return false unless second_line.start_with?("<dia:diagram")
+              true
+            rescue EncodingError
+              false
+            end
           end
         end
       end
