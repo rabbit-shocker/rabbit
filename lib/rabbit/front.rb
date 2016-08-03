@@ -156,8 +156,8 @@ module Rabbit
     def _check_dirty
       if dirty?
         clean
-        if off_screen_canvas.need_reload_source?
-          off_screen_canvas.reload_source
+        if offscreen_canvas.need_reload_source?
+          offscreen_canvas.reload_source
           synchronize
         end
       end
@@ -171,9 +171,9 @@ module Rabbit
           prev_size = [@previous_width, @previous_height]
           current_size = [@canvas.width, @canvas.height]
           if prev_size != current_size
-            off_screen_canvas.reload_theme
+            offscreen_canvas.reload_theme
           end
-          pixbuf = off_screen_canvas.to_pixbuf(index)
+          pixbuf = offscreen_canvas.to_pixbuf(index)
           @images[index] = pixbuf.save_to_buffer(@image_type)
           synchronize
         end
@@ -183,7 +183,7 @@ module Rabbit
     def dirty?
       @dirty or
         @last_modified < @canvas.last_modified or
-        off_screen_canvas.need_reload_source?
+        offscreen_canvas.need_reload_source?
     end
 
     def synchronize
@@ -233,7 +233,7 @@ module Rabbit
     end
 
     def clean
-      @off_screen_canvas = nil
+      @offscreen_canvas = nil
       @dirty = false
       @images = []
       @last_modified = @canvas.last_modified
@@ -243,8 +243,8 @@ module Rabbit
       @dirty = true
     end
 
-    def off_screen_canvas
-      @off_screen_canvas ||= @canvas.off_screen_canvas
+    def offscreen_canvas
+      @offscreen_canvas ||= @canvas.offscreen_canvas
     end
   end
 end

@@ -114,7 +114,7 @@ module Rabbit
       end
 
       def each_slide_pixbuf
-        canvas = off_screen_canvas
+        canvas = offscreen_canvas
         previous_index = canvas.current_index
         pre_to_pixbuf(canvas.slide_size)
         canceled = false
@@ -129,11 +129,11 @@ module Rabbit
         canvas.activate("Quit") if canvas != @canvas
       end
 
-      def off_screen_canvas
-        if off_screen_renderer?
+      def offscreen_canvas
+        if offscreen_renderer?
           @canvas
         else
-          make_canvas_with_off_screen_renderer
+          make_canvas_with_offscreen_renderer
         end
       end
 
@@ -258,7 +258,7 @@ module Rabbit
       end
 
       private
-      def off_screen_renderer?
+      def offscreen_renderer?
         false
       end
 
@@ -301,7 +301,7 @@ module Rabbit
         end
       end
 
-      def make_canvas_with_off_screen_renderer
+      def make_canvas_with_offscreen_renderer
         make_canvas_with_renderer(Offscreen) do |canvas|
           canvas.width = @canvas.width
           canvas.height = @canvas.height

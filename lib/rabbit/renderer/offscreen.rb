@@ -107,7 +107,7 @@ module Rabbit
         init_engine_color
       end
 
-      def off_screen_renderer?
+      def offscreen_renderer?
         true
       end
 
