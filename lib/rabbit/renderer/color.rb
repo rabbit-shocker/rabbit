@@ -74,6 +74,10 @@ module Rabbit
       def to_gdk_color
         Gdk::Color.new(*to_gdk_rgb)
       end
+
+      def to_css_rgba
+        "rgba(#{red}, #{green}, #{blue}, #{alpha || 1.0})"
+      end
     end
   end
 end
