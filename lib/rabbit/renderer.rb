@@ -2,7 +2,7 @@ require "rabbit/utils"
 
 require "rabbit/renderer/color"
 require "rabbit/renderer/display"
-require "rabbit/renderer/pixmap"
+require "rabbit/renderer/offscreen"
 require "rabbit/renderer/print"
 
 module Rabbit

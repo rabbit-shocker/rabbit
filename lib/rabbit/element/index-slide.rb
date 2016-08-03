@@ -1,5 +1,5 @@
 require 'rabbit/canvas'
-require 'rabbit/renderer/pixmap'
+require 'rabbit/renderer/offscreen'
 require 'rabbit/element/container-element'
 require 'rabbit/element/slide-element'
 
@@ -87,7 +87,7 @@ module Rabbit
 
         private
         def make_thumbnail_maker(canvas, width, height)
-          new_canvas = Canvas.new(canvas.logger, Renderer::Pixmap::Cairo)
+          new_canvas = Canvas.new(canvas.logger, Renderer::Offscreen)
           new_canvas.width = width
           new_canvas.height = height
           new_canvas.pango_context = canvas.create_pango_context

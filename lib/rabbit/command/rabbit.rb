@@ -821,7 +821,7 @@ module Rabbit
 
       def do_save_as_image
         source = make_source
-        canvas = make_canvas(Renderer::Pixmap::Cairo)
+        canvas = make_canvas(Renderer::Offscreen)
         setup_size(canvas)
         setup_image_info(canvas)
         setup_print_info(canvas)

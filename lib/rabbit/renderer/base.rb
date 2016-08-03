@@ -302,7 +302,7 @@ module Rabbit
       end
 
       def make_canvas_with_off_screen_renderer
-        make_canvas_with_renderer(Pixmap::Cairo) do |canvas|
+        make_canvas_with_renderer(Offscreen) do |canvas|
           canvas.width = @canvas.width
           canvas.height = @canvas.height
           setup_3d(canvas)
