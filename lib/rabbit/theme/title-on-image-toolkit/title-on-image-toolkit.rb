@@ -76,6 +76,12 @@ def setup_title_on_image_slide(slide)
             move_y = @applier.screen_y(font_size.to_f / @applier.screen_size(20))
             canvas.draw_layout(shadow_layout, orig_x + move_x, base_y + move_y,
                                shadow_color)
+
+            canvas.draw_layout(shadow_layout,
+                               orig_x, base_y,
+                               shadow_color,
+                               :line_width => 5,
+                               :stroke => true)
           end
           headline.draw_element(canvas,
                                 orig_x, base_y, orig_w, base_h,

@@ -186,7 +186,12 @@ module Rabbit
             set_source(color, params)
             set_line_options(params)
             @context.move_to(x, y)
-            @context.show_pango_layout(layout)
+            if params[:stroke]
+              @context.pango_layout_path(layout)
+              apply_cairo_action(false, params)
+            else
+              @context.show_pango_layout(layout)
+            end
           end
         end
 
