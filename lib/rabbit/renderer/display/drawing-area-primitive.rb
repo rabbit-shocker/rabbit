@@ -171,14 +171,26 @@ module Rabbit
         end
 
         def set_configure_event_after
+          prev_x = prev_y = prev_width = prev_height = nil
           @area.signal_connect_after("configure_event") do |widget, event|
-            configured_after(widget, event)
+            prev_x ||= event.x
+            prev_y ||= event.y
+            prev_width ||= event.width
+            prev_height ||= event.height
+            if [prev_x, prev_y, prev_width, prev_height] !=
+                [event.x, event.y, event.width, event.height]
+              configured_after(widget, event)
+            end
+            prev_x = event.x
+            prev_y = event.y
+            prev_width = event.width
+            prev_height = event.height
+            false
           end
         end
 
         def configured_after(widget, event)
           reload_theme if @drawable
-          false
         end
 
         def reload_theme(&callback)
