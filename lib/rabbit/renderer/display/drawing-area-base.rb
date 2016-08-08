@@ -268,6 +268,7 @@ module Rabbit
           event_mask |= Gdk::EventMask::BUTTON1_MOTION_MASK
           event_mask |= Gdk::EventMask::BUTTON2_MOTION_MASK
           event_mask |= Gdk::EventMask::BUTTON3_MOTION_MASK
+          event_mask |= Gdk::EventMask::SCROLL_MASK
           @area.add_events(event_mask)
           set_key_press_event(@area)
           set_button_event(@area)
