@@ -82,6 +82,10 @@ module Gdk
       alias_method :get_monitor_geometry, :monitor_geometry
     end
   end
+
+  unless const_defined?(:ScrollDirection)
+    ScrollDirection = Gdk::EventScroll::Direction
+  end
 end
 
 module Gtk
