@@ -2,8 +2,9 @@ env:
   global:
     - DISPLAY=":99.0"
 notifications:
-  recipients:
-    - rabbit@ml.commit-email.info
+  email:
+    recipients:
+      - rabbit@ml.commit-email.info
 rvm:
   - 2.1
   - 2.2
