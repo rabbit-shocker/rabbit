@@ -72,7 +72,7 @@ theme_exit if @syntax_highlighting_uninstall
     # :color => "#f57900",
   },
   :include => {
-    :color => "#4e9a06",
+    :color => "#a40000",
   },
   :pre_constant => {
     :color => "#5c35cc",
