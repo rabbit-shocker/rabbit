@@ -72,7 +72,7 @@ module Rabbit
       def to_pixbuf
         w = original_width
         h = original_height
-        pixbuf = Gdk::Pixbuf.new(Gdk::Pixbuf::COLORSPACE_RGB, true, 8, w, h)
+        pixbuf = GdkPixbuf::Pixbuf.new(:rgb, true, 8, w, h)
         page.render(0, 0, w, h, 1.0, 0, pixbuf)
         pixbuf
       end

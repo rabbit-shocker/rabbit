@@ -27,15 +27,15 @@ module Rabbit
     end
 
     def load
-      loader = Gdk::PixbufLoader.new
+      loader = GdkPixbuf::PixbufLoader.new
       id = loader.signal_connect("size_prepared") do |l, width, height|
         @width = width
         @height = height
       end
       begin
         loader.last_write(@data)
-      rescue Gdk::PixbufError => error
-        loader.close rescue Gdk::PixbufError
+      rescue GdkPixbuf::PixbufError => error
+        loader.close rescue GdkPixbuf::PixbufError
         raise ImageLoadError.new(error.message)
       end
       loader.signal_handler_disconnect(id)
