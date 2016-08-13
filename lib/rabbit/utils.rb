@@ -122,11 +122,6 @@ module Rabbit
       REXML::Text.unnormalize(title).gsub(/\r|\n/, ' ')
     end
 
-    def drawable_to_pixbuf(drawable)
-      args = [drawable.colormap, drawable, 0, 0, *drawable.size]
-      Gdk::Pixbuf.from_drawable(*args)
-    end
-
     def process_pending_events
       if events_pending_available?
         while Gtk.events_pending?
