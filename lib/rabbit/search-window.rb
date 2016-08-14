@@ -70,7 +70,7 @@ module Rabbit
 
     def init_direction
       @direction = Gtk::ToggleButton.new
-      @arrow = Gtk::Arrow.new(Gtk::Arrow::LEFT, Gtk::SHADOW_NONE)
+      @arrow = Gtk::Arrow.new(:left, :none)
       @arrow.show
       @direction.add(@arrow)
       @direction.can_focus = false
@@ -78,18 +78,18 @@ module Rabbit
       @box.add(@direction)
       @direction.signal_connect("toggled") do |button|
         if forward?
-          type = Gtk::Arrow::RIGHT
+          type = :right
         else
-          type = Gtk::Arrow::LEFT
+          type = :left
         end
-        @arrow.set(type, Gtk::SHADOW_NONE)
+        @arrow.set(type, :none)
       end
       @direction.active = true
     end
 
     def send_focus_change(focus_in)
       @entry.has_focus = focus_in
-      event = Gdk::EventFocus.new(Gdk::EventFocus::FOCUS_CHANGE)
+      event = Gdk::EventFocus.new(:focus_change)
       event.window = @entry.window
       event.in = focus_in
       @entry.event(event)
