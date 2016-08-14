@@ -50,7 +50,7 @@ module Rabbit
 
     def init_frame
       @frame = Gtk::Frame.new
-      @frame.shadow_type = Gtk::ShadowType::ETCHED_IN
+      @frame.shadow_type = :etched_in
       @frame.show
       @window.add(@frame)
     end
