@@ -56,7 +56,10 @@ module Rabbit
         end
         application.signal_connect("activate") do
           begin
-            succeeded = __send__("do_#{@options.action}")
+            succeeded = catch do |abort_tag|
+              @abort_tag = abort_tag
+              __send__("do_#{@options.action}")
+            end
           rescue
             @logger.error($!)
           end
@@ -666,7 +669,7 @@ module Rabbit
         if @options.source_type == :auto
           if rest_arguments.empty?
             file_name = choose_source_file_by_dialog
-            exit if file_name.nil?
+            throw(@abort_tag, true) if file_name.nil?
             rest_arguments = [file_name]
             @options.source_type = Source::File
           elsif rest_arguments.size == 1 and
