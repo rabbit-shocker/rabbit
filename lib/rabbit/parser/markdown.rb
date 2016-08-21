@@ -86,6 +86,7 @@ module Kramdown
 
       private
       def fix_location(element, base_location)
+        return unless element.options.key?(:location)
         element.options[:location] += base_location - 1
         element.children.each do |sub_element|
           fix_location(sub_element, base_location)
