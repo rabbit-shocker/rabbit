@@ -172,7 +172,17 @@ module Rabbit
             if element.options[:transparent] and child_types == [:text]
               element.children.first.value.chomp!
             end
-            create_paragraph(convert_container(element))
+            converted_children = apply_class(convert_container(element),
+                                             element.attr["class"])
+            create_paragraph(converted_children)
+          end
+        end
+
+        def apply_class(children, klass)
+          return children if klass.nil?
+          classes = klass.split
+          classes.inject(children) do |nested_children, klass|
+            CustomTag.new(klass, nested_children)
           end
         end
 

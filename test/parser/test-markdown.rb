@@ -387,6 +387,23 @@ a ![](#{image_path})
 {::tag name="x-large"}Hello{:/tag}
         MARKDOWN
       end
+
+      def test_paragraph
+        assert_equal([
+                       "Body", [
+                         "Paragraph", [
+                           "CustomTag", [
+                             "Text",
+                             "Hello",
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse(<<-MARKDOWN))
+{:.x-large}
+Hello
+        MARKDOWN
+      end
     end
   end
 end

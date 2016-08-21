@@ -107,9 +107,11 @@ theme
 
 {::tag name="x-large"}大きなテキスト{:/tag}
 
-{::tag name="center"}中央寄せされたテキスト{:/tag}
+{:.center}
+中央寄せされたテキスト
 
-{::tag name="right"}右寄せされたテキスト{:/tag}
+{:.right}
+右寄せされたテキスト
 
 # ToDo
 
