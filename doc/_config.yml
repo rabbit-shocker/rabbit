@@ -1,8 +1,8 @@
 markdown: kramdown
 version: 2.1.9
 release_date: 2016-05-27
-rabbiter_version: 2.0.1
-rabbiter_release_date: 2013-08-29
+rabbiter_version: 2.0.3
+rabbiter_release_date: 2016-08-21
 rabbirack_version: 2.0.0
 rabbirack_release_date: 2012-08-29
 rabwii_version: 2.0.0
