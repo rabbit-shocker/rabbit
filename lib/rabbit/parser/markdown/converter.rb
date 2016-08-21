@@ -203,7 +203,10 @@ module Rabbit
           waited_paragraphs = list_item.elements.find_all do |element|
             element.is_a?(Paragraph) and element.have_wait_tag?
           end
-          unless waited_paragraphs.empty?
+          if waited_paragraphs.empty?
+            list_item.default_visible = true
+            list_item.clear_theme
+          else
             waited_paragraphs.each do |paragraph|
               paragraph.default_visible = true
               paragraph.clear_theme
