@@ -103,6 +103,14 @@ theme
 * テーマの再読み込み
 * テーマの切り替え
 
+# 機能: タグ
+
+{::tag name="x-large"}大きなテキスト{:/tag}
+
+{::tag name="center"}中央寄せされたテキスト{:/tag}
+
+{::tag name="right"}右寄せされたテキスト{:/tag}
+
 # ToDo
 
 * インラインでの画像表示

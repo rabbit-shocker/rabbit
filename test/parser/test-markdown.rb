@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2016  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -357,6 +357,35 @@ a ![](#{image_path})
 ---
           MARKDOWN
         end
+      end
+    end
+
+    class TagTest < self
+      include Rabbit::GetText
+
+      def test_no_name
+        message = _("tag name is missing.")
+        assert_raise(Rabbit::ParseError.new(message)) do
+          parse(<<-MARKDOWN)
+{::tag}content{:/tag}
+          MARKDOWN
+        end
+      end
+
+      def test_inline
+        assert_equal([
+                       "Body", [
+                         "Paragraph", [
+                           "CustomTag", [
+                             "Text",
+                             "Hello",
+                           ],
+                         ],
+                       ],
+                     ],
+                     parse(<<-MARKDOWN))
+{::tag name="x-large"}Hello{:/tag}
+        MARKDOWN
       end
     end
   end
