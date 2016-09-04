@@ -148,7 +148,13 @@ module Rabbit
                                    max_width, max_height|
           if (max_width and initial_width > max_width) or
               (max_height and initial_height > max_height)
-            scale = 0.95
+            scale = lambda do |_width, _height|
+              [
+                (max_width.to_f) / _width,
+                (max_height.to_f) / _height,
+                0.95,
+              ].min
+            end
             compare = Proc.new do |_width, _height|
               (max_width.nil? or _width < max_width) and
                 (max_height.nil? or _height < max_height)
@@ -306,10 +312,17 @@ module Rabbit
 
         return if scale.nil? or compare.nil?
 
+        if scale.respond_to?(:call)
+          compute_scale = scale
+        else
+          scale = nil
+        end
+
         size = new_size = initial_font_size_for_compute_font_size
         current_layout_size = @layout.pixel_size
         unless compare.call(*@layout.pixel_size)
           loop do
+            scale = compute_scale.call(*@layout.pixel_size) if compute_scale
             new_size = compute_next_font_size(size, scale)
             break if new_size == size
             set_computed_font_size(new_size)
