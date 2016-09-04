@@ -149,11 +149,10 @@ module Rabbit
           if (max_width and initial_width > max_width) or
               (max_height and initial_height > max_height)
             scale = lambda do |_width, _height|
-              [
-                (max_width.to_f) / _width,
-                (max_height.to_f) / _height,
-                0.95,
-              ].min
+              candidates = [0.95]
+              candidates << (max_width.to_f) / _width if max_width
+              candidates << (max_height.to_f) / _height if max_height
+              candidates.min
             end
             compare = Proc.new do |_width, _height|
               (max_width.nil? or _width < max_width) and
