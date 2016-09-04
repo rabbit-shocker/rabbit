@@ -114,10 +114,6 @@ theme_exit if @syntax_highlighting_uninstall
 @syntax_highlighting_padding_top ||= screen_y(2)
 @syntax_highlighting_padding_bottom ||= screen_y(2)
 
-if @syntax_highlighting_keep_in_size.nil?
-  @syntax_highlighting_keep_in_size = true
-end
-
 match("**", SyntaxHighlightingBlock) do |blocks|
   name = "syntax-highlighting-block"
 
@@ -143,8 +139,6 @@ match("**", SyntaxHighlightingBlock) do |blocks|
 
   blocks.margin_top = @space
   blocks.margin_bottom = @space
-
-  blocks.keep_in_size if @syntax_highlighting_keep_in_size
 
   draw_frame(blocks, params)
   blocks.prop_set("foreground", @syntax_highlighting_foreground)
