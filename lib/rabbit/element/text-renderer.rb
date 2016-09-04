@@ -314,7 +314,6 @@ module Rabbit
 
         if scale.respond_to?(:call)
           compute_scale = scale
-        else
           scale = nil
         end
 
