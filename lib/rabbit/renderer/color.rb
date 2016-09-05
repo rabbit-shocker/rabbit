@@ -76,7 +76,11 @@ module Rabbit
       end
 
       def to_css_rgba
-        "rgba(#{red}, #{green}, #{blue}, #{alpha || 1.0})"
+        red_percent = (red * 100).ceil
+        green_percent = (green * 100).ceil
+        blue_percent = (blue * 100).ceil
+        a = alpha || 1.0
+        "rgba(#{red_percent}%, #{green_ppercent}%, #{blue_ppercent}%, #{a})"
       end
     end
   end
