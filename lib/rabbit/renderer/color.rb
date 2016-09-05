@@ -80,7 +80,7 @@ module Rabbit
         green_percent = (green * 100).ceil
         blue_percent = (blue * 100).ceil
         a = alpha || 1.0
-        "rgba(#{red_percent}%, #{green_ppercent}%, #{blue_ppercent}%, #{a})"
+        "rgba(#{red_percent}%, #{green_percent}%, #{blue_percent}%, #{a})"
       end
     end
   end
