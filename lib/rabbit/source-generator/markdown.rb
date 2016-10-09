@@ -32,10 +32,10 @@ module Rabbit
       end
 
       def definition_list_item(item, description)
-        [
-          item,
-          ":   #{description}",
-        ].join("\n")
+        <<-DEFINITION_LIST_ITEM
+#{item}
+:   #{description}
+        DEFINITION_LIST_ITEM
       end
 
       def unordered_list_item(item)
