@@ -39,10 +39,10 @@ class TestSourceGeneratorMarkdown < Test::Unit::TestCase
   def test_definition_list_item
     item = @generator.definition_list_item("Rabbit",
                                            "The presentation tool for Rubyist")
-    assert_equal(<<-EOM.rstrip, item)
+    assert_equal(<<-MARKDOWN, item)
 Rabbit
 :   The presentation tool for Rubyist
-EOM
+    MARKDOWN
   end
 
   def test_unordered_list_item
