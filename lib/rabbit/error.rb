@@ -216,7 +216,7 @@ module Rabbit
 
   class UnknownCursorTypeError < Error
     attr_reader :type
-    def intialize(type)
+    def initialize(type)
       @type = type
       super(_("unknown cursor type: %s") % @type)
     end
