@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2016 Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ require "rabbit/command/rabbit"
 require "rabbit/slide-configuration"
 require "rabbit/readme-parser"
 require "rabbit/gem-builder"
+require "rabbit/gem-pusher"
 
 module Rabbit
   module Task
@@ -175,7 +176,8 @@ module Rabbit
       def define_publish_rubygems_task
         desc(_("Publish the slide to %s" % "RubyGems.org"))
         task :rubygems => :gem do
-          ruby("-S", "gem", "push", gem_path)
+          pusher = GemPusher.new(gem_path, @slide.author.rubygems_user)
+          pusher.push
         end
       end
 

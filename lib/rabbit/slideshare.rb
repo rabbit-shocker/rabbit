@@ -1,4 +1,4 @@
-# Copyright (C) 2012 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2016 Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ require "faraday"
 
 require "rabbit/gettext"
 require "rabbit/command/rabbit"
+require "rabbit/password-reader"
 
 module Rabbit
   module Task
@@ -138,18 +139,13 @@ module Rabbit
       end
 
       def password
-        @password ||= read_password(_("Enter password on SlideShare"))
+        @password ||= read_password
       end
 
-      def read_password(prompt)
-        print("%s [%s]: " % [prompt, @user])
-        system("/bin/stty -echo") if $stdin.tty?
-        $stdin.gets.chomp
-      ensure
-        if $stdin.tty?
-          system("/bin/stty echo")
-          puts
-        end
+      def read_password
+        prompt = "%s [%s]" % [_("Enter password on SlideShare"), @user]
+        reader = PasswordReader.new(prompt)
+        reader.read
       end
 
       def common_payload
