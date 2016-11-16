@@ -37,7 +37,7 @@ module Rabbit
         credentials = {}
       end
       unless credentials.key?(@user.to_sym)
-        credentials[@user.to_sym] = retrieve_api_key(@user)
+        credentials[@user.to_sym] = retrieve_api_key
         File.open(credentials_path, "w") do |credentials_file|
           credentials_file.print(credentials.to_yaml)
         end
