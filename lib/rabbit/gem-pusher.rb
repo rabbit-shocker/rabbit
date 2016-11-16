@@ -18,10 +18,12 @@ require "rake"
 require "yaml"
 require "open-uri"
 
+require "rabbit/gettext"
 require "rabbit/password-reader"
 
 module Rabbit
   class GemPusher
+    include GetText
     include Rake::DSL
 
     def initialize(gem_path, user)
