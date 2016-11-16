@@ -33,7 +33,8 @@ module Rabbit
 
     def push
       credentials_path = File.expand_path("~/.gem/credentials")
-      if File.exist?(credentials_path)
+      credentials_path_exist = File.exist?(credentials_path)
+      if credentials_path_exist
         credentials = YAML.load(File.read(credentials_path))
       else
         credentials = {}
@@ -42,6 +43,9 @@ module Rabbit
         credentials[@user.to_sym] = retrieve_api_key
         File.open(credentials_path, "w") do |credentials_file|
           credentials_file.print(credentials.to_yaml)
+        end
+        unless credentials_path_exist
+          File.chmod(0600, credentials_path)
         end
       end
       ruby("-S", "gem", "push", @gem_path,
