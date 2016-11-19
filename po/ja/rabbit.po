@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-05-27 13:29+0900\n"
+"PO-Revision-Date: 2016-11-19 10:35+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -872,6 +872,9 @@ msgstr "gemをインストール中: %s"
 msgid "Installing gem in user install mode: %s"
 msgstr "gemをユーザーインストールモードでインストール中: %s"
 
+msgid "Enter password on RubyGems.org"
+msgstr "RubyGems.orgのパスワードを入力してください。"
+
 msgid "Line width:"
 msgstr "線の太さ"
 
@@ -955,6 +958,9 @@ msgstr "水平線はサポートしていません"
 
 msgid "multiple ![]('XXX.png'){:align='right'} isn't supported."
 msgstr "複数の「![]('XXX.png'){:align='right'}」はサポートしていません。"
+
+msgid "tag name is missing."
+msgstr "タグ名がありません。"
 
 msgid "HTML isn't supported."
 msgstr "HTMLはサポートしていません"
@@ -1424,10 +1430,10 @@ msgid ""
 msgstr "指定したキーワードを強調テキストとしてマークアップするemphasize_keywordメソッドを提供します。"
 
 msgid "Enishi Green"
-msgstr ""
+msgstr "えにしグリーン"
 
 msgid "EnishTech green based theme"
-msgstr ""
+msgstr "えにしテックの緑色をベースにしたテーマ"
 
 msgid "Etc"
 msgstr "その他"

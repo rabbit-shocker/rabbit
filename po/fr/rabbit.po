@@ -848,6 +848,9 @@ msgstr ""
 msgid "Installing gem in user install mode: %s"
 msgstr ""
 
+msgid "Enter password on RubyGems.org"
+msgstr ""
+
 msgid "Line width:"
 msgstr ""
 
@@ -930,6 +933,9 @@ msgid "horizontal rule isn't supported."
 msgstr ""
 
 msgid "multiple ![]('XXX.png'){:align='right'} isn't supported."
+msgstr ""
+
+msgid "tag name is missing."
 msgstr ""
 
 msgid "HTML isn't supported."
