@@ -848,7 +848,7 @@ msgstr ""
 msgid "Installing gem in user install mode: %s"
 msgstr ""
 
-msgid "Enter password on RubyGems.org"
+msgid "Enter password on RubyGems.org [%{user}]: "
 msgstr ""
 
 msgid "Line width:"
@@ -992,7 +992,7 @@ msgstr ""
 msgid "Feailed to get slide URL: %s"
 msgstr ""
 
-msgid "Enter password on SlideShare"
+msgid "Enter password on SlideShare [%{user}]: "
 msgstr ""
 
 msgid "none (get from STDIN) or [FILE_NAMES]"

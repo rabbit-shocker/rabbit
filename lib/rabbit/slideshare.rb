@@ -143,7 +143,7 @@ module Rabbit
       end
 
       def read_password
-        prompt = "%s [%s]" % [_("Enter password on SlideShare"), @user]
+        prompt = _("Enter password on SlideShare [%{user}]: ") % {:user => @user}
         reader = PasswordReader.new(prompt)
         reader.read
       end

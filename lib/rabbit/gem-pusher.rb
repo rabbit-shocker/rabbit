@@ -54,7 +54,7 @@ module Rabbit
 
     private
     def retrieve_api_key
-      prompt = "%s [%s]" % [_("Enter password on RubyGems.org"), @user]
+      prompt = _("Enter password on RubyGems.org [%{user}]: ") % {:user => @user}
       reader = PasswordReader.new(prompt)
       password = reader.read
       open("https://rubygems.org/api/v1/api_key.yaml",

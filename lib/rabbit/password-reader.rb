@@ -21,7 +21,7 @@ module Rabbit
     end
 
     def read
-      print("%s: " % [@prompt])
+      print(@prompt)
       system("/bin/stty -echo") if $stdin.tty?
       $stdin.gets.chomp
     ensure
