@@ -93,15 +93,17 @@ module Rabbit
 
           w = width / 1.5
           h = height / 1.5
-          x = @magnifier_center_x - w / 2
-          y = @magnifier_center_y - h / 2
+          center_x = @magnifier_center_x - size.logical_margin_left
+          center_y = @magnifier_center_y - size.logical_margin_top
+          x = center_x - w / 2
+          y = center_y - h / 2
           r = w * 0.1
           save_context do
             clip_block = Proc.new do
               draw_rectangle(true, 0, 0, width, height, @background)
-              translate_context(@magnifier_center_x, @magnifier_center_y)
+              translate_context(center_x, center_y)
               scale_context(@magnifier_ratio, @magnifier_ratio)
-              translate_context(-@magnifier_center_x, -@magnifier_center_y)
+              translate_context(-center_x, -center_y)
               block.call
             end
             draw_rounded_rectangle(false, x, y, w, h, r, nil,
