@@ -271,6 +271,16 @@ module Rabbit
           end
         end
 
+        def draw_link(uri)
+          if @context.respond_to?(:tag)
+            @context.tag(::Cairo::Tag::LINK, "uri='#{uri}'") do
+              yield
+            end
+          else
+            yield
+          end
+        end
+
         def make_layout(text)
           attributes, text = Pango.parse_markup(text)
           layout = @context.create_pango_layout

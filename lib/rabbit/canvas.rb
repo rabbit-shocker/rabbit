@@ -66,6 +66,7 @@ module Rabbit
     def_delegators(:@renderer, :draw_rounded_rectangle)
     def_delegators(:@renderer, :draw_rsvg_handle)
     def_delegators(:@renderer, :draw_poppler_page)
+    def_delegators(:@renderer, :draw_link)
 
     def_delegators(:@renderer, :draw_cube, :draw_sphere, :draw_cone)
     def_delegators(:@renderer, :draw_torus, :draw_tetrahedron)

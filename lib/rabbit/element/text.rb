@@ -60,6 +60,13 @@ module Rabbit
       include TextContainerElement
 
       attr_accessor :to
+
+      # TODO: This makes paragraph instead of word link.
+      def draw_sub_elements(canvas, x, y, w, h)
+        canvas.draw_link(to) do
+          super
+        end
+      end
     end
 
     class Subscript

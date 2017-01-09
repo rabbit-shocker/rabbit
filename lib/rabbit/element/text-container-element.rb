@@ -15,7 +15,10 @@ module Rabbit
 
       def draw_elements(canvas, x, y, w, h, simulation)
         unless simulation
-          draw_layout(canvas, x, y)
+          # TODO: This is too workaround. :<
+          draw_sub_elements(canvas, x, y, w, h) do
+            draw_layout(canvas, x, y)
+          end
         end
         [x, y + @height, w, h - @height]
       end
@@ -102,6 +105,32 @@ module Rabbit
           dirty! if @elements[i].set_computed_font_size(size)
         end
         super(my_font_size)
+      end
+
+      private
+      # TODO: This is too workaround. :<
+      def draw_sub_elements(canvas, x, y, w, h)
+        draw_sub_elements_recursive(canvas, x, y, w, h, 0) do
+          yield
+        end
+      end
+
+      # TODO: This is too workaround. :<
+      def draw_sub_elements_recursive(canvas, x, y, w, h, i)
+        if i == @elements.size
+          yield
+        else
+          draw_sub_elements_recursive(canvas, x, y, w, h, i + 1) do
+            element = @elements[i]
+            if element.respond_to?(:draw_sub_elements)
+              element.draw_sub_elements(canvas, x, y, w, h) do
+                yield
+              end
+            else
+              yield
+            end
+          end
+        end
       end
     end
   end
