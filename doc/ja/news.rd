@@ -1144,7 +1144,7 @@ Markdown対応リリース！
   * [GitHub#3]: 変数名が間違っていた問題を修正。
     [TAKATSU Tomonariさんが修正]
 
-==== rabbitter
+==== rabbiter
 
   * HTTPS対応。 [OBATA Akioさんが修正]
 
