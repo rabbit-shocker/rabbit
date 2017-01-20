@@ -1150,7 +1150,7 @@ Markdown support release!
   * [GitHub#3]: Fixed a wrong variable name.
     [Patch by TAKATSU Tomonari]
 
-==== rabbitter
+==== rabbiter
 
   * Supported HTTPS. [Patch by OBATA Akio]
 

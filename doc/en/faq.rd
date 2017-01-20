@@ -12,7 +12,7 @@ Answer...
 
 == How can I embed tweets on a Rabbit slide?
 
-Use the "rabbiter" command. For exapmle, you use the rabbitter command as follows:
+Use the "rabbiter" command. For exapmle, you use the rabbiter command as follows:
  (after starting Rabbit, you will see tweets including the word "ruby" at the bottom of the slides in the form of comments)
 
   % rabbiter --filter ruby
