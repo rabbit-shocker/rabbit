@@ -4,20 +4,20 @@ title: FAQ
 ---
 == FAQ
 
-This page lists frequently asked questions. Here is a format used in this page.
+This page lists frequently asked questions. Here is the format used on this page.
 
 == Question...
 
 Answer...
 
-== How can I embed tweets on Rabbit slide?
+== How can I embed tweets on a Rabbit slide?
 
-Use "rabbiter" command. For exapmle, you hit rabbitter command as follows
- after starting Rabbit and you will see tweets including word "ruby" in the bottom of the slides in form of comment.
+Use the "rabbiter" command. For exapmle, you use the rabbitter command as follows:
+ (after starting Rabbit, you will see tweets including the word "ruby" at the bottom of the slides in the form of comments)
 
   % rabbiter --filter ruby
 
-== How can I flow tweets on slides like embeded video?
+== How can I flow tweets on slides like an embeded video?
 
 Run ((%rabbit%)) command with ((%--comment-theme stream-comment%)) options.
 
@@ -26,7 +26,7 @@ Run ((%rabbit%)) command with ((%--comment-theme stream-comment%)) options.
 Taking into tweets with ((%rabbiter%)) command,
 you can flow them on your slides.
 
-== How to make a PDF which has some slides per page?
+== How to create a PDF with multiple slides per page?
 
 For example, we make XXX_multi.pdf which has 8 slides per
 page from XXX.rd.
@@ -138,8 +138,8 @@ Use following charachters.
 
 This is available in both content and title.
 
-TODO: Formery we should use &NewLine; but now can use \n
-, which means following sentence is oblsolate. Oh my god...
+TODO: Formerly we used &NewLine; but now can use \n
+, which means following sentence is oblsolete. Oh my god...
 
 Rabbit has got into the magic as well as Ruby, which "makes what you shouldn't looks ugly". ((-Using (({$})) for global vars is a kind of "Magic Powder" for Ruby. -))。
 
