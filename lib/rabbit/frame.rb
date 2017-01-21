@@ -161,6 +161,8 @@ module Rabbit
             @iconify = true
           end
         end
+
+        false
       end
     end
 
