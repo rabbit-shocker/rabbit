@@ -122,10 +122,10 @@ module Rabbit
       set_window_signal_destroy
     end
 
-    def update_keep_above(keep_above=nil)
+    def update_keep_above(keep_above)
       if @main_window
         keep_above = @force_keep_above unless @force_keep_above.nil?
-        @window.keep_above = keep_above unless keep_above.nil?
+        @window.keep_above = keep_above
       else
         @window.keep_above = true
       end
