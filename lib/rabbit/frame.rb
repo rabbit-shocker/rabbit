@@ -57,12 +57,10 @@ module Rabbit
     end
 
     def fullscreen
-      @fullscreen = true
       @window.fullscreen
     end
 
     def unfullscreen
-      @fullscreen = false
       @window.unfullscreen
     end
 
@@ -89,7 +87,6 @@ module Rabbit
     def init_gui(width, height, main_window, window_type=nil)
       init_window(width, height, window_type)
       @fullscreen = false
-      @iconify = false
       @main_window = main_window
       if @main_window
         @window.keep_above = @force_keep_above unless @force_keep_above.nil?
@@ -137,7 +134,8 @@ module Rabbit
     def set_window_signal_window_state_event
       @window.signal_connect("window_state_event") do |widget, event|
         if event.changed_mask.fullscreen?
-          if fullscreen?
+          @fullscreen = event.new_window_state.fullscreen?
+          if @fullscreen
             @window.keep_above = true
             @canvas.fullscreened
           else
@@ -145,11 +143,8 @@ module Rabbit
             @canvas.unfullscreened
           end
         elsif event.changed_mask.iconified?
-          if @iconify
-            @iconify = false
-          else
+          if event.new_window_state.iconified?
             @canvas.iconified
-            @iconify = true
           end
         end
 
@@ -227,7 +222,6 @@ module Rabbit
       @window.set_size_request(width, height)
       @canvas.attach_to(self, @window)
       @fullscreen = false
-      @iconify = false
       @main_window = main_window
       @window.show
       @canvas.post_init_gui
