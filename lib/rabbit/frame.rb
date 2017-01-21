@@ -57,13 +57,11 @@ module Rabbit
     end
 
     def fullscreen
-      @fullscreen_toggled = false
       @fullscreen = true
       @window.fullscreen
     end
 
     def unfullscreen
-      @fullscreen_toggled = false
       @fullscreen = false
       @window.unfullscreen
     end
@@ -77,11 +75,7 @@ module Rabbit
     end
 
     def fullscreen?
-      if @window.respond_to?(:fullscreen?)
-        @window.fullscreen?
-      else
-        @fullscreen
-      end
+      @fullscreen
     end
 
     def main_window?
@@ -94,7 +88,6 @@ module Rabbit
 
     def init_gui(width, height, main_window, window_type=nil)
       init_window(width, height, window_type)
-      @fullscreen_toggled = false
       @fullscreen = false
       @iconify = false
       @main_window = main_window
@@ -144,7 +137,6 @@ module Rabbit
     def set_window_signal_window_state_event
       @window.signal_connect("window_state_event") do |widget, event|
         if event.changed_mask.fullscreen?
-          @fullscreen_toggled = true
           if fullscreen?
             @window.keep_above = true
             @canvas.fullscreened
@@ -234,7 +226,6 @@ module Rabbit
       @window = Gtk::EventBox.new
       @window.set_size_request(width, height)
       @canvas.attach_to(self, @window)
-      @fullscreen_toggled = false
       @fullscreen = false
       @iconify = false
       @main_window = main_window
