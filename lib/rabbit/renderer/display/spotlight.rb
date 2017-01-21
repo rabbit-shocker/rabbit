@@ -101,7 +101,7 @@ module Rabbit
               :color_stops => color_stops,
             }
           }
-          draw_rectangle(true, 0, 0, width, height, nil, params)
+          draw_rectangle(true, 0, 0, size.real_width, size.real_height, nil, params)
         end
 
         def spotlighting?
