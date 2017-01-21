@@ -3,6 +3,110 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.2.0: 2017-01-22
+
+Markdown support improvement release.
+
+=== Improvements
+
+==== All
+
+  * Dropped Ruby 2.0 support.
+
+  * Dropped gdk_pixbuf2 gem 3.0.8 or earlier support.
+
+==== rabbit
+
+  * PDF: Supported PDF file that has "%" in its name.
+
+  * Dropped Migemo support.
+
+  * Markdown: Supported tag.
+
+    Example (Inline):
+
+      Normal {::tag name="center"}Centered{:/tag} Normal
+
+    Example (Paragraph):
+
+      Normal
+
+      {:.center}
+      Centered
+
+      Normal
+
+  * Markdown: Supported (({wait})) in nested list item.
+
+  * Improved performance on deciding font size dynamically.
+
+  * Changed to use RubyGems user in (({config.yaml})) on pushing
+    slide/theme gems.
+
+  * PDF: Supported link. But there are the following limitations:
+      * cairo 1.15.4 is required. (If you use Rabbit with cairo 1.15.2
+        or earlier, you just can't use this feature.)
+      * Link target is paragraph not link text.
+
+==== Theme
+
+  * slide-logo: Supported logo per side by specifying image file name
+    to (({logo-image})) slide property.
+
+  * title-on-image-toolkit: Improved readability by rendering
+    character border.
+
+  * syntax-highlighting: Changed color for path of (({#include})) in
+    C. Now, it uses the same color as normal string.
+
+==== rabbit-slide
+
+  * Markdown: Fixed a bug that required newlines are missing.
+    [GitHub#95][Patch by znz]
+
+==== Document
+
+  * Improve English in FAQ.
+    [GitHub#100][Patch by Todd Trimble]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that error isn't reported when multibyte image file
+    name is specified and it doesn't exist.
+    [GitHub#91][Reported by takiy33]
+
+  * Windows: Fixed encoding error on image file detection.
+    [GitHub#93][Reported by dogatana]
+
+  * Fixed a bug that an error is occurred when you cancel in slide
+    select dialog.
+
+  * Fixed typos.
+    [GitHub#97][Patch by znz]
+
+  * Fixed a bug that spotlight and magnifier uses wrong position when
+    slide aspect ratio and window aspect ratio are difference.
+    [GitHub#99][Patch by OBATA Akio]
+
+  * Windows: Fixed a bug that unfullscreen doesn't restore window size.
+    [GitHub#98][Reported by TADA, Tadashi]
+
+==== Document
+
+  * Fix typos.
+    [GitHub#101][Patch by znz]
+
+=== Thanks
+
+  * takiy33
+  * dogatana
+  * znz
+  * Todd Trimble
+  * OBATA Akio
+  * TADA, Tadashi
+
 == 2.1.9: 2016-05-27
 
 Markdown support improvement release.
