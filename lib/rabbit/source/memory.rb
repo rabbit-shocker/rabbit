@@ -36,6 +36,8 @@ module Rabbit
       def reset
         @current_source = @original_source.dup
       end
+
+      attr_accessor :extension
     end
   end
 end

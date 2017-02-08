@@ -301,6 +301,7 @@ module Rabbit
         @canvas.source_force_modified(true) do |original_source|
           source.source = original_source.read
           source.base = original_source.base
+          source.extension = original_source.extension
         end
         canvas.parse(source)
       end
