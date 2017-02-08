@@ -1,3 +1,4 @@
+dist: trusty
 env:
   global:
     - DISPLAY=":99.0"
