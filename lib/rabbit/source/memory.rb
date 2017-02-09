@@ -9,14 +9,18 @@ module Rabbit
         N_("[FILENAME_OR_NOT]")
       end
 
+      attr_accessor :extension
+
       def initialize(encoding, logger, name=nil)
         super(encoding, logger)
         if name
           file_source = File.new(encoding, logger, name)
           @original_source = file_source.read
           set_base(file_source.base)
+          @extension = extract_extension(name)
         else
           @original_source = ""
+          @extension = nil
         end
         reset
       end
@@ -36,8 +40,6 @@ module Rabbit
       def reset
         @current_source = @original_source.dup
       end
-
-      attr_accessor :extension
     end
   end
 end
