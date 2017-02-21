@@ -1,6 +1,8 @@
 /Gemfile.lock
 /pkg/
+/doc/.jekyll-metadata
 /doc/_site/
+/doc/css/style.css
 /doc/images/screenshots/
 /sample/.tmp/
 /po/*/rabbit.po~

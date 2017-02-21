@@ -2,382 +2,386 @@
 layout: en
 title: "Sample slide: Rabbit"
 ---
-    # Rabbit
+{% raw %}
+```markdown
+# Rabbit
 
-    subtitle
-    :   Presentation with Markdown
+subtitle
+:   Presentation with Markdown
 
-    author
-    :   Kouhei Sutou
+author
+:   Kouhei Sutou
 
-    institution
-    :   COZMIXNG
+institution
+:   COZMIXNG
 
-    theme
-    :   rabbit
+theme
+:   rabbit
 
-    # Rabbit
+# Rabbit
 
-    A presentation tool
+A presentation tool
 
-    * Impl.: Ruby/GTK+ 2/cairo
-    * Env.: PC-UNIX/Win/Mac
-    * Format:
-      RD/Wiki/Markdown/PDF
-    * View: Ruby
+* Impl.: Ruby/GTK+ 2/cairo
+* Env.: PC-UNIX/Win/Mac
+* Format:
+  RD/Wiki/Markdown/PDF
+* View: Ruby
 
-    # Features: Display (1)
+# Features: Display (1)
 
-    * *Emphasis*
-    * Syntax highlight
+* *Emphasis*
+* Syntax highlight
 
-    # Features: Display (2)
+# Features: Display (2)
 
-    * Tables
-    * Interesting themes
-    * Images
-      * Many supported formats
-      * PNG/JPEG/.../PDF/EPS/SVG
+* Tables
+* Interesting themes
+* Images
+  * Many supported formats
+  * PNG/JPEG/.../PDF/EPS/SVG
 
-    # Features: Display (3)
+# Features: Display (3)
 
-    * Folding long lines
-    * Syntax highlight
-    * Big text
+* Folding long lines
+* Syntax highlight
+* Big text
 
-    # Features: UI (1)
+# Features: UI (1)
 
-    * Rich key bindings
-    * Context menu
-    * Mouse gestures
-    * Spotlight
-    * Magnifier
+* Rich key bindings
+* Context menu
+* Mouse gestures
+* Spotlight
+* Magnifier
 
-    # Features: UI (2)
+# Features: UI (2)
 
-    * Index page
-    * Graffiti
-    * I18N
-    * Search
+* Index page
+* Graffiti
+* I18N
+* Search
 
-    # Features: UI (3)
+# Features: UI (3)
 
-    * Whiteout/Blackout
-    * Rabbit hole
-      * Make a hole in a slide
-    * Visualization of remaining time
-      * The Tortoise and the Hare
+* Whiteout/Blackout
+* Rabbit hole
+  * Make a hole in a slide
+* Visualization of remaining time
+  * The Tortoise and the Hare
 
-    # Features: Input
+# Features: Input
 
-    * File
-    * Standard input
-    * HTTP
-    * Hiki
-    * SlideShare
+* File
+* Standard input
+* HTTP
+* Hiki
+* SlideShare
 
-    # Features: Format
+# Features: Format
 
-    * Wiki（Hiki）
-    * RD
-    * Markdown (kramdown)
-    * PDF
-      * →PDF viewer
+* Wiki（Hiki）
+* RD
+* Markdown (kramdown)
+* PDF
+  * →PDF viewer
 
-    # Features: Output
+# Features: Output
 
-    * Images
-    * Images + HTML
-    * PS/PDF
-    * PS/PDF for print
-      * slides/page
+* Images
+* Images + HTML
+* PS/PDF
+* PS/PDF for print
+  * slides/page
 
-    # Features: Ext. API
+# Features: Ext. API
 
-    * HTTP
-    * dRuby
-    * XML-RPC
-    * SOAP
+* HTTP
+* dRuby
+* XML-RPC
+* SOAP
 
-    # Features: Creating
+# Features: Creating
 
-    * Auto source reload
-    * Theme reload
-    * Change theme
+* Auto source reload
+* Theme reload
+* Change theme
 
-    # ToDo
+# ToDo
 
-      * Inline images
-      * Jump to a link
-      * Sound
-      * Video
-      * 3D
+  * Inline images
+  * Jump to a link
+  * Sound
+  * Video
+  * 3D
 
-    # Image
+# Image
 
-    ![](lavie.png "Lavie"){:width='100' height='100'}
+![](lavie.png "Lavie"){:width='100' height='100'}
 
-    # Image: Reflect
+# Image: Reflect
 
-    ![](shocker.jpg){:relative_height='80' reflect_ratio='0.5'}
+![](shocker.jpg){:relative_height='80' reflect_ratio='0.5'}
 
-    # Image: Background (1)
+# Image: Background (1)
 
-    * Background image
-    * Centering by default
+* Background image
+* Centering by default
 
-    ## Properties
+## Properties
 
-    background-image
-    :   lavie.png
+background-image
+:   lavie.png
 
-    background-image-relative-width
-    :   50
+background-image-relative-width
+:   50
 
-    {::comment}
-    background-image-align
-    :   right
+{::comment}
+background-image-align
+:   right
 
-    background-image-relative-margin-right
-    :   3
-    {:/comment}
+background-image-relative-margin-right
+:   3
+{:/comment}
 
-    # Image: Background (2)
+# Image: Background (2)
 
-    ![](lavie.png){:relative_width="30" align="right" relative_margin_right="-5"}
+![](lavie.png){:relative_width="30" align="right" relative_margin_right="-5"}
 
-    * Right justified backgorund image
-    * Specify in slide
-      * \{:align="right"\}
+* Right justified backgorund image
+* Specify in slide
+  * \{:align="right"\}
 
-    # Image size
+# Image size
 
-    Relative image sizes
+Relative image sizes
 
-    ![](usagi.png){:caption="USAGI" relative_height="50"}
+![](usagi.png){:caption="USAGI" relative_height="50"}
 
-    # External image
+# External image
 
-    Download an image from a URL
+Download an image from a URL
 
-    ![](http://www.cozmixng.org/repos/images/cozmixchu.png "COZMIX Chu")
+![](http://www.cozmixng.org/repos/images/cozmixchu.png "COZMIX Chu")
 
-    # Math. expressions
+# Math. expressions
 
-    * TeX format
-    * Backends
-      * LaTeX
+* TeX format
+* Backends
+  * LaTeX
 
-    # LaTeX
+# LaTeX
 
-    $$
-    $f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
+$$
+$f(x)=\displaystyle\int_{-\infty}^x~e^{-t^2}dt$
 
-    \LaTeX
-    $$
+\LaTeX
+$$
 
-    # EPS
+# EPS
 
-    Create EPS ahead of time
+Create EPS ahead of time
 
-    ![](equation.eps){:relative_width="80"}
+![](equation.eps){:relative_width="80"}
 
-    # SVG
+# SVG
 
-    ![](spiral.svg){:relative_height="100"}
+![](spiral.svg){:relative_height="100"}
 
-    # Dia
+# Dia
 
-    ![](rabbit.dia){:relative_width="90"}
+![](rabbit.dia){:relative_width="90"}
 
-    # GIMP
+# GIMP
 
-    ![](rabbit.xcf){:relative_height="100"}
+![](rabbit.xcf){:relative_height="100"}
 
-    # Word Wrapping
+# Word Wrapping
 
-    looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
+looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
 
-    # Source
+# Source
 
-    The following is source code:
+The following is source code:
 
-	# comment
-	def method_name
-	  body
-	end
+# comment
+def method_name
+  body
+end
 
-    End of source code.
+End of source code.
 
-    # Source: Highlighted
+# Source: Highlighted
 
-    The following is source code:
+The following is source code:
 
-	# comment
-	def method_name
-	  body
-	end
-    {: lang="ruby"}
+# comment
+def method_name
+  body
+end
+{: lang="ruby"}
 
-    End of source code.
+End of source code.
 
-    # Quotation
+# Quotation
 
-    > You take the ''red pill'', you stay in Wonderland and 
-    > I show you how deep the ''rabbit-hole'' goes.
+> You take the ''red pill'', you stay in Wonderland and 
+> I show you how deep the ''rabbit-hole'' goes.
 
-    # Enumeration
+# Enumeration
 
-    * Level 1-1
-      * Level 2-1
-	* Level 3-1
-	* Level 3-2
-      * Level 2-2
-    * Level 1-2
+* Level 1-1
+  * Level 2-1
+* Level 3-1
+* Level 3-2
+  * Level 2-2
+* Level 1-2
 
-    # Labeled list
+# Labeled list
 
-    Rabbit
-    :   USAGI
+Rabbit
+:   USAGI
 
-	Tortoise
-	:   KAME
+Tortoise
+:   KAME
 
-    USAGI
-    :   Rabbit
+USAGI
+:   Rabbit
 
-    # Table
+# Table
 
-    | Heading 1 | Heading 2 |
-    |---------|--------|
-    | content 1 | content 2 |
-    | very long content 3 | veeeery looooooooooooooooooooooong content 4 |
+| Heading 1 | Heading 2 |
+|---------|--------|
+| content 1 | content 2 |
+| very long content 3 | veeeery looooooooooooooooooooooong content 4 |
 
-    # Op.: Move
+# Op.: Move
 
-    Next page
-    :   Bindings for next page/Left click
+Next page
+:   Bindings for next page/Left click
 
-	n, f, j, l, Spc, Ret, +, ↓, →, ...
+n, f, j, l, Spc, Ret, +, ↓, →, ...
 
-    Previous page
-    :   Bindings for prev. page/Center click
+Previous page
+:   Bindings for prev. page/Center click
 
-	p, b, k, h, BS, Del, -, ↑, ←, ...
+p, b, k, h, BS, Del, -, ↑, ←, ...
 
-    # Op.: Advanced move
+# Op.: Advanced move
 
-    Go to the title page
-    :   a, 0, <, Home
+Go to the title page
+:   a, 0, <, Home
 
-    Go to page n
-    :   1-9, +Ctrl=+10, +Alt=+20
+Go to page n
+:   1-9, +Ctrl=+10, +Alt=+20
 
-    Go to the last page
-    :   e, $, >, End
+Go to the last page
+:   e, $, >, End
 
-    # Op.: On stage (1)
+# Op.: On stage (1)
 
-    Toggle full screen
-    :   F5, F10, F11, Gesture↓↑
+Toggle full screen
+:   F5, F10, F11, Gesture↓↑
 
-    Toggle index mode
-    :   i
+Toggle index mode
+:   i
 
-    Go to the page
-    :   Double click on the desired page
+Go to the page
+:   Double click on the desired page
 
-    # Op.: On stage (2)
+# Op.: On stage (2)
 
-    Cache all slides
-    :   c
+Cache all slides
+:   c
 
-    Toggle info window
-    :   I
+Toggle info window
+:   I
 
-    # Op.: On stage (3)
+# Op.: On stage (3)
 
-    Magnifier
-    :   Ctrl + right click
+Magnifier
+:   Ctrl + right click
 
-	Change scale by wheel
+Change scale by wheel
 
-    Spotlight
-    :   Double right clicks
+Spotlight
+:   Double right clicks
 
-	Change radius by wheel
+Change radius by wheel
 
-    # Op.: On stage (4)
+# Op.: On stage (4)
 
-    Graffiti
-    :   Popup menu (right click) →
-	"Graffiti mode"
+Graffiti
+:   Popup menu (right click) →
+"Graffiti mode"
 
-    Mouse gesture
-    :   Right button drag
+Mouse gesture
+:   Right button drag
 
-    # Op.: On stage (5)
+# Op.: On stage (5)
 
-    Whiteout
-    :   W
+Whiteout
+:   W
 
-    Blackout
-    :   B
+Blackout
+:   B
 
-    # Op.: Save
+# Op.: Save
 
-    Screenshot
-    :   Save each page as an image
+Screenshot
+:   Save each page as an image
 
-	s
+s
 
-    Print
-    :   Print each page as PS/PDF
+Print
+:   Print each page as PS/PDF
 
-	Ctrl+p
+Ctrl+p
 
-    # Op.: Display
+# Op.: Display
 
-    Redraw
-    :   Ctrl+l
+Redraw
+:   Ctrl+l
 
-    Reload theme
-    :   t, r
+Reload theme
+:   t, r
 
-    Reset slide adjustment
-    :   Alt+a
+Reset slide adjustment
+:   Alt+a
 
-    # Op.: Hole
+# Op.: Hole
 
-    Expand the hole
-    :   E
+Expand the hole
+:   E
 
-    Narrow the hole
-    :   N
+Narrow the hole
+:   N
 
-    # Op.: Search
+# Op.: Search
 
-    Search forward
-    :   C-s, /
+Search forward
+:   C-s, /
 
-    Search backward
-    :   C-r, ?
+Search backward
+:   C-r, ?
 
-    Quit search
-    :   C-g
+Quit search
+:   C-g
 
-    # Op.: Quit
+# Op.: Quit
 
-    Quit
-    :   q, Escape
+Quit
+:   q, Escape
 
-    Iconify
-    :   z
+Iconify
+:   z
 
-    # Conclusion
+# Conclusion
 
-    * A presentation tool
-    * Multi platform
-    * Feat./UI: High & Unique
-    * Emphasize keybord shortcuts
-      * UI/text based source
+* A presentation tool
+* Multi platform
+* Feat./UI: High & Unique
+* Emphasize keybord shortcuts
+  * UI/text based source
+```
+{% endraw %}

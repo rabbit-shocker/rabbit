@@ -74,7 +74,8 @@ div.facebook-buttons
     height: 90px;
 }
 
-pre
+pre,
+.highlighter-rouge
 {
     overflow: auto;
     -moz-border-radius: 5px;
