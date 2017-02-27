@@ -15,7 +15,22 @@ Rabbitはコマンドラインから起動する方法とコマンドランチ�
 
   % rabbit XXX.rd
 
-例えば、sample/rabbit-implementation.rdを使うには、トップの
+例えば、XXX.rd の内容はこのようになっています。
+
+  = タイトル
+
+  :author
+    発表者名
+
+  = 1ページ目
+
+  ここは内容
+
+  = 2ページ目
+
+  おしまい
+
+sample/rabbit-implementation.rdを使うには、トップの
 ディレクトリで以下のようにします。
 
   % rabbit sample/rabbit-implementation.rd
