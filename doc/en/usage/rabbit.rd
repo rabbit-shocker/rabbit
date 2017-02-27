@@ -20,6 +20,22 @@ or
 
 or ...
 
+For example, text of XXX.rd is
+
+  = Title
+
+  :author
+    Author name
+
+  = First page
+
+  Contents
+
+  = Second page
+
+  Finished
+
+
 Type the following if you want to run sample/rabbit_en.rd.
 
   % rabbit --type file sample/rabbit_en.rd
