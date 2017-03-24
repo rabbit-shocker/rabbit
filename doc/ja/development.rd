@@ -64,7 +64,7 @@ Rabbitのドキュメントが不足しています。まずは、あなたの�
   % cd rabbit
   % bundle install --path vendor/bundle
 
-Bundlerはgemのパッケージ管理ツールです。事前のインストールが必要です。
+((<"http://bundler.io/"/Bundler>))はgemのパッケージ管理ツールです。事前のインストールが必要です。
 
   % gem install bundler
 
