@@ -48,3 +48,34 @@ the following:
 
   % mkdir po/#{LANG}
   % ./update-po.rb
+
+=== Build development environment
+
+==== Clone repository
+
+Source code of ((<"http://rabbit-shocker.org/"/this site>)) are on the Github. It's same of Rabbit's ((<repository|URL:https://github.com/rabbit-shocker/rabbit/>)).
+
+  % git clone https://github.com/rabbit-shocker/rabbit.git
+
+It's under doc dir.
+
+
+==== Install gems
+
+Install gems by Bundler.
+
+  % cd rabbit
+  % bundle install --path vendor/bundle
+
+((<"http://bundler.io/"/Bundler>)) is package manager tool. It needs installing before.
+
+  % gem install bundler
+
+
+==== Start development server
+
+Start development server by rake task.
+
+  % bundle exec rake doc:server
+
+Web server is booted after run doc:server task. Access ((<"http://127.0.0.1:4000/index.html.ja"/"http://127.0.0.1:4000/index.html.ja">)) locallly.
