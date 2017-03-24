@@ -53,7 +53,7 @@ Rabbitのドキュメントが不足しています。まずは、あなたの�
 
 ((<"http://rabbit-shocker.org/"/本サイト>))のソースコードもRabbitと同じ((<リポジトリ|URL:https://github.com/rabbit-shocker/rabbit/>))にあります。Rabbitのリポジトリをクローンします。
 
-  $ git clone https://github.com/rabbit-shocker/rabbit.git
+  % git clone https://github.com/rabbit-shocker/rabbit.git
 
 サイトのソースコードはdocディレクトリにあります。
 
@@ -61,18 +61,18 @@ Rabbitのドキュメントが不足しています。まずは、あなたの�
 
 開発に必要なライブラリをBundlerでインストールします。
 
-  $ cd rabbit
-  $ bundle install --path vendor/bundle
+  % cd rabbit
+  % bundle install --path vendor/bundle
 
 Bundlerはgemのパッケージ管理ツールです。事前のインストールが必要です。
 
-  $ gem install bundler
+  % gem install bundler
 
 ==== 開発サーバーの起動
 
 Rakeタスクで開発サーバーを起動します。
 
-  $ bundle exec rake doc:server
+  % bundle exec rake doc:server
 
 doc:server タスクを実行するとWebServerが立ち上がります。((<"http://127.0.0.1:4000/index.html.ja"/"http://127.0.0.1:4000/index.html.ja">)) にアクセスしてください。
 Rabbitウェブサイトのホームページが表示されます。
