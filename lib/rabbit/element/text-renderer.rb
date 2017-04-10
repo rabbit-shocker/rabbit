@@ -22,7 +22,7 @@ module Rabbit
 
       def align=(new_value)
         if new_value.is_a?(String)
-          new_value = Pango::Layout.const_get("ALIGN_#{new_value.to_s.upcase}")
+          new_value = Pango::Alignment.const_get(new_value.to_s.upcase)
         end
         dirty! if @align != new_value
         @align = new_value
@@ -78,11 +78,11 @@ module Rabbit
       end
 
       def do_horizontal_centering(canvas, x, y, w, h)
-        self.align = Pango::Layout::ALIGN_CENTER
+        self.align = Pango::Alignment::CENTER
       end
 
       def reset_horizontal_centering(canvas, x, y, w, h)
-        self.align = default_align if @align == Pango::Layout::ALIGN_CENTER
+        self.align = default_align if @align == Pango::Alignment::CENTER
       end
 
       def markuped_text
@@ -197,8 +197,8 @@ module Rabbit
         setup_layout(layout, w)
         width, height = layout.pixel_size
         if layout.width != -1 and
-            (layout.alignment == Pango::Layout::ALIGN_CENTER or
-             layout.alignment == Pango::Layout::ALIGN_RIGHT)
+            (layout.alignment == Pango::Alignment::CENTER or
+             layout.alignment == Pango::Alignment::RIGHT)
           width = layout.width / Pango::SCALE
         end
         @width, @height = width, height
@@ -246,7 +246,7 @@ module Rabbit
       end
 
       def default_align
-        Pango::Layout::ALIGN_LEFT
+        Pango::Alignment::LEFT
       end
 
       def default_justify

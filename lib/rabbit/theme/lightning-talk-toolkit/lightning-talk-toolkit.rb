@@ -99,7 +99,7 @@ def setup_lightning_talk_slide(slide)
               :family => contact_information_family,
             }
             text.font(params)
-            text.align = Pango::Layout::ALIGN_RIGHT
+            text.align = Pango::Alignment::RIGHT
             text.compile(canvas, x, y, w, h)
             text.layout.set_width(width * Pango::SCALE)
             text_x = margin_left

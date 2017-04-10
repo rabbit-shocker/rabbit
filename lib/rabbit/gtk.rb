@@ -41,6 +41,10 @@ module Pango
   unless const_defined?(:WrapMode)
     WrapMode = Layout::WrapMode
   end
+
+  unless const_defined?(:Alignment)
+    Alignment = Layout::Alignment
+  end
 end
 
 module Gdk

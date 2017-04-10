@@ -154,7 +154,7 @@ module Rabbit
             text = %Q[<span size="#{text_size}">#{text}</span>]
             @layout, _, _ = canvas.make_layout(text)
             @layout.set_width(width * Pango::SCALE)
-            @layout.set_alignment(Pango::Layout::ALIGN_CENTER)
+            @layout.set_alignment(Pango::Alignment::CENTER)
           end
           canvas.draw_pixbuf(@pixbuf, x, y)
           canvas.draw_rectangle(false, x, y, width, height)

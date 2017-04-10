@@ -282,7 +282,7 @@ module Rabbit
           if @in_table_header
             header = TableHeader.new(convert_container(element))
             def header.default_align
-              Pango::Layout::ALIGN_CENTER
+              Pango::Alignment::CENTER
             end
             header
           else

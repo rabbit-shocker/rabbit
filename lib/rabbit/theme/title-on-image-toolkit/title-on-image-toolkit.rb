@@ -69,7 +69,7 @@ def setup_title_on_image_slide(slide)
             shadow_headline.font(:color => nil)
             shadow_layout = canvas.make_layout(shadow_headline.markuped_text)
             shadow_layout.set_width(w * Pango::SCALE)
-            shadow_layout.set_alignment(Pango::Layout::ALIGN_CENTER)
+            shadow_layout.set_alignment(Pango::Alignment::CENTER)
 
             font_size = headline.pixel_font_size
             move_x = @applier.screen_x(font_size.to_f / @applier.screen_size(10))

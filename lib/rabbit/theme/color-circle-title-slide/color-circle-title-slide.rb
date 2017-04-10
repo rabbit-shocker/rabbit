@@ -9,7 +9,7 @@ match(TitleSlide, "*") do |elements|
     element.margin_left = canvas.width * 0.2
     element.margin_right = canvas.width * 0.05
     unless [Title, Subtitle, Author].find {|type| element.is_a?(type)}
-      element.align = Pango::Layout::ALIGN_RIGHT
+      element.align = Pango::Alignment::RIGHT
     end
   end
 end

@@ -17,7 +17,7 @@ match(Slide) do |slides|
     unless simulation
       text = Text.new("#{slide.index}/#{canvas.slide_size - 1}")
       text.font @slide_number_props
-      text.align = Pango::Layout::ALIGN_RIGHT
+      text.align = Pango::Alignment::RIGHT
       text.compile(canvas, x, y, w, h)
       layout = text.layout
       layout.set_width(w * Pango::SCALE)

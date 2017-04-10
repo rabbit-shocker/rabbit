@@ -28,7 +28,7 @@ match(*all_table) do |tables|
     table.add_pre_draw_proc(name) do |canvas, x, y, w, h, simulation|
       if table.caption and layout.nil?
         caption = Text.new(table.caption)
-        caption.align = Pango::Layout::ALIGN_CENTER
+        caption.align = Pango::Alignment::CENTER
         caption.prop_set("size", @normal_font_size)
         set_font_family(caption)
         caption.compile(canvas, x, y, w, h)

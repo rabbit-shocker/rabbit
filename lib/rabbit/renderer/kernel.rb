@@ -160,7 +160,7 @@ module Rabbit
                            text_height, flag_height)
         base_x = x + pole_width
         layout.width = flag_width * Pango::SCALE
-        layout.alignment = Pango::Layout::ALIGN_CENTER
+        layout.alignment = Pango::Alignment::CENTER
         base_y = y
         if text_height < flag_height
           base_y += (flag_height - text_height) / 2

@@ -248,7 +248,7 @@ module Rabbit
           @table_head << @parent if @parent.parent.nil?
           header = TableHeader.new(item)
           def header.default_align
-            Pango::Layout::ALIGN_CENTER
+            Pango::Alignment::CENTER
           end
           @parent << header
         end

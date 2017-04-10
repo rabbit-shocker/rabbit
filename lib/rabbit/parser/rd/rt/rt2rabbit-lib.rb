@@ -71,15 +71,15 @@ module Rabbit
       case align
       when :center
         def target.default_align
-          Pango::Layout::ALIGN_CENTER
+          Pango::Alignment::CENTER
         end
       when :right
         def target.default_align
-          Pango::Layout::ALIGN_RIGHT
+          Pango::Alignment::RIGHT
         end
       else
         def target.default_align
-          Pango::Layout::ALIGN_LEFT
+          Pango::Alignment::LEFT
         end
       end
       target.align = target.default_align

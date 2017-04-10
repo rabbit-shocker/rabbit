@@ -112,7 +112,7 @@ create_title_layout = lambda do |close_quote, block, canvas, x, y, w, h|
   title = Text.new(_("[cited from `%s']") % block.title)
   title.font(:size => @block_quote_title_font_size,
              :style => "italic")
-  title.align = Pango::Layout::ALIGN_RIGHT
+  title.align = Pango::Alignment::RIGHT
   set_font_family(title)
   title_w = w + block.padding_left + block.padding_right
   if @block_quote_image_frame
