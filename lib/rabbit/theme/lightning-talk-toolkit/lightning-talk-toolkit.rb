@@ -7,7 +7,7 @@
 @lightning_talk_contact_information_color ||= nil
 @lightning_talk_contact_information_font_family ||= @font_family
 @lightning_talk_as_large_as_possible ||= false
-@lightning_talk_wrap_mode ||= Pango::Layout::WRAP_WORD
+@lightning_talk_wrap_mode ||= Pango::WrapMode::WORD
 if @lightning_talk_horizontal_centering.nil?
   @lightning_talk_horizontal_centering = true
 end

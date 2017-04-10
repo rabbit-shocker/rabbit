@@ -242,7 +242,7 @@ module Rabbit
       end
 
       def default_wrap_mode
-        Pango::Layout::WRAP_WORD_CHAR
+        Pango::WrapMode::WORD_CHAR
       end
 
       def default_align

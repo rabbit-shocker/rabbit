@@ -37,6 +37,12 @@ module Cairo
   end
 end
 
+module Pango
+  unless const_defined?(:WrapMode)
+    WrapMode = Layout::WrapMode
+  end
+end
+
 module Gdk
   class Event
     STOP = true unless const_defined?(:STOP)
