@@ -44,7 +44,7 @@ def apply_background_image_property(element, options={})
       image.compile(canvas, _x, _y, _w, _h)
 
       case vertical_align
-      when "center"
+      when "middle"
         adjust_height = ((_h - image.height - image.padding_bottom) / 2.0).ceil
         if _y + adjust_height > 0
           _y += adjust_height
