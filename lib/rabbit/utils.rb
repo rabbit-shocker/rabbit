@@ -365,6 +365,7 @@ module Rabbit
   module ScreenInfo
     module_function
     def default_screen
+      raise "No screen found. Is an X display available?" if Gdk::Screen.default.nil?
       Gdk::Screen.default
     end
 
