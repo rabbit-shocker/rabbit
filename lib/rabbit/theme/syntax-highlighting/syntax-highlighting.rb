@@ -68,6 +68,9 @@ theme_exit if @syntax_highlighting_uninstall
   :operator => {
     :color => "#ce5c00",
   },
+  :punctuation => {
+    :color => "#ce5c00",
+  },
   :ident => {
     # :color => "#f57900",
   },

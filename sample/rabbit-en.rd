@@ -334,6 +334,18 @@ The following is source code:
 
 End of source code.
 
+= Source: Rouge
+
+The following is source code:
+
+  # rouge ruby
+  # comment
+  def method_name
+    body
+  end
+
+End of source code.
+
 = Quotation
 
   # blockquote

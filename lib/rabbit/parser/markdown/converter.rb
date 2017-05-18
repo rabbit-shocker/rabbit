@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2016  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@ require "English"
 require "rabbit/gettext"
 require "rabbit/parser/pause-support"
 require "rabbit/parser/ext/blockdiag"
-require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/escape"
 require "rabbit/parser/ext/inline"
 require "rabbit/parser/ext/image"
+require "rabbit/parser/ext/rouge"
 require "rabbit/parser/ext/tex"
 
 module Rabbit
@@ -334,7 +334,7 @@ module Rabbit
             end
           else
             logger = @canvas.logger
-            Ext::CodeRay.highlight(language, content, logger)
+            Ext::Rouge.highlight(language, content, logger)
           end
         end
 

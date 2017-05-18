@@ -1,4 +1,3 @@
-* support Rouge for syntax highlight.
 * documents all key-bindings and mouse-bindings. (e.g. spotlight)
 * support centering in table cell.
 * improve Clutter support.

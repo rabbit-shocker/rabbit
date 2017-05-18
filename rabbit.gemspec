@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -59,6 +59,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("gettext", ">= 3.0.1")
   spec.add_runtime_dependency("faraday")
   # spec.add_runtime_dependency("gstreamer")
+  spec.add_runtime_dependency("rouge")
 
   spec.add_development_dependency("gtk3")
   spec.add_development_dependency("test-unit")

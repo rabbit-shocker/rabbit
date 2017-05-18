@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2007-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/emacs"
 require "rabbit/parser/ext/entity"
+require "rabbit/parser/ext/rouge"
 
 module Rabbit
   module Parser
@@ -282,7 +283,7 @@ module Rabbit
           result = nil
 
           if lang
-            result = Ext::CodeRay.highlight(lang, contents, @canvas.logger)
+            result = Ext::Rouge.highlight(lang, contents, @canvas.logger)
           end
 
           if result
@@ -532,6 +533,11 @@ module Rabbit
           def emacs(source, mode_line=nil)
             logger = @output.canvas.logger
             Ext::Emacs.highlight(source, logger, mode_line)
+          end
+
+          def rouge(lang, source)
+            logger = @output.canvas.logger
+            Ext::Rouge.highlight(lang, source, logger)
           end
 
           def tag(name, value=nil)

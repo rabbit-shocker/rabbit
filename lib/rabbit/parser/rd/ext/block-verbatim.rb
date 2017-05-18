@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ require "rabbit/parser/ext/aafigure"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/emacs"
+require "rabbit/parser/ext/rouge"
 
 module Rabbit
   module Parser
@@ -188,6 +189,17 @@ module Rabbit
             src, prop = parse_source(source)
             text = Text.new(src)
             PreformattedBlock.new(PreformattedText.new(text))
+          end
+
+          def ext_block_verb_rouge(label, source, content, visitor)
+            return nil unless /\Arouge (\w+)\z/i =~ label
+            lang = $1.downcase.untaint
+
+            src, prop = parse_source(source)
+            logger = visitor.logger
+
+            result = Parser::Ext::Rouge.highlight(lang, src, logger)
+            result || default_ext_block_verbatim(label, src, src, visitor)
           end
         end
       end
