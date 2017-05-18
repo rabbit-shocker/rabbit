@@ -30,9 +30,11 @@ module Rabbit
           lexer = ::Rouge::Lexer.find(lang).new
           formatter = RabbitFormatter.new
           block = Element::SyntaxHighlightingBlock.new
+          text_container = Element::TextContainer.new
           formatter.format(lexer.lex(text.strip)) do |element|
-            block << element
+            text_container << element
           end
+          block << text_container
           block
         end
 
