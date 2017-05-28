@@ -34,23 +34,16 @@ module Rabbit
       end
 
       def pixbuf
-        @pixbuf ||= to_pixbuf(width, height)
+        @pixbuf ||= to_pixbuf
       end
 
       private
       def update_size
-        @handle = nil
         rsvg_environment do |name|
-          if RSVG::Handle.respond_to?(:new_from_file)
-            @handle = RSVG::Handle.new_from_file(name)
-            dim = @handle.dimensions
-            @width = dim.width
-            @height = dim.height
-          else
-            @pixbuf = RSVG.pixbuf_from_file(name)
-            @width = @pixbuf.width
-            @height = @pixbuf.height
-          end
+          @handle = Rsvg::Handle.new(:path => name)
+          dim = @handle.dimensions
+          @width = dim.width
+          @height = dim.height
         end
       end
 
@@ -66,14 +59,12 @@ module Rabbit
         end
       end
 
-      def to_pixbuf(w=nil, h=nil)
-        rsvg_environment do |name|
-          if w or h
-            RSVG.pixbuf_from_file_at_size(name, w || width, h || height)
-          else
-            RSVG.pixbuf_from_file(name)
-          end
-        end
+      def to_pixbuf
+        surface = Cairo::ImageSurface.new(width, height)
+        context = Cairo::Context.new(surface)
+        context.render_rsvg_handle(@handle)
+        surface.finish
+        surface.to_pixbuf
       end
     end
   end
