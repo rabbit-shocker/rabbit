@@ -48,7 +48,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("gio2")
   spec.add_runtime_dependency("gdk_pixbuf2", ">= 3.0.9")
   spec.add_runtime_dependency("gtk2")
-  spec.add_runtime_dependency("rsvg2", ">= 3.1.4")
+  spec.add_runtime_dependency("rsvg2")#, ">= 3.1.4")
   spec.add_runtime_dependency("poppler")
   spec.add_runtime_dependency("hikidoc")
   spec.add_runtime_dependency("nokogiri")
