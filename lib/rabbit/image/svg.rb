@@ -59,11 +59,7 @@ module Rabbit
       private
       def update_size
         rsvg_environment do |name|
-          @handle = Rsvg::Handle.new(# TODO: Use :path instead of :file_name
-                                     # when rsvg2 3.1.4 is released.
-                                     :file_name => name,
-                                     #:path => name,
-                                     )
+          @handle = Rsvg::Handle.new(:path => name)
           dim = @handle.dimensions
           @width = dim.width
           @height = dim.height
