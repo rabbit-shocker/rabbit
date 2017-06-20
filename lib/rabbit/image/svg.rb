@@ -83,12 +83,7 @@ module Rabbit
         context = Cairo::Context.new(surface)
         context.render_rsvg_handle(@handle)
         surface.finish
-        if surface.method(:to_pixbuf).arity == -1
-          surface.to_pixbuf
-        else
-          # TODO: Remove this branch when rsvg2 3.1.4 is released.
-          surface.to_pixbuf(0, 0, width, height)
-        end
+        surface.to_pixbuf
       end
     end
   end
