@@ -53,7 +53,7 @@ module Rabbit
       end
 
       def pixbuf
-        @pixbuf ||= to_pixbuf
+        @handle.pixbuf
       end
 
       private
@@ -76,14 +76,6 @@ module Rabbit
         Dir.chdir(dir) do
           yield(name)
         end
-      end
-
-      def to_pixbuf
-        surface = Cairo::ImageSurface.new(width, height)
-        context = Cairo::Context.new(surface)
-        context.render_rsvg_handle(@handle)
-        surface.finish
-        surface.to_pixbuf
       end
     end
   end
