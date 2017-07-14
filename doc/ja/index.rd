@@ -167,11 +167,6 @@ bin/rabbirc
 めて須藤がライセンスを変更できる権利を持つことに同意してもらったことと
 します。
 
-lib/rabbit/div/prototype.jsはMITスタイルのライセンスになりま
-す。
-詳しくは((<Prototype JavaScript
-Framework|URL:http://prototype.conio.net/>))を見てください。
-
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-white.jpg
 と
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg

@@ -158,10 +158,6 @@ or later. Kouhei Sutou can change the license of them. He considers
 that authors of them agree with the rule when they contribute their
 patches, codes and so on.
 
-lib/rabbit/div/prototype.js released under an MIT-style
-licence. For more information see ((<Prototype JavaScript
-Framework|URL:http://prototype.conio.net/>)).
-
 The author of
 data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-white.jpg
 and
