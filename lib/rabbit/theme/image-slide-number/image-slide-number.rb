@@ -29,10 +29,19 @@ end
   :draw_scaled_pixbuf => false,
 }
 
+target_n_slides = nil
+
 match(Slide) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
 
   break if @image_slide_number_uninstall
+
+  slides.each do |slide|
+    if slide["image-slide-number-last-slide"] == "true"
+      target_n_slides = slide.index + 1
+      break
+    end
+  end
 
   loader = ImageLoader.new(find_file(@image_slide_number_image))
   unless @image_slide_number_show_text
@@ -104,10 +113,12 @@ match(Slide) do |slides|
         end
       end
 
-      if canvas.slide_size < 3
+      target_n_slides ||= canvas.slide_size
+      if target_n_slides < 3
         ratio = 1
       else
-        ratio = (slide.index - 1.0) / (canvas.slide_size - 2.0)
+        ratio = (slide.index - 1.0) / (target_n_slides - 2.0)
+        ratio = 1 if ratio > 1
       end
       current_base_x = base_x + max_width * ratio
       loader.draw(canvas, current_base_x, base_y,
