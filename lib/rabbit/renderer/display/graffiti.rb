@@ -68,6 +68,7 @@ module Rabbit
           end
         end
 
+        public
         def draw_graffiti
           @graffiti.draw_all_segment(self)
         end

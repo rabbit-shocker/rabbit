@@ -282,6 +282,7 @@ module Rabbit
           end
         end
 
+        public
         def paint(color_name)
           context = @drawable.create_cairo_context
           context.set_source_rgb(*Color.parse(color_name).to_gdk_rgb)
