@@ -25,6 +25,45 @@ module Rabbit
           graffiti_mode_action.active = false
         end
 
+        def graffiti_mode?
+          graffiti_mode_action.active?
+        end
+
+        def have_graffiti?
+          @graffiti.have_graffiti?
+        end
+
+        def can_undo_graffiti?
+          @graffiti.can_undo?
+        end
+
+        def toggle_graffiti_mode
+          if graffiti_mode?
+            update_cursor(:pencil)
+          else
+            restore_cursor(nil)
+          end
+          update_menu
+        end
+
+        def clear_graffiti
+          @graffiti.clear
+          Action.update_graffiti_action_status(@canvas)
+          @area.queue_draw
+        end
+
+        def undo_graffiti
+          @graffiti.undo
+          Action.update_graffiti_action_status(@canvas)
+          @area.queue_draw
+        end
+
+        def change_graffiti_color
+          @graffiti.change_color do
+            redraw
+          end
+        end
+
         private
         def init_graffiti
           @graffiti = Rabbit::Graffiti::Processor.new
@@ -74,45 +113,6 @@ module Rabbit
 
         def graffiti_mode_action
           @canvas.action("ToggleGraffitiMode")
-        end
-
-        def graffiti_mode?
-          graffiti_mode_action.active?
-        end
-
-        def have_graffiti?
-          @graffiti.have_graffiti?
-        end
-
-        def can_undo_graffiti?
-          @graffiti.can_undo?
-        end
-
-        def toggle_graffiti_mode
-          if graffiti_mode?
-            update_cursor(:pencil)
-          else
-            restore_cursor(nil)
-          end
-          update_menu
-        end
-
-        def clear_graffiti
-          @graffiti.clear
-          Action.update_graffiti_action_status(@canvas)
-          @area.queue_draw
-        end
-
-        def undo_graffiti
-          @graffiti.undo
-          Action.update_graffiti_action_status(@canvas)
-          @area.queue_draw
-        end
-
-        def change_graffiti_color
-          @graffiti.change_color do
-            redraw
-          end
         end
       end
     end

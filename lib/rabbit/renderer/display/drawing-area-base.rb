@@ -241,6 +241,13 @@ module Rabbit
         def post_init_gui
         end
 
+        def draw_slide(slide, simulation, &block)
+          super do |*args|
+            block.call(*args)
+            magnify {block.call(*args)} unless simulation
+          end
+        end
+
         private
         def add_widgets_to_container(container)
           @hbox = Gtk::Box.new(:horizontal)
@@ -300,13 +307,6 @@ module Rabbit
             draw_graffiti
             draw_gesture
             draw_spotlight
-          end
-        end
-
-        def draw_slide(slide, simulation, &block)
-          super do |*args|
-            block.call(*args)
-            magnify {block.call(*args)} unless simulation
           end
         end
 
