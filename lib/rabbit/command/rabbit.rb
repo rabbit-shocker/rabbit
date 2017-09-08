@@ -64,7 +64,11 @@ module Rabbit
             @logger.error($!)
           end
         end
-        application.run.zero?
+        exit_code = application.run
+        application.windows.each(&:destroy)
+        application.unref
+
+        exit_code.zero?
       end
 
       private
