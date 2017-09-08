@@ -24,7 +24,7 @@ module Rabbit
         end
 
         def stop_slide_search
-          @search_window.hide
+          @search_window.destroy
           @search_window = nil
         end
 

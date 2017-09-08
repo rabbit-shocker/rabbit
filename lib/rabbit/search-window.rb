@@ -17,9 +17,9 @@ module Rabbit
       @window.show
     end
 
-    def hide
+    def destroy
       send_focus_change(false)
-      @window.hide
+      @window.destroy
     end
 
     def forward=(forward)
