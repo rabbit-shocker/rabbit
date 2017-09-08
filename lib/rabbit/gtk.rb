@@ -114,32 +114,29 @@ module Gtk
 
   unless const_defined?(:Application)
     class Application < Gio::Application
+      attr_reader :windows
       def initialize(id, flags)
         super
         signal_connect_after("activate") do
-          Gtk.main if ApplicationWindow.n_instances > 0
+          Gtk.main unless @windows.empty?
         end
+        @windows = []
       end
     end
   end
 
   unless const_defined?(:ApplicationWindow)
     class ApplicationWindow
-      @@n_instances = 0
-
       class << self
         def new(application)
           window = Window.new
-          @@n_instances += 1
+          application.windows << window
           window.signal_connect("destroy") do
-            @@n_instances -= 1
-            Gtk.main_quit if @@n_instances.zero?
+            windows = application.windows
+            windows.delete(window)
+            Gtk.main_quit if windows.empty?
           end
           window
-        end
-
-        def n_instances
-          @@n_instances
         end
       end
     end
