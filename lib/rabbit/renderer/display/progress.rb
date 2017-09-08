@@ -27,6 +27,7 @@ module Rabbit
 
         def start_progress(max)
           return if max.zero?
+
           update_menu
           @progress.start_progress(max, @canvas.window)
           adjust_progress_window
@@ -40,7 +41,7 @@ module Rabbit
         def end_progress
           @progress.end_progress
           GLib::Timeout.add(100) do
-            @progress.window.hide
+            @progress.hide
             update_menu
             false
           end
@@ -52,7 +53,7 @@ module Rabbit
         end
 
         def adjust_progress_window
-          if @window
+          if @window and @progress.window
             Utils.move_to_top_left(@window, @progress.window)
           end
         end
