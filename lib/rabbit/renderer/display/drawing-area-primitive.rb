@@ -140,21 +140,21 @@ module Rabbit
           if @area.class.signals.include?("draw")
             @area.signal_connect("draw") do |widget, context|
               init_context(context)
-              draw(widget, context)
+              draw(widget)
               finish_renderer
               stop_events
             end
           else
             @area.signal_connect("expose_event") do |widget, event|
               init_renderer(@drawable)
-              draw(widget, @drawable.create_cairo_context)
+              draw(widget)
               finish_renderer
               stop_events
             end
           end
         end
 
-        def draw(widget, context)
+        def draw(widget)
           draw_current_slide
         end
 
