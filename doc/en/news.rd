@@ -3,6 +3,61 @@ layout: en
 title: News
 ---
 {% raw %}
+== 2.2.1: 2017-09-15
+
+For RubyKaigi 2017 speakers release.
+
+=== Improvements
+
+==== rabbit
+
+  * Supported Rouge.
+
+  * Suppressed warnings with Ruby 2.4.
+    [GitHub#109][Patch by Nobuyoshi Nakada]
+
+==== Theme
+
+  * image-slide-number: Supported "extra slides".
+    If you set "image-slide-number-last-slide" slide property to "true",
+    image timer computes its position as the slide is the last slide.
+    Image timer isn't moved for the following slides.
+
+==== Document
+
+  * Added a sample slide for RD style.
+    [GitHub#105][Patch by Masayuki Morisaki]
+
+  * Added a document how to prepare development environment.
+    [GitHub#106][Patch by Masayuki Morisaki]
+
+  * Removed license information for prototype.js that removed.
+    [GitHub#107][Patch by Ryunosuke Sato]
+
+=== Fixes
+
+==== rabbit
+
+  * Information windows: Fixed a source format detection failure.
+    [GitHub#102][Patch by Akihisa Higuchi]
+
+==== Document
+
+  * Fixed style of sample page.
+    [GitHub#103][Reported by takiy33]
+
+=== Thanks
+
+  * Akihisa Higuchi
+
+  * takiy33
+
+  * Masayuki Morisaki
+
+  * Ryunosuke Sato
+
+  * Nobuyoshi Nakada
+
 == 2.2.0: 2017-01-22
 
 Markdown support improvement release.

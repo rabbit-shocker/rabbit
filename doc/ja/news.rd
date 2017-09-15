@@ -4,6 +4,61 @@ title: お知らせ
 apply_data: false
 ---
 {% raw %}
+== 2.2.1: 2017-09-15
+
+RubyKaigi 2017スピーカー向けリリース。
+
+=== 改良
+
+==== rabbit
+
+  * Rougeに対応。
+
+  * Ruby 2.4での警告をなくした。
+    [GitHub#109][Nobuyoshi Nakadaさんがパッチ提供]
+
+==== テーマ
+
+  * image-slide-number: おまけスライドに対応。
+    「image-slide-number-last-slide」スライドプロパティーに「true」を指定
+    するとそのスライドを最後のスライドとして画像タイマーの位置を計算する。
+    このスライド以降は画像タイマーは進まない。
+
+==== ドキュメント
+
+  * RD用のサンプルを追加。
+    [GitHub#105][Masayuki Morisakiさんがパッチ提供]
+
+  * 開発環境の用意の仕方を追加。
+    [GitHub#106][Masayuki Morisakiさんがパッチ提供]
+
+  * すでに使っていないprototype.jsのライセンス情報を削除。
+    [GitHub#107][Ryunosuke Satoさんがパッチ提供]
+
+=== 修正
+
+==== rabbit
+
+  * 情報ウィンドウ：ソースのフォーマット検出に失敗する問題を修正。
+    [GitHub#102][Akihisa Higuchiさんがパッチ提供]
+
+==== ドキュメント
+
+  * サンプルページのスタイルを修正。
+    [GitHub#103][takiy33さんが報告]
+
+=== 感謝
+
+  * Akihisa Higuchiさん
+
+  * takiy33さん
+
+  * Masayuki Morisakiさん
+
+  * Ryunosuke Satoさん
+
+  * Nobuyoshi Nakadaさん
+
 == 2.2.0: 2017-01-22
 
 Markdownサポートを強化したリリース。
