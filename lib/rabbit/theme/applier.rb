@@ -289,7 +289,11 @@ module Rabbit
       end
 
       def normalized_size(s)
-        ((s / canvas.width.to_f) * normalized_width).ceil
+        if wide_aspect_ratio?
+          normalized_y(s)
+        else
+          normalized_x(s)
+        end
       end
 
       def normalized_x(sx)
@@ -301,7 +305,11 @@ module Rabbit
       end
 
       def screen_size(n)
-        ((canvas.width * n) / normalized_width).ceil
+        if wide_aspect_ratio?
+          screen_y(n)
+        else
+          screen_x(n)
+        end
       end
 
       def screen_x(nx)
@@ -317,6 +325,10 @@ module Rabbit
       end
 
       private
+      def wide_aspect_ratio?
+        (canvas.width / 4) > (canvas.height / 3)
+      end
+
       def normalize_source(src)
         src.gsub(/(?=^|\W)@(very_)?huge_(script_)?font_size(?=$|\W)/) do |x|
           x = "x"
