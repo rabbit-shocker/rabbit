@@ -156,6 +156,18 @@ module Gtk
       end
     end
 
+    unless public_method_defined?(:grab_add)
+      def grab_add
+        Gtk.grab_add(self)
+      end
+    end
+
+    unless public_method_defined?(:grab_remove)
+      def grab_remove
+        Gtk.grab_remove(self)
+      end
+    end
+
     private
     def cairo_region_to_gdk_region(cairo_region)
       return nil if cairo_region.nil?

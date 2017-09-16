@@ -216,7 +216,7 @@ module Rabbit
         end
 
         def grab
-          Gtk.grab_add(@area)
+          @area.grab_add
           Gdk.pointer_grab(@area.window, false,
                            Gdk::EventMask::BUTTON_PRESS_MASK |
                            Gdk::EventMask::BUTTON_RELEASE_MASK |
@@ -227,7 +227,7 @@ module Rabbit
         end
 
         def ungrab
-          Gtk.grab_remove(@area)
+          @area.grab_remove
           Gdk.pointer_ungrab(Gdk::Event::CURRENT_TIME)
         end
 
