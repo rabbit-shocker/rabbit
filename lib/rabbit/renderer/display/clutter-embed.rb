@@ -499,12 +499,12 @@ module Rabbit
                            Gdk::EventMask::SCROLL_MASK |
                            Gdk::EventMask::POINTER_MOTION_MASK,
                            nil, nil,
-                           Gdk::Event::CURRENT_TIME)
+                           Gdk::CURRENT_TIME)
         end
 
         def ungrab
           @embed.grab_remove
-          Gdk.pointer_ungrab(Gdk::Event::CURRENT_TIME)
+          Gdk.pointer_ungrab(Gdk::CURRENT_TIME)
         end
 
         def pointer
