@@ -6,7 +6,7 @@ base_dark_background_color = "#e9ffff"
 base_background_color = "#ffffff"
 
 set_graffiti_color("#{base_color}99")
-set_graffiti_line_width(30)
+set_graffiti_line_width(15)
 
 set_progress_foreground(base_color)
 set_progress_background(base_background_color)
