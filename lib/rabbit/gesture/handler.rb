@@ -79,7 +79,8 @@ module Rabbit
       def draw(renderer)
         if @back_color.alpha == 1.0 or
             (@back_color.alpha < 1.0 and renderer.alpha_available?)
-          args = [true, 0, 0, renderer.width, renderer.height]
+          size = renderer.size
+          args = [true, 0, 0, size.real_width, size.real_height]
           args << @back_color
           renderer.draw_rectangle(*args)
         end
