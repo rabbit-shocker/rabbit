@@ -328,10 +328,13 @@ module Rabbit
       @source = source || @source
       begin
         index = current_index
+        current_allotted_time = allotted_time
         keep_index do
           @renderer.pre_parse
           clear
           Parser.parse(self, @source)
+          new_allotted_time = allotted_time
+          reset_timer if new_allotted_time != current_allotted_time
           set_current_index(index)
           reload_theme do
             if @parse_request_queue.last != id
@@ -688,7 +691,6 @@ module Rabbit
 
     def clear
       clear_comments
-      reset_timer
       stop_auto_redraw_timer
       clear_slides
       clear_index_slides
