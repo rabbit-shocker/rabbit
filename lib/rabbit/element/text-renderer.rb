@@ -206,13 +206,13 @@ module Rabbit
       end
 
       def setup_layout(layout, w)
-        if @wrap_mode
+        layout.set_wrap(@wrap_mode) if @wrap_mode
+        layout.set_alignment(@align)
+        if @wrap_mode or layout.alignment != Pango::Alignment::LEFT
           layout.set_width(w * Pango::SCALE)
-          layout.set_wrap(@wrap_mode)
         else
           layout.set_width(-1)
         end
-        layout.set_alignment(@align)
         indent = @indent
         indent = indent.value if indent.respond_to?(:value)
         layout.set_indent(indent)
@@ -325,6 +325,7 @@ module Rabbit
             break if new_size == size
             set_computed_font_size(new_size)
             compile(canvas, x, y, w, h)
+            break if !@wrap_mode and @layout.wrapped?
             break if compare.call(*@layout.pixel_size)
             size = new_size
           end
