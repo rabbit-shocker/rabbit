@@ -335,6 +335,7 @@ module Rabbit
           Parser.parse(self, @source)
           new_allotted_time = allotted_time
           reset_timer if new_allotted_time != current_allotted_time
+          apply_timer
           set_current_index(index)
           reload_theme do
             if @parse_request_queue.last != id
@@ -620,7 +621,18 @@ module Rabbit
 
     def allotted_time
       time = @allotted_time
-      time ||= title_slide.allotted_time if title_slide
+      if time.nil? and title_slide
+        time = title_slide.allotted_time
+        if time.nil?
+          start_time = title_slide.start_time
+          end_time = title_slide.end_time
+          if start_time and end_time
+            start_time = Time.parse(start_time)
+            end_time = Time.parse(end_time)
+            time = end_time - start_time
+          end
+        end
+      end
       Utils.ensure_time(time)
     end
 
@@ -634,6 +646,22 @@ module Rabbit
 
     def reset_timer
       @limit_time = nil
+    end
+
+    def apply_timer
+      return unless title_slide
+
+      start_time = title_slide.start_time
+      end_time = title_slide.end_time
+      return if start_time.nil?
+      return if end_time.nil?
+
+      start_time = Time.parse(start_time)
+      end_time = Time.parse(end_time)
+      return unless (start_time..end_time).cover?(Time.now)
+
+      @allotted_time = end_time - start_time
+      @limit_time = end_time
     end
 
     def font_resolution

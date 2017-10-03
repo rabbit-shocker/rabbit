@@ -39,6 +39,14 @@ module Rabbit
         self["allotted-time"]
       end
 
+      def start_time
+        self["start-time"]
+      end
+
+      def end_time
+        self["end-time"]
+      end
+
       def to_html(generator)
         "<div class=\"title-slide\">\n#{super}\n</div>"
       end
