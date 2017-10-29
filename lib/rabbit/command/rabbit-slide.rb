@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -386,7 +386,7 @@ Rabbit::Task::Slide.new do |task|
   spec = task.spec
   # spec.files += Dir.glob("doc/**/*.*")
   # spec.files -= Dir.glob("private/**/*.*")
-  # spec.add_runtime_dependency("YOUR THEME")
+  # spec.add_runtime_dependency("rabbit-theme-YOUR-THEME")
 end
 
 desc "Tag #{spec.version}"
