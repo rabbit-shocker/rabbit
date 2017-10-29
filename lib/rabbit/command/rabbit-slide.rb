@@ -456,13 +456,29 @@ end
 
       def slide_source_metadata(source, generator)
         presentation_date = @slide_conf.presentation_date
+        presentation_date_default = Time.now
+        allotted_time_default = "5m"
+        allotted_time =
+          Utils.ensure_time(@allotted_time || allotted_time_default)
+        if presentation_date
+          start_time = Time.parse(presentation_date).iso8601
+          end_time = (Time.parse(presentation_date) + allotted_time).iso8601
+        else
+          start_time = nil
+          end_time = nil
+        end
+        start_time_default = presentation_date_default
+        end_time_default = start_time_default + allotted_time
         slide_metadata = [
           ["subtitle",       nil,                _("SUBTITLE")],
           ["author",         @author_conf.name,  _("AUTHOR")],
           ["institution",    nil,                _("INSTITUTION")],
           ["content-source", nil,                _("EVENT NAME")],
-          ["date",           presentation_date,  Time.now.strftime("%Y-%m-%d")],
+          ["date",           presentation_date,
+            presentation_date_default.strftime("%Y-%m-%d")],
           ["allotted-time",  @allotted_time,     "5m"],
+          ["start-time",     start_time,         start_time_default.iso8601],
+          ["end-time",       end_time,           end_time_default.iso8601],
           ["theme",          nil,                "default"],
         ]
         slide_metadata.each do |key, value, default_value|
