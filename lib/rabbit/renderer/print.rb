@@ -1,31 +1,27 @@
+# Copyright (C) 2005-2017  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+require "rabbit/renderer/print/cairo"
+require "rabbit/renderer/print/multiple"
+
 module Rabbit
   module Renderer
     module Print
-      extend Utils
-
       A4_WIDTH = 596
       A4_HEIGHT = 842
-
-      class << self
-        @initialized = false
-        def init
-          unless @initialized
-            @initialized = true
-            dir = ::File.join("rabbit", "renderer", "print")
-            require_files_under_directory_in_load_path(dir)
-          end
-        end
-
-        def new(*args, &block)
-          init
-          corresponding_class_under_module(self).new(*args, &block)
-        end
-
-        def printable?
-          init
-          not corresponding_class_under_module(self).nil?
-        end
-      end
     end
   end
 end

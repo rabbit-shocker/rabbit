@@ -2,6 +2,7 @@ require "forwardable"
 
 require 'rabbit/renderer/kernel'
 require "rabbit/renderer/print/base"
+require "rabbit/renderer/print/cairo"
 require "rabbit/renderer/print/layout"
 
 module Rabbit
@@ -35,7 +36,7 @@ module Rabbit
         def_delegators(:@print, :clear_theme)
 
         def initialize(canvas)
-          @print = Print.new(canvas)
+          @print = Print::Cairo.new(canvas)
           super
         end
 
