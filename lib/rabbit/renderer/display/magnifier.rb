@@ -75,9 +75,9 @@ module Rabbit
           add_scroll_hook do |event|
             if magnifying?
               case event.direction
-              when Gdk::EventScroll::Direction::UP
+              when Gdk::ScrollDirection::UP
                 @magnifier_ratio = [0.5, @magnifier_ratio - 0.1].max
-              when Gdk::EventScroll::Direction::DOWN
+              when Gdk::ScrollDirection::DOWN
                 @magnifier_ratio = [3, @magnifier_ratio + 0.1].min
               end
               queue_draw

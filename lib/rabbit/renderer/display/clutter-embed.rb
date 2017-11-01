@@ -415,9 +415,9 @@ module Rabbit
             unless handled
               handled = true
               case event.direction
-              when Gdk::EventScroll::Direction::UP
+              when Gdk::ScrollDirection::UP
                 @canvas.activate("PreviousSlide")
-              when Gdk::EventScroll::Direction::DOWN
+              when Gdk::ScrollDirection::DOWN
                 @canvas.activate("NextSlide")
               else
                 handled = false

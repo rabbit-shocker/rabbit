@@ -52,10 +52,6 @@ module Gdk
     CURRENT_TIME = Event::CURRENT_TIME
   end
 
-  unless const_defined?(:Direction)
-    Direction = EventScroll::Direction
-  end
-
   class Event
     STOP = true unless const_defined?(:STOP)
     PROPAGATE = false unless const_defined?(:PROPAGATE)

@@ -63,10 +63,10 @@ module Rabbit
           add_scroll_hook do |event|
             if spotlighting?
               case event.direction
-              when Gdk::Direction::UP
+              when Gdk::ScrollDirection::UP
                 @spotlight_radius_ratio =
                   [0.1, @spotlight_radius_ratio - 0.1].max
-              when Gdk::Direction::DOWN
+              when Gdk::ScrollDirection::DOWN
                 @spotlight_radius_ratio =
                   [1, @spotlight_radius_ratio + 0.1].min
               end
