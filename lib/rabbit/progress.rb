@@ -4,6 +4,8 @@ module Rabbit
   class Progress
     attr_reader :window, :foreground, :background
     def initialize
+      @width = 200
+      @height = 20
       @foreground = nil
       @background = nil
     end
@@ -27,8 +29,8 @@ module Rabbit
       @window = Gtk::Window.new(:popup)
       @window.transient_for = parent
       @window.app_paintable = true
+      @window.set_default_size(@width, @height)
       @bar = Gtk::ProgressBar.new
-      @bar.show_text = true
       @window.add(@bar)
       @window.show_all
       @bar.fraction = @current = 0
@@ -60,16 +62,38 @@ module Rabbit
     private
     def setup_progress_color
       if Gtk.const_defined?(:CssProvider)
-        css = "progressbar {\n"
+        css = <<-CSS
+progress {
+  padding: 0px;
+  padding-top: #{@height}px;
+  padding-bottom: #{@height}px;
+}
+
+trough {
+  border-width: 0px;
+}
+        CSS
         if @foreground
-          css << "  color: #{@foreground.to_css_rgba};\n"
+          css << <<-CSS
+progress {
+  background-color: #{@foreground.to_css_rgba};
+  border-color: #{@foreground.to_css_rgba};
+}
+          CSS
         end
         if @background
-          css << "  background-color: #{@background.to_css_rgba};\n"
+          css << <<-CSS
+progressbar,
+trough {
+  background-color: #{@background.to_css_rgba};
+}
+          CSS
         end
-        css << "}\n"
-        provider = Gtk::CssProvider.default
+        puts css
+        provider = Gtk::CssProvider.new
         provider.load(:data => css)
+        @bar.style_context.add_provider(provider,
+                                        Gtk::StyleProvider::PRIORITY_USER)
       else
         style = @bar.style.copy
         if @foreground
