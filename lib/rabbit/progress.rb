@@ -89,7 +89,6 @@ trough {
 }
           CSS
         end
-        puts css
         provider = Gtk::CssProvider.new
         provider.load(:data => css)
         @bar.style_context.add_provider(provider,
