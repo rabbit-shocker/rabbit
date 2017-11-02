@@ -4,7 +4,7 @@ module Rabbit
   class Progress
     attr_reader :window, :foreground, :background
     def initialize
-      @width = 200
+      @width = 100
       @height = 20
       @foreground = nil
       @background = nil
