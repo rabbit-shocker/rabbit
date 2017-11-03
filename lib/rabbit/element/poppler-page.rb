@@ -24,8 +24,7 @@ module Rabbit
       end
 
       def text
-        rectangle = Poppler::Rectangle.new(0, 0, @width, @height)
-        @page.get_text(rectangle)
+        @page.text
       end
 
       def clear_theme
