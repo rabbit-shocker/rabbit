@@ -23,27 +23,35 @@ module Rabbit
         private
         def init_progress
           @progress = Rabbit::Progress.new
+          @progress_end_id = nil
         end
 
         def start_progress(max)
           return if max.zero?
 
+          if @progress_end_id
+            GLib::Source.remove(@progress_end_id)
+            @progress_end_id = nil
+            @progress.hide
+          end
           update_menu
           @progress.start_progress(max, @canvas.window)
           adjust_progress_window
         end
 
         def update_progress(i)
+          return if @progress_end_id
           @progress.update_progress(i)
           Utils.process_pending_events
         end
 
         def end_progress
           @progress.end_progress
-          GLib::Timeout.add(100) do
+          @progress_end_id = GLib::Timeout.add(100) do
             @progress.hide
             update_menu
-            false
+            @progress_end_id = nil
+            GLib::Source::REMOVE
           end
         end
 

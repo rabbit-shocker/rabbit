@@ -54,6 +54,7 @@ module Rabbit
     end
 
     def hide
+      @max = nil
       @window.destroy
       @bar = nil
       @window = nil
