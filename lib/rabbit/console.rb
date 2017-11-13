@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@ require 'English'
 
 require "shellwords"
 require "optparse"
+require "optparse/date"
+require "optparse/time"
 require "ostruct"
 require "uri"
 require "pathname"

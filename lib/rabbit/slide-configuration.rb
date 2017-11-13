@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,6 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "date"
 require "time"
 
 require "yaml"
@@ -31,7 +32,12 @@ module Rabbit
     GEM_NAME_PREFIX = "rabbit-slide"
 
     attr_accessor :logger
-    attr_accessor :id, :base_name, :tags, :presentation_date
+    attr_accessor :id
+    attr_accessor :base_name
+    attr_accessor :tags
+    attr_accessor :presentation_date
+    attr_accessor :presentation_start_time
+    attr_accessor :presentation_end_time
     attr_accessor :licenses
     attr_accessor :slideshare_id
     attr_accessor :speaker_deck_id
@@ -70,6 +76,8 @@ module Rabbit
       @base_name         = nil
       @tags              = []
       @presentation_date = nil
+      @presentation_start_time = nil
+      @presentation_end_time = nil
       @version           = nil
       @licenses          = []
       @slideshare_id     = nil
@@ -83,7 +91,14 @@ module Rabbit
     def merge!(conf)
       @id                = conf["id"]                || @id
       @base_name         = conf["base_name"]         || @base_name
-      @presentation_date = conf["presentation_date"] || @presentation_date
+      @presentation_date =
+      ensure_date(conf["presentation_date"] || @presentation_date)
+      @presentation_start_time =
+        ensure_time(conf["presentation_start_time"] ||
+                    @presentation_start_time)
+      @presentation_end_time =
+        ensure_time(conf["presentation_end_time"] ||
+                    @presentation_end_time)
       @version           = conf["version"]           || @version
       @slideshare_id     = conf["slideshare_id"]     || @slideshare_id
       @speaker_deck_id   = conf["speaker_deck_id"]   || @speaker_deck_id
@@ -104,6 +119,8 @@ module Rabbit
         "base_name"         => @base_name,
         "tags"              => @tags,
         "presentation_date" => @presentation_date,
+        "presentation_start_time" => @presentation_start_time,
+        "presentation_end_time" => @presentation_end_time,
         "version"           => version,
         "licenses"          => @licenses,
         "slideshare_id"     => @slideshare_id,
@@ -117,7 +134,16 @@ module Rabbit
     end
 
     def to_yaml
-      to_hash.to_yaml
+      hash = to_hash
+      hash.each do |key, value|
+        case value
+        when Date
+          hash[key] = value.strftime("%Y-%m-%d")
+        when Time
+          hash[key] = value.iso8601
+        end
+      end
+      hash.to_yaml
     end
 
     def version
@@ -133,19 +159,26 @@ module Rabbit
     end
 
     private
-    def parsed_presentation_date
-      return nil if @presentation_date.nil?
-      begin
-        Time.parse(@presentation_date)
-      rescue ArgumentError
-        nil
+    def ensure_date(value)
+      if value.is_a?(String)
+        Date.parse(value)
+      else
+        value
+      end
+    end
+
+    def ensure_time(value)
+      if value.is_a?(String)
+        Time.parse(value)
+      else
+        value
       end
     end
 
     def default_version
-      date = parsed_presentation_date
+      date = presentation_date
       if date
-        date.strftime("%Y.%m.%d")
+        date.strftime("%Y.%m.%d.0")
       else
         "1.0.0"
       end

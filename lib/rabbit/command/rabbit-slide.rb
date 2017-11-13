@@ -150,11 +150,29 @@ module Rabbit
           @allotted_time = allotted_time
         end
 
-        parser.on("--presentation-date=DATE",
+        parser.on("--presentation-date=DATE", Date,
                   _("Presentation date with the new slide"),
-                  _("(e.g.: %s)") % "--presentation-date=2012/06/29",
+                  _("(e.g.: %s)") % "--presentation-date=2012-06-29",
                   _("(optional)")) do |date|
           @slide_conf.presentation_date = date
+        end
+
+        presentation_start_time_example =
+          "--presentation-start-time=2012-06-29T10:30:00+0900"
+        parser.on("--presentation-start-time=TIME", Time,
+                  _("Presentation start time"),
+                  _("(e.g.: %s)") % presentation_start_time_example,
+                  _("(optional)")) do |time|
+          @slide_conf.presentation_start_time = time
+        end
+
+        presentation_end_time_example =
+          "--presentation-end-time=2012-06-29T11:00:00+0900"
+        parser.on("--presentation-end-time=TIME", Time,
+                  _("Presentation end time"),
+                  _("(e.g.: %s)") % presentation_end_time_example,
+                  _("(optional)")) do |time|
+          @slide_conf.presentation_end_time = time
         end
 
         parser.separator(_("Your information"))
@@ -460,13 +478,15 @@ end
         allotted_time_default = "5m"
         allotted_time =
           Utils.ensure_time(@allotted_time || allotted_time_default)
+        start_time = @slide_conf.presentation_start_time
+        end_time = @slide_conf.presentation_end_time
         if presentation_date
-          start_time = Time.parse(presentation_date).iso8601
-          end_time = (Time.parse(presentation_date) + allotted_time).iso8601
-        else
-          start_time = nil
-          end_time = nil
+          start_time ||= presentation_date
+          end_time ||= presentation_date + allotted_time
+          presentation_date = presentation_date.strftime("%Y-%m-%d")
         end
+        start_time = start_time.iso8601 if start_time
+        end_time = end_time.iso8601 if end_time
         start_time_default = presentation_date_default
         end_time_default = start_time_default + allotted_time
         slide_metadata = [
@@ -474,8 +494,11 @@ end
           ["author",         @author_conf.name,  _("AUTHOR")],
           ["institution",    nil,                _("INSTITUTION")],
           ["content-source", nil,                _("EVENT NAME")],
-          ["date",           presentation_date,
-            presentation_date_default.strftime("%Y-%m-%d")],
+          [
+            "date",
+            presentation_date,
+            presentation_date_default.strftime("%Y-%m-%d"),
+          ],
           ["allotted-time",  @allotted_time,     "5m"],
           ["start-time",     start_time,         start_time_default.iso8601],
           ["end-time",       end_time,           end_time_default.iso8601],
