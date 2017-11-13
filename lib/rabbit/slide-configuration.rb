@@ -35,9 +35,9 @@ module Rabbit
     attr_accessor :id
     attr_accessor :base_name
     attr_accessor :tags
-    attr_accessor :presentation_date
-    attr_accessor :presentation_start_time
-    attr_accessor :presentation_end_time
+    attr_reader :presentation_date
+    attr_reader :presentation_start_time
+    attr_reader :presentation_end_time
     attr_accessor :licenses
     attr_accessor :slideshare_id
     attr_accessor :speaker_deck_id
@@ -49,6 +49,18 @@ module Rabbit
     def initialize(logger=nil)
       @logger = logger || Logger.default
       clear
+    end
+
+    def presentation_date=(value)
+      @presentation_date = ensure_date(value)
+    end
+
+    def presentation_start_time=(value)
+      @presentation_start_time = ensure_time(value)
+    end
+
+    def presentation_end_time=(value)
+      @presentation_end_time = ensure_time(value)
     end
 
     def load
@@ -88,17 +100,16 @@ module Rabbit
       @author            = nil
     end
 
+
     def merge!(conf)
       @id                = conf["id"]                || @id
       @base_name         = conf["base_name"]         || @base_name
-      @presentation_date =
-      ensure_date(conf["presentation_date"] || @presentation_date)
-      @presentation_start_time =
-        ensure_time(conf["presentation_start_time"] ||
-                    @presentation_start_time)
-      @presentation_end_time =
-        ensure_time(conf["presentation_end_time"] ||
-                    @presentation_end_time)
+      self.presentation_date =
+        conf["presentation_date"] || @presentation_date
+      self.presentation_start_time =
+        conf["presentation_start_time"] || @presentation_start_time
+      self.presentation_end_time =
+        conf["presentation_end_time"] || @presentation_end_time
       @version           = conf["version"]           || @version
       @slideshare_id     = conf["slideshare_id"]     || @slideshare_id
       @speaker_deck_id   = conf["speaker_deck_id"]   || @speaker_deck_id

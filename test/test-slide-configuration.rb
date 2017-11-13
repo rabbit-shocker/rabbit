@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,8 +34,10 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "id"                => "sprk2012",
       "base_name"         => "how-to-make-clear-code",
       "tags"              => ["rabbit", "sprk2012", "clear code"],
-      "presentation_date" => ["2012/09/16"],
-      "version"           => "2012.09.16",
+      "presentation_date" => "2012-09-16",
+      "presentation_start_time" => "2012-09-16T10:00:00+0900",
+      "presentation_end_time" => "2012-09-16T10:30:00+0900",
+      "version"           => "2012.09.16.0",
       "licenses"          => ["GPLv3+", "GFDL", "CC BY-SA 3.0"],
       "slideshare_id"     => "rabbit-14073776",
       "speaker_deck_id"   => "rabbit-debian",
@@ -46,13 +48,21 @@ class TestSlideConfiguration < Test::Unit::TestCase
     }
     @slide.id = "RubyKaigi2012"
     @slide.merge!(conf)
-    assert_equal(conf, @slide.to_hash)
+
+    object_conf = conf.dup
+    object_conf["presentation_date"] = Date.parse(conf["presentation_date"])
+    object_conf["presentation_start_time"] =
+      Time.parse(conf["presentation_start_time"])
+    object_conf["presentation_end_time"] =
+      Time.parse(conf["presentation_end_time"])
+    assert_equal(object_conf,
+                 @slide.to_hash)
   end
 
   class TestDefaultVersion < self
     def test_have_presentation_date
-      @slide.presentation_date = "2012/09/16"
-      assert_equal("2012.09.16", @slide.version)
+      @slide.presentation_date = "2012-09-16"
+      assert_equal("2012.09.16.0", @slide.version)
     end
 
     def test_no_presentation_date
