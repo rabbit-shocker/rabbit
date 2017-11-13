@@ -189,7 +189,7 @@ module Rabbit
     def default_version
       date = presentation_date
       if date
-        date.strftime("%Y.%m.%d.0")
+        "#{date.year}.#{date.month}.#{date.day}.0"
       else
         "1.0.0"
       end
