@@ -365,7 +365,8 @@ module Rabbit
   module ScreenInfo
     module_function
     def default_screen
-      Gdk::Screen.default
+      # TODO: Workaround for Ruby/GDK3 3.2.1.
+      @@default_screen ||= Gdk::Screen.default
     end
 
     def screen_width
