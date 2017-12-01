@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2017  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -169,6 +169,12 @@ module Gtk
     unless public_method_defined?(:grab_remove)
       def grab_remove
         Gtk.grab_remove(self)
+      end
+    end
+
+    unless public_method_defined?(:render_icon_pixbuf)
+      def render_icon_pixbuf(stock_id, size)
+        render_icon(stock_id, size, nil)
       end
     end
 
