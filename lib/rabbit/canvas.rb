@@ -522,7 +522,9 @@ module Rabbit
     end
 
     def have_previous?
-      have_previous_slide? or (current_slide and !current_slide.first?)
+      return true if have_previous_slide?
+      return !current_slide.first? if current_slide
+      false
     end
 
     def have_next_slide?
@@ -530,7 +532,9 @@ module Rabbit
     end
 
     def have_next?
-      have_next_slide? or (current_slide and !current_slide.last?)
+      return true if have_next_slide?
+      return !current_slide.last? if current_slide
+      false
     end
 
     def cache_all_slides
