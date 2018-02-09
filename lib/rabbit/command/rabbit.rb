@@ -811,8 +811,8 @@ module Rabbit
 
       def do_print
         source = make_source
-        renderer = Renderer.printable_renderer(@options.slides_per_page)
-        canvas = make_canvas(renderer)
+        canvas = make_canvas(Renderer::Printer)
+        setup_size(canvas)
         setup_paper_size(canvas)
         setup_print_info(canvas)
         setup_3d_info(canvas)
@@ -881,8 +881,7 @@ module Rabbit
 
       def do_check_syntax
         source = make_source
-        renderer = Renderer.printable_renderer(1)
-        canvas = make_canvas(renderer)
+        canvas = make_canvas(Renderer::Printer)
         exception = nil
         begin
           canvas.parse(source) do |_exception|

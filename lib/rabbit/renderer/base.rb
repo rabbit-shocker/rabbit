@@ -36,7 +36,7 @@ module Rabbit
         @font_families = nil
         @paper_width = nil
         @paper_height = nil
-        @slides_per_page = nil
+        @slides_per_page = 1
         @margin_left = nil
         @margin_right = nil
         @margin_top = nil
@@ -290,9 +290,10 @@ module Rabbit
       end
 
       def make_canvas_with_printable_renderer
-        renderer = Renderer.printable_renderer(@canvas.slides_per_page)
+        renderer = Renderer::Printer
         make_canvas_with_renderer(renderer) do |canvas|
           canvas.filename = @canvas.filename
+          setup_size(canvas)
           setup_margin(canvas)
           setup_page_margin(canvas)
           setup_paper_size(canvas)
@@ -303,10 +304,14 @@ module Rabbit
 
       def make_canvas_with_offscreen_renderer
         make_canvas_with_renderer(Offscreen) do |canvas|
-          canvas.width = @canvas.width
-          canvas.height = @canvas.height
+          setup_size(canvas)
           setup_3d(canvas)
         end
+      end
+
+      def setup_size(canvas)
+        canvas.width = @canvas.width
+        canvas.height = @canvas.height
       end
 
       def setup_margin(canvas)
@@ -324,13 +329,8 @@ module Rabbit
       end
 
       def setup_paper_size(canvas)
-        if @canvas.paper_width and @canvas.paper_height
-          canvas.paper_width = @canvas.paper_width
-          canvas.paper_height = @canvas.paper_height
-        else
-          canvas.paper_width = @canvas.width
-          canvas.paper_height = @canvas.height
-        end
+        canvas.paper_width = @canvas.paper_width
+        canvas.paper_height = @canvas.paper_height
       end
 
       def setup_3d(canvas)
