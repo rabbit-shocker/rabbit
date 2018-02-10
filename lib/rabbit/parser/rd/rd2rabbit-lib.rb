@@ -11,6 +11,26 @@ require "rabbit/parser/rd/ext/block-verbatim"
 module Rabbit
   module Parser
     class RD
+      module NoURLMark
+        def to_reference_content
+          [::RD::StringElement.new(url)]
+        end
+      end
+    end
+  end
+end
+
+module RD
+  class Reference
+    class URL
+      prepend Rabbit::Parser::RD::NoURLMark
+    end
+  end
+end
+
+module Rabbit
+  module Parser
+    class RD
       class RD2RabbitVisitor < Visitor
         extend Forwardable
 
