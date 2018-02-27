@@ -21,7 +21,14 @@ module Rabbit
       path = ["rabbit", "html", "template.erb"]
       template_path = Utils.find_path_in_load_path(*path)
       raise CantFindHTMLTemplate.new(File.join(*path)) if template_path.nil?
-      erb = File.open(template_path) {|f| ERB.new(f.read, nil, "-")}
+      erb = File.open(template_path) do |f|
+        parameters = ERB.instance_method(:initialize).parameters
+        if parameters.include?([:key, :trim_mode])
+          ERB.new(f.read, trim_mode: "-")
+        else
+          ERB.new(f.read, nil, "-")
+        end
+      end
       erb.def_method(self, "to_html", template_path)
 
       attr_accessor :pdf_filename, :source_filename
