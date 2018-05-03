@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2018  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,13 +16,13 @@
 
 require "English"
 
-if ENV["RABBIT_GTK_VERSION"] == "3"
-  require "gtk3"
-  Gtk.init if Gtk.respond_to?(:init)
-else
+if ENV["RABBIT_GTK_VERSION"] == "2"
   require "cairo"
   require "gio2"
   require "gtk2"
+else
+  require "gtk3"
+  Gtk.init if Gtk.respond_to?(:init)
 end
 
 module Cairo

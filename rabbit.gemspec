@@ -45,9 +45,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.1.0"
 
-  spec.add_runtime_dependency("gio2")
   spec.add_runtime_dependency("gdk_pixbuf2", ">= 3.0.9")
-  spec.add_runtime_dependency("gtk2")
+  spec.add_runtime_dependency("gtk3")
   spec.add_runtime_dependency("rsvg2", ">= 3.1.4")
   spec.add_runtime_dependency("poppler")
   spec.add_runtime_dependency("hikidoc")
@@ -61,7 +60,7 @@ Gem::Specification.new do |spec|
   # spec.add_runtime_dependency("gstreamer")
   spec.add_runtime_dependency("rouge")
 
-  spec.add_development_dependency("gtk3")
+  spec.add_development_dependency("gtk2")
   spec.add_development_dependency("test-unit")
   spec.add_development_dependency("test-unit-notify")
   spec.add_development_dependency("test-unit-rr")
