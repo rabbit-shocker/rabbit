@@ -18,11 +18,15 @@ require "gdk_pixbuf2"
 
 module Rabbit
   class ImageDataLoader
-    attr_reader :width, :height, :pixbuf
+    attr_reader :width
+    attr_reader :height
+    attr_reader :pixbuf
+    attr_reader :animation
     def initialize(data)
       @width = 0
       @height = 0
       @pixbuf = nil
+      @animation = nil
       @data = data
     end
 
@@ -40,6 +44,7 @@ module Rabbit
       end
       loader.signal_handler_disconnect(id)
       @pixbuf = loader.pixbuf
+      @animation = loader.animation
       @pixbuf
     end
   end

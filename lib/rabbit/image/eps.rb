@@ -36,7 +36,7 @@ module Rabbit
 
       private
       def update_size
-        @pixbuf = load_image
+        load_image
       end
 
       def load_image(width=nil, height=nil)

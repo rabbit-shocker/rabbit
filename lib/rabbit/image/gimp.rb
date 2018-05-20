@@ -41,7 +41,7 @@ EOC
         if GIMP_COMMANDS.any? {|gimp| run(gimp, *args); File.exist?(png_path)}
           png_file.open
           png_file.binmode
-          @pixbuf = load_data(png_file.read)
+          load_data(png_file.read)
         else
           raise GIMPCanNotHandleError.new("gimp #{args.join(' ')}",
                                           GIMP_COMMANDS)

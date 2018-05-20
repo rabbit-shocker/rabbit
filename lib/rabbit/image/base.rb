@@ -10,10 +10,13 @@ module Rabbit
       extend ModuleLoader
 
       attr_reader :width, :height, :original_width, :original_height
+      attr_reader :animation
 
       def initialize(filename, props)
         @filename = filename
         @props = normalize_props(props)
+        @animation = nil
+        @animation_iterator = nil
         update_size
         @original_width = @width
         @original_height = @height
@@ -65,7 +68,19 @@ module Rabbit
           :width => width,
           :height => height,
         }
-        canvas.draw_pixbuf(pixbuf, x, y, default_params.merge(params))
+        target_pixbuf = pixbuf
+        if @animation_iterator
+          @animation_iterator.advance
+          target_pixbuf = @animation_iterator.pixbuf
+          delay_time = @animation_iterator.delay_time
+          if delay_time > 0
+            GLib::Timeout.add(delay_time) do
+              canvas.redraw
+              GLib::Source::REMOVE
+            end
+          end
+        end
+        canvas.draw_pixbuf(target_pixbuf, x, y, default_params.merge(params))
       end
 
       private
@@ -95,7 +110,13 @@ module Rabbit
 
         @width = loader.width
         @height = loader.height
-        loader.pixbuf
+        @pixbuf = loader.pixbuf
+        @animation = loader.animation
+        if @animation and not @animation.static_image?
+          @animation_iterator = @animation.get_iter
+        else
+          @animation_iterator = nil
+        end
       end
     end
   end
