@@ -17,6 +17,7 @@ module Rabbit
         @props = normalize_props(props)
         @animation = nil
         @animation_iterator = nil
+        @animation_timeout = nil
         update_size
         @original_width = @width
         @original_height = @height
@@ -73,9 +74,10 @@ module Rabbit
           @animation_iterator.advance
           target_pixbuf = @animation_iterator.pixbuf
           delay_time = @animation_iterator.delay_time
-          if delay_time > 0
-            GLib::Timeout.add(delay_time) do
+          if delay_time > 0 and @animation_timeout.nil?
+            @animation_timeout = GLib::Timeout.add(delay_time) do
               canvas.redraw
+              @animation_timeout = nil
               GLib::Source::REMOVE
             end
           end
@@ -116,6 +118,10 @@ module Rabbit
           @animation_iterator = @animation.get_iter
         else
           @animation_iterator = nil
+        end
+        if @animation_timeout
+          GLib::Source.remove(@animation_timeout)
+          @animation_timeout = nil
         end
       end
     end
