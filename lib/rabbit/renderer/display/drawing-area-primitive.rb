@@ -24,12 +24,21 @@ module Rabbit
         end
 
         def attach_to(window, container=nil)
-          init_gl(@area)
           super
+
+          set_configure_event
+
+          init_gl(@area)
         end
 
         def detach
           finalize_gl
+
+          if !@window.destroyed? and @configure_signal_id
+            @window.signal_handler_disconnect(@configure_signal_id)
+            @configure_signal_id = nil
+          end
+
           super
         end
 
@@ -167,6 +176,20 @@ module Rabbit
               @canvas.logger.warn($!)
             end
           end
+        end
+
+        def set_configure_event
+          id = @window.signal_connect("configure_event") do |widget, event|
+            configured(event.x, event.y, event.width, event.height)
+            false
+          end
+          @configure_signal_id = id
+        end
+
+        def configured(x, y, w, h)
+          @real_width = @drawable.width
+          @real_height = @drawable.height
+          @size_dirty = true
         end
 
         def set_configure_event_after

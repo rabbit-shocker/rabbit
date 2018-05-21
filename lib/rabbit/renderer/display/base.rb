@@ -47,16 +47,9 @@ module Rabbit
         def attach_to(window, container=nil)
           @window = window
           @container = container || @window
-
-          set_configure_event
         end
 
         def detach
-          if !@window.destroyed? and @configure_signal_id
-            @window.signal_handler_disconnect(@configure_signal_id)
-            @configure_signal_id = nil
-          end
-
           @window = nil
           @container = nil
         end
@@ -145,8 +138,12 @@ module Rabbit
         private
         def set_drawable(drawable)
           @drawable = drawable
-          w = @drawable.width
-          h = @drawable.height
+          set_default_size(@drawable.width, @drawable.height)
+        end
+
+        def set_default_size(w, h)
+          @real_width = w
+          @real_height = h
           @default_size_ratio = w.to_f / h.to_f
           @size_ratio = @default_size_ratio
           set_size(w, h)
@@ -154,6 +151,12 @@ module Rabbit
 
         def set_size(w, h)
           @size = Size.new(w, h, @size_ratio)
+        end
+
+        def update_size(w, h)
+          @real_width = w
+          @real_height = h
+          @size_dirty = true
         end
 
         def set_size_ratio(ratio)
@@ -168,22 +171,10 @@ module Rabbit
         def refresh_size
           return unless @size_dirty
 
-          @size = Size.new(@drawable.width,
-                           @drawable.height,
+          @size = Size.new(@real_width,
+                           @real_height,
                            @size.ratio)
           @size_dirty = false
-        end
-
-        def set_configure_event
-          id = @window.signal_connect("configure_event") do |widget, event|
-            configured(event.x, event.y, event.width, event.height)
-            false
-          end
-          @configure_signal_id = id
-        end
-
-        def configured(x, y, w, h)
-          @size_dirty = true
         end
 
         def queue_draw

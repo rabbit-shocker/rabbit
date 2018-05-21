@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2014  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2018  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -851,7 +851,11 @@ module Rabbit
         Renderer::Display.init(display_init_options)
 
         source = make_source
-        canvas = make_canvas(Renderer::Display)
+        if ENV["RABBIT_RENDERER"] == "screen"
+          canvas = make_canvas(Renderer::Screen)
+        else
+          canvas = make_canvas(Renderer::Display)
+        end
         frame = Frame.new(@logger, canvas)
         frame.geometry = @options.geometry
         frame.force_keep_above = @options.keep_above
