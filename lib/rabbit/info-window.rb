@@ -1,4 +1,18 @@
-require 'erb'
+# Copyright (C) 2006-2018  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require 'rabbit/gtk'
 require 'rabbit/dependency-canvas'
@@ -11,7 +25,6 @@ require 'rabbit/renderer/display/menu'
 
 module Rabbit
   class InfoWindow
-    include ERB::Util
     include GetText
 
     include Renderer::Display::HookHandler
@@ -271,7 +284,7 @@ module Rabbit
       attrs["font_desc"] = ((height * font_size) / Pango::SCALE).to_s
       rest_time = @canvas.rest_time
       attrs["foreground"] = "red" if rest_time and rest_time < 0
-      "<span #{@canvas.to_attrs(attrs)}>#{h timer_label}</span>"
+      PangoMarkup.new("span", attrs, timer_label).to_s
     end
 
     def timer_label
@@ -292,7 +305,7 @@ module Rabbit
       end
       attrs = {}
       attrs["font_desc"] = ((height * 40) / Pango::SCALE).to_s
-      "<span #{@canvas.to_attrs(attrs)}>#{text}</span>"
+      PangoMarkup.new("span", attrs, text).to_s
     end
 
     def update_source

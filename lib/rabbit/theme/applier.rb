@@ -345,10 +345,6 @@ module Rabbit
         end
       end
 
-      def to_attrs(hash)
-        canvas.to_attrs(hash)
-      end
-
       def name
         @theme.name
       end
@@ -631,7 +627,7 @@ module Rabbit
       end
 
       def tag(name, attributes, content)
-        "<#{name} #{to_attrs(attributes)}>#{content}</#{name}>"
+        PangoMarkup.new(name, attributes, content).to_s
       end
 
       def span(attributes, content)

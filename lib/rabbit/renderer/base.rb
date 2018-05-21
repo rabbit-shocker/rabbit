@@ -156,16 +156,6 @@ module Rabbit
       def setup_event(area)
       end
 
-      def to_attrs(hash)
-        hash.collect do |key, value|
-          if value
-            "#{h key}='#{h value}'"
-          else
-            nil
-          end
-        end.compact.join(" ")
-      end
-
       def clean
         dirty_count_clean
       end
@@ -335,42 +325,6 @@ module Rabbit
 
       def setup_3d(canvas)
         canvas.use_gl = @canvas.use_gl?
-      end
-
-      def setup_flag_params(pole_height, default_flag_width_ratio, params)
-        params = params.dup
-
-        text = params["text"]
-        text_attrs = params["text_attributes"] || {}
-        if text
-          markupped_text = "<span #{to_attrs(text_attrs)}>#{text}</span>"
-          layout = make_layout(markupped_text)
-          text_width, text_height = layout.pixel_size
-          params["layout"] = layout
-          params["text_width"] = text_width
-          params["text_height"] = text_height
-          flag_width_default = [
-            text_width * default_flag_width_ratio,
-            pole_height / 2
-          ].max
-          flag_height_default = [text_height, flag_width_default].max
-        else
-          params["layout"] = nil
-          flag_width_default = flag_height_default = nil
-        end
-
-        params["pole_width"] = params["pole_width"] || 2
-        params["pole_color"] ||= "black"
-        flag_height = params["flag_height"] ||
-          flag_height_default || pole_height / 2
-        flag_height = [flag_height, pole_height].min
-        params["flag_height"] = flag_height
-        params["flag_width"] ||= flag_width_default || flag_height
-        params["flag_color"] ||= "red"
-        params["flag_frame_width"] ||= params["pole_width"]
-        params["flag_frame_color"] ||= params["pole_color"]
-
-        params
       end
 
       def not_support_method(name)

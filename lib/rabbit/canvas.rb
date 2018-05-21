@@ -78,7 +78,7 @@ module Rabbit
 
     def_delegators(:@renderer, :z_far, :z_view)
 
-    def_delegators(:@renderer, :to_attrs, :flag_size)
+    def_delegators(:@renderer, :flag_size)
 
     def_delegators(:@renderer, :create_pango_context, :pango_context=)
 
