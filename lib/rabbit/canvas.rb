@@ -551,6 +551,7 @@ module Rabbit
       stop_auto_redraw_timer
       timer = GLib::Timeout.add(interval * 1000) do
         if quitted?
+          @auto_redraw_timer = nil
           GLib::Source::REMOVE
         else
           activate("Redraw")
