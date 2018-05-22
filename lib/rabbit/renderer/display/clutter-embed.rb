@@ -1,5 +1,4 @@
-require 'clutter_gtk'
-require 'clutter_cairo'
+require "clutter-gtk"
 
 require "rabbit/utils"
 require "rabbit/renderer/engine"
@@ -18,10 +17,6 @@ require "rabbit/renderer/display/spotlight"
 require "rabbit/renderer/display/magnifier"
 
 module Rabbit
-  add_gui_init_proc do
-    Clutter::Gtk.init
-  end
-
   module Renderer
     module Display
       class ClutterEmbed
@@ -61,6 +56,13 @@ module Rabbit
           @embed
         end
 
+        def redraw
+          actor = current_actor
+          # TODO: We need more work for periodical redraw
+          actor.content.invalidate if actor
+          widget.queue_draw
+        end
+
         def clear_slide
           super
           redraw
@@ -90,6 +92,7 @@ module Rabbit
           old_actor.hide if old_actor
           actor = retrieve_actor(index)
           if actor and !hiding?
+            actor.content.set_size(actor.width, actor.height)
             actor.show
             actor.raise_top
             if old_actor
@@ -107,6 +110,7 @@ module Rabbit
           actor.hide if actor
           actor = retrieve_actor(nil, index)
           if actor and !hiding?
+            actor.content.set_size(actor.width, actor.height)
             actor.show
             actor.raise_top
           end
@@ -246,12 +250,12 @@ module Rabbit
         end
 
         def init_clutter_embed
-          @embed = Clutter::GtkEmbed.new
+          @embed = ClutterGtk::Embed.new
           @embed.can_focus = true
           @stage = @embed.stage
           reset_stage_color
           set_map
-          set_expose_event
+          set_draw
           set_configure_event_after
 
           event_mask = Gdk::EventMask::BUTTON_PRESS_MASK
@@ -296,8 +300,8 @@ module Rabbit
           end
         end
 
-        def set_expose_event
-          @embed.signal_connect("expose-event") do |widget, event|
+        def set_draw
+          @embed.signal_connect("draw") do |widget, context|
             reload_source
             false
           end
@@ -455,16 +459,22 @@ module Rabbit
             actor = slide_actors[index_in_slide]
             slide = @canvas.slides[i]
             if actor.nil?
-              actor = Clutter::Cairo.new(width, height)
-              context = actor.create
-              init_context(context)
-              draw_nth_slide(i, index_in_slide)
-              finish_context
+              canvas = Clutter::Canvas.new
+              canvas.signal_connect(:draw, i, index_in_slide) do |_, context, _width, _height, _i, _index_in_slide|
+                init_context(context)
+                draw_nth_slide(_i, _index_in_slide)
+                finish_context
+              end
+              actor = Clutter::Actor.new
+              actor.instance_variable_set(:@c, canvas)
+              actor.content = canvas
+              actor.set_size(width, height)
               @actors[i] ||= []
               @actors[i][index_in_slide] = actor
-              @stage.add(actor)
+              @stage.add_child(actor)
               current_index_in_slide = index_in_slide == slide.drawing_index
               if index.nil? and current_index_in_slide and !hiding?
+                canvas.set_size(width, height)
                 actor.show
                 actor.raise_top
                 Utils.process_pending_events_proc.call
