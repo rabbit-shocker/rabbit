@@ -73,14 +73,7 @@ module Rabbit
         if @animation_iterator
           @animation_iterator.advance
           target_pixbuf = @animation_iterator.pixbuf
-          delay_time = @animation_iterator.delay_time
-          if delay_time > 0 and @animation_timeout.nil?
-            @animation_timeout = GLib::Timeout.add(delay_time) do
-              canvas.redraw
-              @animation_timeout = nil
-              GLib::Source::REMOVE
-            end
-          end
+          update_animation_timeout(canvas)
         end
         canvas.draw_pixbuf(target_pixbuf, x, y, default_params.merge(params))
       end
@@ -122,6 +115,18 @@ module Rabbit
         if @animation_timeout
           GLib::Source.remove(@animation_timeout)
           @animation_timeout = nil
+        end
+      end
+
+      def update_animation_timeout(canvas)
+        delay_time = @animation_iterator.delay_time
+        if delay_time > 0 and @animation_timeout.nil?
+          @animation_timeout = GLib::Timeout.add(delay_time) do
+            canvas.redraw
+            @animation_timeout = nil
+            # update_animation_timeout(canvas)
+            GLib::Source::REMOVE
+          end
         end
       end
     end
