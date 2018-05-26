@@ -35,7 +35,9 @@ end
   :draw_scaled_pixbuf => false,
 }
 
-match(Slide) do |slides|
+@image_timer_target_paths ||= [Slide]
+
+match(*@image_timer_target_paths) do |slides|
   slides.delete_post_draw_proc_by_name(proc_name)
   stop_auto_redraw_timer
 
