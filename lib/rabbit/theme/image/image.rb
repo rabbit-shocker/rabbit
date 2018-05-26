@@ -8,7 +8,7 @@ match("**", Image) do |images|
 
   images.delete_pre_draw_proc_by_name(proc_name)
   images.delete_post_draw_proc_by_name(proc_name)
-  
+
   images.horizontal_centering = true
 
   params = {
@@ -18,12 +18,12 @@ match("**", Image) do |images|
     :shadow_width => @image_frame_shadow_width,
     :shadow_offset => @image_frame_shadow_offset,
   }
-  
+
   padding_left = 0
   padding_right = 0
   padding_top = 0
   padding_bottom = 0
-  
+
   if @image_with_frame
     padding_left += @image_frame_padding + @image_frame_shadow_width
     padding_right += @image_frame_padding + @image_frame_shadow_width
@@ -38,7 +38,7 @@ match("**", Image) do |images|
   images.padding_bottom = padding_bottom
 
   draw_frame(images, params) if @image_with_frame
-  
+
   images.each do |image|
     image.margin_bottom = @space
 
