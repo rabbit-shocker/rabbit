@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2018  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("gdk_pixbuf2", ">= 3.0.9")
   spec.add_runtime_dependency("gtk3")
   spec.add_runtime_dependency("rsvg2", ">= 3.1.4")
-  spec.add_runtime_dependency("poppler")
+  spec.add_runtime_dependency("poppler", ">= 3.2.5")
   spec.add_runtime_dependency("hikidoc")
   spec.add_runtime_dependency("nokogiri")
   spec.add_runtime_dependency("rdtool")

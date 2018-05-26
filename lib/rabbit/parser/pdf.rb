@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2007-2018  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,13 +42,7 @@ module Rabbit
 
       include Element
       def parse
-        # Workaround for Ruby/Poppler 3.1.9
-        pdf_file = Tempfile.new(["rabbit", "pdf"])
-        pdf_file.write(@source.read)
-        pdf_file.flush
-        doc = Poppler::Document.new(:path => pdf_file.path)
-        pdf_file.close!
-
+        doc = Poppler::Document.new(:data => @source.read)
         doc.each_with_index do |page, i|
           if i.zero?
             @canvas << PopplerTitleSlide.new(page, doc)
