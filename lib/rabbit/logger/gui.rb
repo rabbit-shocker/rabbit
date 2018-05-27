@@ -92,9 +92,9 @@ module Rabbit
       def set_dialog_response
         @dialog.signal_connect("response") do |widget, event|
           case event
-          when Gtk::Dialog::RESPONSE_CANCEL
+          when Gtk::ResponseType::CANCEL
             clear_buffer
-          when Gtk::Dialog::RESPONSE_CLOSE
+          when Gtk::ResponseType::CLOSE
             quit
           end
           true
