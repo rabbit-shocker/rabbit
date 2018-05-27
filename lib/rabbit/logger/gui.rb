@@ -117,7 +117,7 @@ module Rabbit
       def init_buffer
         textview = Gtk::TextView.new
         textview.set_editable(false)
-        textview.set_wrap_mode(Gtk::TextTag::WrapMode::WORD)
+        textview.set_wrap_mode(:word)
         @buffer = textview.buffer
         create_tags
         scrolled_window = Gtk::ScrolledWindow.new
