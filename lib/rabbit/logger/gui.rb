@@ -74,7 +74,7 @@ module Rabbit
                                     [Gtk::Stock::CLEAR, :cancel],
                                     [Gtk::Stock::CLOSE, :close],
                                   ])
-        @dialog.vbox.add(init_buffer)
+        @dialog.child.add(init_buffer)
         @dialog.set_default_size(width, height)
         @dialog.title = title
         set_dialog_delete
