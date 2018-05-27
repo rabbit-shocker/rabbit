@@ -60,7 +60,7 @@ module Rabbit
       end
 
       def append(text, *tags)
-        iter = @buffer.get_iter_at_offset(-1)
+        iter = @buffer.get_iter_at(offset: -1)
         @buffer.insert_with_tags(iter, text.encode("UTF-8"), *tags)
       end
 
