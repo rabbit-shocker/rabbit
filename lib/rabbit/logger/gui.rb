@@ -11,7 +11,6 @@ module Rabbit
 
       attr_accessor :start_gui_main_loop_automatically
       def initialize(level=nil, width=450, height=400)
-        Gtk.init
         super(*[level].compact)
         @width = width
         @height = height
