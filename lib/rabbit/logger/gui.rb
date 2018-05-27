@@ -132,7 +132,7 @@ module Rabbit
                            "weight" => Pango::FontDescription::WEIGHT_BOLD,
                            "foreground" => "blue")
         @buffer.create_tag("INFO", "foreground" => "blue")
-        @buffer.create_tag("WARN", "foreground" => "red")
+        @buffer.create_tag("WARNING", "foreground" => "red")
         @buffer.create_tag("ERROR",
                            "weight" => Pango::FontDescription::WEIGHT_BOLD,
                            "foreground" => "red")
