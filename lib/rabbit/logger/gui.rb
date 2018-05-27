@@ -69,12 +69,11 @@ module Rabbit
       end
 
       def init_dialog(width=@width, height=@height)
-        flags = 0
-        buttons = [
-          [Gtk::Stock::CLEAR, Gtk::Dialog::RESPONSE_CANCEL],
-          [Gtk::Stock::CLOSE, Gtk::Dialog::RESPONSE_CLOSE],
-        ]
-        @dialog = Gtk::Dialog.new(title, nil, flags, *buttons)
+        @dialog = Gtk::Dialog.new(title: title,
+                                  buttons: [
+                                    [Gtk::Stock::CLEAR, :cancel],
+                                    [Gtk::Stock::CLOSE, :close],
+                                  ])
         @dialog.vbox.add(init_buffer)
         @dialog.set_default_size(width, height)
         @dialog.title = title
