@@ -128,28 +128,28 @@ module Rabbit
 
       def create_tags
         @buffer.create_tag("DEBUG",
-                           "weight" => Pango::FontDescription::WEIGHT_BOLD,
+                           "weight" => :bold,
                            "foreground" => "blue")
         @buffer.create_tag("INFO", "foreground" => "blue")
         @buffer.create_tag("WARNING", "foreground" => "red")
         @buffer.create_tag("ERROR",
-                           "weight" => Pango::FontDescription::WEIGHT_BOLD,
+                           "weight" => :bold,
                            "foreground" => "red")
         @buffer.create_tag("FATAL",
                            "foreground" => "yellow",
                            "background" => "black")
         @buffer.create_tag("UNKNOWN",
-                           "weight" => Pango::FontDescription::WEIGHT_BOLD,
+                           "weight" => :bold,
                            "foreground" => "yellow",
                            "background" => "black")
         @buffer.create_tag("ANY",
-                           "weight" => Pango::FontDescription::WEIGHT_BOLD)
+                           "weight" => :bold)
         @buffer.create_tag("prog_name",
-                           "weight" => Pango::FontDescription::WEIGHT_BOLD,
+                           "weight" => :bold,
                            "foreground" => "blue",
                            "left_margin" => 10)
         @buffer.create_tag("message",
-                           "weight" => Pango::FontDescription::WEIGHT_BOLD,
+                           "weight" => :bold,
                            "left_margin" => 10,
                            "right_margin" => 10)
       end
