@@ -121,7 +121,7 @@ module Rabbit
         @buffer = textview.buffer
         create_tags
         scrolled_window = Gtk::ScrolledWindow.new
-        scrolled_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC)
+        scrolled_window.set_policy(:automatic, :automatic)
         scrolled_window.add(textview)
         scrolled_window
       end
