@@ -107,7 +107,7 @@ module Rabbit
         flags = Gtk::AccelFlags::VISIBLE
         Keys::QUIT_KEYS.each do |val|
           accel_group.connect(val, mod, flags) do
-            @dialog.signal_emit("response", Gtk::Dialog::RESPONSE_CLOSE)
+            @dialog.signal_emit("response", Gtk::ResponseType::CLOSE)
             true
           end
         end
