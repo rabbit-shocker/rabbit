@@ -212,6 +212,7 @@ module Rabbit
         end
 
         def configured_after(widget, event)
+          update_size(event.width, event.height)
           reload_theme if @drawable
         end
 
