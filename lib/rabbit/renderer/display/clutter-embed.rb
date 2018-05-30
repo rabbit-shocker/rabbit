@@ -435,8 +435,13 @@ module Rabbit
           index ||= index || @canvas.current_index
           slide_actors = @actors[index]
           return nil if slide_actors.nil?
-          slide = @canvas.slides[index]
-          slide_actors[index_in_slide || slide.drawing_index]
+
+          if index_in_slide.nil?
+            slide = @canvas.slides[index]
+            return nil if slide.nil?
+            index_in_slide = slide.drawing_index
+          end
+          slide_actors[index_in_slide]
         end
 
         def current_actor
