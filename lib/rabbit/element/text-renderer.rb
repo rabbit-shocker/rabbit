@@ -209,7 +209,7 @@ module Rabbit
         layout.set_wrap(@wrap_mode) if @wrap_mode
         layout.set_alignment(@align)
         if @wrap_mode or layout.alignment != Pango::Alignment::LEFT
-          layout.set_width(w * Pango::SCALE)
+          layout.set_width((w * Pango::SCALE).ceil)
         else
           layout.set_width(-1)
         end

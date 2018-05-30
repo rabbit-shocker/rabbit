@@ -28,18 +28,6 @@ module Rabbit
     module SpanTextFormatter
       include Formatter
 
-      PANGO2CSS = {
-        "font_family" => Proc.new do |name, value|
-          ["font-family", "'#{value}'"]
-        end,
-        "foreground" => "color",
-        "size" => Proc.new do |name, value|
-          ["font-size", "#{(value / Pango::SCALE) * 2}px"]
-        end,
-        "style" => "font-style",
-        "weight" => "font-weight",
-      }
-
       attr_reader :value
 
       def initialize(value)
@@ -55,26 +43,24 @@ module Rabbit
       end
 
       def format(text)
-        tagged_text(text, "span", normalize_attribute(name, @value))
+        tagged_text(text, "span", {name => pango_value})
       end
 
       def html_format(text)
-        css_name, css_value = pango2css(name, @value)
         tagged_text(text, "span", {'style' => "#{css_name}: #{css_value};"})
       end
 
-      private
-      def normalize_attribute(name, value)
-        {name => value}
+      def pango_value
+        @value
       end
 
-      def pango2css(name, value)
-        css_name = PANGO2CSS[name]
-        if css_name.respond_to?(:call)
-          css_name.call(name, value)
-        else
-          [css_name || name, value]
-        end
+      private
+      def css_name
+        name
+      end
+
+      def css_value
+        value
       end
     end
 
@@ -93,17 +79,62 @@ module Rabbit
 EOC
     end
 
-    class Size
-      def initialize(value)
-        value = value.ceil if value.is_a?(Numeric)
-        super(value)
+    class FontFamily
+      private
+      def css_name
+        "font-family"
+      end
+
+      def css_value
+        "'#{@value}'"
       end
     end
 
     class Foreground
-      def normalize_attribute(name, value)
-        value = Renderer::Color.parse(value).to_gdk_format
-        super(name, value)
+      def pango_value
+        Renderer::Color.parse(@value).to_gdk_format
+      end
+
+      private
+      def css_name
+        "color"
+      end
+    end
+
+    class Size
+      def pango_value
+        if @value > Pango::SCALE # For backward compatibility
+          @value.ceil
+        else
+          (@value * Pango::SCALE).ceil
+        end
+      end
+
+      private
+      def css_name
+        "font-size"
+      end
+
+      def css_value
+        if value > Pango::SCALE # For backward compatibility
+          "#{(value / Pango::SCALE) * 2}px"
+        else
+          "#{value * 2}px"
+        end
+      end
+    end
+
+    class Style
+      private
+      def css_name
+        "font-style"
+      end
+    end
+
+    class Weigth
+      private
+      def css_name
+        "font-weight"
       end
     end
 

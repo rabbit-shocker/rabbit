@@ -304,6 +304,15 @@ module Rabbit
         ((sy / canvas.height.to_f) * normalized_height).ceil
       end
 
+      def font_size(size)
+        # TODO: Convert to point from pixel
+        if wide_aspect_ratio?
+          ((canvas.height * size) / normalized_height)
+        else
+          ((canvas.width * size) / normalized_width)
+        end
+      end
+
       def screen_size(n)
         if wide_aspect_ratio?
           screen_y(n)

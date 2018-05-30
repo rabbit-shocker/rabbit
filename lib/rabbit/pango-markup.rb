@@ -28,6 +28,11 @@ module Rabbit
       tag = "<#{@name}"
       @attributes.each do |name, value|
         next if value.nil?
+        formatter_name = Utils.to_class_name(name)
+        if Format.const_defined?(formatter_name)
+          formatter = Format.const_get(formatter_name).new(value)
+          value = formatter.pango_value
+        end
         tag << " #{CGI.escapeHTML(name.to_s)}='#{CGI.escapeHTML(value.to_s)}'"
       end
       tag << ">"
