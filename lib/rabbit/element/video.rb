@@ -77,8 +77,7 @@ module Rabbit
         unless simulation
           if canvas.display?
             require "rabbit/video-window"
-            @video_window ||= VideoWindow.new(self)
-            @video_window.show(canvas.window)
+            VideoWindow.show(canvas.window, self)
           else
             draw_layout(canvas, x, y)
           end

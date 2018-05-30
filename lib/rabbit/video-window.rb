@@ -1,121 +1,107 @@
-require 'gst'
-require 'rabbit/gtk'
+# Copyright (C) 2012  Narihiro Nakamura <authornari@gmail.com>
+# Copyright (C) 2015-2018  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+require "clutter-gtk"
+require "clutter-gst"
+
+require "rabbit/gtk"
 
 module Rabbit
   class VideoWindow
-    attr_accessor :window, :direction, :entry
-    def initialize(element)
-      @element = element
-      @video = VideoWidget.new(@element.filename)
-    end
+    # TODO: Implemented in renderer or something
+    class << self
+      def show(window, element)
+        @instance ||= VideoWindow.new(window)
+        @instance.show(element)
+      end
 
-    def setup(window)
-      if not @completed
-        @window = window
-        init_window
-        init_keys
-        @completed = true
+      def unset_instance
+        @instance = nil
       end
     end
 
-    def show(window)
-      setup(window) if not window.nil?
-      Utils.move_to(window, @video_window) do |bx, by, bw, bh, tw, th, sw, sh|
-        [bx+@element.x, by+@element.y]
-      end
-      @video_window.resize(@element.width, @element.height)
-      @video_window.show_all
-      @video.play
+    def initialize(window)
+      @parent_window = window
+      init_window
+      init_keys
     end
 
-    def hide
-      @video.pause
-      @video_window.hide
+    def show(element)
+      @player.filename = element.filename
+      @window.resize(element.width, element.height)
+      @window.show_all
+      @player.playing = true
     end
 
     private
     def init_window
-      @video_window = Gtk::Window.new(:popup)
-      @video_window.modal = true
-      @video_window.set_transient_for(window)
+      @window = Gtk::ApplicationWindow.new(Rabbit.application)
+      @window.modal = true
+      @window.set_transient_for(@parent_window)
 
-      vbox = Gtk::Box.new(:vertical)
-      vbox.pack_start(@video)
-      @video_window.add(vbox)
-      @video_window.signal_connect('frame-event') do |widget, event|
-        if event.event_type == Gdk::EventType::BUTTON_PRESS
-          @video.toggle
-        end
+      @embed = ClutterGtk::Embed.new
+      @window.add(@embed)
+
+      @stage = @embed.stage
+      @player = ClutterGst::Playback.new
+      @player.seek_flags = :accurate
+      @player.signal_connect(:eos) do
+        @player.progress = 0.0
+        @player.playing = true
       end
-      @video_window.signal_connect('destroy') do
-        @video.stop
+
+      @aspect_ratio = ClutterGst::Aspectratio.new
+      @aspect_ratio.player = @player
+      @video = Clutter::Actor.new
+      @video.width = @stage.width
+      @video.height = @stage.height
+      @video.content = @aspect_ratio
+
+      @stage.add_child(@video)
+
+      @window.signal_connect(:button_press_event) do |widget, event|
+        @player.playing = !@player.playing?
+      end
+
+      @window.signal_connect(:destroy) do
+        @player.playing = false
+        self.class.unset_instance
       end
     end
 
     def init_keys
-      @video_window.signal_connect("key_press_event") do |widget, key|
+      @window.signal_connect(:key_press_event) do |widget, key|
         case key.keyval
-        when Gdk::Keyval::GDK_KEY_space
+        when Gdk::Keyval::KEY_space
           @video.toggle
-        when Gdk::Keyval::GDK_KEY_plus
+        when Gdk::Keyval::KEY_plus
           @video.seek(10)
-        when Gdk::Keyval::GDK_KEY_minus
+        when Gdk::Keyval::KEY_minus
           @video.seek(-10)
         when *[
             Keys::MOVE_TO_NEXT_KEYS, Keys::MOVE_TO_PREVIOUS_KEYS,
             Keys::MOVE_TO_LAST_KEYS, Keys::MOVE_TO_LAST_KEYS,
           ].flatten
-          hide
-          Gtk::AccelGroup.activate(window, key.keyval, key.state)
+          @window.destroy
+          Gtk::AccelGroup.activate(@parent_window, key.keyval, key.state)
         else
-          Gtk::AccelGroup.activate(window, key.keyval, key.state)
+          Gtk::AccelGroup.activate(@parent_window, key.keyval, key.state)
         end
-      end
-    end
-
-    class VideoWidget < Gtk::DrawingArea
-      def initialize(file)
-        super()
-
-        @playbin = Gst::ElementFactory.make('playbin2')
-
-        @video = Gst::ElementFactory.make('xvimagesink')
-        @video.force_aspect_ratio = true
-
-        @playbin.video_sink = @video
-        @playbin.audio_sink = Gst::ElementFactory.make('autoaudiosink')
-        @playbin.signal_connect('notify') do
-          @playbin.video_sink.xwindow_id = self.window.xid if self.window
-          @playbin.video_sink.expose
-        end
-        @playbin.uri = "file://#{File.absolute_path(file)}"
-        @playbin.ready
-      end
-
-      def play
-        @playbin.play
-        @playing = true
-      end
-
-      def pause
-        @playbin.pause
-        @playing = false
-      end
-
-      def stop
-        @playbin.stop
-        @playing = false
-      end
-
-      def seek(time)
-        @playbin.seek(1.0, Gst::Format::TIME,
-          Gst::Seek::FLAG_FLUSH | Gst::Seek::FLAG_KEY_UNIT,
-          Gst::Seek::TYPE_CUR, time * Gst::SECOND,
-          Gst::Seek::TYPE_NONE, -1);
-      end
-
-      def toggle
-        @playing ? pause : play
+        true
       end
     end
   end
