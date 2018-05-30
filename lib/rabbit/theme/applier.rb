@@ -241,8 +241,8 @@ module Rabbit
       def_delegators(:canvas, :make_layout)
 
       # Those constants are meaningless. :p
-      NORMALIZED_WIDTH = 91.0 * 96
-      NORMALIZED_HEIGHT = 67.5 * 96
+      NORMALIZED_WIDTH = 130.0 * 96
+      NORMALIZED_HEIGHT = 97.5 * 96
 
       def initialize(theme, &callback)
         super()

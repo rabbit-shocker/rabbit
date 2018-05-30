@@ -18,7 +18,7 @@ module Rabbit
 
     include GetText
 
-    INTERNAL_DPI = 80.0
+    INTERNAL_DPI = 96.0
 
     def_delegators(:@frame, :icon, :icon=, :set_icon)
     def_delegators(:@frame, :icon_list, :icon_list=, :set_icon_list)
