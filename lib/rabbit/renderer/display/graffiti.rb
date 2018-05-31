@@ -97,9 +97,7 @@ module Rabbit
                 @graffiti.dragging? and
                 pressed_button == target_button
               @graffiti.button_motion(event.x, event.y, width, height)
-              init_renderer(@drawable)
-              @graffiti.draw_last_segment(self)
-              finish_renderer
+              redraw
               true
             else
               false
