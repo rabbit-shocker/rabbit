@@ -142,7 +142,6 @@ module Rabbit
           options.migemo_dictionary_name = "migemo-dict"
           options.use_gl = false
           options.show_native_window_id = false
-          options.keep_above = false
           options.source_filename = nil
 
 
@@ -587,14 +586,6 @@ module Rabbit
             options.use_gl = bool
           end
 
-          parser.category _("Display")
-
-          parser.on("--[no-]keep-above",
-                    _("Specify whether to keep above window."),
-                    "(#{options.keep_above})") do |bool|
-            options.keep_above = bool
-          end
-
           parser.category _("Others")
 
           parser.on("--check-syntax",
@@ -858,7 +849,6 @@ module Rabbit
         end
         frame = Frame.new(@logger, canvas)
         frame.geometry = @options.geometry
-        frame.force_keep_above = @options.keep_above
         setup_paper_size(canvas)
         setup_image_info(canvas)
         setup_print_info(canvas)
