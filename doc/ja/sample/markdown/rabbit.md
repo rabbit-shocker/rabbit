@@ -163,7 +163,7 @@ background-image-relative-margin-right
 
 URL先の画像をダウンロード
 
-![](http://www.cozmixng.org/repos/images/cozmixchu.png "こずみっくちゅー")
+![](https://raw.githubusercontent.com/rabbit-shocker/rabbit/master/data/rabbit/image/cozmixng-images/cozmixchu.png "こずみっくちゅー")
 
 # 数式
 
