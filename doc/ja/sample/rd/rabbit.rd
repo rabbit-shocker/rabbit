@@ -194,7 +194,7 @@ title: "サンプルスライド: Rabbit"
   URL先の画像をダウンロード
 
     # image
-    # src = http://www.cozmixng.org/repos/images/cozmixchu.png
+    # src = https://raw.githubusercontent.com/rabbit-shocker/rabbit/master/data/rabbit/image/cozmixng-images/cozmixchu.png
     # caption = こずみっくちゅー
 
   = 数式

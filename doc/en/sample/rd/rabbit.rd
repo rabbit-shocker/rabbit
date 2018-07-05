@@ -195,7 +195,7 @@ title: "Sample slide: Rabbit"
   Download an image from a URL
 
     # image
-    # src = http://www.cozmixng.org/repos/images/cozmixchu.png
+    # src = https://raw.githubusercontent.com/rabbit-shocker/rabbit/master/data/rabbit/image/cozmixng-images/cozmixchu.png
     # caption = COZMIX Chu
 
   = Math. expressions
