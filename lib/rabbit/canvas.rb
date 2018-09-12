@@ -3,7 +3,6 @@ require "rabbit/gtk"
 
 require "rabbit/rabbit"
 require 'rabbit/frame'
-require 'rabbit/renderer'
 require 'rabbit/element'
 require "rabbit/parser"
 require "rabbit/theme/manager"
