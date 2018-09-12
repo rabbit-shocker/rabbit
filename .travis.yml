@@ -3,9 +3,8 @@ env:
   global:
     - DISPLAY=":99.0"
 notifications:
-  email:
-    recipients:
-      - rabbit@ml.commit-email.info
+  webhooks:
+    - https://webhook.commit-email.info/
 rvm:
   - 2.2
   - 2.3.3
