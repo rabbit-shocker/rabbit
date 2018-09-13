@@ -372,6 +372,12 @@ msgstr "--title=\"Rabbitの紹介\""
 msgid "Tags of the new slide"
 msgstr "新しいスライドのタグ"
 
+msgid "License of the new slide"
+msgstr "新しいスライドのライセンス"
+
+msgid "--license=\"CC-BY-SA-4.0\""
+msgstr ""
+
 msgid "Allotted time in presentaion"
 msgstr "プレゼンの持ち時間"
 

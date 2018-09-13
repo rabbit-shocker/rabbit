@@ -135,6 +135,14 @@ module Rabbit
           @title = title
         end
 
+        parser.on("--licenses=LICENSE,LICENSE,...",
+                  Array,
+                  _("License of the new slide"),
+                  _("(e.g.: %s)") % _("--license=\"CC-BY-SA-4.0\""),
+                  _("(optional)")) do |licenses|
+          @slide_conf.licenses.concat(licenses)
+        end
+
         parser.on("--tags=TAG,TAG,...",
                   Array,
                   _("Tags of the new slide"),
