@@ -358,19 +358,22 @@ msgstr ""
 msgid "--title=\"Rabbit Introduction\""
 msgstr ""
 
-msgid "Tags of the new slide"
-msgstr ""
-
 msgid "License of the new slide"
 msgstr ""
 
-msgid "--license=\"CC-BY-SA-4.0\""
+msgid "Tags of the new slide"
 msgstr ""
 
 msgid "Allotted time in presentaion"
 msgstr ""
 
 msgid "Presentation date with the new slide"
+msgstr ""
+
+msgid "Presentation start time"
+msgstr ""
+
+msgid "Presentation end time"
 msgstr ""
 
 msgid "Your information"
@@ -731,12 +734,6 @@ msgstr ""
 msgid "Specify whether to use OpenGL if available."
 msgstr ""
 
-msgid "Display"
-msgstr ""
-
-msgid "Specify whether to keep above window."
-msgstr ""
-
 msgid "Others"
 msgstr ""
 
@@ -1007,13 +1004,7 @@ msgstr ""
 msgid "[FILENAME]"
 msgstr ""
 
-msgid "[HIKI_CGI_URI] and [PAGE_NAME]"
-msgstr ""
-
 msgid "[FILENAME_OR_NOT]"
-msgstr ""
-
-msgid "[USER] and [TITLE]"
 msgstr ""
 
 msgid "URI"

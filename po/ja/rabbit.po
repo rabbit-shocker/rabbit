@@ -369,20 +369,23 @@ msgstr "新しいスライドのタイトル"
 msgid "--title=\"Rabbit Introduction\""
 msgstr "--title=\"Rabbitの紹介\""
 
-msgid "Tags of the new slide"
-msgstr "新しいスライドのタグ"
-
 msgid "License of the new slide"
 msgstr "新しいスライドのライセンス"
 
-msgid "--license=\"CC-BY-SA-4.0\""
-msgstr ""
+msgid "Tags of the new slide"
+msgstr "新しいスライドのタグ"
 
 msgid "Allotted time in presentaion"
 msgstr "プレゼンの持ち時間"
 
 msgid "Presentation date with the new slide"
 msgstr "新しいスライドでプレゼンする日"
+
+msgid "Presentation start time"
+msgstr ""
+
+msgid "Presentation end time"
+msgstr ""
 
 msgid "Your information"
 msgstr "あなたの情報"
@@ -755,12 +758,6 @@ msgstr "3D"
 msgid "Specify whether to use OpenGL if available."
 msgstr "可能ならOpenGLを使うかどうかを指定します．"
 
-msgid "Display"
-msgstr "画面表示"
-
-msgid "Specify whether to keep above window."
-msgstr "ウィンドウを常に前面に表示するかどうかを指定します。"
-
 msgid "Others"
 msgstr "その他"
 
@@ -1033,14 +1030,8 @@ msgstr ""
 msgid "[FILENAME]"
 msgstr "[ファイル名]"
 
-msgid "[HIKI_CGI_URI] and [PAGE_NAME]"
-msgstr "[HikiのCGIのURI]と[ページ名]"
-
 msgid "[FILENAME_OR_NOT]"
 msgstr "[ファイル名か何も指定しない]"
-
-msgid "[USER] and [TITLE]"
-msgstr "[USER]と[TITLE]"
 
 msgid "URI"
 msgstr "URI"
