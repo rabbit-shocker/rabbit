@@ -138,7 +138,7 @@ module Rabbit
         parser.on("--licenses=LICENSE,LICENSE,...",
                   Array,
                   _("License of the new slide"),
-                  _("(e.g.: %s)") % _("--licenses=CC-BY-SA-4.0,GFDL-1.3-or-later"),
+                  _("(e.g.: %s)") % "--licenses=CC-BY-SA-4.0,GFDL-1.3-or-later",
                   _("(optional)")) do |licenses|
           @slide_conf.licenses.concat(licenses)
         end
