@@ -320,6 +320,13 @@ module Rabbit
       end
     end
 
+    def reload_theme
+      @canvas.reload_theme
+      each do |canvas|
+        canvas.reload_theme
+      end
+    end
+
     def adjust_slide(base_index=nil)
       base_index ||= @canvas.current_index
       @previous_canvas.move_to_if_can([base_index - 1, 0].max)
