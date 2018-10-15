@@ -22,10 +22,11 @@ begin
 rescue LoadError
 end
 
-require "rabbit/rabbit"
+require "rabbit/filename"
 require "rabbit/front"
-require "rabbit/utils"
 require "rabbit/keys"
+require "rabbit/rabbit"
+require "rabbit/utils"
 
 module Rabbit
   module HTML
@@ -63,7 +64,7 @@ module Rabbit
         @output_index_html = output_index_html
         @pdf_filename = nil
         @source_filename = nil
-        FileUtils.mkdir_p(to_filename_encoding(@base_dir))
+        FileUtils.mkdir_p(Filename.new(@base_dir).encode)
       end
 
       def save
@@ -216,7 +217,7 @@ module Rabbit
         if Object.const_defined?(:RSS)
           rss = make_rss
           name = File.join(@base_dir, @rss_filename)
-          File.open(to_filename_encoding(name), "w") do |f|
+          File.open(Filename.new(name).encode, "w") do |f|
             f.print(rss.to_s)
           end
           true
@@ -232,31 +233,15 @@ module Rabbit
         format << "-%0#{number_of_places(slide_size)}d%s.%s"
       end
 
-      def to_filename_encoding(utf8_filename)
-        if GLib.const_defined?(:Win32)
-          GLib::Win32.locale_filename_from_utf8(utf8_filename)
-        else
-          if Utils.windows?
-            GLib.locale_from_utf8(utf8_filename)
-          else
-            GLib.filename_from_utf8(utf8_filename)
-          end
-        end
-      end
-
-      def make_filename(slide_number, suffix, optional=nil, convert=true)
+      def make_filename(slide_number, suffix, optional=nil)
         optional = "-#{optional}" if optional
         name = filename_format % [slide_number, optional || '', suffix]
-        if convert
-          to_filename_encoding(name)
-        else
-          name
-        end
+        Filename.new(name).encode
       end
 
       def slide_filename(slide_number=@slide_number)
         if !outputting_index? and slide_number.zero?
-          File.join(to_filename_encoding(@base_dir), "index.#{@suffix}")
+          Filename.new(File.join(@base_dir, "index.#{@suffix}")).encode
         else
           make_filename(slide_number, @suffix)
         end
@@ -267,7 +252,7 @@ module Rabbit
       end
 
       def pixbuf_filename(slide_number=@slide_number, optional=nil)
-        make_filename(slide_number, @image_type, optional, !Utils.windows?)
+        make_filename(slide_number, @image_type, optional)
       end
 
       def output_html(filename)

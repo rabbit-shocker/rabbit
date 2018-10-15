@@ -18,6 +18,7 @@ require "forwardable"
 require "rabbit/gtk"
 
 require "rabbit/rabbit"
+require "rabbit/filename"
 require "rabbit/frame"
 require "rabbit/element"
 require "rabbit/parser"
@@ -432,9 +433,9 @@ module Rabbit
 
     def saved_image_base_name
       if @saved_image_base_name
-        base_name = GLib.filename_to_utf8(@saved_image_base_name)
+        base_name = @saved_image_base_name.encode("UTF-8")
       else
-        base_name = title.dup
+        base_name = Filename.sanitize(title)
       end
       base_name << "-index" if index_mode?
       base_name

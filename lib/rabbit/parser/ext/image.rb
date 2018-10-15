@@ -1,9 +1,26 @@
-require 'uri'
-require 'cgi'
-require 'open-uri'
-require 'fileutils'
+# Copyright (C) 2007-2018  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/element'
+require "uri"
+require "cgi"
+require "open-uri"
+require "fileutils"
+
+require "rabbit/element"
+require "rabbit/filename"
 
 module Rabbit
   module Parser
@@ -39,7 +56,7 @@ module Rabbit
         end
 
         module Private
-          ALLOWED_IMG_URL_SCHEME = ['http', 'https', 'file']
+          ALLOWED_IMG_URL_SCHEME = ["http", "https", "file"]
 
           module_function
           def uri_string_to_image_filename(canvas, uri_string)
@@ -58,7 +75,7 @@ module Rabbit
           def uri_to_image_filename(canvas, uri)
             case uri.scheme.to_s.downcase
             when "file"
-              GLib.filename_from_utf8(uri.path)
+              Filename.new(uri.path).encode
             when "http", "https", "ftp"
               other_uri_filename(canvas, uri)
             else
@@ -67,7 +84,7 @@ module Rabbit
           end
 
           def local_path_to_image_filename(canvas, path)
-            path = Pathname.new(GLib.filename_from_utf8(path))
+            path = Pathname.new(Filename.new(path).encode)
             return path.to_s if path.absolute?
 
             expanded_path = canvas.full_path(path.to_s)

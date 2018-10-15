@@ -16,6 +16,8 @@
 
 require "rabbit/rabbit"
 
+require "rabbit/filename"
+
 require "rabbit/renderer/base"
 require "rabbit/renderer/engine/cairo"
 require "rabbit/renderer/print-layout"
@@ -72,7 +74,7 @@ module Rabbit
       end
 
       def filename
-        @filename ||= default_filename
+        @filename || default_filename
       end
 
       def pre_print(slide_size)
@@ -137,7 +139,8 @@ module Rabbit
 
       private
       def default_filename
-        "#{GLib.filename_from_utf8(@canvas.title.gsub(/\n/, ''))}.pdf"
+        sanitized_title = Filename.sanitize(@canvas.title)
+        Filename.new("#{sanitized_title}.pdf").encode
       end
 
       def init_paper

@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2018  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,12 +14,26 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rbconfig"
-require "tmpdir"
+require "glib2"
 
-require "test-unit"
-require "test/unit/notify"
-require "test/unit/rr"
+module Rabbit
+  class Filename
+    class << self
+      def sanitize(string)
+        string.gsub(/[\r\n]/, "").gsub(/[\/\\:]/, "-")
+      end
+    end
 
-require "rabbit-test-utils/fixture"
-require "rabbit-test-utils/parser"
+    def initialize(filename)
+      @utf8_filename = filename.encode("UTF-8")
+    end
+
+    def encode
+      if GLib.const_defined?(:Win32)
+        GLib::Win32.locale_filename_from_utf8(@utf8_filename)
+      else
+        GLib.filename_from_utf8(@utf8_filename)
+      end
+    end
+  end
+end
