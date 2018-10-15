@@ -11,6 +11,7 @@ rvm:
 addons:
   apt:
     packages:
+      - at-spi2-core
       - dbus-x11
 #      - python-blockdiag
       - python-pip
