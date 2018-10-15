@@ -11,6 +11,7 @@ rvm:
 addons:
   apt:
     packages:
+      - dbus-x11
 #      - python-blockdiag
       - python-pip
 matrix:
@@ -22,5 +23,7 @@ before_install:
   - sudo -H pip install blockdiag
 before_script:
   - sh -e /etc/init.d/xvfb start
+script:
+  - dbus-launch bundle exec rake
 after_script:
   - sh -e /ext/init.d/xvfb stop
