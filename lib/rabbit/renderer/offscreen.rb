@@ -1,4 +1,4 @@
-# Copyright (C) 2016  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2016-2018  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,10 +25,12 @@ module Rabbit
       include Renderer::Base
       include Engine::Cairo
 
+      attr_accessor :filename
       attr_accessor :width, :height, :pango_context
 
       def initialize(canvas, width=nil, height=nil)
         super(canvas)
+        @filename = nil
         @width = width
         @height = height
         @pango_context = nil
