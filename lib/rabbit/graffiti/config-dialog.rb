@@ -7,16 +7,18 @@ module Rabbit
     class ConfigDialog
       include GetText
 
-      attr_reader :color, :line_width
       def initialize(color, line_width)
-        @original_color = @color = color
-        @original_line_width = @line_width = line_width
+        @original_color = color
+        @original_line_width = line_width
       end
 
       def run(&block)
         @callback = block
         init_dialog
-        if @dialog.run != Gtk::Dialog::RESPONSE_OK
+        if @dialog.run == Gtk::ResponseType::OK
+          @callback.call(Renderer::Color.new(@dialog.rgba),
+                         nil)
+        else
           @callback.call(@original_color, @original_line_width)
         end
         @dialog.destroy
@@ -24,20 +26,12 @@ module Rabbit
 
       private
       def init_dialog
-        @dialog = Gtk::ColorSelectionDialog.new
-        colorsel = @dialog.colorsel
-        colorsel.has_opacity_control = true
-        colorsel.has_palette = true
-        r, g, b, a = @original_color.to_gdk_rgba
-        colorsel.set_current_color(Gdk::Color.new(r, g, b))
-        colorsel.set_current_alpha(a)
+        @dialog = Gtk::ColorChooserDialog.new
+        @dialog.use_alpha = true
+        @dialog.rgba = @original_color.to_gdk_rgba
         add_line_width_control
-        colorsel.signal_connect("color_changed") do
-          color = Renderer::Color.new_from_gdk_color(colorsel.current_color)
-          color.have_alpha = true
-          alpha = colorsel.current_alpha / Renderer::Color::GDK_COLOR_NORMALIZE
-          color.alpha = alpha
-          @callback.call(color, nil)
+        @dialog.signal_connect(:color_activated) do |gdk_color|
+          @callback.call(Renderer::Color.new(gdk_color), nil)
         end
       end
 
@@ -52,7 +46,10 @@ module Rabbit
         hbox.pack_end(spin, :expand => false, :fill => false, :padding => 5)
         hbox.pack_end(label, :expand => false, :fill => false, :padding => 5)
         hbox.show_all
-        @dialog.vbox.pack_end(hbox, :expand => false, :fill => false, :padding => 5)
+        @dialog.child.pack_end(hbox,
+                               :expand => false,
+                               :fill => false,
+                               :padding => 5)
       end
     end
   end

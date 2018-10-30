@@ -291,7 +291,7 @@ module Rabbit
 
         def paint(color_name)
           context = @drawable.create_cairo_context
-          context.set_source_rgb(*Color.parse(color_name).to_gdk_rgb)
+          context.set_source_rgba(*Color.parse(color_name).to_a)
           context.paint
         end
 
