@@ -204,17 +204,9 @@ module Rabbit
 
     def init_note_area
       @note_area = Gtk::DrawingArea.new
-      if @note_area.class.signals.include?("expose-event")
-        @note_area.signal_connect("expose-event") do |area, event|
-          context = area.window.create_cairo_context
-          draw_text_as_large_as_possible(area, context, note_text)
-          Gdk::Event::PROPAGATE
-        end
-      else
-        @note_area.signal_connect("draw") do |area, context|
-          draw_text_as_large_as_possible(area, context, note_text)
-          Gdk::Event::PROPAGATE
-        end
+      @note_area.signal_connect("draw") do |area, context|
+        draw_text_as_large_as_possible(area, context, note_text)
+        Gdk::Event::PROPAGATE
       end
     end
 

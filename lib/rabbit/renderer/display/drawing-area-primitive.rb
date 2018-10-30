@@ -144,21 +144,11 @@ module Rabbit
         end
 
         def set_draw
-          stop_events = false
-          if @area.class.signals.include?("draw")
-            @area.signal_connect("draw") do |widget, context|
-              init_context(context)
-              draw(widget)
-              finish_renderer
-              stop_events
-            end
-          else
-            @area.signal_connect("expose_event") do |widget, event|
-              init_renderer(@drawable)
-              draw(widget)
-              finish_renderer
-              stop_events
-            end
+          @area.signal_connect("draw") do |widget, context|
+            init_context(context)
+            draw(widget)
+            finish_renderer
+            Gdk::Event::PROPAGATE
           end
         end
 
