@@ -25,7 +25,8 @@ module Rabbit
       end
 
       def to_s
-        "#%04X%04X%04X%04X" % to_a
+        values = to_a.collect {|x| (x * 65535).ceil}
+        "#%04X%04X%04X%04X" % values
       end
 
       def to_a

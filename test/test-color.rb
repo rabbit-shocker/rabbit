@@ -1,3 +1,19 @@
+# Copyright (C) 2005-2018  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require 'fileutils'
 
 require "rabbit-test-utils"
@@ -10,7 +26,7 @@ class RabbitColorTest < Test::Unit::TestCase
     assert_color_parse(0, 0, 0, nil, "#000000")
     assert_color_parse(0, 0, 0, nil, "#000000000000")
     assert_color_parse(0, 0, 0, nil, "black")
-    
+
     assert_color_parse(65535, 65535, 65535, nil, "#fff")
     assert_color_parse(65535, 65535, 65535, nil, "#ffffff")
     assert_color_parse(65535, 65535, 65535, nil, "#ffffffffffff")
@@ -32,11 +48,8 @@ class RabbitColorTest < Test::Unit::TestCase
   def assert_color_parse(r, g, b, a, spec, message=nil)
     _wrap_assertion do
       color = parse(spec)
-      assert_equal([r, g, b, a || 65535], color.to_gdk_rgba)
-      assert_equal(!a.nil?, color.have_alpha?, "have_alpha?")
-      gdk_color = color.to_gdk_color
-      assert_equal([r, g, b],
-                   [gdk_color.red, gdk_color.green, gdk_color.blue])
+      assert_equal([r, g, b, a || 65535],
+                   color.to_a.collect {|x| (x * 65535).ceil})
     end
   end
 end
