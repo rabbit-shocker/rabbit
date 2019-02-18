@@ -4,10 +4,12 @@ env:
 notifications:
   webhooks:
     - https://webhook.commit-email.info/
+dist: xenial
 rvm:
-  - 2.3.7
-  - 2.4.4
-  - 2.5.1
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
 addons:
   apt:
     packages:
@@ -27,4 +29,4 @@ before_script:
 script:
   - dbus-launch bundle exec rake
 after_script:
-  - sh -e /ext/init.d/xvfb stop
+  - sh -e /etc/init.d/xvfb stop
