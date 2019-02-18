@@ -63,6 +63,7 @@ module Rabbit
         def calc_slide_number(val, modifier)
           val += 10 if modifier.control_mask?
           val += 20 if modifier.mod1_mask?
+          val = 1 if val == 0
           val
         end
 
