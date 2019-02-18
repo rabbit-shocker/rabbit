@@ -19,7 +19,7 @@ RubyGems.orgやSlideShareへの公開をコマンド一発で実行できます�
 Rabbitでよいスライドを作成し、よい発表をし、そして、共有しましょう！
 
 RubyGems.orgに公開したスライドは((<Rabbit Slide
-Show|URL:http://slide.rabbit-shocker.org/>))で閲覧できます。
+Show|URL:https://slide.rabbit-shocker.org/>))で閲覧できます。
 
 == 雛形作成
 
@@ -203,8 +203,8 @@ RubyGems.orgのユーザー名が((%rabbit%))でスライドIDが
   % rabbit rabbit-theme-benchmark-ja.gem
 
 RubyGems.orgに公開したスライドは((<Rabbit Slide
-Show|URL:http://slide.rabbit-shocker.org/>))で閲覧できます。URLは
-((%http://slide.rabbit-shocker.org/authors/#{RubyGems.orgのユーザー
+Show|URL:https://slide.rabbit-shocker.org/>))で閲覧できます。URLは
+((%https://slide.rabbit-shocker.org/authors/#{RubyGems.orgのユーザー
 名}/#{スライドID}/%))です。
 
 Rabbit Slide ShowはRubyGems.orgに公開されているスライドを自動で収集して

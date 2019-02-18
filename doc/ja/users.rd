@@ -15,7 +15,7 @@ Rabbitショッカーの主な活動場所はプレゼンテーションの場�
 
 RabbitショッカーのみなさんはRabbitを使ってプレゼンテーションした後は使っ
 たスライドを
-((<slide.rabbit-shocker.org|URL:http://slide.rabbit-shocker.org/>))へアッ
+((<slide.rabbit-shocker.org|URL:https://slide.rabbit-shocker.org/>))へアッ
 プロードしています。slide.rabbit-shocker.orgへ行けばRabbitでどんなスラ
 イドを作れるかを確認することができます。
 

@@ -25,7 +25,7 @@ Let's create a good slide, do a good presentation and share your good
 slide!
 
 You can view published slide gems at
-((<URL:http://slide.rabbit-shocker.org/>)).
+((<URL:https://slide.rabbit-shocker.org/>)).
 
 == Templates generation
 
@@ -220,8 +220,8 @@ can display by the following command:
   % rabbit rabbit-theme-benchmark-en.gem
 
 You can view a slide published on RubyGems.org on ((<Rabbit Slide
-Show|URL:http://slide.rabbit-shocker.org/>)). URL is
-((%http://slide.rabbit-shocker.org/authors/#{the user name on
+Show|URL:https://slide.rabbit-shocker.org/>)). URL is
+((%https://slide.rabbit-shocker.org/authors/#{the user name on
 RubyGems.org}/#{the slide ID}/%)).
 
 Rabbit Slide Show collects and displays all slides published on
