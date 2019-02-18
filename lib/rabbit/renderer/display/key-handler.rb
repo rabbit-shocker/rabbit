@@ -60,6 +60,11 @@ module Rabbit
           end
         end
 
+        def have_slide_number_related_mask?(modifier)
+          modifier.control_mask? or
+            modifier.mod1_mask?
+        end
+
         def calc_slide_number(val, modifier)
           val += 10 if modifier.control_mask?
           val += 20 if modifier.mod1_mask?
@@ -266,14 +271,14 @@ module Rabbit
             modifier = event.state
             case event.keyval
             when *prev_keys
-              if modifier.nonzero?
+              if have_slide_number_related_mask?(modifier)
                 index = calc_slide_number(0, modifier)
                 @canvas.activate("JumpTo") {@canvas.current_index - index}
               else
                 @canvas.activate("PreviousSlide")
               end
             when *next_keys
-              if modifier.nonzero?
+              if have_slide_number_related_mask?(modifier)
                 index = calc_slide_number(0, modifier)
                 @canvas.activate("JumpTo") {@canvas.current_index + index}
               else
