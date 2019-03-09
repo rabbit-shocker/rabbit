@@ -11,7 +11,8 @@ module Rabbit
           procs.any? {|proc| proc.call(*args)}
         end
 
-        def add_motion_notify_hook(hook=Proc.new)
+        def add_motion_notify_hook(hook=nil, &block)
+          hook ||= Proc.new(&block)
           @motion_notify_hook_procs << hook
         end
 
@@ -19,7 +20,8 @@ module Rabbit
           @motion_notify_hook_procs.clear
         end
 
-        def add_scroll_hook(hook=Proc.new)
+        def add_scroll_hook(hook=nil, &block)
+          hook ||= Proc.new(&block)
           @scroll_hook_procs << hook
         end
 
@@ -27,7 +29,8 @@ module Rabbit
           @scroll_hook_procs.clear
         end
 
-        def add_button_press_hook(hook=Proc.new)
+        def add_button_press_hook(hook=nil, &block)
+          hook ||= Proc.new(&block)
           @button_press_hook_procs << hook
         end
 
@@ -35,7 +38,8 @@ module Rabbit
           @button_press_hook_procs.clear
         end
 
-        def add_button_release_hook(hook=Proc.new)
+        def add_button_release_hook(hook=nil, &block)
+          hook ||= Proc.new(&block)
           @button_release_hook_procs << hook
         end
 
