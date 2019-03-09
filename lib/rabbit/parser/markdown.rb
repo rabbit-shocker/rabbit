@@ -1,6 +1,5 @@
 require "kramdown"
-require "kramdown/parser/kramdown"
-require "kramdown/parser/gfm"
+require "kramdown-parser-gfm"
 
 require "rabbit/parser/base"
 
