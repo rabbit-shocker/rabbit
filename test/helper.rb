@@ -19,7 +19,6 @@ require "rbconfig"
 require "tmpdir"
 
 require "test-unit"
-require "test/unit/notify"
 require "test/unit/rr"
 
 require "helper/fixture"

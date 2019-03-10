@@ -61,7 +61,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency("rouge")
 
   spec.add_development_dependency("test-unit")
-  spec.add_development_dependency("test-unit-notify")
   spec.add_development_dependency("test-unit-rr")
   spec.add_development_dependency("rake")
   spec.add_development_dependency("bundler")
