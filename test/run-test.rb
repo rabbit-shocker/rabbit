@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# Copyright (C) 2004-2013  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2019  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,6 @@ test_dir = File.join(base_dir, "test")
 $LOAD_PATH.unshift(File.join(base_dir, "lib"))
 $LOAD_PATH.unshift(test_dir)
 
-require "rabbit-test-utils"
+require_relative "helper"
 
-exit Test::Unit::AutoRunner.run(true, test_dir)
+exit(Test::Unit::AutoRunner.run(true, test_dir))

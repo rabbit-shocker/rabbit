@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2019  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 require "rabbit/image/dia"
 
 class TestImageDia < Test::Unit::TestCase
-  include RabbitTestUtils::Fixture
+  include Helper::Fixture
 
   private
   def fixture_path(base_name)

@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2019  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,16 +14,14 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit-test-utils"
-
 require "rabbit/logger"
 require "rabbit/slide"
 require "rabbit/source/memory"
 require "rabbit/parser/markdown"
 
 class RabbitParserMarkdownTest < Test::Unit::TestCase
-  include RabbitTestUtils::Fixture
-  include RabbitTestUtils::Parser
+  include Helper::Fixture
+  include Helper::Parser
 
   private
   def parse(markdown)
