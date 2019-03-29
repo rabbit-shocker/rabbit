@@ -77,6 +77,7 @@
 
 ;;;###autoload
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
+  "Major mode for editing Rabbit slide in RD."
   (setq comment-start "#")
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '((rabbit-font-lock-keywords) t nil))
