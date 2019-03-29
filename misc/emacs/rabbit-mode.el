@@ -322,8 +322,8 @@ format if value is specified, otherwise return \"\"."
 (defun rabbit-join-without-empty-string (strings separator)
   (let ((result "")
         (not-empty-strings (rabbit-filter
-                            '(lambda (string)
-                               (not (rabbit-not-empty-string string)))
+                            (lambda (string)
+                              (not (rabbit-not-empty-string string)))
                             strings)))
     (if (null not-empty-strings)
         ""
@@ -349,8 +349,8 @@ format if value is specified, otherwise return \"\"."
   (let ((prefix (if (string-equal unit "pixel")
                     ""
                   (concat unit "_"))))
-    (mapcar '(lambda (key)
-               (rabbit-read-block-property (concat prefix key)))
+    (mapcar (lambda (key)
+              (rabbit-read-block-property (concat prefix key)))
             '("width" "height"))))
 
 (defun rabbit-fancall-with-current-point (func)
