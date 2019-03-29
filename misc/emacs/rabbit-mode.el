@@ -1,9 +1,8 @@
 ;;; -*- mode: Emacs-Lisp; indent-tabs-mode: nil -*-
 ;;; rabbit-mode.el
 ;;  Emacs major mode for Rabbit
-;;; Copyright (c) 2006 - 2008 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
-;;; Copyright (c) 2009 Kouhei Sutou <kou@cozmixng.org>
-;;; $Id$
+;;; Copyright (c) 2006-2008 Atsushi TAKEDA <tkdats@kono.cis.iwate-u.ac.jp>
+;;; Copyright (c) 2009-2019 Kouhei Sutou <kou@cozmixng.org>
 
 (require 'cl)
 (require 'rd-mode)
@@ -73,6 +72,10 @@
 
 (defvar rabbit-image-size-unit-history nil)
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.rab\\'" . rabbit-mode))
+
+;;;###autoload
 (define-derived-mode rabbit-mode rd-mode "Rabbit"
   (setq comment-start "#")
   (make-local-variable 'font-lock-defaults)
