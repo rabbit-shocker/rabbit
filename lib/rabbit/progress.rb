@@ -62,8 +62,7 @@ module Rabbit
 
     private
     def setup_progress_color
-      if Gtk.const_defined?(:CssProvider)
-        css = <<-CSS
+      css = <<-CSS
 progress {
   padding: 0px;
   padding-top: #{@height}px;
@@ -73,39 +72,27 @@ progress {
 trough {
   border-width: 0px;
 }
-        CSS
-        if @foreground
-          css << <<-CSS
+      CSS
+      if @foreground
+        css << <<-CSS
 progress {
   background-color: #{@foreground.to_css_rgba};
   border-color: #{@foreground.to_css_rgba};
 }
-          CSS
-        end
-        if @background
-          css << <<-CSS
+        CSS
+      end
+      if @background
+        css << <<-CSS
 progressbar,
 trough {
   background-color: #{@background.to_css_rgba};
 }
-          CSS
-        end
-        provider = Gtk::CssProvider.new
-        provider.load(:data => css)
-        @bar.style_context.add_provider(provider,
-                                        Gtk::StyleProvider::PRIORITY_USER)
-      else
-        style = @bar.style.copy
-        if @foreground
-          rgb = @foreground.to_gdk_rgb
-          style.set_bg(Gtk::STATE_PRELIGHT, *rgb)
-        end
-        if @background
-          rgb = @background.to_gdk_rgb
-          style.set_bg(Gtk::STATE_NORMAL, *rgb)
-        end
-        @bar.style = style
+        CSS
       end
+      provider = Gtk::CssProvider.new
+      provider.load(:data => css)
+      @bar.style_context.add_provider(provider,
+                                        Gtk::StyleProvider::PRIORITY_USER)
     end
   end
 end
