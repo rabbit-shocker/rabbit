@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2019  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
 
 require "yaml"
 
-require "rabbit/console"
 require "rabbit/author-configuration"
-require "rabbit/slide-configuration"
+require "rabbit/console"
 require "rabbit/path-manipulatable"
+require "rabbit/slide-configuration"
 require "rabbit/source-generator"
 
 module Rabbit
@@ -35,6 +35,7 @@ module Rabbit
       end
 
       def initialize
+        @use_gui = true
         @title = nil
         @allotted_time = nil
         @slide_conf = nil
@@ -44,6 +45,10 @@ module Rabbit
 
       def run(arguments)
         parse_command_line_arguments(arguments)
+
+        if @use_gui
+          return false unless show_gui
+        end
 
         validate
         unless @validation_errors.empty?
@@ -91,6 +96,13 @@ module Rabbit
         parser.separator(_("COMMAND"))
         parser.separator(_("  new:    create a new slide"))
         parser.separator(_("  change: change an existing slide"))
+
+        parser.separator("")
+        parser.separator(_("User interface"))
+        parser.on("--no-use-gui",
+                  _("Don't use GUI")) do |boolean|
+          @use_gui = boolean
+        end
 
         parser.separator("")
         parser.separator(_("Slide information"))
@@ -264,6 +276,50 @@ module Rabbit
 
       def available_commands
         ["new", "change"]
+      end
+
+      def gui_mappings
+        {
+          "slide-id" => {
+            property: "text",
+            value: @slide_conf.id,
+            required: true,
+            validate: lambda {|entry| not entry.text.empty?},
+            apply: lambda {|entry| @slide_conf.id = entry.text},
+          },
+        }
+      end
+
+      def show_gui
+        require "rabbit/gtk"
+
+        builder = Gtk::Builder.new(path: File.join(__dir__, "rabbit-slide.ui"))
+        gui_mappings.each do |id, data|
+          widget = builder[id]
+          if data[:required]
+            widget.signal_connect(:notify, data) do |_widget, param_spec, _data|
+              if param_spec.name == _data[:propperty]
+                if _data[:validate].call(_widget)
+                  slide_id.style_context.remove_class(Gtk::STYLE_CLASS_ERROR)
+                else
+                  slide_id.style_context.add_class(Gtk::STYLE_CLASS_ERROR)
+                end
+              end
+            end
+          end
+          widget.set_property(data[:property], data[:value]) if data[:value]
+        end
+
+        dialog = builder["dialog"]
+        case dialog.run
+        when Gtk::ResponseType::CANCEL, Gtk::ResponseType::DELETE_EVENT
+          false
+        else
+          gui_mappings.each do |id, data|
+            data[:apply].call(builder[id])
+          end
+          true
+        end
       end
 
       def validate
