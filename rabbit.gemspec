@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
     end
     paragraphs.join("\n\n")
   end
-  spec.description = normalize_new_lines(<<-DESCRIPTION)
+  spec.description = normalize_new_lines.call(<<-DESCRIPTION)
 You can create your slide as a text file. It means that you can version control
 your slide like your Ruby scripts. You can custom your slide style by Ruby.
 So Rabbit is for Rubyist.
