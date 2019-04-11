@@ -6,9 +6,9 @@
 theme_exit if @tag_uninstall
 
 match("**", CustomTag) do |tags|
-  find_outer_block = lambda do |tag|
+  find_align_target = lambda do |tag|
     element = tag
-    while element.inline_element?
+    while element.inline_element? and not element.is_a?(TableCell)
       element = element.parent
     end
     element
@@ -34,11 +34,11 @@ match("**", CustomTag) do |tags|
   tags.each do |tag|
     case tag.name
     when "left"
-      find_outer_block.call(tag).align = "left"
+      find_align_target.call(tag).align = "left"
     when "center"
-      find_outer_block.call(tag).horizontal_centering = true
+      find_align_target.call(tag).horizontal_centering = true
     when "right"
-      find_outer_block.call(tag).align = "right"
+      find_align_target.call(tag).align = "right"
     when "small"
       find_target.call(tag).prop_set("size", @small_font_size)
     when "x-small"
