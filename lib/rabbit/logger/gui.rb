@@ -84,7 +84,7 @@ module Rabbit
 
       def set_dialog_delete
         @dialog.signal_connect("destroy") do |widget, event|
-          exit if @current_severity >= Severity::FATAL
+          exit(false) if @current_severity >= Severity::FATAL
           true
         end
       end
