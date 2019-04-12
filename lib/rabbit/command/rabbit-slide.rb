@@ -34,12 +34,35 @@ module Rabbit
         end
       end
 
+      class Data < Struct.new(:title,
+                              :allotted_time,
+                              :slide_conf,
+                              :author_conf)
+        def available_markup_languages
+          {
+            :markdown => "Markdown",
+            :rd => "RD",
+            :hiki => "Hiki",
+            :pdf => "PDF",
+          }
+        end
+
+        def default_markup_language
+          :rd
+        end
+
+        def markup_language
+          author_conf.markup_language || default_markup_language
+        end
+
+        def save
+          author_conf.save
+        end
+      end
+
       def initialize
         @use_gui = true
-        @title = nil
-        @allotted_time = nil
-        @slide_conf = nil
-        @author_conf = nil
+        @data = Data.new
         @logger = nil
       end
 
@@ -58,7 +81,7 @@ module Rabbit
         end
 
         run_command
-        @author_conf.save
+        @data.save
         true
       end
 
@@ -73,10 +96,10 @@ module Rabbit
       def setup_options(parser, options)
         @options = options
         @logger = @options.default_logger
-        @author_conf = AuthorConfiguration.new(@logger)
-        @author_conf.load
-        @slide_conf = SlideConfiguration.new(@logger)
-        @slide_conf.author = @author_conf
+        @data.author_conf = AuthorConfiguration.new(@logger)
+        @data.author_conf.load
+        @data.slide_conf = SlideConfiguration.new(@logger)
+        @data.slide_conf.author = @data.author_conf
 
         format = _("Usage: %s COMMAND [OPTIONS]\n" \
                    " e.g.: %s new \\\n" \
@@ -111,7 +134,7 @@ module Rabbit
                   _("Slide ID"),
                   _("(e.g.: %s)") % "--id=rubykaigi2012",
                   _("(must)")) do |id|
-          @slide_conf.id = id
+          @data.slide_conf.id = id
         end
 
         messages = [
@@ -121,30 +144,30 @@ module Rabbit
         ]
         parser.on("--base-name=NAME",
                   *messages) do |base_name|
-          @slide_conf.base_name = base_name
+          @data.slide_conf.base_name = base_name
         end
 
-        available_markup_languages = [:rd, :hiki, :markdown]
-        label = "[" + available_markup_languages.join(", ") + "]"
+        available_markup_languages = @data.available_markup_languages
+        label = "[" + available_markup_languages.keys.join(", ") + "]"
         messages = [
           _("Markup language for the new slide"),
           _("(e.g.: %s)") % "--markup-language=rd",
           _("(available markup languages: %s)") % label,
         ]
-        if @author_conf.markup_language
-          messages << _("(default: %s)") % @author_conf.markup_language
+        if @data.author_conf.markup_language
+          messages << _("(default: %s)") % @data.author_conf.markup_language
         end
         messages << _("(optional)")
-        parser.on("--markup-language=LANGUAGE", available_markup_languages,
+        parser.on("--markup-language=LANGUAGE", available_markup_languages.keys,
                   *messages) do |language|
-          @author_conf.markup_language = language
+          @data.author_conf.markup_language = language
         end
 
         parser.on("--title=TITLE",
                   _("Title of the new slide"),
                   _("(e.g.: %s)") % _("--title=\"Rabbit Introduction\""),
                   _("(optional)")) do |title|
-          @title = title
+          @data.title = title
         end
 
         parser.on("--licenses=LICENSE,LICENSE,...",
@@ -152,7 +175,7 @@ module Rabbit
                   _("License of the new slide"),
                   _("(e.g.: %s)") % "--licenses=CC-BY-SA-4.0,GFDL-1.3-or-later",
                   _("(optional)")) do |licenses|
-          @slide_conf.licenses.concat(licenses)
+          @data.slide_conf.licenses.concat(licenses)
         end
 
         parser.on("--tags=TAG,TAG,...",
@@ -160,21 +183,21 @@ module Rabbit
                   _("Tags of the new slide"),
                   _("(e.g.: %s)") % "--tags=rabbit,presentation,ruby",
                _("(optional)")) do |tags|
-          @slide_conf.tags.concat(tags)
+          @data.slide_conf.tags.concat(tags)
         end
 
         parser.on("--allotted-time=TIME",
                   _("Allotted time in presentaion"),
                   _("(e.g.: %s)") % "--allotted-time=5m",
                   _("(optional)")) do |allotted_time|
-          @allotted_time = allotted_time
+          @data.allotted_time = allotted_time
         end
 
         parser.on("--presentation-date=DATE", Date,
                   _("Presentation date with the new slide"),
                   _("(e.g.: %s)") % "--presentation-date=2012-06-29",
                   _("(optional)")) do |date|
-          @slide_conf.presentation_date = date
+          @data.slide_conf.presentation_date = date
         end
 
         presentation_start_time_example =
@@ -183,7 +206,7 @@ module Rabbit
                   _("Presentation start time"),
                   _("(e.g.: %s)") % presentation_start_time_example,
                   _("(optional)")) do |time|
-          @slide_conf.presentation_start_time = time
+          @data.slide_conf.presentation_start_time = time
         end
 
         presentation_end_time_example =
@@ -192,7 +215,7 @@ module Rabbit
                   _("Presentation end time"),
                   _("(e.g.: %s)") % presentation_end_time_example,
                   _("(optional)")) do |time|
-          @slide_conf.presentation_end_time = time
+          @data.slide_conf.presentation_end_time = time
         end
 
         parser.separator(_("Your information"))
@@ -201,26 +224,26 @@ module Rabbit
           _("Author name of the new slide"),
           _("(e.g.: %s)") % "--name=\"Kouhei Sutou\"",
         ]
-        if @author_conf.name
-          messages << _("(default: %s)") % @author_conf.name
+        if @data.author_conf.name
+          messages << _("(default: %s)") % @data.author_conf.name
         end
         messages << _("(optional)")
         parser.on("--name=NAME",
                   *messages) do |name|
-          @author_conf.name = name
+          @data.author_conf.name = name
         end
 
         messages = [
           _("Author e-mail of the new slide"),
           _("(e.g.: %s)") % "--email=kou@cozmixng.org",
         ]
-        if @author_conf.email
-          messages << _("(default: %s)") % @author_conf.email
+        if @data.author_conf.email
+          messages << _("(default: %s)") % @data.author_conf.email
         end
         messages << _("(optional)")
         parser.on("--email=EMAIL",
                   *messages) do |email|
-          @author_conf.email = email
+          @data.author_conf.email = email
         end
 
         messages = [
@@ -228,13 +251,13 @@ module Rabbit
           _("It is used to publish your slide to %s") % "RubyGems.org",
           _("(e.g.: %s)") % "--rubygems-user=kou",
         ]
-        if @author_conf.rubygems_user
-          messages << _("(default: %s)") % @author_conf.rubygems_user
+        if @data.author_conf.rubygems_user
+          messages << _("(default: %s)") % @data.author_conf.rubygems_user
         end
         messages << _("(optional)")
         parser.on("--rubygems-user=USER",
                   *messages) do |user|
-          @author_conf.rubygems_user = user
+          @data.author_conf.rubygems_user = user
         end
 
         messages = [
@@ -242,13 +265,13 @@ module Rabbit
           _("It is used to publish your slide to %s") % "SlideShare",
           _("(e.g.: %s)") % "--slideshare-user=kou",
         ]
-        if @author_conf.slideshare_user
-          messages << _("(default: %s)") % @author_conf.slideshare_user
+        if @data.author_conf.slideshare_user
+          messages << _("(default: %s)") % @data.author_conf.slideshare_user
         end
         messages << _("(optional)")
         parser.on("--slideshare-user=USER",
                   *messages) do |user|
-          @author_conf.slideshare_user = user
+          @data.author_conf.slideshare_user = user
         end
 
         messages = [
@@ -256,13 +279,13 @@ module Rabbit
           _("It is used to publish your slide to %s") % "Speaker Deck",
           _("(e.g.: %s)") % "--speaker-deck-user=kou",
         ]
-        if @author_conf.speaker_deck_user
-          messages << _("(default: %s)") % @author_conf.speaker_deck_user
+        if @data.author_conf.speaker_deck_user
+          messages << _("(default: %s)") % @data.author_conf.speaker_deck_user
         end
         messages << _("(optional)")
         parser.on("--speaker-deck-user=USER",
                   *messages) do |user|
-          @author_conf.speaker_deck_user = user
+          @data.author_conf.speaker_deck_user = user
         end
       end
 
@@ -278,36 +301,95 @@ module Rabbit
         ["new", "change"]
       end
 
-      def gui_mappings
+      class TextMapper
+        def initialize(data)
+          @data = data
+        end
+
+        def attach(entry)
+          entry.signal_connect(:notify) do |_widget, param_spec|
+            if param_spec.name == "text"
+              if valid?(_widget.text)
+                _widget.style_context.remove_class(Gtk::STYLE_CLASS_ERROR)
+              else
+                _widget.style_context.add_class(Gtk::STYLE_CLASS_ERROR)
+              end
+            end
+          end
+          entry.text = value if value
+        end
+
+        def apply(entry)
+          apply_value(entry.text)
+        end
+      end
+
+      class SlideIDMapper < TextMapper
+        private
+        def valid?(value)
+          not value.empty?
+        end
+
+        def value
+          @data.slide_conf.id
+        end
+
+        def apply_value(value)
+          @data.slide_conf.id = value
+        end
+      end
+
+      class SlideBaseNameMapper < TextMapper
+        private
+        def valid?(value)
+          not value.empty?
+        end
+
+        def value
+          @data.slide_conf.base_name
+        end
+
+        def apply_value(value)
+          @data.slide_conf.base_name = value
+        end
+      end
+
+      class SlideMarkupLanguageMapper
+        def initialize(data)
+          @data = data
+        end
+
+        def attach(combo_box)
+          combo_box = combo_box
+          @data.available_markup_languages.each do |key, value|
+            combo_box.append(key.to_s, value)
+          end
+          combo_box.active_id = @data.author_conf.markup_language
+        end
+
+        def apply(combo_box)
+          id = combo_box.active_id
+          id = id.to_sym if id
+          @data.author_conf.markup_language = id
+        end
+      end
+
+      def build_gui_mappers
         {
-          "slide-id" => {
-            property: "text",
-            value: @slide_conf.id,
-            required: true,
-            validate: lambda {|entry| not entry.text.empty?},
-            apply: lambda {|entry| @slide_conf.id = entry.text},
-          },
+          "slide-id" => SlideIDMapper.new(@data),
+          "slide-base-name" => SlideBaseNameMapper.new(@data),
+          "slide-markup-language" => SlideMarkupLanguageMapper.new(@data),
         }
       end
 
       def show_gui
         require "rabbit/gtk"
 
+        mappers = build_gui_mappers
+
         builder = Gtk::Builder.new(path: File.join(__dir__, "rabbit-slide.ui"))
-        gui_mappings.each do |id, data|
-          widget = builder[id]
-          if data[:required]
-            widget.signal_connect(:notify, data) do |_widget, param_spec, _data|
-              if param_spec.name == _data[:propperty]
-                if _data[:validate].call(_widget)
-                  slide_id.style_context.remove_class(Gtk::STYLE_CLASS_ERROR)
-                else
-                  slide_id.style_context.add_class(Gtk::STYLE_CLASS_ERROR)
-                end
-              end
-            end
-          end
-          widget.set_property(data[:property], data[:value]) if data[:value]
+        mappers.each do |id, mapper|
+          mapper.attach(builder[id])
         end
 
         dialog = builder["dialog"]
@@ -315,8 +397,8 @@ module Rabbit
         when Gtk::ResponseType::CANCEL, Gtk::ResponseType::DELETE_EVENT
           false
         else
-          gui_mappings.each do |id, data|
-            data[:apply].call(builder[id])
+          mappers.each do |id, mapper|
+            mapper.apply(builder[id])
           end
           true
         end
@@ -342,13 +424,13 @@ module Rabbit
       end
 
       def validate_id
-        if @slide_conf.id.nil?
+        if @data.slide_conf.id.nil?
           @validation_errors << (_("%s is missing") % "--id")
         end
       end
 
       def validate_base_name
-        if @slide_conf.base_name.nil?
+        if @data.slide_conf.base_name.nil?
           @validation_errors << (_("%s is missing") % "--base-name")
         end
       end
@@ -370,9 +452,9 @@ module Rabbit
       def merge_config_yaml
         existing_slide_conf = SlideConfiguration.new(@logger)
         existing_slide_conf.load
-        existing_slide_conf.merge!(@slide_conf.to_hash)
-        @slide_conf = existing_slide_conf
-        @author_conf = @slide_conf.author
+        existing_slide_conf.merge!(@data.slide_conf.to_hash)
+        @data.slide_conf = existing_slide_conf
+        @data.author_conf = @data.slide_conf.author
       end
 
       def generate_directory
@@ -402,8 +484,8 @@ EOD
       def generate_dot_rabbit
         create_file(".rabbit") do |dot_rabbit|
           options = []
-          if @author_conf.markup_language.nil? and @allotted_time
-            options << "--allotted-time #{@allotted_time}"
+          if @data.author_conf.markup_language.nil? and @data.allotted_time
+            options << "--allotted-time #{@data.allotted_time}"
           end
           options << slide_path
           dot_rabbit.puts(options.join("\n"))
@@ -411,7 +493,7 @@ EOD
       end
 
       def generate_slide_configuration
-        @slide_conf.save(base_directory)
+        @data.slide_conf.save(base_directory)
       end
 
       def generate_readme
@@ -421,11 +503,11 @@ EOD
       end
 
       def readme_content
-        markup_language = @author_conf.markup_language || :rd
+        markup_language = @data.markup_language
         generator = Rabbit::SourceGenerator.find(markup_language)
 
         content = ""
-        title = @title || _("TODO: SLIDE TITLE")
+        title = @data.title || _("TODO: SLIDE TITLE")
         content << generator.heading(1, title)
         content << "\n\n"
         content << _("TODO: SLIDE DESCRIPTION")
@@ -446,12 +528,12 @@ EOD
         content << "\n\n"
         content << generator.heading(3, _("Install"))
         content << "\n\n"
-        install_command = "gem install #{@slide_conf.gem_name}"
+        install_command = "gem install #{@data.slide_conf.gem_name}"
         content << generator.preformatted_line(install_command)
         content << "\n\n"
         content << generator.heading(3, _("Show"))
         content << "\n\n"
-        show_command = "rabbit #{@slide_conf.gem_name}.gem"
+        show_command = "rabbit #{@data.slide_conf.gem_name}.gem"
         content << generator.preformatted_line(show_command)
         content << "\n\n"
       end
@@ -489,11 +571,11 @@ end
       end
 
       def slide_path
-        "#{@slide_conf.base_name}.#{slide_source_extension}"
+        "#{@data.slide_conf.base_name}.#{slide_source_extension}"
       end
 
       def slide_source_extension
-        case @author_conf.markup_language
+        case @data.author_conf.markup_language
         when :rd
           "rab"
         when :hiki
@@ -506,7 +588,7 @@ end
       end
 
       def readme_extension
-        case @author_conf.markup_language
+        case @data.author_conf.markup_language
         when :rd
           "rd"
         when :hiki
@@ -519,7 +601,7 @@ end
       end
 
       def slide_source
-        generator = Rabbit::SourceGenerator.find(@author_conf.markup_language)
+        generator = Rabbit::SourceGenerator.find(@data.markup_language)
         return nil if generator.nil?
 
         source = ""
@@ -537,13 +619,13 @@ end
       end
 
       def slide_source_metadata(source, generator)
-        presentation_date = @slide_conf.presentation_date
+        presentation_date = @data.slide_conf.presentation_date
         presentation_date_default = Time.now
         allotted_time_default = "5m"
         allotted_time =
-          Utils.ensure_time(@allotted_time || allotted_time_default)
-        start_time = @slide_conf.presentation_start_time
-        end_time = @slide_conf.presentation_end_time
+          Utils.ensure_time(@data.allotted_time || allotted_time_default)
+        start_time = @data.slide_conf.presentation_start_time
+        end_time = @data.slide_conf.presentation_end_time
         if presentation_date
           start_time ||= presentation_date
           end_time ||= presentation_date + allotted_time
@@ -554,19 +636,19 @@ end
         start_time_default = presentation_date_default
         end_time_default = start_time_default + allotted_time
         slide_metadata = [
-          ["subtitle",       nil,                _("SUBTITLE")],
-          ["author",         @author_conf.name,  _("AUTHOR")],
-          ["institution",    nil,                _("INSTITUTION")],
-          ["content-source", nil,                _("EVENT NAME")],
+          ["subtitle",       nil,                     _("SUBTITLE")],
+          ["author",         @data.author_conf.name,  _("AUTHOR")],
+          ["institution",    nil,                     _("INSTITUTION")],
+          ["content-source", nil,                     _("EVENT NAME")],
           [
             "date",
             presentation_date,
             presentation_date_default.strftime("%Y-%m-%d"),
           ],
-          ["allotted-time",  @allotted_time,     "5m"],
-          ["start-time",     start_time,         start_time_default.iso8601],
-          ["end-time",       end_time,           end_time_default.iso8601],
-          ["theme",          nil,                "default"],
+          ["allotted-time",  @data.allotted_time, "5m"],
+          ["start-time",     start_time,          start_time_default.iso8601],
+          ["end-time",       end_time,            end_time_default.iso8601],
+          ["theme",          nil,                 "default"],
         ]
         slide_metadata.each do |key, value, default_value|
           item = generator.definition_list_item(key, value || default_value)
@@ -604,7 +686,7 @@ end
         when "change"
           "."
         else
-          @slide_conf.id
+          @data.slide_conf.id
         end
       end
 
