@@ -81,8 +81,12 @@ module Rabbit
         options.after_hooks.each do |hook|
           hook.call(self, parser, options)
         end
-      rescue
-        @logger.fatal($!.message)
+      rescue => error
+        @logger.error("#{error.class}: #{error.message}")
+        error.backtrace.each do |line|
+          @logger.error(line)
+        end
+        raise
       end
 
       [options, options.logger]
