@@ -6,6 +6,14 @@
 theme_exit if @tag_uninstall
 
 match("**", CustomTag) do |tags|
+  find_outer_block = lambda do |tag|
+     element = tag
+    while element.inline_element?
+      element = element.parent
+    end
+    element
+  end
+
   find_align_target = lambda do |tag|
     element = tag
     while element.inline_element? and not element.is_a?(TableCell)
