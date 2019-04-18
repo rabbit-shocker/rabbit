@@ -52,7 +52,8 @@ can see your slide at https://slide.rabbit-shocker.org/ .
 
   spec.files = ["Rakefile", "COPYING", "GPL", "README", "Gemfile"]
   spec.files += ["#{spec.name}.gemspec"]
-  spec.files += Dir.glob("{lib,data,entities,sample,misc,doc}/**/*")
+  spec.files += Dir.glob("lib/**/*.{rb,erb,ui}")
+  spec.files += Dir.glob("{data,entities,sample,misc,doc}/**/*")
   spec.files += Dir.glob("po/*/*.po")
   spec.files -= Dir.glob("doc/_site/**/*")
   spec.files += Dir.glob("*.rb")
