@@ -113,7 +113,8 @@ module Rabbit
           end
         end
 
-        def add_button_handler(handler=Proc.new)
+        def add_button_handler(handler=nil, &block)
+          handler ||= Proc.new(&block)
           @button_handler.push(handler)
         end
 
