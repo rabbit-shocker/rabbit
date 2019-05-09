@@ -107,7 +107,7 @@ module Rabbit
         super(my_font_size)
       end
 
-      private
+      protected
       # TODO: This is too workaround. :<
       def draw_sub_elements(canvas, x, y, w, h)
         draw_sub_elements_recursive(canvas, x, y, w, h, 0) do
@@ -122,7 +122,7 @@ module Rabbit
         else
           draw_sub_elements_recursive(canvas, x, y, w, h, i + 1) do
             element = @elements[i]
-            if element.respond_to?(:draw_sub_elements)
+            if element.is_a?(TextContainerElement)
               element.draw_sub_elements(canvas, x, y, w, h) do
                 yield
               end
