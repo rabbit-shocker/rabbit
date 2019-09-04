@@ -3,6 +3,134 @@ layout: en
 title: News
 ---
 {% raw %}
+== 3.0.0: 2019-09-05
+
+GTK+ 3 support release. GTK+ 2 support is dropped.
+
+=== Improvements
+
+==== rabbit
+
+  * Added support for wide slide.
+
+    To use wide aspect ratio slide, you just specify wide size by
+    ((%--size%)) option such as ((%--size 800,450%)).
+
+    This is a backward incompatible change. If you already use wide
+    size, text size in your slide is changed.
+
+    You can use the same text size in normal size slide and wide size
+    slide since this release. Text size is different before this release.
+
+  * Added support for GTK+ 3.
+
+  * Dropped support for GTK+ 2.
+
+  * Added support for "as large as possible text" without wrapping.
+
+  * Stopped to reset timer on reload.
+
+  * Added support for start-time and end-time title slide attributes.
+
+    If both start-time and end-time are specified, you don't need to
+    specify allotted-time. allotted-time can be computed from them.
+
+    Here is an example that show how to specify 1 hour talk:
+
+      = Title
+
+      : start-time
+         2017-10-08T11:00:00+09:00
+      : end-time
+         2017-10-08T12:00:00+09:00
+
+  * Dropped support for getting slide source from Hiki.
+
+  * Dropped support for getting slide source from SlideShare.
+
+  * RD: Removed "<URL:...>" mark from the default text of URL link.
+
+  * Added support for animation GIF.
+
+  * Stopped to force keeping above.
+    ((%--no-keep-above%)) option is also removed.
+
+    Suggested by Shugo Maeda.
+
+  * info-window: Added support for reloading theme.
+    [GitHub#118][Reported by Dominique Martinet]
+
+  * Added support for kramdown 2.1.0 or later.
+    [GitHub#120][Reported by Yusuke Nakamura]
+
+  * Added workaround for environment that sends arrow with mod2 mask.
+    [GitHub#121][Reported by Yukihiro Matsumoto]
+
+  * Added support for align tags in table cell.
+
+  * Suppressed a (({Proc.new})) warning.
+    [GitHub#124][Patch by Nobuyoshi Nakada]
+
+  * Added support for link in note.
+
+  * Improved text rendering on scale.
+    [Reported by Yukihiro Matsumoto]
+
+==== rabbit-slide
+
+  * Added ((%--licenses%)) option.
+    [GitHub#116][Patch by Yusuke Nakamura]
+
+  * Added support for GUI.
+
+==== Theme
+
+  * clear-blue: Decreases the default graffiti line width.
+
+  * lightning-talk-toolkit: Added support for customizing
+    (({@lightning_talk_wrap_mode})).
+
+  * image-viewer: Added support for image timer.
+
+  * Added (({font_size})) method for computing font size in theme.
+
+==== Document
+
+  * Changed to use HTTPS.
+    [GitHub#122][Patch by Kazuhiro NISHIYAMA]
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that printing is failed when slide title has special
+    character for file name.
+    [GitHub#117][Reported by Dominique Martinet]
+
+==== Document
+
+  * Fixed a typo.
+    [GitHub#113][Patch by Hiroshi Hatake]
+
+  * Fixed broken links.
+    [GitHub#114][Patch by Yusuke Nakamura]
+
+=== Thanks
+
+  * Hiroshi Hatake
+
+  * Shugo Maeda
+
+  * Yusuke Nakamura
+
+  * Dominique Martinet
+
+  * Yukihiro Matsumoto
+
+  * Kazuhiro NISHIYAMA
+
+  * Nobuyoshi Nakada
+
 == 2.2.1: 2017-09-15
 
 For RubyKaigi 2017 speakers release.
