@@ -7,33 +7,41 @@ title: News
 
 GTK+ 3 support release. GTK+ 2 support is dropped.
 
+Wide (16.9 ratio) slide support release. Note that this is a backward
+incompatible change.
+
 === Improvements
 
 ==== rabbit
 
-  * Added support for wide slide.
+  * Added support for wide (16:9 ratio) slide.
 
-    To use wide aspect ratio slide, you just specify wide size by
+    To use wide slide, you just specify wide size by
     ((%--size%)) option such as ((%--size 800,450%)).
 
     This is a backward incompatible change. If you already use wide
     size, text size in your slide is changed.
 
-    You can use the same text size in normal size slide and wide size
-    slide since this release. Text size is different before this release.
+    You can use the same text size in normal (4:3 ratio) slide and
+    wide (16:9 ratio) slide since this release. Text size is different
+    before this release.
 
-  * Added support for GTK+ 3.
+  * Changed to use GTK+ 3 by default.
 
   * Dropped support for GTK+ 2.
 
   * Added support for "as large as possible text" without wrapping.
 
+    This is a change that may change slide rendering result.
+
   * Stopped to reset timer on reload.
 
-  * Added support for start-time and end-time title slide attributes.
+  * Added support for (({start-time})) and (({end-time})) title slide
+    attributes.
 
-    If both start-time and end-time are specified, you don't need to
-    specify allotted-time. allotted-time can be computed from them.
+    If both (({start-time})) and (({end-time})) are specified, you
+    don't need to specify (({allotted-time})). (({allotted-time})) can
+    be computed from them.
 
     Here is an example that show how to specify 1 hour talk:
 
@@ -48,14 +56,16 @@ GTK+ 3 support release. GTK+ 2 support is dropped.
 
   * Dropped support for getting slide source from SlideShare.
 
-  * RD: Removed "<URL:...>" mark from the default text of URL link.
+  * RD: Removed (({<URL:...>})) mark from the default text of URL link.
+
+    This is a change that may change slide rendering result.
 
   * Added support for animation GIF.
 
   * Stopped to force keeping above.
     ((%--no-keep-above%)) option is also removed.
 
-    Suggested by Shugo Maeda.
+    [Suggested by Shugo Maeda]
 
   * info-window: Added support for reloading theme.
     [GitHub#118][Reported by Dominique Martinet]
@@ -63,7 +73,7 @@ GTK+ 3 support release. GTK+ 2 support is dropped.
   * Added support for kramdown 2.1.0 or later.
     [GitHub#120][Reported by Yusuke Nakamura]
 
-  * Added workaround for environment that sends arrow with mod2 mask.
+  * Added workaround for environment that sends arrow key with mod2 mask.
     [GitHub#121][Reported by Yukihiro Matsumoto]
 
   * Added support for align tags in table cell.
@@ -73,7 +83,9 @@ GTK+ 3 support release. GTK+ 2 support is dropped.
 
   * Added support for link in note.
 
-  * Improved text rendering on scale.
+  * Improved text rendering on scale. Text wrapping isn't changed by
+    scaling.
+
     [Reported by Yukihiro Matsumoto]
 
 ==== rabbit-slide
