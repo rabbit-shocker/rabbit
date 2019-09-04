@@ -85,5 +85,5 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.add_development_dependency("test-unit-rr")
   spec.add_development_dependency("rake")
   spec.add_development_dependency("bundler")
-  # spec.add_development_dependency("jekyll", ">= 1.0.2")
+  spec.add_development_dependency("jekyll")
 end
