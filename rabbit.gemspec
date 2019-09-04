@@ -64,7 +64,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
     spec.executables = Dir.glob("*")
   end
 
-  spec.required_ruby_version = ">= 2.1.0"
+  spec.required_ruby_version = ">= 2.4.0"
 
   spec.add_runtime_dependency("gdk_pixbuf2", ">= 3.0.9")
   spec.add_runtime_dependency("gtk3")
