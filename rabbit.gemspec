@@ -19,7 +19,6 @@ require_relative "lib/rabbit/version"
 Gem::Specification.new do |spec|
   spec.name = "rabbit"
   spec.version = Rabbit::VERSION.dup
-  spec.rubyforge_project = "rabbit"
   spec.homepage = "http://rabbit-shocker.org/"
   spec.authors = ["Kouhei Sutou"]
   spec.email = ["kou@cozmixng.org"]
