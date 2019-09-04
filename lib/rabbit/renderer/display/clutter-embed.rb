@@ -1,3 +1,19 @@
+# Copyright (C) 2008-2019  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "clutter-gtk"
 
 require "rabbit/utils"
@@ -26,6 +42,8 @@ module Rabbit
           end
         end
 
+        include Renderer::Engine::Cairo
+
         include Base
 
         include Cursor
@@ -40,8 +58,6 @@ module Rabbit
         include Info
         include Spotlight
         include Magnifier
-
-        include Renderer::Engine::Cairo
 
         attr_accessor :filename
         def initialize(canvas)
@@ -319,6 +335,9 @@ module Rabbit
         end
 
         def configured_after(widget, event)
+          @real_width = event.width
+          @real_height = event.height
+          @size_dirty = true
           reload_theme if @drawable
           false
         end
@@ -473,13 +492,13 @@ module Rabbit
               actor = Clutter::Actor.new
               actor.instance_variable_set(:@c, canvas)
               actor.content = canvas
-              actor.set_size(width, height)
+              actor.set_size(@real_width, @real_height)
               @actors[i] ||= []
               @actors[i][index_in_slide] = actor
               @stage.add_child(actor)
               current_index_in_slide = index_in_slide == slide.drawing_index
               if index.nil? and current_index_in_slide and !hiding?
-                canvas.set_size(width, height)
+                canvas.set_size(@real_width, @real_height)
                 actor.show
                 actor.raise_top
                 Utils.process_pending_events_proc.call
