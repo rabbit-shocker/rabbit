@@ -1,3 +1,19 @@
+# Copyright (C) 2006-2019  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "rabbit/renderer/base"
 require "rabbit/renderer/display/hook-handler"
 
@@ -12,8 +28,6 @@ module Rabbit
           @drawable = nil
           @size = nil
           @size_dirty = true
-          @default_size_ratio = nil
-          @size_ratio = nil
           super
         end
 
@@ -88,12 +102,13 @@ module Rabbit
         end
 
         def draw_slide(slide, simulation)
-          set_size_ratio(slide.size_ratio || @default_size_ratio)
+          set_size_ratio(slide.size_ratio)
 
           if simulation
             super
           else
             save_context do
+              scale_context(*@size.logical_scale)
               translate_context(@size.logical_margin_left,
                                 @size.logical_margin_top)
               super
@@ -104,33 +119,36 @@ module Rabbit
             end
 
             margin_background = make_color("black")
-            if @size.have_logical_margin_x?
-              draw_rectangle(true,
-                             0,
-                             0,
-                             @size.logical_margin_left,
-                             @size.real_height,
-                             margin_background)
-              draw_rectangle(true,
-                             @size.real_width - @size.logical_margin_right,
-                             0,
-                             @size.logical_margin_right,
-                             @size.real_height,
-                             margin_background)
-            end
-            if @size.have_logical_margin_y?
-              draw_rectangle(true,
-                             0,
-                             0,
-                             @size.real_width,
-                             @size.logical_margin_top,
-                             margin_background)
-              draw_rectangle(true,
-                             0,
-                             @size.real_height - @size.logical_margin_bottom,
-                             @size.real_width,
-                             @size.logical_margin_bottom,
-                             margin_background)
+            save_context do
+              scale_context(*@size.logical_scale)
+              if @size.have_logical_margin_x?
+                draw_rectangle(true,
+                               0,
+                               0,
+                               @size.logical_margin_left,
+                               @size.logical_height,
+                               margin_background)
+                draw_rectangle(true,
+                               @size.logical_margin_left + @size.logical_width,
+                               0,
+                               @size.logical_margin_right,
+                               @size.logical_height,
+                               margin_background)
+              end
+              if @size.have_logical_margin_y?
+                draw_rectangle(true,
+                               0,
+                               0,
+                               @size.logical_width,
+                               @size.logical_margin_top,
+                               margin_background)
+                draw_rectangle(true,
+                               0,
+                               @size.logical_margin_top + @size.logical_height,
+                               @size.logical_width,
+                               @size.logical_margin_bottom,
+                               margin_background)
+              end
             end
           end
         end
@@ -144,13 +162,16 @@ module Rabbit
         def set_default_size(w, h)
           @real_width = w
           @real_height = h
-          @default_size_ratio = w.to_f / h.to_f
-          @size_ratio = @default_size_ratio
-          set_size(w, h)
+          ratio = @base_width.to_f / @base_height.to_f
+          set_size(w, h, ratio)
         end
 
-        def set_size(w, h)
-          @size = Size.new(w, h, @size_ratio)
+        def set_size(w, h, ratio)
+          @size = Size.new(@base_width,
+                           @base_height,
+                           w,
+                           h,
+                           ratio)
         end
 
         def update_size(w, h)
@@ -160,20 +181,17 @@ module Rabbit
         end
 
         def set_size_ratio(ratio)
+          ratio ||= @base_width.to_f / @base_height.to_f
           return if @size.ratio == ratio
 
           w = @size.real_width
           h = @size.real_height
-          @size_ratio = ratio
-          @size = Size.new(w, h, @size_ratio)
+          set_size(w, h, ratio)
         end
 
         def refresh_size
           return unless @size_dirty
-
-          @size = Size.new(@real_width,
-                           @real_height,
-                           @size.ratio)
+          set_size(@real_width, @real_height, @size.ratio)
           @size_dirty = false
         end
 

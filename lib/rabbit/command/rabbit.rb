@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2019  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -718,9 +718,9 @@ module Rabbit
         target.draw_scaled_image = @options.draw_scaled_image
       end
 
-      def setup_size(target)
-        target.width = @options.width
-        target.height = @options.height
+      def setup_base_size(target)
+        target.base_width = @options.width
+        target.base_height = @options.height
       end
 
       def setup_paper_size(target)
@@ -803,7 +803,7 @@ module Rabbit
       def do_print
         source = make_source
         canvas = make_canvas(Renderer::Printer)
-        setup_size(canvas)
+        setup_base_size(canvas)
         setup_paper_size(canvas)
         setup_print_info(canvas)
         setup_3d_info(canvas)
@@ -820,7 +820,7 @@ module Rabbit
       def do_save_as_image
         source = make_source
         canvas = make_canvas(Renderer::Offscreen)
-        setup_size(canvas)
+        setup_base_size(canvas)
         setup_image_info(canvas)
         setup_print_info(canvas)
         setup_paper_size(canvas)
@@ -849,6 +849,7 @@ module Rabbit
         end
         frame = Frame.new(@logger, canvas)
         frame.geometry = @options.geometry
+        setup_base_size(canvas)
         setup_paper_size(canvas)
         setup_image_info(canvas)
         setup_print_info(canvas)

@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2019  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -45,7 +45,12 @@ module Rabbit
     def_delegators(:@frame, :iconify_available?)
 
     def_delegators(:@renderer, :width, :height)
-    def_delegators(:@renderer, :width=, :height=)
+    # Deprecated. Use #base_width= instead.
+    def_delegator(:@renderer, :base_width=, :width=)
+    # Deprecated. Use #base_height= instead.
+    def_delegator(:@renderer, :base_height=, :height=)
+    def_delegators(:@renderer, :base_width, :base_height)
+    def_delegators(:@renderer, :base_width=, :base_height=)
     def_delegators(:@renderer, :paper_width, :paper_height)
     def_delegators(:@renderer, :paper_width=, :paper_height=)
     def_delegators(:@renderer, :margin_left, :margin_left=)

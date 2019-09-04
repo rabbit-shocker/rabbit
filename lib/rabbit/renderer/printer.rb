@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2019  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,17 +32,21 @@ module Rabbit
       include Engine::Cairo
 
       attr_writer :filename
-      attr_accessor :width
-      attr_accessor :height
 
       def initialize(canvas)
         super
         @filename = nil
-        @width = nil
-        @height = nil
         init_paper
         init_color
         update_layout
+      end
+
+      def width
+        @base_width
+      end
+
+      def height
+        @base_height
       end
 
       def page_width
@@ -107,20 +111,28 @@ module Rabbit
         else
           slide_width = @layout.slide_width
           slide_height = @layout.slide_height
-          size = Size.new(slide_width, slide_height, width.to_f / height.to_f)
+          size = Size.new(@base_width,
+                          @base_height,
+                          slide_width,
+                          slide_height,
+                          @base_width.to_f / @base_height.to_f)
           x = @layout.normalize_x(0)
           y = @layout.normalize_y(0)
           save_context do
             translate_context(x, y)
             clip_slide(0, 0, slide_width, slide_height)
             draw_background(0, 0, slide_width, slide_height)
+            scale_context(*size.logical_scale)
             translate_context(size.logical_margin_left,
                               size.logical_margin_top)
-            scale_context(size.logical_width / width.to_f,
-                          size.logical_height / height.to_f)
             yield
             if @slides_per_page > 1
-              draw_rectangle(false, 0, 0, width, height, @black)
+              draw_rectangle(false,
+                             0,
+                             0,
+                             size.logical_width,
+                             size.logical_height,
+                             @black)
             end
           end
           @context.show_page if need_show_page?
@@ -152,11 +164,13 @@ module Rabbit
         default_width_mm = 360
         default_height_mm = 270
         if @paper_width.nil? and @paper_height.nil?
-          size = Size.new(default_width_mm,
+          size = Size.new(@base_width,
+                          @base_height,
+                          default_width_mm,
                           default_height_mm,
-                          width.to_f / height.to_f)
-          @page_width = size.logical_width
-          @page_height = size.logical_height
+                          @base_width.to_f / @base_height.to_f)
+          @page_width = size.real_content_width
+          @page_height = size.real_content_height
         else
           @page_width = @paper_width || default_width_mm
           @page_height = @paper_height || default_height_mm

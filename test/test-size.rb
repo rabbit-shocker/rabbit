@@ -19,23 +19,23 @@ require "rabbit/size"
 class RabbitSizeTest < Test::Unit::TestCase
   sub_test_case("width > height") do
     setup do
-      @size = Rabbit::Size.new(1920, 1018, 4.0 / 3.0)
+      @size = Rabbit::Size.new(800, 600, 1920, 1018, 4.0 / 3.0)
     end
 
     test "#logical_width" do
-      assert_equal(1357, @size.logical_width.round)
+      assert_equal(800, @size.logical_width.round)
     end
 
     test "#logical_height" do
-      assert_equal(1018, @size.logical_height)
+      assert_equal(600, @size.logical_height)
     end
 
     test "#logical_margin_left" do
-      assert_equal(281, @size.logical_margin_left.round)
+      assert_equal(166, @size.logical_margin_left.round)
     end
 
     test "#logical_margin_right" do
-      assert_equal(281, @size.logical_margin_right.round)
+      assert_equal(166, @size.logical_margin_right.round)
     end
 
     test "#logical_margin_top" do
@@ -49,15 +49,15 @@ class RabbitSizeTest < Test::Unit::TestCase
 
   sub_test_case("width < height") do
     setup do
-      @size = Rabbit::Size.new(1018, 1920, 4.0 / 3.0)
+      @size = Rabbit::Size.new(800, 600, 1018, 1920, 4.0 / 3.0)
     end
 
     test "#logical_width" do
-      assert_equal(1018, @size.logical_width)
+      assert_equal(800, @size.logical_width)
     end
 
     test "#logical_height" do
-      assert_equal(764, @size.logical_height.round)
+      assert_equal(600, @size.logical_height.round)
     end
 
     test "#logical_margin_left" do
@@ -69,32 +69,37 @@ class RabbitSizeTest < Test::Unit::TestCase
     end
 
     test "#logical_margin_top" do
-      assert_equal(578, @size.logical_margin_top.round)
+      assert_equal(454, @size.logical_margin_top.round)
     end
 
     test "#logical_margin_bottom" do
-      assert_equal(578, @size.logical_margin_bottom.round)
+      assert_equal(454, @size.logical_margin_bottom.round)
+    end
+
+    test "#logical_scale" do
+      assert_equal([1.27, 1.27],
+                   @size.logical_scale.collect {|scale| scale.round(2)})
     end
   end
 
   sub_test_case("predicates") do
     sub_test_case("#have_logical_margin_x?") do
       test "width > height" do
-        size = Rabbit::Size.new(1920, 1018, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1920, 1018, 4.0 / 3.0)
         assert do
           size.have_logical_margin_x?
         end
       end
 
       test "width < height" do
-        size = Rabbit::Size.new(1018, 1920, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1018, 1920, 4.0 / 3.0)
         assert do
           not size.have_logical_margin_x?
         end
       end
 
       test "width / height == ratio" do
-        size = Rabbit::Size.new(800, 600, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1600, 1200, 4.0 / 3.0)
         assert do
           not size.have_logical_margin_x?
         end
@@ -103,21 +108,21 @@ class RabbitSizeTest < Test::Unit::TestCase
 
     sub_test_case("#have_logical_margin_y?") do
       test "width > height" do
-        size = Rabbit::Size.new(1920, 1018, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1920, 1018, 4.0 / 3.0)
         assert do
           not size.have_logical_margin_y?
         end
       end
 
       test "width < height" do
-        size = Rabbit::Size.new(1018, 1920, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1018, 1920, 4.0 / 3.0)
         assert do
           size.have_logical_margin_y?
         end
       end
 
       test "width / height == ratio" do
-        size = Rabbit::Size.new(800, 600, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1600, 1200, 4.0 / 3.0)
         assert do
           not size.have_logical_margin_y?
         end
@@ -126,21 +131,21 @@ class RabbitSizeTest < Test::Unit::TestCase
 
     sub_test_case("#have_logical_margin?") do
       test "width > height" do
-        size = Rabbit::Size.new(1920, 1018, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1920, 1018, 4.0 / 3.0)
         assert do
           size.have_logical_margin?
         end
       end
 
       test "width < height" do
-        size = Rabbit::Size.new(1018, 1920, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1018, 1920, 4.0 / 3.0)
         assert do
           size.have_logical_margin?
         end
       end
 
       test "width / height == ratio" do
-        size = Rabbit::Size.new(800, 600, 4.0 / 3.0)
+        size = Rabbit::Size.new(800, 600, 1600, 1200, 4.0 / 3.0)
         assert do
           not size.have_logical_margin?
         end

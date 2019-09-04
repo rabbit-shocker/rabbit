@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2016-2019  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,14 +26,20 @@ module Rabbit
       include Engine::Cairo
 
       attr_accessor :filename
-      attr_accessor :width, :height, :pango_context
+      attr_accessor :pango_context
 
-      def initialize(canvas, width=nil, height=nil)
+      def initialize(canvas)
         super(canvas)
         @filename = nil
-        @width = width
-        @height = height
         @pango_context = nil
+      end
+
+      def width
+        @base_width
+      end
+
+      def height
+        @base_height
       end
 
       def post_apply_theme
@@ -73,7 +79,7 @@ module Rabbit
 
       def to_pixbuf(slide)
         pixbuf = nil
-        ::Cairo::ImageSurface.new(@width, @height) do |surface|
+        ::Cairo::ImageSurface.new(@base_width, @base_height) do |surface|
           context = ::Cairo::Context.new(surface)
           init_context(context)
           slide.draw(@canvas)

@@ -1,3 +1,19 @@
+# Copyright (C) 2005-2019  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "monitor"
 
 require "rabbit/rabbit"
@@ -29,11 +45,16 @@ module Rabbit
       AVAILABLE_INTERFACES << [name, PublicLevel::MOVE, false]
     end
 
-    %w(width height paper_width paper_height).each do |name|
+    %w(width height base_width base_height paper_width paper_height).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::READ_SIZE, false]
     end
 
-    %w(width= height= paper_width= paper_height=).each do |name|
+    # Deprecated. Use #base_width= and #base_height= instead.
+    %w(width= height=).each do |name|
+      AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SIZE, true]
+    end
+
+    %w(base_width= base_height= paper_width= paper_height=).each do |name|
       AVAILABLE_INTERFACES << [name, PublicLevel::CHANGE_SIZE, true]
     end
 
