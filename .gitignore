@@ -1,7 +1,7 @@
 *.ui~
 /Gemfile.lock
 /pkg/
-/doc/.jekyll-metadata
+/doc/.jekyll-cache
 /doc/_site/
 /doc/css/style.css
 /doc/images/screenshots/
