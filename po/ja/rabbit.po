@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-11-19 10:38+0900\n"
+"PO-Revision-Date: 2019-09-06 06:24+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -335,6 +335,12 @@ msgstr "  new:    新しいスライドを作成"
 
 msgid "  change: change an existing slide"
 msgstr "  change: 既存のスライドを変更"
+
+msgid "User interface"
+msgstr "ユーザーインターフェイス"
+
+msgid "Don't use GUI"
+msgstr "GUIを使わない"
 
 msgid "Slide information"
 msgstr "スライドの情報"

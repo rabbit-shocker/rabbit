@@ -326,6 +326,12 @@ msgstr ""
 msgid "  change: change an existing slide"
 msgstr ""
 
+msgid "User interface"
+msgstr ""
+
+msgid "Don't use GUI"
+msgstr ""
+
 msgid "Slide information"
 msgstr ""
 
