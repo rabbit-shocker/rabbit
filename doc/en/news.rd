@@ -3,7 +3,7 @@ layout: en
 title: News
 ---
 {% raw %}
-== 3.0.0: 2019-09-05
+== 3.0.0: 2019-09-06
 
 GTK+ 3 support release. GTK+ 2 support is dropped.
 
