@@ -81,7 +81,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   # spec.add_runtime_dependency("gstreamer")
   spec.add_runtime_dependency("rouge")
 
-  spec.add_development_dependency("test-unit")
+  spec.add_development_dependency("test-unit", ">= 3.2.9")
   spec.add_development_dependency("test-unit-rr")
   spec.add_development_dependency("rake")
   spec.add_development_dependency("bundler")
