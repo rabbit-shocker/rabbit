@@ -186,4 +186,11 @@ Rabbitショッカーのためにshocker-jaというメーリングリストが�
       * ((<効率的なビットマップマーキングを用いたRuby用ごみ集め実装|URL:http://www.narihiro.info/resource/presen/Ruby%20Garbage%20Collection%20Using%20Efficient%20Bitmap%20Marking.pdf>))
   * うえださん
     * ((<エンジニアでありたい人の日記|URL:http://d.hatena.ne.jp/hiro-ueda/>))
+
+# 2019年
+
+  * yoku0825さん
+    * ((<日々の覚書|URL:https://yoku0825.blogspot.com/>))
+    * ((<Shooting a trouble of MySQL|https://speakerdeck.com/yoku0825/shooting-a-trouble-of-mysql>))
+    * 他にもたくさん
   * ...
