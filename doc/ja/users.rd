@@ -191,6 +191,6 @@ Rabbitショッカーのためにshocker-jaというメーリングリストが�
 
   * yoku0825さん
     * ((<日々の覚書|URL:https://yoku0825.blogspot.com/>))
-    * ((<Shooting a trouble of MySQL|https://speakerdeck.com/yoku0825/shooting-a-trouble-of-mysql>))
+    * ((<Shooting a trouble of MySQL|URL:https://speakerdeck.com/yoku0825/shooting-a-trouble-of-mysql>))
     * 他にもたくさん
   * ...
