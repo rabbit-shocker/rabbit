@@ -5,7 +5,7 @@ lang_suffix: true
 no_sidebar: true
 ---
 <div class="latest-release">
-  <p><a href="/en/news.html">{{ site.version }}</a> is the latest release. It had been released at {{ site.release_date }}.</p>
+  <p><a href="/en/news.html">{{ site.version }}</a> is the latest release. It was released on {{ site.release_date }}.</p>
 </div>
 
 <section id="screenshots">
