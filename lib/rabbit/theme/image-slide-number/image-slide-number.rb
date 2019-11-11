@@ -88,7 +88,7 @@ match(Slide) do |slides|
       margin_bottom = @image_slide_number_margin_bottom || slide.margin_bottom
       base_x = margin_left
       base_y = canvas.height - loader.height - margin_bottom
-      max_width = canvas.width - margin_left - base_x - loader.width
+      max_width = canvas.width - margin_right - base_x - loader.width
       start_base_x = base_x
       goal_base_x = canvas.width - margin_right - goal_flag_width
 
