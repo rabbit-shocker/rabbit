@@ -636,14 +636,10 @@ module Rabbit
       end
 
       def choose_source_file_by_dialog
-        dialog = Gtk::FileChooserDialog.new(_("Choose a Rabbit source file"),
-                                            nil,
-                                            Gtk::FileChooser::ACTION_OPEN,
-                                            nil,
-                                            [Gtk::Stock::CANCEL,
-                                             Gtk::Dialog::RESPONSE_CANCEL],
-                                            [Gtk::Stock::OPEN,
-                                             Gtk::Dialog::RESPONSE_ACCEPT])
+        dialog = Gtk::FileChooserDialog.new(:title => _("Choose a Rabbit source file"),
+                                            :action => :open,
+                                            :buttons => [[Gtk::Stock::CANCEL, :cancel],
+                                                        [Gtk::Stock::OPEN, :accept]])
         dialog.current_folder = @options.base if @options.base
         add_source_dialog_filter(dialog, "Rabbit files", "*.rab")
         add_source_dialog_filter(dialog, "RD files", "*.rd")
@@ -652,7 +648,7 @@ module Rabbit
         add_source_dialog_filter(dialog, "Markdown files", "*.md")
         add_source_dialog_filter(dialog, "All files", "*")
         file_name = nil
-        if dialog.run == Gtk::Dialog::RESPONSE_ACCEPT
+        if dialog.run == Gtk::ResponseType::ACCEPT
           file_name = dialog.filename
           dialog.destroy
         end
