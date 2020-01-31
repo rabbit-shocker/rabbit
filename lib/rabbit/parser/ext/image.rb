@@ -109,7 +109,7 @@ module Rabbit
 
           def setup_image_file(canvas, uri, filename)
             begin
-              open(uri, "rb") do |in_file|
+              URI.open(uri, "rb") do |in_file|
                 File.open(filename, "wb") do |out|
                   out.print(in_file.read)
                 end
