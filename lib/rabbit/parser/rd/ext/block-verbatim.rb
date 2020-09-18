@@ -86,7 +86,7 @@ module Rabbit
 
           def ext_block_verb_enscript(label, source, content, visitor)
             return nil unless /\Aenscript (\w+)\z/i =~ label
-            lang = $1.downcase.untaint
+            lang = $1.downcase
 
             src, prop = parse_source(source)
             logger = visitor.logger
@@ -129,7 +129,7 @@ module Rabbit
 
           def ext_block_verb_coderay(label, source, content, visitor)
             return nil unless /\Acoderay (\w+)\z/i =~ label
-            lang = $1.downcase.untaint
+            lang = $1.downcase
 
             src, prop = parse_source(source)
             logger = visitor.logger
@@ -140,7 +140,7 @@ module Rabbit
 
           def ext_block_verb_emacs(label, source, content, visitor)
             return nil unless /\Aemacs(?:\s+(.+))?\z/i =~ label
-            mode_line = $1.untaint
+            mode_line = $1
 
             src, prop = parse_source(source)
             logger = visitor.logger
@@ -193,7 +193,7 @@ module Rabbit
 
           def ext_block_verb_rouge(label, source, content, visitor)
             return nil unless /\Arouge (\w+)\z/i =~ label
-            lang = $1.downcase.untaint
+            lang = $1.downcase
 
             src, prop = parse_source(source)
             logger = visitor.logger
