@@ -108,6 +108,7 @@ module Rabbit
           end
 
           def setup_image_file(canvas, uri, filename)
+            return if File.exist?(filename)
             begin
               URI.open(uri, "rb") do |in_file|
                 File.open(filename, "wb") do |out|
