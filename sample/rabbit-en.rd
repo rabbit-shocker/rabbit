@@ -132,8 +132,6 @@ A presentation tool
   # keep_ratio = true
   # width = 100
   # height = 100
-#  # normalized_width = 50
-#  # normalized_height = 50
 #  # relative_width = 100
 #  # relative_height = 50
 
@@ -184,8 +182,6 @@ Relative image sizes
   # src = usagi.png
   # caption = USAGI
   # keep_ratio = true
-#  # normalized_width = 50
-#  # normalized_height = 50
 #  # relative_width = 100
   # relative_height = 80
 

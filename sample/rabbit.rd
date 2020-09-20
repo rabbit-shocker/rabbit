@@ -132,8 +132,6 @@
   # caption = Lavie
   # width = 100
   # height = 100
-#  # normalized_width = 50
-#  # normalized_height = 50
 #  # relative_width = 100
 #  # relative_height = 50
 
@@ -183,8 +181,6 @@
   # image
   # src = usagi.png
   # caption = 兎
-#  # normalized_width = 50
-#  # normalized_height = 50
 #  # relative_width = 100
   # relative_height = 80
 

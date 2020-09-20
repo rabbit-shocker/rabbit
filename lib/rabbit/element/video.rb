@@ -126,12 +126,10 @@ module Rabbit
           iw = base_w
           ih = base_h
         else
-          nw = make_normalized_size(@normalized_width)
-          nh = make_normalized_size(@normalized_height)
           rw = make_relative_size(@relative_width, base_w)
           rh = make_relative_size(@relative_height, base_h)
-          iw = nw || rw || base_w
-          ih = nh || rh || base_h
+          iw = rw || base_w
+          ih = rh || base_h
         end
         resize(iw, ih)
       end
@@ -149,10 +147,6 @@ module Rabbit
           @width = w
           @height = h
         end
-      end
-
-      def make_normalized_size(size)
-        size && screen_size(size)
       end
 
       def make_relative_size(size, parent_size)
