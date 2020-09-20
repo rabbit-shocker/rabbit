@@ -32,7 +32,8 @@ module Rabbit
       def initialize(filename, props)
         super(filename, props)
         setup_draw_parameters
-        resize(image_size("width"), image_size("height"))
+        resize(properties.get_size("width", @filename),
+               properties.get_size("height", @filename))
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
@@ -63,43 +64,43 @@ module Rabbit
       end
 
       def relative_width
-        image_size("relative_width")
+        properties.get_size("relative_width", @filename)
       end
 
       def relative_height
-        image_size("relative_height")
+        properties.get_size("relative_height", @filename)
       end
 
       def relative_margin_top
-        image_size("relative_margin_top")
+        properties.get_size("relative_margin_top", @filename)
       end
 
       def relative_margin_bottom
-        image_size("relative_margin_bottom")
+        properties.get_size("relative_margin_bottom", @filename)
       end
 
       def relative_margin_left
-        image_size("relative_margin_left")
+        properties.get_size("relative_margin_left", @filename)
       end
 
       def relative_margin_right
-        image_size("relative_margin_right")
+        properties.get_size("relative_margin_right", @filename)
       end
 
       def relative_padding_top
-        image_size("relative_padding_top")
+        properties.get_size("relative_padding_top", @filename)
       end
 
       def relative_padding_bottom
-        image_size("relative_padding_bottom")
+        properties.get_size("relative_padding_bottom", @filename)
       end
 
       def relative_padding_left
-        image_size("relative_padding_left")
+        properties.get_size("relative_padding_left", @filename)
       end
 
       def relative_padding_right
-        image_size("relative_padding_right")
+        properties.get_size("relative_padding_right", @filename)
       end
 
       alias _compile compile
@@ -193,16 +194,6 @@ module Rabbit
 
       def make_relative_size(size, parent_size)
         size && parent_size && ((size / 100.0) * parent_size).ceil
-      end
-
-      def image_size(name, default=nil)
-        value = self[name]
-        return default if value.nil?
-        begin
-          Integer(value, 10)
-        rescue ArgumentError
-          raise InvalidImageSizeError.new(filename, name, value)
-        end
       end
     end
   end

@@ -42,7 +42,7 @@ module Rabbit
           begin
             instance_variable_set("@#{name}", prop[name] && Integer(prop[name]))
           rescue ArgumentError
-            raise InvalidImageSizeError.new(filename, name, prop[name])
+            raise InvalidSizeError.new(filename, name, prop[name])
           end
         end
 

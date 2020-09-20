@@ -34,8 +34,24 @@ module Rabbit
       @data.each(&block)
     end
 
-    def get_boolean(key)
-      true_value?(self[key])
+    def get_boolean(key, default=nil)
+      value = self[key]
+      return default if value.nil?
+      true_value?(value)
+    end
+
+    def get_integer(key, default=nil)
+      integer_value(self[key] || default)
+    end
+
+    def get_float(key, default=nil)
+      float_value(self[key] || default)
+    end
+
+    def get_size(key, filename, default=nil)
+      size_value(self[key] || default, filename, key)
+    end
+
     end
 
     def respond_to_missing?(name, include_private)
@@ -45,14 +61,14 @@ module Rabbit
     def method_missing(name, *args, &block)
       case args.size
       when 0
-        name = name.to_s
-        if name.end_with?("?")
-          name = name[0..-2]
+        key = name.to_s
+        if key.end_with?("?")
+          key = key[0..-2]
           is_predict = true
         else
           is_predict = false
         end
-        key = normalize_key(name)
+        key = normalize_key(key)
         return super unless @data.key?(key)
         value = @data[key]
         if is_predict
@@ -61,9 +77,9 @@ module Rabbit
           value
         end
       when 1
-        name = name.to_s
-        return super unless name.end_with?("?")
-        @data[normalize_key(name)] = args[0]
+        key = name.to_s
+        return super unless key.end_with?("?")
+        @data[normalize_key(key)] = args[0]
       else
         super
       end
@@ -84,6 +100,25 @@ module Rabbit
 
     def true_value?(value)
       value == true or value == "true"
+    end
+
+    def integer_value(value)
+      return nil if value.nil?
+      Integer(value, 10)
+    end
+
+    def float_value(value)
+      return nil if value.nil?
+      Float(value)
+    end
+
+    def size_value(value, filename, name)
+      return nil if value.nil?
+      begin
+        Integer(value, 10)
+      rescue ArgumentError
+        raise InvalidSizeError.new(filename, name, value)
+      end
     end
   end
 end
