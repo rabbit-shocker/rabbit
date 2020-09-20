@@ -14,6 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "rabbit/relative-size"
+
 module Rabbit
   class Properties
     include Enumerable
@@ -52,6 +54,10 @@ module Rabbit
       size_value(self[key] || default, filename, key)
     end
 
+    def get_relative_size(key, filename, default=nil)
+      relative_size_value(self[key] || default,
+                          filename,
+                          key)
     end
 
     def respond_to_missing?(name, include_private)
@@ -119,6 +125,16 @@ module Rabbit
       rescue ArgumentError
         raise InvalidSizeError.new(filename, name, value)
       end
+    end
+
+    def relative_size_value(value, filename, name)
+      return nil if value.nil?
+      begin
+        value = Float(value)
+      rescue ArgumentError
+        raise InvalidSizeError.new(filename, name, value)
+      end
+      RelativeSize.new(value)
     end
   end
 end

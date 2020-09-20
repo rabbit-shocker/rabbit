@@ -64,43 +64,43 @@ module Rabbit
       end
 
       def relative_width
-        properties.get_size("relative_width", @filename)
+        properties.get_relative_size("relative_width", @filename)
       end
 
       def relative_height
-        properties.get_size("relative_height", @filename)
+        properties.get_relative_size("relative_height", @filename)
       end
 
       def relative_margin_top
-        properties.get_size("relative_margin_top", @filename)
+        properties.get_relative_size("relative_margin_top", @filename)
       end
 
       def relative_margin_bottom
-        properties.get_size("relative_margin_bottom", @filename)
+        properties.get_relative_size("relative_margin_bottom", @filename)
       end
 
       def relative_margin_left
-        properties.get_size("relative_margin_left", @filename)
+        properties.get_relative_size("relative_margin_left", @filename)
       end
 
       def relative_margin_right
-        properties.get_size("relative_margin_right", @filename)
+        properties.get_relative_size("relative_margin_right", @filename)
       end
 
       def relative_padding_top
-        properties.get_size("relative_padding_top", @filename)
+        properties.get_relative_size("relative_padding_top", @filename)
       end
 
       def relative_padding_bottom
-        properties.get_size("relative_padding_bottom", @filename)
+        properties.get_relative_size("relative_padding_bottom", @filename)
       end
 
       def relative_padding_left
-        properties.get_size("relative_padding_left", @filename)
+        properties.get_relative_size("relative_padding_left", @filename)
       end
 
       def relative_padding_right
-        properties.get_size("relative_padding_right", @filename)
+        properties.get_relative_size("relative_padding_right", @filename)
       end
 
       alias _compile compile
@@ -151,24 +151,24 @@ module Rabbit
 
       def adjust_margin(w, h)
         @margin_top =
-          make_relative_size(relative_margin_top, h) || @margin_top
+          relative_margin_top&.resolve(h) || @margin_top
         @margin_bottom =
-          make_relative_size(relative_margin_bottom, h) || @margin_bottom
+          relative_margin_bottom&.resolve(h) || @margin_bottom
         @margin_left =
-          make_relative_size(relative_margin_left, w) || @margin_left
+          relative_margin_left&.resolve(w) || @margin_left
         @margin_right =
-          make_relative_size(relative_margin_right, w) || @margin_right
+          relative_margin_right&.resolve(w) || @margin_right
       end
 
       def adjust_padding(w, h)
         @padding_top =
-          make_relative_size(relative_padding_top, h) || @padding_top
+          relative_padding_top&.resolve(h) || @padding_top
         @padding_bottom =
-          make_relative_size(relative_padding_bottom, h) || @padding_bottom
+          relative_padding_bottom&.resolve(h) || @padding_bottom
         @padding_left =
-          make_relative_size(relative_padding_left, w) || @padding_left
+          relative_padding_left&.resolve(w) || @padding_left
         @padding_right =
-          make_relative_size(relative_padding_right, w) || @padding_right
+          relative_padding_right&.resolve(w) || @padding_right
       end
 
       def adjust_size(canvas, x, y, w, h)
@@ -186,14 +186,10 @@ module Rabbit
             ih = nil
           end
         else
-          iw = make_relative_size(relative_width, base_w)
-          ih = make_relative_size(relative_height, base_h)
+          iw = relative_width&.resolve(base_w)
+          ih = relative_height&.resolve(base_h)
         end
         resize(iw, ih)
-      end
-
-      def make_relative_size(size, parent_size)
-        size && parent_size && ((size / 100.0) * parent_size).ceil
       end
     end
   end
