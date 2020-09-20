@@ -45,6 +45,7 @@ module Rabbit
     def method_missing(name, *args, &block)
       case args.size
       when 0
+        name = name.to_s
         if name.end_with?("?")
           name = name[0..-2]
           is_predict = true
@@ -60,6 +61,7 @@ module Rabbit
           value
         end
       when 1
+        name = name.to_s
         return super unless name.end_with?("?")
         @data[normalize_key(name)] = args[0]
       else
