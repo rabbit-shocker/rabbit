@@ -62,14 +62,6 @@ module Rabbit
         html
       end
 
-      def normalized_width
-        image_size("normalized_width")
-      end
-
-      def normalized_height
-        image_size("normalized_height")
-      end
-
       def relative_width
         image_size("relative_width")
       end

@@ -14,7 +14,6 @@ module Rabbit
       include TextRenderer
 
       attr_reader :filename
-      attr_reader :normalized_width, :normalized_height
       attr_reader :relative_width, :relative_height
       attr_reader :relative_margin_top, :relative_margin_bottom
       attr_reader :relative_margin_left, :relative_margin_right
@@ -34,7 +33,6 @@ module Rabbit
           instance_variable_set("@#{name}", true_value?(prop[name]))
         end
         %w(width height
-           normalized_width normalized_height
            relative_width relative_height
            relative_margin_top relative_margin_bottom
            relative_margin_left relative_margin_right
