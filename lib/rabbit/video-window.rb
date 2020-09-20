@@ -87,11 +87,11 @@ module Rabbit
       @window.signal_connect(:key_press_event) do |widget, key|
         case key.keyval
         when Gdk::Keyval::KEY_space
-          @video.toggle
+          @player.playing = !@player.playing?
         when Gdk::Keyval::KEY_plus
-          @video.seek(10)
+          seek(10)
         when Gdk::Keyval::KEY_minus
-          @video.seek(-10)
+          seek(-10)
         when *[
             Keys::MOVE_TO_NEXT_KEYS, Keys::MOVE_TO_PREVIOUS_KEYS,
             Keys::MOVE_TO_LAST_KEYS, Keys::MOVE_TO_LAST_KEYS,
@@ -103,6 +103,17 @@ module Rabbit
         end
         true
       end
+    end
+
+    def seek(second)
+      duration = @player.duration
+      progress = @player.progress + (second / duration)
+      if progress < 0.0
+        progress = 0.0
+      elsif progress > 1.0
+        progress = 1.0
+      end
+      @player.progress = progress
     end
   end
 end
