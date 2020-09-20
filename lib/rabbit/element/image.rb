@@ -62,24 +62,6 @@ module Rabbit
         html
       end
 
-      def dither_mode
-        mode = self["dither_mode"] || "normal"
-        mode_name = "DITHER_#{mode.upcase}"
-        if Gdk::RGB.const_defined?(mode_name)
-          Gdk::RGB.const_get(mode_name)
-        else
-          Gdk::RGB::DITHER_NORMAL
-        end
-      end
-
-      def x_dither
-        image_size("x_dither", 0)
-      end
-
-      def y_dither
-        image_size("y_dither", 0)
-      end
-
       def normalized_width
         image_size("normalized_width")
       end
