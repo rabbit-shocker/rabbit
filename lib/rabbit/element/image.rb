@@ -1,5 +1,21 @@
-require 'rabbit/image'
-require 'rabbit/element/block-element'
+# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+require "rabbit/image"
+require "rabbit/element/block-element"
 
 module Rabbit
   module Element
@@ -13,61 +29,22 @@ module Rabbit
       alias image_draw draw
       alias draw element_draw
 
-      attr_reader :filename
-      attr_reader :caption
-      attr_reader :normalized_width, :normalized_height
-      attr_reader :relative_width, :relative_height
-      attr_reader :relative_margin_top, :relative_margin_bottom
-      attr_reader :relative_margin_left, :relative_margin_right
-      attr_reader :relative_padding_top, :relative_padding_bottom
-      attr_reader :relative_padding_left, :relative_padding_right
-
-      def initialize(filename, prop)
-        @filename = filename
-        prop = Utils.stringify_hash_key(prop)
-        super(filename, prop)
-        normalized_prop = {}
-        prop.each do |name, value|
-          normalized_prop[name.gsub(/-/, '_')] = value
-        end
-        prop = normalized_prop
-        %w(caption dither_mode).each do |name|
-          instance_variable_set("@#{name}", prop[name])
-        end
-        %w(keep_scale keep_ratio).each do |name|
-          unless prop[name].nil?
-            self.keep_ratio = true_value?(prop[name])
-          end
-        end
-        %w(as_large_as_possible).each do |name|
-          instance_variable_set("@#{name}", true_value?(prop[name]))
-        end
-        %w(width height
-           x_dither y_dither
-           normalized_width normalized_height
-           relative_width relative_height
-           relative_margin_top relative_margin_bottom
-           relative_margin_left relative_margin_right
-           relative_padding_top relative_padding_bottom
-           relative_padding_left relative_padding_right
-          ).each do |name|
-          begin
-            instance_variable_set("@#{name}", prop[name] && Integer(prop[name]))
-          rescue ArgumentError
-            raise InvalidImageSizeError.new(filename, name, prop[name])
-          end
-        end
-
-        setup_draw_parameters(prop)
-        resize(@width, @height)
+      def initialize(filename, props)
+        super(filename, props)
+        setup_draw_parameters
+        resize(image_size("width"), image_size("height"))
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
         draw_image(canvas, x, y, w, h, simulation)
       end
 
+      def caption
+        self["caption"]
+      end
+
       def text
-        @caption.to_s
+        caption.to_s
       end
 
       def to_rd
@@ -86,8 +63,8 @@ module Rabbit
       end
 
       def dither_mode
-        @dither_mode ||= "normal"
-        mode_name = "DITHER_#{@dither_mode.upcase}"
+        mode = self["dither_mode"] || "normal"
+        mode_name = "DITHER_#{mode.upcase}"
         if Gdk::RGB.const_defined?(mode_name)
           Gdk::RGB.const_get(mode_name)
         else
@@ -96,11 +73,59 @@ module Rabbit
       end
 
       def x_dither
-        @x_dither || 0
+        image_size("x_dither", 0)
       end
 
       def y_dither
-        @y_dither || 0
+        image_size("y_dither", 0)
+      end
+
+      def normalized_width
+        image_size("normalized_width")
+      end
+
+      def normalized_height
+        image_size("normalized_height")
+      end
+
+      def relative_width
+        image_size("relative_width")
+      end
+
+      def relative_height
+        image_size("relative_height")
+      end
+
+      def relative_margin_top
+        image_size("relative_margin_top")
+      end
+
+      def relative_margin_bottom
+        image_size("relative_margin_bottom")
+      end
+
+      def relative_margin_left
+        image_size("relative_margin_left")
+      end
+
+      def relative_margin_right
+        image_size("relative_margin_right")
+      end
+
+      def relative_padding_top
+        image_size("relative_padding_top")
+      end
+
+      def relative_padding_bottom
+        image_size("relative_padding_bottom")
+      end
+
+      def relative_padding_left
+        image_size("relative_padding_left")
+      end
+
+      def relative_padding_right
+        image_size("relative_padding_right")
       end
 
       alias _compile compile
@@ -122,23 +147,23 @@ module Rabbit
       end
 
       def as_large_as_possible?
-        @as_large_as_possible
+        properties.get_boolean("as_large_as_possible")
       end
 
       private
-      def setup_draw_parameters(prop)
+      def setup_draw_parameters
         @draw_parameters = {}
 
-        @draw_parameters[:reflect] = {} if true_value?(prop["reflect"])
+        @draw_parameters[:reflect] = {} if properties.get_boolean("reflect")
         [:ratio, :alpha].each do |key|
           name = "reflect_#{key}"
-          value = prop[name]
+          value = self[name]
           next unless value
           @draw_parameters[:reflect] ||= {}
           @draw_parameters[:reflect][key] = Float(value)
         end
 
-        alpha = prop["alpha"]
+        alpha = self["alpha"]
         @draw_parameters[:alpha] = Float(alpha) if alpha
       end
 
@@ -151,24 +176,24 @@ module Rabbit
 
       def adjust_margin(w, h)
         @margin_top =
-          make_relative_size(@relative_margin_top, h) || @margin_top
+          make_relative_size(relative_margin_top, h) || @margin_top
         @margin_bottom =
-          make_relative_size(@relative_margin_bottom, h) || @margin_bottom
+          make_relative_size(relative_margin_bottom, h) || @margin_bottom
         @margin_left =
-          make_relative_size(@relative_margin_left, w) || @margin_left
+          make_relative_size(relative_margin_left, w) || @margin_left
         @margin_right =
-          make_relative_size(@relative_margin_right, w) || @margin_right
+          make_relative_size(relative_margin_right, w) || @margin_right
       end
 
       def adjust_padding(w, h)
         @padding_top =
-          make_relative_size(@relative_padding_top, h) || @padding_top
+          make_relative_size(relative_padding_top, h) || @padding_top
         @padding_bottom =
-          make_relative_size(@relative_padding_bottom, h) || @padding_bottom
+          make_relative_size(relative_padding_bottom, h) || @padding_bottom
         @padding_left =
-          make_relative_size(@relative_padding_left, w) || @padding_left
+          make_relative_size(relative_padding_left, w) || @padding_left
         @padding_right =
-          make_relative_size(@relative_padding_right, w) || @padding_right
+          make_relative_size(relative_padding_right, w) || @padding_right
       end
 
       def adjust_size(canvas, x, y, w, h)
@@ -177,7 +202,7 @@ module Rabbit
         adjust_margin(base_w, base_h)
         adjust_padding(base_w, base_h)
         base_h = base_h - @padding_top - @padding_bottom
-        if @as_large_as_possible
+        if as_large_as_possible?
           iw = base_w - x
           ih = base_h - y
           if iw.to_f / original_width > ih.to_f / original_height
@@ -186,10 +211,10 @@ module Rabbit
             ih = nil
           end
         else
-          nw = make_normalized_size(@normalized_width)
-          nh = make_normalized_size(@normalized_height)
-          rw = make_relative_size(@relative_width, base_w)
-          rh = make_relative_size(@relative_height, base_h)
+          nw = make_normalized_size(normalized_width)
+          nh = make_normalized_size(normalized_height)
+          rw = make_relative_size(relative_width, base_w)
+          rh = make_relative_size(relative_height, base_h)
           iw = nw || rw
           ih = nh || rh
         end
@@ -204,8 +229,14 @@ module Rabbit
         size && parent_size && ((size / 100.0) * parent_size).ceil
       end
 
-      def true_value?(value)
-        value == true or value == "true"
+      def image_size(name, default=nil)
+        value = self[name]
+        return default if value.nil?
+        begin
+          Integer(value, 10)
+        rescue ArgumentError
+          raise InvalidImageSizeError.new(filename, name, value)
+        end
       end
     end
   end

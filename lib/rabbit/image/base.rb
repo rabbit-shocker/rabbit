@@ -1,7 +1,23 @@
+# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "gdk_pixbuf2"
 
-require "rabbit/utils"
 require "rabbit/image-data-loader"
+require "rabbit/properties"
 
 module Rabbit
   module ImageManipulable
@@ -9,12 +25,15 @@ module Rabbit
     class Base
       extend ModuleLoader
 
+      attr_reader :filename
+      attr_reader :properties
       attr_reader :width, :height, :original_width, :original_height
       attr_reader :animation
 
       def initialize(filename, props)
         @filename = filename
-        @props = normalize_props(props)
+        @properties = Properties.new(props)
+        initialize_keep_ratio
         @animation = nil
         @animation_iterator = nil
         @animation_timeout = nil
@@ -24,19 +43,21 @@ module Rabbit
       end
 
       def [](key)
-        @props[normalize_prop_key(key)]
+        @properties[key]
       end
 
       def []=(key, value)
-        @props[normalize_prop_key(key)] = value
+        @properties[key] = value
       end
 
-      def keep_ratio
-        self["keep_ratio"]
+      def keep_ratio?
+        @properties.keep_ratio
       end
+      # For backward compatibility
+      alias_method :keep_ratio, :keep_ratio?
 
       def keep_ratio=(value)
-        self["keep_ratio"] = value
+        @properties.keep_ratio = value
       end
 
       def pixbuf
@@ -46,7 +67,7 @@ module Rabbit
       def resize(w, h)
         if w.nil? and h.nil?
           return
-        elsif keep_ratio
+        elsif keep_ratio?
           if w and h.nil?
             h = (original_height * w.to_f / original_width).ceil
           elsif w.nil? and h
@@ -79,20 +100,15 @@ module Rabbit
       end
 
       private
-      def normalize_props(props)
-        normalized_props = {}
-        (props || {}).each do |key, value|
-          normalized_props[normalize_prop_key(key)] = value
+      def initialize_keep_ratio
+        return unless @properties["keep_ratio"].nil?
+        # For backward compatibility
+        keep_scale = @properties["keep_scale"]
+        if keep_scale.nil?
+          @properties["keep_ratio"] = true
+        else
+          @properties["keep_ratio"] = keep_scale
         end
-        keep_ratio_key = normalize_prop_key("keep_ratio")
-        unless normalized_props.has_key?(keep_ratio_key)
-          normalized_props[keep_ratio_key] = true
-        end
-        normalized_props
-      end
-
-      def normalize_prop_key(key)
-        key.to_s.gsub(/-/, "_")
       end
 
       def load_data(data)

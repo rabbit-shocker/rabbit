@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
 
 require "forwardable"
 require "tempfile"
-require 'thread'
 
 require "rabbit/image/default"
 require "rabbit/image/dia"
@@ -29,12 +28,13 @@ module Rabbit
   module ImageManipulable
     extend Forwardable
 
-    def_delegators(:@loader, :keep_ratio, :keep_ratio=)
+    def_delegators(:@loader, :keep_ratio, :keep_ratio?, :keep_ratio=)
     def_delegators(:@loader, :x_aspect_ratio, :y_aspect_ratio)
     def_delegators(:@loader, :pixbuf, :width, :height)
     def_delegators(:@loader, :original_width, :original_height)
     def_delegators(:@loader, :resize, :draw)
     def_delegators(:@loader, :[], :[]=)
+    def_delegators(:@loader, :properties)
     alias_method :scale, :resize
 
     def initialize(filename, props=nil, *args, &block)
@@ -42,7 +42,6 @@ module Rabbit
         raise ImageFileDoesNotExistError.new(filename)
       end
       super(*args, &block)
-      props = Utils.stringify_hash_key(props) if props
       @loader = Base.find_loader(filename).new(filename, props)
     end
   end
