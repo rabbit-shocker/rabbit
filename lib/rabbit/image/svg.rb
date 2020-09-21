@@ -42,10 +42,7 @@ module Rabbit
 
       def draw(canvas, x, y, params={})
         if @handle
-          default_params = {
-            :width => width,
-            :height => height,
-          }
+          default_params = default_draw_params(x, y)
           canvas.draw_rsvg_handle(@handle, x, y, default_params.merge(params))
         else
           super

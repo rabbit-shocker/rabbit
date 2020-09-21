@@ -25,10 +25,7 @@ module Rabbit
 
       def draw(canvas, x, y, params={})
         if @document
-          default_params = {
-            :width => width,
-            :height => height,
-          }
+          default_params = default_draw_params(x, y)
           canvas.draw_poppler_page(page, x, y, default_params.merge(params))
         else
           super

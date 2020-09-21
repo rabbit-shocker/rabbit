@@ -195,6 +195,7 @@ module Rabbit
         def draw_pixbuf(pixbuf, x, y, params={})
           x, y = from_screen(x, y)
           @context.save do
+            apply_clip(x, y, pixbuf.width, pixbuf.height, params)
             @context.translate(x, y)
             set_source_pixbuf(pixbuf, params)
             @context.paint(params[:alpha])
@@ -244,11 +245,14 @@ module Rabbit
         def draw_rsvg_handle(handle, x, y, params={})
           x, y = from_screen(x, y)
           dim = handle.dimensions
-          width = (params[:width] || dim.width).to_f
-          height = (params[:height] || dim.height).to_f
+          w = dim.width
+          h = dim.height
+          width = (params[:width] || w).to_f
+          height = (params[:height] || h).to_f
           @context.save do
+            apply_clip(x, y, w, h, params)
             @context.translate(x, y)
-            @context.scale(width / dim.width, height / dim.height)
+            @context.scale(width / w, height / h)
             @context.render_rsvg_handle(handle)
           end
 
@@ -262,6 +266,7 @@ module Rabbit
           width = (params[:width] || w).to_f
           height = (params[:height] || h).to_f
           @context.save do
+            apply_clip(x, y, w, h, params)
             @context.translate(x, y)
             @context.scale(width / w, height / h)
             @context.render_poppler_page(page)
@@ -393,6 +398,22 @@ module Rabbit
           when :clip
             block, = other_info
             block.call if block
+          end
+        end
+
+        def apply_clip(x, y, w, h, params)
+          clip_x = params[:clip_x]
+          clip_y = params[:clip_y]
+          clip_width = params[:clip_width]
+          clip_height = params[:clip_height]
+          if clip_x or clip_y or clip_width or clip_height
+            @context.rectangle(x,
+                               y,
+                               clip_width || w,
+                               clip_height || h)
+            @context.clip
+            @context.translate(x - (clip_x || x),
+                               y - (clip_y || y))
           end
         end
 

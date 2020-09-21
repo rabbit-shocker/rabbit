@@ -27,7 +27,8 @@ module Rabbit
 
       attr_reader :filename
       attr_reader :properties
-      attr_reader :width, :height, :original_width, :original_height
+      attr_reader :original_width
+      attr_reader :original_height
       attr_reader :animation
 
       def initialize(filename, props)
@@ -64,6 +65,32 @@ module Rabbit
         @pixbuf
       end
 
+      def width
+        (relative_clip_width&.resolve(@width) || @width) -
+          (relative_clip_x&.resolve(@width) || 0)
+      end
+
+      def height
+        (relative_clip_height&.resolve(@height) || @height) -
+          (relative_clip_y&.resolve(@height) || 0)
+      end
+
+      def relative_clip_x
+        @properties.get_relative_size("relative_clip_x", @filename)
+      end
+
+      def relative_clip_y
+        @properties.get_relative_size("relative_clip_y", @filename)
+      end
+
+      def relative_clip_width
+        @properties.get_relative_size("relative_clip_width", @filename)
+      end
+
+      def relative_clip_height
+        @properties.get_relative_size("relative_clip_height", @filename)
+      end
+
       def resize(w, h)
         if w.nil? and h.nil?
           return
@@ -86,10 +113,7 @@ module Rabbit
       end
 
       def draw(canvas, x, y, params={})
-        default_params = {
-          :width => width,
-          :height => height,
-        }
+        default_params = default_draw_params(x, y)
         target_pixbuf = pixbuf
         if @animation_iterator
           @animation_iterator.advance
@@ -143,6 +167,37 @@ module Rabbit
             # update_animation_timeout(canvas)
             GLib::Source::REMOVE
           end
+        end
+      end
+
+      def default_draw_params(x, y)
+        _relative_clip_x = relative_clip_x
+        _relative_clip_y = relative_clip_y
+        _relative_clip_width = relative_clip_width
+        _relative_clip_height = relative_clip_height
+        if _relative_clip_x or
+           _relative_clip_y or
+           _relative_clip_width or
+           _relative_clip_height
+          clip_x = _relative_clip_x&.resolve(@width) || 0
+          clip_y = _relative_clip_y&.resolve(@height) || 0
+          clip_width = _relative_clip_width&.resolve(@width) || @width
+          clip_height = _relative_clip_height&.resolve(@height) || @height
+          uncliped_width = width - (clip_width - clip_x) + @width
+          uncliped_height = height - (clip_height - clip_y) + @height
+          {
+            width: uncliped_width,
+            height: uncliped_height,
+            clip_x: x + clip_x,
+            clip_y: y + clip_y,
+            clip_width: clip_width,
+            clip_height: clip_height,
+          }
+        else
+          {
+            width: width,
+            height: height,
+          }
         end
       end
     end
