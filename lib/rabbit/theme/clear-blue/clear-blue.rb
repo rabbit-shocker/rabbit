@@ -77,8 +77,10 @@ match(Slide, HeadLine) do |heads|
 end
 
 match(Slide, Body) do |bodies|
-  bodies.vertical_centering = true
   bodies.each do |body|
+    if body.slide["enable-clear-blue-slide-body-vertical-centering"] != "false"
+      body.vertical_centering = true
+    end
     next if body.elements.all? {|element| element.is_a?(Image)}
     next if body.elements.any? {|element| element.is_a?(BlockQuote)}
     next if body.elements.any? {|element| element.is_a?(PreformattedBlock)}
