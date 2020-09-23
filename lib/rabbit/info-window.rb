@@ -225,7 +225,8 @@ module Rabbit
     def draw_text_as_large_as_possible(area, context, markupped_text)
       return if markupped_text.nil?
 
-      area_width, area_height = area.window.size
+      area_width = area.window.width
+      area_height = area.window.height
 
       layout = context.create_pango_layout
       layout.context.resolution = @canvas.font_resolution
