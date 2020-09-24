@@ -62,7 +62,7 @@ module Rabbit
       @window.signal_handler_disconnect(@window_destroy_id)
       @window.destroy
       @window = @window_destroy_id = nil
-      @canvas_widgets = @outer_box = nil
+      @canvas_widgets = @grid = nil
       GLib::Source.remove(@timer_id) if @timer_id
       @timer_id = nil
       @previous_canvas = @current_canvas = @next_canvas = nil
@@ -114,13 +114,14 @@ module Rabbit
       @window = Gtk::Window.new
       @window_destroy_id = @window.signal_connect("destroy") do
         @canvas.activate("ToggleInfoWindow")
+        Gdk::Event::PROPAGATE
       end
       @window.title = _("%s: Information window") % @canvas.title
       @window.set_default_size(width, height) if width and height
       if on_note_mode?
-        init_widgets_on_note_mode(width, height)
+        init_widgets_on_note_mode
       else
-        init_widgets(width, height)
+        init_widgets
       end
       init_menu
       attach_key(@window)
@@ -133,62 +134,91 @@ module Rabbit
       @window.add_events(event_mask)
       set_button_event(@window)
       set_scroll_event(@window)
-      @window.add(@outer_box)
+      @window.add(@grid)
     end
 
-    def init_widgets(width, height)
-      init_timer_label(width * (1.0 / 3.0), height * (1.0 / 3.0))
-      @outer_box = Gtk::Box.new(:vertical)
+    def init_widgets
+      init_timer_area
+      @grid = Gtk::Grid.new
+      @grid.column_homogeneous = true
+      @grid.row_homogeneous = true
 
-      current_box = Gtk::Box.new(:horizontal)
-      @current_canvas.attach_to(nil, @window, current_box) do |container, widget|
-        widget.set_size_request(width * (2.0 / 3.0), height * (2.0 / 3.0))
-        container.pack_start(widget, :expand => true, :fill => false)
+      base_width = 1
+      base_height = 1
+      @current_canvas.attach_to(nil, @window, @grid) do |container, widget|
+        container.attach(widget,
+                         base_width,
+                         0,
+                         base_width * 2,
+                         base_height * 2)
       end
-      @outer_box.pack_start(current_box, :expand => true, :fill => false)
 
-      bottom_box = Gtk::Box.new(:horizontal)
-      @previous_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
-        widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
-        container.pack_start(widget, :expand => false, :fill => false)
+      @previous_canvas.attach_to(nil, @window, @grid) do |container, widget|
+        container.attach(widget,
+                         0,
+                         base_height * 2,
+                         base_width,
+                         base_height)
       end
-      bottom_box.pack_start(@timer_label, :expand => true, :fill => false)
-      @next_canvas.attach_to(nil, @window, bottom_box) do |container, widget|
-        widget.set_size_request(width * (1.0 / 3.0), height * (1.0 / 3.0))
-        container.pack_end(widget, :expand => false, :fill => false)
+      @next_canvas.attach_to(nil, @window, @grid) do |container, widget|
+        container.attach(widget,
+                         base_width * 3,
+                         base_height * 2,
+                         base_width,
+                         base_height)
       end
-      @outer_box.pack_end(bottom_box, :expand => false, :fill => false)
 
-      @outer_box.show
+      @grid.attach(@timer_area,
+                   base_width,
+                   base_height * 2,
+                   base_width * 2,
+                   base_height)
+
+      @grid.show
     end
 
-    def init_widgets_on_note_mode(width, height)
-      init_timer_label(width * (1.0 / 5.0), height * (2.0 / 5.0))
+    def init_widgets_on_note_mode
+      init_timer_area
       init_note_area
-      @outer_box = Gtk::Box.new(:vertical)
+      @grid = Gtk::Grid.new
+      @grid.column_homogeneous = true
+      @grid.row_homogeneous = true
 
-      current_box = Gtk::Box.new(:horizontal)
-      @previous_canvas.attach_to(nil, @window, current_box) do |container, widget|
-        widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_start(widget, :expand => true, :fill => true, :padding => 10)
+      base_width = 1
+      base_height = 4
+      @previous_canvas.attach_to(nil, @window, @grid) do |container, widget|
+        container.attach(widget,
+                         0,
+                         0,
+                         base_width,
+                         base_height)
       end
-      @current_canvas.attach_to(nil, @window, current_box) do |container, widget|
-        widget.set_size_request(width * (2.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_start(widget, :expand => true, :fill => true)
+      @current_canvas.attach_to(nil, @window, @grid) do |container, widget|
+        container.attach(widget,
+                         base_width,
+                         0,
+                         base_width * 2,
+                         base_height)
       end
-      @next_canvas.attach_to(nil, @window, current_box) do |container, widget|
-        widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
-        container.pack_end(widget, :expand => true, :fill => true, :padding => 10)
+      @next_canvas.attach_to(nil, @window, @grid) do |container, widget|
+        container.attach(widget,
+                         base_width * 3,
+                         0,
+                         base_width,
+                         base_height)
       end
-      @outer_box.pack_start(current_box, :expand => false, :fill => false)
 
-      bottom_box = Gtk::Box.new(:horizontal)
-      bottom_box.pack_start(@note_area, :expand => true, :fill => true, :padding => 20)
-      @outer_box.pack_start(bottom_box, :expand => true, :fill => true, :padding => 20)
-
-      @outer_box.pack_start(@timer_label, :expand => false, :fill => false)
-
-      @outer_box.show
+      @grid.attach(@note_area,
+                   0,
+                   base_height,
+                   base_width * 4,
+                   base_height)
+      @grid.attach(@timer_area,
+                   0,
+                   base_height * 2,
+                   base_width * 4,
+                   1)
+      @grid.show
     end
 
     def init_canvas_widgets
@@ -197,10 +227,16 @@ module Rabbit
       @next_canvas.attach_to(nil, @window, @canvas_widgets)
     end
 
-    def init_timer_label(width, height)
-      @timer_label = Gtk::Label.new
-      @timer_label.justify = :center
-      @timer_label.markup = markupped_timer_label(width, height)
+    def init_timer_area
+      @timer_area = Gtk::DrawingArea.new
+      @timer_area.signal_connect("draw") do |area, context|
+        context.set_source_rgb(1, 0, 0) if rest_time and rest_time < 0
+        draw_text_as_large_as_possible(area,
+                                       context,
+                                       timer_text,
+                                       alignment: :center)
+        Gdk::Event::PROPAGATE
+      end
     end
 
     def init_note_area
@@ -223,7 +259,10 @@ module Rabbit
       note.gsub(/\\n/, "\n")
     end
 
-    def draw_text_as_large_as_possible(area, context, markupped_text)
+    def draw_text_as_large_as_possible(area,
+                                       context,
+                                       markupped_text,
+                                       options={})
       return if markupped_text.nil?
 
       area_width = area.window.width
@@ -236,6 +275,9 @@ module Rabbit
       layout.attributes = attributes
       layout.width = area_width * Pango::SCALE
       layout.wrap = :word_char
+      layout.alignment = options[:alignment] if options.key?(:alignment)
+
+      layout.justify = options[:justify] if options.key?(:justify)
       set_as_large_as_font_description(layout, area_height)
 
       context.update_pango_layout(layout)
@@ -260,8 +302,8 @@ module Rabbit
 
     def start_timer
       @timer_id = GLib::Timeout.add(1000) do
-        @timer_label.markup = markupped_timer_label if showing?
         if showing? and @canvas.rest_time
+          @timer_area.queue_draw
           GLib::Source::CONTINUE
         else
           @timer_id = nil
@@ -270,36 +312,16 @@ module Rabbit
       end
     end
 
-    def markupped_timer_label(width=nil, height=nil)
-      width ||= @window.size[0] * (1.0 / 3.0)
-      height ||= @window.size[1] * (1.0 / 3.0)
-      attrs = {}
-      font_size = on_note_mode? ? 100 : 200
-      attrs["font_desc"] = ((height * font_size) / Pango::SCALE).to_s
-      rest_time = @canvas.rest_time
-      attrs["foreground"] = "red" if rest_time and rest_time < 0
-      PangoMarkup.new("span", attrs, timer_label).to_s
+    def rest_time
+      @canvas.rest_time || @canvas.allotted_time
     end
 
-    def timer_label
-      rest_time = @canvas.rest_time || @canvas.allotted_time
+    def timer_text
       if rest_time
         "%s%02d:%02d" % Utils.split_number_to_minute_and_second(rest_time)
       else
         _("unlimited")
       end
-    end
-
-    def markupped_note_text(width=nil, height=nil)
-      height ||= @window.size[1] * (3.0 / 5.0)
-      if @canvas.current_slide["note"]
-        text = @canvas.current_slide["note"].gsub(/\\n/, "\n")
-      else
-        text = ""
-      end
-      attrs = {}
-      attrs["font_desc"] = ((height * 40) / Pango::SCALE).to_s
-      PangoMarkup.new("span", attrs, text).to_s
     end
 
     def update_source
