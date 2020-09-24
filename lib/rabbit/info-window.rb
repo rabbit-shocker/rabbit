@@ -168,7 +168,6 @@ module Rabbit
       @outer_box = Gtk::Box.new(:vertical)
 
       current_box = Gtk::Box.new(:horizontal)
-      current_box.pack_start(@timer_label, :expand => false, :fill => false)
       @previous_canvas.attach_to(nil, @window, current_box) do |container, widget|
         widget.set_size_request(width * (1.0 / 5.0), height * (2.0 / 5.0))
         container.pack_start(widget, :expand => true, :fill => true, :padding => 10)
@@ -186,6 +185,8 @@ module Rabbit
       bottom_box = Gtk::Box.new(:horizontal)
       bottom_box.pack_start(@note_area, :expand => true, :fill => true, :padding => 20)
       @outer_box.pack_start(bottom_box, :expand => true, :fill => true, :padding => 20)
+
+      @outer_box.pack_start(@timer_label, :expand => false, :fill => false)
 
       @outer_box.show
     end
