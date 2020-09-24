@@ -72,9 +72,9 @@ module Rabbit
       !@window.nil?
     end
 
-    def moved(index)
+    def moved
       return unless showing?
-      update(index)
+      update
     end
 
     def parsed
@@ -211,10 +211,10 @@ module Rabbit
       end
     end
 
-    def update(index=nil)
+    def update
       start_timer if @timer_id.nil?
       @note_area.queue_draw if @note_area
-      adjust_slide(index)
+      adjust_slide
     end
 
     def note_text
@@ -321,10 +321,12 @@ module Rabbit
       end
     end
 
-    def adjust_slide(base_index=nil)
-      base_index ||= @canvas.current_index
+    def adjust_slide
+      base_index = @canvas.current_index
       @previous_canvas.move_to_if_can([base_index - 1, 0].max)
       @current_canvas.move_to_if_can(base_index)
+      @current_canvas.current_slide.drawing_index =
+        @canvas.current_slide.drawing_index
       @next_canvas.move_to_if_can([base_index + 1, @canvas.slide_size - 1].min)
     end
 

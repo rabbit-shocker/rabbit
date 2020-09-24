@@ -32,7 +32,12 @@ module Rabbit
 
         def post_move(old_index, index)
           super
-          @info_window.moved(index)
+          @info_window.moved
+        end
+
+        def post_move_in_slide(old_index, index)
+          super
+          @info_window.moved
         end
 
         def index_mode_on
