@@ -67,6 +67,13 @@ match("**", CustomTag) do |tags|
       outer_block = find_outer_block.call(tag)
       current_value = outer_block.send(target)
       outer_block.send("#{target}=", current_value + (@space * scale))
+    when /\Awrap-(.+)\z/
+      wrap = $1
+      find_target.call(tag).wrap_mode = wrap
+    when /\Ajustify?\z/
+      find_target.call(tag).justify = true
+    when /\Ano-justify?\z/
+      find_target.call(tag).justify = false
     else
       handler = find_handler.call(tag)
       if handler
