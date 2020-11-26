@@ -25,6 +25,7 @@ end
 @slide_footer_info_base_y ||= canvas.height - @margin_bottom
 
 @slide_footer_info_left_text ||= nil
+@slide_footer_info_center_text ||= nil
 @slide_footer_info_right_text ||= nil
 
 include_theme("edge-info-toolkit")
@@ -39,6 +40,7 @@ match(SlideElement) do
                  :line_color => @slide_footer_info_line_color,
                  :line_params => @slide_footer_info_line_params,
                  :left_text => @slide_footer_info_left_text,
+                 :center_text => @slide_footer_info_center_text,
                  :right_text => @slide_footer_info_right_text,
                  :text_position => :lower,
                  :text_over_line => @slide_footer_info_text_over_line,

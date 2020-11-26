@@ -13,6 +13,7 @@ match(SlideElement) do |slides|
           line_color = options[:line_color] || "#666"
           line_params = options[:line_params] || {}
           left_text = options[:left_text]
+          center_text = options[:center_text]
           right_text = options[:right_text]
           text_position = options[:text_position] || :lower
           text_over_line = options[:text_over_line]
@@ -36,15 +37,20 @@ match(SlideElement) do |slides|
             "size" => text_size,
             "color" => text_color,
           }
-          left_layout = right_layout = nil
+          left_layout = center_layout = right_layout = nil
           if left_text and !left_text.empty?
             left_layout = make_formatted_layout.call(props, left_text)
+          end
+          if center_text and !center_text.empty?
+            center_layout = make_formatted_layout.call(props, center_text)
+            center_layout.alignment = :center
+            center_layout.width = (w - (x_margin * 2)) * Pango::SCALE
           end
           if right_text and !right_text.empty?
             right_layout = make_formatted_layout.call(props, right_text)
           end
 
-          layouts = [left_layout, right_layout].compact
+          layouts = [left_layout, center_layout, right_layout].compact
           unless layouts.empty?
             max_height = layouts.collect {|layout| layout.pixel_size[1]}.max
             if text_position == :lower
@@ -61,6 +67,10 @@ match(SlideElement) do |slides|
 
             if left_layout
               canvas.draw_layout(left_layout, x_margin, text_base_y)
+            end
+
+            if center_layout
+              canvas.draw_layout(center_layout, x_margin, text_base_y)
             end
 
             if right_layout
