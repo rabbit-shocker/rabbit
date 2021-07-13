@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,12 +17,11 @@
 require "date"
 require "time"
 
-require "yaml"
-
 require "rabbit/gettext"
 require "rabbit/logger"
 require "rabbit/author-configuration"
 require "rabbit/path-manipulatable"
+require "rabbit/yaml-loader"
 
 module Rabbit
   class SlideConfiguration
@@ -65,7 +64,7 @@ module Rabbit
 
     def load
       return unless File.exist?(path)
-      conf = YAML.load(File.read(path))
+      conf = YAMLLoader.load(File.read(path))
       clear
       merge!(conf)
     rescue

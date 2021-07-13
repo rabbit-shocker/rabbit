@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,11 +14,10 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "yaml"
-
 require "rabbit/gettext"
 require "rabbit/logger"
 require "rabbit/path-manipulatable"
+require "rabbit/yaml-loader"
 
 module Rabbit
   class AuthorConfiguration
@@ -35,7 +34,7 @@ module Rabbit
 
     def load
       return unless File.exist?(path)
-      conf = YAML.load(File.read(path))
+      conf = YAMLLoader.load(File.read(path))
       clear
       merge!(conf)
     rescue

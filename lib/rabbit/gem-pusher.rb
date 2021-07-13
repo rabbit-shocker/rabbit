@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2016-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,11 +15,11 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "rake"
-require "yaml"
 require "open-uri"
 
 require "rabbit/gettext"
 require "rabbit/password-reader"
+require "rabbit/yaml-loader"
 
 module Rabbit
   class GemPusher
@@ -35,7 +35,7 @@ module Rabbit
       credentials_path = File.expand_path("~/.gem/credentials")
       credentials_path_exist = File.exist?(credentials_path)
       if credentials_path_exist
-        credentials = YAML.load(File.read(credentials_path))
+        credentials = YAMLLoader.load(File.read(credentials_path))
       else
         credentials = {}
       end
@@ -59,7 +59,7 @@ module Rabbit
       password = reader.read
       open("https://rubygems.org/api/v1/api_key.yaml",
            :http_basic_authentication => [@user, password]) do |response|
-        YAML.load(response.read)[:rubygems_api_key]
+        YAMLLoader.load(response.read)[:rubygems_api_key]
       end
     end
   end

@@ -83,6 +83,7 @@ module Rabbit
 
         def post_parse
           clear_compiled_slides
+          update_cursor(:blank, true)
         end
 
         def pre_toggle_index_mode
