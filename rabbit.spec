@@ -2,7 +2,7 @@
 %define rlibdir %(ruby -r rbconfig -e 'print Config::CONFIG["rubylibdir"]')
 
 Summary: an application to do presentation with RD document
-Summary(ja): RD¤Ç½ñ¤«¤ì¤¿Ê¸½ñ¤ò¤â¤È¤Ë¥×¥ì¥¼¥ó¥Æ¡¼¥·¥ç¥ó¤ò¹Ô¤¦¤¿¤á¤Î¥½¥Õ¥È¥¦¥§¥¢
+Summary(ja): RDã§æ›¸ã‹ã‚ŒãŸæ–‡æ›¸ã‚’ã‚‚ã¨ã«ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¡Œã†ãŸã‚ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢
 Name: rabbit
 Version: 0.0.7
 Release: 1
@@ -17,8 +17,8 @@ BuildArch: noarch
 This is an application to do presentation with RD document.
 
 %description -l ja
-RD¤Ç½ñ¤«¤ì¤¿Ê¸½ñ¤ò¤â¤È¤Ë¥×¥ì¥¼¥ó¥Æ¡¼¥·¥ç¥ó¤ò¹Ô¤¦¤¿¤á¤Î¥½¥Õ¥È
-¥¦¥§¥¢¤Ç¤¹¡¥
+RDã§æ›¸ã‹ã‚ŒãŸæ–‡æ›¸ã‚’ã‚‚ã¨ã«ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¡Œã†ãŸã‚ã®ã‚½ãƒ•ãƒˆ
+ã‚¦ã‚§ã‚¢ã§ã™ï¼
 
 %prep
 %setup -q
