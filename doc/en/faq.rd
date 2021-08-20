@@ -39,17 +39,17 @@ Use --allotted-time option.
 
   % rabbit --allotted-time 5m slide.pdf
 
-The same value format of 
+The same value format of
 
   # _
   : allotted-time
       5m
 
-on slides are available for that of --allotted-time. 
+on slides are available for that of --allotted-time.
 
 For this example you set "5m" and the tortoise runs just 5 minutes.
 
-Note that not all themes support the hare and tortoise feature.  ((%--theme default%)) does, at least.
+Note that not all themes support the hare and tortoise feature. For example, the "default" theme supports it but the "lightning-talk" theme doesn't support it.
 
 == How can I reset tortoise to start?
 
