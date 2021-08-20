@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2021  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ require "rabbit/parser/ext/enscript"
 require "rabbit/parser/ext/tex"
 require "rabbit/parser/ext/aafigure"
 require "rabbit/parser/ext/blockdiag"
+require "rabbit/parser/ext/charty"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/emacs"
 require "rabbit/parser/ext/rouge"
@@ -200,6 +201,13 @@ module Rabbit
 
             result = Parser::Ext::Rouge.highlight(lang, src, logger)
             result || default_ext_block_verbatim(label, src, src, visitor)
+          end
+
+          def ext_block_verb_charty(label, source, content, visitor)
+            return nil unless /\Acharty\z/i =~ label
+            make_image_from_file(source, visitor) do |src_file_path, prop|
+              Parser::Ext::Charty.make_image(src_file_path, prop, visitor)
+            end
           end
         end
       end
