@@ -23,6 +23,7 @@ module Rabbit
         def init_key_handler
           @user_accel_group = nil
           init_accel_group
+          init_toggle_terminal_accel_group
         end
 
         def clear_user_accel_group
@@ -31,10 +32,12 @@ module Rabbit
 
         def attach_key(window)
           window.add_accel_group(@accel_group)
+          window.add_accel_group(@toggle_terminal_accel_group)
         end
 
         def detach_key(window)
           window.remove_accel_group(@accel_group)
+          window.remove_accel_group(@toggle_terminal_accel_group)
         end
 
         def clear_keys
@@ -53,10 +56,31 @@ module Rabbit
           init_alt_keys
         end
 
-        def set_keys(keys, mod, flags=nil, &block)
+        def init_toggle_terminal_accel_group
+          @toggle_terminal_accel_group = Gtk::AccelGroup.new
+          mod = Gdk::ModifierType::SHIFT_MASK |
+                Gdk::ModifierType::CONTROL_MASK |
+                Gdk::ModifierType::MOD1_MASK
+          keys = Keys::ShiftControlAlt::TOGGLE_TERMINAL_KEYS
+          set_keys(keys,
+                   mod,
+                   nil,
+                   @toggle_terminal_accel_group) do |group, obj, val, modifier|
+            @canvas.activate("ToggleTerminal")
+            # TODO: Add canvas to a signal to detect terminal mode change and
+            # use it for the following code.
+            if @canvas.in_terminal?
+              @window.remove_accel_group(@accel_group)
+            else
+              @window.add_accel_group(@accel_group)
+            end
+          end
+        end
+
+        def set_keys(keys, mod, flags=nil, accel_group=@accel_group, &block)
           flags ||= Gtk::AccelFlags::VISIBLE
           keys.each do |val|
-            @accel_group.connect(val, mod, flags, &block)
+            accel_group.connect(val, mod, flags, &block)
           end
         end
 

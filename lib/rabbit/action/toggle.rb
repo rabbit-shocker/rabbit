@@ -71,5 +71,12 @@ module Rabbit
     def act_toggle_magnifier_config(config, canvas)
       config[:label] = N_("Magnifier")
     end
+
+    def act_toggle_terminal(action, group, canvas)
+      canvas.toggle_terminal
+    end
+    def act_toggle_terminal_config(config, canvas)
+      config[:label] = N_("Terminal")
+    end
   end
 end

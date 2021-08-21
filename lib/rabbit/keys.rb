@@ -178,5 +178,11 @@ module Rabbit
         Gdk::Keyval::KEY_t,
       ]
     end
+
+    module ShiftControlAlt
+      TOGGLE_TERMINAL_KEYS = [
+        Gdk::Keyval::KEY_t,
+      ]
+    end
   end
 end
