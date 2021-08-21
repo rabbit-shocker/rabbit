@@ -92,7 +92,7 @@ trough {
       provider = Gtk::CssProvider.new
       provider.load(:data => css)
       @bar.style_context.add_provider(provider,
-                                        Gtk::StyleProvider::PRIORITY_USER)
+                                      Gtk::StyleProvider::PRIORITY_USER)
     end
   end
 end
