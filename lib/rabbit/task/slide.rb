@@ -174,7 +174,7 @@ module Rabbit
       end
 
       def define_publish_rubygems_task
-        desc(_("Publish the slide to %s" % "RubyGems.org"))
+        desc(_("Publish the slide to %s") % "RubyGems.org")
         task :rubygems => :gem do
           pusher = GemPusher.new(gem_path, @slide.author.rubygems_user)
           pusher.push
@@ -183,7 +183,7 @@ module Rabbit
 
       def define_publish_slideshare_task
         slideshare_user = @slide.author.slideshare_user
-        desc(_("Publish the slide to %s" % "SlideShare"))
+        desc(_("Publish the slide to %s") % "SlideShare")
         task :slideshare => [:pdf, "gem:validate"] do
           require "rabbit/slideshare"
           slideshare = SlideShare.new(@logger)
@@ -207,7 +207,7 @@ module Rabbit
       end
 
       def define_publish_speaker_deck_task
-        desc(_("Publish the slide to %s" % "Speaker Deck"))
+        desc(_("Publish the slide to %s") % "Speaker Deck")
         task :speaker_deck => :pdf do
           puts "Not implemented yet."
         end

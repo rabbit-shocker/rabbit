@@ -288,6 +288,9 @@ msgstr ""
 msgid "Magnifier"
 msgstr ""
 
+msgid "Terminal"
+msgstr ""
+
 msgid "Failed to read author configuration: %s: %s"
 msgstr ""
 
@@ -842,7 +845,7 @@ msgstr ""
 msgid "invalid motion: %s"
 msgstr ""
 
-msgid "invalid value of size property \"%{prop_name}\" of image \"%{filename}\": %{value}"
+msgid "invalid value of size property \"%{prop_name}\" of \"%{filename}\": %{value}"
 msgstr ""
 
 msgid "unknown cursor type: %s"

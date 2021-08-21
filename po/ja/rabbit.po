@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-09-21 06:47+0900\n"
+"PO-Revision-Date: 2021-08-21 15:46+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -288,6 +288,9 @@ msgstr "スポットライト"
 
 msgid "Magnifier"
 msgstr "虫眼鏡"
+
+msgid "Terminal"
+msgstr "端末"
 
 msgid "Failed to read author configuration: %s: %s"
 msgstr "作者設定の読み込みに失敗しました: %s: %s"
