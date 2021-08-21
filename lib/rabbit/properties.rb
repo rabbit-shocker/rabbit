@@ -84,7 +84,8 @@ module Rabbit
         end
       when 1
         key = name.to_s
-        return super unless key.end_with?("?")
+        return super unless key.end_with?("=")
+        key = key[0..-2]
         @data[normalize_key(key)] = args[0]
       else
         super
