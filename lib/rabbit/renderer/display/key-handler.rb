@@ -19,6 +19,14 @@ module Rabbit
           @user_accel_group.disconnect_key(keyval, modifier)
         end
 
+        def pre_terminal
+          @window.remove_accel_group(@accel_group)
+        end
+
+        def post_terminal
+          @window.add_accel_group(@accel_group)
+        end
+
         private
         def init_key_handler
           @user_accel_group = nil
@@ -67,13 +75,6 @@ module Rabbit
                    nil,
                    @toggle_terminal_accel_group) do |group, obj, val, modifier|
             @canvas.activate("ToggleTerminal")
-            # TODO: Add canvas to a signal to detect terminal mode change and
-            # use it for the following code.
-            if @canvas.in_terminal?
-              @window.remove_accel_group(@accel_group)
-            else
-              @window.add_accel_group(@accel_group)
-            end
           end
         end
 

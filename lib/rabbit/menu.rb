@@ -260,6 +260,8 @@ module Rabbit
         [:item, "ToggleSpotlight"],
         [:item, "ToggleMagnifier"],
         [:separator],
+        [:item, "ToggleTerminal"],
+        [:separator],
         [:menu, "JumpTo"],
         [:separator],
         [:item, "Previous"],

@@ -36,6 +36,7 @@ module Rabbit
       @geometry = nil
       @notebook = nil
       @terminal = nil
+      @running = true
     end
 
     def destroyed?
@@ -43,6 +44,7 @@ module Rabbit
     end
 
     def quit
+      @running = false
       @window.destroy unless destroyed?
       @window = nil
       true
@@ -211,16 +213,27 @@ module Rabbit
         @terminal.font_desc =
           Pango::FontDescription.new(terminal_font_description)
       end
+      @terminal.enable_sixel = true if @terminal.respond_to?(:enable_sixel=)
       @notebook.add(@terminal)
       pid = nil
+      in_terminal = false
       @notebook.signal_connect(:switch_page) do |_, page,|
         if page == @terminal
-          begin
-            Process.wait(pid, Process::WNOHANG) if pid
-          rescue SystemCallError
-            pid = nil
+          if @running
+            pid = @terminal.spawn if pid.nil?
+            @canvas.pre_terminal unless in_terminal
+            in_terminal = true
           end
-          pid = @terminal.spawn if pid.nil?
+        else
+          @canvas.post_terminal if in_terminal
+          in_terminal = false
+        end
+      end
+      @terminal.signal_connect(:child_exited) do
+        pid = nil
+        terminal_page = @notebook.page_num(@terminal)
+        if @notebook.current_page == terminal_page
+          @canvas.activate("ToggleTerminal")
         end
       end
     end

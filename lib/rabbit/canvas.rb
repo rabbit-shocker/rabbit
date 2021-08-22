@@ -438,6 +438,14 @@ module Rabbit
       @renderer.post_iconify
     end
 
+    def pre_terminal
+      @renderer.pre_terminal
+    end
+
+    def post_terminal
+      @renderer.post_terminal
+    end
+
     def saved_image_base_name
       if @saved_image_base_name
         base_name = @saved_image_base_name.encode("UTF-8")

@@ -267,6 +267,12 @@ module Rabbit
       def add_gesture_action(sequence, action, &block)
       end
 
+      def pre_terminal
+      end
+
+      def post_terminal
+      end
+
       private
       def offscreen_renderer?
         false
