@@ -35,6 +35,11 @@ module Rabbit
                                         x: prop["x"],
                                         y: prop["y"],
                                         color: prop["color"])
+          when "scatter"
+            plotter = ::Charty.scatter_plot(data: data,
+                                            x: prop["x"],
+                                            y: prop["y"],
+                                            color: prop["color"])
           else
             raise ArgumentError, "charty: unsupported type: #{type.inspect}"
           end
