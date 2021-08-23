@@ -213,6 +213,14 @@ module Rabbit
         @terminal.font_desc =
           Pango::FontDescription.new(terminal_font_description)
       end
+      terminal_color_foreground = ENV["RABBIT_TERMINAL_COLOR_FOREGROUND"]
+      if terminal_color_foreground
+        @terminal.color_foreground = terminal_color_foreground
+      end
+      terminal_color_background = ENV["RABBIT_TERMINAL_COLOR_BACKGROUND"]
+      if terminal_color_background
+        @terminal.color_background = terminal_color_background
+      end
       @terminal.enable_sixel = true if @terminal.respond_to?(:enable_sixel=)
       @notebook.add(@terminal)
       pid = nil
