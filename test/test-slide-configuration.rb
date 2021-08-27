@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,10 +41,11 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "licenses"          => ["GPLv3+", "GFDL", "CC BY-SA 3.0"],
       "slideshare_id"     => "rabbit-14073776",
       "speaker_deck_id"   => "rabbit-debian",
-      "ustream_id"        => "25451894",
       "vimeo_id"          => "00000000",
       "youtube_id"        => "XXXXX-xxxxx",
       "author"            => author_conf,
+      "width"             => 800,
+      "height"            => 600,
     }
     @slide.id = "RubyKaigi2012"
     @slide.merge!(conf)

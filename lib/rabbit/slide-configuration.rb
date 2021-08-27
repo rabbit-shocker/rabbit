@@ -40,7 +40,6 @@ module Rabbit
     attr_accessor :licenses
     attr_accessor :slideshare_id
     attr_accessor :speaker_deck_id
-    attr_accessor :ustream_id
     attr_accessor :vimeo_id
     attr_accessor :youtube_id
     attr_writer :version
@@ -95,7 +94,6 @@ module Rabbit
       @licenses          = []
       @slideshare_id     = nil
       @speaker_deck_id   = nil
-      @ustream_id        = nil
       @vimeo_id          = nil
       @youtube_id        = nil
       @author            = nil
@@ -116,7 +114,6 @@ module Rabbit
       @version           = conf["version"]           || @version
       @slideshare_id     = conf["slideshare_id"]     || @slideshare_id
       @speaker_deck_id   = conf["speaker_deck_id"]   || @speaker_deck_id
-      @ustream_id        = conf["ustream_id"]        || @ustream_id
       @vimeo_id          = conf["vimeo_id"]          || @vimeo_id
       @youtube_id        = conf["youtube_id"]        || @youtube_id
 
@@ -142,7 +139,6 @@ module Rabbit
         "licenses"          => @licenses,
         "slideshare_id"     => @slideshare_id,
         "speaker_deck_id"   => @speaker_deck_id,
-        "ustream_id"        => @ustream_id,
         "vimeo_id"          => @vimeo_id,
         "youtube_id"        => @youtube_id,
         "width"             => @width,
