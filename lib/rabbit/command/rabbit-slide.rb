@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -106,6 +106,8 @@ module Rabbit
                    "          --id rubykaigi2012 \\\n" \
                    "          --base-name rabbit-introduction \\\n" \
                    "          --markup-language rd \\\n" \
+                   "          --width 800 \\\n" \
+                   "          --height 450 \\\n" \
                    "          --name \"Kouhei Sutou\" \\\n" \
                    "          --email kou@cozmixng.org \\\n" \
                    "          --rubygems-user kou \\\n" \
@@ -218,6 +220,22 @@ module Rabbit
           @data.slide_conf.presentation_end_time = time
         end
 
+        width_example = "--width=800"
+        parser.on("--width=WIDTH", Integer,
+                  _("The default slide width"),
+                  _("(e.g.: %s)") % width_example,
+                  _("(optional)")) do |width|
+          @data.slide_conf.width = width
+        end
+
+        height_example = "--width=450"
+        parser.on("--height=HEIGHT", Integer,
+                  _("The default slide height"),
+                  _("(e.g.: %s)") % height_example,
+                  _("(optional)")) do |height|
+          @data.slide_conf.height = height
+        end
+
         parser.separator(_("Your information"))
 
         messages = [
@@ -324,6 +342,20 @@ module Rabbit
         end
       end
 
+      class IntegerMapper
+        def initialize(data)
+          @data = data
+        end
+
+        def attach(entry)
+          entry.value = value if value
+        end
+
+        def apply(entry)
+          apply_value(entry.value_as_int)
+        end
+      end
+
       class SlideIDMapper < TextMapper
         private
         def valid?(value)
@@ -374,11 +406,35 @@ module Rabbit
         end
       end
 
+      class SlideWidthMapper < IntegerMapper
+        private
+        def value
+          @data.slide_conf.width
+        end
+
+        def apply_value(value)
+          @data.slide_conf.width = value
+        end
+      end
+
+      class SlideHeightMapper < IntegerMapper
+        private
+        def value
+          @data.slide_conf.height
+        end
+
+        def apply_value(value)
+          @data.slide_conf.height = value
+        end
+      end
+
       def build_gui_mappers
         {
           "slide-id" => SlideIDMapper.new(@data),
           "slide-base-name" => SlideBaseNameMapper.new(@data),
           "slide-markup-language" => SlideMarkupLanguageMapper.new(@data),
+          "slide-width" => SlideWidthMapper.new(@data),
+          "slide-height" => SlideHeightMapper.new(@data),
         }
       end
 
@@ -484,6 +540,8 @@ EOD
       def generate_dot_rabbit
         create_file(".rabbit") do |dot_rabbit|
           options = []
+          size = [@data.slide_conf.width, @data.slide_conf.height].join(",")
+          options << "--size #{size}"
           if @data.author_conf.markup_language.nil? and @data.allotted_time
             options << "--allotted-time #{@data.allotted_time}"
           end

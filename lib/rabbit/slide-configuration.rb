@@ -45,6 +45,8 @@ module Rabbit
     attr_accessor :youtube_id
     attr_writer :version
     attr_accessor :author
+    attr_accessor :width
+    attr_accessor :height
     def initialize(logger=nil)
       @logger = logger || Logger.default
       clear
@@ -97,6 +99,8 @@ module Rabbit
       @vimeo_id          = nil
       @youtube_id        = nil
       @author            = nil
+      @width             = 800
+      @height            = 600
     end
 
 
@@ -121,6 +125,9 @@ module Rabbit
 
       @author ||= AuthorConfiguration.new(@logger)
       @author.merge!(conf["author"] || {})
+
+      @width             = conf["width"]             || @width
+      @height            = conf["height"]            || @height
     end
 
     def to_hash
@@ -138,6 +145,8 @@ module Rabbit
         "ustream_id"        => @ustream_id,
         "vimeo_id"          => @vimeo_id,
         "youtube_id"        => @youtube_id,
+        "width"             => @width,
+        "height"            => @height,
       }
       config["author"] = @author.to_hash if @author
       config
