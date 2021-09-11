@@ -185,12 +185,12 @@ APIがなかったので諦めました。
   Rabbitのテーマを確認するためのスライドです。スライドで使われる要素がた
   くさん入っているためテーマの確認に便利です。
 
-準備ができたら((%rabbit publish%))でRubyGems.orgとSlideShareにまとめて
+準備ができたら((%rake publish%))でRubyGems.orgとSlideShareにまとめて
 公開できます。別々に公開する方法は以下の通りです。
 
 === RubyGems.orgへ公開
 
-((%rabbit publish:rubygems%))でRubyGems.orgに公開できます。
+((%rake publish:rubygems%))でRubyGems.orgに公開できます。
 
   % rake publish:rubygems
 
@@ -213,7 +213,7 @@ Rabbit Slide ShowはRubyGems.orgに公開されているスライドを自動で
 
 === SlideShareへ公開
 
-((%rabbit publish:slideshare%))でSlideShareに公開できます。
+((%rake publish:slideshare%))でSlideShareに公開できます。
 
   % rake publish:slideshare
 

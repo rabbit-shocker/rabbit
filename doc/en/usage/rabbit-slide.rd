@@ -201,12 +201,12 @@ For example, here is a theme-benchmark-en case:
   elements. So it's useful for confirming your theme.
 
 You can publish your slide to both RubyGems.org and SlideShare by
-((%rabbit publish%)). The following documentation describes to publish
+((%rake publish%)). The following documentation describes to publish
 your slide separately.
 
 === Publication for RubyGems.org
 
-You can publish your slide to RubyGems.org by ((%rabbit
+You can publish your slide to RubyGems.org by ((%rake
 publish:rubygems%)):
 
   % rake publish:rubygems
@@ -231,7 +231,7 @@ RubyGems.org.
 
 === Publication for SlideShare
 
-You can publish your slide to SlideShare by ((%rabbit publish:slideshare%)).
+You can publish your slide to SlideShare by ((%rake publish:slideshare%)).
 
   % rake publish:slideshare
 
