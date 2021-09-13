@@ -32,35 +32,7 @@ module Rabbit
     end
 
     def push
-      credentials_path = File.expand_path("~/.gem/credentials")
-      credentials_path_exist = File.exist?(credentials_path)
-      if credentials_path_exist
-        credentials = YAMLLoader.load(File.read(credentials_path))
-      else
-        credentials = {}
-      end
-      unless credentials.key?(@user.to_sym)
-        credentials[@user.to_sym] = retrieve_api_key
-        File.open(credentials_path, "w") do |credentials_file|
-          credentials_file.print(credentials.to_yaml)
-        end
-        unless credentials_path_exist
-          File.chmod(0600, credentials_path)
-        end
-      end
-      ruby("-S", "gem", "push", @gem_path,
-           "--key", @user)
-    end
-
-    private
-    def retrieve_api_key
-      prompt = _("Enter password on RubyGems.org [%{user}]: ") % {:user => @user}
-      reader = PasswordReader.new(prompt)
-      password = reader.read
-      open("https://rubygems.org/api/v1/api_key.yaml",
-           :http_basic_authentication => [@user, password]) do |response|
-        YAMLLoader.load(response.read)[:rubygems_api_key]
-      end
+      system("gem push #{@gem_path}")
     end
   end
 end
