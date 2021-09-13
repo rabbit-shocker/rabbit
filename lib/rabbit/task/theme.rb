@@ -172,7 +172,7 @@ module Rabbit
           if rubygems_user
             desc(_("Publish the theme to %s") % "RubyGems.org")
             task :rubygems => :gem do
-              pusher = GemPusher.new(gem_path, rubygems_user)
+              pusher = GemPusher.new(gem_path)
               pusher.push
             end
             publish_tasks << :rubygems

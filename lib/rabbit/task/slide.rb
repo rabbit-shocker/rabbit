@@ -176,7 +176,7 @@ module Rabbit
       def define_publish_rubygems_task
         desc(_("Publish the slide to %s") % "RubyGems.org")
         task :rubygems => :gem do
-          pusher = GemPusher.new(gem_path, @slide.author.rubygems_user)
+          pusher = GemPusher.new(gem_path)
           pusher.push
         end
       end

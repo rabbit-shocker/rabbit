@@ -26,9 +26,8 @@ module Rabbit
     include GetText
     include Rake::DSL
 
-    def initialize(gem_path, user)
+    def initialize(gem_path)
       @gem_path = gem_path
-      @user = user
     end
 
     def push
