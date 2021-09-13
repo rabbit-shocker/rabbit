@@ -57,10 +57,32 @@ module Rabbit
       prompt = _("Enter password on RubyGems.org [%{user}]: ") % {:user => @user}
       reader = PasswordReader.new(prompt)
       password = reader.read
-      open("https://rubygems.org/api/v1/api_key.yaml",
-           :http_basic_authentication => [@user, password]) do |response|
-        YAMLLoader.load(response.read)[:rubygems_api_key]
+      begin
+        URI.open("https://rubygems.org/api/v1/api_key.yaml",
+                 :http_basic_authentication => [@user, password]) do |response|
+          YAMLLoader.load(response.read)[:rubygems_api_key]
+        end
+      rescue OpenURI::HTTPError => error
+        if mfa_error?(error)
+          prompt = _("Enter OTP on RubyGems.org [%{user}]: ") % {:user => @user}
+          # TODO: We don't need to hide input.
+          reader = PasswordReader.new(prompt)
+          otp = reader.read
+          URI.open("https://rubygems.org/api/v1/api_key.yaml",
+                   :http_basic_authentication => [@user, password],
+                   "OTP" => otp) do |response|
+            YAMLLoader.load(response.read)[:rubygems_api_key]
+          end
+        else
+          raise
+        end
       end
+    end
+
+    def mfa_error?(error)
+      return false unless error.message.start_with?("401 ")
+      body = error.io.read
+      body.start_with?("You have enabled multifactor authentication")
     end
   end
 end
