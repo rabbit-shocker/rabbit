@@ -312,6 +312,8 @@ msgid ""
 "          --id rubykaigi2012 \\\n"
 "          --base-name rabbit-introduction \\\n"
 "          --markup-language rd \\\n"
+"          --width 800 \\\n"
+"          --height 450 \\\n"
 "          --name \"Kouhei Sutou\" \\\n"
 "          --email kou@cozmixng.org \\\n"
 "          --rubygems-user kou \\\n"
@@ -383,6 +385,12 @@ msgid "Presentation start time"
 msgstr ""
 
 msgid "Presentation end time"
+msgstr ""
+
+msgid "The default slide width"
+msgstr ""
+
+msgid "The default slide height"
 msgstr ""
 
 msgid "Your information"
@@ -861,6 +869,9 @@ msgid "Installing gem in user install mode: %s"
 msgstr ""
 
 msgid "Enter password on RubyGems.org [%{user}]: "
+msgstr ""
+
+msgid "Enter OTP on RubyGems.org [%{user}]: "
 msgstr ""
 
 msgid "Line width:"
