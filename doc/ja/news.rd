@@ -4,6 +4,96 @@ title: お知らせ
 apply_data: false
 ---
 {% raw %}
+
+== 3.0.1: 2021-09-25
+
+Ruby 3.0をサポートしたリリース。
+
+=== 改良
+
+==== rabbit
+
+  * 警告を除去。
+    [GitHub#132][kojix2さんがパッチ提供]
+
+  * image: Ruby 3.0をサポート。
+    [GitHub#133][kojix2さんがパッチを提供]
+
+  * image: ダウンロードした画像を再利用するようにしました。
+
+  * image: (({normalized_width}))と(({normalized_height}))のサポートを
+    削除。
+
+  * image: (({clip_x}))と(({clip_y}))と(({clip_width}))と(({clip_height}))で
+    クリップをサポート。
+
+  * info-window: ノートモードではタイマーの位置を下部に移動。
+
+  * info-window: (({wait}))をサポート。
+
+  * 重複した(({require}))を削除。
+    [GitHub#134][kojix2さんがパッチを提供]
+
+  * Chartyをサポート。
+
+  * 埋め込みターミナルをサポート。
+
+  * Ustreamサポートを削除。
+
+  * MFAが有効になったアカウントでのgemのpushをサポート。
+    [GitHub#141][Yusuke Nakamuraさんが報告]
+
+==== rabbit-slide
+
+  * スライドサイズの指定をサポート。
+
+==== テーマ
+
+  * clear-blue: 縦方向のセンタリングの無効化をサポート。
+
+  * tag: (({margin-*})): 負の値と浮動小数点数をサポート。
+
+  * tag: (({wrap-char}))と(({wrap-word}))と(({wrap-word-char}))で折り返し
+    をサポート。
+
+  * tag: (({justify}))と(({no-justify}))で両端揃えをサポート。
+
+  * edge-info-toolkit: テキストのセンタリングをサポート。
+
+  * slide-footer-info: テキストのセンタリングをサポート。
+
+==== ドキュメント
+
+  * うさぎとかめとテーマに関する注意書きを追加。
+    [GitHub#139][Asaf Bartovさんがパッチを提供]
+
+=== 修正
+
+==== テーマ
+
+  * image-slide-number: 幅の計算方法を修正。
+    [GitHub#130][HASUMI Hitoshiさんがパッチを提供]
+
+==== ドキュメント
+
+  * 英語を修正。
+    [GitHub#128][Zero Kingさんがパッチを提供]
+
+  * typoを修正。
+    [GitHub#140][Yusuke Nakamuraさんがパッチを提供]
+
+=== 感謝
+
+  * Zero Kingさん
+
+  * HASUMI Hitoshiさん
+
+  * kojix2さん
+
+  * Asaf Bartovさん
+
+  * Yusuke Nakamuraさん
+
 == 3.0.0: 2019-09-06
 
 GTK+ 3をサポートしたリリース。GTK+ 2のサポートは終了。

@@ -3,6 +3,97 @@ layout: en
 title: News
 ---
 {% raw %}
+
+== 3.0.1: 2021-09-25
+
+Ruby 3.0 support release.
+
+=== Improvements
+
+==== rabbit
+
+  * Suppressed warnings.
+    [GitHub#132][Patch by kojix2]
+
+  * image: Added support for Ruby 3.0.
+    [GitHub#133][Patch by kojix2]
+
+  * image: Reused downloaded images.
+
+  * image: Removed support for (({normalized_width})) and
+    (({normalized_height})).
+
+  * image: Added support for clipping by (({clip_x})), (({clip_y})),
+    (({clip_width})) and (({clip_height})).
+
+  * info-window: Moved timer position to bottom on note mode.
+
+  * info-window: Added support for (({wait})).
+
+  * Removed duplicated requires.
+    [GitHub#134][Patch by kojix2]
+
+  * Added support for Charty.
+
+  * Added support for embedding terminal.
+
+  * Dropped support for Ustream.
+
+  * Added support for pushing gem with MFA enabled account.
+    [GitHub#141][Patch by Yusuke Nakamura]
+
+==== rabbit-slide
+
+  * Added support for specifying slide size.
+
+==== Theme
+
+  * clear-blue: Added support for disabling vertical centering.
+
+  * tag: (({margin-*})): Added support for negative and float values.
+
+  * tag: Added support for wrapping by (({wrap-char})),
+    (({wrap-word})) and (({wrap-word-char})).
+
+  * tag: Added support for justifying by (({justify})) and
+    (({no-justify})).
+
+  * edge-info-toolkit: Added support for center text.
+
+  * slide-footer-info: Added support for center text.
+
+==== Document
+
+  * Added note about theme and here + tortoise.
+    [GitHub#139][Patch by Asaf Bartov]
+
+=== Fixes
+
+==== Theme
+
+  * image-slide-number: Fixed wrong width calculation.
+    [GitHub#130][Patch by HASUMI Hitoshi]
+
+==== Document
+
+  * Fixed English.
+    [GitHub#128][Patch by Zero King]
+
+  * Fixed typos.
+    [GitHub#140][Patch by Yusuke Nakamura]
+
+=== Thanks
+
+  * Zero King
+
+  * HASUMI Hitoshi
+
+  * kojix2
+
+  * Asaf Bartov
+
+  * Yusuke Nakamura
+
 == 3.0.0: 2019-09-06
 
 GTK+ 3 support release. GTK+ 2 support is dropped.
