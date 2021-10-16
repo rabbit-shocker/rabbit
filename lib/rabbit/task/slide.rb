@@ -65,7 +65,7 @@ module Rabbit
           spec.summary = readme_parser.title || "TODO"
           spec.description = readme_parser.description || "TODO"
           spec.licenses = @slide.licenses
-          spec.metadata['source_code_uri'] = @slide.source_code_uri
+          spec.metadata["source_code_uri"] = @slide.source_code_uri
 
           slide_conf_path = @slide.path
           spec.files = [".rabbit", slide_conf_path, "Rakefile"]
