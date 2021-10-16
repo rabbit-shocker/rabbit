@@ -46,6 +46,7 @@ module Rabbit
     attr_accessor :author
     attr_accessor :width
     attr_accessor :height
+    attr_accessor :source_code_uri
     def initialize(logger=nil)
       @logger = logger || Logger.default
       clear
@@ -99,6 +100,7 @@ module Rabbit
       @author            = nil
       @width             = 800
       @height            = 600
+      @source_code_uri   = nil
     end
 
 
@@ -125,6 +127,7 @@ module Rabbit
 
       @width             = conf["width"]             || @width
       @height            = conf["height"]            || @height
+      @source_code_uri   = conf["source_code_uri"]   || @source_code_uri
     end
 
     def to_hash
@@ -143,6 +146,7 @@ module Rabbit
         "youtube_id"        => @youtube_id,
         "width"             => @width,
         "height"            => @height,
+        "source_code_uri"   => @source_code_uri,
       }
       config["author"] = @author.to_hash if @author
       config
