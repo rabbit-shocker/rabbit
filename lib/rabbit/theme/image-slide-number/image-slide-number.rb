@@ -32,7 +32,7 @@ end
 target_n_slides = nil
 
 match(Slide) do |slides|
-  slides.delete_post_draw_proc_by_name(proc_name)
+  slides.delete_pre_draw_proc_by_name(proc_name)
 
   break if @image_slide_number_uninstall
 
