@@ -38,7 +38,7 @@ end
 @image_timer_target_paths ||= [Slide]
 
 match(*@image_timer_target_paths) do |slides|
-  slides.delete_post_draw_proc_by_name(proc_name)
+  slides.delete_pre_draw_proc_by_name(proc_name)
   stop_auto_redraw_timer
 
   break if @image_timer_uninstall
@@ -51,7 +51,7 @@ match(*@image_timer_target_paths) do |slides|
         @image_timer_auto_updating = true
         start_auto_redraw_timer(@image_timer_interval)
       end
-      slide.delete_post_draw_proc_by_name(init_proc_name)
+      slide.delete_pre_draw_proc_by_name(init_proc_name)
     end
     [x, y, w, h]
   end
@@ -61,7 +61,7 @@ match(*@image_timer_target_paths) do |slides|
   max_width = nil
   base_y = nil
 
-  slides.add_post_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
+  slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
     margin_left = @image_timer_margin_left || slide.margin_left
     margin_right = @image_timer_margin_right || slide.margin_right
     margin_bottom = @image_timer_margin_bottom || slide.margin_bottom
