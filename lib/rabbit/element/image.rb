@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,7 +37,9 @@ module Rabbit
       end
 
       def draw_element(canvas, x, y, w, h, simulation)
-        draw_image(canvas, x, y, w, h, simulation)
+        result = draw_image(canvas, x, y, w, h, simulation)
+        draw_properties(canvas, x, y, w, h) unless simulation
+        result
       end
 
       def caption
@@ -113,10 +115,12 @@ module Rabbit
         adjust_size(canvas, @x, @y, @w, @h)
       end
 
+      alias_method :width_without_padding, :width
       def width
         super + @padding_left + @padding_right
       end
 
+      alias_method :height_without_padding, :height
       def height
         super + @padding_top + @padding_bottom
       end
@@ -190,6 +194,56 @@ module Rabbit
           ih = relative_height&.resolve(base_h)
         end
         resize(iw, ih)
+      end
+
+      def draw_properties(canvas, base_x, base_y, base_w, base_h)
+        properties.draws.each do |type, *args|
+          case type
+          when "line"
+            x1, y1, x2, y2, color, params = args
+            x1 = (x1 * width_without_padding) + base_x
+            y1 = (y1 * height_without_padding) + base_y
+            x2 = (x2 * width_without_padding) + base_x
+            y2 = (y2 * height_without_padding) + base_y
+            params = normalize_params(params)
+            canvas.draw_line(x1, y1, x2, y2, color, params)
+          when "rectangle"
+            filled, x, y, w, h, color, params = args
+            x = (x * width_without_padding) + base_x
+            y = (y * height_without_padding) + base_y
+            w = (w * width_without_padding)
+            h = (h * height_without_padding)
+            params = normalize_params(params)
+            canvas.draw_rectangle(filled, x, y, w, h, color, params)
+          when "text"
+            text, x, y, color, params = args
+            params = normalize_params(params)
+            layout = canvas.make_layout(markup_text(text, params))
+            x = (x * width_without_padding) + base_x
+            y = (y * height_without_padding) + base_y
+            canvas.draw_layout(layout, x, y, color, params)
+          end
+        end
+      end
+
+      def normalize_params(params)
+        return {} if params.nil?
+        normalized_params = {}
+        params.each do |key, value|
+          normalized_params[key.to_sym] = value
+        end
+        normalized_params
+      end
+
+      def markup_text(text, props)
+        props.each do |name, value|
+          formatter_name = Utils.to_class_name(name.to_s)
+          next unless Format.const_defined?(formatter_name)
+          formatter = Format.const_get(formatter_name).new(value)
+          next unless formatter.text_formatter?
+          text = formatter.format(text)
+        end
+        text
       end
     end
   end

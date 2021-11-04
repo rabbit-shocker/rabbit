@@ -1,4 +1,4 @@
-# Copyright (C) 2020  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2020-2021  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "rabbit/relative-size"
+require "rabbit/yaml-loader"
 
 module Rabbit
   class Properties
@@ -58,6 +59,18 @@ module Rabbit
       relative_size_value(self[key] || default,
                           filename,
                           key)
+    end
+
+    def draws
+      targets = @data.select do |key, _|
+        /\Adraw\[\d+\]\z/.match?(key)
+      end
+      targets = targets.sort_by do |key, _|
+        Integer(key[/\d+/], 10)
+      end
+      targets.collect do |_, value|
+        YAMLLoader.load(value)
+      end
     end
 
     def respond_to_missing?(name, include_private)
