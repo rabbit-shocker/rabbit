@@ -430,11 +430,7 @@ module Rabbit
 
       def make_prop_value(name, *values)
         formatter_name = to_class_name(name)
-        begin
-          unless Format.const_defined?(formatter_name)
-            raise NameError
-          end
-        rescue NameError
+        unless Format.const_defined?(formatter_name)
           raise UnknownPropertyError.new(name)
         end
         Format.const_get(formatter_name).new(*values)
