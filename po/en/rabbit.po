@@ -950,7 +950,10 @@ msgstr ""
 msgid "tried mimeTeX commands: %s"
 msgstr ""
 
-msgid "multiple ![alt]{image} in a paragraph isn't supported."
+msgid "multiple ![alt]{image}s in a paragraph isn't supported."
+msgstr ""
+
+msgid "![alt]{image} and other contents in a paragraph isn't supported: %{types}"
 msgstr ""
 
 msgid "horizontal rule isn't supported."
@@ -2104,4 +2107,7 @@ msgid "Color of shadow."
 msgstr ""
 
 msgid "TitleSlideBackgroundImage"
+msgstr ""
+
+msgid "multiple ![alt]{image} in a paragraph isn't supported."
 msgstr ""

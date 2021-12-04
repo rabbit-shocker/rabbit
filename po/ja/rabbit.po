@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-25 10:51+0900\n"
+"PO-Revision-Date: 2021-12-04 09:55+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -975,8 +975,11 @@ msgstr "enscript: サポートしていない要素名です: %s"
 msgid "tried mimeTeX commands: %s"
 msgstr "実行したmimeTeXコマンド名: %s"
 
-msgid "multiple ![alt]{image} in a paragraph isn't supported."
+msgid "multiple ![alt]{image}s in a paragraph isn't supported."
 msgstr "ひとつの段落中で複数の「![alt]{image}」を使うことはできません。"
+
+msgid "![alt]{image} and other contents in a paragraph isn't supported: %{types}"
+msgstr "ひとつの段落中で「![alt]{image}」と他の内容を一緒に使うことはできません：%{types}"
 
 msgid "horizontal rule isn't supported."
 msgstr "水平線はサポートしていません"
@@ -2192,3 +2195,6 @@ msgstr "影の色。"
 
 msgid "TitleSlideBackgroundImage"
 msgstr "タイトルスライド背景画像"
+
+msgid "multiple ![alt]{image} in a paragraph isn't supported."
+msgstr "ひとつの段落中で複数の「![alt]{image}」を使うことはできません。"

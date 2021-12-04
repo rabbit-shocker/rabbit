@@ -165,9 +165,15 @@ module Rabbit
           if child_types == [:img]
             convert_container(element)[0]
           else
-            if child_types.include?(:img)
+            if child_types.count(:img) > 1
               raise ParseError,
-                      _("multiple ![alt]{image} in a paragraph isn't supported.")
+                    _("multiple ![alt]{image}s in a paragraph isn't supported.")
+            end
+            if child_types.include?(:img)
+              message =
+                _("![alt]{image} and other contents in a paragraph " \
+                  "isn't supported: %{types}")
+              raise ParseError, message % {types: child_types}
             end
             if element.options[:transparent] and child_types == [:text]
               element.children.first.value.chomp!

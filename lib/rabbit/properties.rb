@@ -63,7 +63,7 @@ module Rabbit
 
     def draws
       targets = @data.select do |key, _|
-        /\Adraw\[\d+\]\z/.match?(key)
+        /\Adraw\d+\z/.match?(key)
       end
       targets = targets.sort_by do |key, _|
         Integer(key[/\d+/], 10)
