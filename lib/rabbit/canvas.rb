@@ -83,6 +83,8 @@ module Rabbit
     def_delegators(:@renderer, :shear_context)
     def_delegators(:@renderer, :save_context, :restore_context)
     def_delegators(:@renderer, :draw_line, :draw_rectangle, :draw_arc)
+    def_delegators(:@renderer, :draw_lines)
+    def_delegators(:@renderer, :draw_polygon)
     def_delegators(:@renderer, :draw_circle, :draw_layout, :draw_pixbuf)
     def_delegators(:@renderer, :draw_arc_by_radius, :draw_circle_by_radius)
     def_delegators(:@renderer, :draw_slide, :draw_polygon, :draw_flag)

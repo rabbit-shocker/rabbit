@@ -164,7 +164,7 @@ background-image-relative-margin-right
                 draw0="[rectangle, false, 0.05, 0.1, 0.1, 0.2, {color: red, line_width: 3\}]"
                 draw1="[line, 0.2, 0.1, 0.3, 0.2, {color: blue, line_width: 5\}]"
                 draw2="[text, Cute!, 0.05, 0.4, {color: Green, size: 25\}]"
-                draw10="[line, 0.0, 0.0, 0.5, 0.5, {line_width: 10, line_cap: butt\}]"}
+                draw10="[line, 0.0, 0.0, 0.5, 0.5, 0.25, 0.5, {line_width: 10, line_cap: butt, line_join: miter\}]"}
 
 # 画像サイズ
 

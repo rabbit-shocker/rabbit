@@ -200,14 +200,19 @@ module Rabbit
         properties.draws.each do |type, *args|
           case type
           when "line"
-            x1, y1, x2, y2, params = args
-            x1 = (x1 * width_without_padding) + base_x
-            y1 = (y1 * height_without_padding) + base_y
-            x2 = (x2 * width_without_padding) + base_x
-            y2 = (y2 * height_without_padding) + base_y
+            if args.last.is_a?(Hash)
+              params = args.pop
+            else
+              params = nil
+            end
+            points = args.each_slice(2).collect do |x, y|
+              x = (x * width_without_padding) + base_x
+              y = (y * height_without_padding) + base_y
+              [x, y]
+            end
             params = normalize_params(params)
             color = params.delete(:color) || "black"
-            canvas.draw_line(x1, y1, x2, y2, color, params)
+            canvas.draw_lines(points, color, params)
           when "rectangle"
             filled, x, y, w, h, params = args
             x = (x * width_without_padding) + base_x
