@@ -200,27 +200,30 @@ module Rabbit
         properties.draws.each do |type, *args|
           case type
           when "line"
-            x1, y1, x2, y2, color, params = args
+            x1, y1, x2, y2, params = args
             x1 = (x1 * width_without_padding) + base_x
             y1 = (y1 * height_without_padding) + base_y
             x2 = (x2 * width_without_padding) + base_x
             y2 = (y2 * height_without_padding) + base_y
             params = normalize_params(params)
+            color = params.delete(:color) || "black"
             canvas.draw_line(x1, y1, x2, y2, color, params)
           when "rectangle"
-            filled, x, y, w, h, color, params = args
+            filled, x, y, w, h, params = args
             x = (x * width_without_padding) + base_x
             y = (y * height_without_padding) + base_y
             w = (w * width_without_padding)
             h = (h * height_without_padding)
             params = normalize_params(params)
+            color = params.delete(:color) || "black"
             canvas.draw_rectangle(filled, x, y, w, h, color, params)
           when "text"
-            text, x, y, color, params = args
+            text, x, y, params = args
             params = normalize_params(params)
             layout = canvas.make_layout(markup_text(text, params))
             x = (x * width_without_padding) + base_x
             y = (y * height_without_padding) + base_y
+            color = params.delete(:color) || "black"
             canvas.draw_layout(layout, x, y, color, params)
           end
         end
