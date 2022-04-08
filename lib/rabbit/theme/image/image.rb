@@ -51,6 +51,9 @@ match("**", Image) do |images|
     caption_height = 0
 
     image.add_post_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
+      # TODO: Should we move this to Image#draw and unify this and
+      # similar code in
+      # lib/rabbit/theme/background-image-toolkit/background-image-toolkit.rb?
       if simulation
         caption = Text.new(caption_text)
         caption.prop_set("size", @image_caption_font_size)

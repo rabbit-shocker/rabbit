@@ -32,6 +32,11 @@ def apply_background_image_property(element, options={})
     image.vertical_centering = true
   end
 
+  layout = nil
+  caption_height = 0
+  caption_text = image.caption
+  caption_text = nil if caption_text and caption_text.empty?
+
   element.add_pre_draw_proc(proc_name) do |canvas, x, y, w, h, simulation|
     if simulation
       if compute_initial_geometry
@@ -78,6 +83,39 @@ def apply_background_image_property(element, options={})
       end
     end
     image.draw(simulation)
+
+    if caption_text
+      # TODO: Should we move this to Image#draw and unify this and
+      # similar code in lib/rabbit/theme/image/image.rb?
+      if simulation
+        caption = Text.new(caption_text)
+        caption_font_size = image.caption_font_size
+        caption_font_size = font_size(caption_font_size) if caption_font_size
+        caption.prop_set("size",
+                         caption_font_size || @image_caption_font_size)
+        set_font_family(caption)
+        if image.horizontal_centering
+          caption.do_horizontal_centering(canvas, x, y, w, h)
+        end
+        caption.compile(canvas,
+                        image.x || x,
+                        y + image.height,
+                        image.ow || w,
+                        h - image.height)
+        layout = caption.layout
+        caption_height = caption.height
+      end
+      if !simulation and layout
+        base_x = image.x || x
+        base_y = image.height + y
+        caption_color = image["caption-color"] || @image_caption_color
+        canvas.draw_layout(layout,
+                           base_x,
+                           base_y + image.margin_bottom,
+                           caption_color)
+      end
+    end
+
     [x, y, w - element_margin_right, h]
   end
 

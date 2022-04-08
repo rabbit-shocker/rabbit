@@ -46,6 +46,10 @@ module Rabbit
         self["caption"]
       end
 
+      def caption_font_size
+        properties.get_float("caption-font-size")
+      end
+
       def text
         caption.to_s
       end
