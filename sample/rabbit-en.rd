@@ -279,6 +279,16 @@ Create EPS ahead of time((-needs gs-))
     }
   }
 
+= Mermaid
+
+  # mermaid
+  # relative_height = 90
+  graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+
 = Word Wrapping
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong

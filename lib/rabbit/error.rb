@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -84,6 +84,12 @@ module Rabbit
   class BlockDiagCanNotHandleError < ImageLoadWithExternalCommandError
     def initialize(command, additional_info=nil)
       super("blockdiag", command, additional_info)
+    end
+  end
+
+  class MermaidCanNotHandleError < ImageLoadWithExternalCommandError
+    def initialize(command, additional_info=nil)
+      super("Mermaid", command, additional_info)
     end
   end
 

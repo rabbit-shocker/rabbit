@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2021  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,14 +22,15 @@ require "rabbit/parser/rd/rt/rt2rabbit-lib"
 require "rabbit/parser/rd/ext/base"
 require "rabbit/parser/rd/ext/image"
 require "rabbit/parser/rd/ext/video"
-require "rabbit/parser/ext/enscript"
-require "rabbit/parser/ext/tex"
 require "rabbit/parser/ext/aafigure"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/charty"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/emacs"
+require "rabbit/parser/ext/enscript"
+require "rabbit/parser/ext/mermaid"
 require "rabbit/parser/ext/rouge"
+require "rabbit/parser/ext/tex"
 
 module Rabbit
   module Parser
@@ -207,6 +208,15 @@ module Rabbit
             return nil unless /\Acharty\z/i =~ label
             make_image_from_file(source, visitor) do |src_file_path, prop|
               Parser::Ext::Charty.make_image(src_file_path, prop, visitor)
+            end
+          end
+
+          def ext_block_verb_mermaid(label, source, content, visitor)
+            return nil unless /\Amermaid\z/i =~ label
+            make_image_from_file(source,
+                                 visitor,
+                                 extension: ".mmd") do |src_file_path, prop|
+              Parser::Ext::Mermaid.make_image(src_file_path, prop, visitor)
             end
           end
         end

@@ -37,8 +37,10 @@ module Rabbit
           end
         end
 
-        def make_image_from_file(canvas, source)
-          src_file = Tempfile.new("rabbit-image-source")
+        def make_image_from_file(canvas, source, extension: nil)
+          src_basename = "rabbit-image-source"
+          src_basename = [src_basename, extension] if extension
+          src_file = Tempfile.new(src_basename)
           src_file.open
           src_file.print(source)
           src_file.close

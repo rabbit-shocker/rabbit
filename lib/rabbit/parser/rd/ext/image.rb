@@ -14,9 +14,9 @@ module Rabbit
             make_image(visitor.canvas, $1)
           end
 
-          def make_image_from_file(source, visitor)
+          def make_image_from_file(source, visitor, **options)
             src, prop = parse_source(source)
-            super(visitor.canvas, src) do |src_file_path|
+            super(visitor.canvas, src, **options) do |src_file_path|
               [yield(src_file_path, prop), prop]
             end
           end

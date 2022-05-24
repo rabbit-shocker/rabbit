@@ -209,6 +209,19 @@ Create EPS ahead of time
   fonts="/usr/share/fonts/opentype/ipafont/ipag.ttf, /usr/share/fonts/truetype/vlgothic/VL-Gothic-Regular.ttf"
 }
 
+# Mermaid
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
+{:
+  relative_height="90"
+}
+
 # Word Wrapping
 
 looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong

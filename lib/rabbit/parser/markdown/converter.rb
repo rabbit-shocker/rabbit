@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,9 @@ require "rabbit/gettext"
 require "rabbit/parser/pause-support"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/escape"
-require "rabbit/parser/ext/inline"
 require "rabbit/parser/ext/image"
+require "rabbit/parser/ext/inline"
+require "rabbit/parser/ext/mermaid"
 require "rabbit/parser/ext/rouge"
 require "rabbit/parser/ext/tex"
 
@@ -335,6 +336,15 @@ module Rabbit
             Ext::Image.make_image_from_file(*args) do |src_file_path|
               [
                 Ext::BlockDiag.make_image(src_file_path, element.attr, @canvas),
+                element.attr,
+              ]
+            end
+          when "mermaid"
+            args = [@canvas, content]
+            options = {extension: ".mmd"}
+            Ext::Image.make_image_from_file(*args, **options) do |src_file_path|
+              [
+                Ext::Mermaid.make_image(src_file_path, element.attr, @canvas),
                 element.attr,
               ]
             end
