@@ -72,8 +72,12 @@ module Rabbit
                              "file://#{image_file.path}",
                              prop,
                              **options)
-          if image.is_a?(Element::Image)
-            image["_src"] = image_file # for protecting from GC
+          # Protect image from GC
+          case image
+          when Element::Image
+            image["_src"] = image_file
+          when :no_element
+            options[:body]["_background-image-src"] = image_file
           end
           image
         end
