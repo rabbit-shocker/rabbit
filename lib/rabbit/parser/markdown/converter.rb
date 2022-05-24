@@ -332,21 +332,14 @@ module Rabbit
         def convert_codeblock_language(element, language, content)
           case language
           when "blockdiag"
-            args = [@canvas, content]
-            Ext::Image.make_image_from_file(*args) do |src_file_path|
-              [
-                Ext::BlockDiag.make_image(src_file_path, element.attr, @canvas),
-                element.attr,
-              ]
+            make_image_from_file(element, content) do |src_file_path, prop|
+              Ext::BlockDiag.make_image(src_file_path, prop, @canvas)
             end
           when "mermaid"
-            args = [@canvas, content]
-            options = {extension: ".mmd"}
-            Ext::Image.make_image_from_file(*args, **options) do |src_file_path|
-              [
-                Ext::Mermaid.make_image(src_file_path, element.attr, @canvas),
-                element.attr,
-              ]
+            make_image_from_file(element,
+                                 content,
+                                 extension: ".mmd") do |src_file_path, prop|
+              Ext::Mermaid.make_image(src_file_path, prop, @canvas)
             end
           else
             logger = @canvas.logger
@@ -365,23 +358,11 @@ module Rabbit
           alt = options.delete("alt")
           caption = title || alt
           options["caption"] ||= caption if caption
-          if options["align"] == "right"
-            body = @slides.last.body
-            if body["background-image"]
-              raise ParseError,
-                    _("multiple ![]('XXX.png'){:align='right'} " + \
-                      "isn't supported.")
-            end
-            body["background-image"] = uri
-            options.each do |name, value|
-              name = name.to_s.gsub(/_/, "-")
-              body["background-image-#{name}"] = value
-            end
-            :no_element
-          else
-            image = Ext::Image.make_image(@canvas, uri, options)
-            image || text(alt || src)
-          end
+          image = Ext::Image.make_image(@canvas,
+                                        uri,
+                                        options,
+                                        body: @slides.last.body)
+          image || text(alt || src)
         end
 
         def convert_em(element)
@@ -392,10 +373,20 @@ module Rabbit
           Emphasis.new(Emphasis.new(convert_container(element)))
         end
 
+        def make_image_from_file(element, source, **options)
+          Ext::Image.make_image_from_file(@canvas,
+                                          source,
+                                          body: @slides.last.body,
+                                          **options) do |src_file_path|
+            prop = element.attr
+            image = yield(src_file_path, prop)
+            [image, prop]
+          end
+        end
+
         def convert_math(element)
-          args = [@canvas, element.value]
-          Ext::Image.make_image_from_file(*args) do |src_file_path|
-            [Ext::TeX.make_image_by_LaTeX(src_file_path, {}, @canvas), {}]
+          make_image_from_file(element, element.value) do |src_file_path, prop|
+            Ext::TeX.make_image_by_LaTeX(src_file_path, prop, @canvas)
           end
         end
 
