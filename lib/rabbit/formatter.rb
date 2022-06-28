@@ -131,7 +131,7 @@ EOC
       end
     end
 
-    class Weigth
+    class Weight
       private
       def css_name
         "font-weight"
