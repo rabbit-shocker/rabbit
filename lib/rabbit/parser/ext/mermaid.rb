@@ -21,7 +21,7 @@ module Rabbit
         include GetText
 
         module_function
-        def make_image(path, prop, logger)
+        def make_image(path, prop, logger, progress: nil)
           format = prop["format"] || "pdf"
           image_file = Tempfile.new(["rabbit-image-mermaid", ".#{format}"])
           background_color = prop["background_color"] || "transparent"
@@ -35,7 +35,7 @@ module Rabbit
             "--output", image_file.path,
             "--pdfFit",
           ]
-          if SystemRunner.run(*command_line)
+          if SystemRunner.run(*command_line, progress: progress)
             image_file
           else
             format = _("tried mermaid command: %s")

@@ -352,9 +352,27 @@ module Rabbit
 
   module SystemRunner
     module_function
-    def run(cmd, *args)
+    def run(cmd, *args, progress: nil)
       begin
-        system(cmd, *args)
+        IO.pipe do |input, output|
+          pid = spawn(cmd, *args, out: output)
+          output.close
+          begin
+            loop do
+              readables, = IO.select([input], nil, nil, 0.1)
+              if readables
+                readable = readables[0]
+                $stdout.print(readable.read_nonblock(4096))
+                break if readable.eof?
+              else
+                progress.call if progress
+              end
+            end
+            true
+          ensure
+            Process.waitpid(pid)
+          end
+        end
       rescue SystemCallError
         yield($!) if block_given?
         false

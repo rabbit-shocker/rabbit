@@ -25,7 +25,7 @@ module Rabbit
     include GetText
 
     module_function
-    def parse(canvas, source)
+    def parse(canvas, source, **options)
       parser = Base.find_loader(source)
       if parser.nil?
         format = _("unsupported format. (supported: %s)")
@@ -35,7 +35,7 @@ module Rabbit
         message = format % "[#{format_names.join(', ')}]"
         raise UnsupportedFormatError.new(message)
       end
-      parser.new(canvas, source).parse
+      parser.new(canvas, source, **options).parse
     end
 
     def normalize_property_name(name)

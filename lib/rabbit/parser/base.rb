@@ -5,9 +5,10 @@ module Rabbit
     class Base
       extend ModuleLoader
 
-      def initialize(canvas, source)
+      def initialize(canvas, source, progress: nil)
         @canvas = canvas
         @source = source
+        @progress = progress
       end
     end
   end

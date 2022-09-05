@@ -56,8 +56,10 @@ module Rabbit
         def_delegators(:@canvas, :logger, :full_path, :tmp_dir_name)
 
         attr_reader :canvas
-        def initialize(canvas)
+        attr_reader :progress
+        def initialize(canvas, progress)
           @canvas = canvas
+          @progress = progress
 
           @slides = []
           @slide = nil

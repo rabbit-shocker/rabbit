@@ -38,7 +38,7 @@ module Rabbit
         source = @source.read.gsub(/\r\n/, "\n")
         source = "=begin\n#{source}\n=end\n"
         tree = ::RD::RDTree.new(source)
-        visitor = RD2RabbitVisitor.new(@canvas)
+        visitor = RD2RabbitVisitor.new(@canvas, @progress)
         visitor.visit(tree)
       rescue Racc::ParseError
         message = format_parse_error_message($!.message, source)

@@ -197,7 +197,10 @@ module Rabbit
             make_image_from_file(source,
                                  visitor,
                                  extension: ".mmd") do |src_file_path, prop|
-              Parser::Ext::Mermaid.make_image(src_file_path, prop, visitor)
+              Parser::Ext::Mermaid.make_image(src_file_path,
+                                              prop,
+                                              visitor,
+                                              progress: visitor.progress)
             end
           end
         end

@@ -347,7 +347,7 @@ module Rabbit
       apply_theme(@theme_name, &block)
     end
 
-    def parse(source=nil, callback=nil, &block)
+    def parse(source=nil, progress=nil, &block)
       id = Object.new.__id__
       @parse_request_queue.push(id)
       @source = source || @source
@@ -357,7 +357,7 @@ module Rabbit
         keep_index do
           @renderer.pre_parse
           clear
-          Parser.parse(self, @source)
+          Parser.parse(self, @source, progress: progress)
           new_allotted_time = allotted_time
           reset_timer if new_allotted_time != current_allotted_time
           apply_timer
@@ -366,7 +366,7 @@ module Rabbit
             if @parse_request_queue.last != id
               raise ParseFinish
             end
-            callback.call if callback
+            progress.call if progress
           end
           @renderer.post_parse
           index = current_index
@@ -384,9 +384,9 @@ module Rabbit
       end
     end
 
-    def reload_source(callback=nil, &block)
+    def reload_source(progress=nil, &block)
       if need_reload_source?
-        parse(nil, callback, &block)
+        parse(nil, progress, &block)
       end
     end
 
