@@ -10,28 +10,30 @@ module Rabbit
         AVAILABLE_VALUE_OPTIONS = []
         def make_image(path, prop, logger)
           image_file = Tempfile.new(["rabbit-image-blockdiag", ".svg"])
-          command = [
-            "blockdiag",
+          command_line = [
             "-T", "svg",
             "-o", image_file.path,
           ]
           font = find_font(prop)
-          command.concat(["-f", font]) if font
+          command_line.concat(["-f", font]) if font
           AVAILABLE_FLAG_OPTIONS.each do |name|
-            command << "--#{name}" if /\A(?:true|yes)\z/i =~ prop[name].to_s
+            command_line << "--#{name}" if /\A(?:true|yes)\z/i =~ prop[name].to_s
           end
           AVAILABLE_VALUE_OPTIONS.each do |name|
-            command.concat(["--#{name}", prop[name]]) if prop.has_key?(name)
+            command_line.concat(["--#{name}", prop[name]]) if prop.has_key?(name)
           end
-          command << path
-          if SystemRunner.run(*command)
-            image_file
-          else
-            format = _("tried blockdiag command: %s")
-            additional_info = format % command.inspect
-            raise BlockDiagCanNotHandleError.new(command.join(' '),
-                                                 additional_info)
+          command_line << path
+          blockdiag_commands = ["blockdiag3", "blockdiag"]
+          blockdiag_commands.each do |blockdiag|
+            if SystemRunner.run(blockdiag, *command_line)
+              return image_file
+            end
           end
+          command_line.unshift(blockdiag_commands.first)
+          format = _("tried blockdiag command: %s")
+          additional_info = format % command_line
+          raise BlockDiagCanNotHandleError.new(command_line.join(' '),
+                                               additional_info)
         end
 
         def find_font(prop)
