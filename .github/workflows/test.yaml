@@ -43,6 +43,7 @@ jobs:
             librsvg2-dev \
             python3-blockdiag \
             xvfb
+          blockdiag --version
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
