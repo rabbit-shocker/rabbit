@@ -35,7 +35,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
-            debug-x11 \
+            dbus-x11 \
             python3-blockdiag \
             xvfb
       - uses: ruby/setup-ruby@v1
