@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -287,7 +287,7 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
 
         def test_unsupported
           image_path = fixture_path("image/png/lavie.png")
-          message = _("multiple ![alt]{image} in a paragraph isn't supported.")
+          message = _("![alt]{image} and other contents in a paragraph isn't supported: [:text, :img]")
           assert_raise(Rabbit::ParseError.new(message)) do
             parse(<<-MARKDOWN)
 a ![](#{image_path})
