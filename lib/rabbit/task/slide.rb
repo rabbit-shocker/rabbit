@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2016 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -158,11 +158,6 @@ module Rabbit
 
         publish_tasks = []
         namespace :publish do
-          if @slide.author.slideshare_user
-            define_publish_slideshare_task
-            publish_tasks << :slideshare
-          end
-
           if @slide.author.speaker_deck_user
             define_publish_speaker_deck_task
             publish_tasks << :speaker_deck
@@ -181,31 +176,6 @@ module Rabbit
         task :rubygems => :gem do
           pusher = GemPusher.new(gem_path, @slide.author.rubygems_user)
           pusher.push
-        end
-      end
-
-      def define_publish_slideshare_task
-        slideshare_user = @slide.author.slideshare_user
-        desc(_("Publish the slide to %s") % "SlideShare")
-        task :slideshare => [:pdf, "gem:validate"] do
-          require "rabbit/slideshare"
-          slideshare = SlideShare.new(@logger)
-          slideshare.user = slideshare_user
-          slideshare.pdf_path = pdf_path
-          slideshare.id = @slide.id
-          slideshare.title = spec.summary
-          slideshare.description = spec.description
-          slideshare.tags = @slide.tags if @slide.tags
-          url = slideshare.upload
-          if url
-            @logger.info(_("Uploaded successfully!"))
-            @logger.info(_("See %s") % url)
-            Gtk.show_uri(url) if Gtk.respond_to?(:show_uri)
-
-            slide_id = url.split(/\//).last
-            @slide.slideshare_id = slide_id
-            @slide.save(".")
-          end
         end
       end
 
