@@ -9,7 +9,7 @@ module Rabbit
         # "font" is treated as specially.
         AVAILABLE_VALUE_OPTIONS = []
         def make_image(path, prop, logger)
-          image_file = Tempfile.new("rabbit-image-blockdiag")
+          image_file = Tempfile.new(["rabbit-image-blockdiag", ".svg"])
           command = [
             "blockdiag",
             "-T", "svg",
