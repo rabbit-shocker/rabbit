@@ -43,6 +43,7 @@ class RabbitCommandRabbitTest < Test::Unit::TestCase
   end
 
   test("--save-as-image") do
+    omit("log isn't outputted on GitHub Actions...") if ENV["CI"]
     File.open(File.join(@dir, "slide.rab"), "w") do |slide|
       slide.puts(<<-'SLIDE')
 = ス\nラ/イ\ド:タイトル
