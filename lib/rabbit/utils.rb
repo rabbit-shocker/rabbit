@@ -362,8 +362,13 @@ module Rabbit
               readables, = IO.select([input], nil, nil, 0.1)
               if readables
                 readable = readables[0]
-                $stdout.print(readable.read_nonblock(4096))
-                break if readable.eof?
+                begin
+                  $stdout.print(readable.read_nonblock(4096))
+                rescue EOFError
+                  break
+                else
+                  break if readable.eof?
+                end
               else
                 progress.call if progress
               end
