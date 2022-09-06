@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,6 +14,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+require "forwardable"
+require "digest/sha2"
+
 require "gdk_pixbuf2"
 
 require "rabbit/image-data-loader"
@@ -21,9 +24,29 @@ require "rabbit/properties"
 
 module Rabbit
   module ImageManipulable
-
     class Base
       extend ModuleLoader
+
+      class << self
+        def delegate
+          extend Forwardable
+
+          def_delegators(:@delegated_loader,
+                         :draw,
+                         :ensure_resize,
+                         :height,
+                         :internal_pixbuf,
+                         :keep_ratio,
+                         :keep_ratio=,
+                         :keep_ratio?,
+                         :original_height,
+                         :original_width,
+                         :pixbuf,
+                         :resize,
+                         :update_size,
+                         :width)
+        end
+      end
 
       attr_reader :filename
       attr_reader :properties
@@ -31,9 +54,10 @@ module Rabbit
       attr_reader :original_height
       attr_reader :animation
 
-      def initialize(filename, props)
+      def initialize(filename, props, canvas: nil)
         @filename = filename
         @properties = Properties.new(props)
+        @canvas = canvas
         initialize_keep_ratio
         @animation = nil
         @animation_iterator = nil
@@ -199,6 +223,46 @@ module Rabbit
             height: height,
           }
         end
+      end
+
+      # TODO: Move to more suitable location
+      def cache_processed_data(canvas, input, extension)
+        tmp_dir_name = canvas&.tmp_dir_name
+        return yield unless tmp_dir_name
+        hash = compute_hash(input)
+        cached_path = File.join(tmp_dir_name, "#{hash}.#{extension}")
+        unless File.exist?(cached_path)
+          processed_path = yield
+          FileUtils.cp(processed_path, cached_path)
+        end
+        cached_path
+      end
+
+      def compute_hash(input)
+        digest = Digest::SHA2.new
+        add_data = lambda do |data|
+          case data
+          when Array
+            data.each do |element|
+              add_data.call(element)
+            end
+          when Hash
+            data.each do |key, value|
+              add_data.call(key)
+              add_data.call(value)
+            end
+          when String
+            digest << data
+          when IO
+            loop do
+              chunk = data.read(4096)
+              break if chunk.nil?
+              digest << chunk
+            end
+          end
+        end
+        add_data.call(input)
+        digest.hexdigest
       end
     end
   end

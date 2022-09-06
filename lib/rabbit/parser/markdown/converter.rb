@@ -22,7 +22,6 @@ require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/escape"
 require "rabbit/parser/ext/image"
 require "rabbit/parser/ext/inline"
-require "rabbit/parser/ext/mermaid"
 require "rabbit/parser/ext/rouge"
 require "rabbit/parser/ext/tex"
 
@@ -332,14 +331,14 @@ module Rabbit
         def convert_codeblock_language(element, language, content)
           case language
           when "blockdiag"
-            make_image_from_file(element, content) do |src_file_path, prop|
-              Ext::BlockDiag.make_image(src_file_path, prop, @canvas)
+            make_image_from_file(element, content) do |src_file, prop|
+              Ext::BlockDiag.make_image(src_file.path, prop, @canvas)
             end
           when "mermaid"
             make_image_from_file(element,
                                  content,
-                                 extension: ".mmd") do |src_file_path, prop|
-              Ext::Mermaid.make_image(src_file_path, prop, @canvas)
+                                 extension: ".mmd") do |src_file, prop|
+              [src_file.path, prop]
             end
           else
             logger = @canvas.logger
@@ -377,16 +376,16 @@ module Rabbit
           Ext::Image.make_image_from_file(@canvas,
                                           source,
                                           body: @slides.last.body,
-                                          **options) do |src_file_path|
+                                          **options) do |src_file|
             prop = element.attr
-            image = yield(src_file_path, prop)
+            image = yield(src_file, prop)
             [image, prop]
           end
         end
 
         def convert_math(element)
-          make_image_from_file(element, element.value) do |src_file_path, prop|
-            Ext::TeX.make_image_by_LaTeX(src_file_path, prop, @canvas)
+          make_image_from_file(element, element.value) do |src_file, prop|
+            Ext::TeX.make_image_by_LaTeX(src_file.path, prop, @canvas)
           end
         end
 

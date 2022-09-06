@@ -30,7 +30,7 @@ module Rabbit
         def make_image(canvas, uri_str, prop={}, body: nil)
           path = Private.uri_string_to_image_filename(canvas, uri_str)
           begin
-            image = Element::Image.new(path, prop)
+            image = Element::Image.new(path, prop, canvas: canvas)
           rescue Error
             canvas.logger.warn($!.message)
             nil
@@ -63,7 +63,7 @@ module Rabbit
           src_file.close
           image_file = prop = nil
           begin
-            image_file, prop = yield(src_file.path)
+            image_file, prop = yield(src_file)
           rescue ImageLoadError
             canvas.logger.warn($!.message)
           end

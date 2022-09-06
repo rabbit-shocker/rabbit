@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2007-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -489,9 +489,9 @@ module Rabbit
 
           def LaTeX(source, props={})
             args = [@output.canvas, source]
-            Ext::Image.make_image_from_file(*args) do |src_file_path|
+            Ext::Image.make_image_from_file(*args) do |src_file|
               props = Utils.stringify_hash_key(props)
-              args = [src_file_path, props, @output.canvas]
+              args = [src_file.path, props, @output.canvas]
               [Ext::TeX.make_image_by_LaTeX(*args), props]
             end
           end
@@ -499,9 +499,9 @@ module Rabbit
 
           def mimeTeX(source, props={})
             args = [@output.canvas, source]
-            Ext::Image.make_image_from_file(*args) do |src_file_path|
+            Ext::Image.make_image_from_file(*args) do |src_file|
               props = Utils.stringify_hash_key(props)
-              args = [src_file_path, props, @output.canvas]
+              args = [src_file.path, props, @output.canvas]
               [Ext::TeX.make_image_by_mimeTeX(*args), props]
             end
           end
@@ -509,18 +509,18 @@ module Rabbit
 
           def aafigure(source, props={})
             args = [@output.canvas, source]
-            Ext::Image.make_image_from_file(*args) do |src_file_path|
+            Ext::Image.make_image_from_file(*args) do |src_file|
               props = Utils.stringify_hash_key(props)
-              args = [src_file_path, props, @output.canvas]
+              args = [src_file.path, props, @output.canvas]
               [Ext::AAFigure.make_image(*args), props]
             end
           end
 
           def blockdiag(source, props={})
             args = [@output.canvas, source]
-            Ext::Image.make_image_from_file(*args) do |src_file_path|
+            Ext::Image.make_image_from_file(*args) do |src_file|
               props = Utils.stringify_hash_key(props)
-              args = [src_file_path, props, @output.canvas]
+              args = [src_file.path, props, @output.canvas]
               [Ext::BlockDiag.make_image(*args), props]
             end
           end

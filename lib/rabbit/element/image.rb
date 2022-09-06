@@ -29,8 +29,8 @@ module Rabbit
       alias image_draw draw
       alias draw element_draw
 
-      def initialize(filename, props)
-        super(filename, props)
+      def initialize(filename, props, canvas: nil)
+        super(filename, props, canvas: canvas)
         setup_draw_parameters
         resize(properties.get_size("width", @filename),
                properties.get_size("height", @filename))

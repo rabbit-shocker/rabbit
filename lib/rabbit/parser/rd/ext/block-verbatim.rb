@@ -28,7 +28,6 @@ require "rabbit/parser/ext/charty"
 require "rabbit/parser/ext/coderay"
 require "rabbit/parser/ext/emacs"
 require "rabbit/parser/ext/enscript"
-require "rabbit/parser/ext/mermaid"
 require "rabbit/parser/ext/rouge"
 require "rabbit/parser/ext/tex"
 
@@ -83,30 +82,30 @@ module Rabbit
 
           def ext_block_verb_LaTeX(label, source, content, visitor)
             return nil unless /\ALaTeX\z/i =~ label
-            make_image_from_file(source, visitor) do |src_file_path, prop|
-              Parser::Ext::TeX.make_image_by_LaTeX(src_file_path, prop, visitor)
+            make_image_from_file(source, visitor) do |src_file, prop|
+              Parser::Ext::TeX.make_image_by_LaTeX(src_file.path, prop, visitor)
             end
           end
 
           def ext_block_verb_mimeTeX(label, source, content, visitor)
             return nil unless /\AmimeTeX\z/i =~ label
-            make_image_from_file(source, visitor) do |src_file_path, prop|
-              Parser::Ext::TeX.make_image_by_mimeTeX(src_file_path, prop,
+            make_image_from_file(source, visitor) do |src_file, prop|
+              Parser::Ext::TeX.make_image_by_mimeTeX(src_file.path, prop,
                                                      visitor)
             end
           end
 
           def ext_block_verb_aafigure(label, source, content, visitor)
             return nil unless /\Aaafigure\z/i =~ label
-            make_image_from_file(source, visitor) do |src_file_path, prop|
-              Parser::Ext::AAFigure.make_image(src_file_path, prop, visitor)
+            make_image_from_file(source, visitor) do |src_file, prop|
+              Parser::Ext::AAFigure.make_image(src_file.path, prop, visitor)
             end
           end
 
           def ext_block_verb_blockdiag(label, source, content, visitor)
             return nil unless /\Ablockdiag\z/i =~ label
-            make_image_from_file(source, visitor) do |src_file_path, prop|
-              Parser::Ext::BlockDiag.make_image(src_file_path, prop, visitor)
+            make_image_from_file(source, visitor) do |src_file, prop|
+              Parser::Ext::BlockDiag.make_image(src_file.path, prop, visitor)
             end
           end
 
@@ -187,8 +186,8 @@ module Rabbit
 
           def ext_block_verb_charty(label, source, content, visitor)
             return nil unless /\Acharty\z/i =~ label
-            make_image_from_file(source, visitor) do |src_file_path, prop|
-              Parser::Ext::Charty.make_image(src_file_path, prop, visitor)
+            make_image_from_file(source, visitor) do |src_file, prop|
+              Parser::Ext::Charty.make_image(src_file.path, prop, visitor)
             end
           end
 
@@ -196,11 +195,8 @@ module Rabbit
             return nil unless /\Amermaid\z/i =~ label
             make_image_from_file(source,
                                  visitor,
-                                 extension: ".mmd") do |src_file_path, prop|
-              Parser::Ext::Mermaid.make_image(src_file_path,
-                                              prop,
-                                              visitor,
-                                              progress: visitor.progress)
+                                 extension: ".mmd") do |src_file, prop|
+              src_file
             end
           end
         end

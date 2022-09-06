@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2022  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "forwardable"
-
 require "rabbit/image/base"
 
 module Rabbit
@@ -26,7 +24,6 @@ module Rabbit
 
       DIA_COMMANDS = %w(dia)
 
-      extend Forwardable
       include SystemRunner
 
       class << self
@@ -48,26 +45,21 @@ module Rabbit
         end
       end
 
-      def_delegators(:@svg_loader, :keep_ratio, :keep_ratio?, :keep_ratio=)
-      def_delegators(:@svg_loader, :pixbuf, :internal_pixbuf)
-      def_delegators(:@svg_loader, :width, :height)
-      def_delegators(:@svg_loader, :original_width, :original_height)
-      def_delegators(:@svg_loader, :resize, :ensure_resize)
-      def_delegators(:@svg_loader, :update_size)
+      delegate
 
-      def initialize(filename, props)
-        init_svg_loader(filename, props)
+      def initialize(filename, props, canvas: nil)
+        init_delegated_loader(filename, props, canvas)
         super
       end
 
       private
-      def init_svg_loader(filename, props)
-        @svg_file = Tempfile.new(["rabbit-loader-dia", ".svg"])
+      def init_delgated_loader(filename, props, canvas)
+        @svg_file = Tempfile.new(["rabbit-image-loader-dia", ".svg"])
         args = ["--export=#{@svg_file.path}"]
         args << "--filter=svg"
         args << filename
         if DIA_COMMANDS.any? {|dia| run(dia, *args)}
-          @svg_loader = SVG.new(@svg_file.path, props)
+          @delegated_loader = SVG.new(@svg_file.path, props)
         else
           raise DiaCanNotHandleError.new("dia #{args.join(' ')}",
                                          DIA_COMMANDS)

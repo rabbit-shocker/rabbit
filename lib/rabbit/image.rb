@@ -21,6 +21,7 @@ require "rabbit/image/default"
 require "rabbit/image/dia"
 require "rabbit/image/eps"
 require "rabbit/image/gimp"
+require "rabbit/image/mermaid"
 require "rabbit/image/pdf"
 require "rabbit/image/svg"
 
@@ -37,12 +38,12 @@ module Rabbit
     def_delegators(:@loader, :properties)
     alias_method :scale, :resize
 
-    def initialize(filename, props=nil, *args, &block)
+    def initialize(filename, props=nil, *args, canvas: nil, &block)
       unless File.exist?(filename)
         raise ImageFileDoesNotExistError.new(filename)
       end
       super(*args, &block)
-      @loader = Base.find_loader(filename).new(filename, props)
+      @loader = Base.find_loader(filename).new(filename, props, canvas: canvas)
     end
   end
 

@@ -35,8 +35,8 @@ module Rabbit
             super(visitor.canvas,
                   src,
                   body: visitor.current_body,
-                  **options) do |src_file_path|
-              [yield(src_file_path, prop), prop]
+                  **options) do |src_file|
+              [yield(src_file, prop), prop]
             end
           end
         end
