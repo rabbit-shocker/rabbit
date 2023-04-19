@@ -98,16 +98,16 @@ def apply_background_image_property(element, options={})
           caption.do_horizontal_centering(canvas, x, y, w, h)
         end
         caption.compile(canvas,
-                        image.x || x,
-                        y + image.height,
+                        (image.x || x) + image.margin_left,
+                        y + image.height + image.margin_top,
                         image.ow || w,
                         h - image.height)
         layout = caption.layout
         caption_height = caption.height
       end
       if !simulation and layout
-        base_x = image.x || x
-        base_y = image.height + y
+        base_x = (image.x || x) + image.margin_left
+        base_y = image.height + y + image.margin_top
         caption_color = image["caption-color"] || @image_caption_color
         canvas.draw_layout(layout,
                            base_x,
