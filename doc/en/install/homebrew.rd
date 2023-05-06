@@ -2,38 +2,33 @@
 layout: en
 title: Install with Homebrew
 ---
-== How to install Rabbit with Homebrew on Mac OS X
+== How to install Rabbit with Homebrew on macOS
 
-This document describes how to install Rabbit with Homebrew and RubyGems on Mac OS X.
+This document describes how to install Rabbit with Homebrew and RubyGems on macOS.
 
 === Requirements
 
-* An Intel CPU
-* OS X Leopard or higher
+* A macOS machine
 * Xcode with X11 (XQuartz is required)
 
 === Install Homebrew
 
- $ ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go)
-
-Then add /usr/local/bin to your PATH.
+Follow the instruction on ((<URL:https://brew.sh>)).
 
 === Install softwares Rabbit needs
 
   $ brew install cairo
-  $ brew link cairo
-  $ brew link --overwrite pixman
   $ brew install pango
   $ brew install gtk+
-  $ brew install poppler --with-glib
-  $ brew install libsvg
+  $ brew install gobject-introspection
+  $ brew install poppler
 
 === Install Rabbit
 
 Exec gem install.
 
-  $ sudo PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig gem install rabbit
-  $ sudo gem install rabbiter # If you want to use Twitter related features
+  $ gem install rabbit
+  $ gem install rabbiter # If you want to use Twitter related features
 
 === Set environment variable
 
