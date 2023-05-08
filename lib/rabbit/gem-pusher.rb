@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2016-2023  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,6 +41,7 @@ module Rabbit
       end
       unless credentials.key?(@user.to_sym)
         credentials[@user.to_sym] = retrieve_api_key
+        FileUtils.mkdir_p(File.dirname(credentials_path))
         File.open(credentials_path, "w") do |credentials_file|
           credentials_file.print(credentials.to_yaml)
         end
