@@ -178,7 +178,7 @@ module Rabbit
         end
 
         def confirm(message)
-          confirm_dialog(message) == Gtk::MessageDialog::RESPONSE_OK
+          confirm_dialog(message) == Gtk::ResponseType::OK
         end
 
         def reload_theme(&callback)
