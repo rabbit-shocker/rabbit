@@ -338,7 +338,7 @@ module Rabbit
             make_image_from_file(element,
                                  content,
                                  extension: ".mmd") do |src_file, prop|
-              [src_file.path, prop]
+              src_file
             end
           else
             logger = @canvas.logger
