@@ -61,7 +61,7 @@ match(*@image_timer_target_paths) do |slides|
   max_width = nil
   base_y = nil
 
-  slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
+  draw = lambda do |slide, canvas, x, y, w, h, simulation|
     margin_left = @image_timer_margin_left || slide.margin_left
     margin_right = @image_timer_margin_right || slide.margin_right
     margin_bottom = @image_timer_margin_bottom || slide.margin_bottom
@@ -110,5 +110,10 @@ match(*@image_timer_target_paths) do |slides|
       end
     end
     [x, y, w, h]
+  end
+  if slides[0].is_a?(PopplerSlide)
+    slides.add_post_draw_proc(proc_name, &draw)
+  else
+    slides.add_pre_draw_proc(proc_name, &draw)
   end
 end

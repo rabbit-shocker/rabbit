@@ -63,7 +63,7 @@ match(Slide) do |slides|
     "weight" => "heavy",
   }
 
-  slides.add_pre_draw_proc(proc_name) do |slide, canvas, x, y, w, h, simulation|
+  draw = lambda do |slide, canvas, x, y, w, h, simulation|
     if simulation
       image_height =  canvas.height * @image_slide_number_space_ratio
       loader.resize(nil, image_height)
@@ -125,5 +125,10 @@ match(Slide) do |slides|
                   @image_slide_number_draw_parameters)
     end
     [x, y, w, h]
+  end
+  if slides[0].is_a?(PopplerSlide)
+    slides.add_post_draw_proc(proc_name, &draw)
+  else
+    slides.add_pre_draw_proc(proc_name, &draw)
   end
 end
