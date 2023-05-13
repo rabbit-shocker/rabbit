@@ -53,7 +53,7 @@ module Rabbit
       end
 
       private
-      def init_delgated_loader(filename, props, canvas)
+      def init_delegated_loader(filename, props, canvas)
         @svg_file = Tempfile.new(["rabbit-image-loader-dia", ".svg"])
         args = ["--export=#{@svg_file.path}"]
         args << "--filter=svg"
