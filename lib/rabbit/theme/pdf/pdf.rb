@@ -1,7 +1,7 @@
 set_background("black")
 
 begin
-  include_theme(canvas.title)
+  include_theme(".")
 rescue LoadError
 end
 
