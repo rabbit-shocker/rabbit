@@ -77,7 +77,6 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
   spec.add_runtime_dependency("kramdown-parser-gfm")
   spec.add_runtime_dependency("gettext", ">= 3.0.1")
-  spec.add_runtime_dependency("faraday")
   # spec.add_runtime_dependency("gstreamer")
   spec.add_runtime_dependency("rouge")
 
