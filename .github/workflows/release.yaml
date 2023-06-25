@@ -1,0 +1,47 @@
+# Copyright (C) 2023  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+name: Release
+on:
+  push:
+    tags:
+      - "*"
+jobs:
+  github:
+    name: GitHub
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Extract release note
+        run: |
+          ruby \
+            -e 'print("## Rabbit "); \
+                puts(ARGF.read.split(/^== /)[1]. \
+                       gsub(/^(=+)/) {$1.gsub("=", "#")}. \
+                       gsub(/\(\(<(.+?)\|URL:(.+?)>\)\)/) {$1}. \
+                       gsub(/\(\({(.+?)}\)\)/, "`\\1`"))' \
+            doc/en/news.rd > release-note.md
+      - name: Upload to release
+        run: |
+          title=$(head -n1 release-note.md | sed -e 's/^## //')
+          tail -n +2 release-note.md > release-note-without-version.md
+          gh release create ${GITHUB_REF_NAME} \
+            --discussion-category Announcements \
+            --notes-file release-note-without-version.md \
+            --title "${title}"
+        env:
+          GH_TOKEN: ${{ github.token }}
