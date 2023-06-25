@@ -24,7 +24,7 @@ apply_data: false
 ==== rabbit-slide
 
   * config: (({source_code_uri}))を追加。
-    [GH-144](https://github.com/rabbit-shocker/rabbit/issues/144)
+    ((<GH-144|URL:https://github.com/rabbit-shocker/rabbit/issues/144>))
     [Yusuke Nakamuraさんがパッチ提供]
 
   * SlideShareへのアップロード機能を削除。これはSlideShareのAPIからス
@@ -49,7 +49,7 @@ apply_data: false
 ==== ドキュメント
 
   * macos Homebrew: インストールドキュメントを更新。
-    [GH-150](https://github.com/rabbit-shocker/rabbit/issues/150)
+    ((<GH-150|URL:https://github.com/rabbit-shocker/rabbit/issues/150>))
     [Yusuke Nakamuraさんがパッチ提供]
 
 === 修正
@@ -57,7 +57,7 @@ apply_data: false
 ==== rabbit
 
   * formatter HTML: 重みの設定が反映されない問題を修正。
-    [GH-146](https://github.com/rabbit-shocker/rabbit/issues/146)
+    ((<GH-146|URL:https://github.com/rabbit-shocker/rabbit/issues/146>))
     [HASUMI Hitoshiさんがパッチ提供]
 
 ==== テーマ

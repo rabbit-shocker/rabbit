@@ -23,7 +23,7 @@ Image drawing support release.
 ==== rabbit-slide
 
   * config: Added (({source_code_uri})).
-    [GH-144](https://github.com/rabbit-shocker/rabbit/issues/144)
+    ((<GH-144|URL:https://github.com/rabbit-shocker/rabbit/issues/144>))
     [Patch by Yusuke Nakamura]
 
   * Dropped support for uploading to SlideShare. Because SlideShare
@@ -48,7 +48,7 @@ Image drawing support release.
 ==== Document
 
   * macos Homebrew: Updated how to install document.
-    [GH-150](https://github.com/rabbit-shocker/rabbit/issues/150)
+    ((<GH-150|URL:https://github.com/rabbit-shocker/rabbit/issues/150>))
     [Patch by Yusuke Nakamura]
 
 === Fixes
@@ -56,7 +56,7 @@ Image drawing support release.
 ==== rabbit
 
   * formatter HTML: Fixed a bug that weight configuration is missing.
-    [GH-146](https://github.com/rabbit-shocker/rabbit/issues/146)
+    ((<GH-146|URL:https://github.com/rabbit-shocker/rabbit/issues/146>))
     [Patch by HASUMI Hitoshi]
 
 ==== Theme
