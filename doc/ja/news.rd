@@ -5,6 +5,73 @@ apply_data: false
 ---
 {% raw %}
 
+== 3.0.2: 2023-06-25
+
+画像への描画をサポートしたリリース。
+
+=== 改良
+
+==== rabbit
+
+  * image: 画像への描画をサポート。
+
+  * image: (({align=right}))をサポート。
+
+  * Mermaidをサポート。
+
+  * blockdiag: (({blockdiag3}))コマンドをサポート。
+
+==== rabbit-slide
+
+  * config: (({source_code_uri}))を追加。
+    [GH-144](https://github.com/rabbit-shocker/rabbit/issues/144)
+    [Yusuke Nakamuraさんがパッチ提供]
+
+  * SlideShareへのアップロード機能を削除。これはSlideShareのAPIからス
+    ライドアップロード機能が削除されたからです。
+
+==== テーマ
+
+  * image-slide-number: メインコンテンツの後ろに画像を描画するように変
+    更。これによりメインコンテンツを隠すことがなくなります。
+
+  * image-timer: メインコンテンツの後ろに画像を描画するように変更。こ
+    れによりメインコンテンツを隠すことがなくなります。
+
+  * background-image-toolkit: キャプションをサポート。
+
+  * clear-blue: フッターの(({\n}))を削除するのではなく空白文字に置換す
+    るように変更。
+
+  * pdf: デフォルトで(({canvas.title}))テーマではなく(({./theme.rb}))
+    テーマを使うように変更。
+
+==== ドキュメント
+
+  * macos Homebrew: インストールドキュメントを更新。
+    [GH-150](https://github.com/rabbit-shocker/rabbit/issues/150)
+    [Yusuke Nakamuraさんがパッチ提供]
+
+=== 修正
+
+==== rabbit
+
+  * formatter HTML: 重みの設定が反映されない問題を修正。
+    [GH-146](https://github.com/rabbit-shocker/rabbit/issues/146)
+    [HASUMI Hitoshiさんがパッチ提供]
+
+==== テーマ
+
+  * image-timer: PDFで画像が表示されない問題を修正。
+
+  * image-slide-number: PDFで画像が表示されない問題を修正。
+
+=== 感謝
+
+  * Yusuke Nakamuraさん
+
+  * HASUMI Hitoshiさん
+
 == 3.0.1: 2021-09-25
 
 Ruby 3.0をサポートしたリリース。

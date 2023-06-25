@@ -4,6 +4,73 @@ title: News
 ---
 {% raw %}
 
+== 3.0.2: 2023-06-25
+
+Image drawing support release.
+
+=== Improvements
+
+==== rabbit
+
+  * image: Added support for drawing on image.
+
+  * image: Added support for (({align=right})).
+
+  * Added support for Mermaid.
+
+  * blockdiag: Added support for (({blockdiag3})) command.
+
+==== rabbit-slide
+
+  * config: Added (({source_code_uri})).
+    [GH-144](https://github.com/rabbit-shocker/rabbit/issues/144)
+    [Patch by Yusuke Nakamura]
+
+  * Dropped support for uploading to SlideShare. Because SlideShare
+    API dropped support for uploading a slideshow.
+
+==== Theme
+
+  * image-slide-number: Changed to render images back to the main
+    content. It prevents hiding the main content.
+
+  * image-timer: Changed to render images back to the main
+    content. It prevents hiding the main content.
+
+  * background-image-toolkit: Added support for caption.
+
+  * clear-blue: Changed to replace (({\n})) with a space character
+    instead of just removing it in footer.
+
+  * pdf: Changed to use (({./theme.rb})) instead of (({canvas.title}))
+    theme by default.
+
+==== Document
+
+  * macos Homebrew: Updated how to install document.
+    [GH-150](https://github.com/rabbit-shocker/rabbit/issues/150)
+    [Patch by Yusuke Nakamura]
+
+=== Fixes
+
+==== rabbit
+
+  * formatter HTML: Fixed a bug that weight configuration is missing.
+    [GH-146](https://github.com/rabbit-shocker/rabbit/issues/146)
+    [Patch by HASUMI Hitoshi]
+
+==== Theme
+
+  * image-timer: Fixed a bug that images aren't showed with PDF.
+
+  * image-slide-number: Fixed a bug that images aren't showed with PDF.
+
+=== Thanks
+
+  * Yusuke Nakamura
+
+  * HASUMI Hitoshi
+
 == 3.0.1: 2021-09-25
 
 Ruby 3.0 support release.
