@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-12-04 09:55+0900\n"
+"PO-Revision-Date: 2023-06-25 15:49+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -395,16 +395,16 @@ msgid "Presentation date with the new slide"
 msgstr "新しいスライドでプレゼンする日"
 
 msgid "Presentation start time"
-msgstr ""
+msgstr "プレゼン開始時間"
 
 msgid "Presentation end time"
-msgstr ""
+msgstr "プレゼン終了時間"
 
 msgid "The default slide width"
-msgstr ""
+msgstr "デフォルトのスライドの幅"
 
 msgid "The default slide height"
-msgstr ""
+msgstr "デフォルトのスライドの高さ"
 
 msgid "Your information"
 msgstr "あなたの情報"
@@ -915,6 +915,9 @@ msgstr "スライド"
 msgid "PDF"
 msgstr "PDF"
 
+msgid "tried mermaid command: %s"
+msgstr "実行したmermaidコマンド名: %s"
+
 msgid "invalid PDF page number: <%s>"
 msgstr "不正なPDFのページ番号です: <%s>"
 
@@ -972,6 +975,9 @@ msgstr "enscript: サポートしていない言語です: %s"
 msgid "enscript: unsupported element name: %s"
 msgstr "enscript: サポートしていない要素名です: %s"
 
+msgid "multiple right aligns aren't supported."
+msgstr "複数のright整列はサポートしていません。"
+
 msgid "tried mimeTeX commands: %s"
 msgstr "実行したmimeTeXコマンド名: %s"
 
@@ -984,17 +990,11 @@ msgstr "ひとつの段落中で「![alt]{image}」と他の内容を一緒に�
 msgid "horizontal rule isn't supported."
 msgstr "水平線はサポートしていません"
 
-msgid "multiple ![]('XXX.png'){:align='right'} isn't supported."
-msgstr "複数の「![]('XXX.png'){:align='right'}」はサポートしていません。"
-
 msgid "tag name is missing."
 msgstr "タグ名がありません。"
 
 msgid "HTML isn't supported."
 msgstr "HTMLはサポートしていません"
-
-msgid "multiple 'align = right' isn't supported."
-msgstr "複数の'align = right'はサポートしていません。"
 
 msgid "RTtool isn't available"
 msgstr "RTtoolが利用できません"
@@ -1035,18 +1035,6 @@ msgstr "スライド設定の読み込みに失敗しました: %s: %s"
 msgid "Failed to write slide configuration: %s: %s"
 msgstr "スライド設定の書き込みに失敗しました: %s: %s"
 
-msgid "Feailed to upload: %s"
-msgstr "アップロードに失敗しました: %s"
-
-msgid "Feailed to edit title: %s"
-msgstr "タイトルの編集に失敗しました: %s"
-
-msgid "Feailed to get slide URL: %s"
-msgstr "スライドURLの取得に失敗しました: %s"
-
-msgid "Enter password on SlideShare [%{user}]: "
-msgstr "SlideShareのパスワードを入力してください [%{user}]: "
-
 msgid "none (get from STDIN) or [FILE_NAMES]"
 msgstr ""
 "[何も指定しない(標準入力から読込)]か\n"
@@ -1084,12 +1072,6 @@ msgstr "すべての公開可能な公開場所にこのスライドを公開"
 
 msgid "Publish the slide to %s"
 msgstr "このスライドを%sに公開"
-
-msgid "Uploaded successfully!"
-msgstr "無事にアップロードできました！"
-
-msgid "See %s"
-msgstr "%sを見てください"
 
 msgid "Show theme benchmark slide with this theme"
 msgstr "このテーマでテーマベンチマーク用のスライドを表示"
@@ -2196,5 +2178,5 @@ msgstr "影の色。"
 msgid "TitleSlideBackgroundImage"
 msgstr "タイトルスライド背景画像"
 
-msgid "multiple ![alt]{image} in a paragraph isn't supported."
-msgstr "ひとつの段落中で複数の「![alt]{image}」を使うことはできません。"
+msgid "![alt]{image} and other contents in a paragraph isn't supported: [:text, :img]"
+msgstr "ひとつの段落中で「![alt]{image}」と他の内容を一緒に使うことはできません： [:text, :img]"

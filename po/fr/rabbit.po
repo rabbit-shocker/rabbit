@@ -889,6 +889,9 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
+msgid "tried mermaid command: %s"
+msgstr ""
+
 msgid "invalid PDF page number: <%s>"
 msgstr ""
 
@@ -946,6 +949,9 @@ msgstr ""
 msgid "enscript: unsupported element name: %s"
 msgstr ""
 
+msgid "multiple right aligns aren't supported."
+msgstr ""
+
 msgid "tried mimeTeX commands: %s"
 msgstr ""
 
@@ -958,16 +964,10 @@ msgstr ""
 msgid "horizontal rule isn't supported."
 msgstr ""
 
-msgid "multiple ![]('XXX.png'){:align='right'} isn't supported."
-msgstr ""
-
 msgid "tag name is missing."
 msgstr ""
 
 msgid "HTML isn't supported."
-msgstr ""
-
-msgid "multiple 'align = right' isn't supported."
 msgstr ""
 
 msgid "RTtool isn't available"
@@ -1009,18 +1009,6 @@ msgstr ""
 msgid "Failed to write slide configuration: %s: %s"
 msgstr ""
 
-msgid "Feailed to upload: %s"
-msgstr ""
-
-msgid "Feailed to edit title: %s"
-msgstr ""
-
-msgid "Feailed to get slide URL: %s"
-msgstr ""
-
-msgid "Enter password on SlideShare [%{user}]: "
-msgstr ""
-
 msgid "none (get from STDIN) or [FILE_NAMES]"
 msgstr ""
 
@@ -1055,12 +1043,6 @@ msgid "Publish the slide to all available targets"
 msgstr ""
 
 msgid "Publish the slide to %s"
-msgstr ""
-
-msgid "Uploaded successfully!"
-msgstr ""
-
-msgid "See %s"
 msgstr ""
 
 msgid "Show theme benchmark slide with this theme"
@@ -2108,5 +2090,5 @@ msgstr ""
 msgid "TitleSlideBackgroundImage"
 msgstr ""
 
-msgid "multiple ![alt]{image} in a paragraph isn't supported."
+msgid "![alt]{image} and other contents in a paragraph isn't supported: [:text, :img]"
 msgstr ""
