@@ -4,6 +4,22 @@ title: News
 ---
 {% raw %}
 
+== 3.0.3: 2023-07-02
+
+Minor bug fix release.
+
+=== Fixes
+
+==== rabbit
+
+  * image mermaid: Fixed an error when (({npx mmdc ...})) doesn't work.
+    ((<GH-153|URL:https://github.com/rabbit-shocker/rabbit/issues/153>))
+    [Patch by Mamoru TASAKA]
+
+=== Thanks
+
+  * Mamoru TASAKA
+
 == 3.0.2: 2023-06-25
 
 Image drawing support release.

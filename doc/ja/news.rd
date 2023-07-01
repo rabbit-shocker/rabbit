@@ -5,6 +5,22 @@ apply_data: false
 ---
 {% raw %}
 
+== 3.0.3: 2023-07-02
+
+マイナーバグフィックスリリース。
+
+=== 修正
+
+==== rabbit
+
+  * image mermaid: (({npx mmdc ...}))に失敗したときのエラーを修正。
+    ((<GH-153|URL:https://github.com/rabbit-shocker/rabbit/issues/153>))
+    [Mamoru TASAKAさんがパッチ提供]
+
+=== 感謝
+
+  * Mamoru TASAKAさん
+
 == 3.0.2: 2023-06-25
 
 画像への描画をサポートしたリリース。
