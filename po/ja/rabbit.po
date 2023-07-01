@@ -2177,6 +2177,3 @@ msgstr "影の色。"
 
 msgid "TitleSlideBackgroundImage"
 msgstr "タイトルスライド背景画像"
-
-msgid "![alt]{image} and other contents in a paragraph isn't supported: [:text, :img]"
-msgstr "ひとつの段落中で「![alt]{image}」と他の内容を一緒に使うことはできません： [:text, :img]"
