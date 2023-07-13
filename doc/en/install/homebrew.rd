@@ -19,7 +19,7 @@ Follow the instruction on ((<URL:https://brew.sh>)).
 
   $ brew install cairo
   $ brew install pango
-  $ brew install gtk+
+  $ brew install gtk+3
   $ brew install gobject-introspection
   $ brew install poppler
 
@@ -33,5 +33,4 @@ Exec gem install.
 === Set environment variable
 
 Add the following to your ~/.bach_login or ~/.zshenv:
-
-  export DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
+  export DYLD_LIBRARY_PATH=$HOMEBREW_PREFIX/opt/cairo/lib

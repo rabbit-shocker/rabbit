@@ -20,7 +20,7 @@ Rabbit をインストール、利用する手順について説明します。
 
   $ brew install cairo
   $ brew install pango
-  $ brew install gtk+
+  $ brew install gtk+3
   $ brew install gobject-introspection
   $ brew install poppler
 
@@ -34,5 +34,4 @@ gem install を実行します。
 === 環境変数の設定
 
 ~/.bash_loginあるいは~/.zshenvで以下のようにDYLD_LIBRARY_PATH環境変数を設定します。
-
-  export DYLD_LIBRARY_PATH=/usr/local/opt/cairo/lib
+  export DYLD_LIBRARY_PATH=$HOMEBREW_PREFIX/opt/cairo/lib
