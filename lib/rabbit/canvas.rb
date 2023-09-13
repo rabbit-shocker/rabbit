@@ -684,6 +684,7 @@ module Rabbit
 
     def reset_timer
       @limit_time = nil
+      reload_theme
     end
 
     def apply_timer
