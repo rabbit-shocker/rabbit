@@ -105,7 +105,7 @@ module Rabbit
           x2, y2 = from_screen(x2, y2)
           @context.save do
             set_source(color, params)
-            set_line_options(params)
+            set_stroke_options(params)
             @context.new_path
             @context.move_to(x1, y1)
             @context.line_to(x2, y2)
@@ -117,7 +117,7 @@ module Rabbit
           x, y = from_screen(x, y)
           @context.save do
             set_source(color, params)
-            set_line_options(params)
+            set_stroke_options(params)
             @context.rectangle(x, y, w, h)
             apply_cairo_action(filled, params)
           end
@@ -131,7 +131,7 @@ module Rabbit
 
           @context.save do
             set_source(color, params)
-            set_line_options(params)
+            set_stroke_options(params)
             @context.new_path
             @context.rounded_rectangle(x, y, w, h, x_radius, y_radius)
             apply_cairo_action(filled, params)
@@ -149,7 +149,7 @@ module Rabbit
           a1, a2 = convert_angle(a1, a2)
           @context.save do
             set_source(color, params)
-            set_line_options(params)
+            set_stroke_options(params)
             args = [x, y, r, a1, a2]
             action, = cairo_action(filled, params)
             @context.move_to(x, y) unless action == :stroke
@@ -167,7 +167,7 @@ module Rabbit
           return if points.empty?
           @context.save do
             set_source(color, params)
-            set_line_options(params)
+            set_stroke_options(params)
             @context.move_to(*from_screen(*points.first))
             points[1..-1].each do |x, y|
               @context.line_to(*from_screen(x, y))
@@ -181,7 +181,7 @@ module Rabbit
           x, y = from_screen(x, y)
           @context.save do
             set_source(color, params)
-            set_line_options(params)
+            set_stroke_options(params)
             @context.move_to(x, y)
             if params[:stroke]
               @context.pango_layout_path(layout)
@@ -461,12 +461,14 @@ module Rabbit
           end
         end
 
-        def set_line_options(params)
+        def set_stroke_options(params)
           set_line_width(get_line_width(params))
           [:line_cap, :line_join].each do |key|
             value = params[key]
             @context.send("#{key}=", value) if value
           end
+          value = params[:dash]
+          @context.set_dash(*value) if value
         end
       end
     end
