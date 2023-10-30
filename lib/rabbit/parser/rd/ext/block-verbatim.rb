@@ -26,7 +26,6 @@ require "rabbit/parser/ext/aafigure"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/charty"
 require "rabbit/parser/ext/coderay"
-require "rabbit/parser/ext/emacs"
 require "rabbit/parser/ext/enscript"
 require "rabbit/parser/ext/rouge"
 require "rabbit/parser/ext/tex"
@@ -117,17 +116,6 @@ module Rabbit
             logger = visitor.logger
 
             result = Parser::Ext::CodeRay.highlight(lang, src, logger)
-            result || default_ext_block_verbatim(label, src, src, visitor)
-          end
-
-          def ext_block_verb_emacs(label, source, content, visitor)
-            return nil unless /\Aemacs(?:\s+(.+))?\z/i =~ label
-            mode_line = $1
-
-            src, prop = parse_source(source)
-            logger = visitor.logger
-
-            result = Parser::Ext::Emacs.highlight(src, logger, mode_line)
             result || default_ext_block_verbatim(label, src, src, visitor)
           end
 

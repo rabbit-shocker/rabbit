@@ -25,7 +25,6 @@ require "rabbit/parser/ext/tex"
 require "rabbit/parser/ext/aafigure"
 require "rabbit/parser/ext/blockdiag"
 require "rabbit/parser/ext/coderay"
-require "rabbit/parser/ext/emacs"
 require "rabbit/parser/ext/entity"
 require "rabbit/parser/ext/rouge"
 
@@ -528,11 +527,6 @@ module Rabbit
           def coderay(lang, source)
             logger = @output.canvas.logger
             Ext::CodeRay.highlight(lang, source, logger)
-          end
-
-          def emacs(source, mode_line=nil)
-            logger = @output.canvas.logger
-            Ext::Emacs.highlight(source, logger, mode_line)
           end
 
           def rouge(lang, source)

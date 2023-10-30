@@ -337,18 +337,6 @@ URL先の画像をダウンロード
 
 以上がソース
 
-= ソース: Emacs
-
-以下がソース
-
-  # emacs # -*- ruby -*-
-  # comment
-  def method_name
-    body
-  end
-
-以上がソース
-
 = ソース: Rouge
 
 以下がソース
