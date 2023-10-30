@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2022  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2023  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -226,6 +226,14 @@ module Rabbit
   class NoPrintSupportError < Error
     def initialize
       super(_("print isn't supported"))
+    end
+  end
+
+  class UnknownFontAwesomeNameError < Error
+    attr_reader :name
+    def initialize(name)
+      @name = name
+      super(_("unknown Font Awesome name: %s") % @name)
     end
   end
 end
