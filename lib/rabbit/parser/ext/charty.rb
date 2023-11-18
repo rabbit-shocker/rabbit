@@ -27,6 +27,12 @@ module Rabbit
           require "charty"
           backend = prop["backend"]
           ::Charty::Backends.use(backend) if backend
+          font_family = prop["font-family"]
+          if font_family and backend == "pyplot"
+            default_font_family = ::Matplotlib.rcParams["font.sans-serif"]
+            ::Matplotlib.rcParams["font.sans-serif"] =
+              [font_family, *default_font_family]
+          end
           data = CSV.read(path, headers: true, converters: :all)
           type = prop["type"]
           case type
@@ -50,6 +56,9 @@ module Rabbit
           end
           image_file = Tempfile.new(["rabbit-image-charty", ".svg"])
           plotter.save(image_file.path)
+          if font_family and backend == "pyplot"
+            ::Matplotlib.rcParams["font.sans-serif"] = default_font_family
+          end
           image_file
         end
       end
