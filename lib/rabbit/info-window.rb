@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2006-2023  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -230,7 +230,12 @@ module Rabbit
     def init_timer_area
       @timer_area = Gtk::DrawingArea.new
       @timer_area.signal_connect("draw") do |area, context|
-        context.set_source_rgb(1, 0, 0) if rest_time and rest_time < 0
+        draw_background(area, context)
+        if rest_time and rest_time < 0
+          context.set_source_rgb(1, 0, 0)
+        else
+          context.set_source_rgb(0, 0, 0)
+        end
         draw_text_as_large_as_possible(area,
                                        context,
                                        timer_text,
@@ -242,6 +247,8 @@ module Rabbit
     def init_note_area
       @note_area = Gtk::DrawingArea.new
       @note_area.signal_connect("draw") do |area, context|
+        draw_background(area, context)
+        context.set_source_rgb(0, 0, 0)
         draw_text_as_large_as_possible(area, context, note_text)
         Gdk::Event::PROPAGATE
       end
@@ -251,6 +258,13 @@ module Rabbit
       start_timer if @timer_id.nil?
       @note_area.queue_draw if @note_area
       adjust_slide
+    end
+
+    def draw_background(area, context)
+      context.save do
+        context.set_source_rgb(1, 1, 1)
+        context.paint
+      end
     end
 
     def note_text
