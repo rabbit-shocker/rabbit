@@ -171,7 +171,7 @@ title: "Sample slide: Rabbit"
   #    # vertical-align = top
       # relative-margin-right = -5
 
-    * Right justified backgorund image
+    * Right justified background image
     * Specify in slide
       * align = right
 

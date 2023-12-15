@@ -95,7 +95,7 @@ You can confirm all patermeters by ((%--help%)):
           --tags=TAG,TAG,...           Tags of the new slide
                                        (e.g.: --tags=rabbit,presentation,ruby)
                                        (optional)
-          --allotted-time=TIME         Allotted time in presentaion
+          --allotted-time=TIME         Allotted time in presentation
                                        (e.g.: --allotted-time=5m)
                                        (optional)
           --presentation-date=DATE     Presentation date with the new slide

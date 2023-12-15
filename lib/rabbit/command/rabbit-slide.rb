@@ -189,7 +189,7 @@ module Rabbit
         end
 
         parser.on("--allotted-time=TIME",
-                  _("Allotted time in presentaion"),
+                  _("Allotted time in presentation"),
                   _("(e.g.: %s)") % "--allotted-time=5m",
                   _("(optional)")) do |allotted_time|
           @data.allotted_time = allotted_time

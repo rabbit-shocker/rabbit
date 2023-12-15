@@ -148,7 +148,7 @@ background-image-relative-margin-right
 
 ![](lavie.png){:relative_width="30" align="right" relative_margin_right="-5"}
 
-* Right justified backgorund image
+* Right justified background image
 * Specify in slide
   * \{:align="right"\}
 

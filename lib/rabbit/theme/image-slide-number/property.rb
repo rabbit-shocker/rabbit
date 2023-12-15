@@ -44,7 +44,7 @@
   "@image_slide_number_flag_type" => {
     :default => "'rectangle'",
     :description => N_("Form of the start and goal flags. " \
-                       "Avaiable forms are (({'triangle'})) and " \
+                       "Available forms are (({'triangle'})) and " \
                        "(({'rectangle'})).")
   },
   "@image_slide_number_start_image" => {

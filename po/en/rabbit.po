@@ -376,7 +376,7 @@ msgstr ""
 msgid "Tags of the new slide"
 msgstr ""
 
-msgid "Allotted time in presentaion"
+msgid "Allotted time in presentation"
 msgstr ""
 
 msgid "Presentation date with the new slide"
@@ -1511,7 +1511,7 @@ msgid "Color of numbers displayed on the start and goal flags."
 msgstr ""
 
 msgid ""
-"Form of the start and goal flags. Avaiable forms are (({'triangle'})) and (({'"
+"Form of the start and goal flags. Available forms are (({'triangle'})) and (({'"
 "rectangle'}))."
 msgstr ""
 

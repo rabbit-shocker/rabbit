@@ -9,7 +9,7 @@
 @monospace_font = "Monospace"
 @monospace_font_family = find_font_family(@monospace_font)
 #-------------------------
-# forground color
+# foreground color
 #-------------------------
 @default_foreground = "#ffeeee"
 set_foreground(@default_foreground)
@@ -94,7 +94,7 @@ set_foreground(@default_foreground)
 @block_quote_close_quote_image = nil
 @block_quote_image_max_width = canvas.width * 0.1
 #-------------------------
-# include defaul theme!
+# include default theme!
 #-------------------------
 include_theme("default")
 #-------------------------
