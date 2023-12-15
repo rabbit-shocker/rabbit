@@ -388,7 +388,7 @@ msgstr "新しいスライドのライセンス"
 msgid "Tags of the new slide"
 msgstr "新しいスライドのタグ"
 
-msgid "Allotted time in presentaion"
+msgid "Allotted time in presentation"
 msgstr "プレゼンの持ち時間"
 
 msgid "Presentation date with the new slide"
@@ -1557,7 +1557,7 @@ msgid "Color of numbers displayed on the start and goal flags."
 msgstr "スタートとゴールの旗に表示される数字の色。"
 
 msgid ""
-"Form of the start and goal flags. Avaiable forms are (({'triangle'})) and (({'"
+"Form of the start and goal flags. Available forms are (({'triangle'})) and (({'"
 "rectangle'}))."
 msgstr "スタートとゴールの旗の形。(({'triangle'})) (三角) と (({'rectangle'})) (四角) が指定可能です。"
 

@@ -1,5 +1,5 @@
 @title_background_image_properties ||= {}
-default_title_backgroud_image_properties = {
+default_title_background_image_properties = {
   "as_large_as_possible" => true,
   "align" => "center",
   "assign_box" => false,
@@ -8,7 +8,7 @@ default_title_backgroud_image_properties = {
 
 match(TitleSlide) do |slides|
   slides.each do |slide|
-    image_properties = default_title_backgroud_image_properties.dup
+    image_properties = default_title_background_image_properties.dup
     @title_background_image_properties.each do |key, value|
       value = value.to_s if value.is_a?(Symbol)
       image_properties[key.to_s.gsub(/-/, "_")] = value
