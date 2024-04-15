@@ -1,0 +1,39 @@
+= Your Awesome Title
+
+: subtitle
+   Subtitle Goes So Cool
+: author
+   Your Name
+: institution
+   Your Institution
+: allotted-time
+   30m
+: theme
+   rubykaigi2024
+
+= About slide size
+
+The resolution of the projectors in NAHArt (the venue of RubyKaigi 2024) is ((*1920 x 1200*)) (16:10).
+
+So this theme is optimized when you specify the size like below:
+
+  # enscript sh
+  bundle exec rabbit --size=1920,1200 your_slide.rab
+
+= Fonts
+
+You need to install the follows:
+
+* `Dela Gothic One` for title page
+* `Poppins` for content pages
+* `Courier Prime` for monospace (code block)
+
+= Items
+
+* Item
+  * Item
+  * Item
+    *Item
+  *Item
+*item
+
