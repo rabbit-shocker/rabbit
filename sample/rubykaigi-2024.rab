@@ -9,7 +9,7 @@
 : allotted-time
    30m
 : theme
-   rubykaigi2024
+   rubykaigi-2024
 
 = About slide size
 
@@ -33,7 +33,7 @@ You need to install the follows:
 * Item
   * Item
   * Item
-    *Item
-  *Item
-*item
+    * Item
+  * Item
+* item
 

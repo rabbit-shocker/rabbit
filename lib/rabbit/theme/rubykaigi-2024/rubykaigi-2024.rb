@@ -1,4 +1,4 @@
-add_image_path("rubykaigi2024-images")
+add_image_path("rubykaigi-2024-images")
 
 # puts font_families.sort
 @xxx_large_font_size = screen_size(8 * Pango::SCALE)
@@ -50,6 +50,10 @@ include_theme("slide-background-image")
 @title_slide_background_image = 'title_background.png'
 include_theme("title-slide-background-image")
 
+@item_image_1 = 'bullet-point-36.png'
+@item_image_2 = 'bullet-point-32.png'
+@item_image_3 = 'bullet-point-28.png'
+
 include_theme('default')
 
 match TitleSlide do |slides|
@@ -94,12 +98,6 @@ match(Slide) do |slides|
   slides.margin_right = 50
   slides.prop_set("foreground", black)
 end
-
-@item_image_1 = 'bullet-point-36.png'
-@item_image_2 = 'bullet-point-32.png'
-@item_image_3 = 'bullet-point-28.png'
-
-include_theme("default-item-mark")
 
 slide_body = [Slide, Body]
 item_list_item = [ItemList, ItemListItem]
