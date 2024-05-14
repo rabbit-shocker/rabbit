@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2024  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require 'tempfile'
-require 'nkf'
 
 module Rabbit
   module Utils
@@ -491,19 +490,19 @@ module Rabbit
     end
 
     def to_utf8(str)
-      NKF.nkf("-w", str)
+      str.encode(Encoding::UTF_8)
     end
 
     def to_eucjp(str)
-      NKF.nkf("-e", str)
+      str.encode(Encoding::EUCJP)
     end
 
     def to_utf8_from_eucjp(str)
-      NKF.nkf("-wE", str)
+      str.encode(Encoding::UTF_8, Encoding::EUCJP)
     end
 
     def to_eucjp_from_utf8(str)
-      NKF.nkf("-eW", str)
+      str.encode(Encoding::EUCJP, Encoding::UTF_8)
     end
   end
 

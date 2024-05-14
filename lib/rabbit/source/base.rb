@@ -1,3 +1,19 @@
+# Copyright (C) 2004-2024  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require 'fileutils'
 require 'tmpdir'
 
@@ -128,15 +144,23 @@ module Rabbit
         end
       end
 
-      def guess_encoding(str)
-        return Encoding::UTF_8 if utf8_encoding?(str)
-
-        require 'nkf'
-        NKF.guess(str)
-      end
-
-      def utf8_encoding?(string)
-        string.dup.force_encoding(Encoding::UTF_8).valid_encoding?
+      def guess_encoding(string)
+        string = string.dup
+        candidates = [
+          Encoding::UTF_8,
+          Encoding::EUCJP_MS,
+          Encoding::EUCJP,
+          Encoding::WINDOWS_31J,
+          Encoding::Shift_JIS,
+          Encoding::CP51932,
+          Encoding::CP50221,
+          Encoding::ISO2022_JP,
+          Encoding::UTF_16BE,
+          Encoding::UTF_16LE,
+        ]
+        candidates.find do |candidate|
+          string.force_encoding(candidate).valid_encoding?
+        end
       end
 
       def extract_extension(path)
