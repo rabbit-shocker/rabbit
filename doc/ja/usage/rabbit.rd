@@ -334,7 +334,7 @@ WindowsユーザならRDファイルをbin/rabbit.batにドラッグアンド
    change-source, source, allから選びます。後ろに挙げた公開
    レベルほど多くの機能を公開します。
 
-   デフォルトではstrictです。
+   デフォルトではallです。
 
 : --comment-source=FILE
    初期コメント用ソースのファイル名を指定します。
