@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2024  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -66,6 +66,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
 
   spec.required_ruby_version = ">= 2.4.0"
 
+  spec.add_runtime_dependency("csv")
   spec.add_runtime_dependency("gdk_pixbuf2", ">= 3.0.9")
   spec.add_runtime_dependency("gtk3")
   spec.add_runtime_dependency("rsvg2", ">= 3.1.4")
