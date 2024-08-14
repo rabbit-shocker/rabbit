@@ -229,7 +229,7 @@ module Rabbit
           send_arguments = [name.to_s.dump, *arg_list].join(', ')
           dirty_source = nil
           dirty_source = "dirty!" if need_clear_cache
-          if (level & PublicLevel::CONTROL).zero?
+          if (level & (PublicLevel::MOVE | PublicLevel::CONTROL)).zero?
             instance_eval(<<-EOS, __FILE__, __LINE__ + 1)
               def self.#{name}(#{arg_str})
                 result = @canvas.__send__(#{send_arguments})
