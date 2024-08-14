@@ -333,7 +333,7 @@ with the following.
    change-source, source and all. The later the public level
    indicates that Rabbit publishes more functions.
 
-   Default is strict.
+   Default is all.
 
 : --comment-source=FILE
    Specifies initial comment source file name.
