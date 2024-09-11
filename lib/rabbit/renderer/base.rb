@@ -283,6 +283,7 @@ module Rabbit
         canceled = false
         @canvas.slides.each_with_index do |slide, i|
           @canvas.move_to_if_can(i)
+          next if @canvas.current_slide.skip_print?
           current_slide = @canvas.current_slide
           current_slide.flush
           current_slide.draw(@canvas)

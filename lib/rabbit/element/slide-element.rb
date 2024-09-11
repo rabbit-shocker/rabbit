@@ -10,6 +10,7 @@ module Rabbit
       def initialize(title_element)
         @index = -1
         @default_waited_draw_procs = []
+        @skip_print = false
         super(title_element)
       end
 
@@ -97,6 +98,14 @@ module Rabbit
           end
         end
         procs
+      end
+
+      def skip_print
+        @skip_print = true
+      end
+
+      def skip_print?
+        @skip_print
       end
 
       private

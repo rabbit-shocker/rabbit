@@ -18,12 +18,24 @@ module Rabbit
 
       attr_reader :term, :content
 
+      METADATA_LIST = {
+        "rabbit-skip-print" => -> (slide){ slide.skip_print }
+      }
+
       def initialize(term, content)
         super()
         @term = term
         @content = content
         add_element(@term)
         add_element(@content)
+      end
+
+      def metanize_if_metadata
+        term_text = term.map(&:text).join.strip
+        if METADATA_LIST.key?(term_text)
+          METADATA_LIST[term_text].call(slide)
+          parent.delete(self)
+        end
       end
     end
 

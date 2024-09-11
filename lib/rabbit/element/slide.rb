@@ -46,6 +46,14 @@ module Rabbit
 
     class Body
       include ContainerElement
+
+      def <<(element)
+        super.tap do
+          if element.is_a?(DescriptionList)
+            element.each(&:metanize_if_metadata)
+          end
+        end
+      end
     end
   end
 end
