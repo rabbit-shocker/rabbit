@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,8 +15,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "rabbit/gtk"
-
-Gtk.init if Gtk.respond_to?(:init)
 
 module Gtk
   class Action
