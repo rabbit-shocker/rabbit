@@ -73,6 +73,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.add_runtime_dependency("poppler", ">= 3.2.5")
   spec.add_runtime_dependency("hikidoc")
   spec.add_runtime_dependency("nokogiri")
+  spec.add_runtime_dependency("ostruct")
   spec.add_runtime_dependency("rdtool")
   spec.add_runtime_dependency("rttool")
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
