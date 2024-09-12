@@ -44,7 +44,7 @@ class RabbitParserMarkdownTest < Test::Unit::TestCase
                        ],
                      ],
                    ],
-                   parse("# Title"))
+                   parse(+"# Title"))
     end
   end
 
