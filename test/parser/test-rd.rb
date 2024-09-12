@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2014-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,11 +32,11 @@ class RabbitParserRDTest < Test::Unit::TestCase
       end
 
       def test_with_space
-        assert_true(match?("= Hello"))
+        assert_true(match?(+"= Hello"))
       end
 
       def test_no_space
-        assert_true(match?("=Hello"))
+        assert_true(match?(+"=Hello"))
       end
     end
   end

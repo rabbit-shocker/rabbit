@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2024  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ class RabbitSourceTest < Test::Unit::TestCase
 
     class ReadTest < self
       def test_binary
-        pdf_header = "%PDF-1.5\n%\xb5\xed\xae\xfb\n"
+        pdf_header = +"%PDF-1.5\n%\xb5\xed\xae\xfb\n"
         pdf_header.force_encoding("ASCII-8BIT")
         assert_equal(pdf_header, read(pdf_header))
       end

@@ -1,4 +1,4 @@
-# Copyright (C) 2015-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2015-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ class RabbitParserWikiTest < Test::Unit::TestCase
     class InlineTest < self
       test "unsupported" do
         image_path = fixture_path("image/png/lavie.png")
-        wiki_text = <<-WIKI
+        wiki_text = +<<-WIKI
 ! Title
 
 ! Slide
