@@ -21,12 +21,12 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  spec.add_development_dependency("bundler")
-  spec.add_development_dependency("jekyll")
-  spec.add_development_dependency("rake")
+  gem "bundler"
+  gem "jekyll"
+  gem "rake"
 end
 
 group :test do
-  spec.add_development_dependency("test-unit")
-  spec.add_development_dependency("test-unit-rr")
+  gem "test-unit"
+  gem "test-unit-rr"
 end
