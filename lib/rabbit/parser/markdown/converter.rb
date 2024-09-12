@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2022  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -170,10 +170,10 @@ module Rabbit
                     _("multiple ![alt]{image}s in a paragraph isn't supported.")
             end
             if child_types.include?(:img)
-              message =
+              format =
                 _("![alt]{image} and other contents in a paragraph " \
                   "isn't supported: %{types}")
-              raise ParseError, message % {types: child_types}
+              raise ParseError, format % {types: child_types}
             end
             if element.options[:transparent] and child_types == [:text]
               element.children.first.value.chomp!
