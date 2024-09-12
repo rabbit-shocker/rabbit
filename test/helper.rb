@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@ require "rbconfig"
 require "tmpdir"
 
 require "test-unit"
-require "test/unit/rr"
 
 require "helper/fixture"
 require "helper/parser"

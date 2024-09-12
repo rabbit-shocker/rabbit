@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,17 +30,20 @@ Please try to create your original theme!
 
   private
   def assert_parse(content, extension=nil)
-    readme_path = "README#{extension}"
-    stub(File).read(readme_path) {content}
-    @parser.parse(readme_path)
-    assert_equal({
-                   :title       => @title,
-                   :description => @description,
-                 },
-                 {
-                   :title       => @parser.title,
-                   :description => @parser.description,
-                 })
+    Tempfile.create(["README", extension]) do |readme_file|
+      readme_file.print(content)
+      readme_file.close
+
+      @parser.parse(readme_file.path)
+      assert_equal({
+                     :title       => @title,
+                     :description => @description,
+                   },
+                   {
+                     :title       => @parser.title,
+                     :description => @parser.description,
+                   })
+    end
   end
 
   class TestRD < self
