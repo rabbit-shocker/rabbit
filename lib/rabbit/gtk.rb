@@ -17,3 +17,23 @@
 require "gtk3"
 
 Gtk.init if Gtk.respond_to?(:init)
+
+module Gtk
+  class Action
+    alias _activate activate
+    def activate(&block)
+      @block = block
+      _activate
+    ensure
+      @block = nil
+    end
+
+    def block_given?
+      not @block.nil?
+    end
+
+    def call(*args, &block)
+      @block.call(*args, &block)
+    end
+  end
+end
