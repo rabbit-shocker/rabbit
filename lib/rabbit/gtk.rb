@@ -14,26 +14,33 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "gtk3"
+case ENV["RABBIT_GTK"]
+when "4"
+  require "gtk4"
+else
+  require "gtk3"
+end
 
 Gtk.init if Gtk.respond_to?(:init)
 
 module Gtk
-  class Action
-    alias _activate activate
-    def activate(&block)
-      @block = block
-      _activate
-    ensure
-      @block = nil
-    end
+  if const_defined?(:Action)
+    class Action
+      alias _activate activate
+      def activate(&block)
+        @block = block
+        _activate
+      ensure
+        @block = nil
+      end
 
-    def block_given?
-      not @block.nil?
-    end
+      def block_given?
+        not @block.nil?
+      end
 
-    def call(*args, &block)
-      @block.call(*args, &block)
+      def call(*args, &block)
+        @block.call(*args, &block)
+      end
     end
   end
 end
