@@ -1,4 +1,20 @@
-require 'rabbit/gtk'
+# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+require "rabbit/gtk"
 
 module Rabbit
   module Renderer
@@ -45,17 +61,16 @@ module Rabbit
           end
         end
 
-        BUTTON_PRESS_HANDLER = {
-          Gdk::EventType::BUTTON_PRESS => "handle_button_press",
-          Gdk::EventType::BUTTON2_PRESS => "handle_button2_press",
-          Gdk::EventType::BUTTON3_PRESS => "handle_button3_press",
-        }
-
         def handle_button_release(event, last_button_press_event)
           press_event_type = last_button_press_event.event_type
-          if BUTTON_PRESS_HANDLER.has_key?(press_event_type)
-            __send__(BUTTON_PRESS_HANDLER[press_event_type],
-                     last_button_press_event, event)
+          handlers = {
+            Gdk::EventType::BUTTON_PRESS => :handle_button_press,
+            Gdk::EventType::BUTTON2_PRESS => :handle_button2_press,
+            Gdk::EventType::BUTTON3_PRESS => :handle_button3_press,
+          }
+          handler = handlers[press_event_type]
+          if handler
+            __send__(handler, last_button_press_event, event)
             start_button_handler
           end
           true
