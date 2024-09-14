@@ -175,6 +175,8 @@ module Rabbit
         end
 
         def update_size(w, h)
+          return if @real_width == w and @real_height == h
+
           @real_width = w
           @real_height = h
           @size_dirty = true
