@@ -15,8 +15,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "clutter-gtk"
-require "clutter-gst"
+case ENV["RABBIT_GTK"]
+when "4"
+else
+  require "clutter-gtk"
+  require "clutter-gst"
+end
 
 require "rabbit/gtk"
 
