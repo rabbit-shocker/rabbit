@@ -43,4 +43,11 @@ module Gtk
       end
     end
   end
+
+  class ApplicationWindow
+    # GTK 4 renames Gdk::Window to Gdk::Surface
+    unless method_defined?(:surface)
+      alias_method :surface, :window
+    end
+  end
 end

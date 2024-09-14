@@ -854,12 +854,7 @@ module Rabbit
         frame.init_gui(@options.width, @options.height, true)
         frame.fullscreen if @options.full_screen
         if @options.show_native_window_id
-          window = frame.window
-          if window.respond_to?(:surface)
-            native_surface = window.surface
-          else
-            native_surface = window.window
-          end
+          native_surface = frame.window.surface
           if native_surface.respond_to?(:xid)
             @logger.info(_("Window ID: %d") % native_surface.xid)
           end
