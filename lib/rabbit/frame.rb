@@ -3,7 +3,12 @@ require "rabbit/gtk"
 require "rexml/text"
 
 begin
-  require "vte3"
+  case ENV["RABBIT_GTK"]
+  when "4"
+    require "vte4"
+  else
+    require "vte3"
+  end
 rescue LoadError
 end
 
