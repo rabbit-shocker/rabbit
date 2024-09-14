@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2019  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -853,9 +853,16 @@ module Rabbit
         setup_3d_info(canvas)
         frame.init_gui(@options.width, @options.height, true)
         frame.fullscreen if @options.full_screen
-        native_window = frame.window.window
-        if @options.show_native_window_id and native_window.respond_to?(:xid)
-          @logger.info(_("Window ID: %d") % native_window.xid)
+        if @options.show_native_window_id
+          window = frame.window
+          if window.respond_to?(:surface)
+            native_surface = window.surface
+          else
+            native_surface = window.window
+          end
+          if native_surface.respond_to?(:xid)
+            @logger.info(_("Window ID: %d") % native_surface.xid)
+          end
         end
         apply_theme_if_need(frame)
         parse(frame, source, !Utils.windows?)
