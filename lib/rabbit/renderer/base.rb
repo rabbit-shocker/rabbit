@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,6 @@ module Rabbit
 
       def_delegators(:@canvas, :reload_source)
 
-      attr_reader :x_dpi, :y_dpi
       attr_accessor :base_width
       attr_accessor :base_height
       attr_accessor :paper_width, :paper_height, :slides_per_page
@@ -76,7 +75,6 @@ module Rabbit
         @graffiti_line_width = nil
         @draw_scaled_image = true
         clean
-        init_dpi
         init_gl_parameters
       end
 
@@ -357,11 +355,6 @@ module Rabbit
         format = _("%s does not support: %s")
         msg = format % [self.class.name, name]
         @canvas.logger.warn(msg)
-      end
-
-      def init_dpi
-        @x_dpi = 72
-        @y_dpi = 72
       end
 
       def init_gl_parameters

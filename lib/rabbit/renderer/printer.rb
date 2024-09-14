@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2019  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2005-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -183,19 +183,13 @@ module Rabbit
         @background = make_color(@background_color)
       end
 
-      def init_dpi
-        super
-        @x_dpi = 300
-        @y_dpi = 300
-      end
-
       def update_layout
         @layout = PrintLayout.create(self, @canvas)
       end
 
       def create_context(output=nil)
         surface = find_surface(filename, output)
-        surface.set_fallback_resolution(@x_dpi, @y_dpi)
+        surface.set_fallback_resolution(300, 300)
         ::Cairo::Context.new(surface)
       end
 

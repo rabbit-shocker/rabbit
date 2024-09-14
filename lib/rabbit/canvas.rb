@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -110,7 +110,6 @@ module Rabbit
     def_delegators(:@renderer, :confirm)
 
     def_delegators(:@renderer, :display?, :printable?)
-    def_delegators(:@renderer, :x_dpi, :y_dpi)
 
     def_delegators(:@renderer, :whiteouting?, :blackouting?)
     def_delegators(:@renderer, :toggle_whiteout, :toggle_blackout)

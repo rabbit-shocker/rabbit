@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2019  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2016-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -117,11 +117,6 @@ module Rabbit
 
       def offscreen_renderer?
         true
-      end
-
-      def init_dpi
-        @x_dpi = ScreenInfo.screen_x_resolution
-        @y_dpi = ScreenInfo.screen_y_resolution
       end
     end
   end
