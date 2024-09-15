@@ -40,8 +40,34 @@ title page.
 This example shows the author is Kouhei Sutou and his
 institution is COZMIXNG.
 
-At the moment, you can specify subtitle, content_source and
-even the theme. "theme" is for the default theme of this slide.
+Available attributes are:
+
+* author
+
+* institution
+
+* subtitle
+
+* content_source
+
+* date
+
+* start_time
+
+* end_time
+
+* allotted_time
+
+  The default allotted time in presentation. Used if not
+  specified when starting Rabbit. If both `start_time`
+  and `end_time` are specified, no need to specify
+  `allotted_time` as it will be calculated from those
+  attributes.
+
+* theme
+
+  The default theme of this slide. Used if not specified
+  when starting Rabbit.
 
 ### Emphasis
 
