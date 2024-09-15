@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -93,13 +93,10 @@ module Rabbit
       end
 
       def draw(renderer)
-        if @back_color.alpha == 1.0 or
-            (@back_color.alpha < 1.0 and renderer.alpha_available?)
-          size = renderer.size
-          args = [true, 0, 0, size.real_width, size.real_height]
-          args << @back_color
-          renderer.draw_rectangle(*args)
-        end
+        size = renderer.size
+        renderer.draw_rectangle(true,
+                                0, 0, size.real_width, size.real_height,
+                                @back_color)
 
         draw_available_marks(renderer, next_available_motions)
 

@@ -28,10 +28,6 @@ module Rabbit
 
         attr_writer :foreground, :background
 
-        def alpha_available?
-          true
-        end
-
         def background_image=(pixbuf)
           surface = ::Cairo::ImageSurface.new(::Cairo::FORMAT_A1, 1, 1)
           context = ::Cairo::Context.new(surface)
