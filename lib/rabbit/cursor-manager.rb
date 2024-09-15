@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2015  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,17 +39,17 @@ module Rabbit
       @stocks[name].push(@current)
     end
 
-    def restore(drawable, name)
+    def restore(surface, name)
       if name.nil?
         type = @current
       else
         type = @stocks[name].pop
       end
-      drawable.cursor = type_to_cursor(type)
+      surface.cursor = type_to_cursor(type)
     end
 
-    def update(drawable, type)
-      drawable.cursor = type_to_cursor(type)
+    def update(surface, type)
+      surface.cursor = type_to_cursor(type)
     end
 
     private

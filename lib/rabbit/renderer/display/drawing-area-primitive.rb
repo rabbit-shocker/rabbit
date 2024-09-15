@@ -152,7 +152,7 @@ module Rabbit
         end
 
         def mapped(widget)
-          set_drawable(widget.window)
+          set_surface(widget.native.surface)
         end
 
         def set_draw
@@ -199,8 +199,8 @@ module Rabbit
         end
 
         def configured(x, y, w, h)
-          @real_width = @drawable.width
-          @real_height = @drawable.height
+          @real_width = @surface.width
+          @real_height = @surface.height
           @size_dirty = true
         end
 
@@ -225,7 +225,7 @@ module Rabbit
 
         def configured_after(widget, event)
           update_size(event.width, event.height)
-          reload_theme if @drawable
+          reload_theme if @surface
         end
 
         def reload_theme(&callback)

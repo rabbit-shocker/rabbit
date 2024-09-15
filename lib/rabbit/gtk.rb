@@ -44,7 +44,14 @@ module Gtk
     end
   end
 
-  class ApplicationWindow
+  class Widget
+    # For GTK 3
+    unless method_defined?(:surface)
+      def native
+        self
+      end
+    end
+
     # GTK 4 renames Gdk::Window to Gdk::Surface
     unless method_defined?(:surface)
       alias_method :surface, :window

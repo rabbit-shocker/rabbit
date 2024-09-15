@@ -1,3 +1,19 @@
+# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "rabbit/renderer/display/drawing-area-primitive"
 require "rabbit/renderer/display/menu"
 require "rabbit/renderer/display/progress"
@@ -289,7 +305,7 @@ module Rabbit
         end
 
         def paint(color_name)
-          context = @drawable.create_cairo_context
+          context = @surface.create_cairo_context
           context.set_source_rgba(*Color.parse(color_name).to_a)
           context.paint
         end
@@ -313,9 +329,9 @@ module Rabbit
           width, height = pixbuf.width, pixbuf.height
           x = @adjustment_x * width
           y = @adjustment_y * height
-          @drawable.draw_pixbuf(@foreground, pixbuf,
-                                x, y, 0, 0, width, height,
-                                Gdk::RGB::DITHER_NORMAL, 0, 0)
+          @surface.draw_pixbuf(@foreground, pixbuf,
+                               x, y, 0, 0, width, height,
+                               Gdk::RGB::DITHER_NORMAL, 0, 0)
           if @adjustment_x != 0 or @adjustment_y != 0
             draw_next_slide
           end
@@ -353,9 +369,9 @@ module Rabbit
             src_height = -adjustment_height
           end
 
-          @drawable.draw_pixbuf(@foreground, pixbuf, src_x, src_y,
-                                dest_x, dest_y, src_width, src_height,
-                                Gdk::RGB::DITHER_NORMAL, 0, 0)
+          @surface.draw_pixbuf(@foreground, pixbuf, src_x, src_y,
+                               dest_x, dest_y, src_width, src_height,
+                               Gdk::RGB::DITHER_NORMAL, 0, 0)
         end
 
         def configured_after(widget, event)

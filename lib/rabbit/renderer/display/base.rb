@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ module Rabbit
         include HookHandler
 
         def initialize(*args, &block)
-          @drawable = nil
+          @surface = nil
           @size = nil
           @size_dirty = true
           super
@@ -154,9 +154,9 @@ module Rabbit
         end
 
         private
-        def set_drawable(drawable)
-          @drawable = drawable
-          set_default_size(@drawable.width, @drawable.height)
+        def set_surface(surface)
+          @surface = surface
+          set_default_size(@surface.width, @surface.height)
         end
 
         def set_default_size(w, h)
