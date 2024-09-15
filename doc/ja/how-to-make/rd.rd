@@ -41,12 +41,32 @@ RDではマークアップの使い方が通常の文書の場合と異なりま
 この例では、作者が須藤功平で、所属がCOZMIXNGであるということ
 を示しています。
 
-現在のところ、authorとinstitution以外にsubtitle、
-content_source、themeというメタ情報が指定できます。themeは、
-Rabbitを起動するときにテーマが指定されなかった場合に使用され
-るテーマになります。
+以下の属性が指定可能です:
 
-TODO: 他にもメタデータが増えているはず。
+* author
+
+* institution
+
+* subtitle
+
+* content_source
+
+* date
+
+* start_time
+
+* end_time
+
+* allotted_time
+
+  プレゼンの持ち時間です。Rabbitを起動するときに指定しなかった場合に
+  使用されます。(({start_time}))と(({end_time}))を両方指定している
+  場合はそれらの属性から計算されるため、(({allotted_time}))を指定する
+  必要はありません。
+
+* theme
+
+  テーマです。Rabbitを起動するときに指定しなかった場合に使用されます。
 
 === 画像
 
