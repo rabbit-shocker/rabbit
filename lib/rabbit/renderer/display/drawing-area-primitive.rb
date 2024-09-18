@@ -20,7 +20,6 @@ require "rabbit/utils"
 require "rabbit/renderer/engine"
 require "rabbit/renderer/display/base"
 require 'rabbit/renderer/display/cursor'
-require 'rabbit/renderer/display/gl'
 
 module Rabbit
   module Renderer
@@ -29,7 +28,6 @@ module Rabbit
         include Base
 
         include Cursor
-        include GL
 
         attr_accessor :filename
         def initialize(canvas)
@@ -43,13 +41,9 @@ module Rabbit
           super
 
           set_configure_event
-
-          init_gl(@area)
         end
 
         def detach
-          finalize_gl
-
           if !@window.destroyed? and @configure_signal_id
             @window.signal_handler_disconnect(@configure_signal_id)
             @configure_signal_id = nil
