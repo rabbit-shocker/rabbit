@@ -93,11 +93,6 @@ module Rabbit
     def_delegators(:@renderer, :draw_poppler_page)
     def_delegators(:@renderer, :draw_link)
 
-    def_delegators(:@renderer, :draw_cube, :draw_sphere, :draw_cone)
-    def_delegators(:@renderer, :draw_torus, :draw_tetrahedron)
-    def_delegators(:@renderer, :draw_octahedron, :draw_dodecahedron)
-    def_delegators(:@renderer, :draw_icosahedron, :draw_teapot)
-
     def_delegators(:@renderer, :gl_compile, :gl_call_list)
     def_delegators(:@renderer, :new_list_id)
 
