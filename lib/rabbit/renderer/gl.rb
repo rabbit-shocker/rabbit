@@ -22,20 +22,6 @@ module Rabbit
         end
       end
 
-      def gl_compile(id)
-        return super unless gl_available?
-        ::GL.NewList(id, ::GL::COMPILE)
-        yield
-        ::GL.EndList
-      end
-
-      def gl_call_list(id, x, y, z, color=nil, &block)
-        return super unless gl_available?
-        draw_gl(x, y, z, color, block) do
-          ::GL.CallList(id)
-        end
-      end
-
       def gl_supported?
         (Gtk::GL::BUILD_VERSION <=> [1, 2, 0]) >= 0
       end

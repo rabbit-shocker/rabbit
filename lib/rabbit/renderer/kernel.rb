@@ -191,14 +191,6 @@ module Rabbit
         [params["pole_width"] + params["flag_width"], pole_height]
       end
 
-      def gl_compile(id)
-        not_support_method("gl_compile")
-      end
-
-      def gl_call_list(id, x, y, z, color=nil)
-        not_support_method("gl_call_list")
-      end
-
       def gl_supported?
         false
       end
@@ -209,11 +201,6 @@ module Rabbit
 
       def z_view
         5.0
-      end
-
-      def new_list_id
-        @list_id += 1
-        @list_id
       end
 
       private

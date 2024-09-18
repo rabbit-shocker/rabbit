@@ -93,9 +93,6 @@ module Rabbit
     def_delegators(:@renderer, :draw_poppler_page)
     def_delegators(:@renderer, :draw_link)
 
-    def_delegators(:@renderer, :gl_compile, :gl_call_list)
-    def_delegators(:@renderer, :new_list_id)
-
     def_delegators(:@renderer, :z_far, :z_view)
 
     def_delegators(:@renderer, :flag_size)

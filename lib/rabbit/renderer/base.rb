@@ -66,7 +66,6 @@ module Rabbit
         @page_margin_bottom = nil
         @whiteout = false
         @blackout = false
-        @list_id = 0
         @adjustment_x = 0
         @adjustment_y = 0
         @progress_foreground = nil
