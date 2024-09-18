@@ -75,31 +75,31 @@ module Rabbit
         range = [size, other.size].min unless range
         (0...range).inject(Vector.new){|ret, i| ret << self[i] - other[i]}
       end
-      
+
       def vcross(other)
         dst = Vector.new
         dst << (self[1] * other[2]) - (self[2] * other[1])
         dst << (self[2] * other[0]) - (self[0] * other[2])
         dst << (self[0] * other[1]) - (self[1] * other[0])
       end
-      
+
       def vlength
         Math.sqrt(inject(0){|ret, i| ret + i ** 2})
       end
-      
+
       def vscale(div); collect{|v| v *= div}; end
       def vnormal; vscale(1.0 / vlength); end
-      
+
       def vdot(other, range = nil)
         range = [size, other.size].min unless range
         (0...range).inject(0.0){|ret, i| ret + self[i] * other[i]}
       end
-      
+
       def vadd(other, range = nil)
         range = [size, other.size].min unless range
         (0...range).inject(Vector.new){|ret, i| ret << self[i] + other[i]}
       end
-      
+
       #
       # Quaternions always obey:  a^2 + b^2 + c^2 + d^2 = 1.0
       # If they don't add up to 1.0, dividing by their magnitued will
@@ -115,7 +115,7 @@ module Rabbit
       def normalize_quat
         collect{|q| q = q / inject(0){|ret, i| ret + i ** 2}}
       end
-      
+
       # Build a rotation matrix, given a quaternion rotation.
       def build_rotmatrix
         m = []
@@ -131,7 +131,7 @@ module Rabbit
         m << [0.0, 0.0, 0.0, 1.0]
         m
       end
-      
+
       # Given an axis and angle, compute quaternion.
       def axis_to_quat(phi)
         b, c, d = self.vnormal.vscale(Math.sin(phi/2.0))
@@ -143,7 +143,7 @@ module Rabbit
       end
     end
 
-    # 
+    #
     # This size should really be based on the distance from the center of
     # rotation to the point on the object underneath the mouse.  That
     # point would then track the mouse as closely as possible.  This is a
@@ -157,7 +157,7 @@ module Rabbit
       if (p1x == p2x && p1y == p2y)
         return Vector.new([0.0, 0.0, 0.0, 1.0])
       end
-    
+
       # First, figure out z-coordinates for projection of P1 and P2 to
       # deformed sphere
       p1 = Vector.new([p1x, p1y, tb_project_to_sphere(SIZE, p1x, p1y)])
@@ -165,19 +165,19 @@ module Rabbit
 
       # Now, we want the cross product of P1 and P2
       a = p2.vcross(p1)
-      
+
       # Figure out how much to rotate around that axis.
       d = p1.vsub(p2)
       t = d.vlength / (2.0 * SIZE)
-      
+
       # Avoid problems with out-of-control values...
       t = 1.0 if (t > 1.0)
       t = -1.0 if (t < -1.0)
       phi = 2.0 * Math.asin(t)
-      
+
       a.axis_to_quat(phi)
     end
-    
+
     #
     # Project an x,y pair onto a sphere of radius r OR a hyperbolic sheet
     # if we are away from the center of the sphere.
@@ -192,20 +192,20 @@ module Rabbit
       end
       z
     end
-    
+
     #
     # Given two rotations, e2 and e2, expressed as quaternion rotations,
     # figure out the equivalent single rotation and stuff it into dest.
-    # 
+    #
     # This routine also normalizes the result every RENORM_COUNT times it is
     # called, to keep error from creeping in.
-    # 
+    #
     # NOTE: This routine is written so that q1 or q2 may be the same
     # as dest (or each other).
     #
-    
+
     RENORM_COUNT = 97
-    
+
     @@quats_count = 0
     def add_quats(q1, q2)
       t1 = q1.vscale(q2[3])
@@ -213,9 +213,9 @@ module Rabbit
       t3 = q2.vcross(q1)
       tf = t1.vadd(t2)
       tf = t3.vadd(tf)
-      
+
       tf[3] = q1[3] * q2[3] - q1.vdot(q2, 3)
-      
+
       @@quats_count += 1
       ret = tf
       if (@@quats_count > RENORM_COUNT)
