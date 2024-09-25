@@ -44,16 +44,15 @@ module Gtk
     end
   end
 
-  class Widget
+  unless const_defined?(:Native)
     # For GTK 3
-    unless method_defined?(:surface)
+    #
+    # GTK 4 renames Gdk::Window to Gdk::Surface
+    class Widget
       def native
         self
       end
-    end
 
-    # GTK 4 renames Gdk::Window to Gdk::Surface
-    unless method_defined?(:surface)
       alias_method :surface, :window
     end
   end
