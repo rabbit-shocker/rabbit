@@ -79,7 +79,11 @@ module Rabbit
 
       def attach_to(window, container=nil)
         super
-        @window.add(@fixed)
+        if container
+          container.add(@fixed)
+        else
+          @window.child = @fixed
+        end
         @fixed.show
         attach_key(@window)
       end
