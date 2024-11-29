@@ -51,7 +51,7 @@ module Rabbit
           @source = _read
           case @encoding
           when nil
-            enc = guess_encoding(@source)
+            enc = guess_encoding(@source) || Encoding::ASCII_8BIT
           when Encoding
             enc = @encoding
           else
@@ -159,6 +159,7 @@ module Rabbit
           Encoding::UTF_16LE,
         ]
         candidates.find do |candidate|
+          next if candidate.dummy?
           string.force_encoding(candidate).valid_encoding?
         end
       end
