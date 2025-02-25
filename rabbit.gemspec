@@ -68,6 +68,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
 
   spec.add_runtime_dependency("coderay", ">= 1.0.0")
   spec.add_runtime_dependency("csv")
+  spec.add_runtime_dependency("drb")
   spec.add_runtime_dependency("gdk_pixbuf2", ">= 3.0.9")
   spec.add_runtime_dependency("gettext", ">= 3.0.1")
   # spec.add_runtime_dependency("gstreamer")
