@@ -5,7 +5,7 @@ proc_name = "gl-sample"
 match(Slide) do |slides|
 
   slides.delete_post_draw_proc_by_name(proc_name)
-  
+
   list_id = nil
 
   slides.each do |slide|
