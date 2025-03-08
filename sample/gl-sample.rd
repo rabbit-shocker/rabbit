@@ -1,9 +1,7 @@
-= GLサンプル
+= GL sample
 
-: subtitle
-   GLのテスト
 : author
-   須藤功平
+   Sutou Kouhei
 : theme
    gl-sample
 
