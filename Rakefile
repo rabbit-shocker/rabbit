@@ -37,22 +37,6 @@ helper.install
 spec = helper.gemspec
 version = spec.version.to_s
 
-def force_array(enumerable)
-  array = []
-  enumerable.each do |element|
-    array << element
-  end
-  array
-end
-
-def spec.files
-  @files = force_array(super)
-end
-
-def spec.extra_rdoc_files
-  @extra_rdoc_files = force_array(super)
-end
-
 GetText::Tools::Task.define do |task|
   task.spec = spec
   task.files -= Dir.glob("sample/**/*.*")
