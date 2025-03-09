@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2008-2023  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2008-2025  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "find"
-require "rubygems"
-require "rubygems/package_task"
 require "bundler/gem_helper"
 require "gettext/tools/task"
 
@@ -60,10 +58,6 @@ GetText::Tools::Task.define do |task|
   task.files -= Dir.glob("sample/**/*.*")
   task.files -= Dir.glob("test/**/*.*")
   task.mo_base_directory = "data/locale"
-end
-
-Gem::PackageTask.new(spec) do |package|
-  package.need_tar_gz = true
 end
 
 rule '.png' => ['.svg'] do |t|
