@@ -4,6 +4,73 @@ title: News
 ---
 {% raw %}
 
+== 3.0.4: 2025-03-10
+
+=== Improvements
+
+==== ドキュメント
+
+  * Added metadata for title slide.
+    * ((<GH-165|URL:https://github.com/rabbit-shocker/rabbit/issues/165>))
+    * Patch by makicamel
+
+==== rabbit
+
+  * Draw: Added support for dash.
+
+  * Highlight: Dropped support for highlighting by Emacs.
+
+  * RD: Added support for Font Awesome.
+
+  * Chart: Added support for
+    ((<Charty|URL:https://github.com/red-data-tools/charty>))
+
+  * Info window: Changed to set color explicitly.
+
+  * Removed NKF dependency.
+
+  * Added support for Ruby 3.4.
+    * ((<GH-170|URL:https://github.com/rabbit-shocker/rabbit/issues/170>))
+    * Patch by HASUMI Hitoshi
+
+  * Dropped support for Clutter.
+
+  * GL: Removed methods that render build-in 3D objects.
+
+=== Fixes
+
+==== All
+
+  * Fixed typos.
+    * ((<GH-159|URL:https://github.com/rabbit-shocker/rabbit/issues/159>))
+    * Patch by kojix2
+
+==== Docs
+
+  * Fixed the default public level.
+    * ((<GH-162|URL:https://github.com/rabbit-shocker/rabbit/issues/162>))
+    * Patch by makicamel
+
+==== rabbit
+
+  * Fixed a bug that timer isn't reset by ((%Alt+t%)).
+    * ((<GH-158|URL:https://github.com/rabbit-shocker/rabbit/issues/158>))
+    * Reported by Kingdon Barrett
+
+  * dRuby: Fixed a crash bug with slide move operations on macOS.
+    * ((<GH-161|URL:https://github.com/rabbit-shocker/rabbit/issues/161>))
+    * Reported by makicamel
+
+=== Thanks
+
+  * Kingdon Barrett
+
+  * kojix2
+
+  * makicamel
+
+  * HASUMI Hitoshi
+
 == 3.0.3: 2023-07-02
 
 Minor bug fix release.

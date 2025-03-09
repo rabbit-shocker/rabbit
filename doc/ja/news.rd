@@ -5,6 +5,73 @@ apply_data: false
 ---
 {% raw %}
 
+== 3.0.4: 2025-03-10
+
+=== 改良
+
+==== ドキュメント
+
+  * タイトルスライドのメタデータを追加。
+    * ((<GH-165|URL:https://github.com/rabbit-shocker/rabbit/issues/165>))
+    * makicamelさんがパッチ提供
+
+==== rabbit
+
+  * 描画：点線をサポート。
+
+  * ハイライト：Emacsを使ったハイライト機能を削除。
+
+  * RD：Font Awesomeをサポート。
+
+  * 図：((<Charty|URL:https://github.com/red-data-tools/charty>))をサ
+    ポート。
+
+  * 情報ウィンドウ：明示的に色を設定するように変更。
+
+  * NKFへの依存を削除。
+
+  * Ruby 3.4対応。
+    * ((<GH-170|URL:https://github.com/rabbit-shocker/rabbit/issues/170>))
+    * HASUMI Hitoshiさんがパッチ提供
+
+  * Clutterサポートを削除。
+
+  * GL：組み込みの3Dオブジェクトを描画するメソッドを削除。
+
+=== 修正
+
+==== 全体
+
+  * 誤字を修正。
+    * ((<GH-159|URL:https://github.com/rabbit-shocker/rabbit/issues/159>))
+    * kojix2さんがパッチ提供
+
+==== ドキュメント
+
+  * デフォルトの公開レベルを修正。
+    * ((<GH-162|URL:https://github.com/rabbit-shocker/rabbit/issues/162>))
+    * makicamelさんがパッチ提供
+
+==== rabbit
+
+  * ((%Alt+t%))でタイマーがリセットされない問題を修正。
+    * ((<GH-158|URL:https://github.com/rabbit-shocker/rabbit/issues/158>))
+    * Kingdon Barrettさんが報告
+
+  * dRuby：macOSでスライド移動操作時にクラッシュする問題を修正。
+    * ((<GH-161|URL:https://github.com/rabbit-shocker/rabbit/issues/161>))
+    * makicamelさんが報告
+
+=== 感謝
+
+  * Kingdon Barrettさん
+
+  * kojix2さん
+
+  * makicamelさん
+
+  * HASUMI Hitoshiさん
+
 == 3.0.3: 2023-07-02
 
 マイナーバグフィックスリリース。
