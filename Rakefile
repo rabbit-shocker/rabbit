@@ -165,7 +165,7 @@ end
 task :update do
   update_command = ["git", "pull", "--quiet", "--rebase"]
   sh(*update_command)
-  related_projects = ["rabbirack", "rabbiter", "rabwii"]
+  related_projects = ["rabbirack", "rabwii"]
   related_projects.each do |project|
     project_dir = "../#{project}"
     next unless File.exist?(project_dir)
@@ -216,7 +216,6 @@ namespace :doc do
   related_products = [
     "rabwii",
     "rabbirack",
-    "rabbiter",
   ]
   related_product_directories = []
   related_products.each do |related_product|
