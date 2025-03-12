@@ -1,4 +1,4 @@
-# Copyright (C) 2023  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2023-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,8 +17,7 @@
 name: Release
 on:
   push:
-    tags:
-      - "*"
+  pull_request:
 jobs:
   github:
     name: GitHub
@@ -26,6 +25,23 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+      - name: Install dependencies
+        run: |
+          bundle install
+      - name: Install additional dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y -V \
+            gimp \
+            inkscape
+      - name: Generate docs
+        run: |
+          export LOCAL_DESTINATION_PATH="${PWD}/docs"
+          bundle exec html:publish:local
+          tar cfz docs.tar.gz "${LOCAL_DESTINATION_PATH}"
       - name: Extract release note
         run: |
           ruby \
@@ -34,14 +50,16 @@ jobs:
                        gsub(/^(=+)/) {$1.gsub("=", "#")}. \
                        gsub(/\(\(<(.+?)\|URL:(.+?)>\)\)/) {$1}. \
                        gsub(/\(\({(.+?)}\)\)/, "`\\1`"))' \
-            doc/en/news.rd > release-note.md
+            doc/en/news.rd | tee release-note.md
       - name: Upload to release
+        if: github.ref_type == 'tag'
         run: |
           title=$(head -n1 release-note.md | sed -e 's/^## //')
           tail -n +2 release-note.md > release-note-without-version.md
           gh release create ${GITHUB_REF_NAME} \
             --discussion-category Announcements \
             --notes-file release-note-without-version.md \
-            --title "${title}"
+            --title "${title}" \
+            docs.tar.gz
         env:
           GH_TOKEN: ${{ github.token }}
