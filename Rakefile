@@ -25,7 +25,7 @@ task :default => :test
 base_dir = File.expand_path(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
-rsync_local_path = "~/public_html/"
+rsync_local_path = ENV["LOCAL_DESTINATION_PATH"] || "~/public_html/"
 rsync_base_path = "rabbit@rabbit-shocker.org:#{rsync_local_path}"
 
 helper = Bundler::GemHelper.new(base_dir)
@@ -34,6 +34,17 @@ def helper.version_tag
 end
 
 helper.install
+
+release_task = Rake.application["release"]
+# We use Trusted Publishing.
+release_task.prerequisites.delete("build")
+release_task.prerequisites.delete("release:rubygem_push")
+release_task_comment = release_task.comment
+if release_task_comment
+  release_task.clear_comments
+  release_task.comment = release_task_comment.gsub(/ and build.*$/, "")
+end
+
 spec = helper.gemspec
 version = spec.version.to_s
 

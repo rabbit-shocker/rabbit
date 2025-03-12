@@ -1,6 +1,6 @@
 # -*- ruby -*-
 #
-# Copyright (C) 2011-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2011-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,12 +18,17 @@
 
 source "https://rubygems.org"
 
+plugin "rubygems-requirements-system"
+
 gemspec
 
-group :development do
+group :development, :docs, :test do
   gem "bundler"
-  gem "jekyll"
   gem "rake"
+end
+
+group :docs do
+  gem "jekyll"
 end
 
 group :test do
