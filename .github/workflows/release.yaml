@@ -1,4 +1,4 @@
-# Copyright (C) 2023  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2023-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,8 +17,7 @@
 name: Release
 on:
   push:
-    tags:
-      - "*"
+  pull_request:
 jobs:
   github:
     name: GitHub
@@ -36,6 +35,7 @@ jobs:
                        gsub(/\(\({(.+?)}\)\)/, "`\\1`"))' \
             doc/en/news.rd > release-note.md
       - name: Upload to release
+        if: github.ref_type == 'tag'
         run: |
           title=$(head -n1 release-note.md | sed -e 's/^## //')
           tail -n +2 release-note.md > release-note-without-version.md
@@ -45,3 +45,30 @@ jobs:
             --title "${title}"
         env:
           GH_TOKEN: ${{ github.token }}
+  rubygems:
+    name: RubyGems
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      # We want to use this but this doesn't work.
+      # id-token: ${{ github.ref_type == 'tag' && 'write' || 'read' }}
+      id-token: write
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+      - name: Install dependencies
+        run: |
+          bundle install
+      - name: Build gem
+        if: github.ref_type != 'tag'
+        run: |
+          bundle exec rake build
+      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+        if: github.ref_type == 'tag'
+      - name: Push gems
+        if: github.ref_type == 'tag'
+        run: |
+          bundle exec rake release:rubygem_push
