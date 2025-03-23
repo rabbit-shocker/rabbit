@@ -200,12 +200,35 @@ EOC
     task :remote do
       Dir.mktmpdir do |dir|
         chdir(dir) do
-          url = "https://github.com/rabbit-shocker/rabbit/releases/download/" +
-                "#{version}/docs.tar.gz"
-          URI.open(url) do |response|
-            File.open("docs.tar.gz", "wb") do |output|
-              IO.copy_stream(response, output)
+          if (ENV["USE_RELEASE"] || "yes") == "yes"
+            url = "https://github.com/rabbit-shocker/rabbit/releases/download/" +
+                  "#{version}/docs.tar.gz"
+            URI.open(url) do |response|
+              File.open("docs.tar.gz", "wb") do |output|
+                IO.copy_stream(response, output)
+              end
             end
+          else
+            workflow_id = IO.pipe do |input, output|
+              sh("gh",
+                 "run",
+                 "list",
+                 "--jq", ".[].databaseId",
+                 "--json", "databaseId",
+                 "--limit", "1",
+                 "--repo", "rabbit-shocker/rabbit",
+                 "--status", "success",
+                 "--workflow", "release.yaml",
+                 out: output)
+              output.close
+              input.read.chomp
+            end
+            sh("gh",
+               "run",
+               "download",
+               "--repo", "rabbit-shocker/rabbit",
+               workflow_id)
+            mv("docs/docs.tar.gz", "./")
           end
           sh("tar", "xf", "docs.tar.gz")
           sh("rsync",
