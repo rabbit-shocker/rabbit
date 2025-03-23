@@ -189,26 +189,6 @@ end
 task :build => "gettext"
 task :package => "gettext"
 
-namespace :package do
-  desc "Upload tar.gz."
-  task :upload => :package do
-    htaccess = ".htaccess"
-    rabbit_tar_gz = "rabbit.tar.gz"
-    current_rabbit_tar_gz = "rabbit-#{version}.tar.gz"
-    File.open(htaccess, "w") do |file|
-      file.puts("Options +Indexes +FollowSymlinks")
-    end
-    ln_s(current_rabbit_tar_gz, rabbit_tar_gz)
-    sh("rsync", "-avz",
-       htaccess,
-       rabbit_tar_gz,
-       "pkg/#{current_rabbit_tar_gz}",
-       "#{rsync_base_path}download/")
-    rm(rabbit_tar_gz)
-    rm(htaccess)
-  end
-end
-
 namespace :github do
   namespace :post_receiver do
     desc "Restart GitHub POST receiver"
