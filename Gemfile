@@ -18,6 +18,8 @@
 
 source "https://rubygems.org"
 
+plugin "rubygems-requirements-system"
+
 gemspec
 
 group :development, :docs, :test do
