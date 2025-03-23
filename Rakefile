@@ -23,7 +23,6 @@ require "gettext/tools/task"
 task :default => :test
 
 base_dir = File.expand_path(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(base_dir, 'lib'))
 
 rsync_local_path = ENV["LOCAL_DESTINATION_PATH"] || "~/public_html/"
 rsync_base_path = "rabbit@rabbit-shocker.org:#{rsync_local_path}"
