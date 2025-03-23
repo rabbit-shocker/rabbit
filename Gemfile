@@ -25,6 +25,7 @@ gemspec
 group :development, :docs, :test do
   gem "bundler"
   gem "rake"
+  gem "open-uri"
 end
 
 group :docs do

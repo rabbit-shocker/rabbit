@@ -17,6 +17,9 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "find"
+require "open-uri"
+require "tmpdir"
+
 require "bundler/gem_helper"
 require "gettext/tools/task"
 
@@ -186,24 +189,44 @@ EOC
 
   namespace :publish do
     dependencies = ["html:generate"]
-    rsync_command_line = [
-      "rsync", "-avz", "--delete",
-      "--exclude", "*.svn",
+    exclude_paths = [
       "--exclude", "*-raw.png",
       "--exclude", "*.svg",
       "--exclude", "*.rab",
       "--exclude", "/download/",
       "--exclude", "/samples/",
-      "doc/_site/",
     ]
     desc "publish HTML to remote."
-    task :remote => dependencies do
-      sh(*(rsync_command_line + [rsync_base_path]))
+    task :remote do
+      Dir.mktmpdir do |dir|
+        chdir(dir) do
+          url = "https://github.com/rabbit-shocker/rabbit/releases/download/" +
+                "#{version}/docs.tar.gz"
+          URI.open(url) do |response|
+            File.open("docs.tar.gz", "wb") do |output|
+              IO.copy_stream(response, output)
+            end
+          end
+          sh("tar", "xf", "docs.tar.gz")
+          sh("rsync",
+             "-avz",
+             # "--delete",
+             # "--dry-run",
+             *exclude_paths,
+             "docs/",
+             rsync_base_path)
+        end
+      end
     end
 
     desc "publish HTML to local."
     task :local => dependencies do
-      sh(*(rsync_command_line + [File.expand_path(rsync_local_path)]))
+      sh("rsync",
+         "-avz",
+         "--delete",
+         *exclude_paths,
+         "doc/_site/",
+         File.expand_path(rsync_local_path))
     end
   end
 end
