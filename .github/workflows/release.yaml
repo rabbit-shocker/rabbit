@@ -25,24 +25,64 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: rabbit
+      - uses: actions/checkout@v4
+        with:
+          repository: rabbit-shocker/rabbirack
+          path: rabbirack
+      - uses: actions/checkout@v4
+        with:
+          repository: rabbit-shocker/rabwii
+          path: rabwii
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+      - name: Install dependencies
+        run: |
+          cd rabbit
+          bundle install
+      - name: Install additional dependencies
+        run: |
+          cd rabbit
+          sudo apt install -y -V \
+            at-spi2-core \
+            gimp \
+            inkscape \
+            xvfb
+      - name: Generate docs
+        run: |
+          cd rabbit
+          export LOCAL_DESTINATION_PATH="${PWD}/docs"
+          dbus-run-session \
+            xvfb-run --server-args "-screen 0 640x480x24" \
+              bundle exec rake html:publish:local
+          tar cfz ../docs.tar.gz docs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs.tar.gz
       - name: Extract release note
         run: |
+          cd rabbit
           ruby \
             -e 'print("## Rabbit "); \
                 puts(ARGF.read.split(/^== /)[1]. \
                        gsub(/^(=+)/) {$1.gsub("=", "#")}. \
                        gsub(/\(\(<(.+?)\|URL:(.+?)>\)\)/) {$1}. \
                        gsub(/\(\({(.+?)}\)\)/, "`\\1`"))' \
-            doc/en/news.rd > release-note.md
+            doc/en/news.rd | tee release-note.md
       - name: Upload to release
         if: github.ref_type == 'tag'
         run: |
+          cd rabbit
           title=$(head -n1 release-note.md | sed -e 's/^## //')
           tail -n +2 release-note.md > release-note-without-version.md
           gh release create ${GITHUB_REF_NAME} \
             --discussion-category Announcements \
             --notes-file release-note-without-version.md \
-            --title "${title}"
+            --title "${title}" \
+            ../docs.tar.gz
         env:
           GH_TOKEN: ${{ github.token }}
   rubygems:
