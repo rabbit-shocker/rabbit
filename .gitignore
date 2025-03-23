@@ -5,6 +5,10 @@
 /doc/_site/
 /doc/css/style.css
 /doc/images/screenshots/
+/doc/en/rabbirack
+/doc/en/rabwii
+/doc/ja/rabbirack
+/doc/ja/rabwii
 /sample/.tmp/
 /po/*/rabbit.po~
 /po/*/*.edit.po

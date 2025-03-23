@@ -76,10 +76,46 @@ namespace :entity do
   end
 end
 
+languages = ["ja", "en"]
+related_products = [
+  "rabwii",
+  "rabbirack",
+]
+related_product_paths = []
+related_products.each do |related_product|
+  related_product_directory = "../#{related_product}"
+  related_product_paths << related_product_directory
+  directory related_product_directory do
+    sh("git",
+       "clone",
+       "https://github.com/rabbit-shocker/#{related_product}.git",
+       related_product_directory)
+  end
+
+  languages.each do |language|
+    related_product_link = "doc/#{language}/#{related_product}"
+    related_product_paths << related_product_link
+    file related_product_link do
+      sh("ln",
+         "-s",
+         "../../../#{related_product}/doc/#{language}",
+         related_product_link)
+    end
+  end
+end
+
+namespace :doc do
+  desc "Run documentation server"
+  task :server => related_product_paths do
+    Dir.chdir("doc") do
+      sh("jekyll", "server", "--watch")
+    end
+  end
+end
+
 namespace :html do
   screenshots = []
 
-  languages = ["ja", "en"]
   languages.each do |lang|
     screenshots_dir = "doc/images/screenshots/#{lang}"
     directory screenshots_dir
@@ -142,7 +178,7 @@ EOC
   end
 
   desc "generate HTML and needed files."
-  task :generate => screenshots do
+  task :generate => related_product_paths + screenshots do
     Dir.chdir("doc") do
       rm_rf("_site")
       ruby("-S", "jekyll", "build")
@@ -201,29 +237,4 @@ end
 desc "Run test"
 task :test do
   ruby("test/run-test.rb")
-end
-
-namespace :doc do
-  related_products = [
-    "rabwii",
-    "rabbirack",
-  ]
-  related_product_directories = []
-  related_products.each do |related_product|
-    related_product_directory = "../#{related_product}"
-    related_product_directories << related_product_directory
-    directory related_product_directory do
-      sh("git",
-         "clone",
-         "https://github.com/rabbit-shocker/#{related_product}.git",
-         related_product_directory)
-    end
-  end
-
-  desc "Run documentation server"
-  task :server => related_product_directories do
-    Dir.chdir("doc") do
-      sh("jekyll", "server", "--watch")
-    end
-  end
 end
