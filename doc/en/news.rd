@@ -8,7 +8,7 @@ title: News
 
 === Improvements
 
-==== ドキュメント
+==== Documentation
 
   * Added metadata for title slide.
     * ((<GH-165|URL:https://github.com/rabbit-shocker/rabbit/issues/165>))
