@@ -4,6 +4,20 @@ title: News
 ---
 {% raw %}
 
+== 3.0.5: 2025-03-30
+
+=== Improvements
+
+==== rabbit
+
+  * Improved source content detection.
+    * ((<GH-172|URL:https://github.com/rabbit-shocker/rabbit/issues/172>))
+    * Reported by NAITOH Jun
+
+=== Thanks
+
+  * NAITOH Jun
+
 == 3.0.4: 2025-03-23
 
 === Improvements

@@ -5,6 +5,20 @@ apply_data: false
 ---
 {% raw %}
 
+== 3.0.5: 2025-03-30
+
+=== 改良
+
+==== rabbit
+
+  * ソースの内容の判別方法を改良。
+    * ((<GH-172|URL:https://github.com/rabbit-shocker/rabbit/issues/172>))
+    * NAITOH Junさんが報告
+
+=== Thanks
+
+  * NAITOH Junさん
+
 == 3.0.4: 2025-03-23
 
 === 改良
