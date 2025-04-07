@@ -342,7 +342,7 @@ module Rabbit
             end
           else
             logger = @canvas.logger
-            Ext::Rouge.highlight(language, content, logger)
+            Ext::Rouge.highlight(language, content, element.attr, logger)
           end
         end
 

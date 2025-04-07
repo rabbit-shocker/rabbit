@@ -168,7 +168,7 @@ module Rabbit
             src, prop = parse_source(source)
             logger = visitor.logger
 
-            result = Parser::Ext::Rouge.highlight(lang, src, logger)
+            result = Parser::Ext::Rouge.highlight(lang, src, prop, logger)
             result || default_ext_block_verbatim(label, src, src, visitor)
           end
 

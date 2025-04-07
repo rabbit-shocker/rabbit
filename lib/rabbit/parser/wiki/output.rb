@@ -282,7 +282,7 @@ module Rabbit
           result = nil
 
           if lang
-            result = Ext::Rouge.highlight(lang, contents, @canvas.logger)
+            result = Ext::Rouge.highlight(lang, contents, {}, @canvas.logger)
           end
 
           if result
@@ -531,7 +531,7 @@ module Rabbit
 
           def rouge(lang, source)
             logger = @output.canvas.logger
-            Ext::Rouge.highlight(lang, source, logger)
+            Ext::Rouge.highlight(lang, source, {}, logger)
           end
 
           def tag(name, value=nil)

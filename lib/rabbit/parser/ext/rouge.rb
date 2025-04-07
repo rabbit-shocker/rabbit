@@ -26,10 +26,13 @@ module Rabbit
         include GetText
 
         module_function
-        def highlight(lang, text, logger)
+        def highlight(lang, text, prop, logger)
           lexer = ::Rouge::Lexer.find(lang).new
           formatter = RabbitFormatter.new
           block = Element::SyntaxHighlightingBlock.new
+          prop.each do |key, value|
+            block.user_property[key] = value
+          end
           text_container = Element::TextContainer.new
           formatter.format(lexer.lex(text.strip)) do |element|
             text_container << element
