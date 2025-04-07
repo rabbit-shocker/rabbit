@@ -42,7 +42,15 @@ match("**", PreformattedBlock) do |blocks|
   blocks.margin_top = @space
   blocks.margin_bottom = @space
 
-  blocks.keep_in_size if @preformatted_keep_in_size
+  blocks.each do |block|
+    keep_in_size = block.user_property["keep-in-size"]
+    if keep_in_size.nil?
+      keep_in_size = @preformatted_keep_in_size
+    else
+      keep_in_size = (keep_in_size == "true")
+    end
+    block.keep_in_size if keep_in_size
+  end
 
   draw_frame(blocks, params)
 end
