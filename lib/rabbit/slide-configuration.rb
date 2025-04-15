@@ -98,8 +98,8 @@ module Rabbit
       @vimeo_id          = nil
       @youtube_id        = nil
       @author            = nil
-      @width             = 800
-      @height            = 600
+      @width             = 1920
+      @height            = 1080
       @source_code_uri   = nil
     end
 
