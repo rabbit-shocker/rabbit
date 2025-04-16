@@ -59,6 +59,7 @@ module Rabbit
         Gem::Specification.new do |spec|
           spec.name = @slide.gem_name
           spec.version = @slide.version
+          spec.date = @slide.presentation_date
           spec.homepage = homepage
           spec.authors = [@slide.author.name]
           spec.email = [@slide.author.email]
