@@ -69,6 +69,10 @@ module Rabbit
           if @slide.source_code_uri
             spec.metadata["source_code_uri"] = @slide.source_code_uri
           end
+          markup_language = @slide.author.markup_language
+          if markup_language
+            spec.metadata["markup_language"] = markup_language.to_s
+          end
 
           slide_conf_path = @slide.path
           spec.files = [".rabbit", slide_conf_path, "Rakefile"]
