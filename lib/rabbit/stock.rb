@@ -11,7 +11,7 @@ module Rabbit
     @@loaded = false
 
     module_function
-    def init(canvas)
+    def init(logger)
       return if @@loaded
       @@loaded = true
       Gtk::Stock.add(RABBIT.to_sym, N_("Rabbit"))
@@ -24,7 +24,7 @@ module Rabbit
         factory.add(RABBIT, Gtk::IconSet.new(loader.pixbuf))
         factory.add_default
       rescue LoadError
-        canvas.logger.warn($!)
+        logger.warn($!)
       end
     end
   end

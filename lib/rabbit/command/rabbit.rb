@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ module Rabbit
           begin
             succeeded = catch do |abort_tag|
               @abort_tag = abort_tag
+              ::Rabbit::Stock.init(@logger)
               __send__("do_#{@options.action}")
             end
           rescue

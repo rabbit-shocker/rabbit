@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,7 +46,6 @@ module Rabbit
       end
 
       def action_group(canvas, name="Rabbit")
-        Stock.init(canvas)
         group = Gtk::ActionGroup.new(name)
         group.set_translate_func(&method(:_))
         group.add_actions(to_gtk_actions(@@actions, canvas))
