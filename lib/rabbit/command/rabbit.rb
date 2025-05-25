@@ -38,14 +38,14 @@ module Rabbit
         GC.disable
         require "rbconfig"
 
-        require "rabbit/console"
-        require "rabbit/source"
-        require "rabbit/renderer"
-        require "rabbit/front"
+        require_relative "../console"
+        require_relative "../front"
+        require_relative "../renderer"
+        require_relative "../source"
 
         @options, @logger = parse_command_line_arguments(arguments)
 
-        require "rabbit/canvas"
+        require_relative "../canvas"
         GC.enable
 
         application = ::Rabbit.application
