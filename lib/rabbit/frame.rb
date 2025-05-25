@@ -280,7 +280,7 @@ module Rabbit
     def_null_methods(:icon_list, :icon_list=, :set_icon_list)
     def_null_methods(:update_title, :geometry, :geometry=)
 
-    def_null_methods(:fullscreen?, :quit)
+    def_null_methods(:quit)
 
     def fullscreen_available?
       false
@@ -294,6 +294,10 @@ module Rabbit
     end
 
     def in_terminal?
+      false
+    end
+
+    def fullscreen?
       false
     end
   end
