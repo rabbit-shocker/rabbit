@@ -174,7 +174,14 @@ module Rabbit
       def draw_action_image(renderer, act, x, y)
         icon = act&.icon
         if icon
-          pixbuf = @icon_theme.load_icon(icon.names[0], 48, 0)
+          if icon.respond_to?(:bytes)
+            loader = GdkPixbuf::PixbufLoader.new
+            loader.set_size(48, 48)
+            loader.last_write(icon.bytes.to_s)
+            pixbuf = loader.pixbuf
+          else
+            pixbuf = @icon_theme.load_icon(icon.names[0], 48, 0)
+          end
           x -= pixbuf.width / 2.0
           y -= pixbuf.height / 2.0
           renderer.draw_pixbuf(pixbuf, x, y)

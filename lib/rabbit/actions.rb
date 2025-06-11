@@ -14,7 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/rabbit"
+require "rabbit/icon"
 
 module Rabbit
   Action = Struct.new(:name,
@@ -23,6 +23,7 @@ module Rabbit
                       :update_state,
                       :update_enabled,
                       :label,
+                      :icon,
                       :icon_name,
                       :activate) do
     def update
@@ -35,11 +36,11 @@ module Rabbit
     end
 
     def icon
-      return nil if icon_name.nil?
-      Gio::ThemedIcon.new(icon_name)
+      self[:icon] || build_icon
     end
 
-    private def build_gaction
+    private
+    def build_gaction
       state = nil
       if initial_state.nil?
         state = update_state.call if update_state
@@ -62,6 +63,11 @@ module Rabbit
       return nil if value.nil?
       return value if value.is_a?(GLib::Variant)
       GLib::Variant.new(value, parameter_type)
+    end
+
+    def build_icon
+      return nil if icon_name.nil?
+      Gio::ThemedIcon.new(icon_name)
     end
   end
 
@@ -114,6 +120,7 @@ module Rabbit
                      update_state: nil,
                      update_enabled: nil,
                      label: nil,
+                     icon: nil,
                      icon_name: nil)
       parameter_type = GLib::VariantType.new(parameter_type) if parameter_type
       activate = lambda do |action, parameter|
@@ -127,6 +134,7 @@ module Rabbit
                           update_state,
                           update_enabled,
                           label,
+                          icon,
                           icon_name,
                           activate)
       @actions[name] = action
@@ -197,7 +205,7 @@ module Rabbit
       build_action("Iconify",
                    update_state: lambda {false},
                    label: _("Iconify"),
-                   icon_name: "rabbit") do
+                   icon: Icon.rabbit) do
         @canvas.iconify
       end
       build_action("ToggleFullscreen",
