@@ -114,10 +114,10 @@ module Rabbit
 
         def init_number_keys
           no_mod = Gdk::ModifierType.new
-          mods = Utils.combination([
-                                    Gdk::ModifierType::CONTROL_MASK,
-                                    Gdk::ModifierType::MOD1_MASK,
-                                   ])
+          mods = Utils.power_set([
+                                   Gdk::ModifierType::CONTROL_MASK,
+                                   Gdk::ModifierType::MOD1_MASK,
+                                 ])
           mods.each do |mod|
             mod = mod.inject(no_mod) do |result, item|
               result | item

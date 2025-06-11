@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 require "rabbit/utils"
 
 class RabbitUtilsTest < Test::Unit::TestCase
-  def test_combination
-    assert_combination([], [])
-    assert_combination([[], [1]], [1])
-    assert_combination([[], [1], [2], [1, 2]], [1, 2])
-    assert_combination([[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
-                       [1, 2, 3])
+  def test_power_set
+    assert_power_set([[]], [])
+    assert_power_set([[], [1]], [1])
+    assert_power_set([[], [1], [2], [1, 2]], [1, 2])
+    assert_power_set([[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]],
+                     [1, 2, 3])
   end
 
   def test_parse_four_way
@@ -38,15 +38,15 @@ class RabbitUtilsTest < Test::Unit::TestCase
   end
 
   private
-  def assert_combination(expected, elements)
+  def assert_power_set(expected, elements)
     _wrap_assertion do
-      results = Rabbit::Utils.combination(elements)
-      assert_equal(normalize_combination_results(expected),
-                   normalize_combination_results(results))
+      results = Rabbit::Utils.power_set(elements)
+      assert_equal(normalize_power_set_results(expected),
+                   normalize_power_set_results(results))
     end
   end
 
-  def normalize_combination_results(results)
+  def normalize_power_set_results(results)
     results.collect {|result| result.sort}.sort
   end
 

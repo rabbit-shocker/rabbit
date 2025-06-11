@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -251,14 +251,17 @@ module Rabbit
       end
     end
 
-    def combination(elements)
-      return [] if elements.empty?
-      first, *rest = elements
-      results = combination(rest)
-      if results.empty?
-        [[], [first]]
+    def power_set(elements, &block)
+      if block_given?
+        0.step(elements.size) do |i|
+          elements.combination(i, &block)
+        end
       else
-        results + results.collect {|result| [first, *result]}
+        set = []
+        power_set(elements) do |s|
+          set << s
+        end
+        set
       end
     end
 
