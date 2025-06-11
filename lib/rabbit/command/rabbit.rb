@@ -58,7 +58,6 @@ module Rabbit
           begin
             succeeded = catch do |abort_tag|
               @abort_tag = abort_tag
-              ::Rabbit::Stock.init(@logger)
               __send__("do_#{@options.action}")
             end
           rescue
