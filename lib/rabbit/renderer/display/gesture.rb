@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -84,16 +84,16 @@ module Rabbit
           add_gesture_action(%w(L R), "FirstSlide")
           add_gesture_action(%w(U), "Quit")
 
-          add_gesture_action(%w(D), "ToggleIndexMode", &bg_proc)
-          add_gesture_action(%w(D U), "ToggleFullScreen", &bg_proc)
+          add_gesture_action(%w(D), "ToggleIndexMode")
+          add_gesture_action(%w(D U), "ToggleFullscreen")
           add_gesture_action(%w(LR), "ToggleGraffitiMode")
 
           add_gesture_action(%w(UL), "Redraw")
-          add_gesture_action(%w(UL D), "ReloadTheme", &bg_proc)
+          add_gesture_action(%w(UL D), "ReloadTheme")
         end
 
-        def add_gesture_action(sequence, action, &block)
-          @gesture.add_action(sequence, @canvas.action(action), &block)
+        def add_gesture_action(sequence, action)
+          @gesture.add_action(sequence, @canvas.actions.find_action(action))
         end
 
         def gesturing?

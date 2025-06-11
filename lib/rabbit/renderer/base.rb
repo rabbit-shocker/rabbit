@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -214,7 +214,22 @@ module Rabbit
       def toggle_info_window
       end
 
+      def info_window_showing?
+        false
+      end
+
       def toggle_spotlight
+      end
+
+      def spotlighting?
+        false
+      end
+
+      def toggle_magnifier
+      end
+
+      def magnifying?
+        false
       end
 
       def gl_available?

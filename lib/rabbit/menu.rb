@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "erb"
-require "stringio"
 
 require "rabbit/gtk"
 
@@ -23,61 +22,53 @@ require "rabbit/gettext"
 require "rabbit/utils"
 require "rabbit/theme/searcher"
 require "rabbit/image"
-require "rabbit/action"
+require "rabbit/actions"
 
 module Rabbit
   class Menu
     include ERB::Util
     include GetText
 
-    @@icon = nil
-
     def initialize(actions)
-      @merge = Gtk::UIManager.new
-      @merge.insert_action_group(actions, 0)
-      @jump_to_actions = nil
-      @jump_to_merge_id = nil
-      @theme_actions = nil
-      @theme_merge_id = nil
-      update_ui
+      @actions = actions
     end
 
     def attach(window)
-      window.add_accel_group(accel_group)
+      @window = window
     end
 
     def detach(window)
-      window.remove_accel_group(accel_group)
+      @window = nil
     end
 
     def update_menu(canvas)
-      update_jump_to_menu(canvas)
-      update_theme_menu(canvas)
-      Action.update_move_slide_action_status(canvas)
-      Action.update_graffiti_action_status(canvas)
-      Action.update_theme_action_status(canvas)
-      Action.update_quit_action_status(canvas)
-      @merge.ensure_update
-      show_tearoff
+      @popover_menu = Gtk::PopoverMenu.new
+      @popover_menu.modal = false
+      @menu_model = Gio::Menu.new
+      @popover_menu.insert_action_group("rabbit", @actions.group)
+      add_jump_to_actions(canvas)
+      add_theme_actions(canvas)
+      add_items(canvas)
+      @popover_menu.bind_model(@menu_model)
+      @popover_menu.relative_to = @window.child if @window
+      @popover_menu.pointing_to = Gdk::Rectangle.new(0, 0, 0, 0)
+
+      @actions.update_status
     end
 
-    def popup(button, time)
-      @menu.popup(nil, nil, button, time)
+    def popup
+      @popover_menu.popup
+    end
+
+    def popdown
+      @popover_menu.popdown
     end
 
     private
-    def accel_group
-      # @merge.accel_group
-      @accel_group = @merge.accel_group # <- workaround for Ruby/GLib <= 0.18.1
-    end
-
-    def make_jump_to_action(jump_to_action, title, i)
-      name = "JumpTo#{i}"
-      label = "#{i}: #{escape_label(Utils.unescape_title(title))}"
-      tooltip = _("Jump to the %dth slide") % i
-      action = Gtk::Action.new(name, :label => label, :tooltip => tooltip)
+    def build_action(name)
+      action = Gio::SimpleAction.new(name)
       action.signal_connect("activate") do
-        jump_to_action.activate {i}
+        yield
       end
       action
     end
@@ -86,216 +77,187 @@ module Rabbit
       label.gsub(/_/, '__')
     end
 
-    def update_jump_to_menu(canvas)
-      @merge.remove_ui(@jump_to_merge_id) if @jump_to_merge_id
-      @merge.remove_action_group(@jump_to_actions) if @jump_to_actions
-
-      @jump_to_merge_id = @merge.new_merge_id
-      @jump_to_actions = Gtk::ActionGroup.new("JumpToActions")
-      @merge.insert_action_group(@jump_to_actions, 0)
-      jump_to_path = "/popup/JumpTo"
-      jump_to_action = canvas.action("JumpTo")
-      return unless jump_to_action
+    def add_jump_to_actions(canvas)
+      @jump_to_actions = Gio::SimpleActionGroup.new
       canvas.slides.each_with_index do |slide, i|
-        action = make_jump_to_action(jump_to_action, slide.title, i)
+        action = build_action("JumpTo#{i}") do
+          canvas.move_to_if_can(i)
+        end
         @jump_to_actions.add_action(action)
-        @merge.add_ui(@jump_to_merge_id, jump_to_path, action.name,
-                      action.name, :auto, false)
+      end
+      @popover_menu.insert_action_group("jump", @jump_to_actions)
+    end
+
+    def jump_to_items(canvas)
+      canvas.slides.collect.with_index do |slide, i|
+        label = "#{i}: #{escape_label(Utils.unescape_title(slide.title))}"
+        [:item, "jump.JumpTo#{i}", label]
       end
     end
 
-    def update_ui
-      @merge_ui = @merge.add_ui(ui_xml)
-      @menu = @merge.get_widget("/popup")
-      tearoff = Gtk::TearoffMenuItem.new
-      tearoff.show
-      @menu.prepend(tearoff)
-    end
-
-    def update_theme_menu(canvas)
-      @merge.remove_ui(@theme_merge_id) if @theme_merge_id
-      @merge.remove_action_group(@theme_actions) if @theme_actions
-
-      @theme_merge_id = @merge.new_merge_id
-      @theme_actions = Gtk::ActionGroup.new("ThemeActions")
-      @merge.insert_action_group(@theme_actions, 0)
-
+    def add_theme_actions(canvas)
+      @theme_actions = Gio::SimpleActionGroup.new
       themes = Theme::Searcher.collect_theme
-
-      categories = themes.collect do |entry|
-        entry.category
-      end.uniq.sort_by {|cat| _(cat)}
-
-      change = "/popup/ChangeTheme"
-      merge = "/popup/MergeTheme"
-
-      categories.each do |category|
-        theme_menu_add_category("Change", change, category)
-        theme_menu_add_category("Merge", merge, category)
-      end
-
       themes.each do |entry|
-        theme_menu_add_theme("Change", change, entry, canvas)
-        theme_menu_add_theme("Merge", merge, entry, canvas)
-      end
-    end
-
-    def theme_menu_add_category(prefix, path, category)
-      name = "#{prefix}ThemeCategory#{category}"
-      label = _(category)
-      action = Gtk::Action.new(name, :label => label)
-      @theme_actions.add_action(action)
-      @merge.add_ui(@theme_merge_id, path, category, name, :menu, false)
-    end
-
-    def theme_menu_add_theme(prefix, path, entry, canvas)
-      path = "#{path}/#{entry.category}"
-      name = "#{prefix}ThemeEntry#{entry.name}"
-      label = _(entry.title)
-      action = Gtk::Action.new(name, :label => label)
-      action.signal_connect("activate") do
-        canvas.activate("#{prefix}Theme") do
-          [entry, Utils.process_pending_events_proc]
+        action = build_action("ChangeThemeEntry#{entry.name}") do
+          canvas.apply_theme(entry.name, &Utils.process_pending_events_proc)
         end
-      end
-      @theme_actions.add_action(action)
-      @merge.add_ui(@theme_merge_id, path, entry.name, name, :auto, false)
-    end
-
-    def show_tearoff(sub_menus=@menu.children)
-      sub_menus.each do |child|
-        if child.respond_to?(:submenu) and child.submenu
-          tearoff, *child_sub_menus = child.submenu.children
-          tearoff.show
-          show_tearoff(child_sub_menus)
+        action = build_action("MergeThemeEntry#{entry.name}") do
+          canvas.merge_theme(entry.name, &Utils.process_pending_events_proc)
         end
       end
     end
 
-    def ui_xml
-      format_xml(ui_axml)
-    end
-
-    def format_xml(axml)
-      output = StringIO.new
-      @indent = "  "
-      _format_xml(axml, output, 0)
-      output.rewind
-      output.read
-    end
-
-    def _format_xml(axml, output, indent)
-      case axml
-      when Array
-        tag, *others = axml
-        output.print("#{@indent * indent}<#{tag}")
-        if others.first.is_a?(Hash)
-          attrs, *others = others
-          attrs.each do |key, value|
-            output.print(" #{h(key)}=\"#{h(value)}\"") if value
-          end
+    def theme_items(canvas, prefix)
+      themes = Theme::Searcher.collect_theme
+      themes_by_category = themes.group_by do |entry|
+        entry.category
+      end
+      sorted_categories = themes_by_category.keys.sort_by do |category|
+        _(category)
+      end
+      sorted_categories.collect do |category|
+        items = themes_by_category[category].collect do |entry|
+          [:item, "theme.#{prefix}ThemeEntry#{entry.name}", entry.name]
         end
-        if others.empty?
-          output.print("/>\n")
-        else
-          output.print(">\n")
-          others.each do |other|
-            _format_xml(other, output, indent + 1)
-          end
-          output.print("#{@indent * indent}</#{tag}>\n")
-        end
-      when String
-        output.print(h(axml))
-      else
-        raise "!?!?!?: #{axml.inspect}"
+        [:menu, "#{prefix[0]}: #{_(category)}", *items]
       end
     end
 
-    def ui_axml
-      [:ui,
-        [:popup,
-          *items_to_axml(items)
-        ]
-      ]
+    def change_theme_items(canvas)
+      theme_items(canvas, "Change")
     end
 
-    def items_to_axml(items)
-      items.collect do |key, name, *others|
-        params = {:name => name, :action => name}
-        case key
-        when :separator
-          [:separator]
-        when :item
-          [:menuitem, params]
-        when :menu
-          [:menu, params, *items_to_axml(others)]
-        end
-      end
+    def merge_theme_items(canvas)
+      theme_items(canvas, "Merge")
     end
 
-    def items
+    def items(canvas)
       [
-        [:item, "ToggleIndexMode"],
-        [:separator],
-        [:item, "ToggleGraffitiMode"],
-        [:menu, "Graffiti",
+        [:section,
+         [:item, "ToggleIndexMode"],
+        ],
+        [:section,
+         [:item, "ToggleGraffitiMode"],
+         [:menu, _("Graffiti"),
           [:item, "ClearGraffiti"],
           [:item, "UndoGraffiti"],
           [:item, "ChangeGraffitiColor"],
+         ],
         ],
-        [:separator],
-        [:item, "ToggleFullScreen"],
-        [:separator],
-        [:item, "ToggleInfoWindow"],
-        [:separator],
-        [:item, "RadioBlankWhiteout"],
-        [:item, "RadioBlankBlackout"],
-        [:item, "RadioBlankShow"],
-#         [:separator],
-#         [:item, "ToggleCommentFrame"],
-#         [:item, "ToggleCommentView"],
-        [:separator],
-        [:item, "ToggleSpotlight"],
-        [:item, "ToggleMagnifier"],
-        [:separator],
-        [:item, "ToggleTerminal"],
-        [:separator],
-        [:menu, "JumpTo"],
-        [:separator],
-        [:item, "Previous"],
-        [:item, "Next"],
-        [:item, "PreviousSlide"],
-        [:item, "NextSlide"],
-        [:item, "FirstSlide"],
-        [:item, "LastSlide"],
-        [:separator],
-        [:item, "Iconify"],
-        [:separator],
-        [:item, "Redraw"],
-        [:item, "ClearSlide"],
-        [:item, "ReloadTheme"],
-        [:menu, "ChangeTheme"],
-        [:menu, "MergeTheme"],
-        [:separator],
-        [:item, "CacheAllSlides"],
-        [:separator],
-        [:item, "SaveAsImage"],
-        [:item, "Print"],
-        [:separator],
-        [:item, "ResetTimer"],
-        [:item, "ResetAdjustment"],
-        [:separator],
-        [:menu, "LogLevel",
-          [:item, "RadioLogLevelDebug"],
-          [:item, "RadioLogLevelInfo"],
-          [:item, "RadioLogLevelWarning"],
-          [:item, "RadioLogLevelError"],
-          [:item, "RadioLogLevelFatal"],
-          [:item, "RadioLogLevelUnknown"],
+        [:section,
+         [:item, "ToggleFullscreen"],
         ],
-        [:separator],
-        [:item, "Quit"],
+        [:section,
+         [:item, "ToggleInfoWindow"],
+        ],
+        [:section,
+         [:item, "ChangeBlank('whiteout')", _("Whiteout")],
+         [:item, "ChangeBlank('blackout')", _("Blackout")],
+         [:item, "ChangeBlank('show')", _("Show")],
+        ],
+        # [:section,
+        #  [:item, "ToggleCommentFrame"],
+        #  [:item, "ToggleCommentView"],
+        # ],
+        [:section,
+         [:item, "ToggleSpotlight"],
+         [:item, "ToggleMagnifier"],
+        ],
+        [:section,
+         [:item, "ToggleTerminal"],
+        ],
+        [:section,
+         [:menu, _("Jump to"), *jump_to_items(canvas)],
+        ],
+        [:section,
+         [:item, "Previous"],
+         [:item, "Next"],
+         [:item, "PreviousSlide"],
+         [:item, "NextSlide"],
+         [:item, "FirstSlide"],
+         [:item, "LastSlide"],
+        ],
+        [:section,
+         [:item, "Iconify"],
+        ],
+        [:section,
+         [:item, "Redraw"],
+         [:item, "ClearSlide"],
+         [:item, "ReloadTheme"],
+         [:menu, _("Change theme"), *change_theme_items(canvas)],
+         [:menu, _("Merge theme"), *merge_theme_items(canvas)],
+        ],
+        [:sction,
+         [:item, "CacheAllSlides"],
+        ],
+        [:section,
+         [:item, "SaveAsImage"],
+         [:item, "Print"],
+        ],
+        [:section,
+         [:item, "ResetTimer"],
+         [:item, "ResetAdjustment"],
+        ],
+        [:section,
+         [:menu, _("Log level"),
+          [:item, "ChangeLogLevel('debug')", _("Debug")],
+          [:item, "ChangeLogLevel('info')", _("Info")],
+          [:item, "ChangeLogLevel('warning')", _("Warning")],
+          [:item, "ChangeLogLevel('error')", _("Error")],
+          [:item, "ChangeLogLevel('fatal')", _("Fatal")],
+          [:item, "ChangeLogLevel('unknown')", _("Unknown")],
+         ],
+        ],
+        [:section,
+         [:item, "Quit"],
+        ],
       ]
+    end
+
+    def add_item(container, item)
+      type = item[0]
+      case type
+      when :section
+        section = Gio::Menu.new
+        item[1..-1].each do |i|
+          add_item(section, i)
+        end
+        section_item = Gio::MenuItem.new
+        section_item.section = section
+        container.append_item(section_item)
+      when :item
+        action_name = item[1]
+        label = item[2]
+        icon = nil
+        unless action_name.include?(".")
+          action = @canvas.actions.find_action(action_name)
+          label ||= action&.label
+          icon = action&.icon
+          action_name = "rabbit.#{action_name}"
+        end
+        label ||= action_name
+        i = Gio::MenuItem.new(label, action_name)
+        i.icon = icon if icon
+        container.append_item(i)
+      when :menu
+        submenu = Gio::Menu.new
+        label = item[1]
+        item[2..-1].each do |i|
+          add_item(submenu, i)
+        end
+        submenu_item = Gio::MenuItem.new(label)
+        submenu_item.submenu = submenu
+        container.append_item(submenu_item)
+      end
+    end
+
+    def add_items(canvas)
+      @canvas = canvas
+      items(canvas).each do |item|
+        add_item(@menu_model, item)
+      end
+      @canvas = nil
     end
   end
 end

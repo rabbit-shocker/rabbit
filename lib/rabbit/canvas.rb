@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ require "rabbit/element"
 require "rabbit/parser"
 require "rabbit/theme/manager"
 require "rabbit/front"
-require "rabbit/action"
+require "rabbit/actions"
 require "rabbit/html/generator"
 
 module Rabbit
@@ -118,7 +118,11 @@ module Rabbit
     def_delegators(:@renderer, :graffiti_line_width, :graffiti_line_width=)
 
     def_delegators(:@renderer, :toggle_info_window)
-    def_delegators(:@renderer, :toggle_spotlight, :toggle_magnifier)
+    def_delegators(:@renderer, :info_window_showing?)
+    def_delegators(:@renderer, :toggle_spotlight)
+    def_delegators(:@renderer, :spotlighting?)
+    def_delegators(:@renderer, :toggle_magnifier)
+    def_delegators(:@renderer, :magnifying?)
 
     def_delegators(:@renderer, :add_gesture_action)
 
@@ -169,9 +173,10 @@ module Rabbit
       @max_n_comments = 100
       @allotted_time = nil
       @comment_theme = nil
+      @index_mode = false
       clear
       @renderer = renderer.new(self)
-      @actions = Action.action_group(self)
+      @actions = Actions.new(self)
     end
 
     def quitted?
@@ -461,7 +466,7 @@ module Rabbit
       if slide and !slide.last?
         old_index = slide.drawing_index
         slide.move_to_next
-        Action.update_status(self)
+        @actions.update_status
         @renderer.post_move_in_slide(old_index, slide.drawing_index)
       else
         move_to_next_slide_if_can
@@ -477,7 +482,7 @@ module Rabbit
       if slide and !slide.first?
         old_index = slide.drawing_index
         slide.move_to_previous
-        Action.update_status(self)
+        @actions.update_status
         @renderer.post_move_in_slide(old_index, slide.drawing_index)
       else
         move_to_previous_slide_if_can
@@ -621,7 +626,7 @@ module Rabbit
 
     def activate(name, &block)
       act = action(name)
-      if act and act.sensitive?
+      if act and act.enabled?
         act.activate(&block)
         true
       else
@@ -630,7 +635,7 @@ module Rabbit
     end
 
     def action(name)
-      act = @actions.get_action(name)
+      act = @actions[name]
       if act
         act
       else
@@ -707,7 +712,7 @@ module Rabbit
         success = false
         index_mode = @index_mode
         begin
-          Action.update_status(self)
+          @actions.update_status
           clear_theme
           clear_index_slides
           manager = Theme::Manager.new(self) do
@@ -722,7 +727,7 @@ module Rabbit
         rescue ApplyFinish
         ensure
           @apply_theme_request_queue.delete_if {|x| x == id}
-          Action.update_status(self)
+          @actions.update_status
         end
         activate("ToggleIndexMode") if success and index_mode
       end
@@ -735,11 +740,11 @@ module Rabbit
       end
       begin
         @processing = true
-        Action.update_status(self)
+        @actions.update_status
         yield
       ensure
         @processing = false
-        Action.update_status(self)
+        @actions.update_status
       end
     end
 
@@ -806,7 +811,7 @@ module Rabbit
     def move_to(index)
       old_index = current_index
       set_current_index(index)
-      Action.update_status(self)
+      @actions.update_status
       @renderer.post_move(old_index, current_index)
     end
   end

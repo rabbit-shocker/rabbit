@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@ module Rabbit
       attr_accessor :line_width, :next_width
       def initialize(conf={})
         super()
+        @icon_theme = Gtk::IconTheme.default
         conf ||= {}
         @back_color = conf[:back_color] || DEFAULT_BACK_COLOR
         @line_color = conf[:line_color] || DEFAULT_LINE_COLOR
@@ -56,12 +57,12 @@ module Rabbit
         @actions.clear
       end
 
-      def add_action(sequence, action, &block)
+      def add_action(sequence, action)
         invalid_motion = sequence.find do |motion|
           not @processor.available_motion?(motion)
         end
         raise InvalidMotionError.new(invalid_motion) if invalid_motion
-        @actions << [sequence, action, block]
+        @actions << [sequence, action]
       end
 
       def start(button, x, y, base_x, base_y)
@@ -100,7 +101,7 @@ module Rabbit
 
         draw_available_marks(renderer, next_available_motions)
 
-        act, = action
+        act = action
         draw_mark(renderer, act, *@processor.position) if act
 
         draw_locus(renderer)
@@ -117,11 +118,11 @@ module Rabbit
 
       private
       def perform_action
-        act, block = action
+        act = action
         @processor.reset
         @locus.clear
         if act
-          act.activate(&block)
+          act.gaction.activate
           true
         else
           false
@@ -130,16 +131,16 @@ module Rabbit
 
       def action
         motions = @processor.motions
-        @actions.each do |sequence, act, block|
-          return [act, block] if sequence == motions and act.sensitive?
+        @actions.each do |sequence, act|
+          return act if sequence == motions and act.gaction.enabled?
         end
         nil
       end
 
       def available_motions
         motions = @processor.motions
-        @actions.collect do |sequence, act, block|
-          if sequence == motions and act.sensitive?
+        @actions.collect do |sequence, act|
+          if sequence == motions and act.gaction.enabled?
             [sequence.last, act]
           else
             nil
@@ -149,8 +150,8 @@ module Rabbit
 
       def next_available_motions
         motions = @processor.motions
-        @actions.collect do |sequence, act, block|
-          if sequence[0..-2] == motions and act.sensitive?
+        @actions.collect do |sequence, act|
+          if sequence[0..-2] == motions and act.gaction.enabled?
             [sequence.last, act]
           else
             nil
@@ -171,12 +172,9 @@ module Rabbit
       end
 
       def draw_action_image(renderer, act, x, y)
-        icon = nil
-        icon = act.create_icon(Gtk::IconSize::DIALOG) if act
+        icon = act&.icon
         if icon
-          stock, = icon.stock
-          icon_size = icon.icon_size
-          pixbuf = icon.render_icon_pixbuf(stock, icon_size)
+          pixbuf = @icon_theme.load_icon(icon.names[0], 48, 0)
           x -= pixbuf.width / 2.0
           y -= pixbuf.height / 2.0
           renderer.draw_pixbuf(pixbuf, x, y)

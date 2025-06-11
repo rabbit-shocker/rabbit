@@ -175,6 +175,9 @@ msgstr "印刷"
 msgid "Iconify"
 msgstr "最小化"
 
+msgid "Fullscreen"
+msgstr "フルスクリーン"
+
 msgid "Change theme"
 msgstr "テーマ変更"
 
@@ -187,23 +190,23 @@ msgstr "テーマの再読み込み"
 msgid "Redraw"
 msgstr "再表示"
 
-msgid "Clear slide"
-msgstr "スライドをクリア"
-
-msgid "_Quit"
-msgstr "終了(_Q)"
-
-msgid "_Quit with confirmation"
-msgstr "確認付き終了(_Q)"
-
-msgid "Now processing... Do you really quit?"
-msgstr "処理中です．．．本当に終了しますか？"
-
 msgid "Cache all slides"
 msgstr "スライドをキャッシュ"
 
-msgid "Graffiti"
-msgstr "落書き"
+msgid "Reset adjustment"
+msgstr "ずれを直す"
+
+msgid "Reset timer"
+msgstr "タイマーをリセット"
+
+msgid "Spotlight"
+msgstr "スポットライト"
+
+msgid "Magnifier"
+msgstr "虫眼鏡"
+
+msgid "Graffiti mode"
+msgstr "落書きモード"
 
 msgid "Clear graffiti"
 msgstr "落書きをクリア"
@@ -214,11 +217,26 @@ msgstr "落書きを戻す"
 msgid "Change graffiti color"
 msgstr "落書きの色を変える"
 
-msgid "Reset adjustment"
-msgstr "ずれを直す"
+msgid "Clear slide"
+msgstr "スライドをクリア"
 
-msgid "Reset timer"
-msgstr "タイマーをリセット"
+msgid "Index mode"
+msgstr "一覧モード"
+
+msgid "Information window"
+msgstr "情報ウィンドウ"
+
+msgid "Terminal"
+msgstr "端末"
+
+msgid "Change blank mode"
+msgstr "ブランクモードを変更"
+
+msgid "Whiteout"
+msgstr "ホワイトアウト"
+
+msgid "Blackout"
+msgstr "ブラックアウト"
 
 msgid "Expand hole"
 msgstr "穴を広げる"
@@ -238,59 +256,14 @@ msgstr "次のスライドを前方検索"
 msgid "Search slide backward next"
 msgstr "次のスライドを後方検索"
 
-msgid "Stop slide search"
-msgstr "スライド検索修了"
+msgid "Stop search slide"
+msgstr "スライド検索をストップ"
 
-msgid "Log Level"
-msgstr "ログレベル"
+msgid "Change log level"
+msgstr "ログレベルを変更"
 
-msgid "Whiteout"
-msgstr "ホワイトアウト"
-
-msgid "Blackout"
-msgstr "ブラックアウト"
-
-msgid "Show"
-msgstr "表示"
-
-msgid "Debug"
-msgstr "デバッグ"
-
-msgid "Info"
-msgstr "情報"
-
-msgid "Warning"
-msgstr "警告"
-
-msgid "Error"
-msgstr "エラー"
-
-msgid "Fatal"
-msgstr "致命的"
-
-msgid "Unknown"
-msgstr "未知"
-
-msgid "Index mode"
-msgstr "一覧モード"
-
-msgid "Full screen"
-msgstr "フルスクリーン"
-
-msgid "Graffiti mode"
-msgstr "落書きモード"
-
-msgid "Information window"
-msgstr "情報ウィンドウ"
-
-msgid "Spotlight"
-msgstr "スポットライト"
-
-msgid "Magnifier"
-msgstr "虫眼鏡"
-
-msgid "Terminal"
-msgstr "端末"
+msgid "Now processing... Do you really quit?"
+msgstr "処理中です．．．本当に終了しますか？"
 
 msgid "Failed to read author configuration: %s: %s"
 msgstr "作者設定の読み込みに失敗しました: %s: %s"
@@ -438,6 +411,9 @@ msgstr "TODO: スライドの説明"
 
 msgid "For author"
 msgstr "作者向け"
+
+msgid "Show"
+msgstr "表示"
 
 msgid "Publish"
 msgstr "公開"
@@ -888,6 +864,9 @@ msgstr "未知のカーソルタイプ: %s"
 msgid "print isn't supported"
 msgstr "印刷をサポートしていません"
 
+msgid "unknown Font Awesome name: %s"
+msgstr "未知のFOnt Awesome名: %s"
+
 msgid "Installing gem: %s"
 msgstr "gemをインストール中: %s"
 
@@ -954,8 +933,29 @@ msgstr "Rabbitエラーダイアログ"
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr "UTF-8から現在のロケールに変換できません: %s"
 
-msgid "Jump to the %dth slide"
-msgstr "%d番目のスライドへジャンプ"
+msgid "Graffiti"
+msgstr "落書き"
+
+msgid "Log level"
+msgstr "ログレベル"
+
+msgid "Debug"
+msgstr "デバッグ"
+
+msgid "Info"
+msgstr "情報"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Error"
+msgstr "エラー"
+
+msgid "Fatal"
+msgstr "致命的"
+
+msgid "Unknown"
+msgstr "未知"
 
 msgid "unsupported format. (supported: %s)"
 msgstr "サポートしていない形式です。（サポートしている形式: %s）"
@@ -965,9 +965,6 @@ msgstr "実行したaafigureコマンド名: %s"
 
 msgid "tried blockdiag command: %s"
 msgstr "実行したblockdiagコマンド名: %s"
-
-msgid "emacs: unsupported element name: %s"
-msgstr "emacs: サポートしていない要素名です: %s"
 
 msgid "enscript: unsupported language: %s"
 msgstr "enscript: サポートしていない言語です: %s"
@@ -1155,12 +1152,6 @@ msgid ""
 "Whether uninstalling this toolkit or not. This option is useful for cases you "
 "do not want to make the toolkit work for certain slides."
 msgstr "このツールキットをアンインストールするか否か。このオプションは、特定のスライドでツールキットを動かなくしたいときに便利です。"
-
-msgid "Clutter Comment"
-msgstr "Clutterコメント"
-
-msgid "Show comment as a rolling Clutter actor."
-msgstr "コメントを回転するClutterのアクターとして表示します。"
 
 msgid "Color Circle block quote"
 msgstr "色付きの円: 引用ブロック"
@@ -1557,8 +1548,8 @@ msgid "Color of numbers displayed on the start and goal flags."
 msgstr "スタートとゴールの旗に表示される数字の色。"
 
 msgid ""
-"Form of the start and goal flags. Available forms are (({'triangle'})) and (({'"
-"rectangle'}))."
+"Form of the start and goal flags. Available forms are (({'triangle'})) and (({"
+"'rectangle'}))."
 msgstr "スタートとゴールの旗の形。(({'triangle'})) (三角) と (({'rectangle'})) (四角) が指定可能です。"
 
 msgid "File name of an image used as the start flag."
@@ -1675,26 +1666,20 @@ msgstr "便利"
 msgid "Newline in Slides"
 msgstr "スライド内での改行"
 
-msgid ""
-"Convenience '\n"
-"' newline notation."
+msgid "Convenience '\\n' newline notation."
 msgstr ""
 "便利な'\n"
 "'改行記法。"
 
-msgid ""
-"Enable '\n"
-"' notation to insert newline in all slides."
+msgid "Enable '\\n' notation to insert newline in all slides."
 msgstr ""
-"タイトルで改行を挿入する'\n"
+"すべてのスライドで改行を挿入する'\n"
 "'記法を有効にする。"
 
 msgid "Newline in Title"
 msgstr "タイトル内での改行"
 
-msgid ""
-"Enable '\n"
-"' notation to insert newline in title."
+msgid "Enable '\\n' notation to insert newline in title."
 msgstr ""
 "タイトルで改行を挿入する'\n"
 "'記法を有効にする。"

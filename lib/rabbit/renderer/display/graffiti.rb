@@ -1,6 +1,21 @@
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "forwardable"
 
-require "rabbit/action"
 require "rabbit/graffiti/processor"
 
 module Rabbit
@@ -20,13 +35,8 @@ module Rabbit
           init_graffiti
         end
 
-        def attach_to(window, container=nil)
-          super
-          graffiti_mode_action.active = false
-        end
-
         def graffiti_mode?
-          graffiti_mode_action.active?
+          @graffiti_mode
         end
 
         def have_graffiti?
@@ -38,6 +48,7 @@ module Rabbit
         end
 
         def toggle_graffiti_mode
+          @graffiti_mode = !@graffiti_mode
           if graffiti_mode?
             update_cursor(:pencil)
           else
@@ -48,13 +59,11 @@ module Rabbit
 
         def clear_graffiti
           @graffiti.clear
-          Action.update_graffiti_action_status(@canvas)
           @area.queue_draw
         end
 
         def undo_graffiti
           @graffiti.undo
-          Action.update_graffiti_action_status(@canvas)
           @area.queue_draw
         end
 
@@ -67,6 +76,7 @@ module Rabbit
         private
         def init_graffiti
           @graffiti = Rabbit::Graffiti::Processor.new
+          @graffiti_mode = false
 
           pressed_button = nil
           target_button = 1
@@ -85,7 +95,6 @@ module Rabbit
             pressed_button = nil
             if graffiti_mode? and event.button == target_button
               @graffiti.button_release(event.x, event.y, width, height)
-              Action.update_graffiti_action_status(@canvas)
               true
             else
               false

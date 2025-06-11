@@ -175,6 +175,9 @@ msgstr ""
 msgid "Iconify"
 msgstr ""
 
+msgid "Fullscreen"
+msgstr ""
+
 msgid "Change theme"
 msgstr ""
 
@@ -187,22 +190,22 @@ msgstr ""
 msgid "Redraw"
 msgstr ""
 
-msgid "Clear slide"
-msgstr ""
-
-msgid "_Quit"
-msgstr ""
-
-msgid "_Quit with confirmation"
-msgstr ""
-
-msgid "Now processing... Do you really quit?"
-msgstr ""
-
 msgid "Cache all slides"
 msgstr ""
 
-msgid "Graffiti"
+msgid "Reset adjustment"
+msgstr ""
+
+msgid "Reset timer"
+msgstr ""
+
+msgid "Spotlight"
+msgstr ""
+
+msgid "Magnifier"
+msgstr ""
+
+msgid "Graffiti mode"
 msgstr ""
 
 msgid "Clear graffiti"
@@ -214,10 +217,25 @@ msgstr ""
 msgid "Change graffiti color"
 msgstr ""
 
-msgid "Reset adjustment"
+msgid "Clear slide"
 msgstr ""
 
-msgid "Reset timer"
+msgid "Index mode"
+msgstr ""
+
+msgid "Information window"
+msgstr ""
+
+msgid "Terminal"
+msgstr ""
+
+msgid "Change blank mode"
+msgstr ""
+
+msgid "Whiteout"
+msgstr ""
+
+msgid "Blackout"
 msgstr ""
 
 msgid "Expand hole"
@@ -238,58 +256,13 @@ msgstr ""
 msgid "Search slide backward next"
 msgstr ""
 
-msgid "Stop slide search"
+msgid "Stop search slide"
 msgstr ""
 
-msgid "Log Level"
+msgid "Change log level"
 msgstr ""
 
-msgid "Whiteout"
-msgstr ""
-
-msgid "Blackout"
-msgstr ""
-
-msgid "Show"
-msgstr ""
-
-msgid "Debug"
-msgstr ""
-
-msgid "Info"
-msgstr ""
-
-msgid "Warning"
-msgstr ""
-
-msgid "Error"
-msgstr ""
-
-msgid "Fatal"
-msgstr ""
-
-msgid "Unknown"
-msgstr ""
-
-msgid "Index mode"
-msgstr ""
-
-msgid "Full screen"
-msgstr ""
-
-msgid "Graffiti mode"
-msgstr ""
-
-msgid "Information window"
-msgstr ""
-
-msgid "Spotlight"
-msgstr ""
-
-msgid "Magnifier"
-msgstr ""
-
-msgid "Terminal"
+msgid "Now processing... Do you really quit?"
 msgstr ""
 
 msgid "Failed to read author configuration: %s: %s"
@@ -425,6 +398,9 @@ msgid "TODO: SLIDE DESCRIPTION"
 msgstr ""
 
 msgid "For author"
+msgstr ""
+
+msgid "Show"
 msgstr ""
 
 msgid "Publish"
@@ -863,6 +839,9 @@ msgstr ""
 msgid "print isn't supported"
 msgstr ""
 
+msgid "unknown Font Awesome name: %s"
+msgstr ""
+
 msgid "Installing gem: %s"
 msgstr ""
 
@@ -929,7 +908,28 @@ msgstr ""
 msgid "can't convert to current locale from UTF-8: %s"
 msgstr ""
 
-msgid "Jump to the %dth slide"
+msgid "Graffiti"
+msgstr ""
+
+msgid "Log level"
+msgstr ""
+
+msgid "Debug"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Fatal"
+msgstr ""
+
+msgid "Unknown"
 msgstr ""
 
 msgid "unsupported format. (supported: %s)"
@@ -939,9 +939,6 @@ msgid "tried aafigure command: %s"
 msgstr ""
 
 msgid "tried blockdiag command: %s"
-msgstr ""
-
-msgid "emacs: unsupported element name: %s"
 msgstr ""
 
 msgid "enscript: unsupported language: %s"
@@ -1127,12 +1124,6 @@ msgstr ""
 msgid ""
 "Whether uninstalling this toolkit or not. This option is useful for cases you "
 "do not want to make the toolkit work for certain slides."
-msgstr ""
-
-msgid "Clutter Comment"
-msgstr ""
-
-msgid "Show comment as a rolling Clutter actor."
 msgstr ""
 
 msgid "Color Circle block quote"
@@ -1511,8 +1502,8 @@ msgid "Color of numbers displayed on the start and goal flags."
 msgstr ""
 
 msgid ""
-"Form of the start and goal flags. Available forms are (({'triangle'})) and (({'"
-"rectangle'}))."
+"Form of the start and goal flags. Available forms are (({'triangle'})) and (({"
+"'rectangle'}))."
 msgstr ""
 
 msgid "File name of an image used as the start flag."
@@ -1624,22 +1615,16 @@ msgstr ""
 msgid "Newline in Slides"
 msgstr ""
 
-msgid ""
-"Convenience '\n"
-"' newline notation."
+msgid "Convenience '\\n' newline notation."
 msgstr ""
 
-msgid ""
-"Enable '\n"
-"' notation to insert newline in all slides."
+msgid "Enable '\\n' notation to insert newline in all slides."
 msgstr ""
 
 msgid "Newline in Title"
 msgstr ""
 
-msgid ""
-"Enable '\n"
-"' notation to insert newline in title."
+msgid "Enable '\\n' notation to insert newline in title."
 msgstr ""
 
 msgid "Night Black"

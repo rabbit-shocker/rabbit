@@ -1,3 +1,19 @@
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 module Rabbit
   module Renderer
     module Display
@@ -7,12 +23,8 @@ module Rabbit
           init_magnifier
         end
 
-        def attach_to(window, container=nil)
-          super
-          magnifier_action.active = false
-        end
-
         def toggle_magnifier
+          @magnifying = !@magnifying
           if magnifying?
             grab
             x, y, mask = pointer
@@ -26,8 +38,14 @@ module Rabbit
           queue_draw
         end
 
+        def magnifying?
+          @magnifying
+        end
+
         private
         def init_magnifier
+          @magnifying = false
+
           @magnifier_ratio = 1.5
           @magnifier_center_x = nil
           @magnifier_center_y = nil
@@ -41,7 +59,7 @@ module Rabbit
                 event.state.control_mask?
               @magnifier_center_x = event.x
               @magnifier_center_y = event.y
-              magnifier_action.active = true
+              magnifier_action.enabled = true
               true
             else
               false
@@ -50,7 +68,7 @@ module Rabbit
 
           add_button_release_hook do |event, last_event|
             if magnifying? and event.button == target_button
-              magnifier_action.active = false
+              magnifier_action.enabled = false
               true
             else
               false
@@ -110,10 +128,6 @@ module Rabbit
                                    :clip => clip_block)
           end
           draw_rounded_rectangle(false, x, y, w, h, r, "red")
-        end
-
-        def magnifying?
-          magnifier_action.active?
         end
 
         def magnifier_action
