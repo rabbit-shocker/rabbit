@@ -175,6 +175,7 @@ module Rabbit
           @slide_widget.draw_slide(slide, simulation, &block)
         else
           @slide_widget.save_context do
+            @slide_widget.scale_context(*@size.logical_scale)
             @slide_widget.translate_context(@size.logical_margin_left,
                                             @size.logical_margin_top)
             @slide_widget.draw_slide(slide, simulation, &block)
