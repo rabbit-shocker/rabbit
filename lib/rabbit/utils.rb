@@ -253,7 +253,7 @@ module Rabbit
 
     def power_set(elements, &block)
       if block_given?
-        0.step(elements.size) do |i|
+        0.upto(elements.size) do |i|
           elements.combination(i, &block)
         end
       else
