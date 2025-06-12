@@ -23,6 +23,13 @@ end
 
 Gtk.init if Gtk.respond_to?(:init)
 
+module Gdk
+  class ModifierType
+    ALT_MASK = MOD1_MASK unless const_defined?(:ALT_MASK)
+    alias_method :alt_mask?, :mod1_mask? unless method_defined?(:alt_mask?)
+  end
+end
+
 module Gtk
   if const_defined?(:Action)
     class Action
