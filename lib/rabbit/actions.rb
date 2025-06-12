@@ -181,7 +181,7 @@ module Rabbit
       build_action("JumpTo",
                    parameter_type: "i",
                    label: _("Jump to"),
-                   icon_name: "go-jump") do |index|
+                   icon_name: "go-jump") do |action, index|
         @canvas.move_to_if_can(index)
       end
     end
