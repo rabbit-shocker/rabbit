@@ -624,10 +624,10 @@ module Rabbit
       @slides.find{|x| x.is_a?(Element::TitleSlide)}
     end
 
-    def activate(name, &block)
+    def activate(name, argument=nil)
       act = action(name)
       if act and act.enabled?
-        act.activate(&block)
+        act.activate(argument)
         true
       else
         false
