@@ -33,8 +33,8 @@ module Rabbit
           @area
         end
 
-        def queue_redraw
-          @area.queue_redraw
+        def queue_draw
+          @area.queue_draw
         end
 
         def clear_compiled_slide(slide=nil)

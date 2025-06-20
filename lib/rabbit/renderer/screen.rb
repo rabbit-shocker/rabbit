@@ -98,6 +98,10 @@ module Rabbit
         @fixed
       end
 
+      def queue_draw
+        @slide_widget.queue_draw
+      end
+
       def clear_slide
         super
         @slide_widget.clear_compiled_slide
