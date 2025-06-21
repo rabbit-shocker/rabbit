@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -47,11 +47,10 @@ module Rabbit
     def_delegators(:@canvas, :output_html=, :output_index_html=)
     def_delegators(:@canvas, :rss_base_uri=, :use_gl?, :use_gl=)
 
-    attr_reader :window, :logger
+    attr_reader :window
     attr_accessor :geometry
 
-    def initialize(logger, canvas)
-      @logger = logger
+    def initialize(canvas)
       @canvas = canvas
       @geometry = nil
       @notebook = nil
@@ -214,7 +213,7 @@ module Rabbit
         widget, context, x, y, selection_data, info, time = args
         uri = selection_data.data.chomp
         Gtk.idle_add do
-          parse(Source::URI.new(nil, logger, uri))
+          parse(Source::URI.new(nil, uri))
           false
         end
         Gtk::Drag.finish(context, true, false, time)

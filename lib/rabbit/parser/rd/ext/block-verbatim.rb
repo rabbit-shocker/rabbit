@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2022  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -70,11 +70,10 @@ module Rabbit
             lang = $1.downcase
 
             src, prop = parse_source(source)
-            logger = visitor.logger
 
             result = nil
-            if Parser::Ext::Enscript.check_availability(lang, logger)
-              result = Parser::Ext::Enscript.highlight(lang, src, logger)
+            if Parser::Ext::Enscript.check_availability(lang)
+              result = Parser::Ext::Enscript.highlight(lang, src)
             end
             result || default_ext_block_verbatim(label, src, src, visitor)
           end
@@ -113,16 +112,15 @@ module Rabbit
             lang = $1.downcase
 
             src, prop = parse_source(source)
-            logger = visitor.logger
 
-            result = Parser::Ext::CodeRay.highlight(lang, src, logger)
+            result = Parser::Ext::CodeRay.highlight(lang, src)
             result || default_ext_block_verbatim(label, src, src, visitor)
           end
 
           def ext_block_verb_rt(label, source, content, visitor)
             return nil unless /\Art\z/i =~ label
             unless defined?(RT2RabbitVisitor)
-              visitor.logger.warn(_("RTtool isn't available"))
+              Rabbit.logger.warn(_("RTtool isn't available"))
               return nil
             end
             rt_visitor = RT2RabbitVisitor.new(visitor)
@@ -166,9 +164,8 @@ module Rabbit
             lang = $1.downcase
 
             src, prop = parse_source(source)
-            logger = visitor.logger
 
-            result = Parser::Ext::Rouge.highlight(lang, src, prop, logger)
+            result = Parser::Ext::Rouge.highlight(lang, src, prop)
             result || default_ext_block_verbatim(label, src, src, visitor)
           end
 

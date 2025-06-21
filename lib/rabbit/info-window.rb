@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2023  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
 
 require 'rabbit/gtk'
 require 'rabbit/dependency-canvas'
+require 'rabbit/rabbit'
 require 'rabbit/renderer/display/drawing-area-view-only'
 require 'rabbit/renderer/display/hook-handler'
 require 'rabbit/renderer/display/key-handler'
@@ -106,8 +107,7 @@ module Rabbit
     end
 
     def make_canvas
-      DependencyCanvas.new(@canvas, @canvas.logger,
-                           Renderer::Display::DrawingAreaViewOnly)
+      DependencyCanvas.new(@canvas, Renderer::Display::DrawingAreaViewOnly)
     end
 
     def init_window(width, height)
@@ -340,7 +340,7 @@ module Rabbit
 
     def update_source
       each do |canvas|
-        source = Source::Memory.new("UTF-8", @canvas.logger)
+        source = Source::Memory.new("UTF-8")
         @canvas.source_force_modified(true) do |original_source|
           source.source = original_source.read
           source.base = original_source.base

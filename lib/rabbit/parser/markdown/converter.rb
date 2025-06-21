@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -341,8 +341,7 @@ module Rabbit
               src_file
             end
           else
-            logger = @canvas.logger
-            Ext::Rouge.highlight(language, content, element.attr, logger)
+            Ext::Rouge.highlight(language, content, element.attr)
           end
         end
 

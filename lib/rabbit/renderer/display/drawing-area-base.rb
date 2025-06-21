@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -211,7 +211,7 @@ module Rabbit
             begin
               super(callback)
             rescue
-              @canvas.logger.error($!)
+              Rabbit.logger.error($!)
             end
           end
         end

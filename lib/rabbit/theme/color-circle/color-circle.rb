@@ -1,3 +1,19 @@
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 must_set_variables = %w(foreground background color light_color bright_color
                         graffiti_color)
 
@@ -14,7 +30,7 @@ end
 
 unless not_set_variables.empty?
   format = _("required variables aren't set: %s")
-  canvas.logger.error(format % not_set_variables.inspect)
+  Rabbit.logger.error(format % not_set_variables.inspect)
   theme_exit
 end
 

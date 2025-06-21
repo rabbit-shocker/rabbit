@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,9 +30,8 @@ module Rabbit
       attr_reader :base, :tmp_base
       attr_accessor :encoding, :force_modified
 
-      def initialize(encoding, logger)
+      def initialize(encoding)
         @encoding = encoding
-        @logger = logger
         @source = nil
         @force_modified = false
         init_base

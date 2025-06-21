@@ -1,5 +1,5 @@
 # Copyright (C) 2012  Narihiro Nakamura <authornari@gmail.com>
-# Copyright (C) 2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2018-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ module Rabbit
           begin
             Element::Video.new(path, prop)
           rescue Error
-            canvas.logger.warn($!.message)
+            Rabbit.logger.warn($!.message)
             nil
           end
         end

@@ -74,7 +74,7 @@ module Rabbit
               compile_slide(slide) unless compiled_slide?(slide)
               slide.draw(@canvas, false)
             rescue
-              @canvas.logger.warn($!)
+              Rabbit.logger.warn($!)
             end
           end
         end

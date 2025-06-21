@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2022  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2007-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ module Rabbit
           begin
             image = Element::Image.new(path, prop, canvas: canvas)
           rescue Error
-            canvas.logger.warn($!.message)
+            Rabbit.logger.warn($!.message)
             nil
           else
             if prop["align"] == "right" and body
@@ -65,7 +65,7 @@ module Rabbit
           begin
             image_file, prop = yield(src_file)
           rescue ImageLoadError
-            canvas.logger.warn($!.message)
+            Rabbit.logger.warn($!.message)
           end
           return nil if image_file.nil?
           image = make_image(canvas,
@@ -143,7 +143,7 @@ module Rabbit
                 end
               end
             rescue SocketError, OpenURI::HTTPError
-              canvas.logger.warn("#{$!.message}: #{uri}")
+              Rabbit.logger.warn("#{$!.message}: #{uri}")
             end
           end
 

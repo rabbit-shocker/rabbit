@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,13 +27,13 @@ module Rabbit
       include LimitAccessInterval
 
       class << self
-        def new(encoding, logger, uri)
+        def new(encoding, uri)
           parsed_uri = ::URI.parse(uri)
           case parsed_uri.scheme
           when nil
-            File.new(encoding, logger, parsed_uri.path)
+            File.new(encoding, parsed_uri.path)
           when /\Afile\z/i
-            File.new(encoding, logger, uri.gsub(/\Afile:\/\//i, ""))
+            File.new(encoding, uri.gsub(/\Afile:\/\//i, ""))
           else
             super
           end
@@ -44,9 +44,9 @@ module Rabbit
         end
       end
 
-      def initialize(encoding, logger, uri)
+      def initialize(encoding, uri)
         @uri = ::URI.parse(uri)
-        super(encoding, logger)
+        super(encoding)
         @last_modified = nil
       end
 
@@ -66,7 +66,7 @@ module Rabbit
             f.read
           end
         rescue
-          @logger.error($!.message)
+          Rabbit.logger.error($!.message)
           @last_modified = Time.now + MINIMUM_ACCESS_TIME
           +""
         end
@@ -84,12 +84,10 @@ module Rabbit
             f.last_modified
           end
         rescue
-          @logger.error($!.message)
+          Rabbit.logger.error($!.message)
           Time.now
         end
       end
-
     end
-
   end
 end

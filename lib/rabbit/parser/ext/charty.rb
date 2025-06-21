@@ -1,4 +1,4 @@
-# Copyright (C) 2021  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2021-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ module Rabbit
         include GetText
 
         module_function
-        def make_image(path, prop, logger)
+        def make_image(path, prop)
           require "charty"
           backend = prop["backend"]
           ::Charty::Backends.use(backend) if backend

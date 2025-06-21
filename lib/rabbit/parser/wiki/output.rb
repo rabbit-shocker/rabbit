@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2022  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2007-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ module Rabbit
         end
 
         def hrule
-          @canvas.logger.warn(_("horizontal rule is unsupported")) if @parent
+          Rabbit.logger.warn(_("horizontal rule is unsupported")) if @parent
         end
 
         def list_begin
@@ -282,7 +282,7 @@ module Rabbit
           result = nil
 
           if lang
-            result = Ext::Rouge.highlight(lang, contents, {}, @canvas.logger)
+            result = Ext::Rouge.highlight(lang, contents, {})
           end
 
           if result
@@ -352,7 +352,7 @@ module Rabbit
 
         private
         def unsupported_list_type(type)
-          @canvas.logger.warn(_("unsupported list type: %s") % type)
+          Rabbit.logger.warn(_("unsupported list type: %s") % type)
         end
 
         def evaluate_inline_plugin(src)
@@ -360,7 +360,7 @@ module Rabbit
         rescue ParseError
           raise
         rescue
-          @canvas.logger.warn($!)
+          Rabbit.logger.warn($!)
           nil
         end
 
@@ -369,7 +369,7 @@ module Rabbit
         rescue ParseError
           raise
         rescue
-          @canvas.logger.warn($!)
+          Rabbit.logger.warn($!)
           nil
         end
 
@@ -478,9 +478,8 @@ module Rabbit
           alias_method :img, :image
 
           def enscript(lang, source)
-            logger = @output.canvas.logger
-            if Ext::Enscript.check_availability(lang, logger)
-              Ext::Enscript.highlight(lang, source, logger)
+            if Ext::Enscript.check_availability(lang)
+              Ext::Enscript.highlight(lang, source)
             else
               nil
             end
@@ -525,13 +524,11 @@ module Rabbit
           end
 
           def coderay(lang, source)
-            logger = @output.canvas.logger
-            Ext::CodeRay.highlight(lang, source, logger)
+            Ext::CodeRay.highlight(lang, source)
           end
 
           def rouge(lang, source)
-            logger = @output.canvas.logger
-            Ext::Rouge.highlight(lang, source, {}, logger)
+            Ext::Rouge.highlight(lang, source, {})
           end
 
           def tag(name, value=nil)

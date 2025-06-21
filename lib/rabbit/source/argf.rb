@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@ module Rabbit
         N_("none (get from STDIN) or [FILE_NAMES]")
       end
 
-      def initialize(encoding, logger, argf)
-        super(encoding, logger)
+      def initialize(encoding, argf)
+        super(encoding)
         @argf = argf
       end
 
@@ -36,7 +36,7 @@ module Rabbit
         begin
           @argf.read
         rescue
-          @logger.error($!.message)
+          Rabbit.logger.error($!.message)
           +""
         end
       end

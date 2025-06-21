@@ -307,7 +307,7 @@ module Rabbit
       end
 
       def make_canvas_with_renderer(renderer)
-        canvas = Canvas.new(@canvas.logger, renderer)
+        canvas = Canvas.new(renderer)
         yield canvas
         canvas.apply_theme(@canvas.theme_name)
         @canvas.source_force_modified(true) do |source|
@@ -368,7 +368,7 @@ module Rabbit
       def not_support_method(name)
         format = _("%s does not support: %s")
         msg = format % [self.class.name, name]
-        @canvas.logger.warn(msg)
+        Rabbit.logger.warn(msg)
       end
 
       def init_gl_parameters

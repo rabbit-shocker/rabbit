@@ -1,4 +1,4 @@
-# Copyright (C) 2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2017-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ module Rabbit
         include GetText
 
         module_function
-        def highlight(lang, text, prop, logger)
+        def highlight(lang, text, prop)
           lexer = ::Rouge::Lexer.find(lang).new
           formatter = RabbitFormatter.new
           block = Element::SyntaxHighlightingBlock.new

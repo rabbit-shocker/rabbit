@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,9 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/gettext"
-require "rabbit/logger"
 require "rabbit/path-manipulatable"
+require "rabbit/rabbit"
 require "rabbit/yaml-loader"
 
 module Rabbit
@@ -24,11 +23,9 @@ module Rabbit
     include GetText
     include PathManipulatable
 
-    attr_accessor :logger
     attr_accessor :name, :email, :markup_language
     attr_accessor :rubygems_user, :slideshare_user, :speaker_deck_user
-    def initialize(logger=nil)
-      @logger = logger || Logger.default
+    def initialize
       clear
     end
 
@@ -39,7 +36,7 @@ module Rabbit
       merge!(conf)
     rescue
       format = _("Failed to read author configuration: %s: %s")
-      @logger.error(format % [path, $!.message])
+      Rabbit.logger.error(format % [path, $!.message])
     end
 
     def save
@@ -49,7 +46,7 @@ module Rabbit
       end
     rescue
       format = _("Failed to write author configuration: %s: %s")
-      @logger.error(format % [path, $!.message])
+      Rabbit.logger.error(format % [path, $!.message])
     end
 
     def clear

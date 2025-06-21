@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,10 +20,6 @@ module Rabbit
   class GemFinder
     include GetText
 
-    def initialize(logger=nil)
-      @logger = logger || Logger.default
-    end
-
     def find(name, prefix)
       normalized_name = name.downcase
       unless normalized_name.start_with?(prefix)
@@ -43,11 +39,11 @@ module Rabbit
             require "rubygems/dependency_installer"
             options = {}
             if File.writable?(Gem.dir)
-              @logger.info(_("Installing gem: %s") % normalized_name)
+              Rabbit.logger.info(_("Installing gem: %s") % normalized_name)
             else
               options[:user_install] = true
               format = _("Installing gem in user install mode: %s")
-              @logger.info(format % normalized_name)
+              Rabbit.logger.info(format % normalized_name)
             end
             installer = Gem::DependencyInstaller.new(options)
             installer.install(normalized_name, Gem::Requirement.default)

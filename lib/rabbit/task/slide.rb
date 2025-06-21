@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2022  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
 
 require "rake"
 
-require "rabbit/gettext"
-require "rabbit/logger"
 require "rabbit/command/rabbit"
 require "rabbit/slide-configuration"
 require "rabbit/readme-parser"
@@ -32,7 +30,6 @@ module Rabbit
 
       attr_accessor :package_dir, :pdf_dir, :required_rabbit_version
       def initialize
-        @logger = Logger.default
         @slide = load_slide_configuration
         @package_dir = "pkg"
         @pdf_dir = "pdf"
@@ -47,13 +44,13 @@ module Rabbit
 
       private
       def load_slide_configuration
-        slide_conf = SlideConfiguration.new(@logger)
+        slide_conf = SlideConfiguration.new
         slide_conf.load
         slide_conf
       end
 
       def create_spec
-        readme_parser = READMEParser.new(@logger)
+        readme_parser = READMEParser.new
         readme_parser.parse
 
         Gem::Specification.new do |spec|

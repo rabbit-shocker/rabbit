@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -63,7 +63,6 @@ module Rabbit
       def initialize
         @use_gui = true
         @data = Data.new
-        @logger = nil
       end
 
       def run(arguments)
@@ -76,7 +75,7 @@ module Rabbit
         validate
         unless @validation_errors.empty?
           messages = (@validation_errors + [_("See --help for example")])
-          @logger.error(messages.join("\n"))
+          Rabbit.logger.error(messages.join("\n"))
           return false
         end
 
@@ -95,10 +94,9 @@ module Rabbit
 
       def setup_options(parser, options)
         @options = options
-        @logger = @options.default_logger
-        @data.author_conf = AuthorConfiguration.new(@logger)
+        @data.author_conf = AuthorConfiguration.new
         @data.author_conf.load
-        @data.slide_conf = SlideConfiguration.new(@logger)
+        @data.slide_conf = SlideConfiguration.new
         @data.slide_conf.author = @data.author_conf
 
         format = _("Usage: %s COMMAND [OPTIONS]\n" \
@@ -506,7 +504,7 @@ module Rabbit
       end
 
       def merge_config_yaml
-        existing_slide_conf = SlideConfiguration.new(@logger)
+        existing_slide_conf = SlideConfiguration.new
         existing_slide_conf.load
         existing_slide_conf.merge!(@data.slide_conf.to_hash)
         @data.slide_conf = existing_slide_conf

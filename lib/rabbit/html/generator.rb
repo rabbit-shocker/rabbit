@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ module Rabbit
           @outputting_index = false
           @canvas.each_slide_pixbuf do |slide, pixbuf, slide_number|
             message = _("Creating a image for the %dth page") % slide_number
-            @canvas.logger.info(message)
+            Rabbit.logger.info(message)
             save_slide(slide, pixbuf, slide_number)
             true
           end
@@ -84,7 +84,7 @@ module Rabbit
             end
           end
           unless save_rss
-            @canvas.logger.warn(_("can't generate RSS"))
+            Rabbit.logger.warn(_("can't generate RSS"))
           end
         end
       end

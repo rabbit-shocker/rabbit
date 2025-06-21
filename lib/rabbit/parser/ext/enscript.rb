@@ -1,3 +1,19 @@
+# Copyright (C) 2007-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require 'rabbit/utils'
 require 'rabbit/parser/ext/escape'
 
@@ -23,20 +39,20 @@ module Rabbit
         end
 
         module_function
-        def check_availability(lang, logger)
+        def check_availability(lang)
           if @@enscript_highlight.has_key?(lang)
             true
           else
-            logger.warn(_("enscript: unsupported language: %s") % lang)
+            Rabbit.logger.warn(_("enscript: unsupported language: %s") % lang)
             false
           end
         end
 
-        def highlight(lang, text, logger)
+        def highlight(lang, text)
           begin
             require 'nokogiri'
           rescue
-            logger.warning("Syntax highlight by enscript requires nokogiri.")
+            Rabbit.logger.warning("Syntax highlight by enscript requires nokogiri.")
             return nil
           end
 
@@ -53,19 +69,19 @@ module Rabbit
                  ]
           if SystemRunner.run("enscript", *args)
             html_file.open
-            html_to_rabbit(html_file.read, logger)
+            html_to_rabbit(html_file.read)
           else
             nil
           end
         end
 
-        def html_to_rabbit(html, logger)
+        def html_to_rabbit(html)
           node = Nokogiri::HTML(extract_newline_around_pre(html))
           pre = find_element(node, "pre")
           address = find_element(node, "address")
-          element = node_to_rabbit(pre, logger)
+          element = node_to_rabbit(pre)
           if element
-            logger.info(address.text) if address
+            Rabbit.logger.info(address.text) if address
             PreformattedBlock.new(element)
           else
             nil
@@ -81,21 +97,21 @@ module Rabbit
           node.css(name)[0]
         end
 
-        def node_to_rabbit(node, logger)
-          element = element_to_rabbit(node, logger)
+        def node_to_rabbit(node)
+          element = element_to_rabbit(node)
           return nil if element.nil?
           node.children.each do |child|
             if child.text?
               element << Text.new(Escape.escape_meta_character(child.text))
             else
-              child_element = node_to_rabbit(child, logger)
+              child_element = node_to_rabbit(child)
               element << child_element unless child_element.nil?
             end
           end
           element
         end
 
-        def element_to_rabbit(element, logger)
+        def element_to_rabbit(element)
           case element.name
           when "pre"
             PreformattedText.new
@@ -110,7 +126,7 @@ module Rabbit
             text
           else
             format = _("enscript: unsupported element name: %s")
-            logger.warn(format % element.name)
+            Rabbit.logger.warn(format % element.name)
             nil
           end
         end

@@ -138,7 +138,7 @@ module Rabbit
 
     def_delegators(:@source, :source=, :reset, :base)
 
-    attr_reader :logger, :renderer, :last_modified
+    attr_reader :renderer, :last_modified
     attr_reader :comments, :actions
 
     attr_writer :saved_image_base_name
@@ -151,8 +151,7 @@ module Rabbit
     attr_accessor :font_resolution_ratio
     attr_accessor :max_n_comments, :comment_theme
 
-    def initialize(logger, renderer)
-      @logger = logger
+    def initialize(renderer)
       @frame = NullFrame.new
       @theme_name = nil
       @saved_image_base_name = nil
@@ -177,6 +176,12 @@ module Rabbit
       clear
       @renderer = renderer.new(self)
       @actions = Actions.new(self)
+    end
+
+    def logger
+      message = "Rabbit::Canvas#logger is deprecated. Use Rabbit.logger instead."
+      Rabbit.logger.warn(message)
+      Rabbit.logger
     end
 
     def quitted?
@@ -373,7 +378,7 @@ module Rabbit
         if block_given?
           yield($!)
         else
-          logger.warn($!.message)
+          Rabbit.logger.warn($!.message)
         end
       ensure
         @parse_request_queue.delete_if {|x| x == id}
@@ -614,7 +619,7 @@ module Rabbit
         begin
           callback.call(comment)
         rescue
-          logger.error($!)
+          Rabbit.logger.error($!)
         end
       end
       true
@@ -639,7 +644,7 @@ module Rabbit
       if act
         act
       else
-        logger.warn(_("Unknown action: %s") % name)
+        Rabbit.logger.warn(_("Unknown action: %s") % name)
         false
       end
     end
@@ -735,7 +740,7 @@ module Rabbit
 
     def process
       if @processing
-        @logger.info(_("Processing..."))
+        Rabbit.logger.info(_("Processing..."))
         return
       end
       begin

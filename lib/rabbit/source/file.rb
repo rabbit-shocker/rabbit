@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,9 +25,9 @@ module Rabbit
         N_("[FILENAME]")
       end
 
-      def initialize(encoding, logger, name)
+      def initialize(encoding, name)
         @name = name
-        super(encoding, logger)
+        super(encoding)
         @mtime = nil
       end
 
@@ -39,7 +39,7 @@ module Rabbit
             f.read
           end
         rescue SourceUnreadableError
-          @logger.error($!.message)
+          Rabbit.logger.error($!.message)
           @mtime = Time.now + LimitAccessInterval::MINIMUM_ACCESS_TIME
           +""
         end

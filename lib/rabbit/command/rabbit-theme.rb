@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,16 +37,15 @@ module Rabbit
       def initialize
         @theme_conf = nil
         @author_conf = nil
-        @logger = nil
       end
 
       def run(arguments)
-        @options, @logger = parse_command_line_arguments(arguments)
+        @options = parse_command_line_arguments(arguments)
 
         validate
         unless @validation_errors.empty?
           messages = (@validation_errors + [_("See --help for example")])
-          @logger.error(messages.join("\n"))
+          Rabbit.logger.error(messages.join("\n"))
           return false
         end
 
@@ -58,10 +57,9 @@ module Rabbit
       private
       def parse_command_line_arguments(arguments)
         Rabbit::Console.parse!(ARGV) do |parser, options|
-          @logger = options.default_logger
-          @author_conf = AuthorConfiguration.new(@logger)
+          @author_conf = AuthorConfiguration.new
           @author_conf.load
-          @theme_conf = ThemeConfiguration.new(@logger)
+          @theme_conf = ThemeConfiguration.new
           @theme_conf.author = @author_conf
 
           format = _("Usage: %s new [options]\n" \

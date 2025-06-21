@@ -1,3 +1,19 @@
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 def setup_default_item_mark_get_option_value(options, name, *args)
   value = options[name]
   if value and value.respond_to?(:call)
@@ -30,7 +46,7 @@ def setup_default_item_mark_type(type, item, canvas, x, y, w, h, color)
   else
     format = _("unknown item mark type: %s\n" \
                "Rectangle type is used as fallback")
-    canvas.logger.warn(format % type.inspect)
+    Rabbit.logger.warn(format % type.inspect)
     setup_default_item_mark_type("rectangle")
   end
 end

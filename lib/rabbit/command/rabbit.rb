@@ -16,7 +16,7 @@
 
 require "English"
 
-require "rabbit/gettext"
+require "rabbit/rabbit"
 require "rabbit/slide-configuration"
 
 module Rabbit
@@ -30,10 +30,6 @@ module Rabbit
         end
       end
 
-      def initialize
-        @logger = nil
-      end
-
       def run(arguments)
         GC.disable
         require "rbconfig"
@@ -43,7 +39,7 @@ module Rabbit
         require_relative "../renderer"
         require_relative "../source"
 
-        @options, @logger = parse_command_line_arguments(arguments)
+        @options = parse_command_line_arguments(arguments)
 
         require_relative "../canvas"
         GC.enable
@@ -61,7 +57,7 @@ module Rabbit
               __send__("do_#{@options.action}")
             end
           rescue
-            @logger.error($!)
+            ::Rabbit.logger.error($!)
           end
         end
         exit_code = application.run
@@ -74,8 +70,6 @@ module Rabbit
       private
       def parse_command_line_arguments(arguments)
         Console.parse!(arguments) do |parser, options|
-          @logger = options.logger
-
           rest_arguments_from_options_file = []
           options.before_hooks << lambda do |_, _, _|
             rest_arguments_from_options_file = options.rest.dup
@@ -609,7 +603,7 @@ module Rabbit
         if /\.gem\z/i =~ source
           gem_name = $PREMATCH
           require "rabbit/gem-finder"
-          finder = GemFinder.new(@logger)
+          finder = GemFinder.new
           spec = finder.find(gem_name, "#{SlideConfiguration::GEM_NAME_PREFIX}-")
           source = spec.gem_dir if spec
         end
@@ -622,7 +616,7 @@ module Rabbit
       end
 
       def make_canvas(renderer)
-        canvas = Canvas.new(@logger, renderer)
+        canvas = Canvas.new(renderer)
         canvas.comment_theme = @options.comment_theme
         canvas.allotted_time = @options.allotted_time
         canvas
@@ -673,8 +667,7 @@ module Rabbit
         if @options.source_type == Source::ARGF
           rest_arguments = [ARGF]
         end
-        source = @options.source_type.new(@options.encoding, @logger,
-                                          *rest_arguments)
+        source = @options.source_type.new(@options.encoding, *rest_arguments)
         source.base = @options.base if @options.base
         source
       end
@@ -746,11 +739,11 @@ module Rabbit
         require "drb/drb"
         begin
           DRb.start_service(@options.druby_uri, front)
-          @logger.info(DRb.uri) if @options.output_druby_uri
+          ::Rabbit.logger.info(DRb.uri) if @options.output_druby_uri
         rescue SocketError
-          @logger.error($!)
+          ::Rabbit.logger.error($!)
         rescue Errno::EADDRINUSE
-          @logger.error(_("dRuby URI <%s> is in use.") % @options.druby_uri)
+          ::Rabbit.logger.error(_("dRuby URI <%s> is in use.") % @options.druby_uri)
         end
       end
 
@@ -763,13 +756,13 @@ module Rabbit
             :BindAddress => @options.soap_host,
             :Port => @options.soap_port,
             :AddressFamily => Socket::AF_INET,
-            :Logger => @logger,
+            :Logger => ::Rabbit.logger,
           }
           server = Rabbit::SOAP::Server.new(front, config)
           prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
           thread = Thread.new {server.start}
         rescue Errno::EADDRINUSE
-          @logger.error(_("port <%s> for SOAP is in use.") % @options.soap_port)
+          ::Rabbit.logger.error(_("port <%s> for SOAP is in use.") % @options.soap_port)
         end
 
         thread
@@ -784,13 +777,13 @@ module Rabbit
             :BindAddress => @options.xmlrpc_host,
             :Port => @options.xmlrpc_port,
             :AddressFamily => Socket::AF_INET,
-            :Logger => @logger,
+            :Logger => ::Rabbit.logger,
           }
           server = Rabbit::XMLRPC::Server.new(front, config)
           prev = trap(:INT) {server.shutdown; trap(:INT, prev)}
           thread = Thread.new {server.start}
         rescue Errno::EADDRINUSE
-          @logger.error(_("port <%s> for XML-RPC is in use.") % @options.xmlrpc_port)
+          ::Rabbit.logger.error(_("port <%s> for XML-RPC is in use.") % @options.xmlrpc_port)
         end
 
         thread
@@ -809,7 +802,7 @@ module Rabbit
         canvas.quit
         true
       rescue ::Rabbit::NoPrintSupportError
-        @logger.error($!.message)
+        ::Rabbit.logger.error($!.message)
         false
       end
 
@@ -843,7 +836,7 @@ module Rabbit
         else
           canvas = make_canvas(Renderer::Display)
         end
-        frame = Frame.new(@logger, canvas)
+        frame = Frame.new(canvas)
         frame.geometry = @options.geometry
         setup_base_size(canvas)
         setup_paper_size(canvas)
@@ -856,7 +849,7 @@ module Rabbit
         if @options.show_native_window_id
           native_surface = frame.window.surface
           if native_surface.respond_to?(:xid)
-            @logger.info(_("Window ID: %d") % native_surface.xid)
+            ::Rabbit.logger.info(_("Window ID: %d") % native_surface.xid)
           end
         end
         apply_theme_if_need(frame)
@@ -885,7 +878,7 @@ module Rabbit
         end
 
         if exception
-          @logger.info(exception.message)
+          ::Rabbit.logger.info(exception.message)
           false
         else
           true

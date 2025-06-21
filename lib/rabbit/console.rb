@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ require "uri"
 require "pathname"
 
 require "rabbit/rabbit"
-require "rabbit/logger"
 
 require "rabbit/console/roff"
 
@@ -38,8 +37,8 @@ module Rabbit
     @@locale_dir_option_name = "--locale-dir"
 
     class << self
-      def parse!(args, logger=nil, &block)
-        new(logger).parse!(args, &block)
+      def parse!(args, &block)
+        new.parse!(args, &block)
       end
 
       def get_last_name(klass)
@@ -47,14 +46,12 @@ module Rabbit
       end
     end
 
-    def initialize(logger=nil)
-      @logger = logger || Logger.default
+    def initialize
+      @have_custom_logger = false
     end
 
     def parse!(args)
       options = OpenStruct.new
-      options.logger = @logger
-      options.default_logger = @logger
       options.druby_uri = "druby://127.0.0.1:10101"
       options.version = VERSION
       options.options_file = nil
@@ -82,14 +79,14 @@ module Rabbit
           hook.call(self, parser, options)
         end
       rescue => error
-        @logger.error("#{error.class}: #{error.message}")
+        Rabbit.logger.error("#{error.class}: #{error.message}")
         error.backtrace.each do |line|
-          @logger.error(line)
+          Rabbit.logger.error(line)
         end
         raise
       end
 
-      [options, options.logger]
+      options
     end
 
     def read_options_file(parser, options, options_file)
@@ -165,28 +162,30 @@ module Rabbit
         get_last_name(x).downcase
       end
 
+      default_logger_class = ::Rabbit.logger.class
       parser.on("--logger-type=TYPE",
                 logger_type_names,
                 _("Specify logger type as [TYPE]."),
                 _("Select from [%s].") % logger_type_names.join(', '),
-                "(#{get_last_name(options.logger.class)})") do |logger_type|
+                "(#{get_last_name(default_logger_class)})") do |logger_type|
         logger_class = Rabbit::Logger.types.find do |t|
           get_last_name(t).downcase == logger_type.downcase
         end
         if logger_class.nil?
-          options.logger = options.default_logger
-          # logger.error("Unknown logger type: #{t}")
+          ::Rabbit.logger.error("Unknown logger type: #{t}")
         else
-          options.logger = logger_class.new
+          ::Rabbit.logger = logger_class.new
+          @have_custom_logger = true
         end
       end
 
       level_names = Logger::Severity.names
+      default_logger_level = ::Rabbit.logger.level
       parser.on("--log-level=LEVEL",
                 level_names,
                 _("Specify log level as [LEVEL]."),
                 _("Select from [%s].") % level_names.join(', '),
-                "(#{Logger::Severity.name(options.logger.level)})") do |name|
+                "(#{Logger::Severity.name(default_logger_level)})") do |name|
         options.logger.level = Logger::Severity.level(name)
       end
 
@@ -204,11 +203,10 @@ module Rabbit
     end
 
     def output_info_and_exit(options, message)
-      if options.logger.is_a?(Logger::STDERR) and
-          options.default_logger == options.logger
-        print(message)
+      if !@have_custom_logger and ::Rabbit.logger.is_a?(Logger::STDERR)
+        ::Rabbit.logger.info(message)
       else
-        options.logger.info(message)
+        puts(message)
       end
       exit
     end

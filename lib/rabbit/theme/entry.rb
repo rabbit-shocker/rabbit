@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,10 +35,8 @@ module Rabbit
       attr_reader :name, :title, :description
       attr_reader :abstract
       attr_reader :dependencies, :parameters
-      attr_accessor :logger
 
-      def initialize(logger, theme_dir, name)
-        @logger = logger
+      def initialize(theme_dir, name)
         @theme_dir = theme_dir
         @name = name
         @title = @name
@@ -111,7 +109,7 @@ module Rabbit
           begin
             instance_eval(content, file)
           rescue SyntaxError
-            @logger.warn($!) if @logger
+            Rabbit.logger.warn($!)
           end
         end
       end
@@ -155,10 +153,10 @@ module Rabbit
     end
 
     class GemEntry < Entry
-      def initialize(logger, name)
+      def initialize(name)
         @spec = nil
         if valid_gem_name?(name)
-          finder = GemFinder.new(logger)
+          finder = GemFinder.new
           begin
             @spec = finder.find(name, "#{ThemeConfiguration::GEM_NAME_PREFIX}-")
           rescue Gem::GemNotFoundException
@@ -166,7 +164,7 @@ module Rabbit
         end
         theme_dir = nil
         theme_dir = @spec.gem_dir if @spec
-        super(logger, theme_dir, name)
+        super(theme_dir, name)
       end
 
       def available?

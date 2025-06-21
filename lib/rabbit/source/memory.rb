@@ -1,3 +1,19 @@
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require 'rabbit/source/base'
 
 module Rabbit
@@ -11,10 +27,10 @@ module Rabbit
 
       attr_accessor :extension
 
-      def initialize(encoding, logger, name=nil)
-        super(encoding, logger)
+      def initialize(encoding, name=nil)
+        super(encoding)
         if name
-          file_source = File.new(encoding, logger, name)
+          file_source = File.new(encoding, name)
           @original_source = file_source.read
           set_base(file_source.base)
           @extension = extract_extension(name)

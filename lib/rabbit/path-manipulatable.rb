@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 require "fileutils"
 require "pathname"
 
-require "rabbit/gettext"
+require "rabbit/rabbit"
 
 module Rabbit
   module PathManipulatable
@@ -25,12 +25,12 @@ module Rabbit
 
     private
     def create_directory(path)
-      @logger.info(_("Creating directory: %s") % path)
+      Rabbit.logger.info(_("Creating directory: %s") % path)
       FileUtils.mkdir_p(path)
     end
 
     def create_file(path, &block)
-      @logger.info(_("Creating file:      %s") % path)
+      Rabbit.logger.info(_("Creating file:      %s") % path)
       File.open(path, "w", &block)
     end
   end

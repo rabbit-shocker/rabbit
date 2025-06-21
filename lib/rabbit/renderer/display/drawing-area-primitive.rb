@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -179,7 +179,7 @@ module Rabbit
               compile_slide(slide) unless compiled_slide?(slide)
               slide.draw(@canvas, false)
             rescue
-              @canvas.logger.warn($!)
+              Rabbit.logger.warn($!)
             end
           end
         end

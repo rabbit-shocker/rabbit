@@ -110,7 +110,7 @@ module Rabbit
       begin
         yield
       rescue Exception
-        @canvas.logger.warn($!)
+        Rabbit.logger.warn($!)
       end
     end
 
@@ -416,12 +416,12 @@ module Rabbit
     end
 
     def build_log_level_actions
-      initial_state = Logger::Severity.name(@canvas.logger.level)
+      initial_state = Logger::Severity.name(Rabbit.logger.level)
       build_action("ChangeLogLevel",
                    parameter_type: "s",
                    initial_state: initial_state,
                    label: _("Change log level")) do |action, parameter|
-        @canvas.logger.level = Logger::Severity.level(parameter)
+        Rabbit.logger.level = Logger::Severity.level(parameter)
         action.gaction.change_state(GLib::Variant.new(parameter))
       end
     end

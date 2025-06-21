@@ -1,3 +1,19 @@
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 require "pathname"
 
 require 'rabbit/theme/entry'
@@ -45,15 +61,15 @@ module Rabbit
       def find_theme(theme_name=name, only_image=false)
         if theme_name == "."
           if only_image
-            entry = ImageDirectoryEntry.new(@logger, ".", ".")
+            entry = ImageDirectoryEntry.new(".", ".")
           else
-            entry = DirectoryEntry.new(@logger, ".", ".")
+            entry = DirectoryEntry.new(".", ".")
           end
           return entry if entry.available?
         end
 
         unless only_image
-          entry = FileEntry.new(@logger, base_directory, theme_name)
+          entry = FileEntry.new(base_directory, theme_name)
           return entry if entry.available?
         end
 
@@ -72,9 +88,9 @@ module Rabbit
 
         if found_entry.nil?
           if only_image
-            entry = ImageGemEntry.new(@logger, theme_name)
+            entry = ImageGemEntry.new(theme_name)
           else
-            entry = GemEntry.new(@logger, theme_name)
+            entry = GemEntry.new(theme_name)
           end
           return entry if entry.available?
           raise LoadError, "can't find theme: #{theme_name}."
@@ -145,7 +161,7 @@ module Rabbit
               next if theme_names.has_key?(theme)
               theme_dir = File.join(File.expand_path(base_name), theme)
               entry_classes.each do |entry_class|
-                entry = entry_class.new(@logger, theme_dir, theme)
+                entry = entry_class.new(theme_dir, theme)
                 if entry.available?
                   block.call(entry) if block
                   themes << entry

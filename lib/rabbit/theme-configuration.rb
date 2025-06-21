@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/gettext"
+require "rabbit/rabbit"
 require "rabbit/author-configuration"
 require "rabbit/path-manipulatable"
 require "rabbit/yaml-loader"
@@ -26,12 +26,10 @@ module Rabbit
 
     GEM_NAME_PREFIX = "rabbit-theme"
 
-    attr_accessor :logger
     attr_accessor :id, :tags, :licenses
     attr_writer :version
     attr_accessor :author
-    def initialize(logger=nil)
-      @logger = logger || Logger.default
+    def initialize
       @id = nil
       @tags = []
       @version = nil
@@ -45,7 +43,7 @@ module Rabbit
       merge!(conf)
     rescue
       format = _("Failed to read slide configuration: %s: %s")
-      @logger.error(format % [path, $!.message])
+      Rabbit.logger.error(format % [path, $!.message])
     end
 
     def save(base_dir)
@@ -55,7 +53,7 @@ module Rabbit
       end
     rescue
       format = _("Failed to write slide configuration: %s: %s")
-      @logger.error(format % [config_path, $!.message])
+      Rabbit.logger.error(format % [config_path, $!.message])
     end
 
     def merge!(conf)
@@ -64,7 +62,7 @@ module Rabbit
       @version           = conf["version"]
       @licenses          = conf["licenses"]
 
-      @author = AuthorConfiguration.new(@logger)
+      @author = AuthorConfiguration.new
       @author.merge!(conf["author"] || {})
     end
 
