@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,13 +20,13 @@ require "rabbit/gettext"
 require "rabbit/version"
 
 require "rabbit/error"
-
-require "rabbit/gtk"
+require "rabbit/logger"
 
 module Rabbit
   TMP_DIR_NAME = ".tmp"
 
   @@application = nil
+  @@logger = nil
   @@gui_init_procs = []
   @@cleanup_procs = []
 
@@ -35,6 +35,14 @@ module Rabbit
       @@application ||=
         Gtk::Application.new("org.rabbit-shocker.Rabbit",
                              [:non_unique, :handles_command_line])
+    end
+
+    def logger
+      @@logger ||= Logger.default
+    end
+
+    def logger=(logger)
+      @@logger = logger
     end
   end
 end
