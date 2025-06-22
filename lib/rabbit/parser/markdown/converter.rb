@@ -332,7 +332,7 @@ module Rabbit
           case language
           when "blockdiag"
             make_image_from_file(element, content) do |src_file, prop|
-              Ext::BlockDiag.make_image(src_file.path, prop, @canvas)
+              Ext::BlockDiag.make_image(src_file.path, prop)
             end
           when "mermaid"
             make_image_from_file(element,
