@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2024  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,8 +26,7 @@ class RabbitSourceTest < Test::Unit::TestCase
 
       private
       def guess_encoding(string)
-        logger = Rabbit::Logger::STDERR.new
-        source = Rabbit::Source::Memory.new(nil, logger)
+        source = Rabbit::Source::Memory.new(nil)
         source.source = string
         source.__send__(:guess_encoding, string)
       end
@@ -42,9 +41,7 @@ class RabbitSourceTest < Test::Unit::TestCase
 
       private
       def read(string)
-        logger = Rabbit::Logger::STDERR.new
-
-        source = Rabbit::Source::Memory.new(string.encoding, logger)
+        source = Rabbit::Source::Memory.new(string.encoding)
         source.source = string
         source.read
       end
@@ -53,10 +50,8 @@ class RabbitSourceTest < Test::Unit::TestCase
 
   class ARGFTest < self
     def setup
-      logger = Rabbit::Logger::STDERR.new
-
       @input, @output = IO.pipe
-      @source = Rabbit::Source::ARGF.new("UTF-8", logger, @input)
+      @source = Rabbit::Source::ARGF.new("UTF-8", @input)
     end
 
     def teardown
@@ -77,12 +72,10 @@ class RabbitSourceTest < Test::Unit::TestCase
 
   class FileTest < self
     def setup
-      logger = Rabbit::Logger::STDERR.new
-
       @dir = File.dirname(__FILE__)
       @file = File.join(@dir, "sample.rd")
       FileUtils.touch(@file)
-      @source = Rabbit::Source::File.new("UTF-8", logger, @file)
+      @source = Rabbit::Source::File.new("UTF-8", @file)
     end
 
     def teardown
@@ -102,11 +95,9 @@ class RabbitSourceTest < Test::Unit::TestCase
 
   class URITest < self
     def setup
-      logger = Rabbit::Logger::STDERR.new
-
       @base = "http://example.com/sample"
       @uri = "#{@base}/rabbit.rd"
-      @source = Rabbit::Source::URI.new("UTF-8", logger, @uri)
+      @source = Rabbit::Source::URI.new("UTF-8", @uri)
     end
 
     def test_base

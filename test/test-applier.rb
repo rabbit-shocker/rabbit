@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,12 @@ require "rabbit/theme/applier"
 class RabbitApplierTest < Test::Unit::TestCase
   def setup
     theme = Object.new
-    def theme.slides
-      Object.new
+    def theme.canvas
+      canvas = Object.new
+      def canvas.slides
+        Object.new
+      end
+      canvas
     end
     @applier = Rabbit::Theme::Applier.new(theme)
   end

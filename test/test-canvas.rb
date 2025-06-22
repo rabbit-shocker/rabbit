@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2017-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@ require "rabbit/canvas"
 
 class RabbitCanvasTest < Test::Unit::TestCase
   setup do
-    @logger = Rabbit::Logger::STDERR.new
-    @canvas = Rabbit::Canvas.new(@logger, Rabbit::Renderer::Offscreen)
+    @canvas = Rabbit::Canvas.new(Rabbit::Renderer::Offscreen)
   end
 
   def create_slide(title)
