@@ -437,39 +437,6 @@ module Rabbit
     end
   end
 
-  module Converter
-    module_function
-    if "".respond_to?(:encoding)
-      def keep_kcode(new_kcode)
-        yield
-      end
-    else
-      def keep_kcode(new_kcode)
-        kcode = $KCODE
-        $KCODE = new_kcode
-        yield
-      ensure
-        $KCODE = kcode
-      end
-    end
-
-    def to_utf8(str)
-      str.encode(Encoding::UTF_8)
-    end
-
-    def to_eucjp(str)
-      str.encode(Encoding::EUCJP)
-    end
-
-    def to_utf8_from_eucjp(str)
-      str.encode(Encoding::UTF_8, Encoding::EUCJP)
-    end
-
-    def to_eucjp_from_utf8(str)
-      str.encode(Encoding::EUCJP, Encoding::UTF_8)
-    end
-  end
-
   module ModuleLoader
     LOADERS = {}
 
