@@ -22,11 +22,6 @@ module Rabbit
       include GetText
       include PathManipulatable
 
-      attr_accessor :logger
-      def initialize(logger=nil)
-        @logger = logger || Logger.default
-      end
-
       def heading(level, title)
         ("!" * level) + " #{title}"
       end

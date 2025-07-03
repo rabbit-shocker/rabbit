@@ -214,7 +214,7 @@ module Rabbit
           args[0] = ::Cairo::ScriptDevice.new(args[0])
           ::Cairo::ScriptSurface.new(*args)
         else
-          @canvas.logger.warn(_("can't find printer for %s") % filename)
+          Rabbit.logger.warn(_("can't find printer for %s") % filename)
           args[0] = "default.ps"
           ::Cairo::PSSurface.new(*args)
         end
