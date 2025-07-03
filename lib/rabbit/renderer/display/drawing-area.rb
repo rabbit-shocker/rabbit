@@ -24,12 +24,6 @@ module Rabbit
         include Renderer::Engine::Cairo
         include DrawingAreaBase
 
-        class << self
-          def priority
-            100
-          end
-        end
-
         private
         def init_color
           super

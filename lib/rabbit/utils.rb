@@ -25,43 +25,6 @@ module Rabbit
       end
     end
 
-    def require_safe(path)
-      require path
-    rescue LoadError
-      $".reject! {|x| /\A#{Regexp.escape(path)}/ =~ x}
-      raise
-    end
-
-    def require_files_under_directory_in_load_path(dir, silent=true)
-      normalize = Proc.new do |base_path, path|
-        path.sub(/\A#{Regexp.escape(base_path)}\/?/, '').sub(/\.[^.]+$/, '')
-      end
-
-      $LOAD_PATH.each do |path|
-        source_glob = ::File.join(path, dir, '*')
-        Dir.glob(source_glob) do |source|
-          next if File.directory?(source)
-          begin
-            before = Time.now
-            normalized_path = normalize[path, source]
-            require_safe normalized_path
-            unless silent
-              STDERR.puts([Time.now - before, normalized_path].inspect)
-            end
-          rescue LoadError, RuntimeError # Should be changed to Gtk::InitError?
-            if $!.is_a?(RuntimeError)
-              raise if /\ACannot open display:\s*\d*\z/ !~ $!.message
-            end
-            unless silent
-              STDERR.puts(path)
-              STDERR.puts($!.message)
-              STDERR.puts($@)
-            end
-          end
-        end
-      end
-    end
-
     def collect_under_module(mod, klass)
       mod.constants.collect do |x|
         mod.const_get(x)
@@ -76,22 +39,6 @@ module Rabbit
 
     def collect_modules_under_module(mod)
       collect_under_module(mod, Module)
-    end
-
-    def corresponding_objects(objects)
-      objects.find_all do |object|
-        object.respond_to?(:priority)
-      end.sort_by do |object|
-        object.priority
-      end.last
-    end
-
-    def corresponding_class_under_module(mod)
-      corresponding_objects(collect_classes_under_module(mod))
-    end
-
-    def corresponding_module_under_module(mod)
-      corresponding_objects(collect_modules_under_module(mod))
     end
 
     def arg_list(arity)
@@ -122,6 +69,7 @@ module Rabbit
     end
 
     def process_pending_events
+      return
       if events_pending_available?
         while Gtk.events_pending?
           Gtk.main_iteration

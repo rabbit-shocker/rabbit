@@ -824,17 +824,11 @@ module Rabbit
       end
 
       def do_display
-        display_init_options = {}
-        if @options.use_gl
-          display_init_options[:preferred_class_name] = "ClutterEmbed"
-        end
-        Renderer::Display.init(display_init_options)
-
         source = make_source
         if ENV["RABBIT_RENDERER"] == "screen"
           canvas = make_canvas(Renderer::Screen)
         else
-          canvas = make_canvas(Renderer::Display)
+          canvas = make_canvas(Renderer::Display::DrawingArea)
         end
         frame = Frame.new(canvas)
         frame.geometry = @options.geometry
