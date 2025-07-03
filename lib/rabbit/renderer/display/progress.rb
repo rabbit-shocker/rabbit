@@ -16,7 +16,7 @@
 
 require "forwardable"
 
-require "rabbit/progress"
+require_relative "../../progress"
 
 module Rabbit
   module Renderer

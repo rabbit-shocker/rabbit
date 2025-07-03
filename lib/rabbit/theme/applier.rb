@@ -14,15 +14,15 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'delegate'
-require 'forwardable'
+require "delegate"
+require "forwardable"
 
-require 'rabbit/utils'
-require 'rabbit/element'
-require 'rabbit/image'
-require 'rabbit/theme/searcher'
-require 'rabbit/renderer/color'
-require "rabbit/size"
+require_relative "../utils"
+require_relative "../element"
+require_relative "../image"
+require_relative "../theme/searcher"
+require_relative "../renderer/color"
+require_relative "../size"
 
 module Rabbit
   module Theme

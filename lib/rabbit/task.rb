@@ -1,4 +1,4 @@
-# Copyright (C) 2012 Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,5 +14,5 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/task/slide"
-require "rabbit/task/theme"
+require_relative "task/slide"
+require_relative "task/theme"

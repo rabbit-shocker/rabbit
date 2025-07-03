@@ -16,13 +16,13 @@
 
 require "erb"
 
-require "rabbit/gtk"
+require_relative "gtk"
 
-require "rabbit/gettext"
-require "rabbit/utils"
-require "rabbit/theme/searcher"
-require "rabbit/image"
-require "rabbit/actions"
+require_relative "gettext"
+require_relative "utils"
+require_relative "theme/searcher"
+require_relative "image"
+require_relative "actions"
 
 module Rabbit
   class Menu

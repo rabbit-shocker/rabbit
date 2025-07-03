@@ -1,4 +1,4 @@
-# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ module Rabbit
   end
 end
 
-require "rabbit/source-generator/rd"
-require "rabbit/source-generator/hiki"
-require "rabbit/source-generator/markdown"
+require_relative "source-generator/rd"
+require_relative "source-generator/hiki"
+require_relative "source-generator/markdown"
 

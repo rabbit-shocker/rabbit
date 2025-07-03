@@ -16,19 +16,19 @@
 
 require "tempfile"
 
-require "rabbit/rabbit"
-require "rabbit/utils"
-require "rabbit/parser/rd/rt/rt2rabbit-lib"
-require "rabbit/parser/rd/ext/base"
-require "rabbit/parser/rd/ext/image"
-require "rabbit/parser/rd/ext/video"
-require "rabbit/parser/ext/aafigure"
-require "rabbit/parser/ext/blockdiag"
-require "rabbit/parser/ext/charty"
-require "rabbit/parser/ext/coderay"
-require "rabbit/parser/ext/enscript"
-require "rabbit/parser/ext/rouge"
-require "rabbit/parser/ext/tex"
+require_relative "../../../rabbit"
+require_relative "../../../utils"
+require_relative "../../ext/aafigure"
+require_relative "../../ext/blockdiag"
+require_relative "../../ext/charty"
+require_relative "../../ext/coderay"
+require_relative "../../ext/enscript"
+require_relative "../../ext/rouge"
+require_relative "../../ext/tex"
+require_relative "../rt/rt2rabbit-lib"
+require_relative "base"
+require_relative "image"
+require_relative "video"
 
 module Rabbit
   module Parser

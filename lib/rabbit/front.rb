@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
 
 require "monitor"
 
-require "rabbit/rabbit"
-require "rabbit/utils"
+require_relative "rabbit"
+require_relative "utils"
 
 module Rabbit
 

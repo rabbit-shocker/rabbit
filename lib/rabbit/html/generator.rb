@@ -22,11 +22,11 @@ begin
 rescue LoadError
 end
 
-require "rabbit/filename"
-require "rabbit/front"
-require "rabbit/keys"
-require "rabbit/rabbit"
-require "rabbit/utils"
+require_relative "../filename"
+require_relative "../front"
+require_relative "../keys"
+require_relative "../rabbit"
+require_relative "../utils"
 
 module Rabbit
   module HTML

@@ -17,7 +17,7 @@
 require "fileutils"
 require "pathname"
 
-require "rabbit/rabbit"
+require_relative "rabbit"
 
 module Rabbit
   module PathManipulatable

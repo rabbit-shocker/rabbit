@@ -14,13 +14,13 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/config"
+require_relative "config"
 
-require "rabbit/gettext"
-require "rabbit/version"
+require_relative "gettext"
+require_relative "version"
 
-require "rabbit/error"
-require "rabbit/logger"
+require_relative "error"
+require_relative "logger"
 
 module Rabbit
   TMP_DIR_NAME = ".tmp"

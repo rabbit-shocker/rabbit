@@ -14,10 +14,10 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/rabbit"
-require "rabbit/author-configuration"
-require "rabbit/path-manipulatable"
-require "rabbit/yaml-loader"
+require_relative "rabbit"
+require_relative "author-configuration"
+require_relative "path-manipulatable"
+require_relative "yaml-loader"
 
 module Rabbit
   class ThemeConfiguration

@@ -16,7 +16,7 @@
 
 require "forwardable"
 
-require "rabbit/graffiti/processor"
+require_relative "../../graffiti/processor"
 
 module Rabbit
   module Renderer

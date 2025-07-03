@@ -16,11 +16,11 @@
 
 require "yaml"
 
-require "rabbit/author-configuration"
-require "rabbit/console"
-require "rabbit/path-manipulatable"
-require "rabbit/slide-configuration"
-require "rabbit/source-generator"
+require_relative "../author-configuration"
+require_relative "../console"
+require_relative "../path-manipulatable"
+require_relative "../slide-configuration"
+require_relative "../source-generator"
 
 module Rabbit
   module Command
@@ -437,7 +437,7 @@ module Rabbit
       end
 
       def show_gui
-        require "rabbit/gtk"
+        require_relative "../gtk"
 
         mappers = build_gui_mappers
 

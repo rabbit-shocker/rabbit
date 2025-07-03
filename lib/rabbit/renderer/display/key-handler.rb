@@ -14,9 +14,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/gtk'
+require_relative "../../gtk"
 
-require "rabbit/keys"
+require_relative "../../keys"
 
 module Rabbit
   module Renderer

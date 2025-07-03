@@ -16,11 +16,11 @@
 
 require "yaml"
 
-require "rabbit/console"
-require "rabbit/author-configuration"
-require "rabbit/theme-configuration"
-require "rabbit/path-manipulatable"
-require "rabbit/source-generator"
+require_relative "../console"
+require_relative "../author-configuration"
+require_relative "../theme-configuration"
+require_relative "../path-manipulatable"
+require_relative "../source-generator"
 
 module Rabbit
   module Command

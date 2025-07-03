@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/renderer/base"
-require "rabbit/renderer/display/hook-handler"
+require_relative "../base"
+require_relative "hook-handler"
 
 module Rabbit
   module Renderer

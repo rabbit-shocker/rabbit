@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2023  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2016-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
 require "rake"
 require "open-uri"
 
-require "rabbit/gettext"
-require "rabbit/password-reader"
-require "rabbit/yaml-loader"
+require_relative "gettext"
+require_relative "password-reader"
+require_relative "yaml-loader"
 
 module Rabbit
   class GemPusher

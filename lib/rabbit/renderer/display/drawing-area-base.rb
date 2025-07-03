@@ -14,19 +14,19 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/renderer/display/drawing-area-primitive"
-require "rabbit/renderer/display/menu"
-require "rabbit/renderer/display/progress"
-require "rabbit/renderer/display/mask"
-require "rabbit/renderer/display/search"
-require "rabbit/renderer/display/gesture"
-require "rabbit/renderer/display/graffiti"
-require "rabbit/renderer/display/button-handler"
-require "rabbit/renderer/display/key-handler"
-require "rabbit/renderer/display/scroll-handler"
-require "rabbit/renderer/display/info"
-require "rabbit/renderer/display/spotlight"
-require "rabbit/renderer/display/magnifier"
+require_relative "drawing-area-primitive"
+require_relative "menu"
+require_relative "progress"
+require_relative "mask"
+require_relative "search"
+require_relative "gesture"
+require_relative "graffiti"
+require_relative "button-handler"
+require_relative "key-handler"
+require_relative "scroll-handler"
+require_relative "info"
+require_relative "spotlight"
+require_relative "magnifier"
 
 module Rabbit
   module Renderer

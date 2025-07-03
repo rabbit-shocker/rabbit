@@ -14,11 +14,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/gtk'
+require_relative "../gtk"
 
-require 'rabbit/rabbit'
-require 'rabbit/renderer/engine'
-require 'rabbit/gesture/processor'
+require_relative "../rabbit"
+require_relative "../renderer/engine"
+require_relative "processor"
 
 module Rabbit
   module Gesture

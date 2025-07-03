@@ -1,4 +1,4 @@
-# Copyright (C) 2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2017-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,22 +14,22 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/element/block"
-require "rabbit/element/description-list"
-require "rabbit/element/enum-list"
-require "rabbit/element/footnote"
-require "rabbit/element/image-title-slide"
-require "rabbit/element/image"
-require "rabbit/element/index-slide"
-require "rabbit/element/item-list"
-require "rabbit/element/method-list"
-require "rabbit/element/poppler-slide"
-require "rabbit/element/poppler-title-slide"
-require "rabbit/element/preformatted"
-require "rabbit/element/slide"
-require "rabbit/element/syntax-highlighting"
-require "rabbit/element/table"
-require "rabbit/element/tag"
-require "rabbit/element/text"
-require "rabbit/element/title-slide"
-require "rabbit/element/video"
+require_relative "element/block"
+require_relative "element/description-list"
+require_relative "element/enum-list"
+require_relative "element/footnote"
+require_relative "element/image-title-slide"
+require_relative "element/image"
+require_relative "element/index-slide"
+require_relative "element/item-list"
+require_relative "element/method-list"
+require_relative "element/poppler-slide"
+require_relative "element/poppler-title-slide"
+require_relative "element/preformatted"
+require_relative "element/slide"
+require_relative "element/syntax-highlighting"
+require_relative "element/table"
+require_relative "element/tag"
+require_relative "element/text"
+require_relative "element/title-slide"
+require_relative "element/video"

@@ -19,9 +19,9 @@ require "digest/sha2"
 
 require "gdk_pixbuf2"
 
-require "rabbit/image-data-loader"
-require "rabbit/properties"
-require "rabbit/utils"
+require_relative "../image-data-loader"
+require_relative "../properties"
+require_relative "../utils"
 
 module Rabbit
   module ImageManipulable

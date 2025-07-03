@@ -16,11 +16,11 @@
 
 require "rake"
 
-require "rabbit/command/rabbit"
-require "rabbit/slide-configuration"
-require "rabbit/readme-parser"
-require "rabbit/gem-builder"
-require "rabbit/gem-pusher"
+require_relative "../command/rabbit"
+require_relative "../slide-configuration"
+require_relative "../readme-parser"
+require_relative "../gem-builder"
+require_relative "../gem-pusher"
 
 module Rabbit
   module Task

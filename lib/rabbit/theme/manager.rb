@@ -16,7 +16,7 @@
 
 require "forwardable"
 
-require 'rabbit/theme/applier'
+require_relative "applier"
 
 module Rabbit
   module Theme

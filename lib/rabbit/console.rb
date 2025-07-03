@@ -24,9 +24,9 @@ require "ostruct"
 require "uri"
 require "pathname"
 
-require "rabbit/rabbit"
+require_relative "rabbit"
 
-require "rabbit/console/roff"
+require_relative "console/roff"
 
 Thread.abort_on_exception = true
 

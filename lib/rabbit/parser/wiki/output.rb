@@ -14,19 +14,19 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/gettext"
-require "rabbit/element"
-require "rabbit/parser/pause-support"
-require "rabbit/parser/ext/escape"
-require "rabbit/parser/ext/inline"
-require "rabbit/parser/ext/image"
-require "rabbit/parser/ext/enscript"
-require "rabbit/parser/ext/tex"
-require "rabbit/parser/ext/aafigure"
-require "rabbit/parser/ext/blockdiag"
-require "rabbit/parser/ext/coderay"
-require "rabbit/parser/ext/entity"
-require "rabbit/parser/ext/rouge"
+require_relative "../../gettext"
+require_relative "../../element"
+require_relative "../pause-support"
+require_relative "../ext/escape"
+require_relative "../ext/inline"
+require_relative "../ext/image"
+require_relative "../ext/enscript"
+require_relative "../ext/tex"
+require_relative "../ext/aafigure"
+require_relative "../ext/blockdiag"
+require_relative "../ext/coderay"
+require_relative "../ext/entity"
+require_relative "../ext/rouge"
 
 module Rabbit
   module Parser

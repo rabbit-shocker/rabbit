@@ -1,5 +1,5 @@
 # Copyright (C) 2012  Narihiro Nakamura <authornari@gmail.com>
-# Copyright (C) 2015-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2015-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ else
   require "clutter-gst"
 end
 
-require "rabbit/gtk"
+require_relative "gtk"
 
 module Rabbit
   class VideoWindow

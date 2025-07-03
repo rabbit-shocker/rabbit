@@ -14,10 +14,10 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/canvas'
-require 'rabbit/renderer/offscreen'
-require 'rabbit/element/container-element'
-require 'rabbit/element/slide-element'
+require_relative "../canvas"
+require_relative "../renderer/offscreen"
+require_relative "container-element"
+require_relative "slide-element"
 
 module Rabbit
   module Element

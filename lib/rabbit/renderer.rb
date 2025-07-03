@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/renderer/color"
-require "rabbit/renderer/display"
-require "rabbit/renderer/offscreen"
-require "rabbit/renderer/printer"
-require "rabbit/renderer/screen"
+require_relative "renderer/color"
+require_relative "renderer/display"
+require_relative "renderer/offscreen"
+require_relative "renderer/printer"
+require_relative "renderer/screen"

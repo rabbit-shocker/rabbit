@@ -14,9 +14,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/path-manipulatable"
-require "rabbit/rabbit"
-require "rabbit/yaml-loader"
+require_relative "path-manipulatable"
+require_relative "rabbit"
+require_relative "yaml-loader"
 
 module Rabbit
   class AuthorConfiguration

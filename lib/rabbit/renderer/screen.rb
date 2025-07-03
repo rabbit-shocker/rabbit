@@ -1,4 +1,4 @@
-# Copyright (C) 2018-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2018-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,23 +16,23 @@
 
 require "forwardable"
 
-require "rabbit/renderer/base"
+require_relative "base"
 
-require "rabbit/renderer/display/base"
-require "rabbit/renderer/display/menu"
-require "rabbit/renderer/display/progress"
-require "rabbit/renderer/display/mask"
-require "rabbit/renderer/display/search"
-require "rabbit/renderer/display/gesture"
-require "rabbit/renderer/display/graffiti"
-require "rabbit/renderer/display/button-handler"
-require "rabbit/renderer/display/key-handler"
-require "rabbit/renderer/display/scroll-handler"
-require "rabbit/renderer/display/info"
-require "rabbit/renderer/display/spotlight"
-require "rabbit/renderer/display/magnifier"
+require_relative "display/base"
+require_relative "display/menu"
+require_relative "display/progress"
+require_relative "display/mask"
+require_relative "display/search"
+require_relative "display/gesture"
+require_relative "display/graffiti"
+require_relative "display/button-handler"
+require_relative "display/key-handler"
+require_relative "display/scroll-handler"
+require_relative "display/info"
+require_relative "display/spotlight"
+require_relative "display/magnifier"
 
-require "rabbit/renderer/widget/drawing-area"
+require_relative "widget/drawing-area"
 
 module Rabbit
   module Renderer

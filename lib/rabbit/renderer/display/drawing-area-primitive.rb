@@ -14,12 +14,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/gtk'
+require_relative "../../gtk"
 
-require "rabbit/utils"
-require "rabbit/renderer/engine"
-require "rabbit/renderer/display/base"
-require 'rabbit/renderer/display/cursor'
+require_relative "../../utils"
+require_relative "../engine"
+require_relative "base"
+require_relative "cursor"
 
 module Rabbit
   module Renderer

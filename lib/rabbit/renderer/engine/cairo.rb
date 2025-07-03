@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 require "cairo"
 require "stringio"
 
-require "rabbit/image-data-loader"
-require "rabbit/renderer/kernel"
+require_relative "../../image-data-loader"
+require_relative "../kernel"
 
 module Rabbit
   module Renderer

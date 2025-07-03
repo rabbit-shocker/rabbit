@@ -19,8 +19,8 @@ require "cgi"
 require "open-uri"
 require "fileutils"
 
-require "rabbit/element"
-require "rabbit/filename"
+require_relative "../../element"
+require_relative "../../filename"
 
 module Rabbit
   module Parser

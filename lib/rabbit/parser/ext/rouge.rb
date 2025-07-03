@@ -16,8 +16,8 @@
 
 require "rouge"
 
-require "rabbit/utils"
-require "rabbit/parser/ext/escape"
+require_relative "../../utils"
+require_relative "escape"
 
 module Rabbit
   module Parser

@@ -14,15 +14,15 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/gtk'
-require 'rabbit/dependency-canvas'
-require 'rabbit/rabbit'
-require 'rabbit/renderer/display/drawing-area-view-only'
-require 'rabbit/renderer/display/hook-handler'
-require 'rabbit/renderer/display/key-handler'
-require 'rabbit/renderer/display/button-handler'
-require 'rabbit/renderer/display/scroll-handler'
-require 'rabbit/renderer/display/menu'
+require_relative "gtk"
+require_relative "dependency-canvas"
+require_relative "rabbit"
+require_relative "renderer/display/drawing-area-view-only"
+require_relative "renderer/display/hook-handler"
+require_relative "renderer/display/key-handler"
+require_relative "renderer/display/button-handler"
+require_relative "renderer/display/scroll-handler"
+require_relative "renderer/display/menu"
 
 module Rabbit
   class InfoWindow

@@ -15,17 +15,18 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "forwardable"
-require "rabbit/gtk"
 
-require "rabbit/rabbit"
-require "rabbit/filename"
-require "rabbit/frame"
-require "rabbit/element"
-require "rabbit/parser"
-require "rabbit/theme/manager"
-require "rabbit/front"
-require "rabbit/actions"
-require "rabbit/html/generator"
+require_relative "gtk"
+
+require_relative "rabbit"
+require_relative "filename"
+require_relative "frame"
+require_relative "element"
+require_relative "parser"
+require_relative "theme/manager"
+require_relative "front"
+require_relative "actions"
+require_relative "html/generator"
 
 module Rabbit
   class Canvas

@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2020  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,13 +17,13 @@
 require "forwardable"
 require "tempfile"
 
-require "rabbit/image/default"
-require "rabbit/image/dia"
-require "rabbit/image/eps"
-require "rabbit/image/gimp"
-require "rabbit/image/mermaid"
-require "rabbit/image/pdf"
-require "rabbit/image/svg"
+require_relative "image/default"
+require_relative "image/dia"
+require_relative "image/eps"
+require_relative "image/gimp"
+require_relative "image/mermaid"
+require_relative "image/pdf"
+require_relative "image/svg"
 
 module Rabbit
   module ImageManipulable

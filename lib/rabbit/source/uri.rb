@@ -17,7 +17,7 @@
 require "uri"
 require "open-uri"
 
-require 'rabbit/source/base'
+require_relative "base"
 
 module Rabbit
   module Source

@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2017  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2007-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,13 +14,13 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/parser/markdown"
-require "rabbit/parser/pdf"
-require "rabbit/parser/rd"
-require "rabbit/parser/wiki"
+require_relative "parser/markdown"
+require_relative "parser/pdf"
+require_relative "parser/rd"
+require_relative "parser/wiki"
 
 # Image is fallback
-require "rabbit/parser/image"
+require_relative "parser/image"
 
 module Rabbit
   module Parser

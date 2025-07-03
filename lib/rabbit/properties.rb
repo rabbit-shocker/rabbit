@@ -1,4 +1,4 @@
-# Copyright (C) 2020-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2020-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +14,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/relative-size"
-require "rabbit/yaml-loader"
+require_relative "relative-size"
+require_relative "yaml-loader"
 
 module Rabbit
   class Properties

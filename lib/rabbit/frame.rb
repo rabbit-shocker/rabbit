@@ -15,8 +15,9 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "forwardable"
-require "rabbit/gtk"
 require "rexml/text"
+
+require_relative "gtk"
 
 begin
   case ENV["RABBIT_GTK"]
@@ -28,8 +29,8 @@ begin
 rescue LoadError
 end
 
-require "rabbit/rabbit"
-require "rabbit/utils"
+require_relative "rabbit"
+require_relative "utils"
 
 module Rabbit
   class Frame

@@ -16,8 +16,8 @@
 
 require "English"
 
-require "rabbit/rabbit"
-require "rabbit/slide-configuration"
+require_relative "../rabbit"
+require_relative "../slide-configuration"
 
 module Rabbit
   module Command
@@ -602,7 +602,7 @@ module Rabbit
         source = options.rest[0]
         if /\.gem\z/i =~ source
           gem_name = $PREMATCH
-          require "rabbit/gem-finder"
+          require_relative "../gem-finder"
           finder = GemFinder.new
           spec = finder.find(gem_name, "#{SlideConfiguration::GEM_NAME_PREFIX}-")
           source = spec.gem_dir if spec
@@ -748,7 +748,7 @@ module Rabbit
       end
 
       def setup_soap(front)
-        require "rabbit/soap/server"
+        require_relative "../soap/server"
         thread = nil
 
         begin
@@ -769,7 +769,7 @@ module Rabbit
       end
 
       def setup_xmlrpc(front)
-        require "rabbit/xmlrpc/server"
+        require_relative "../xmlrpc/server"
         thread = nil
 
         begin

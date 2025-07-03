@@ -17,7 +17,7 @@
 require "rd/rdvisitor"
 require "rd/version"
 
-require 'rabbit/rabbit'
+require_relative "../../rabbit"
 
 module Rabbit
   module Parser

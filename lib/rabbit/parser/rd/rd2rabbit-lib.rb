@@ -16,13 +16,13 @@
 
 require "forwardable"
 
-require "rabbit/element"
-require 'rabbit/parser/pause-support'
-require 'rabbit/parser/ext/escape'
-require 'rabbit/parser/rd/visitor'
-require "rabbit/parser/rd/ext/refer"
-require "rabbit/parser/rd/ext/inline-verbatim"
-require "rabbit/parser/rd/ext/block-verbatim"
+require_relative "../../element"
+require_relative "../pause-support"
+require_relative "../ext/escape"
+require_relative "visitor"
+require_relative "ext/refer"
+require_relative "ext/inline-verbatim"
+require_relative "ext/block-verbatim"
 
 module Rabbit
   module Parser

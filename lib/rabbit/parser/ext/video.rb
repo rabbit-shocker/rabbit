@@ -15,8 +15,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require "rabbit/element"
-require "rabbit/parser/ext/image"
+require_relative "../../element"
+require_relative "image"
 
 module Rabbit
   module Parser

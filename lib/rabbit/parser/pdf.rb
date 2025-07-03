@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2018  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2007-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@ require "tempfile"
 
 require "poppler"
 
-require "rabbit/element"
-require "rabbit/parser/base"
+require_relative "../element"
+require_relative "base"
 
 module Rabbit
   module Parser

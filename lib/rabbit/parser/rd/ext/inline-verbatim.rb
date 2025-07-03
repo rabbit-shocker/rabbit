@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2023  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2007-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,11 +14,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require 'rabbit/utils'
-require 'rabbit/parser/ext/inline'
-require 'rabbit/parser/rd/ext/base'
-require 'rabbit/parser/rd/ext/image'
-require 'rabbit/parser/rd/ext/character-reference'
+require_relative "../../../utils"
+require_relative "../../ext/inline"
+require_relative "base"
+require_relative "image"
+require_relative "character-reference"
 
 module Rabbit
   module Parser

@@ -17,10 +17,10 @@
 require "date"
 require "time"
 
-require "rabbit/author-configuration"
-require "rabbit/path-manipulatable"
-require "rabbit/rabbit"
-require "rabbit/yaml-loader"
+require_relative "author-configuration"
+require_relative "path-manipulatable"
+require_relative "rabbit"
+require_relative "yaml-loader"
 
 module Rabbit
   class SlideConfiguration

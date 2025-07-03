@@ -16,7 +16,7 @@
 
 require "pathname"
 
-require 'rabbit/theme/entry'
+require_relative "entry"
 
 module Rabbit
   module Theme

@@ -16,14 +16,14 @@
 
 require "English"
 
-require "rabbit/gettext"
-require "rabbit/parser/pause-support"
-require "rabbit/parser/ext/blockdiag"
-require "rabbit/parser/ext/escape"
-require "rabbit/parser/ext/image"
-require "rabbit/parser/ext/inline"
-require "rabbit/parser/ext/rouge"
-require "rabbit/parser/ext/tex"
+require_relative "../../gettext"
+require_relative "../pause-support"
+require_relative "../ext/blockdiag"
+require_relative "../ext/escape"
+require_relative "../ext/image"
+require_relative "../ext/inline"
+require_relative "../ext/rouge"
+require_relative "../ext/tex"
 
 module Rabbit
   module Parser

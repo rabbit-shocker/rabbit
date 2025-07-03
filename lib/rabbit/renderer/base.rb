@@ -16,11 +16,12 @@
 
 require "forwardable"
 require "erb"
-require "rabbit/gtk"
 
-require "rabbit/rabbit"
-require "rabbit/trackball"
-require "rabbit/renderer/color"
+require_relative "../gtk"
+
+require_relative "../rabbit"
+require_relative "../trackball"
+require_relative "color"
 
 module Rabbit
   module Renderer
