@@ -81,29 +81,28 @@ module Rabbit
           def ext_block_verb_LaTeX(label, source, content, visitor)
             return nil unless /\ALaTeX\z/i =~ label
             make_image_from_file(source, visitor) do |src_file, prop|
-              Parser::Ext::TeX.make_image_by_LaTeX(src_file.path, prop, visitor)
+              Parser::Ext::TeX.make_image_by_LaTeX(src_file.path, prop)
             end
           end
 
           def ext_block_verb_mimeTeX(label, source, content, visitor)
             return nil unless /\AmimeTeX\z/i =~ label
             make_image_from_file(source, visitor) do |src_file, prop|
-              Parser::Ext::TeX.make_image_by_mimeTeX(src_file.path, prop,
-                                                     visitor)
+              Parser::Ext::TeX.make_image_by_mimeTeX(src_file.path, prop)
             end
           end
 
           def ext_block_verb_aafigure(label, source, content, visitor)
             return nil unless /\Aaafigure\z/i =~ label
             make_image_from_file(source, visitor) do |src_file, prop|
-              Parser::Ext::AAFigure.make_image(src_file.path, prop, visitor)
+              Parser::Ext::AAFigure.make_image(src_file.path, prop)
             end
           end
 
           def ext_block_verb_blockdiag(label, source, content, visitor)
             return nil unless /\Ablockdiag\z/i =~ label
             make_image_from_file(source, visitor) do |src_file, prop|
-              Parser::Ext::BlockDiag.make_image(src_file.path, prop, visitor)
+              Parser::Ext::BlockDiag.make_image(src_file.path, prop)
             end
           end
 
@@ -172,7 +171,7 @@ module Rabbit
           def ext_block_verb_charty(label, source, content, visitor)
             return nil unless /\Acharty\z/i =~ label
             make_image_from_file(source, visitor) do |src_file, prop|
-              Parser::Ext::Charty.make_image(src_file.path, prop, visitor)
+              Parser::Ext::Charty.make_image(src_file.path, prop)
             end
           end
 

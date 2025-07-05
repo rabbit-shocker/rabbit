@@ -489,7 +489,7 @@ module Rabbit
             args = [@output.canvas, source]
             Ext::Image.make_image_from_file(*args) do |src_file|
               props = Utils.stringify_hash_key(props)
-              args = [src_file.path, props, @output.canvas]
+              args = [src_file.path, props]
               [Ext::TeX.make_image_by_LaTeX(*args), props]
             end
           end
@@ -499,7 +499,7 @@ module Rabbit
             args = [@output.canvas, source]
             Ext::Image.make_image_from_file(*args) do |src_file|
               props = Utils.stringify_hash_key(props)
-              args = [src_file.path, props, @output.canvas]
+              args = [src_file.path, props]
               [Ext::TeX.make_image_by_mimeTeX(*args), props]
             end
           end

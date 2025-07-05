@@ -384,7 +384,7 @@ module Rabbit
 
         def convert_math(element)
           make_image_from_file(element, element.value) do |src_file, prop|
-            Ext::TeX.make_image_by_LaTeX(src_file.path, prop, @canvas)
+            Ext::TeX.make_image_by_LaTeX(src_file.path, prop)
           end
         end
 
