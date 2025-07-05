@@ -43,6 +43,13 @@ module Rabbit
       Gdk::Keyval::KEY_KP_Tab,
     ]
 
+    MOVE_TO_NEXT_SLIDE_KEYS = [
+      Gdk::Keyval::KEY_Right,
+      Gdk::Keyval::KEY_Down,
+      Gdk::Keyval::KEY_KP_Right,
+      Gdk::Keyval::KEY_KP_Down,
+    ]
+
     MOVE_TO_PREVIOUS_KEYS = [
       Gdk::Keyval::KEY_p,
       Gdk::Keyval::KEY_b,
@@ -57,6 +64,13 @@ module Rabbit
       Gdk::Keyval::KEY_KP_Subtract,
       Gdk::Keyval::KEY_KP_Page_Up,
       Gdk::Keyval::KEY_KP_Delete,
+    ]
+
+    MOVE_TO_PREVIOUS_SLIDE_KEYS = [
+      Gdk::Keyval::KEY_Left,
+      Gdk::Keyval::KEY_Up,
+      Gdk::Keyval::KEY_KP_Left,
+      Gdk::Keyval::KEY_KP_Up,
     ]
 
     MOVE_TO_FIRST_KEYS = [

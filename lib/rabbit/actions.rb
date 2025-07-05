@@ -178,11 +178,17 @@ module Rabbit
                    icon_name: "go-last") do
         @canvas.move_to_last
       end
-      build_action("JumpTo",
+      build_action("JumpToSlide",
                    parameter_type: "i",
-                   label: _("Jump to"),
+                   label: _("Jump to slide"),
                    icon_name: "go-jump") do |action, index|
         @canvas.move_to_if_can(index)
+      end
+      build_action("JumpToRelativeSlide",
+                   parameter_type: "i",
+                   label: _("Jump to relative slide"),
+                   icon_name: "go-jump") do |action, index|
+        @canvas.move_to_if_can(@canvas.current_index + index)
       end
     end
 

@@ -163,8 +163,11 @@ msgstr "最初のスライド"
 msgid "Last slide"
 msgstr "最後のスライド"
 
-msgid "Jump to"
-msgstr "ジャンプ"
+msgid "Jump to slide"
+msgstr "スライドに移動"
+
+msgid "Jump to relative slide"
+msgstr "相対的にスライドに移動"
 
 msgid "Save as image"
 msgstr "画像として保存"
@@ -1046,9 +1049,6 @@ msgstr "[ファイル名か何も指定しない]"
 msgid "URI"
 msgstr "URI"
 
-msgid "Rabbit"
-msgstr "Rabbit"
-
 msgid "To run rabbit, create '%{options_path}'!"
 msgstr "rabbitを実行するために'%{options_path}'を作ってください！"
 
@@ -1829,6 +1829,9 @@ msgstr "タイトルスライドで Lavie をロゴとして表示するツー�
 
 msgid "Displays Lavie as a logo in the title slide."
 msgstr "タイトルスライドで Lavie をロゴとして表示します。"
+
+msgid "Rabbit"
+msgstr "Rabbit"
 
 msgid "Rabbit theme"
 msgstr "Rabbitテーマ"

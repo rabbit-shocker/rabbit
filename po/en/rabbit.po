@@ -163,7 +163,10 @@ msgstr ""
 msgid "Last slide"
 msgstr ""
 
-msgid "Jump to"
+msgid "Jump to slide"
+msgstr ""
+
+msgid "Jump to relative slide"
 msgstr ""
 
 msgid "Save as image"
@@ -1019,9 +1022,6 @@ msgstr ""
 msgid "URI"
 msgstr ""
 
-msgid "Rabbit"
-msgstr ""
-
 msgid "To run rabbit, create '%{options_path}'!"
 msgstr ""
 
@@ -1745,6 +1745,9 @@ msgid "Toolkit to display Lavie as a logo in the title slide"
 msgstr ""
 
 msgid "Displays Lavie as a logo in the title slide."
+msgstr ""
+
+msgid "Rabbit"
 msgstr ""
 
 msgid "Rabbit theme"

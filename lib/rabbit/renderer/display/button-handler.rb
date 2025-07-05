@@ -113,7 +113,7 @@ module Rabbit
                                                          event.y)
               if index
                 @canvas.activate("ToggleIndexMode")
-                @canvas.activate("JumpTo") {index}
+                @canvas.activate("JumpToSlide", index)
               end
               true
             else

@@ -119,7 +119,7 @@ module Rabbit
           if target_index and target_index >= 0 and
               target_index < indexes.size and
               indexes[target_index] != current_index
-            @canvas.activate("JumpTo") {indexes[target_index]}
+            @canvas.activate("JumpToSlide", indexes[target_index])
           end
         end
       end

@@ -168,7 +168,7 @@ module Rabbit
          [:item, "ToggleTerminal"],
         ],
         [:section,
-         [:menu, _("Jump to"), *jump_to_items(canvas)],
+         [:menu, _("Jump to slide"), *jump_to_items(canvas)],
         ],
         [:section,
          [:item, "Previous"],
