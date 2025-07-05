@@ -301,34 +301,4 @@ module Rabbit
       false
     end
   end
-
-  class EmbedFrame < Frame
-    def update_title(new_title)
-    end
-
-    def fullscreen_available?
-      false
-    end
-
-    def iconify_available?
-      false
-    end
-
-    def toggle_terminal
-    end
-
-    def in_terminal?
-      false
-    end
-
-    def init_gui(width, height, main_window, window_type=nil)
-      @window = Gtk::EventBox.new
-      @window.set_size_request(width, height)
-      @canvas.attach_to(self, @window)
-      @fullscreen = false
-      @main_window = main_window
-      @window.show
-      @canvas.post_init_gui
-    end
-  end
 end
