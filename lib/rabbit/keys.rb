@@ -15,7 +15,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require_relative "gtk"
-require_relative "utils"
 
 module Rabbit
   module Keys
