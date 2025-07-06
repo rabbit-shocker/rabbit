@@ -152,7 +152,7 @@ module Rabbit
     attr_accessor :font_resolution_ratio
     attr_accessor :max_n_comments, :comment_theme
 
-    def initialize(renderer)
+    def initialize(renderer_class)
       @frame = NullFrame.new
       @theme_name = nil
       @saved_image_base_name = nil
@@ -175,7 +175,7 @@ module Rabbit
       @comment_theme = nil
       @index_mode = false
       clear
-      @renderer = renderer.new(self)
+      @renderer = renderer_class.new(self)
       @actions = Actions.new(self)
     end
 
