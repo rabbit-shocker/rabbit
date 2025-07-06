@@ -22,7 +22,6 @@ require_relative "search"
 require_relative "gesture"
 require_relative "graffiti"
 require_relative "button-handler"
-require_relative "key-handler"
 require_relative "scroll-handler"
 require_relative "info"
 require_relative "spotlight"
@@ -40,7 +39,6 @@ module Rabbit
         include Progress
         include Search
         include Gesture
-        include KeyHandler
         include ButtonHandler
         include ScrollHandler
         include Info
@@ -224,11 +222,12 @@ module Rabbit
           add_widgets_to_container(@container, &block)
           widget.show
           attach_menu(@window)
-          attach_key(@window)
+          @key_handler = KeyHandler.new(@canvas, @window)
         end
 
         def detach
-          detach_key(@window)
+          @key_handler.detach
+          @key_handler = nil
           detach_menu(@window)
           widget.hide
           unless @window.destroyed?
@@ -292,7 +291,6 @@ module Rabbit
           event_mask |= Gdk::EventMask::BUTTON3_MOTION_MASK
           event_mask |= Gdk::EventMask::SCROLL_MASK
           @area.add_events(event_mask)
-          set_key_press_event(@area)
           set_button_event(@area)
           set_motion_notify_event
           set_scroll_event(@area)

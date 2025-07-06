@@ -26,7 +26,6 @@ require_relative "display/search"
 require_relative "display/gesture"
 require_relative "display/graffiti"
 require_relative "display/button-handler"
-require_relative "display/key-handler"
 require_relative "display/scroll-handler"
 require_relative "display/info"
 require_relative "display/spotlight"
@@ -48,7 +47,6 @@ module Rabbit
       # include Display::Progress
       # include Display::Search
       # include Display::Gesture
-      include Display::KeyHandler
       # include Display::ButtonHandler
       # include Display::ScrollHandler
       # include Display::Info
@@ -85,11 +83,12 @@ module Rabbit
           @window.child = @fixed
         end
         @fixed.show
-        attach_key(@window)
+        @key_handler = KeyHandler.new(@canvas, @window)
       end
 
       def detach
-        detach_key(@window)
+        @key_handler.detach
+        @key_handler = nil
         @fixed.hide
         super
       end
