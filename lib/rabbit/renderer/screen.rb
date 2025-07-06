@@ -227,8 +227,6 @@ module Rabbit
         set_map
         set_size_allocate
 
-        set_key_press_event(@fixed)
-
         @slide_widget = Widget::DrawingArea.new(@canvas)
         @slide_widget.raw.show
         @fixed.put(@slide_widget.raw, 0, 0)
