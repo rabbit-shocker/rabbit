@@ -113,7 +113,7 @@ module Rabbit
                                                          event.y)
               if index
                 @canvas.activate("ToggleIndexMode")
-                @canvas.activate("JumpToSlide", index)
+                @canvas.activate("JumpToSlide", GLib::Variant.new(index, "i"))
               end
               true
             else
