@@ -263,7 +263,7 @@ module Rabbit
       build_action("ResetTimer",
                    label: _("Reset timer"),
                    icon_name: "edit-clear") do
-        @canvas.rest_timer
+        @canvas.reset_timer
       end
       build_action("ToggleSpotlight",
                    update_state: lambda {@canvas.spotlighting?},
