@@ -271,9 +271,11 @@ module Rabbit
       end
 
       def connect_key(keyval, modifier, flags, &block)
+        @key_handler.connect_key(keyval, modifier, flags, &block) if @key_handler
       end
 
       def disconnect_key(keyval, modifier)
+        @key_handler.disconnect_key(keyval, modifier) if @key_handler
       end
 
       def change_graffiti_color
