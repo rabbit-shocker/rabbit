@@ -222,12 +222,9 @@ module Rabbit
           add_widgets_to_container(@container, &block)
           widget.show
           attach_menu(@window)
-          @key_handler = KeyHandler.new(@canvas, @window)
         end
 
         def detach
-          @key_handler.detach
-          @key_handler = nil
           detach_menu(@window)
           widget.hide
           unless @window.destroyed?

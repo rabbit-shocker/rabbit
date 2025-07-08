@@ -19,7 +19,6 @@ require "erb"
 
 require_relative "../gtk"
 
-require_relative "../key-handler"
 require_relative "../rabbit"
 require_relative "../trackball"
 require_relative "color"
@@ -75,7 +74,6 @@ module Rabbit
         @graffiti_color = nil
         @graffiti_line_width = nil
         @draw_scaled_image = true
-        @key_handler = nil
         clean
         init_gl_parameters
       end
@@ -270,14 +268,6 @@ module Rabbit
         false
       end
 
-      def connect_key(keyval, modifier, flags, &block)
-        @key_handler.connect_key(keyval, modifier, flags, &block) if @key_handler
-      end
-
-      def disconnect_key(keyval, modifier)
-        @key_handler.disconnect_key(keyval, modifier) if @key_handler
-      end
-
       def change_graffiti_color
       end
 
@@ -285,11 +275,9 @@ module Rabbit
       end
 
       def pre_terminal
-        @key_handler.pre_terminal if @key_handler
       end
 
       def post_terminal
-        @key_handler.post_terminal if @key_handler
       end
 
       private

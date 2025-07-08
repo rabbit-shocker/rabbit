@@ -18,15 +18,16 @@ require "forwardable"
 
 require_relative "gtk"
 
-require_relative "rabbit"
+require_relative "actions"
+require_relative "element"
 require_relative "filename"
 require_relative "frame"
-require_relative "element"
-require_relative "parser"
-require_relative "theme/manager"
 require_relative "front"
-require_relative "actions"
 require_relative "html/generator"
+require_relative "key-handler"
+require_relative "parser"
+require_relative "rabbit"
+require_relative "theme/manager"
 
 module Rabbit
   class Canvas
@@ -129,8 +130,6 @@ module Rabbit
 
     def_delegators(:@renderer, :post_init_gui)
 
-    def_delegators(:@renderer, :connect_key, :disconnect_key)
-
     def_delegators(:@renderer, :expand_hole, :narrow_hole)
 
     def_delegators(:@renderer, :search_slide, :stop_slide_search, :searching?)
@@ -174,6 +173,7 @@ module Rabbit
       @allotted_time = nil
       @comment_theme = nil
       @index_mode = false
+      @key_handler = nil
       clear
       @renderer = renderer_class.new(self)
       @actions = Actions.new(self)
@@ -212,11 +212,15 @@ module Rabbit
 
     def attach_to(frame, window, container=nil, &block)
       @frame = frame if frame
-      @renderer.attach_to(window, container, &block) if window
+      if window
+        @key_handler = KeyHandler.new(self, window)
+        @renderer.attach_to(window, container, &block)
+      end
     end
 
     def detach
       @frame = NullFrame.new
+      @key_handler&.detach
       @renderer.detach
     end
 
@@ -442,11 +446,21 @@ module Rabbit
       @renderer.post_iconify
     end
 
+    def connect_key(keyval, modifier, flags, &block)
+      @key_handler.connect_key(keyval, modifier, flags, &block) if @key_handler
+    end
+
+    def disconnect_key(keyval, modifier)
+      @key_handler.disconnect_key(keyval, modifier) if @key_handler
+    end
+
     def pre_terminal
       @renderer.pre_terminal
+      @key_handler.pre_terminal if @key_handler
     end
 
     def post_terminal
+      @key_handler.post_terminal if @key_handler
       @renderer.post_terminal
     end
 

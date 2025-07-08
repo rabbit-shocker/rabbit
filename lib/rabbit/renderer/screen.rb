@@ -83,12 +83,9 @@ module Rabbit
           @window.child = @fixed
         end
         @fixed.show
-        @key_handler = KeyHandler.new(@canvas, @window)
       end
 
       def detach
-        @key_handler.detach
-        @key_handler = nil
         @fixed.hide
         super
       end

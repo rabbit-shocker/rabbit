@@ -17,7 +17,6 @@
 require_relative "gtk"
 require_relative "dependency-canvas"
 require_relative "rabbit"
-require_relative "key-handler"
 require_relative "renderer/display/drawing-area-view-only"
 require_relative "renderer/display/hook-handler"
 require_relative "renderer/display/button-handler"
@@ -54,8 +53,6 @@ module Rabbit
     def hide
       return unless showing?
       detach_menu(@window)
-      @key_handler.detach
-      @key_handler = nil
       each do |canvas|
         canvas.detach
       end
@@ -123,7 +120,6 @@ module Rabbit
         init_widgets
       end
       init_menu
-      @key_handler = KeyHandler.new(@canvas, @window)
       attach_menu(@window)
       event_mask = Gdk::EventMask::BUTTON_PRESS_MASK
       event_mask |= Gdk::EventMask::BUTTON_RELEASE_MASK
