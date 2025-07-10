@@ -142,12 +142,12 @@ module Rabbit
     class IndexThumbnail
       include Base
 
-      attr_reader :pixbuf, :title, :number, :number_of_slides
-      def initialize(pixbuf, title, number, number_of_slides)
+      attr_reader :pixbuf, :title, :number, :n_slides
+      def initialize(pixbuf, title, number, n_slides)
         @pixbuf = pixbuf
         @title = title
         @number = number
-        @number_of_slides = number_of_slides
+        @n_slides = n_slides
         @layout = nil
         super()
       end
@@ -166,7 +166,7 @@ module Rabbit
           if @layout.nil?
             margin_bottom = parent.margin_bottom
             text_size = (margin_bottom * Pango::SCALE).ceil
-            text = "#{@number}/#{@number_of_slides}"
+            text = "#{@number}/#{@n_slides}"
             text = %Q[<span size="#{text_size}">#{text}</span>]
             @layout, _, _ = canvas.make_layout(text)
             @layout.set_width(width * Pango::SCALE)
@@ -188,7 +188,7 @@ module Rabbit
       end
 
       def to_html(generator)
-        number_of_places = generator.number_of_places(@number_of_slides)
+        number_of_places = generator.number_of_places(@n_slides)
         format = "thumbnail%0#{number_of_places}d"
         src = generator.save_pixbuf(@pixbuf, format % @number)
         title = generator.slide_image_title(@number)
