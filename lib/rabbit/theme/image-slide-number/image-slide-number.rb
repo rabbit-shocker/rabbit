@@ -51,10 +51,10 @@ match(Slide) do |slides|
 
   start_flag_width = 0
   goal_flag_width = 0
-  if canvas.slide_size < 2
+  if canvas.n_slides < 2
     max_text_length = 1
   else
-    max_text_length = Math.log10(canvas.slide_size - 1).truncate + 1
+    max_text_length = Math.log10(canvas.n_slides - 1).truncate + 1
   end
   text_attributes = {
     "size" => @image_slide_number_font_size / max_text_length,
@@ -71,7 +71,7 @@ match(Slide) do |slides|
       if @image_slide_number_show_text
         props = {
           "flag_type" => @image_slide_number_flag_type,
-          "text" => "%#{max_text_length}d" % canvas.slide_size.to_s,
+          "text" => "%#{max_text_length}d" % canvas.n_slides.to_s,
           "text_attributes" => text_attributes,
         }
         start_flag_width, _ = canvas.flag_size(image_height, props)
@@ -102,7 +102,7 @@ match(Slide) do |slides|
           }
           canvas.draw_flag(start_base_x, base_y, loader.height, props)
 
-          props["text"] = (canvas.slide_size - 1).to_s
+          props["text"] = (canvas.n_slides - 1).to_s
           props["flag_color"] = @image_slide_number_goal_flag_color
           canvas.draw_flag(goal_base_x, base_y, loader.height, props)
         else
@@ -113,7 +113,7 @@ match(Slide) do |slides|
         end
       end
 
-      target_n_slides ||= canvas.slide_size
+      target_n_slides ||= canvas.n_slides
       if target_n_slides < 3
         ratio = 1
       else

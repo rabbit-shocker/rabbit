@@ -120,8 +120,8 @@ module Rabbit
           super
         end
 
-        def pre_print(slide_size)
-          start_progress(slide_size)
+        def pre_print(n_slides)
+          start_progress(n_slides)
         end
 
         def printing(i)
@@ -134,9 +134,9 @@ module Rabbit
           end_progress
         end
 
-        def pre_to_pixbuf(slide_size)
+        def pre_to_pixbuf(n_slides)
           super
-          start_progress(slide_size)
+          start_progress(n_slides)
           @pixbufing_size = [width, height]
         end
 
@@ -153,7 +153,7 @@ module Rabbit
         end
 
         def cache_all_slides
-          pre_cache_all_slides(@canvas.slide_size)
+          pre_cache_all_slides(@canvas.n_slides)
           canceled = false
           @canvas.slides.each_with_index do |slide, i|
             @canvas.change_current_index(i) do
@@ -167,10 +167,10 @@ module Rabbit
           post_cache_all_slides(canceled)
         end
 
-        def pre_cache_all_slides(slide_size)
+        def pre_cache_all_slides(n_slides)
           @caching = true
           @caching_size = [width, height]
-          start_progress(slide_size)
+          start_progress(n_slides)
         end
 
         def caching_all_slides(i)

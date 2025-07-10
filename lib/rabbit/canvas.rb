@@ -278,8 +278,15 @@ module Rabbit
       indexes
     end
 
-    def slide_size
+    def n_slides
       slides.size
+    end
+
+    def slide_size
+      warn("#{self.class.name}\##{__method__} is deprecated. " +
+           "Use \#n_slides instead.",
+           category: :deprecated)
+      n_slides
     end
 
     def current_slide
@@ -309,7 +316,7 @@ module Rabbit
         index = @current_index
         @current_index = new_index
       end
-      if 0 <= current_index and current_index < slide_size
+      if 0 <= current_index and current_index < n_slides
         yield
       end
     ensure
@@ -475,7 +482,7 @@ module Rabbit
     end
 
     def move_to_if_can(index)
-      if index and 0 <= index and index < slide_size
+      if index and 0 <= index and index < n_slides
         move_to(index)
       end
       current_index
@@ -518,7 +525,7 @@ module Rabbit
     end
 
     def move_to_last
-      move_to(slide_size - 1)
+      move_to(n_slides - 1)
     end
 
     def index_mode?
@@ -563,7 +570,7 @@ module Rabbit
     end
 
     def last_slide?
-      slide_size.zero? or current_index == (slide_size - 1)
+      n_slides.zero? or current_index == (n_slides - 1)
     end
 
     def have_previous_slide?
@@ -577,7 +584,7 @@ module Rabbit
     end
 
     def have_next_slide?
-      slide_size - 1 > current_index
+      n_slides - 1 > current_index
     end
 
     def have_next?

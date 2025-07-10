@@ -1,7 +1,7 @@
 theme_exit unless display?
 
 if canvas.allotted_time
-  default_slide_show_span = (canvas.allotted_time / canvas.slide_size.to_f).round
+  default_slide_show_span = (canvas.allotted_time / canvas.n_slides.to_f).round
 else
   default_slide_show_span = 60
 end

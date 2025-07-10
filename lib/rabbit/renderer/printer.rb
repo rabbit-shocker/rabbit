@@ -80,7 +80,7 @@ module Rabbit
         @filename || default_filename
       end
 
-      def pre_print(slide_size)
+      def pre_print(n_slides)
         init_context(create_context)
       end
 

@@ -88,7 +88,7 @@ module Rabbit
           queue_draw
         end
 
-        def pre_to_pixbuf(slide_size)
+        def pre_to_pixbuf(n_slides)
         end
 
         def to_pixbufing(i)

@@ -80,11 +80,11 @@ match(*@image_timer_target_paths) do |slides|
       loader.draw(canvas, base_x, base_y, @image_timer_draw_parameters)
 
       if @image_timer_auto_scroll
-        if canvas.slide_size < 3
+        if canvas.n_slides < 3
           slide_ratio = 1
         else
-          slide_ratio = (slide.index - 1.0) / (canvas.slide_size - 2.0)
-          next_slide_ratio = (slide.index) / (canvas.slide_size - 2.0)
+          slide_ratio = (slide.index - 1.0) / (canvas.n_slides - 2.0)
+          next_slide_ratio = (slide.index) / (canvas.n_slides - 2.0)
         end
 
         if ratio > slide_ratio and !canvas.last_slide? and

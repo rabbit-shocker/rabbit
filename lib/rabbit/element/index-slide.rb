@@ -37,15 +37,15 @@ module Rabbit
           end
 
           thumbnails = []
-          number_of_slide = maker.slide_size - 1
-          canvas.renderer.pre_to_pixbuf(number_of_slide)
+          n_slides = maker.n_slides - 1
+          canvas.renderer.pre_to_pixbuf(n_slides)
           canceled = false
           maker.each_slide_pixbuf do |slide, pixbuf, slide_number|
             if canvas.renderer.to_pixbufing(slide_number)
               thumbnails << IndexThumbnail.new(pixbuf,
                                                maker.slide_title(slide_number),
                                                slide_number,
-                                               number_of_slide)
+                                               n_slides)
             else
               canceled = true
             end

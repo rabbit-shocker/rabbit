@@ -358,7 +358,7 @@ module Rabbit
       @current_canvas.move_to_if_can(base_index)
       @current_canvas.current_slide.drawing_index =
         @canvas.current_slide.drawing_index
-      @next_canvas.move_to_if_can([base_index + 1, @canvas.slide_size - 1].min)
+      @next_canvas.move_to_if_can([base_index + 1, @canvas.n_slides - 1].min)
     end
 
     def toggle_index_mode

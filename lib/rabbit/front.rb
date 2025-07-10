@@ -109,8 +109,15 @@ module Rabbit
       @canvas.slide_title
     end
 
+    def n_slides
+      @canvas.n_slides
+    end
+
     def total_slide_number
-      @canvas.slide_size
+      warn("#{self.class.name}\##{__method__} is deprecated. " +
+           "Use \#n_slides instead.",
+           category: :deprecated)
+      n_slides
     end
 
     def current_slide_number

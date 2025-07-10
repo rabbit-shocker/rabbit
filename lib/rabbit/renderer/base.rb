@@ -106,7 +106,7 @@ module Rabbit
           do_print(&block)
         else
           canvas = make_canvas_with_printable_renderer
-          pre_print(canvas.slide_size)
+          pre_print(canvas.n_slides)
           canceled = false
           canvas.print do |i|
             result = printing(i)
@@ -134,7 +134,7 @@ module Rabbit
       def each_slide_pixbuf
         canvas = offscreen_canvas
         previous_index = canvas.current_index
-        pre_to_pixbuf(canvas.slide_size)
+        pre_to_pixbuf(canvas.n_slides)
         canceled = false
         canvas.slides.each_with_index do |slide, i|
           if !to_pixbufing(i) or !yield(slide, canvas.to_pixbuf(i), i)
@@ -286,7 +286,7 @@ module Rabbit
       end
 
       def do_print(&block)
-        pre_print(@canvas.slide_size)
+        pre_print(@canvas.n_slides)
         canceled = false
         @canvas.slides.each_with_index do |slide, i|
           @canvas.move_to_if_can(i)

@@ -160,18 +160,18 @@ module Rabbit
       private
       def save_environment
         @index_mode = @canvas.index_mode?
-        @slide_size = @canvas.slide_size
-        @index_slide_size = 0
+        @n_slides = @canvas.n_slides
+        @index_n_slides = 0
         if output_index_html?
           @canvas.with_index_mode(true) do
-            @index_slide_size = @canvas.slide_size
+            @index_n_slides = @canvas.n_slides
           end
         end
         yield
       ensure
         @index_mode = nil
-        @slide_size = nil
-        @index_slide_size = nil
+        @n_slides = nil
+        @index_n_slides = nil
       end
 
       def save_html(slide, slide_number)
@@ -229,8 +229,8 @@ module Rabbit
       def filename_format
         format = @base_name.dup
         format << "-index" if outputting_index?
-        slide_size = outputting_index? ? @index_slide_size : @slide_size
-        format << "-%0#{number_of_places(slide_size)}d%s.%s"
+        n_slides = outputting_index? ? @index_n_slides : @n_slides
+        format << "-%0#{number_of_places(n_slides)}d%s.%s"
       end
 
       def make_filename(slide_number, suffix, optional=nil)
@@ -290,7 +290,7 @@ module Rabbit
 
       def image_title(slide_number=@slide_number)
         title = h(slide_title(slide_number))
-        title << "(#{slide_number}/#{@canvas.slide_size - 1})"
+        title << "(#{slide_number}/#{@canvas.n_slides - 1})"
         title
       end
 
@@ -315,7 +315,7 @@ module Rabbit
       end
 
       def last_slide?(slide_number=@slide_number)
-        @canvas.slide_size.zero? or slide_number == @canvas.slide_size - 1
+        @canvas.n_slides.zero? or slide_number == @canvas.n_slides - 1
       end
 
       def first_index(slide_number=@slide_number)
@@ -331,7 +331,7 @@ module Rabbit
       end
 
       def last_index(slide_number=@slide_number)
-        @canvas.slide_size - 1
+        @canvas.n_slides - 1
       end
 
       def first_link(slide_number=@slide_number)
