@@ -21,8 +21,7 @@ require_relative "../utils"
 
 module Rabbit
   module Renderer
-    class Offscreen
-      include Renderer::Base
+    class Offscreen < Base
       include Engine::Cairo
 
       attr_accessor :filename

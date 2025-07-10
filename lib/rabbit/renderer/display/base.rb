@@ -14,14 +14,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require_relative "../base"
 require_relative "hook-handler"
 
 module Rabbit
   module Renderer
     module Display
       module Base
-        include Renderer::Base
         include HookHandler
 
         def initialize(*args, &block)

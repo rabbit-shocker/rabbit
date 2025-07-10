@@ -20,7 +20,7 @@ require_relative "drawing-area-base"
 module Rabbit
   module Renderer
     module Display
-      class DrawingArea
+      class DrawingArea < Renderer::Base
         include Renderer::Engine::Cairo
         include DrawingAreaBase
 

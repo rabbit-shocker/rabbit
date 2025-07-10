@@ -25,7 +25,7 @@ require_relative "color"
 
 module Rabbit
   module Renderer
-    module Base
+    class Base
       extend Forwardable
 
       include ERB::Util

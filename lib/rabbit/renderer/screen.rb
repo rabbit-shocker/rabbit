@@ -35,9 +35,7 @@ require_relative "widget/drawing-area"
 
 module Rabbit
   module Renderer
-    class Screen
-      extend Forwardable
-
+    class Screen < Base
       include Display::Base
 
       include Display::Cursor

@@ -24,11 +24,10 @@ require_relative "print-layout"
 
 module Rabbit
   module Renderer
-    class Printer
+    class Printer < Base
       A4_WIDTH = 596
       A4_HEIGHT = 842
 
-      include Renderer::Base
       include Engine::Cairo
 
       attr_writer :filename

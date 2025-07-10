@@ -20,7 +20,7 @@ require_relative "drawing-area-primitive"
 module Rabbit
   module Renderer
     module Display
-      class DrawingAreaViewOnly
+      class DrawingAreaViewOnly < Renderer::Base
         include Renderer::Engine::Cairo
         include DrawingAreaPrimitive
 
