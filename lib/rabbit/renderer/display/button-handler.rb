@@ -37,75 +37,155 @@ module Rabbit
           @button_handler = []
         end
 
-        def set_button_event(widget)
-          last_button_press_event = nil
-          widget.signal_connect("button_press_event") do |_widget, event|
-            last_button_press_event = event
-            call_hook_procs(@button_press_hook_procs, event)
+        if Gtk.const_defined?(:GestureClick)
+          ButtonPressEvent = Struct.new(:button,
+                                        :x,
+                                        :y,
+                                        :state) do
+            def event_type
+              Gdk::EventType::BUTTON_PRESSS
+            end
+          end
+          ButtonReleaseEvent = Struct.new(:button,
+                                          :x,
+                                          :y,
+                                          :state) do
+            def event_type
+              Gdk::EventType::BUTTON_RELEASE
+            end
           end
 
-          widget.signal_connect("button_release_event") do |_widget, event|
-            if last_button_press_event
-              handled = call_hook_procs(@button_release_hook_procs,
-                                        event, last_button_press_event)
-              if handled
-                clear_button_handler
+          def set_button_event(widget)
+            ["primary", "middle", "secondary"].each do |button_type|
+              click = Gtk::GestureClick.new
+              click.name = "rabbit-click-#{button_type}"
+              click.button = Gdk.const_get("BUTTON_#{button_type.upcase}")
+
+              last_button_press_event = nil
+              click.signal_connect(:pressed) do |_, n_presses, x, y|
+                last_button_press_event =
+                  ButtonPressEvent.new(click.current_button,
+                                       x,
+                                       y,
+                                       click.current_event_state)
+                call_hook_procs(@button_press_hook_procs,
+                                last_button_press_event)
+              end
+
+              click.signal_connect(:released) do |_, n_presses, x, y|
+                event = ButtonReleaseEvent.new(click.current_button,
+                                               x,
+                                               y,
+                                               click.current_event_state)
+                if last_button_press_event
+                  handled = call_hook_procs(@button_release_hook_procs,
+                                            event,
+                                            last_button_press_event)
+                  unless handled
+                    click_type = nil
+                    case n_presses
+                    when 1
+                      click_type = "single_click"
+                    when 2
+                      click_type = "double_click" if button_type == "primary"
+                    end
+                    if click_type
+                      handler = "handle_button_#{button_type}_#{click_type}"
+                      __send__(handler, last_button_press_event, event)
+                      start_button_handler
+                    end
+                  end
+                else
+                  clear_button_handler
+                end
+              end
+
+              widget.add_controller(click)
+            end
+          end
+        else
+          def set_button_event(widget)
+            widget.add_events(Gdk::EventMask::BUTTON_PRESS_MASK |
+                              Gdk::EventMask::BUTTON_RELEASE_MASK)
+            last_button_press_event = nil
+            widget.signal_connect("button_press_event") do |_widget, event|
+              last_button_press_event = event
+              call_hook_procs(@button_press_hook_procs, event)
+            end
+
+            widget.signal_connect("button_release_event") do |_widget, event|
+              if last_button_press_event
+                handled = call_hook_procs(@button_release_hook_procs,
+                                          event, last_button_press_event)
+                if handled
+                  clear_button_handler
+                else
+                  handled = handle_button_release(event, last_button_press_event)
+                end
+                handled
               else
-                handled = handle_button_release(event, last_button_press_event)
+                clear_button_handler
+                false
               end
-              handled
-            else
-              clear_button_handler
-              false
             end
+          end
+
+          def handle_button_release(event, last_button_press_event)
+            button_types = {
+              1 => "primary",
+              2 => "middle",
+              3 => "secondary",
+              5 => "primary",
+              4 => "middle",
+            }
+            click_types = {
+              Gdk::EventType::BUTTON_PRESS => "single_click",
+              Gdk::EventType::BUTTON2_PRESS => "double_click",
+            }
+            button_type = button_types[event.button]
+            click_type = click_types[last_button_press_event.event_type]
+            if button_type and click_type
+              handler = "handle_button_#{button_type}_#{click_type}"
+              __send__(handler, last_button_press_event, event)
+              start_button_handler
+            end
+            true
           end
         end
 
-        def handle_button_release(event, last_button_press_event)
-          press_event_type = last_button_press_event.event_type
-          handlers = {
-            Gdk::EventType::BUTTON_PRESS => :handle_button_press,
-            Gdk::EventType::BUTTON2_PRESS => :handle_button2_press,
-            Gdk::EventType::BUTTON3_PRESS => :handle_button3_press,
-          }
-          handler = handlers[press_event_type]
-          if handler
-            __send__(handler, last_button_press_event, event)
-            start_button_handler
-          end
-          true
-        end
-
-        def handle_button_press(event, release_event)
-          case event.button
-          when 1, 5
-            if release_event.state.control_mask?
-              add_button_handler do
-                popup_menu
-                true
-              end
-            elsif !release_event.state.mod1_mask?
-              add_button_handler do
-                @canvas.activate("NextSlide")
-                true
-              end
-            end
-          when 2, 4
-            unless release_event.state.mod1_mask?
-              add_button_handler do
-                @canvas.activate("PreviousSlide")
-                true
-              end
-            end
-          when 3
+        def handle_button_primary_single_click(event, release_event)
+          if release_event.state.control_mask?
             add_button_handler do
-              popup_menu
+              toggle_menu(release_event.x, release_event.y)
+              true
+            end
+          elsif !release_event.state.alt_mask?
+            add_button_handler do
+              popdown_menu
+              @canvas.activate("NextSlide")
               true
             end
           end
         end
 
-        def handle_button2_press(event, release_event)
+        def handle_button_middle_single_click(event, release_event)
+          unless release_event.state.alt_mask?
+            add_button_handler do
+              popdown_menu
+              @canvas.activate("PreviousSlide")
+              true
+            end
+          end
+        end
+
+        def handle_button_secondary_single_click(event, release_event)
+          add_button_handler do
+            toggle_menu(release_event.x, release_event.y)
+            true
+          end
+        end
+
+        def handle_button_primary_double_click(event, release_event)
           add_button_handler do
             if @canvas.index_mode?
               index = @canvas.current_slide.slide_number(@canvas,
@@ -119,12 +199,6 @@ module Rabbit
             else
               false
             end
-          end
-        end
-
-        def handle_button3_press(event, release_event)
-          add_button_handler do
-            false
           end
         end
 

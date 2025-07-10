@@ -281,15 +281,12 @@ module Rabbit
 
         def init_drawing_area
           super
-          event_mask = Gdk::EventMask::BUTTON_PRESS_MASK
-          event_mask |= Gdk::EventMask::BUTTON_RELEASE_MASK
-          event_mask |= Gdk::EventMask::BUTTON1_MOTION_MASK
-          event_mask |= Gdk::EventMask::BUTTON2_MOTION_MASK
-          event_mask |= Gdk::EventMask::BUTTON3_MOTION_MASK
-          event_mask |= Gdk::EventMask::SCROLL_MASK
-          @area.add_events(event_mask)
           set_button_event(@area)
+          @area.add_events(Gdk::EventMask::SCROLL_MASK)
           set_motion_notify_event
+          @area.add_events(Gdk::EventMask::BUTTON1_MOTION_MASK |
+                           Gdk::EventMask::BUTTON2_MOTION_MASK |
+                           Gdk::EventMask::BUTTON3_MOTION_MASK)
           set_scroll_event(@area)
         end
 

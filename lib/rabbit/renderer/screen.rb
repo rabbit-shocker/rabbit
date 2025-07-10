@@ -19,9 +19,9 @@ require "forwardable"
 require_relative "base"
 
 require_relative "display/base"
-require_relative "display/menu"
 require_relative "display/progress"
 require_relative "display/mask"
+require_relative "display/menu"
 require_relative "display/search"
 require_relative "display/gesture"
 require_relative "display/graffiti"
@@ -41,13 +41,13 @@ module Rabbit
       include Display::Base
 
       include Display::Cursor
-      # include Display::Menu
+      include Display::Menu
       # include Display::Graffiti
       # include Display::Mask
       # include Display::Progress
       # include Display::Search
       # include Display::Gesture
-      # include Display::ButtonHandler
+      include Display::ButtonHandler
       # include Display::ScrollHandler
       # include Display::Info
       # include Display::Spotlight
@@ -83,9 +83,12 @@ module Rabbit
           @window.child = @fixed
         end
         @fixed.show
+        init_menu
+        attach_menu(@window)
       end
 
       def detach
+        detach_menu(@window)
         @fixed.hide
         super
       end
@@ -120,14 +123,17 @@ module Rabbit
       def post_apply_theme
         @slide_widget.clear_compiled_slides
         queue_draw
+        update_menu
       end
 
       def post_move(old_index, index)
         queue_draw
+        update_menu
       end
 
       def post_move_in_slide(old_index, index)
         queue_draw
+        update_menu
       end
 
       def pre_parse
@@ -225,6 +231,7 @@ module Rabbit
         set_size_allocate
 
         @slide_widget = Widget::DrawingArea.new(@canvas)
+        set_button_event(@slide_widget.raw)
         @slide_widget.raw.show
         @fixed.put(@slide_widget.raw, 0, 0)
       end

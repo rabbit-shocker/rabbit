@@ -29,8 +29,12 @@ module Rabbit
           @menu.update_menu(@canvas)
         end
 
-        def popup_menu
-          @menu.popup
+        def toggle_menu(x=nil, y=nil)
+          @menu.toggle(x, y)
+        end
+
+        def popup_menu(x=nil, y=nil)
+          @menu.popup(x, y)
         end
 
         def popdown_menu

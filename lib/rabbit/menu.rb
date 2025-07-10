@@ -43,20 +43,38 @@ module Rabbit
 
     def update_menu(canvas)
       @popover_menu = Gtk::PopoverMenu.new
-      @popover_menu.modal = false
       @menu_model = Gio::Menu.new
       @popover_menu.insert_action_group("rabbit", @actions.group)
       add_jump_to_actions(canvas)
       add_theme_actions(canvas)
       add_items(canvas)
-      @popover_menu.bind_model(@menu_model)
-      @popover_menu.relative_to = @window.child if @window
-      @popover_menu.pointing_to = Gdk::Rectangle.new(0, 0, 0, 0)
+      if @popover_menu.respond_to?(:menu_model=) # GTK 4
+        @popover_menu.menu_model = @menu_model
+      else
+        @popover_menu.bind_model(@menu_model)
+      end
+      if @window
+        if @popover_menu.respond_to?(:relative_to=) # GTK 3
+          @popover_menu.relative_to = @window.child
+        else
+          @popover_menu.parent = @window.child
+        end
+      end
+      @popover_menu.autohide = true if @popover_menu.respond_to?(:autohide=)
 
       @actions.update_status
     end
 
-    def popup
+    def toggle(x=nil, y=nil)
+      if @popover_menu.visible?
+        popdown
+      else
+        popup(x, y)
+      end
+    end
+
+    def popup(x=nil, y=nil)
+      @popover_menu.pointing_to = Gdk::Rectangle.new(x || 0, y || 0, 0, 0)
       @popover_menu.popup
     end
 
