@@ -37,21 +37,6 @@ module Rabbit
           init_drawing_area
         end
 
-        def attach_to(window, container=nil)
-          super
-
-          set_configure_event
-        end
-
-        def detach
-          if !@window.destroyed? and @configure_signal_id
-            @window.signal_handler_disconnect(@configure_signal_id)
-            @configure_signal_id = nil
-          end
-
-          super
-        end
-
         def widget
           @area
         end
@@ -182,14 +167,6 @@ module Rabbit
               Rabbit.logger.warn($!)
             end
           end
-        end
-
-        def set_configure_event
-          id = @window.signal_connect("configure_event") do |widget, event|
-            configured(event.x, event.y, event.width, event.height)
-            false
-          end
-          @configure_signal_id = id
         end
 
         def configured(x, y, w, h)
