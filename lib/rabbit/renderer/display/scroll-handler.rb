@@ -29,21 +29,51 @@ module Rabbit
         def init_scroll_handler
         end
 
-        def set_scroll_event(widget)
-          widget.signal_connect("scroll_event") do |widget, event|
-            handled = call_hook_procs(@scroll_hook_procs, event)
-            unless handled
-              handled = true
-              case event.direction
-              when Gdk::ScrollDirection::UP
-                @canvas.activate("PreviousSlide")
-              when Gdk::ScrollDirection::DOWN
-                @canvas.activate("NextSlide")
+        if Gtk.const_defined?(:EventControllerScroll)
+          ScrollEvent = Struct.new(:direction)
+
+          def set_scroll_event(widget)
+            scroll = Gtk::EventControllerScroll.new([:both_axes])
+            scroll.signal_connect(:scroll) do |_, dx, dy|
+              if dy.zero?
+                false
               else
-                handled = false
+                if dy.positive?
+                  direction = Gdk::ScrollDirection::UP
+                else
+                  direction = Gdk::ScrollDirection::DOWN
+                end
+                event = ScrollEvent.new(direction)
+                handled = call_hook_procs(@scroll_hook_procs, event)
+                unless handled
+                  if direction == Gdk::ScrollDirection::UP
+                    @canvas.activate("NextSlide")
+                  else
+                    @canvas.activate("PreviousSlide")
+                  end
+                end
+                true
               end
             end
-            handled
+            widget.add_controller(scroll)
+          end
+        else
+          def set_scroll_event(widget)
+            widget.signal_connect("scroll_event") do |widget, event|
+              handled = call_hook_procs(@scroll_hook_procs, event)
+              unless handled
+                handled = true
+                case event.direction
+                when Gdk::ScrollDirection::UP
+                  @canvas.activate("PreviousSlide")
+                when Gdk::ScrollDirection::DOWN
+                  @canvas.activate("NextSlide")
+                else
+                  handled = false
+                end
+              end
+              handled
+            end
           end
         end
       end

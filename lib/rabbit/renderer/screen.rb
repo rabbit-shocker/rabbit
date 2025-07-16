@@ -46,7 +46,7 @@ module Rabbit
       # include Display::Search
       # include Display::Gesture
       include Display::ButtonHandler
-      # include Display::ScrollHandler
+      include Display::ScrollHandler
       include Display::Info
       # include Display::Spotlight
       # include Display::Magnifier
@@ -239,6 +239,7 @@ module Rabbit
         @fixed.can_focus = true
         @slide_widget = Widget::DrawingArea.new(@canvas)
         set_button_event(@slide_widget.raw)
+        set_scroll_event(@slide_widget.raw)
         @slide_widget.raw.show
         @fixed.put(@slide_widget.raw, 0, 0)
       end
