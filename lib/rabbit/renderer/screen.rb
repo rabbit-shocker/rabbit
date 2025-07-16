@@ -190,33 +190,38 @@ module Rabbit
           end
 
           margin_background = @slide_widget.make_color("black")
-          if @size.have_logical_margin_x?
-            @slide_widget.draw_rectangle(true,
-                                         0,
-                                         0,
-                                         @size.logical_margin_left,
-                                         @size.real_height,
-                                         margin_background)
-            @slide_widget.draw_rectangle(true,
-                                         @size.real_width - @size.logical_margin_right,
-                                         0,
-                                         @size.logical_margin_right,
-                                         @size.real_height,
-                                         margin_background)
-          end
-          if @size.have_logical_margin_y?
-            @slide_widget.draw_rectangle(true,
-                                         0,
-                                         0,
-                                         @size.real_width,
-                                         @size.logical_margin_top,
-                                         margin_background)
-            @slide_widget.draw_rectangle(true,
-                                         0,
-                                         @size.real_height - @size.logical_margin_bottom,
-                                         @size.real_width,
-                                         @size.logical_margin_bottom,
-                                         margin_background)
+          @slide_widget.save_context do
+            @slide_widget.scale_context(*@size.logical_scale)
+            if @size.have_logical_margin_x?
+              @slide_widget.draw_rectangle(true,
+                                           0,
+                                           0,
+                                           @size.logical_margin_left,
+                                           @size.base_height,
+                                           margin_background)
+              @slide_widget.draw_rectangle(true,
+                                           @size.logical_margin_right +
+                                           @size.base_width,
+                                           0,
+                                           @size.logical_margin_right,
+                                           @size.base_height,
+                                           margin_background)
+            end
+            if @size.have_logical_margin_y?
+              @slide_widget.draw_rectangle(true,
+                                           0,
+                                           0,
+                                           @size.base_width,
+                                           @size.logical_margin_top,
+                                           margin_background)
+              @slide_widget.draw_rectangle(true,
+                                           0,
+                                           @size.logical_margin_top +
+                                           @size.base_height,
+                                           @size.base_width,
+                                           @size.logical_margin_bottom,
+                                           margin_background)
+            end
           end
         end
       end
