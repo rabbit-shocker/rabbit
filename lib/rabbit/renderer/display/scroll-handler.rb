@@ -29,7 +29,7 @@ module Rabbit
         def init_scroll_handler
         end
 
-        if Gtk.const_defined?(:EventControllerScroll)
+        if Gtk::Widget.method_defined?(:add_controller)
           ScrollEvent = Struct.new(:direction)
 
           def set_scroll_event(widget)
@@ -59,6 +59,7 @@ module Rabbit
           end
         else
           def set_scroll_event(widget)
+            widget.add_events(Gdk::EventMask::SCROLL_MASK)
             widget.signal_connect("scroll_event") do |widget, event|
               handled = call_hook_procs(@scroll_hook_procs, event)
               unless handled

@@ -289,11 +289,10 @@ module Rabbit
         def init_drawing_area
           super
           set_button_event(@area)
-          @area.add_events(Gdk::EventMask::SCROLL_MASK)
-          set_motion_notify_event
           @area.add_events(Gdk::EventMask::BUTTON1_MOTION_MASK |
                            Gdk::EventMask::BUTTON2_MOTION_MASK |
                            Gdk::EventMask::BUTTON3_MOTION_MASK)
+          set_motion_notify_event
           set_scroll_event(@area)
         end
 
