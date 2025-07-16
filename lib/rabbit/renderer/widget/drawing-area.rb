@@ -55,11 +55,19 @@ module Rabbit
 
         private
         def set_draw
-          @area.signal_connect(:draw) do |widget, context|
-            init_context(context)
-            draw(widget)
-            finish_renderer
-            Gdk::Event::PROPAGATE
+          if @area.respond_to?(:set_draw_func)
+            @area.set_draw_func do |widget, context, width, height|
+              init_context(context)
+              draw(widget)
+              finish_renderer
+            end
+          else
+            @area.signal_connect(:draw) do |widget, context|
+              init_context(context)
+              draw(widget)
+              finish_renderer
+              Gdk::Event::PROPAGATE
+            end
           end
         end
 
