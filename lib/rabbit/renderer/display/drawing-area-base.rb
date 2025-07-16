@@ -51,6 +51,13 @@ module Rabbit
           super
         end
 
+        def update_size(width, height)
+          super
+          @mask = nil
+          set_hole
+          reload_theme if @surface
+        end
+
         def post_apply_theme
           if @need_reload_theme
             @need_reload_theme = false
@@ -364,13 +371,6 @@ module Rabbit
           @surface.draw_pixbuf(@foreground, pixbuf, src_x, src_y,
                                dest_x, dest_y, src_width, src_height,
                                Gdk::RGB::DITHER_NORMAL, 0, 0)
-        end
-
-        def configured_after(widget, event)
-          @mask = nil
-          set_hole
-          super unless @caching
-          false
         end
 
         def confirm_dialog(message)

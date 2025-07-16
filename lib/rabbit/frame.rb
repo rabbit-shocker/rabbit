@@ -155,6 +155,20 @@ module Rabbit
       end
       set_window_signal
       setup_dnd
+      if @window.class.signals.include?("configure-event")
+        @window.signal_connect(:configure_event) do |_, event|
+          @canvas.renderer.update_size(event.width, event.height)
+          false
+        end
+      else
+        @window.signal_connect(:notify) do |_, param|
+          case param.name
+          when "default-width", "default-height"
+            @canvas.renderer.update_size(@window.default_width,
+                                         @window.default_height)
+          end
+        end
+      end
       @canvas.attach_to(self, @window, @notebook)
       if defined?(Vte::Terminal)
         init_terminal

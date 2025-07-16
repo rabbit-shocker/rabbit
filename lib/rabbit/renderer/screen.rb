@@ -47,7 +47,7 @@ module Rabbit
       # include Display::Gesture
       include Display::ButtonHandler
       # include Display::ScrollHandler
-      # include Display::Info
+      include Display::Info
       # include Display::Spotlight
       # include Display::Magnifier
 
@@ -73,6 +73,11 @@ module Rabbit
         init_ui
       end
 
+      def update_size(width, height)
+        super
+        @slide_widget.raw.set_size_request(width, height)
+      end
+
       def attach_to(window, container=nil)
         super
         if container
@@ -81,6 +86,8 @@ module Rabbit
           @window.child = @fixed
         end
         @fixed.show
+        set_default_size(window.default_width, window.default_height)
+        update_size(window.default_width, window.default_height)
         init_menu
         attach_menu(@window)
       end
@@ -230,9 +237,6 @@ module Rabbit
       def init_ui
         @fixed = Gtk::Fixed.new
         @fixed.can_focus = true
-        set_map
-        set_size_allocate
-
         @slide_widget = Widget::DrawingArea.new(@canvas)
         set_button_event(@slide_widget.raw)
         @slide_widget.raw.show
@@ -241,28 +245,6 @@ module Rabbit
 
       def depth
         @fixed.window.depth
-      end
-
-      def set_map
-        @fixed.signal_connect_after(:map) do |widget|
-          mapped(widget)
-        end
-      end
-
-      def mapped(widget)
-        allocation = widget.allocation
-        set_default_size(allocation.width,
-                         allocation.height)
-      end
-
-      def set_size_allocate
-        @fixed.signal_connect(:size_allocate) do |widget, allocation|
-          w = allocation.width
-          h = allocation.height
-          @slide_widget.raw.allocation = allocation
-          update_size(w, h)
-          reload_theme
-        end
       end
 
       def reload_theme(&callback)

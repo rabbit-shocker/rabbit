@@ -117,7 +117,6 @@ module Rabbit
           @area.can_focus = true
           set_map
           set_draw
-          set_configure_event_after
         end
 
         def depth
@@ -173,30 +172,6 @@ module Rabbit
           @real_width = @surface.width
           @real_height = @surface.height
           @size_dirty = true
-        end
-
-        def set_configure_event_after
-          prev_x = prev_y = prev_width = prev_height = nil
-          @area.signal_connect_after("configure_event") do |widget, event|
-            prev_x ||= event.x
-            prev_y ||= event.y
-            prev_width ||= event.width
-            prev_height ||= event.height
-            if [prev_x, prev_y, prev_width, prev_height] !=
-                [event.x, event.y, event.width, event.height]
-              configured_after(widget, event)
-            end
-            prev_x = event.x
-            prev_y = event.y
-            prev_width = event.width
-            prev_height = event.height
-            false
-          end
-        end
-
-        def configured_after(widget, event)
-          update_size(event.width, event.height)
-          reload_theme if @surface
         end
 
         def reload_theme(&callback)

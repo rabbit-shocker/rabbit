@@ -56,9 +56,18 @@ module Rabbit
       each do |canvas|
         canvas.detach
       end
+      if @window_notify_id
+        @window.signal_handler_disconnect(@window_notify_id)
+      end
+      if @window_configure_event_id
+        @window.signal_handler_disconnect(@window_configure_event_id)
+      end
       @window.signal_handler_disconnect(@window_destroy_id)
       @window.destroy
-      @window = @window_destroy_id = nil
+      @window = nil
+      @window_notify_id = nil
+      @window_configure_event_id = nil
+      @window_destroy_id = nil
       @canvas_widgets = @grid = nil
       GLib::Source.remove(@timer_id) if @timer_id
       @timer_id = nil
@@ -108,6 +117,39 @@ module Rabbit
 
     def init_window(width, height)
       @window = Gtk::Window.new
+      @window_notify_id = nil
+      @window_configure_event_id = nil
+      update_size = lambda do |new_width, new_height|
+        if on_note_mode?
+          @current_canvas.renderer.update_size(new_width / 2.0,
+                                               new_height / 2.0)
+          @previous_canvas.renderer.update_size(new_width / 4.0,
+                                                new_height / 2.0)
+          @next_canvas.renderer.update_size(new_width / 4.0,
+                                            new_height / 2.0)
+        else
+          @current_canvas.renderer.update_size(new_width / 2.0,
+                                               new_height * (2.0 / 3.0))
+          @previous_canvas.renderer.update_size(new_width / 4.0,
+                                                new_height / 3.0)
+          @next_canvas.renderer.update_size(new_width / 4.0,
+                                            new_height / 3.0)
+        end
+      end
+      if @window.class.signals.include?("configure-event")
+        @window_configure_event_id = @window.signal_connect(:configure_event) do |_, event|
+          update_size.call(event.width, event.height)
+          false
+        end
+      else
+        @window_notify_id = @window.signal_connect(:notify) do |_, param|
+          case param.name
+          when "default-width", "default-height"
+            update_size.call(@window.default_width,
+                             @window.default_height)
+          end
+        end
+      end
       @window_destroy_id = @window.signal_connect("destroy") do
         @canvas.activate("ToggleInfoWindow")
         Gdk::Event::PROPAGATE

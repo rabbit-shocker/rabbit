@@ -52,6 +52,14 @@ module Rabbit
           @size
         end
 
+        def update_size(w, h)
+          return if @real_width == w and @real_height == h
+
+          @real_width = w
+          @real_height = h
+          @size_dirty = true
+        end
+
         def redraw
           widget.queue_draw
         end
@@ -170,14 +178,6 @@ module Rabbit
                            w,
                            h,
                            ratio)
-        end
-
-        def update_size(w, h)
-          return if @real_width == w and @real_height == h
-
-          @real_width = w
-          @real_height = h
-          @size_dirty = true
         end
 
         def set_size_ratio(ratio)
