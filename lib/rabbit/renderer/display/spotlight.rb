@@ -27,9 +27,8 @@ module Rabbit
           @spotlighting = !@spotlighting
           if spotlighting?
             grab
-            x, y, mask = pointer
-            @spotlight_center_x ||= x
-            @spotlight_center_y ||= y
+            @spotlight_center_x ||= 0
+            @spotlight_center_y ||= 0
           else
             ungrab
             @spotlight_center_x = nil
@@ -50,16 +49,21 @@ module Rabbit
           @spotlight_center_x = nil
           @spotlight_center_y = nil
 
-          target_button = 3
-          target_event_type = Gdk::EventType::BUTTON2_PRESS
-          target_info = [target_button, target_event_type]
-
           add_button_press_hook do |event|
-            if [event.button, event.event_type] == target_info
+            is_target = lambda do
+              return false unless event.button == 3
+              if Gdk::EventType.const_defined?(:BUTTON2_PRESS)
+                event.event_type == Gdk::EventType::BUTTON2_PRESS
+              else
+                event.event_type == Gdk::EventType::BUTTON_PRESS and
+                  event.n_presses == 2
+              end
+            end
+            if is_target.call
               add_button_handler do
                 @spotlight_center_x = event.x
                 @spotlight_center_y = event.y
-                spotlight_action.enabled = !spotlight_action.enabled?
+                @canvas.activate("ToggleSpotlight")
                 clear_button_handler
                 true
               end
@@ -67,10 +71,10 @@ module Rabbit
             false
           end
 
-          add_motion_notify_hook do |event|
+          add_motion_notify_hook do |x, y|
             if spotlighting?
-              @spotlight_center_x = event.x
-              @spotlight_center_y = event.y
+              @spotlight_center_x = x
+              @spotlight_center_y = y
               queue_draw
               true
             else
@@ -120,10 +124,6 @@ module Rabbit
             }
           }
           draw_rectangle(true, 0, 0, size.real_width, size.real_height, nil, params)
-        end
-
-        def spotlight_action
-          @canvas.action("ToggleSpotlight")
         end
       end
     end

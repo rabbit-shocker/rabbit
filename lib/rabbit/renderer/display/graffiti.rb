@@ -101,11 +101,11 @@ module Rabbit
             end
           end
 
-          add_motion_notify_hook do |event|
+          add_motion_notify_hook do |x, y|
             if graffiti_mode? and
                 @graffiti.dragging? and
                 pressed_button == target_button
-              @graffiti.button_motion(event.x, event.y, width, height)
+              @graffiti.button_motion(x, y, width, height)
               redraw
               true
             else

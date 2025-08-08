@@ -26,6 +26,7 @@ require_relative "display/search"
 require_relative "display/gesture"
 require_relative "display/graffiti"
 require_relative "display/button-handler"
+require_relative "display/motion-handler"
 require_relative "display/scroll-handler"
 require_relative "display/info"
 require_relative "display/spotlight"
@@ -46,9 +47,10 @@ module Rabbit
       # include Display::Search
       # include Display::Gesture
       include Display::ButtonHandler
+      include Display::MotionHandler
       include Display::ScrollHandler
       include Display::Info
-      # include Display::Spotlight
+      include Display::Spotlight
       # include Display::Magnifier
 
       def_delegators(:@slide_widget, :make_color)
@@ -190,6 +192,7 @@ module Rabbit
             @slide_widget.translate_context(@size.logical_margin_left,
                                             @size.logical_margin_top)
             @slide_widget.draw_slide(slide, simulation, &block)
+            draw_spotlight
           end
 
           unless @size.have_logical_margin?
@@ -239,6 +242,7 @@ module Rabbit
         @fixed.can_focus = true
         @slide_widget = Widget::DrawingArea.new(@canvas)
         set_button_event(@slide_widget.raw)
+        set_motion_event(@slide_widget.raw)
         set_scroll_event(@slide_widget.raw)
         @slide_widget.raw.show
         @fixed.put(@slide_widget.raw, 0, 0)
@@ -254,6 +258,7 @@ module Rabbit
       end
 
       def grab
+        return unless @fixed.respond_to?(:grab_add)
         @fixed.grab_add
         Gdk.pointer_grab(@fixed.window, false,
                          Gdk::EventMask::BUTTON_PRESS_MASK |
@@ -265,13 +270,9 @@ module Rabbit
       end
 
       def ungrab
+        return unless @fixed.respond_to?(:grab_remove)
         @fixed.grab_remove
         Gdk.pointer_ungrab(Gdk::CURRENT_TIME)
-      end
-
-      def pointer
-        window, x, y, mask = @fixed.window.pointer
-        [x, y, mask]
       end
     end
   end

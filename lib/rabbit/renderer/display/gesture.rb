@@ -56,14 +56,14 @@ module Rabbit
             end
           end
 
-          add_motion_notify_hook do |event|
+          add_motion_notify_hook do |x, y|
             if @gesture.processing? and pressed_info == target_info
               unless @gesture.moved?
                 keep_cursor(:gesture)
                 update_cursor(:hand)
               end
               first_move = !@gesture.moved?
-              handled = @gesture.button_motion(event.x, event.y, width, height)
+              handled = @gesture.button_motion(x, y, width, height)
               queue_draw if handled or first_move
               init_renderer(@surface)
               @gesture.draw_last_locus(self)

@@ -39,14 +39,16 @@ module Rabbit
 
         if Gtk.const_defined?(:GestureClick)
           ButtonPressEvent = Struct.new(:button,
+                                        :n_presses,
                                         :x,
                                         :y,
                                         :state) do
             def event_type
-              Gdk::EventType::BUTTON_PRESSS
+              Gdk::EventType::BUTTON_PRESS
             end
           end
           ButtonReleaseEvent = Struct.new(:button,
+                                          :n_presses,
                                           :x,
                                           :y,
                                           :state) do
@@ -65,6 +67,7 @@ module Rabbit
               click.signal_connect(:pressed) do |_, n_presses, x, y|
                 last_button_press_event =
                   ButtonPressEvent.new(click.current_button,
+                                       n_presses,
                                        x,
                                        y,
                                        click.current_event_state)
@@ -74,6 +77,7 @@ module Rabbit
 
               click.signal_connect(:released) do |_, n_presses, x, y|
                 event = ButtonReleaseEvent.new(click.current_button,
+                                               n_presses,
                                                x,
                                                y,
                                                click.current_event_state)
@@ -146,10 +150,13 @@ module Rabbit
             click_type = click_types[last_button_press_event.event_type]
             if button_type and click_type
               handler = "handle_button_#{button_type}_#{click_type}"
-              __send__(handler, last_button_press_event, event)
-              start_button_handler
+              if respond_to?(handler, true)
+                __send__(handler, last_button_press_event, event)
+                start_button_handler
+                return true
+              end
             end
-            true
+            false
           end
         end
 

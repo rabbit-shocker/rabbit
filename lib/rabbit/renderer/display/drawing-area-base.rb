@@ -22,6 +22,7 @@ require_relative "search"
 require_relative "gesture"
 require_relative "graffiti"
 require_relative "button-handler"
+require_relative "motion-handler"
 require_relative "scroll-handler"
 require_relative "info"
 require_relative "spotlight"
@@ -40,6 +41,7 @@ module Rabbit
         include Search
         include Gesture
         include ButtonHandler
+        include MotionHandler
         include ScrollHandler
         include Info
         include Spotlight
@@ -289,17 +291,8 @@ module Rabbit
         def init_drawing_area
           super
           set_button_event(@area)
-          @area.add_events(Gdk::EventMask::BUTTON1_MOTION_MASK |
-                           Gdk::EventMask::BUTTON2_MOTION_MASK |
-                           Gdk::EventMask::BUTTON3_MOTION_MASK)
-          set_motion_notify_event
+          set_motion_event(@area)
           set_scroll_event(@area)
-        end
-
-        def set_motion_notify_event
-          @area.signal_connect("motion_notify_event") do |widget, event|
-            call_hook_procs(@motion_notify_hook_procs, event)
-          end
         end
 
         def paint(color_name)

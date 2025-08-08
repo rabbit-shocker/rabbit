@@ -27,9 +27,8 @@ module Rabbit
           @magnifying = !@magnifying
           if magnifying?
             grab
-            x, y, mask = pointer
-            @magnifier_center_x ||= x
-            @magnifier_center_y ||= y
+            @magnifier_center_x = 0
+            @magnifier_center_y = 0
           else
             ungrab
             @magnifier_center_x = nil
@@ -75,10 +74,10 @@ module Rabbit
             end
           end
 
-          add_motion_notify_hook do |event|
+          add_motion_notify_hook do |x, y|
             if magnifying?
-              @magnifier_center_x = event.x
-              @magnifier_center_y = event.y
+              @magnifier_center_x = x
+              @magnifier_center_y = y
               queue_draw
               add_button_handler do
                 clear_button_handler

@@ -197,6 +197,7 @@ module Rabbit
         end
 
         def grab
+          return unless @area.respond_to?(:grab_add)
           @area.grab_add
           Gdk.pointer_grab(@area.window, false,
                            Gdk::EventMask::BUTTON_PRESS_MASK |
@@ -208,13 +209,9 @@ module Rabbit
         end
 
         def ungrab
+          return unless @area.respond_to?(:grab_remove)
           @area.grab_remove
           Gdk.pointer_ungrab(Gdk::CURRENT_TIME)
-        end
-
-        def pointer
-          window, x, y, mask = @area.window.pointer
-          [x, y, mask]
         end
       end
     end
