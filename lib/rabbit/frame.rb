@@ -152,7 +152,6 @@ module Rabbit
       @window = Gtk::ApplicationWindow.new(::Rabbit.application)
       @window.set_default_size(width, height)
       @window.parse_geometry(@geometry) if @geometry
-      @window.set_app_paintable(true)
       if defined?(Vte::Terminal)
         init_stack
       end
