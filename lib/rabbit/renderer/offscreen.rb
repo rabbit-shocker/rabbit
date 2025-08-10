@@ -92,7 +92,7 @@ module Rabbit
       end
 
       def create_pango_context
-        context = Gtk::Invisible.new.create_pango_context
+        context = Gtk::Label.new.create_pango_context
         set_font_resolution(context)
         context
       end
