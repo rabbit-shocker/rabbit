@@ -54,7 +54,7 @@ module Rabbit
     def initialize(canvas)
       @canvas = canvas
       @geometry = nil
-      @notebook = nil
+      @stack = nil
       @terminal = nil
       @running = true
     end
@@ -115,7 +115,7 @@ module Rabbit
       @fullscreen = false
       @main_window = main_window
       @terminal.show if @terminal
-      @notebook.show if @notebook
+      @stack.show if @stack
       @window.show
       @canvas.post_init_gui
     end
@@ -130,17 +130,20 @@ module Rabbit
 
     def toggle_terminal
       return if @terminal.nil?
-      terminal_page = @notebook.page_num(@terminal)
-      if @notebook.current_page == terminal_page
-        @notebook.current_page = 0
+      if @stack.visible_child_name == "terminal"
+        if @stack.respond_to?(:pages)
+          @stack.visible_child = @stack.pages[0].child
+        else
+          @stack.visible_child = @stack.children[0]
+        end
       else
-        @notebook.current_page = terminal_page
+        @stack.visible_child_name = "terminal"
       end
     end
 
     def in_terminal?
       return false if @terminal.nil?
-      @notebook.current_page == @notebook.page_num(@terminal)
+      @stack.visible_child_name == "terminal"
     end
 
     private
@@ -151,7 +154,7 @@ module Rabbit
       @window.parse_geometry(@geometry) if @geometry
       @window.set_app_paintable(true)
       if defined?(Vte::Terminal)
-        init_notebook
+        init_stack
       end
       set_window_signal
       setup_dnd
@@ -169,24 +172,20 @@ module Rabbit
           end
         end
       end
-      @canvas.attach_to(self, @window, @notebook)
+      @canvas.attach_to(self, @window, @stack)
       if defined?(Vte::Terminal)
         init_terminal
       end
     end
 
-    def init_notebook
-      @notebook = Gtk::Notebook.new
-      @notebook.show_tabs = false
-      provider = Gtk::CssProvider.new
-      provider.load(data: <<-CSS)
-        notebook {
-          border-width: 0px;
-        }
-      CSS
-      @notebook.style_context.add_provider(provider,
-                                           Gtk::StyleProvider::PRIORITY_USER)
-      @window.add(@notebook)
+    def init_stack
+      @stack = Gtk::Stack.new
+      if Gtk::Stack::TransitionType.const_defined?(:ROTATE_LEFT_RIGHT)
+        @stack.transition_type = :rotate_left_right
+      else
+        @stack.transition_type = :slide_left_right
+      end
+      @window.child = @stack
     end
 
     def set_window_signal
@@ -256,11 +255,11 @@ module Rabbit
         @terminal.color_background = terminal_color_background
       end
       @terminal.enable_sixel = true if @terminal.respond_to?(:enable_sixel=)
-      @notebook.add(@terminal)
+      @stack.add_named(@terminal, "terminal")
       pid = nil
       in_terminal = false
-      @notebook.signal_connect(:switch_page) do |_, page,|
-        if page == @terminal
+      @stack.signal_connect("notify::visible-child-name") do |_, param|
+        if @stack.visible_child_name == "terminal"
           if @running
             pid = @terminal.spawn if pid.nil?
             @canvas.pre_terminal unless in_terminal
@@ -273,8 +272,7 @@ module Rabbit
       end
       @terminal.signal_connect(:child_exited) do
         pid = nil
-        terminal_page = @notebook.page_num(@terminal)
-        if @notebook.current_page == terminal_page
+        if @stack.visible_child_name == "terminal"
           @canvas.activate("ToggleTerminal")
         end
       end
