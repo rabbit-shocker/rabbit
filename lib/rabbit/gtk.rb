@@ -63,4 +63,8 @@ module Gtk
       alias_method :surface, :window
     end
   end
+
+  unless const_defined?(:StackTransitionType)
+    StackTransitionType = Stack::TransitionType
+  end
 end
