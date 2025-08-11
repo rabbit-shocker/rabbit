@@ -179,7 +179,7 @@ module Rabbit
 
     def init_stack
       @stack = Gtk::Stack.new
-      if Gtk::Stack::TransitionType.const_defined?(:ROTATE_LEFT_RIGHT)
+      if Gtk::StackTransitionType.const_defined?(:ROTATE_LEFT_RIGHT)
         @stack.transition_type = :rotate_left_right
       else
         @stack.transition_type = :slide_left_right
