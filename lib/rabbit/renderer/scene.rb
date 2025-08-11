@@ -36,7 +36,7 @@ require_relative "widget/drawing-area"
 
 module Rabbit
   module Renderer
-    class Screen < Base
+    class Scene < Base
       include Display::Base
 
       include Display::Cursor
