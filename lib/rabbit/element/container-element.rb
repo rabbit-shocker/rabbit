@@ -157,6 +157,52 @@ module Rabbit
         end
       end
 
+      def setup_scene_element(canvas, fixed, x, y, w, h)
+        x, y, w, h = super
+
+        @centering_adjusted_height = 0
+        if do_vertical_centering?
+          adjust_height = ((h - height - @padding_bottom) / 2.0).ceil
+          if y + adjust_height > 0
+            y += adjust_height
+            h -= adjust_height
+          else
+            adjust_height = 0
+          end
+          @centering_adjusted_height = adjust_height
+          compile_elements(canvas, x, y, w, h)
+        end
+
+        base_x, base_w = x, w
+        @elements.each do |element|
+          if element.do_horizontal_centering?
+            adjust_width = element.centering_adjusted_width
+            x += adjust_width
+            w -= adjust_width
+            x, y, w, h = element.setup_scene(canvas, fixed, x, y, w, h)
+          else
+            x, y, w, h = element.setup_scene(canvas, fixed, x, y, w, h)
+          end
+        end
+        # TODO: Is this needed?
+        # last_element = @elements.last
+        # if last_element and last_element.inline_element?
+        #   container_height = height
+        #   y += container_height
+        #   h -= container_height
+        # end
+        x = base_x
+        w = base_w
+
+        [x, y, w, h]
+      end
+
+      def scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
+        # TODO: height may be wrong here. We need to check
+        # post_draw_hook usage.
+        [x, y + height, w, h - height]
+      end
+
       def to_html(generator)
         collect do |element|
           element.to_html(generator)

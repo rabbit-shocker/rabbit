@@ -29,6 +29,29 @@ module Rabbit
       alias prop_get __prop_get__
       alias prop_delete __prop_delete__
 
+      def setup_scene_element(canvas, fixed, x, y, w, h)
+        widget = Renderer::SceneNodeWidget.new(canvas, self, x, y, w, h)
+        fixed.put(widget, x, y)
+
+        layout_height = @layout.pixel_size[1]
+        y += layout_height
+        h -= layout_height
+
+        [x, y, w, h]
+      end
+
+      def scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
+        color = prop_get("foregound")
+        color = color.value if color
+        color = canvas.make_color(color)
+        text_compile(canvas, widget.x, widget.y, w, h)
+        snapshot.append_layout(@layout, color.to_gdk_rgba)
+        layout_height = @layout.pixel_size[1]
+        y += layout_height
+        h -= layout_height
+        [x, y, w, h]
+      end
+
       def draw_elements(canvas, x, y, w, h, simulation)
         unless simulation
           # TODO: This is too workaround. :<

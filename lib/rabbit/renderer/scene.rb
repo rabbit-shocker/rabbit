@@ -32,11 +32,13 @@ require_relative "display/info"
 require_relative "display/spotlight"
 require_relative "display/magnifier"
 
-require_relative "widget/drawing-area"
+require_relative "scene-background-widget"
 
 module Rabbit
   module Renderer
     class Scene < Base
+      include Kernel # TODO: Remove me
+
       include Display::Base
 
       include Display::Cursor
@@ -53,36 +55,29 @@ module Rabbit
       include Display::Spotlight
       # include Display::Magnifier
 
-      def_delegators(:@slide_widget, :flag_size)
-
-      def_delegators(:@slide_widget, :draw_layout)
-      def_delegators(:@slide_widget, :draw_pixbuf)
-      def_delegators(:@slide_widget, :draw_line)
-      def_delegators(:@slide_widget, :draw_rectangle)
-      def_delegators(:@slide_widget, :draw_rsvg_handle)
-      def_delegators(:@slide_widget, :draw_link)
-      def_delegators(:@slide_widget, :draw_flag)
-
       attr_accessor :filename
       def initialize(canvas)
         super
         @filename = nil
+        @snapshots = []
+        @sizes = []
+        @base_xys = []
         init_ui
       end
 
       def update_size(width, height)
         super
-        @slide_widget.raw.set_size_request(width, height)
+        compile_slides
       end
 
       def attach_to(window, container=nil)
         super
         if container
-          container.add(@fixed)
+          container.add(@stack)
         else
-          @window.child = @fixed
+          @window.child = @stack
         end
-        @fixed.show
+        @stack.show
         set_default_size(window.default_width, window.default_height)
         update_size(window.default_width, window.default_height)
         init_menu
@@ -91,27 +86,27 @@ module Rabbit
 
       def detach
         detach_menu(@window)
-        @fixed.hide
+        @stack.hide
         super
       end
 
       def widget
-        @fixed
+        @stack
       end
 
       def queue_draw
-        @slide_widget.queue_draw
+        @stack.queue_draw
       end
 
       def clear_slide
         super
-        @slide_widget.clear_compiled_slide
+        compile_slides
         redraw
       end
 
       def post_fullscreen
         update_cursor(:blank, true)
-        @slide_widget.clear_compiled_slides
+        clear_slide
       end
 
       def post_unfullscreen
@@ -123,18 +118,19 @@ module Rabbit
       end
 
       def post_apply_theme
-        @slide_widget.clear_compiled_slides
+        clear_slide
         queue_draw
         update_menu
       end
 
       def post_move(old_index, index)
-        queue_draw
+        @size = @sizes[index]
+        @stack.visible_child_name = index.to_s
+        update_title
         update_menu
       end
 
       def post_move_in_slide(old_index, index)
-        queue_draw
         update_menu
       end
 
@@ -142,7 +138,7 @@ module Rabbit
       end
 
       def post_parse
-        @slide_widget.clear_compiled_slides
+        update_title
       end
 
       def pre_toggle_index_mode
@@ -171,80 +167,155 @@ module Rabbit
         restore_cursor(:index)
       end
 
-      # TODO: screen?
       def display?
         true
       end
 
-      def draw_slide(slide, simulation, &block)
-        set_size_ratio(slide.size_ratio || @default_size_ratio)
-
-        if simulation
-          @slide_widget.draw_slide(slide, simulation, &block)
-        else
-          @slide_widget.save_context do
-            @slide_widget.scale_context(*@size.logical_scale)
-            @slide_widget.translate_context(@size.logical_margin_left,
-                                            @size.logical_margin_top)
-            @slide_widget.draw_slide(slide, simulation, &block)
-            draw_spotlight
+      def push_snapshot(snapshot, base_x, base_y)
+        @snapshots << snapshot
+        @base_xys << [base_x, base_y]
+        begin
+          snapshot.save do
+            snapshot.scale(*@size.logical_scale)
+            snapshot.translate([
+                                 @size.logical_margin_left,
+                                 @size.logical_margin_top,
+                               ])
+            yield
           end
+        ensure
+          @base_xys.pop
+          @snapshots.pop
+        end
+      end
 
-          unless @size.have_logical_margin?
-            return
-          end
+      def current_snapshot
+        @snapshots.last
+      end
 
-          margin_background = @slide_widget.make_color("black")
-          @slide_widget.save_context do
-            @slide_widget.scale_context(*@size.logical_scale)
-            if @size.have_logical_margin_x?
-              @slide_widget.draw_rectangle(true,
-                                           0,
-                                           0,
-                                           @size.logical_margin_left,
-                                           @size.base_height,
-                                           margin_background)
-              @slide_widget.draw_rectangle(true,
-                                           @size.logical_margin_right +
-                                           @size.base_width,
-                                           0,
-                                           @size.logical_margin_right,
-                                           @size.base_height,
-                                           margin_background)
-            end
-            if @size.have_logical_margin_y?
-              @slide_widget.draw_rectangle(true,
-                                           0,
-                                           0,
-                                           @size.base_width,
-                                           @size.logical_margin_top,
-                                           margin_background)
-              @slide_widget.draw_rectangle(true,
-                                           0,
-                                           @size.logical_margin_top +
-                                           @size.base_height,
-                                           @size.base_width,
-                                           @size.logical_margin_bottom,
-                                           margin_background)
-            end
+      def current_base_xy
+        @base_xys.last
+      end
+
+      def draw_pixbuf(pixbuf, x, y, params={})
+        x, y = adjust_xy(x, y)
+        width = (params[:width] || pixbuf.width).to_f
+        height = (params[:height] || pixbuf.height).to_f
+        draw_scaled_pixbuf = params[:draw_scaled_pixbuf]
+        draw_scaled_pixbuf = @draw_scaled_image if draw_scaled_pixbuf.nil?
+
+        snapshot = current_snapshot
+        snapshot.save do
+          # TODO: clip
+          snapshot.translate([x, y])
+
+          if width == pixbuf.width and height == pixbuf.height
+            need_scale = false
+          elsif draw_scaled_pixbuf
+            need_scale = true
+          else
+            need_scale = false
           end
+          if need_scale
+            snapshot.append_scale_texture(Gdk::Texture.new(pixbuf),
+                                          :linear,
+                                          [0, 0, width, height])
+          else
+            snapshot.append_texture(Gdk::Texture.new(pixbuf),
+                                    [0, 0, width, height])
+          end
+        end
+      end
+
+      def draw_layout(layout, x, y, color=nil, params={})
+        return if params[:stroke] # TODO
+
+        x, y = adjust_xy(x, y)
+        snapshot = current_snapshot
+        snapshot.save do
+          snapshot.translate([x, y])
+          rgba = make_color(color).to_gdk_rgba
+          snapshot.append_layout(layout, rgba)
+        end
+      end
+
+      def draw_line(x1, y1, x2, y2, color=nil, params={})
+        x1, y1 = adjust_xy(x1, y1)
+        x2, y2 = adjust_xy(x2, y2)
+        snapshot = current_snapshot
+        snapshot.save do
+          rgba = make_color(color).to_gdk_rgba
+          builder = Gsk::PathBuilder.new
+          builder.move_to(x1, y1)
+          builder.line_to(x2, y2)
+          # set_stroke_options(params)
+          stroke = Gsk::Stroke.new(get_line_width(params))
+          snapshot.append_stroke(builder.to_path, stroke, rgba)
+          # apply_cairo_action(filled, params)
+        end
+      end
+
+      def draw_rectangle(filled, x, y, w, h, color=nil, params={})
+        x, y = adjust_xy(x, y)
+        snapshot = current_snapshot
+        snapshot.save do
+          rgba = make_color(color).to_gdk_rgba
+          if filled
+            # set_stroke_options(params)
+            snapshot.append_color(rgba, [x, y, w, h])
+          else
+            builder = Gsk::PathBuilder.new
+            builder.add_rect([x, y, w, h])
+            stroke = Gsk::Stroke.new(get_line_width(params))
+            snapshot.append_stroke(builder.to_path, stroke, rgba)
+          end
+          # apply_cairo_action(filled, params)
         end
       end
 
       private
       def init_ui
-        @fixed = Gtk::Fixed.new
-        @fixed.can_focus = true
-        @slide_widget = Widget::DrawingArea.new(@canvas)
-        set_button_event(@slide_widget.raw)
-        set_motion_event(@slide_widget.raw)
-        set_scroll_event(@slide_widget.raw)
-        @slide_widget.raw.show
-        @fixed.put(@slide_widget.raw, 0, 0)
+        @stack = Gtk::Stack.new
+        # if Gtk::StackTransitionType.const_defined?(:ROTATE_LEFT_RIGHT)
+        #   @stack.transition_type = :rotate_left_right
+        # else
+        #   @stack.transition_type = :slide_left_right
+        # end
+        set_button_event(@stack)
+        set_motion_event(@stack)
+        set_scroll_event(@stack)
+      end
+
+      def compile_slides
+        @stack.pages.to_a.each do |page|
+          @stack.remove(page.child)
+        end
+        @sizes.clear
+        @canvas.slides.each_with_index do |slide, i|
+          fixed = Gtk::Fixed.new
+          set_size_ratio(slide.size_ratio || @default_size_ratio)
+          size = @size
+          @sizes << size
+          background = SceneBackgroundWidget.new(@canvas, self, size)
+          fixed.put(background, 0, 0)
+          slide.setup_scene(@canvas, fixed, 0, 0, @canvas.width, @canvas.height)
+          @stack.add_named(fixed, i.to_s)
+        end
+      end
+
+      # For backward compatibility. Legacy DrawingArea based
+      # renderer. Legacy DrawingAare based renderer uses uses {x: 0,
+      # y: 0, width: @canvas.width, height: @canvas.height} coordinate
+      # for all elements. Scene based renderer uses {x: element.x, y:
+      # element.y, width: element.width, height: element.height} for
+      # each element.
+      def adjust_xy(x, y)
+        base_x, base_y = current_base_xy
+        [x - base_x, y - base_y]
       end
 
       def depth
-        @fixed.window.depth
+        @stack.window.depth
       end
 
       def reload_theme(&callback)
@@ -253,21 +324,9 @@ module Rabbit
       end
 
       def grab
-        return unless @fixed.respond_to?(:grab_add)
-        @fixed.grab_add
-        Gdk.pointer_grab(@fixed.window, false,
-                         Gdk::EventMask::BUTTON_PRESS_MASK |
-                         Gdk::EventMask::BUTTON_RELEASE_MASK |
-                         Gdk::EventMask::SCROLL_MASK |
-                         Gdk::EventMask::POINTER_MOTION_MASK,
-                         nil, nil,
-                         Gdk::CURRENT_TIME)
       end
 
       def ungrab
-        return unless @fixed.respond_to?(:grab_remove)
-        @fixed.grab_remove
-        Gdk.pointer_ungrab(Gdk::CURRENT_TIME)
       end
     end
   end

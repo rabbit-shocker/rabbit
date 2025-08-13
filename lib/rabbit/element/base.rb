@@ -14,8 +14,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-require_relative "../utils"
 require_relative "../formatter"
+require_relative "../renderer/scene-node-widget"
+require_relative "../utils"
 require_relative "base/draw-hook"
 
 module Rabbit
@@ -130,6 +131,48 @@ module Rabbit
           do_horizontal_centering(canvas, x, y, w, h)
         else
           reset_horizontal_centering(canvas, x, y, w, h)
+        end
+      end
+
+      def setup_scene(canvas, fixed, x, y, w, h)
+        compile(canvas, x, y, w, h)
+
+        x, y, w, h = setup_margin(x, y, w, h)
+        x, y, w, h = setup_padding(x, y, w, h)
+
+        @pre_draw_procs.each do |proc, _name|
+          x, y, w, h = proc.call(canvas, x, y, w, h, true)
+        end
+
+        x, y, w, h = setup_scene_element(canvas, fixed, x, y, w, h)
+
+        @post_draw_procs.each do |proc, _name|
+          x, y, w, h = proc.call(canvas, x, y, w, h, true)
+        end
+
+        x, w = restore_x_padding(x, w)
+        x, w = restore_x_margin(x, w)
+        x, w = adjust_x_centering(x, w)
+        y, h = adjust_y_padding(y, h)
+        y, h = adjust_y_margin(y, h)
+
+        [x, y, w, h]
+      end
+
+      def setup_scene_element(canvas, fixed, x, y, w, h)
+        widget = Renderer::SceneNodeWidget.new(canvas, self, x, y, w, h)
+        fixed.put(widget, x, y)
+        [x, y, w, h]
+      end
+
+      def scene_snapshot(widget, snapshot, canvas, width, height)
+        x, y, w, h = setup_padding(widget.x, widget.y, width, height)
+        @pre_draw_procs.each do |proc, _name|
+          x, y, w, h = proc.call(canvas, x, y, w, h, false)
+        end
+        x, y, w, h = scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
+        @post_draw_procs.each do |proc, _name|
+          x, y, w, h = proc.call(canvas, x, y, w, h, false)
         end
       end
 

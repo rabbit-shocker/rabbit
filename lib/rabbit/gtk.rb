@@ -1,4 +1,4 @@
-# Copyright (C) 2014-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2014-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,41 @@ module Gdk
   class ModifierType
     ALT_MASK = MOD1_MASK unless const_defined?(:ALT_MASK)
     alias_method :alt_mask?, :mod1_mask? unless method_defined?(:alt_mask?)
+  end
+
+  if const_defined?(:Paintable)
+    class PixbufAnimationPaintable < GLib::Object
+      type_register
+
+      include Paintable
+
+      def initialize(animation)
+        super()
+        @animation = animation
+        @iter = @animation.get_iter
+      end
+
+      def virtual_do_snapshot(snapshot, width, height)
+        @iter.advance
+        texture = Texture.new(@iter.pixbuf)
+        snapshot.append_texture(texture, [0, 0, width, height])
+        delay_time = @iter.delay_time
+        if delay_time != -1
+          GLib::Timeout.add(@iter.delay_time) do
+            invalidate_contents
+            GLib::Source::REMOVE
+          end
+        end
+      end
+
+      def virtual_do_get_intrinsic_width
+        @animation.width
+      end
+
+      def virtual_do_get_intrinsic_height
+        @animation.height
+      end
+    end
   end
 end
 
