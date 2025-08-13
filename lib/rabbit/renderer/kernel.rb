@@ -197,9 +197,6 @@ module Rabbit
         params[:line_width] || default
       end
 
-      def set_font_resolution(context)
-      end
-
       def setup_flag_params(pole_height, default_flag_width_ratio, params)
         params = params.dup
 

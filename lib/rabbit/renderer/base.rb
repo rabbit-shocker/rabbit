@@ -114,6 +114,9 @@ module Rabbit
         end
       end
 
+      def set_font_resolution(context)
+      end
+
       def print(&block)
         if printable?
           do_print(&block)
