@@ -40,11 +40,6 @@ module Rabbit
         end
 
         private
-        def init_color
-          super
-          init_engine_color
-        end
-
         def add_widgets_to_container(container, &block)
           if block_given?
             yield(container, @area)

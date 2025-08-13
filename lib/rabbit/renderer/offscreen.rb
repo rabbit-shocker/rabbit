@@ -109,11 +109,6 @@ module Rabbit
       end
 
       private
-      def init_color
-        super
-        init_engine_color
-      end
-
       def offscreen_renderer?
         true
       end

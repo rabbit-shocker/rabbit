@@ -23,12 +23,6 @@ module Rabbit
       class DrawingArea < Renderer::Base
         include Renderer::Engine::Cairo
         include DrawingAreaBase
-
-        private
-        def init_color
-          super
-          init_engine_color
-        end
       end
     end
   end

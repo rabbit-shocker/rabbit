@@ -176,12 +176,6 @@ module Rabbit
         end
       end
 
-      def init_color
-        super
-        @foreground = make_color("black")
-        @background = make_color(@background_color)
-      end
-
       def update_layout
         @layout = PrintLayout.create(self, @canvas)
       end

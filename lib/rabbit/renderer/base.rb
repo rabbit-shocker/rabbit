@@ -417,6 +417,8 @@ module Rabbit
 
       def init_color
         @background_color = "white"
+        @foreground = make_color("black")
+        @background = make_color(@background_color)
       end
 
       def clear_gesture_actions

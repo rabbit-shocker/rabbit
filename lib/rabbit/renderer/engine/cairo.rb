@@ -314,11 +314,6 @@ module Rabbit
         end
 
         private
-        def init_engine_color
-          @foreground = make_color("black")
-          @background = make_color(@background_color)
-        end
-
         def set_source(color, params={})
           pattern = params[:pattern]
           set = false
