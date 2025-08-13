@@ -26,8 +26,6 @@ module Rabbit
       module Cairo
         include Kernel
 
-        attr_writer :foreground, :background
-
         def background_image=(pixbuf)
           surface = ::Cairo::ImageSurface.new(::Cairo::FORMAT_A1, 1, 1)
           context = ::Cairo::Context.new(surface)

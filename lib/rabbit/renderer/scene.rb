@@ -53,9 +53,6 @@ module Rabbit
       include Display::Spotlight
       # include Display::Magnifier
 
-      def_delegators(:@slide_widget, :make_color)
-      def_delegators(:@slide_widget, :foreground=)
-      def_delegators(:@slide_widget, :background=)
       def_delegators(:@slide_widget, :set_font_resolution)
 
       def_delegators(:@slide_widget, :flag_size)

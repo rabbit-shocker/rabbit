@@ -16,20 +16,9 @@
 
 require_relative "../pango-markup"
 
-require_relative "color"
-
 module Rabbit
   module Renderer
     module Kernel
-      def make_color(color)
-        return color if color.is_a?(Color)
-        if color.nil?
-          @foreground
-        else
-          Color.parse(color)
-        end
-      end
-
       def translate_context(x, y, params={})
       end
 

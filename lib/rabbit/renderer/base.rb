@@ -39,6 +39,8 @@ module Rabbit
       attr_accessor :paper_width, :paper_height, :slides_per_page
       attr_accessor :margin_left, :margin_right
       attr_accessor :margin_top, :margin_bottom
+      attr_accessor :foreground
+      attr_accessor :background
       attr_accessor :progress_foreground
       attr_accessor :progress_background
       attr_accessor :adjustment_x, :adjustment_y
@@ -69,6 +71,8 @@ module Rabbit
         @blackout = false
         @adjustment_x = 0
         @adjustment_y = 0
+        @foreground = nil
+        @background = nil
         @progress_foreground = nil
         @progress_background = nil
         @graffiti_color = nil
@@ -99,6 +103,15 @@ module Rabbit
           @font_families = create_pango_context.families
         end
         @font_families
+      end
+
+      def make_color(color)
+        return color if color.is_a?(Color)
+        if color.nil?
+          @foreground
+        else
+          Color.parse(color)
+        end
       end
 
       def print(&block)
