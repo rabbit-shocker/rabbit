@@ -168,6 +168,16 @@ module Rabbit
           when "default-width", "default-height"
             @canvas.renderer.update_size(@window.default_width,
                                          @window.default_height)
+          when "fullscreened"
+            # TODO: Update size
+            @fullscreen = @window.fullscreened?
+            if @fullscreen
+              @canvas.fullscreened
+            else
+              @canvas.unfullscreened
+            end
+          when "maximized"
+            # TODO: Update size
           end
         end
       end
@@ -193,6 +203,7 @@ module Rabbit
     end
 
     def set_window_signal_window_state_event
+      return unless @window.class.signals.include?("window-state-event")
       @window.signal_connect("window_state_event") do |widget, event|
         if event.changed_mask.fullscreen?
           @fullscreen = event.new_window_state.fullscreen?
