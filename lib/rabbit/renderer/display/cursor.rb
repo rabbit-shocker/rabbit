@@ -35,16 +35,15 @@ module Rabbit
         end
 
         def restore_cursor(name)
-          @cursor_manager.restore(@surface, name)
+          @cursor_manager.restore(@surface || @window, name)
         end
 
         def update_cursor(cursor_type, update_current_cursor=false)
           @cursor_manager.current = cursor_type if update_current_cursor
           cursor_type = :pencil if @graffiti_mode
-          @cursor_manager.update(@surface, cursor_type)
+          @cursor_manager.update(@surface || @window, cursor_type)
         end
       end
     end
   end
 end
-
