@@ -142,7 +142,6 @@ module Rabbit
         end
         picture_widget = Gtk::Picture.new(texture)
         picture_widget.set_size_request(@loader.width, @loader.height)
-        picture_widget.show
         fixed.put(picture_widget, x, y)
         y += @loader.height
         h -= @loader.height
