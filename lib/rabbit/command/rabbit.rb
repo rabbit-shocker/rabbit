@@ -825,7 +825,7 @@ module Rabbit
 
       def do_display
         source = make_source
-        if ENV["RABBIT_RENDERER"] == "scene"
+        if Gtk::Version::MAJOR >= 4
           canvas = make_canvas(Renderer::Scene)
         else
           canvas = make_canvas(Renderer::Display::DrawingArea)
