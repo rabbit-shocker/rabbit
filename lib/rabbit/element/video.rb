@@ -75,6 +75,22 @@ module Rabbit
         adjust_size(canvas, @x, @y, @w, @h)
       end
 
+      def setup_scene_element(canvas, fixed, x, y, w, h)
+        video = Gtk::Video.new(@filename)
+        video.set_size_request(@width, @height)
+        fixed.put(video, x, y)
+        y += @height
+        h -= @height
+
+        [x, y, w, h]
+      end
+
+      def scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
+        y += @height
+        h -= @height
+        [x, y, w, h]
+      end
+
       def width
         @width.to_i + @padding_left + @padding_right
       end
@@ -89,12 +105,7 @@ module Rabbit
 
       def draw_element(canvas, x, y, w, h, simulation)
         unless simulation
-          if canvas.display?
-            require_relative "../video-window"
-            VideoWindow.show(canvas.window, self)
-          else
-            draw_layout(canvas, x, y)
-          end
+          draw_layout(canvas, x, y)
         end
         [x, y + height, w, h - height]
       end
