@@ -29,9 +29,9 @@ module Rabbit
       alias prop_get __prop_get__
       alias prop_delete __prop_delete__
 
-      def setup_scene_element(canvas, fixed, x, y, w, h)
+      def setup_scene_element(canvas, scene_widget, x, y, w, h)
         widget = Renderer::SceneNodeWidget.new(canvas, self, x, y, w, h)
-        fixed.put(widget, x, y)
+        scene_widget.put(widget, x, y, w, h)
 
         layout_height = @layout.pixel_size[1]
         y += layout_height

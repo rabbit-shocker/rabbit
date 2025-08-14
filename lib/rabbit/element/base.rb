@@ -159,9 +159,9 @@ module Rabbit
         [x, y, w, h]
       end
 
-      def setup_scene_element(canvas, fixed, x, y, w, h)
+      def setup_scene_element(canvas, scene_widget, x, y, w, h)
         widget = Renderer::SceneNodeWidget.new(canvas, self, x, y, w, h)
-        fixed.put(widget, x, y)
+        scene_widget.put(widget, x, y, w, h)
         [x, y, w, h]
       end
 

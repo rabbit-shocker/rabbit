@@ -157,7 +157,7 @@ module Rabbit
         end
       end
 
-      def setup_scene_element(canvas, fixed, x, y, w, h)
+      def setup_scene_element(canvas, scene_widget, x, y, w, h)
         x, y, w, h = super
 
         @centering_adjusted_height = 0
@@ -179,9 +179,9 @@ module Rabbit
             adjust_width = element.centering_adjusted_width
             x += adjust_width
             w -= adjust_width
-            x, y, w, h = element.setup_scene(canvas, fixed, x, y, w, h)
+            x, y, w, h = element.setup_scene(canvas, scene_widget, x, y, w, h)
           else
-            x, y, w, h = element.setup_scene(canvas, fixed, x, y, w, h)
+            x, y, w, h = element.setup_scene(canvas, scene_widget, x, y, w, h)
           end
         end
         # TODO: Is this needed?

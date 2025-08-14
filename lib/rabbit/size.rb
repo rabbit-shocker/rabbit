@@ -1,4 +1,4 @@
-# Copyright (C) 2015-2019  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2015-2025  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,6 +54,14 @@ module Rabbit
 
     def logical_scale
       @logical_scale
+    end
+
+    def resolve_logical_x(x)
+      x * @logical_scale[0]
+    end
+
+    def resolve_logical_y(y)
+      y * @logical_scale[0]
     end
 
     private

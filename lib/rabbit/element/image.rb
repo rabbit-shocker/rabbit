@@ -133,7 +133,7 @@ module Rabbit
         properties.get_boolean("as_large_as_possible")
       end
 
-      def setup_scene_element(canvas, fixed, x, y, w, h)
+      def setup_scene_element(canvas, scene_widget, x, y, w, h)
         x, y, w, h = super
         if @loader.animation and not @loader.animation.static_image?
           texture = Gdk::PixbufAnimationPaintable.new(@loader.animation)
@@ -141,8 +141,7 @@ module Rabbit
           texture = Gdk::Texture.new(@loader.pixbuf)
         end
         picture_widget = Gtk::Picture.new(texture)
-        picture_widget.set_size_request(@loader.width, @loader.height)
-        fixed.put(picture_widget, x, y)
+        scene_widget.put(picture_widget, x, y, @loader.width, @loader.height)
         y += @loader.height
         h -= @loader.height
 

@@ -26,6 +26,7 @@ module Rabbit
       def initialize(canvas, element, x, y, width, height)
         super()
         @canvas = canvas
+        @size = @canvas.renderer.size
         @element = element
         @x = x
         @y = y
@@ -49,6 +50,11 @@ module Rabbit
         # element.y, width: element.width, height: element.height} for
         # each element.
         @canvas.renderer.push_snapshot(snapshot, @x, @y) do
+          snapshot.scale(*@size.logical_scale)
+          snapshot.translate([
+                               @size.logical_margin_left,
+                               @size.logical_margin_top,
+                             ])
           @element.scene_snapshot(self, snapshot, @canvas, @width, @height)
         end
       end

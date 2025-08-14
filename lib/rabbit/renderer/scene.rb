@@ -36,6 +36,35 @@ require_relative "scene-background-widget"
 
 module Rabbit
   module Renderer
+    # This is not a real widget. This is just a wrapper to enforce
+    # our conventions:
+    #
+    #  * We need to use real x,y not logical x,y for widget location
+    #  * We need to adjust margin of rendering area (not element's margin)
+    #    for GTK widget
+    #  * We need to use real w,h not logical w,h for GTK widget size
+    class SceneWidget
+      def initialize(fixed, size)
+        @fixed = fixed
+        @size = size
+      end
+
+      def put(widget, x, y, w, h)
+        case widget
+        when SceneNodeWidget, SceneBackgroundWidget
+          # Our widgets process size by themselves
+        else
+          x += @size.logical_margin_left
+          y += @size.logical_margin_top
+          widget.set_size_request(@size.resolve_logical_x(w),
+                                  @size.resolve_logical_y(h))
+        end
+        real_x = @size.resolve_logical_x(x)
+        real_y = @size.resolve_logical_y(y)
+        @fixed.put(widget, real_x, real_y)
+      end
+    end
+
     class Scene < Base
       include Kernel # TODO: Remove me
 
@@ -60,7 +89,6 @@ module Rabbit
         super
         @filename = nil
         @snapshots = []
-        @sizes = []
         @base_xys = []
         init_ui
       end
@@ -101,12 +129,11 @@ module Rabbit
       def clear_slide
         super
         compile_slides
-        redraw
       end
 
       def post_fullscreen
         update_cursor(:blank, true)
-        clear_slide
+        update_menu
       end
 
       def post_unfullscreen
@@ -115,6 +142,7 @@ module Rabbit
       end
 
       def post_iconify
+        update_menu
       end
 
       def post_apply_theme
@@ -124,7 +152,6 @@ module Rabbit
       end
 
       def post_move(old_index, index)
-        @size = @sizes[index]
         @stack.visible_child_name = index.to_s
         update_title
         update_menu
@@ -176,11 +203,6 @@ module Rabbit
         @base_xys << [base_x, base_y]
         begin
           snapshot.save do
-            snapshot.scale(*@size.logical_scale)
-            snapshot.translate([
-                                 @size.logical_margin_left,
-                                 @size.logical_margin_top,
-                               ])
             yield
           end
         ensure
@@ -287,20 +309,23 @@ module Rabbit
       end
 
       def compile_slides
+        visible_child_name = @stack.visible_child_name
         @stack.pages.to_a.each do |page|
           @stack.remove(page.child)
         end
-        @sizes.clear
         @canvas.slides.each_with_index do |slide, i|
-          fixed = Gtk::Fixed.new
           set_size_ratio(slide.size_ratio || @default_size_ratio)
-          size = @size
-          @sizes << size
+          fixed = Gtk::Fixed.new
+          scene_widget = SceneWidget.new(fixed, size)
           background = SceneBackgroundWidget.new(@canvas, self, size)
-          fixed.put(background, 0, 0)
-          slide.setup_scene(@canvas, fixed, 0, 0, @canvas.width, @canvas.height)
+          w = size.logical_width
+          h = size.logical_height
+          scene_widget.put(background, 0, 0, w, h)
+          slide.setup_scene(@canvas, scene_widget, 0, 0, w, h)
           @stack.add_named(fixed, i.to_s)
         end
+        @stack.visible_child_name = visible_child_name if visible_child_name
+        redraw
       end
 
       # For backward compatibility. Legacy DrawingArea based

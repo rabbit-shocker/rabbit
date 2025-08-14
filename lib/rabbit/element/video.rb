@@ -75,10 +75,11 @@ module Rabbit
         adjust_size(canvas, @x, @y, @w, @h)
       end
 
-      def setup_scene_element(canvas, fixed, x, y, w, h)
+      def setup_scene_element(canvas, scene_widget, x, y, w, h)
+        x, y, w, h = super
+
         video = Gtk::Video.new(@filename)
-        video.set_size_request(@width, @height)
-        fixed.put(video, x, y)
+        scene_widget.put(video, x, y, @width, @height)
         y += @height
         h -= @height
 
