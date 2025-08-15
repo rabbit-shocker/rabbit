@@ -295,6 +295,22 @@ module Rabbit
         end
       end
 
+      def draw_poppler_page(page, x, y, params={})
+        x, y = adjust_xy(x, y)
+        w, h = page.size
+        width = (params[:width] || w).to_f
+        height = (params[:height] || h).to_f
+
+        snapshot = current_snapshot
+        snapshot.save do
+          # TODO: clip
+          snapshot.translate([x, y])
+          snapshot.scale(width / w, height / h)
+          context = snapshot.append_cairo([x, y, w, h])
+          context.render_poppler_page(page)
+        end
+      end
+
       private
       def init_ui
         @stack = Gtk::Stack.new

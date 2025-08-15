@@ -135,20 +135,27 @@ module Rabbit
 
       def setup_scene_element(canvas, scene_widget, x, y, w, h)
         x, y, w, h = super
-        if @loader.animation and not @loader.animation.static_image?
-          texture = Gdk::PixbufAnimationPaintable.new(@loader.animation)
+        if @loader.is_a?(ImageManipulable::PDF)
+          # Render by ourselves
         else
-          texture = Gdk::Texture.new(@loader.pixbuf)
+          if @loader.animation and not @loader.animation.static_image?
+            texture = Gdk::PixbufAnimationPaintable.new(@loader.animation)
+          else
+            texture = Gdk::Texture.new(@loader.pixbuf)
+          end
+          picture_widget = Gtk::Picture.new(texture)
+          scene_widget.put(picture_widget, x, y, @loader.width, @loader.height)
+          y += @loader.height
+          h -= @loader.height
         end
-        picture_widget = Gtk::Picture.new(texture)
-        scene_widget.put(picture_widget, x, y, @loader.width, @loader.height)
-        y += @loader.height
-        h -= @loader.height
 
         [x, y, w, h]
       end
 
       def scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
+        if @loader.is_a?(ImageManipulable::PDF)
+          image_draw(canvas, x, y, @draw_parameters)
+        end
         y += @loader.height
         h -= @loader.height
         [x, y, w, h]
