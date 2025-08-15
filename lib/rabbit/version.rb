@@ -15,5 +15,5 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 module Rabbit
-  VERSION = "3.0.6"
+  VERSION = "4.0.0"
 end
