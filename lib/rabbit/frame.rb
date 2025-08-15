@@ -229,6 +229,7 @@ module Rabbit
     end
 
     def setup_dnd
+      return if GTK::Version::MAJOR >= 4 # TODO
       @window.drag_dest_set(:all,
                             [["text/uri-list", 0, 0],
                              ["_NETSCAPE_URL", 0, 0]],
