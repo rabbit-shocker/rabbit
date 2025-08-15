@@ -73,6 +73,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.add_runtime_dependency("gettext", ">= 3.0.1")
   # spec.add_runtime_dependency("gstreamer")
   spec.add_runtime_dependency("gtk3")
+  spec.add_runtime_dependency("gtk4")
   spec.add_runtime_dependency("hikidoc")
   spec.add_runtime_dependency("kramdown-parser-gfm")
   spec.add_runtime_dependency("nokogiri")
@@ -82,4 +83,6 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.add_runtime_dependency("rouge")
   spec.add_runtime_dependency("rsvg2", ">= 3.1.4")
   spec.add_runtime_dependency("rttool")
+
+  spec.metadata["msys2_mingw_dependencies"] = "gtk4-media-gstreamer"
 end
