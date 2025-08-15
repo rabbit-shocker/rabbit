@@ -116,7 +116,6 @@ module Rabbit
       @main_window = main_window
       @terminal.show if @terminal
       @stack.show if @stack
-      @window.show
       @canvas.post_init_gui
     end
 
@@ -155,29 +154,63 @@ module Rabbit
       if defined?(Vte::Terminal)
         init_stack
       end
-      set_window_signal
+      set_window_signal_destroy
       setup_dnd
-      if @window.class.signals.include?("configure-event")
+      @window.show # @window.surface is only available after @window.show.
+      if GTK::Version::MAJOR < 4
         @window.signal_connect(:configure_event) do |_, event|
           @canvas.renderer.update_size(event.width, event.height)
           false
         end
-      else
-        @window.signal_connect(:notify) do |_, param|
-          case param.name
-          when "default-width", "default-height"
-            @canvas.renderer.update_size(@window.default_width,
-                                         @window.default_height)
-          when "fullscreened"
-            # TODO: Update size
-            @fullscreen = @window.fullscreened?
+        @window.signal_connect(:window_state_event) do |widget, event|
+          if event.changed_mask.fullscreen?
+            @fullscreen = event.new_window_state.fullscreen?
             if @fullscreen
               @canvas.fullscreened
             else
               @canvas.unfullscreened
             end
-          when "maximized"
-            # TODO: Update size
+          elsif event.changed_mask.iconified?
+            if event.new_window_state.iconified?
+              @canvas.iconified
+            end
+          end
+
+          false
+        end
+      else
+        previous_width = nil
+        previous_height = nil
+        previous_fullscreen = @fullscreen = @window.fullscreen?
+        previous_minimized = false
+        @surface = @window.surface # This is to guard from GC.
+        @surface.signal_connect(:notify) do |surface, param|
+          case param.name
+          when "width", "height"
+            width = surface.width
+            height = surface.height
+            if previous_width != width or previous_height != height
+              @canvas.renderer.update_size(width, height)
+              previous_width = width
+              previous_height = height
+            end
+          when "state"
+            state = surface.state
+            fullscreen = state.fullscreen?
+            if previous_fullscreen != fullscreen
+              @fullscreen = fullscreen
+              if @fullscreen
+                @canvas.fullscreened
+              else
+                @canvas.unfullscreened
+              end
+              previous_fullscreen = @fullscreen
+            end
+            minimized = state.minimized?
+            if previous_minimized != minimized
+              @canvas.iconified if minimized
+              previous_minimized = minimized
+            end
           end
         end
       end
@@ -195,31 +228,6 @@ module Rabbit
         @stack.transition_type = :slide_left_right
       end
       @window.child = @stack
-    end
-
-    def set_window_signal
-      set_window_signal_window_state_event
-      set_window_signal_destroy
-    end
-
-    def set_window_signal_window_state_event
-      return unless @window.class.signals.include?("window-state-event")
-      @window.signal_connect("window_state_event") do |widget, event|
-        if event.changed_mask.fullscreen?
-          @fullscreen = event.new_window_state.fullscreen?
-          if @fullscreen
-            @canvas.fullscreened
-          else
-            @canvas.unfullscreened
-          end
-        elsif event.changed_mask.iconified?
-          if event.new_window_state.iconified?
-            @canvas.iconified
-          end
-        end
-
-        false
-      end
     end
 
     def set_window_signal_destroy
