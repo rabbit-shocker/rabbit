@@ -157,7 +157,7 @@ module Rabbit
       set_window_signal_destroy
       setup_dnd
       @window.show # @window.surface is only available after @window.show.
-      if GTK::Version::MAJOR < 4
+      if Gtk::Version::MAJOR < 4
         @window.signal_connect(:configure_event) do |_, event|
           @canvas.renderer.update_size(event.width, event.height)
           false
@@ -237,7 +237,7 @@ module Rabbit
     end
 
     def setup_dnd
-      return if GTK::Version::MAJOR >= 4 # TODO
+      return if Gtk::Version::MAJOR >= 4 # TODO
       @window.drag_dest_set(:all,
                             [["text/uri-list", 0, 0],
                              ["_NETSCAPE_URL", 0, 0]],
