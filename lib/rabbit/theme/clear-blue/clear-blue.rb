@@ -94,7 +94,7 @@ end
 include_theme("slide-logo")
 
 @icon_images = ["clear-blue-icon.png"]
-include_theme("icon")
+# include_theme("icon")
 
 @slide_footer_info_left_text ||= canvas.title.gsub(/\n/, " ")
 @slide_footer_info_right_text ||= "Powered by Rabbit #{Rabbit::VERSION}"

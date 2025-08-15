@@ -37,7 +37,6 @@ module Rabbit
     extend Forwardable
 
     def_delegators(:@window, :icon, :icon=, :set_icon)
-    def_delegators(:@window, :icon_list, :icon_list=, :set_icon_list)
     def_delegators(:@window, :iconify, :show, :hide, :visible?)
     def_delegators(:@window, :set_size_request, :resize)
 
@@ -308,7 +307,6 @@ module Rabbit
     end
 
     def_null_methods(:icon, :icon=, :set_icon)
-    def_null_methods(:icon_list, :icon_list=, :set_icon_list)
     def_null_methods(:update_title, :geometry, :geometry=)
 
     def_null_methods(:quit)

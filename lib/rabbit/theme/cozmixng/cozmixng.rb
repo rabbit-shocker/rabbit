@@ -19,7 +19,7 @@ include_theme("cozmixng-powered-by")
 include_theme("title-logo")
 
 @icon_images = ["cozmixchu.png"]
-include_theme("icon")
+# include_theme("icon")
 
 
 match(Slide, HeadLine) do |heads|

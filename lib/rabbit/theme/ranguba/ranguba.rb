@@ -52,7 +52,7 @@ end
 include_theme("default")
 
 @icon_images = ["ranguba-mark.png"]
-include_theme("icon")
+# include_theme("icon")
 
 @slide_logo_image = "ranguba-mark.png"
 @slide_logo_position = Proc.new do |slide, canvas|
