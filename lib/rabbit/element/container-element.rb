@@ -129,7 +129,7 @@ module Rabbit
           x, y, w, h = setup_padding(@x, @y, @w, @h)
           compile_elements(canvas, x, y, w, h)
           x, w = restore_x_padding(x, w)
-          x, w = adjust_x_centering(x, w)
+          x, w = restore_x_centering(x, w)
           y, h = adjust_y_padding(y, h)
         end
       end
@@ -175,14 +175,7 @@ module Rabbit
 
         base_x, base_w = x, w
         @elements.each do |element|
-          if element.do_horizontal_centering?
-            adjust_width = element.centering_adjusted_width
-            x += adjust_width
-            w -= adjust_width
-            x, y, w, h = element.setup_scene(canvas, scene_widget, x, y, w, h)
-          else
-            x, y, w, h = element.setup_scene(canvas, scene_widget, x, y, w, h)
-          end
+          x, y, w, h = element.setup_scene(canvas, scene_widget, x, y, w, h)
         end
         # TODO: Is this needed?
         # last_element = @elements.last

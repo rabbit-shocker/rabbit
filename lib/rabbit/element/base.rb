@@ -82,7 +82,7 @@ module Rabbit
         x, y, w, h = _draw(@canvas, x, y, w, h, simulation)
         x, w = restore_x_padding(x, w)
         x, w = restore_x_margin(x, w)
-        x, w = adjust_x_centering(x, w)
+        x, w = restore_x_centering(x, w)
         y, h = adjust_y_padding(y, h)
         y, h = adjust_y_margin(y, h)
         [x, y, w, h]
@@ -138,6 +138,7 @@ module Rabbit
         compile(canvas, x, y, w, h)
 
         x, y, w, h = setup_margin(x, y, w, h)
+        x, w = setup_x_centering(x, w)
         x, y, w, h = setup_padding(x, y, w, h)
 
         @pre_draw_procs.each do |proc, _name|
@@ -152,7 +153,7 @@ module Rabbit
 
         x, w = restore_x_padding(x, w)
         x, w = restore_x_margin(x, w)
-        x, w = adjust_x_centering(x, w)
+        x, w = restore_x_centering(x, w)
         y, h = adjust_y_padding(y, h)
         y, h = adjust_y_margin(y, h)
 
@@ -167,6 +168,11 @@ module Rabbit
 
       def scene_snapshot(widget, snapshot, canvas, width, height)
         x, y, w, h = setup_padding(widget.x, widget.y, width, height)
+        # Dirty... We need to reconsider when we compute horizontal
+        # centering after we remove DrawingArea based rendering
+        # engine.
+        original_x = @x
+        @x = widget.x - @padding_left
         @pre_draw_procs.each do |proc, _name|
           x, y, w, h = proc.call(canvas, x, y, w, h, false)
         end
@@ -174,6 +180,7 @@ module Rabbit
         @post_draw_procs.each do |proc, _name|
           x, y, w, h = proc.call(canvas, x, y, w, h, false)
         end
+        @x = original_x
       end
 
       def prop_set(name, *values)
@@ -272,7 +279,13 @@ module Rabbit
         [x, w]
       end
 
-      def adjust_x_centering(x, w)
+      def setup_x_centering(x, w)
+        x += centering_adjusted_width
+        w -= centering_adjusted_width
+        [x, w]
+      end
+
+      def restore_x_centering(x, w)
         x -= centering_adjusted_width
         w += centering_adjusted_width
         [x, w]
