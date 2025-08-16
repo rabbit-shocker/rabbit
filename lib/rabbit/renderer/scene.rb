@@ -124,6 +124,15 @@ module Rabbit
 
       def queue_draw
         @stack.queue_draw
+        queue_draw_recursive = lambda do |widget|
+          widget.queue_draw
+          if widget.respond_to?(:children)
+            widget.children.each do |child|
+              queue_draw_recursive.call(child)
+            end
+          end
+        end
+        queue_draw_recursive.call(@stack.visible_child)
       end
 
       def clear_slide
@@ -158,6 +167,7 @@ module Rabbit
       end
 
       def post_move_in_slide(old_index, index)
+        queue_draw
         update_menu
       end
 

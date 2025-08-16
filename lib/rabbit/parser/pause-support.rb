@@ -18,6 +18,7 @@ module Rabbit
       def burn_out_pause_targets
         @slides.each do |slide|
           (pause_targets[slide] || []).each do |target|
+            slide.register_default_wait_target(target)
             slide.register_default_wait_proc(target.parent) do |*args|
               target.show do
                 next_proc = args.pop

@@ -73,6 +73,15 @@ module Rabbit
         @visible
       end
 
+      def scene_visible?
+        if @parent
+          return false unless @parent.scene_visible?
+        end
+        return true if @visible
+        return true if slide&.visible_waited_target?(self)
+        false
+      end
+
       def slide
         @slide ||= _slide
       end
@@ -167,6 +176,8 @@ module Rabbit
       end
 
       def scene_snapshot(widget, snapshot, canvas, width, height)
+        return unless scene_visible?
+
         x, y, w, h = setup_padding(widget.x, widget.y, width, height)
         # Dirty... We need to reconsider when we compute horizontal
         # centering after we remove DrawingArea based rendering

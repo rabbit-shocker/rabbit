@@ -26,6 +26,7 @@ module Rabbit
       def initialize(title_element)
         @index = -1
         @default_waited_draw_procs = []
+        @default_waited_targets = []
         super(title_element)
       end
 
@@ -71,6 +72,7 @@ module Rabbit
         clear_waiting
         clear_transition
         @waited_draw_procs = @default_waited_draw_procs.dup
+        @waited_targets = @default_waited_targets.dup
       end
 
       def first?(index=nil)
@@ -93,12 +95,21 @@ module Rabbit
         @default_waited_draw_procs << [target, exact, proc]
       end
 
+      def register_default_wait_target(target)
+        @default_waited_targets << target
+      end
+
       def register_wait_proc(target, exact=false, &proc)
         @waited_draw_procs << [target, exact, proc]
+        @waited_targets << target
       end
 
       def flush
         @drawing_index = @waited_draw_procs.size
+      end
+
+      def visible_waited_target?(target)
+        @waited_targets[0, @drawing_index].include?(target)
       end
 
       def waited_draw_procs(target)
