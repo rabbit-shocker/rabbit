@@ -1,0 +1,16 @@
+= Mermaid
+
+: author
+   Sutou Kouhei
+: theme
+   rabbit
+
+= Mermaid
+
+  # mermaid
+  # relative_height = 90
+  graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;

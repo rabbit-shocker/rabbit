@@ -314,7 +314,6 @@ module Rabbit
         snapshot = current_snapshot
         snapshot.save do
           # TODO: clip
-          snapshot.translate([x, y])
           snapshot.scale(width / w, height / h)
           context = snapshot.append_cairo([x, y, w, h])
           context.render_poppler_page(page)

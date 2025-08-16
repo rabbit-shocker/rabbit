@@ -135,7 +135,8 @@ module Rabbit
 
       def setup_scene_element(canvas, scene_widget, x, y, w, h)
         x, y, w, h = super
-        if @loader.is_a?(ImageManipulable::PDF)
+        case @loader
+        when ImageManipulable::PDF, ImageManipulable::Mermaid
           # Render by ourselves
         else
           if @loader.animation and not @loader.animation.static_image?
@@ -153,7 +154,8 @@ module Rabbit
       end
 
       def scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
-        if @loader.is_a?(ImageManipulable::PDF)
+        case @loader
+        when ImageManipulable::PDF, ImageManipulable::Mermaid
           image_draw(canvas, x, y, @draw_parameters)
         end
         y += @loader.height
