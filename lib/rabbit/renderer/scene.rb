@@ -271,6 +271,14 @@ module Rabbit
         end
       end
 
+      def create_stroke(params)
+        stroke = Gsk::Stroke.new(params[:line_width] || 1)
+        # TODO: line_cap
+        # TODO: line_join
+        # TODO: dash
+        stroke
+      end
+
       def draw_line(x1, y1, x2, y2, color=nil, params={})
         x1, y1 = adjust_xy(x1, y1)
         x2, y2 = adjust_xy(x2, y2)
@@ -280,8 +288,7 @@ module Rabbit
           builder = Gsk::PathBuilder.new
           builder.move_to(x1, y1)
           builder.line_to(x2, y2)
-          # set_stroke_options(params)
-          stroke = Gsk::Stroke.new(get_line_width(params))
+          stroke = create_stroke(params)
           snapshot.append_stroke(builder.to_path, stroke, rgba)
           # apply_cairo_action(filled, params)
         end
@@ -293,12 +300,12 @@ module Rabbit
         snapshot.save do
           rgba = make_color(color).to_gdk_rgba
           if filled
-            # set_stroke_options(params)
+            # TODO: Do we need stroke?
             snapshot.append_color(rgba, [x, y, w, h])
           else
             builder = Gsk::PathBuilder.new
             builder.add_rect([x, y, w, h])
-            stroke = Gsk::Stroke.new(get_line_width(params))
+            stroke = create_stroke(params)
             snapshot.append_stroke(builder.to_path, stroke, rgba)
           end
           # apply_cairo_action(filled, params)
@@ -323,11 +330,9 @@ module Rabbit
       private
       def init_ui
         @stack = Gtk::Stack.new
-        # if Gtk::StackTransitionType.const_defined?(:ROTATE_LEFT_RIGHT)
-        #   @stack.transition_type = :rotate_left_right
-        # else
-        #   @stack.transition_type = :slide_left_right
-        # end
+        if ENV["RABBIT_SLIDE_TRANSITION"] == "yes"
+          @stack.transition_type = :rotate_left_right
+        end
         set_button_event(@stack)
         set_motion_event(@stack)
         set_scroll_event(@stack)

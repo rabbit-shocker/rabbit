@@ -193,10 +193,6 @@ module Rabbit
       end
 
       private
-      def get_line_width(params, default=nil)
-        params[:line_width] || default
-      end
-
       def setup_flag_params(pole_height, default_flag_width_ratio, params)
         params = params.dup
 

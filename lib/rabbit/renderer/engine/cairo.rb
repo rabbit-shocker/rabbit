@@ -467,7 +467,7 @@ module Rabbit
         end
 
         def set_stroke_options(params)
-          set_line_width(get_line_width(params))
+          set_line_width(params[:line_width] || 1)
           [:line_cap, :line_join].each do |key|
             value = params[key]
             @context.send("#{key}=", value) if value
