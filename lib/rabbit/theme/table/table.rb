@@ -95,7 +95,7 @@ match(*(all_table + [TableHead, TableRow, TableHeader])) do |headers|
       header.dirty!
       header.text_compile(canvas, x, y, header_w, h)
     end
-    [x, y, w, h]
+    [x, y, header.width, h]
   end
 
   headers.add_post_draw_proc(name) do |header, canvas, x, y, w, h, simulation|
@@ -155,7 +155,7 @@ match(*(all_table + [TableBody, TableRow, TableCell])) do |cells|
           cell.text_compile(canvas, x, base_y, text_width, h)
         end
       end
-      [x, y, w, h]
+      [x, y, cell.width, h]
     end
 
     cell.add_post_draw_proc(name) do |canvas, x, y, w, h, simulation|

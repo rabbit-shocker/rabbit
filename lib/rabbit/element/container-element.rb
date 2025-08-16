@@ -177,13 +177,13 @@ module Rabbit
         @elements.each do |element|
           x, y, w, h = element.setup_scene(canvas, scene_widget, x, y, w, h)
         end
-        # TODO: Is this needed?
-        # last_element = @elements.last
-        # if last_element and last_element.inline_element?
-        #   container_height = height
-        #   y += container_height
-        #   h -= container_height
-        # end
+        # For table
+        last_element = @elements.last
+        if last_element and last_element.inline_element?
+          container_height = height
+          y += container_height
+          h -= container_height
+        end
         x = base_x
         w = base_w
 
