@@ -184,11 +184,14 @@ module Rabbit
         # engine.
         original_x = @x
         @x = widget.x - @padding_left
-        @pre_draw_procs.each do |proc, _name|
+        # pre_draw_proc may be deleted while calling. For example, the
+        # image-timer theme's init proc is deleted when it's called.
+        @pre_draw_procs.dup.each do |proc, _name|
           x, y, w, h = proc.call(canvas, x, y, w, h, false)
         end
         x, y, w, h = scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
-        @post_draw_procs.each do |proc, _name|
+        # post_draw_proc may be deleted while calling.
+        @post_draw_procs.dup.each do |proc, _name|
           x, y, w, h = proc.call(canvas, x, y, w, h, false)
         end
         @x = original_x
