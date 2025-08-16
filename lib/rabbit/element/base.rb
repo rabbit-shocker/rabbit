@@ -178,7 +178,7 @@ module Rabbit
       def scene_snapshot(widget, snapshot, canvas, width, height)
         return unless scene_visible?
 
-        x, y, w, h = setup_padding(widget.x, widget.y, width, height)
+        x, y, w, h = widget.x, widget.y, width, height
         # Dirty... We need to reconsider when we compute horizontal
         # centering after we remove DrawingArea based rendering
         # engine.
@@ -189,6 +189,8 @@ module Rabbit
         @pre_draw_procs.dup.each do |proc, _name|
           x, y, w, h = proc.call(canvas, x, y, w, h, false)
         end
+        # DrawingArea based renderer set padding after pre_draw_procs.
+        x, y, w, h = setup_padding(x, y, w, h)
         x, y, w, h = scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
         # post_draw_proc may be deleted while calling.
         @post_draw_procs.dup.each do |proc, _name|
