@@ -312,6 +312,116 @@ module Rabbit
         end
       end
 
+      #            <--w-->
+      #               90 degree
+      #              +-+             -
+      #             /   \            |
+      # 180 degree |     | 0 degree  h
+      #             \   /            |
+      #            p +-+             -
+      # p: (x,y)
+      def draw_arc(filled,
+                   x,
+                   y,
+                   w,
+                   h,
+                   start_degree,
+                   end_degree,
+                   color=nil,
+                   params={})
+        radius = w * 0.5
+        draw_arc_by_radius(filled,
+                           x + w * 0.5,
+                           y + h * 0.5,
+                           radius,
+                           start_degree,
+                           end_degree,
+                           color,
+                           params)
+      end
+
+      #               90 degree
+      #              +-+
+      #             /   \
+      # 180 degree |  c  | 0 degree
+      #             \   /
+      #              +-+
+      #
+      # c: center (center_x, center_y)
+      def draw_arc_by_radius(filled,
+                             center_x,
+                             center_y,
+                             radius,
+                             start_degree,
+                             end_degree,
+                             color=nil,
+                             params={})
+        center_x, center_y = adjust_xy(center_x, center_y)
+        snapshot = current_snapshot
+        snapshot.save do
+          # Convert to the HTML arcTo command:
+          # https://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands
+          #
+          #               90 degree
+          #              +-+
+          #             /   \
+          # 180 degree |  c  | 0 degree
+          #  end degree \   / start degree
+          #              +-+
+          # ->
+          #              +-+
+          #   end (x,y) /   \
+          # 180 degree |  c  | 0 degree
+          #             \   / start (x0,y0)
+          #              +-+
+          #               90 degree
+          builder = Gsk::PathBuilder.new
+          x_axis_rotation = 0
+          large_arc = ((end_degree - start_degree) >= 180)
+          positive_sweep = false
+          start_radian = -start_degree * (Math::PI / 180.0)
+          end_radian = -end_degree * (Math::PI / 180.0)
+          start_x = center_x + (radius * Math.cos(start_radian))
+          start_y = center_y + (radius * Math.sin(start_radian))
+          end_x = center_x + (radius * Math.cos(end_radian))
+          end_y = center_y + (radius * Math.sin(end_radian))
+          if end_degree - start_degree == 360
+            # circle
+            builder.move_to(start_x, start_y)
+            half_radian = -(start_degree + 180) * (Math::PI / 180.0)
+            builder.svg_arc_to(radius,
+                               radius,
+                               x_axis_rotation,
+                               large_arc,
+                               positive_sweep,
+                               center_x + (radius * Math.cos(half_radian)),
+                               center_y + (radius * Math.sin(half_radian)))
+          else
+            if filled
+              builder.move_to(center_x, center_y)
+              builder.line_to(start_x, start_y)
+            else
+              builder.move_to(start_x, start_y)
+            end
+          end
+          builder.svg_arc_to(radius,
+                             radius,
+                             x_axis_rotation,
+                             large_arc,
+                             positive_sweep,
+                             center_x + (radius * Math.cos(end_radian)),
+                             center_y + (radius * Math.sin(end_radian)))
+          builder.close if filled
+          path = builder.to_path
+          rgba = make_color(color).to_gdk_rgba
+          if filled
+            snapshot.append_fill(path, :winding, rgba)
+          else
+            snapshot.append_stroke(path, create_stroke(params), rgba)
+          end
+        end
+      end
+
       def draw_poppler_page(page, x, y, params={})
         x, y = adjust_xy(x, y)
         w, h = page.size
