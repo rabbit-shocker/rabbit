@@ -143,7 +143,7 @@ module Rabbit
         end
       end
 
-      def setup_scene(canvas, fixed, x, y, w, h)
+      def setup_scene(canvas, scene_widget, x, y, w, h)
         compile(canvas, x, y, w, h)
 
         x, y, w, h = setup_margin(x, y, w, h)
@@ -154,7 +154,7 @@ module Rabbit
           x, y, w, h = proc.call(canvas, x, y, w, h, true)
         end
 
-        x, y, w, h = setup_scene_element(canvas, fixed, x, y, w, h)
+        x, y, w, h = setup_scene_element(canvas, scene_widget, x, y, w, h)
 
         @post_draw_procs.each do |proc, _name|
           x, y, w, h = proc.call(canvas, x, y, w, h, true)
