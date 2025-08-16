@@ -47,6 +47,7 @@ module Rabbit
         application = ::Rabbit.application
         succeeded = false
         application.signal_connect("command-line") do |_, command_line|
+          GLib.application_name = "Rabbit"
           application.activate
           succeeded ? 0 : 1
         end
