@@ -272,7 +272,7 @@ module Rabbit
       end
 
       def create_stroke(params)
-        stroke = Gsk::Stroke.new([params[:line_width] || 1, 1].max)
+        stroke = Gsk::Stroke.new(params[:line_width] || 1)
         # TODO: line_cap
         # TODO: line_join
         # TODO: dash
@@ -280,6 +280,8 @@ module Rabbit
       end
 
       def draw_line(x1, y1, x2, y2, color=nil, params={})
+        return if params[:line_width] == 0
+
         x1, y1 = adjust_xy(x1, y1)
         x2, y2 = adjust_xy(x2, y2)
         snapshot = current_snapshot
