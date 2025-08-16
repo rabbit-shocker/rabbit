@@ -272,7 +272,7 @@ module Rabbit
       end
 
       def create_stroke(params)
-        stroke = Gsk::Stroke.new(params[:line_width] || 1)
+        stroke = Gsk::Stroke.new([params[:line_width] || 1, 1].max)
         # TODO: line_cap
         # TODO: line_join
         # TODO: dash
