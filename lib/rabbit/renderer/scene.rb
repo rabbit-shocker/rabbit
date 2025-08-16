@@ -330,7 +330,7 @@ module Rabbit
                    w,
                    h,
                    start_degree,
-                   end_degree,
+                   length_degree,
                    color=nil,
                    params={})
         radius = w * 0.5
@@ -339,7 +339,7 @@ module Rabbit
                            y + h * 0.5,
                            radius,
                            start_degree,
-                           end_degree,
+                           length_degree,
                            color,
                            params)
       end
@@ -357,65 +357,57 @@ module Rabbit
                              center_y,
                              radius,
                              start_degree,
-                             end_degree,
+                             length_degree,
                              color=nil,
                              params={})
         center_x, center_y = adjust_xy(center_x, center_y)
         snapshot = current_snapshot
         snapshot.save do
-          # Convert to the HTML arcTo command:
-          # https://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands
-          #
-          #               90 degree
-          #              +-+
-          #             /   \
-          # 180 degree |  c  | 0 degree
-          #  end degree \   / start degree
-          #              +-+
-          # ->
-          #              +-+
-          #   end (x,y) /   \
-          # 180 degree |  c  | 0 degree
-          #             \   / start (x0,y0)
-          #              +-+
-          #               90 degree
           builder = Gsk::PathBuilder.new
-          x_axis_rotation = 0
-          large_arc = ((end_degree - start_degree) >= 180)
-          positive_sweep = false
-          start_radian = -start_degree * (Math::PI / 180.0)
-          end_radian = -end_degree * (Math::PI / 180.0)
-          start_x = center_x + (radius * Math.cos(start_radian))
-          start_y = center_y + (radius * Math.sin(start_radian))
-          end_x = center_x + (radius * Math.cos(end_radian))
-          end_y = center_y + (radius * Math.sin(end_radian))
-          if end_degree - start_degree == 360
-            # circle
-            builder.move_to(start_x, start_y)
-            half_radian = -(start_degree + 180) * (Math::PI / 180.0)
-            builder.svg_arc_to(radius,
-                               radius,
-                               x_axis_rotation,
-                               large_arc,
-                               positive_sweep,
-                               center_x + (radius * Math.cos(half_radian)),
-                               center_y + (radius * Math.sin(half_radian)))
+          if length_degree == 360
+            builder.add_circle([center_x, center_y], radius)
           else
+            end_degree = start_degree + length_degree
+            # Convert to the HTML arcTo command:
+            # https://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands
+            #
+            #               90 degree
+            #              +-+
+            #             /   \
+            # 180 degree |  c  | 0 degree
+            #  end degree \   / start degree
+            #              +-+
+            # ->
+            #              +-+
+            #   end (x,y) /   \
+            # 180 degree |  c  | 0 degree
+            #             \   / start (x0,y0)
+            #              +-+
+            #               90 degree
+            x_axis_rotation = 0
+            large_arc = length_degree >= 180
+            positive_sweep = false
+            start_radian = -start_degree * (Math::PI / 180.0)
+            end_radian = -end_degree * (Math::PI / 180.0)
+            start_x = center_x + (radius * Math.cos(start_radian))
+            start_y = center_y + (radius * Math.sin(start_radian))
+            end_x = center_x + (radius * Math.cos(end_radian))
+            end_y = center_y + (radius * Math.sin(end_radian))
             if filled
               builder.move_to(center_x, center_y)
               builder.line_to(start_x, start_y)
             else
               builder.move_to(start_x, start_y)
             end
+            builder.svg_arc_to(radius,
+                               radius,
+                               x_axis_rotation,
+                               large_arc,
+                               positive_sweep,
+                               center_x + (radius * Math.cos(end_radian)),
+                               center_y + (radius * Math.sin(end_radian)))
+            builder.close if filled
           end
-          builder.svg_arc_to(radius,
-                             radius,
-                             x_axis_rotation,
-                             large_arc,
-                             positive_sweep,
-                             center_x + (radius * Math.cos(end_radian)),
-                             center_y + (radius * Math.sin(end_radian)))
-          builder.close if filled
           path = builder.to_path
           rgba = make_color(color).to_gdk_rgba
           if filled
