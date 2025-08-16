@@ -273,8 +273,10 @@ module Rabbit
 
       def create_stroke(params)
         stroke = Gsk::Stroke.new(params[:line_width] || 1)
-        # TODO: line_cap
-        # TODO: line_join
+        [:line_cap, :line_join].each do |name|
+          value = params[name]
+          stroke.__send__("#{name}=", value) if value
+        end
         # TODO: dash
         stroke
       end
