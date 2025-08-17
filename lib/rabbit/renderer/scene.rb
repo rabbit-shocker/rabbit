@@ -294,7 +294,6 @@ module Rabbit
           builder.line_to(x2, y2)
           stroke = create_stroke(params)
           snapshot.append_stroke(builder.to_path, stroke, rgba)
-          # apply_cairo_action(filled, params)
         end
       end
 
@@ -304,7 +303,6 @@ module Rabbit
         snapshot.save do
           rgba = make_color(color).to_gdk_rgba
           if filled
-            # TODO: Do we need stroke?
             snapshot.append_color(rgba, [x, y, w, h])
           else
             builder = Gsk::PathBuilder.new
@@ -312,7 +310,23 @@ module Rabbit
             stroke = create_stroke(params)
             snapshot.append_stroke(builder.to_path, stroke, rgba)
           end
-          # apply_cairo_action(filled, params)
+        end
+      end
+
+      def draw_rounded_rectangle(filled, x, y, w, h, radius, color=nil, params={})
+        x, y = adjust_xy(x, y)
+        snapshot = current_snapshot
+        snapshot.save do
+          rgba = make_color(color).to_gdk_rgba
+          builder = Gsk::PathBuilder.new
+          builder.add_rounded_rect([[x, y, w, h], radius])
+          path = builder.to_path
+          if filled
+            snapshot.append_fill(path, :winding, rgba)
+          else
+            stroke = create_stroke(params)
+            snapshot.append_stroke(path, stroke, rgba)
+          end
         end
       end
 
