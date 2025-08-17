@@ -24,6 +24,7 @@ include_theme("simple-item-mark")
 include_theme("rabbit-icon")
 
 include_theme("image")
+include_theme("video")
 include_theme("table")
 include_theme("tag")
 include_theme("newline-in-slides")

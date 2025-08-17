@@ -117,9 +117,9 @@ module Rabbit
       end
 
       def resize(w, h)
-        if w.nil? and h.nil?
-          return
-        elsif keep_ratio?
+        return if w.nil? and h.nil?
+
+        if keep_ratio?
           if w and h.nil?
             h = (original_height * w.to_f / original_width).ceil
           elsif w.nil? and h

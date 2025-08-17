@@ -83,3 +83,11 @@ module Gtk
     StackTransitionType = Stack::TransitionType
   end
 end
+
+unless Gtk.const_defined?(:MediaFile)
+  # For video
+  begin
+    require "gst"
+  rescue LoadError
+  end
+end

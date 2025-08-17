@@ -18,6 +18,7 @@ include_theme("default-block-quote")
 include_theme("default-foot-text")
 include_theme("default-description")
 include_theme("image")
+include_theme("video")
 include_theme("table")
 include_theme("newline-in-slides")
 

@@ -1,4 +1,5 @@
 include_theme("image")
+include_theme("video")
 include_theme("table")
 
 normal_font_size = @normal_font_size

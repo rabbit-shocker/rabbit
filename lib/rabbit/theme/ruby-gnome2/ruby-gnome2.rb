@@ -2,6 +2,7 @@ add_image_path("ruby-images")
 add_image_path("rabbit-images")
 
 include_theme("image")
+include_theme("video")
 include_theme("table")
 include_theme("default-title-text")
 include_theme("default-text")
