@@ -32,8 +32,6 @@ module Rabbit
       include GetText
       include DirtyCount
 
-      def_delegators(:@canvas, :reload_source)
-
       attr_accessor :base_width
       attr_accessor :base_height
       attr_accessor :paper_width, :paper_height, :slides_per_page
