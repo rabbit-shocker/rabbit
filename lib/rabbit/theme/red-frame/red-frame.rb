@@ -4,8 +4,6 @@ shadow_color = "#c09090"
 line_width = screen_size(0.8)
 line_width += 1 if (line_width % 2).zero?
 
-include_theme("image")
-include_theme("table")
 include_theme("default-title-text")
 include_theme("default-text")
 include_theme("default-title-slide")
@@ -24,6 +22,11 @@ include_theme("default-preformatted")
 include_theme("default-block-quote")
 include_theme("simple-item-mark")
 include_theme("rabbit-icon")
+
+include_theme("image")
+include_theme("table")
+include_theme("tag")
+include_theme("newline-in-slides")
 
 set_progress_foreground("#ffff00000000")
 set_progress_background("#ffffeb29ffff")
