@@ -195,6 +195,7 @@ module Rabbit
             end
           when "state"
             state = surface.state
+            @canvas.reload_source if state.focused?
             fullscreen = state.fullscreen?
             if previous_fullscreen != fullscreen
               @fullscreen = fullscreen
