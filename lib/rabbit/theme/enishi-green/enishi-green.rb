@@ -12,7 +12,7 @@ match(TitleSlide) do |slides|
   slides.margin_top = canvas.height * 0.1
 
   slides.add_pre_draw_proc do |slide, canvas, x, y, w, h, simulation|
-    unless
+    unless simulation
       canvas.draw_rectangle(true, 0, 0, canvas.width, canvas.height,
                             green_background_color)
     end
