@@ -150,9 +150,7 @@ module Rabbit
       @window = Gtk::ApplicationWindow.new(::Rabbit.application)
       @window.set_default_size(width, height)
       @window.parse_geometry(@geometry) if @geometry
-      if defined?(Vte::Terminal)
-        init_stack
-      end
+      init_stack
       set_window_signal_destroy
       setup_dnd
       @window.show # @window.surface is only available after @window.show.
@@ -223,9 +221,7 @@ module Rabbit
         end
       end
       @canvas.attach_to(self, @window, @stack)
-      if defined?(Vte::Terminal)
-        init_terminal
-      end
+      init_terminal if defined?(Vte::Terminal)
     end
 
     def init_stack
