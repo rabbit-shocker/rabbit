@@ -20,7 +20,6 @@ require "erb"
 require_relative "../gtk"
 
 require_relative "../rabbit"
-require_relative "../trackball"
 require_relative "color"
 
 module Rabbit
@@ -77,7 +76,6 @@ module Rabbit
         @graffiti_line_width = nil
         @draw_scaled_image = true
         clean
-        init_gl_parameters
       end
 
       def page_margin_left
@@ -378,22 +376,6 @@ module Rabbit
         format = _("%s does not support: %s")
         msg = format % [self.class.name, name]
         Rabbit.logger.warn(msg)
-      end
-
-      def init_gl_parameters
-        angle = 0.0 * (Math::PI / 180.0)
-        axis_x = 1.0
-        axis_y = 0.0
-        axis_z = 0.0
-        sine = Math.sin(0.5 * angle)
-        quaternion = [
-                      axis_x * sine,
-                      axis_y * sine,
-                      axis_z * sine,
-                      Math.cos(0.5 * angle)
-                     ]
-        @gl_quaternion = TrackBall::Vector.new(quaternion)
-        @gl_scale = 1.0
       end
 
       def clear_keys
