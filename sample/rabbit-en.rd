@@ -121,7 +121,6 @@ A presentation tool
   * Inline images
   * Jump to a link
   * Sound
-  * Video
   * 3D
 
 = Image
