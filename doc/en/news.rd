@@ -4,6 +4,15 @@ title: News
 ---
 {% raw %}
 
+== 4.0.1: 2025-08-18
+
+=== Fixes
+
+==== rabbit
+
+  * Fixed a bug that window size change is failed without VTE
+    installed.
+
 == 4.0.0: 2025-08-18
 
 GTK 4 support release!
