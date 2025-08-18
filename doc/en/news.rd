@@ -4,6 +4,60 @@ title: News
 ---
 {% raw %}
 
+== 4.0.0: 2025-08-18
+
+GTK 4 support release!
+
+GTK 4 support is still experimental. It still misses some
+features. You can use it by (({RABBIT_GTK=4})) environment variable.
+
+=== Improvements
+
+==== rabbit
+
+  * GIMP: Add support for GIMP 3.0
+
+  * Rouge: Add support for attaching user properties.
+
+  * Preformatted: Add support for enabling/disabling auto size
+    computation per element.
+
+    Here is a RD example:
+
+    Disable:
+
+        # rouge ruby
+        # keep-in-size = false
+
+        variable = expression
+
+    Enable:
+
+        # rouge ruby
+        # keep-in-size = true
+
+        variable = expression
+
+  * Added support for GTK 4.
+
+    It's still experimental. It still misses some features. You can
+    use it by (({RABBIT_GTK=4})) environment variable.
+
+    You can embed video with GTK 4 support.
+
+  * Dropped support for window icon. It's not portable.
+
+  * Removed GtkGLExt based GL support.
+
+==== rabbit-slide
+
+  * Use 1920x1080 by default.
+
+  * Use presentation date as the (({date})) gem metadata.
+
+  * Set markup language as the (({markup_language})) gem metadata to render
+    slide description in Rabbit Slide Show.
+
 == 3.0.5: 2025-03-30
 
 === Improvements
