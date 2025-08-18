@@ -158,7 +158,12 @@ module Rabbit
       @window.show # @window.surface is only available after @window.show.
       if Gtk::Version::MAJOR < 4
         @window.signal_connect(:configure_event) do |_, event|
-          @canvas.renderer.update_size(event.width, event.height)
+          GLib::Idle.add do
+            width = @stack.allocated_width
+            height = @stack.allocated_height
+            @canvas.renderer.update_size(width, height)
+            GLib::Source::REMOVE
+          end
           false
         end
         @window.signal_connect(:window_state_event) do |widget, event|
@@ -186,12 +191,15 @@ module Rabbit
         @surface.signal_connect(:notify) do |surface, param|
           case param.name
           when "width", "height"
-            width = surface.width
-            height = surface.height
-            if previous_width != width or previous_height != height
-              @canvas.renderer.update_size(width, height)
-              previous_width = width
-              previous_height = height
+            GLib::Idle.add do
+              width = @stack.width
+              height = @stack.height
+              if previous_width != width or previous_height != height
+                @canvas.renderer.update_size(width, height)
+                previous_width = width
+                previous_height = height
+              end
+              GLib::Source::REMOVE
             end
           when "state"
             state = surface.state
