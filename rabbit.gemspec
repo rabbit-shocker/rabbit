@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2024  Kouhei Sutou <kou@cozmixng.org>
+# Copyright (C) 2012-2025  Kouhei Sutou <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -59,7 +59,6 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.files.reject! do |file|
     not File.file?(file)
   end
-  spec.test_files = Dir.glob("test/**/*.rb")
   Dir.chdir("bin") do
     spec.executables = Dir.glob("*")
   end
