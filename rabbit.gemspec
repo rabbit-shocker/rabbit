@@ -72,7 +72,7 @@ can see your slide at https://slide.rabbit-shocker.org/ .
   spec.add_runtime_dependency("gettext", ">= 3.0.1")
   # spec.add_runtime_dependency("gstreamer")
   spec.add_runtime_dependency("gtk3")
-  spec.add_runtime_dependency("gtk4")
+  spec.add_runtime_dependency("gtk4", ">= 4.3.3")
   spec.add_runtime_dependency("hikidoc")
   spec.add_runtime_dependency("kramdown-parser-gfm")
   spec.add_runtime_dependency("nokogiri")
