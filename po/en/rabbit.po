@@ -2078,3 +2078,9 @@ msgstr ""
 
 msgid "TitleSlideBackgroundImage"
 msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "video rendering"
+msgstr ""
