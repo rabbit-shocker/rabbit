@@ -24,14 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: rabbit
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: rabbit-shocker/rabbirack
           path: rabbirack
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           repository: rabbit-shocker/rabwii
           path: rabwii
@@ -95,7 +95,7 @@ jobs:
       id-token: write
     environment: release
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ruby
