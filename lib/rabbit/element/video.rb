@@ -134,20 +134,23 @@ module Rabbit
       def detect_size_media_file
         Gio::File.open(path: @filename) do |gio_file|
           media_file = Gtk::MediaFile.new(gio_file)
-          # We want to mute here to avoid playing audio but if we
-          # mute, media_file isn't prepared...
-          # media_file.muted = true
-          media_file.play
-          until media_file.prepared?
-            GLib::MainContext.default.iteration(true)
+          begin
+            # We want to mute here to avoid playing audio but if we
+            # mute, media_file isn't prepared...
+            # media_file.muted = true
+            media_file.play
+            until media_file.prepared?
+              GLib::MainContext.default.iteration(true)
+            end
+            width = media_file.intrinsic_width
+            width = nil if width.zero?
+            height = media_file.intrinsic_height
+            height = nil if height.zero?
+            [width, height]
+          ensure
+            media_file.pause
+            media_file.clear
           end
-          width = media_file.intrinsic_width
-          width = nil if width.zero?
-          height = media_file.intrinsic_height
-          height = nil if height.zero?
-          media_file.pause
-          media_file.unref
-          [width, height]
         end
       end
 
