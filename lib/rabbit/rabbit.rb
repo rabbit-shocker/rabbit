@@ -33,7 +33,7 @@ module Rabbit
   class << self
     def application
       @@application ||=
-        Gtk::Application.new("org.rabbit-shocker.Rabbit",
+        Gtk::Application.new("org.rabbit_shocker.Rabbit",
                              [:non_unique, :handles_command_line])
     end
 
