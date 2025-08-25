@@ -140,6 +140,7 @@ module Rabbit
         # media_file.muted = true
         media_file.play
         while GLib::MainContext.default.iteration(true) do
+          break if media_file.prepared?
         end
         width = media_file.intrinsic_width
         width = nil if width.zero?
