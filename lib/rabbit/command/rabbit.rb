@@ -15,6 +15,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require "English"
+require "pathname"
 
 require_relative "../rabbit"
 require_relative "../slide-configuration"
@@ -588,6 +589,11 @@ module Rabbit
             options.action = :check_syntax
           end
 
+          parser.on("--install-desktop-entry",
+                    _("Installs .desktop and exit.")) do
+            options.action = :install_desktop_entry
+          end
+
           parser.on("--[no-]show-native-window-id",
                     _("Show a native window ID of the Rabbit window if available."),
                     _("e.g. The ID is the ID of X resource on X window system."),
@@ -878,6 +884,28 @@ module Rabbit
         else
           true
         end
+      end
+
+      def do_install_desktop_entry
+        rabbit_icon =
+          Pathname(__dir__) + ".." + ".." + ".." + "data" +
+          "rabbit" + "image" + "rabbit-images" + "lavie-icon.png"
+        rabbit_desktop =
+          Pathname("~") + ".local" + "share" + "applications" +
+          "#{::Rabbit.application.application_id}.desktop"
+        rabbit_desktop.expand_path.open("w") do |desktop|
+          desktop.puts(<<-DESKTOP)
+[Desktop Entry]
+Type=Application
+Version=#{::Rabbit::VERSION}
+Name=Rabbit
+Comment=A presentation tool for Rubyists
+Icon=#{rabbit_icon.expand_path}
+Categories=GTK;Office
+StartupWMClass=Rabbit
+          DESKTOP
+        end
+        true
       end
     end
   end
