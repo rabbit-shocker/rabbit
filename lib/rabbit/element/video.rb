@@ -139,8 +139,8 @@ module Rabbit
         # mute, media_file isn't prepared...
         # media_file.muted = true
         media_file.play
-        while GLib::MainContext.default.iteration(true) do
-          break if media_file.prepared?
+        until media_file.prepared?
+          GLib::MainContext.default.iteration(true)
         end
         width = media_file.intrinsic_width
         width = nil if width.zero?
