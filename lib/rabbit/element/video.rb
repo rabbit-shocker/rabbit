@@ -16,7 +16,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 require_relative "../image"
-require_relative "../parser/base"
 require_relative "../properties"
 require_relative "block-element"
 
