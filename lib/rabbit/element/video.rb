@@ -19,7 +19,6 @@ require_relative "../image"
 require_relative "../parser/base"
 require_relative "../properties"
 require_relative "block-element"
-require_relative "text-renderer"
 
 module Rabbit
   module Element
