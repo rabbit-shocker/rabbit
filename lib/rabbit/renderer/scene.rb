@@ -122,8 +122,15 @@ module Rabbit
         @stack
       end
 
+      def redraw
+        queue_draw
+      end
+
       def queue_draw
         @stack.queue_draw
+        visible_child = @stack.visible_child
+        return if visible_child.nil?
+
         queue_draw_recursive = lambda do |widget|
           widget.queue_draw
           if widget.respond_to?(:children)
@@ -132,7 +139,7 @@ module Rabbit
             end
           end
         end
-        queue_draw_recursive.call(@stack.visible_child)
+        queue_draw_recursive.call(visible_child)
       end
 
       def clear_slide
