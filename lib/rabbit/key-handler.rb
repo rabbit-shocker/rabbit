@@ -63,7 +63,7 @@ module Rabbit
       def detach
         @window.insert_action_group("rabbit", nil)
         @window.remove_controller(@user_shortcut_controller)
-        @window.remove_controller(@toggle_terminal_controller)
+        @window.remove_controller(@toggle_terminal_shortcut_controller)
         @window.remove_controller(@shortcut_controller)
       end
 
