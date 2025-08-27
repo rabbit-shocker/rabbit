@@ -142,6 +142,10 @@ module Rabbit
         queue_draw_recursive.call(visible_child)
       end
 
+      def cache_all_slides
+        # We don't need this.
+      end
+
       def clear_slide
         super
         compile_slides
