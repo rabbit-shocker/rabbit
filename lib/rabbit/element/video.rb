@@ -67,6 +67,8 @@ module Rabbit
         x, y, w, h = super
 
         video = Gtk::Video.new(@filename)
+        # TODO: This doesn't work...
+        video.cursor = Gdk::Cursor.new(:default)
         scene_widget.put(video, x, y, @width || w, @height || h)
         y += @height
         h -= @height
