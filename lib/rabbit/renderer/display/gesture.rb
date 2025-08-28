@@ -60,7 +60,7 @@ module Rabbit
             if @gesture.processing? and pressed_info == target_info
               unless @gesture.moved?
                 keep_cursor(:gesture)
-                update_cursor(:hand)
+                update_cursor(:gesture)
               end
               first_move = !@gesture.moved?
               handled = @gesture.button_motion(x, y, width, height)

@@ -152,7 +152,7 @@ module Rabbit
       end
 
       def post_fullscreen
-        update_cursor(:blank, true)
+        update_cursor(:none, true)
         update_menu
       end
 

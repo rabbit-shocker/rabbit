@@ -48,7 +48,7 @@ module Rabbit
         end
 
         def post_fullscreen
-          update_cursor(:blank, true)
+          update_cursor(:none, true)
           clear_compiled_slides
         end
 
@@ -78,7 +78,7 @@ module Rabbit
 
         def post_parse
           clear_compiled_slides
-          update_cursor(:blank, true)
+          update_cursor(:none, true)
         end
 
         def pre_toggle_index_mode

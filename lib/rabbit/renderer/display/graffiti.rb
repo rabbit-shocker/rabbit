@@ -50,7 +50,7 @@ module Rabbit
         def toggle_graffiti_mode
           @graffiti_mode = !@graffiti_mode
           if graffiti_mode?
-            update_cursor(:pencil)
+            update_cursor(:graffiti)
           else
             restore_cursor(nil)
           end
