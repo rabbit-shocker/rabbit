@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2006-2025  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,12 +19,22 @@ module Rabbit
     @@cursors = nil
 
     class << self
-      def cursors
-        @@cursors ||= {
-          :blank  => Gdk::Cursor.new(:blank_cursor),
-          :pencil => Gdk::Cursor.new(:pencil),
-          :hand   => Gdk::Cursor.new(:hand1),
-        }
+      if Gtk::Version::MAJOR >= 4
+        def cursors
+          @@cursors ||= {
+            none: Gdk::Cursor.new(:none),
+            graffiti: Gdk::Cursor.new(:pointer),
+            gesture: Gdk::Cursor.new(:grabbing),
+          }
+        end
+      else
+        def cursors
+          @@cursors ||= {
+            none: Gdk::Cursor.new(:blank),
+            graffiti: Gdk::Cursor.new(:pencil),
+            gesture: Gdk::Cursor.new(:hand1),
+          }
+        end
       end
     end
 
