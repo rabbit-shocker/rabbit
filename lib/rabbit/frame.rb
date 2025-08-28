@@ -299,6 +299,22 @@ module Rabbit
           @canvas.activate("ToggleTerminal")
         end
       end
+
+      if Gtk::Version::MAJOR >= 4
+        @toggle_terminal_shortcuts = Gio::ListStore.new(Gtk::Shortcut)
+        @toggle_terminal_shortcut_controller =
+          Gtk::ShortcutController.new(@toggle_terminal_shortcuts)
+        modifiers = Gdk::ModifierType::SHIFT_MASK |
+                    Gdk::ModifierType::CONTROL_MASK |
+                    Gdk::ModifierType::ALT_MASK
+        Keys::ShiftControlAlt::TOGGLE_TERMINAL_KEYS.each do |key|
+          trigger = Gtk::KeyvalTrigger.new(key, modifiers)
+          action = Gtk::NamedAction.new("rabbit.ToggleTerminal")
+          shortcut = Gtk::Shortcut.new(trigger, action)
+          @toggle_terminal_shortcuts.append(shortcut)
+        end
+        @terminal.add_controller(@toggle_terminal_shortcut_controller)
+      end
     end
   end
 
