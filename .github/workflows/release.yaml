@@ -58,7 +58,7 @@ jobs:
             xvfb-run --server-args "-screen 0 640x480x24" \
               bundle exec rake html:publish:local
           tar cfz ../docs.tar.gz docs
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: docs
           path: docs.tar.gz
