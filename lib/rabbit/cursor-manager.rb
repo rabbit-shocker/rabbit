@@ -30,7 +30,7 @@ module Rabbit
       else
         def cursors
           @@cursors ||= {
-            none: Gdk::Cursor.new(:blank),
+            none: Gdk::Cursor.new(:blank_cursor),
             graffiti: Gdk::Cursor.new(:pencil),
             gesture: Gdk::Cursor.new(:hand1),
           }
