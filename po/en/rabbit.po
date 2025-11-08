@@ -385,6 +385,27 @@ msgstr ""
 msgid "It is used to publish your slide to %s"
 msgstr ""
 
+msgid "_Cancel"
+msgstr ""
+
+msgid "_Apply"
+msgstr ""
+
+msgid "ID:"
+msgstr ""
+
+msgid "Base name:"
+msgstr ""
+
+msgid "Markup language:"
+msgstr ""
+
+msgid "Height:"
+msgstr ""
+
+msgid "Width:"
+msgstr ""
+
 msgid "too many commands: %s"
 msgstr ""
 
@@ -735,6 +756,9 @@ msgid "Others"
 msgstr ""
 
 msgid "Check slide source syntax and exit."
+msgstr ""
+
+msgid "Installs .desktop and exit."
 msgstr ""
 
 msgid "Show a native window ID of the Rabbit window if available."

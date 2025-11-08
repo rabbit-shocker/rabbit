@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rabbit 0.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-08-18 12:06+0900\n"
+"PO-Revision-Date: 2025-11-08 22:50+0900\n"
 "Last-Translator: Kouhei Sutou <kou@cozmixng.org>\n"
 "Language-Team: Kouhei Sutou <kou@cozmixng.org> and Kobayashi Noritada <nori1@d"
 "olphin.c.u-tokyo.ac.jp>\n"
@@ -397,6 +397,27 @@ msgstr "%sのアカウント"
 msgid "It is used to publish your slide to %s"
 msgstr "%sにスライドを公開するときに使います"
 
+msgid "_Cancel"
+msgstr "キャンセル (_C)"
+
+msgid "_Apply"
+msgstr "適用 (_A)"
+
+msgid "ID:"
+msgstr "ID："
+
+msgid "Base name:"
+msgstr "ベース名："
+
+msgid "Markup language:"
+msgstr "マークアップ言語："
+
+msgid "Height:"
+msgstr "高さ："
+
+msgid "Width:"
+msgstr "幅："
+
 msgid "too many commands: %s"
 msgstr "コマンドが多過ぎます: %s"
 
@@ -761,6 +782,9 @@ msgstr "その他"
 
 msgid "Check slide source syntax and exit."
 msgstr "スライドのソースの構文をチェックして終了します。"
+
+msgid "Installs .desktop and exit."
+msgstr ".desktopをインストールして終了します。"
 
 msgid "Show a native window ID of the Rabbit window if available."
 msgstr "可能ならウィンドウシステムに依存したRabbitのウィンドウのIDを表示します。"

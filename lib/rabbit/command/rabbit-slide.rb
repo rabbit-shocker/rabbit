@@ -318,39 +318,64 @@ module Rabbit
       end
 
       class TextMapper
-        def initialize(data)
+        def initialize(data, label_widget, entry_widget)
           @data = data
-        end
+          @label_widget = label_widget
+          @entry_widget = entry_widget
 
-        def attach(entry)
-          entry.signal_connect(:notify) do |_widget, param_spec|
-            if param_spec.name == "text"
-              if valid?(_widget.text)
-                _widget.style_context.remove_class(Gtk::STYLE_CLASS_ERROR)
+          widgets = [@label_widget, @entry_widget]
+          if Gtk::Version::MAJOR < 4
+            update_class = lambda do |valid|
+              if valid
+                widgets.each do |widget|
+                  widget.style_context.remove_class(Gtk::STYLE_CLASS_ERROR)
+                end
               else
-                _widget.style_context.add_class(Gtk::STYLE_CLASS_ERROR)
+                widgets.each do |widget|
+                  widget.style_context.add_class(Gtk::STYLE_CLASS_ERROR)
+                end
+              end
+            end
+          else
+            update_class = lambda do |valid|
+              if valid
+                widgets.each do |widget|
+                  widget.remove_css_class("error")
+                end
+              else
+                widgets.each do |widget|
+                  widget.add_css_class("error")
+                end
               end
             end
           end
-          entry.text = value if value
+          @entry_widget.signal_connect(:notify) do |_, param_spec|
+            if param_spec.name == "text"
+              update_class.call(valid?(@entry_widget.buffer.text))
+            end
+          end
+          if value
+            @entry_widget.buffer.text = value
+          else
+            update_class.call(valid?(@entry_widget.buffer.text))
+          end
         end
 
-        def apply(entry)
-          apply_value(entry.text)
+        def apply
+          apply_value(@entry_widget.buffer.text)
         end
       end
 
       class IntegerMapper
-        def initialize(data)
+        def initialize(data, widget)
           @data = data
+          @widget = widget
+
+          @widget.value = value if value
         end
 
-        def attach(entry)
-          entry.value = value if value
-        end
-
-        def apply(entry)
-          apply_value(entry.value_as_int)
+        def apply
+          apply_value(@widget.value_as_int)
         end
       end
 
@@ -385,21 +410,20 @@ module Rabbit
       end
 
       class SlideMarkupLanguageMapper
-        def initialize(data)
+        def initialize(data, widget)
           @data = data
+          @widget = widget
         end
 
-        def attach(combo_box)
-          combo_box = combo_box
-          @data.available_markup_languages.each do |key, value|
-            combo_box.append(key.to_s, value)
+        def apply
+          if Gtk::Version::MAJOR < 4
+            combo_box = @widget
+            id = combo_box.active_id
+            id = id.to_sym if id
+          else
+            drop_down = @widget
+            id = @data.available_markup_languages.keys[drop_down.selected]
           end
-          combo_box.active_id = @data.author_conf.markup_language
-        end
-
-        def apply(combo_box)
-          id = combo_box.active_id
-          id = id.to_sym if id
           @data.author_conf.markup_language = id
         end
       end
@@ -426,36 +450,157 @@ module Rabbit
         end
       end
 
-      def build_gui_mappers
-        {
-          "slide-id" => SlideIDMapper.new(@data),
-          "slide-base-name" => SlideBaseNameMapper.new(@data),
-          "slide-markup-language" => SlideMarkupLanguageMapper.new(@data),
-          "slide-width" => SlideWidthMapper.new(@data),
-          "slide-height" => SlideHeightMapper.new(@data),
-        }
-      end
-
       def show_gui
         require_relative "../gtk"
 
-        mappers = build_gui_mappers
-
-        builder = Gtk::Builder.new(path: File.join(__dir__, "rabbit-slide.ui"))
-        mappers.each do |id, mapper|
-          mapper.attach(builder[id])
+        @application = Gtk::Application.new("org.rabbit_shocker.RabbitSlide",
+                                            [:non_unique, :handles_command_line])
+        succeeded = false
+        @application.signal_connect(:command_line) do |_, command_line|
+          GLib.application_name = "Rabbit Slide"
+          @application.activate
+          succeeded ? 0 : 1
         end
-
-        dialog = builder["dialog"]
-        case dialog.run
-        when Gtk::ResponseType::CANCEL, Gtk::ResponseType::DELETE_EVENT
-          false
-        else
-          mappers.each do |id, mapper|
-            mapper.apply(builder[id])
+        @application.signal_connect(:activate) do |_, command_line|
+          show_window do
+            successed = true
           end
-          true
         end
+        @application.run
+      end
+
+      def show_window(&on_success)
+        window = Gtk::ApplicationWindow.new(@application)
+
+        grid = Gtk::Grid.new
+        grid.column_homogeneous = true
+        nth_row = 0
+        mappers = []
+
+        mappers << add_id_widget(grid, nth_row)
+        nth_row += 1
+
+        mappers << add_base_name_widget(grid, nth_row)
+        nth_row += 1
+
+        mappers << add_markup_language_widget(grid, nth_row)
+        nth_row += 1
+
+        mappers << add_height_widget(grid, nth_row)
+        nth_row += 1
+
+        mappers << add_width_widget(grid, nth_row)
+        nth_row += 1
+
+        nth_column = 0
+        cancel_button = Gtk::Button.new(mnemonic: _("_Cancel"))
+        cancel_button.signal_connect(:clicked) do
+          window.destroy
+        end
+        grid.attach(cancel_button, nth_column, nth_row, 1, 1)
+	nth_column += 1
+        apply_button = Gtk::Button.new(mnemonic: _("_Apply"))
+        apply_button.signal_connect(:clicked) do
+          mappers.each(&:apply)
+          on_success.call
+          window.destroy
+        end
+        grid.attach(apply_button, nth_column, nth_row, 1, 1)
+
+        frame = Gtk::Frame.new(_("Slide information"))
+        frame.child = grid
+        window.child = frame
+
+        window.show_all if window.respond_to?(:show_all)
+        window.present
+      end
+
+      def add_id_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new(_("ID:"))
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+        nth_column += 1
+        entry_widget = Gtk::Entry.new
+        grid.attach(entry_widget, nth_column, nth_row, 1, 1)
+        SlideIDMapper.new(@data, label_widget, entry_widget)
+      end
+
+      def add_base_name_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new(_("Base name:"))
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+        nth_column += 1
+        entry_widget = Gtk::Entry.new
+        grid.attach(entry_widget, nth_column, nth_row, 1, 1)
+        SlideBaseNameMapper.new(@data, label_widget, entry_widget)
+      end
+
+      def add_markup_language_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new(_("Markup language:"))
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+        nth_column += 1
+        if Gtk::Version::MAJOR < 4
+          widget = Gtk::ComboBoxText.new
+          @data.available_markup_languages.each do |key, value|
+            widget.append(key.to_s, value)
+          end
+          widget.active_id = @data.author_conf.markup_language
+        else
+          markups = @data.available_markup_languages.values
+          widget = Gtk::DropDown.new(Gtk::StringList.new(markups))
+          ids = @data.available_markup_languages.keys
+          widget.selected = ids.index(@data.author_conf.markup_language) || 0
+        end
+        grid.attach(widget, nth_column, nth_row, 1, 1)
+        SlideMarkupLanguageMapper.new(@data, widget)
+      end
+
+      def add_height_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new(_("Height:"))
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+        nth_column += 1
+        adjustment = Gtk::Adjustment.new(@data.slide_conf.height,
+                                         100,
+                                         4000,
+                                         10,
+                                         100,
+                                         10)
+        widget = Gtk::SpinButton.new(adjustment, 10, 0)
+        grid.attach(widget, nth_column, nth_row, 1, 1)
+        SlideHeightMapper.new(@data, widget)
+      end
+
+      def add_width_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new(_("Width:"))
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+        nth_column += 1
+        adjustment = Gtk::Adjustment.new(@data.slide_conf.width,
+                                         100,
+                                         4000,
+                                         10,
+                                         100,
+                                         10)
+        widget = Gtk::SpinButton.new(adjustment, 10, 0)
+        grid.attach(widget, nth_column, nth_row, 1, 1)
+        SlideWidthMapper.new(@data, widget)
       end
 
       def validate
