@@ -658,6 +658,7 @@ module Rabbit
 
       def generate_directory
         create_directory(base_directory)
+        create_directory(File.join(base_directory, "pdf")) if @data.author_conf.markup_language == :pdf
       end
 
       def generate_template
@@ -671,12 +672,13 @@ module Rabbit
 
       def generate_dot_gitignore
         create_file(".gitignore") do |dot_gitignore|
-          dot_gitignore.puts(<<-EOD)
-.DS_Store
-/.tmp/
-/pkg/
-/pdf/
-EOD
+          lines = [
+            ".DS_Store",
+            "/.tmp/",
+            "/pkg/",
+          ]
+          lines << "/pdf/" unless @data.author_conf.markup_language == :pdf
+          dot_gitignore.puts(lines.join("\n"))
         end
       end
 
@@ -705,6 +707,7 @@ EOD
 
       def readme_content
         markup_language = @data.markup_language
+        markup_language = :markdown if markup_language == :pdf
         generator = Rabbit::SourceGenerator.find(markup_language)
 
         content = ""
@@ -764,6 +767,13 @@ end
       end
 
       def generate_slide
+        if @data.author_conf.markup_language == :pdf
+          create_file(slide_path) do |slide|
+            slide.puts("Replace me.")
+          end
+          return
+        end
+
         source = slide_source
         return if source.nil?
         create_file(slide_path) do |slide|
@@ -772,7 +782,12 @@ end
       end
 
       def slide_path
-        "#{@data.slide_conf.base_name}.#{slide_source_extension}"
+        case @data.author_conf.markup_language
+        when :pdf
+          File.join("pdf", "#{@data.slide_conf.id}-#{@data.slide_conf.base_name}.pdf")
+        else
+          "#{@data.slide_conf.base_name}.#{slide_source_extension}"
+        end
       end
 
       def slide_source_extension
@@ -795,6 +810,8 @@ end
         when :hiki
           "hiki"
         when :markdown
+          "md"
+        when :pdf
           "md"
         else
           "rd"
