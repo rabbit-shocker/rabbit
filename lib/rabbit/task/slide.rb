@@ -145,6 +145,10 @@ module Rabbit
 
       def define_pdf_task
         file pdf_path => [options_path, *(spec.files - [pdf_path])] do
+          if @slide.author.markup_language == :pdf
+            puts "Skipped pdf task because markup_language is PDF."
+            next
+          end
           mkdir_p(@pdf_dir)
           rabbit("--print",
                  "--output-filename", pdf_path)
