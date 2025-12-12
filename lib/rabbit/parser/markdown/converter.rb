@@ -24,6 +24,7 @@ require_relative "../ext/image"
 require_relative "../ext/inline"
 require_relative "../ext/rouge"
 require_relative "../ext/tex"
+require_relative "../ext/video"
 
 module Rabbit
   module Parser
@@ -32,6 +33,7 @@ module Rabbit
         include GetText
         include Element
         include PauseSupport
+        include Ext::Video
 
         def initialize(canvas)
           @canvas = canvas
@@ -340,6 +342,8 @@ module Rabbit
                                  extension: ".mmd") do |src_file, prop|
               src_file
             end
+          when "video"
+            make_video(@canvas, content.strip, element.attr)
           else
             Ext::Rouge.highlight(language, content, element.attr)
           end
