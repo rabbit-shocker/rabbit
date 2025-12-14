@@ -490,6 +490,25 @@ module Rabbit
         end
       end
 
+      class SlidePDFMapper < TextMapper
+        private
+        def valid?(value)
+          if @data.markup_language == :pdf
+            not value.empty?
+          else
+            value.empty?
+          end
+        end
+
+        def value
+          @data.pdf
+        end
+
+        def apply_value(value)
+          @data.pdf = value
+        end
+      end
+
       def show_gui
         require_relative "../gtk"
 
@@ -530,6 +549,9 @@ module Rabbit
         nth_row += 1
 
         mappers << add_width_widget(grid, nth_row)
+        nth_row += 1
+
+        mappers << add_pdf_widget(grid, nth_row)
         nth_row += 1
 
         nth_column = 0
@@ -641,6 +663,45 @@ module Rabbit
         widget = Gtk::SpinButton.new(adjustment, 10, 0)
         grid.attach(widget, nth_column, nth_row, 1, 1)
         SlideWidthMapper.new(@data, widget)
+      end
+
+      def add_source_dialog_filter(dialog, name, pattern)
+        filter = Gtk::FileFilter.new
+        filter.name = "#{name} (#{pattern})"
+        filter.add_pattern(pattern)
+        dialog.add_filter(filter)
+      end
+
+      def add_pdf_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new("PDF")
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+
+        nth_column += 1
+        hbox_widget = Gtk::Box.new(:horizontal, 0)
+        entry_widget = Gtk::Entry.new
+        hbox_widget.pack_start(entry_widget,  expand: true,  fill: true,  padding: 0)
+        button_widget = Gtk::Button.new(label: "Open")
+        button_widget.signal_connect("clicked") do
+          dialog = Gtk::FileChooserDialog.new(:title => "Choose a PDF file",
+                                              :action => :open,
+                                              :buttons => [[Gtk::Stock::CANCEL, :cancel],
+                                                          [Gtk::Stock::OPEN, :accept]])
+          dialog.set_filename(@data.pdf) if @data.pdf
+          add_source_dialog_filter(dialog, "PDF files", "*.pdf")
+          add_source_dialog_filter(dialog, "All files", "*")
+          if dialog.run == Gtk::ResponseType::ACCEPT
+            entry_widget.text = dialog.filename
+          end
+          dialog.destroy
+        end
+        hbox_widget.pack_start(button_widget, expand: false, fill: false, padding: 0)
+        grid.attach(hbox_widget, nth_column, nth_row, 1, 1)
+
+        SlidePDFMapper.new(@data, label_widget, entry_widget)
       end
 
       def validate
