@@ -52,7 +52,7 @@ module Rabbit
         end
 
         def markup_language
-          author_conf.markup_language || default_markup_language
+          slide_conf.markup_language || author_conf.markup_language || default_markup_language
         end
 
         def save
@@ -98,6 +98,7 @@ module Rabbit
         @data.author_conf.load
         @data.slide_conf = SlideConfiguration.new
         @data.slide_conf.author = @data.author_conf
+        @data.slide_conf.markup_language = @data.markup_language
 
         format = _("Usage: %s COMMAND [OPTIONS]\n" \
                    " e.g.: %s new \\\n" \
@@ -154,13 +155,11 @@ module Rabbit
           _("(e.g.: %s)") % "--markup-language=rd",
           _("(available markup languages: %s)") % label,
         ]
-        if @data.author_conf.markup_language
-          messages << _("(default: %s)") % @data.author_conf.markup_language
-        end
+        messages << _("(default: %s)") % @data.markup_language
         messages << _("(optional)")
         parser.on("--markup-language=LANGUAGE", available_markup_languages.keys,
                   *messages) do |language|
-          @data.author_conf.markup_language = language
+          @data.slide_conf.markup_language = language
         end
 
         parser.on("--title=TITLE",
@@ -424,7 +423,7 @@ module Rabbit
             drop_down = @widget
             id = @data.available_markup_languages.keys[drop_down.selected]
           end
-          @data.author_conf.markup_language = id
+          @data.slide_conf.markup_language = id
         end
       end
 
@@ -554,12 +553,12 @@ module Rabbit
           @data.available_markup_languages.each do |key, value|
             widget.append(key.to_s, value)
           end
-          widget.active_id = @data.author_conf.markup_language
+          widget.active_id = @data.markup_language
         else
           markups = @data.available_markup_languages.values
           widget = Gtk::DropDown.new(Gtk::StringList.new(markups))
           ids = @data.available_markup_languages.keys
-          widget.selected = ids.index(@data.author_conf.markup_language) || 0
+          widget.selected = ids.index(@data.markup_language) || 0
         end
         grid.attach(widget, nth_column, nth_row, 1, 1)
         SlideMarkupLanguageMapper.new(@data, widget)
@@ -685,7 +684,7 @@ EOD
           options = []
           size = [@data.slide_conf.width, @data.slide_conf.height].join(",")
           options << "--size #{size}"
-          if @data.author_conf.markup_language.nil? and @data.allotted_time
+          if @data.slide_conf.markup_language.nil? and @data.allotted_time
             options << "--allotted-time #{@data.allotted_time}"
           end
           options << slide_path
@@ -776,7 +775,7 @@ end
       end
 
       def slide_source_extension
-        case @data.author_conf.markup_language
+        case @data.markup_language
         when :rd
           "rab"
         when :hiki
@@ -789,7 +788,7 @@ end
       end
 
       def readme_extension
-        case @data.author_conf.markup_language
+        case @data.markup_language
         when :rd
           "rd"
         when :hiki

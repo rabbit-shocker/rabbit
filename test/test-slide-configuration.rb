@@ -23,7 +23,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
 
   def test_merge!
     author_conf = {
-      "markup_language"    => "rd",
+      "markup_language"    => nil,
       "name"               => "Kouhei Sutou",
       "email"              => "kou@cozmixng.org",
       "rubygems_user"      => "kou",
@@ -47,6 +47,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "author"            => author_conf,
       "width"             => 800,
       "height"            => 600,
+      "markup_language"   => "rd",
     }
     @slide.id = "RubyKaigi2012"
     @slide.merge!(conf)

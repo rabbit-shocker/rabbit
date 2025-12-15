@@ -45,6 +45,7 @@ module Rabbit
     attr_accessor :width
     attr_accessor :height
     attr_accessor :source_code_uri
+    attr_writer :markup_language
     def initialize
       clear
     end
@@ -98,6 +99,7 @@ module Rabbit
       @width             = 960
       @height            = 540
       @source_code_uri   = nil
+      @markup_language   = nil
     end
 
 
@@ -125,6 +127,7 @@ module Rabbit
       @width             = conf["width"]             || @width
       @height            = conf["height"]            || @height
       @source_code_uri   = conf["source_code_uri"]   || @source_code_uri
+      @markup_language   = conf["markup_language"]   || @markup_language
     end
 
     def to_hash
@@ -144,6 +147,7 @@ module Rabbit
         "width"             => @width,
         "height"            => @height,
         "source_code_uri"   => @source_code_uri,
+        "markup_language"   => @markup_language,
       }
       config["author"] = @author.to_hash if @author
       config
@@ -172,6 +176,10 @@ module Rabbit
 
     def path
       "config.yaml"
+    end
+
+    def markup_language
+      @markup_language || @author.markup_language
     end
 
     private
