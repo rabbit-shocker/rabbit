@@ -454,8 +454,9 @@ module Rabbit
         snapshot = current_snapshot
         snapshot.save do
           # TODO: clip
-          snapshot.scale(width / w, height / h)
-          context = snapshot.append_cairo([x, y, w, h])
+          snapshot.translate([x, y])
+          context = snapshot.append_cairo([0, 0, width, height])
+          context.scale(width / w, height / h)
           context.render_rsvg_handle(handle)
         end
       end
@@ -469,8 +470,9 @@ module Rabbit
         snapshot = current_snapshot
         snapshot.save do
           # TODO: clip
-          snapshot.scale(width / w, height / h)
-          context = snapshot.append_cairo([x, y, w, h])
+          snapshot.translate([x, y])
+          context = snapshot.append_cairo([0, 0, width, height])
+          context.scale(width / w, height / h)
           context.render_poppler_page(page)
         end
       end
