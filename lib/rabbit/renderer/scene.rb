@@ -443,6 +443,23 @@ module Rabbit
         end
       end
 
+      def draw_rsvg_handle(handle, x, y, params={})
+        x, y = adjust_xy(x, y)
+        dim = handle.dimensions
+        w = dim.width
+        h = dim.height
+        width = (params[:width] || w).to_f
+        height = (params[:height] || h).to_f
+
+        snapshot = current_snapshot
+        snapshot.save do
+          # TODO: clip
+          snapshot.scale(width / w, height / h)
+          context = snapshot.append_cairo([x, y, w, h])
+          context.render_rsvg_handle(handle)
+        end
+      end
+
       def draw_poppler_page(page, x, y, params={})
         x, y = adjust_xy(x, y)
         w, h = page.size
