@@ -144,14 +144,18 @@ module Rabbit
       end
 
       def define_pdf_task
-        file pdf_path => [options_path, *(spec.files - [pdf_path])] do
-          mkdir_p(@pdf_dir)
-          rabbit("--print",
-                 "--output-filename", pdf_path)
+        if @slide.markup_language == :pdf
+          # Does nothing. Not list in "rake -T" but "rake pdf" is accepted..
+          task :pdf
+        else
+          file pdf_path => [options_path, *(spec.files - [pdf_path])] do
+            mkdir_p(@pdf_dir)
+            rabbit("--print",
+                   "--output-filename", pdf_path)
+          end
+          desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
+          task :pdf => pdf_path
         end
-
-        desc(_("Generate PDF: %{pdf_path}") % {:pdf_path => pdf_path})
-        task :pdf => pdf_path
       end
 
       def define_publish_task
@@ -197,11 +201,7 @@ module Rabbit
       end
 
       def pdf_path
-        File.join(@pdf_dir, pdf_base_path)
-      end
-
-      def pdf_base_path
-        "#{@slide.id}-#{@slide.base_name}.pdf"
+        File.join(@pdf_dir, @slide.pdf_base_path)
       end
 
       def homepage

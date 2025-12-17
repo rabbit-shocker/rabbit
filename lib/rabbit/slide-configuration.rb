@@ -182,6 +182,10 @@ module Rabbit
       @markup_language || @author.markup_language
     end
 
+    def pdf_base_path
+      "#{@id}-#{@base_name}.pdf" 
+    end
+
     private
     def ensure_date(value)
       if value.is_a?(String)
