@@ -37,7 +37,8 @@ module Rabbit
       class Data < Struct.new(:title,
                               :allotted_time,
                               :slide_conf,
-                              :author_conf)
+                              :author_conf,
+                              :pdf)
         def available_markup_languages
           {
             :markdown => "Markdown",
@@ -160,6 +161,12 @@ module Rabbit
         parser.on("--markup-language=LANGUAGE", available_markup_languages.keys,
                   *messages) do |language|
           @data.slide_conf.markup_language = language
+        end
+
+        parser.on("--pdf=FILE",
+                  "Specify the PDF file to copy when using the pdf markup language.",
+                  "(must only when --markup-language=pdf)") do |file|
+          @data.pdf = file
         end
 
         parser.on("--title=TITLE",
@@ -449,6 +456,25 @@ module Rabbit
         end
       end
 
+      class SlidePDFMapper < TextMapper
+        private
+        def valid?(value)
+          if @data.markup_language == :pdf
+            not value.empty?
+          else
+            value.empty?
+          end
+        end
+
+        def value
+          @data.pdf
+        end
+
+        def apply_value(value)
+          @data.pdf = value
+        end
+      end
+
       def show_gui
         require_relative "../gtk"
 
@@ -489,6 +515,9 @@ module Rabbit
         nth_row += 1
 
         mappers << add_width_widget(grid, nth_row)
+        nth_row += 1
+
+        mappers << add_pdf_widget(grid, nth_row)
         nth_row += 1
 
         nth_column = 0
@@ -602,11 +631,51 @@ module Rabbit
         SlideWidthMapper.new(@data, widget)
       end
 
+      def add_source_dialog_filter(dialog, name, pattern)
+        filter = Gtk::FileFilter.new
+        filter.name = "#{name} (#{pattern})"
+        filter.add_pattern(pattern)
+        dialog.add_filter(filter)
+      end
+
+      def add_pdf_widget(grid, nth_row)
+        nth_column = 0
+        label_widget = Gtk::Label.new("PDF")
+        label_widget.halign = :end
+        grid.attach(label_widget,
+                    nth_column, nth_row,
+                    1, 1)
+
+        nth_column += 1
+        hbox_widget = Gtk::Box.new(:horizontal, 0)
+        entry_widget = Gtk::Entry.new
+        hbox_widget.pack_start(entry_widget,  expand: true,  fill: true,  padding: 0)
+        button_widget = Gtk::Button.new(label: "Open")
+        button_widget.signal_connect("clicked") do
+          dialog = Gtk::FileChooserDialog.new(:title => "Choose a PDF file",
+                                              :action => :open,
+                                              :buttons => [[Gtk::Stock::CANCEL, :cancel],
+                                                          [Gtk::Stock::OPEN, :accept]])
+          dialog.set_filename(@data.pdf) if @data.pdf
+          add_source_dialog_filter(dialog, "PDF files", "*.pdf")
+          add_source_dialog_filter(dialog, "All files", "*")
+          if dialog.run == Gtk::ResponseType::ACCEPT
+            entry_widget.text = dialog.filename
+          end
+          dialog.destroy
+        end
+        hbox_widget.pack_start(button_widget, expand: false, fill: false, padding: 0)
+        grid.attach(hbox_widget, nth_column, nth_row, 1, 1)
+
+        SlidePDFMapper.new(@data, label_widget, entry_widget)
+      end
+
       def validate
         @validation_errors = []
         validate_command
         validate_id
         validate_base_name
+        validate_pdf
       end
 
       def validate_command
@@ -630,6 +699,17 @@ module Rabbit
       def validate_base_name
         if @data.slide_conf.base_name.nil?
           @validation_errors << (_("%s is missing") % "--base-name")
+        end
+      end
+
+      def validate_pdf
+        return unless @data.markup_language == :pdf
+        if @data.pdf.nil?
+          @validation_errors << (_("%s is missing") % "--pdf")
+          return
+        end
+        unless File.file?(@data.pdf)
+          @validation_errors << (_("not a file: %s") % @data.pdf)
         end
       end
 
@@ -657,6 +737,7 @@ module Rabbit
 
       def generate_directory
         create_directory(base_directory)
+        create_directory(File.join(base_directory, "pdf")) if @data.markup_language == :pdf
       end
 
       def generate_template
@@ -670,12 +751,13 @@ module Rabbit
 
       def generate_dot_gitignore
         create_file(".gitignore") do |dot_gitignore|
-          dot_gitignore.puts(<<-EOD)
-.DS_Store
-/.tmp/
-/pkg/
-/pdf/
-EOD
+          lines = [
+            ".DS_Store",
+            "/.tmp/",
+            "/pkg/",
+          ]
+          lines << "/pdf/" unless @data.markup_language == :pdf
+          dot_gitignore.puts(lines.join("\n"))
         end
       end
 
@@ -704,6 +786,7 @@ EOD
 
       def readme_content
         markup_language = @data.markup_language
+        markup_language = :markdown if markup_language == :pdf
         generator = Rabbit::SourceGenerator.find(markup_language)
 
         content = ""
@@ -763,6 +846,11 @@ end
       end
 
       def generate_slide
+        if @data.markup_language == :pdf
+          copy_file(@data.pdf, slide_path)
+          return
+        end
+
         source = slide_source
         return if source.nil?
         create_file(slide_path) do |slide|
@@ -771,7 +859,12 @@ end
       end
 
       def slide_path
-        "#{@data.slide_conf.base_name}.#{slide_source_extension}"
+        case @data.markup_language
+        when :pdf
+          File.join("pdf", @data.slide_conf.pdf_base_path)
+        else
+          "#{@data.slide_conf.base_name}.#{slide_source_extension}"
+        end
       end
 
       def slide_source_extension
@@ -794,6 +887,8 @@ end
         when :hiki
           "hiki"
         when :markdown
+          "md"
+        when :pdf
           "md"
         else
           "rd"
@@ -892,6 +987,10 @@ end
 
       def create_file(path, &block)
         super(File.join(base_directory, path), &block)
+      end
+
+      def copy_file(from, to)
+        super(from, File.join(base_directory, to))
       end
     end
   end
