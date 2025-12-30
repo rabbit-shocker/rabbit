@@ -33,5 +33,10 @@ module Rabbit
       Rabbit.logger.info(_("Creating file:      %s") % path)
       File.open(path, "w", &block)
     end
+
+    def copy_file(from, to)
+      Rabbit.logger.info("Copying file: #{from} to #{to}")
+      FileUtils.cp(from, to)
+    end
   end
 end
