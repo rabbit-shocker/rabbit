@@ -37,7 +37,8 @@ module Rabbit
       class Data < Struct.new(:title,
                               :allotted_time,
                               :slide_conf,
-                              :author_conf)
+                              :author_conf,
+                              :pdf)
         def available_markup_languages
           {
             :markdown => "Markdown",
@@ -51,8 +52,28 @@ module Rabbit
           :rd
         end
 
+        def available_readme_markup_languages
+          {
+            :markdown => "Markdown",
+            :rd => "RD",
+            :hiki => "Hiki",
+          }
+        end
+
+        def default_readme_markup_language
+          if markup_language == :pdf
+            :markdown
+          else
+            markup_language
+          end
+        end
+
         def markup_language
           slide_conf.markup_language || author_conf.markup_language || default_markup_language
+        end
+
+        def readme_markup_language
+          slide_conf.readme_markup_language || default_readme_markup_language
         end
 
         def save
@@ -160,6 +181,26 @@ module Rabbit
         parser.on("--markup-language=LANGUAGE", available_markup_languages.keys,
                   *messages) do |language|
           @data.slide_conf.markup_language = language
+        end
+
+        available_readme_markup_languages = @data.available_readme_markup_languages
+        label = "[" + available_readme_markup_languages.keys.join(", ") + "]"
+        messages = [
+          "Markup language for README of the new slide",
+          _("(e.g.: %s)") % "--readme-markup-language=rd",
+          _("(available markup languages: %s)") % label,
+        ]
+        messages << "(default: If --markup-language is pdf, then markdown. Otherwise, the same as --markup-language.)"
+        messages << _("(optional)")
+        parser.on("--readme-markup-language=LANGUAGE", available_readme_markup_languages.keys,
+                  *messages) do |language|
+          @data.slide_conf.readme_markup_language = language
+        end
+
+        parser.on("--pdf=FILE",
+                  "Specify the PDF file to copy when using the pdf markup language.",
+                  "(must only when --markup-language=pdf)") do |file|
+          @data.pdf = file
         end
 
         parser.on("--title=TITLE",
@@ -607,6 +648,7 @@ module Rabbit
         validate_command
         validate_id
         validate_base_name
+        validate_pdf
       end
 
       def validate_command
@@ -630,6 +672,17 @@ module Rabbit
       def validate_base_name
         if @data.slide_conf.base_name.nil?
           @validation_errors << (_("%s is missing") % "--base-name")
+        end
+      end
+
+      def validate_pdf
+        return unless @data.markup_language == :pdf
+        if @data.pdf.nil?
+          @validation_errors << (_("%s is missing") % "--pdf")
+          return
+        end
+        unless File.file?(@data.pdf)
+          @validation_errors << (_("not a file: %s") % @data.pdf)
         end
       end
 
@@ -657,6 +710,7 @@ module Rabbit
 
       def generate_directory
         create_directory(base_directory)
+        create_directory(File.join(base_directory, "pdf")) if @data.markup_language == :pdf
       end
 
       def generate_template
@@ -670,12 +724,13 @@ module Rabbit
 
       def generate_dot_gitignore
         create_file(".gitignore") do |dot_gitignore|
-          dot_gitignore.puts(<<-EOD)
-.DS_Store
-/.tmp/
-/pkg/
-/pdf/
-EOD
+          lines = [
+            ".DS_Store",
+            "/.tmp/",
+            "/pkg/",
+          ]
+          lines << "/pdf/" unless @data.markup_language == :pdf
+          dot_gitignore.puts(lines.join("\n"))
         end
       end
 
@@ -703,7 +758,7 @@ EOD
       end
 
       def readme_content
-        markup_language = @data.markup_language
+        markup_language = @data.readme_markup_language
         generator = Rabbit::SourceGenerator.find(markup_language)
 
         content = ""
@@ -763,6 +818,11 @@ end
       end
 
       def generate_slide
+        if @data.markup_language == :pdf
+          copy_file(@data.pdf, slide_path)
+          return
+        end
+
         source = slide_source
         return if source.nil?
         create_file(slide_path) do |slide|
@@ -771,7 +831,12 @@ end
       end
 
       def slide_path
-        "#{@data.slide_conf.base_name}.#{slide_source_extension}"
+        case @data.markup_language
+        when :pdf
+          File.join("pdf", @data.slide_conf.pdf_base_path)
+        else
+          "#{@data.slide_conf.base_name}.#{slide_source_extension}"
+        end
       end
 
       def slide_source_extension
@@ -788,7 +853,7 @@ end
       end
 
       def readme_extension
-        case @data.markup_language
+        case @data.readme_markup_language
         when :rd
           "rd"
         when :hiki
@@ -892,6 +957,10 @@ end
 
       def create_file(path, &block)
         super(File.join(base_directory, path), &block)
+      end
+
+      def copy_file(from, to)
+        super(from, File.join(base_directory, to))
       end
     end
   end
