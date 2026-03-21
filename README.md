@@ -1,3 +1,3 @@
-[![Build Status](https://travis-ci.org/rabbit-shocker/rabbit.svg?branch=master)](https://travis-ci.org/rabbit-shocker/rabbit)
+![Test](https://github.com/rabbit-shocker/rabbit/actions/workflows/test.yaml/badge.svg)
 
 See [doc/](doc/) or https://rabbit-shocker.org/ .
