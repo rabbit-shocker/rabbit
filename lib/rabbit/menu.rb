@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@ module Rabbit
     include ERB::Util
     include GetText
 
-    def initialize(actions)
-      @actions = actions
+    def initialize(canvas)
+      @canvas = canvas
     end
 
     def attach(window)
@@ -41,13 +41,13 @@ module Rabbit
       @window = nil
     end
 
-    def update_menu(canvas)
+    def update_menu
       @popover_menu = Gtk::PopoverMenu.new
       @menu_model = Gio::Menu.new
-      @popover_menu.insert_action_group("rabbit", @actions.group)
-      add_jump_to_actions(canvas)
-      add_theme_actions(canvas)
-      add_items(canvas)
+      @popover_menu.insert_action_group("rabbit", @canvas.actions.group)
+      add_jump_to_actions
+      add_theme_actions
+      add_items
       if @popover_menu.respond_to?(:menu_model=) # GTK 4
         @popover_menu.menu_model = @menu_model
       else
@@ -62,7 +62,7 @@ module Rabbit
       end
       @popover_menu.autohide = true if @popover_menu.respond_to?(:autohide=)
 
-      @actions.update_status
+      @canvas.actions.update_status
     end
 
     def toggle(x=nil, y=nil)
@@ -95,38 +95,38 @@ module Rabbit
       label.gsub(/_/, '__')
     end
 
-    def add_jump_to_actions(canvas)
+    def add_jump_to_actions
       @jump_to_actions = Gio::SimpleActionGroup.new
-      canvas.slides.each_with_index do |slide, i|
+      @canvas.slides.each_with_index do |slide, i|
         action = build_action("JumpTo#{i}") do
-          canvas.move_to_if_can(i)
+          @canvas.move_to_if_can(i)
         end
         @jump_to_actions.add_action(action)
       end
       @popover_menu.insert_action_group("jump", @jump_to_actions)
     end
 
-    def jump_to_items(canvas)
-      canvas.slides.collect.with_index do |slide, i|
+    def jump_to_items
+      @canvas.slides.collect.with_index do |slide, i|
         label = "#{i}: #{escape_label(Utils.unescape_title(slide.title))}"
         [:item, "jump.JumpTo#{i}", label]
       end
     end
 
-    def add_theme_actions(canvas)
+    def add_theme_actions
       @theme_actions = Gio::SimpleActionGroup.new
       themes = Theme::Searcher.collect_theme
       themes.each do |entry|
         action = build_action("ChangeThemeEntry#{entry.name}") do
-          canvas.apply_theme(entry.name, &Utils.process_pending_events_proc)
+          @canvas.apply_theme(entry.name, &Utils.process_pending_events_proc)
         end
         action = build_action("MergeThemeEntry#{entry.name}") do
-          canvas.merge_theme(entry.name, &Utils.process_pending_events_proc)
+          @canvas.merge_theme(entry.name, &Utils.process_pending_events_proc)
         end
       end
     end
 
-    def theme_items(canvas, prefix)
+    def theme_items(prefix)
       themes = Theme::Searcher.collect_theme
       themes_by_category = themes.group_by do |entry|
         entry.category
@@ -142,15 +142,15 @@ module Rabbit
       end
     end
 
-    def change_theme_items(canvas)
-      theme_items(canvas, "Change")
+    def change_theme_items
+      theme_items("Change")
     end
 
-    def merge_theme_items(canvas)
-      theme_items(canvas, "Merge")
+    def merge_theme_items
+      theme_items("Merge")
     end
 
-    def items(canvas)
+    def items
       [
         [:section,
          [:item, "ToggleIndexMode"],
@@ -186,7 +186,7 @@ module Rabbit
          [:item, "ToggleTerminal"],
         ],
         [:section,
-         [:menu, _("Jump to slide"), *jump_to_items(canvas)],
+         [:menu, _("Jump to slide"), *jump_to_items],
         ],
         [:section,
          [:item, "Previous"],
@@ -203,8 +203,8 @@ module Rabbit
          [:item, "Redraw"],
          [:item, "ClearSlide"],
          [:item, "ReloadTheme"],
-         [:menu, _("Change theme"), *change_theme_items(canvas)],
-         [:menu, _("Merge theme"), *merge_theme_items(canvas)],
+         [:menu, _("Change theme"), *change_theme_items],
+         [:menu, _("Merge theme"), *merge_theme_items],
         ],
         [:sction,
          [:item, "CacheAllSlides"],
@@ -270,12 +270,10 @@ module Rabbit
       end
     end
 
-    def add_items(canvas)
-      @canvas = canvas
-      items(canvas).each do |item|
+    def add_items
+      items.each do |item|
         add_item(@menu_model, item)
       end
-      @canvas = nil
     end
   end
 end

@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@ module Rabbit
       module Menu
         private
         def init_menu
-          @menu = Rabbit::Menu.new(@canvas.actions)
+          @menu = Rabbit::Menu.new(@canvas)
         end
 
         def update_menu
-          @menu.update_menu(@canvas)
+          @menu.update_menu
         end
 
         def toggle_menu(x=nil, y=nil)
