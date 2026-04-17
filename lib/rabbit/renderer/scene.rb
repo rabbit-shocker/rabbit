@@ -1,4 +1,4 @@
-# Copyright (C) 2018-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2018-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ module Rabbit
       include Display::Base
 
       include Display::Cursor
-      include Display::Menu
+      # include Display::Menu
       # include Display::Graffiti
       # include Display::Mask
       # include Display::Progress
@@ -108,12 +108,9 @@ module Rabbit
         @stack.show
         set_default_size(window.default_width, window.default_height)
         update_size(window.default_width, window.default_height)
-        init_menu
-        attach_menu(@window)
       end
 
       def detach
-        detach_menu(@window)
         @stack.hide
         super
       end
@@ -153,33 +150,27 @@ module Rabbit
 
       def post_fullscreen
         update_cursor(:none, true)
-        update_menu
       end
 
       def post_unfullscreen
         update_cursor(nil, true)
-        update_menu
       end
 
       def post_iconify
-        update_menu
       end
 
       def post_apply_theme
         clear_slide
         queue_draw
-        update_menu
       end
 
       def post_move(old_index, index)
         @stack.visible_child_name = index.to_s
         update_title
-        update_menu
       end
 
       def post_move_in_slide(old_index, index)
         queue_draw
-        update_menu
       end
 
       def pre_parse

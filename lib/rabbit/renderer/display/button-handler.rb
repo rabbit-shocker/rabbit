@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -162,13 +162,15 @@ module Rabbit
 
         def handle_button_primary_single_click(event, release_event)
           if release_event.state.control_mask?
-            add_button_handler do
-              toggle_menu(release_event.x, release_event.y)
-              true
+            if respond_to?(:toggle_menu)
+              add_button_handler do
+                toggle_menu(release_event.x, release_event.y)
+                true
+              end
             end
           elsif !release_event.state.alt_mask?
             add_button_handler do
-              popdown_menu
+              popdown_menu if respond_to?(:popdown_menu)
               @canvas.activate("NextSlide")
               true
             end
@@ -178,7 +180,7 @@ module Rabbit
         def handle_button_middle_single_click(event, release_event)
           unless release_event.state.alt_mask?
             add_button_handler do
-              popdown_menu
+              popdown_menu if respond_to?(:popdown_menu)
               @canvas.activate("PreviousSlide")
               true
             end
@@ -186,9 +188,11 @@ module Rabbit
         end
 
         def handle_button_secondary_single_click(event, release_event)
-          add_button_handler do
-            toggle_menu(release_event.x, release_event.y)
-            true
+          if respond_to?(:toggle_menu)
+            add_button_handler do
+              toggle_menu(release_event.x, release_event.y)
+              true
+            end
           end
         end
 
