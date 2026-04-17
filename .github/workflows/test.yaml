@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2024  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2022-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ jobs:
           - "3.2"
           - "3.3"
           - "3.4"
+          - "4.0"
     name: ${{ matrix.ruby-version }}
     runs-on: ubuntu-latest
     steps:
