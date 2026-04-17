@@ -35,7 +35,6 @@ module Rabbit
       attr_accessor :line_width, :next_width
       def initialize(conf={})
         super()
-        @icon_theme = Gtk::IconTheme.default
         conf ||= {}
         @back_color = conf[:back_color] || DEFAULT_BACK_COLOR
         @line_color = conf[:line_color] || DEFAULT_LINE_COLOR
@@ -180,7 +179,8 @@ module Rabbit
             loader.last_write(icon.bytes.to_s)
             pixbuf = loader.pixbuf
           else
-            pixbuf = @icon_theme.load_icon(icon.names[0], 48, 0)
+            icon_theme = Gtk::IconTheme.default
+            pixbuf = icon_theme.load_icon(icon.names[0], 48, 0)
           end
           x -= pixbuf.width / 2.0
           y -= pixbuf.height / 2.0
