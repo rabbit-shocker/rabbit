@@ -20,6 +20,7 @@ require "erb"
 require_relative "../gtk"
 
 require_relative "../rabbit"
+require_relative "../graffiti/processor"
 require_relative "color"
 
 module Rabbit
