@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -72,8 +72,8 @@ module Rabbit
         @background = nil
         @progress_foreground = nil
         @progress_background = nil
-        @graffiti_color = nil
-        @graffiti_line_width = nil
+        @graffiti_color = Graffiti::Processor::DEFAULT_COLOR
+        @graffiti_line_width = Graffiti::Processor::DEFAULT_LINE_WIDTH
         @draw_scaled_image = true
         clean
       end
@@ -252,8 +252,15 @@ module Rabbit
       def post_init_gui
       end
 
-      def graffiti_mode?
-        false
+      def pre_toggle_graffiti_mode
+      end
+
+      def post_toggle_graffiti_mode
+        if @canvas.graffiti_mode?
+          update_cursor(:graffiti)
+        else
+          restore_cursor(nil)
+        end
       end
 
       def have_graffiti?

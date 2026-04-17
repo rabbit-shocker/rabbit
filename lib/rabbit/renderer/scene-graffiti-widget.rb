@@ -1,0 +1,74 @@
+# Copyright (C) 2026  Sutou Kouhei <kou@cozmixng.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+require_relative "../gtk"
+
+module Rabbit
+  module Renderer
+    class SceneGraffitiWidget < Gtk::Widget
+      type_register
+
+      def initialize(canvas, renderer, size)
+        super()
+        @canvas = canvas
+        @renderer = renderer
+        @size = size
+
+        @gesture = Gtk::GestureStylus.new
+        @gesture.stylus_only = false
+        segment = nil
+        @segments = []
+        @gesture.signal_connect(:up) do |_, x, y|
+          segment = nil
+        end
+        @gesture.signal_connect(:down) do |_, x, y|
+          if @canvas.graffiti_mode?
+            segment = [[x, y]]
+            @segments << segment
+          end
+        end
+        @gesture.signal_connect(:motion) do |_, x, y|
+          if @canvas.graffiti_mode? and segment
+            segment << [x, y]
+            queue_draw
+          end
+        end
+        add_controller(@gesture)
+      end
+
+      def virtual_do_measure(orientation, for_size)
+        if orientation == Gtk::Orientation::HORIZONTAL
+          width = @size.base_width
+          [width, width, -1, -1]
+        else
+          height = @size.base_height
+          [height, height, -1, -1]
+        end
+      end
+
+      def virtual_do_snapshot(snapshot)
+        @renderer.push_snapshot(snapshot, 0, 0) do
+          @segments.each do |points|
+            @renderer.draw_lines(points,
+                                 @renderer.graffiti_color,
+                                 line_width: @renderer.graffiti_line_width,
+                                 opened: true)
+          end
+        end
+      end
+    end
+  end
+end

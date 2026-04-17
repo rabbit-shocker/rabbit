@@ -112,8 +112,11 @@ module Rabbit
     def_delegators(:@renderer, :adjustment_y, :adjustment_y=)
     def_delegators(:@renderer, :reset_adjustment)
 
-    def_delegators(:@renderer, :graffiti_mode?, :have_graffiti?)
-    def_delegators(:@renderer, :can_undo_graffiti?, :toggle_graffiti_mode)
+    def_delegators(:@actions, :graffiti_mode?)
+    def_delegators(:@renderer, :have_graffiti?)
+    def_delegators(:@renderer, :can_undo_graffiti?)
+    def_delegators(:@renderer, :pre_toggle_graffiti_mode)
+    def_delegators(:@renderer, :post_toggle_graffiti_mode)
     def_delegators(:@renderer, :clear_graffiti, :undo_graffiti)
     def_delegators(:@renderer, :change_graffiti_color)
     def_delegators(:@renderer, :graffiti_color, :graffiti_color=)

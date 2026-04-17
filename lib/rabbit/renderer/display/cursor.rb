@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ module Rabbit
 
         def update_cursor(cursor_type, update_current_cursor=false)
           @cursor_manager.current = cursor_type if update_current_cursor
-          cursor_type = :pencil if @graffiti_mode
+          cursor_type = :graffiti if @canvas.graffiti_mode?
           @cursor_manager.update(@surface || @window, cursor_type)
         end
       end

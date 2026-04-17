@@ -33,6 +33,7 @@ require_relative "display/spotlight"
 require_relative "display/magnifier"
 
 require_relative "scene-background-widget"
+require_relative "scene-graffiti-widget"
 
 module Rabbit
   module Renderer
@@ -299,6 +300,28 @@ module Rabbit
         end
       end
 
+      def draw_lines(points, color=nil, params={})
+        draw_polygon(false, points, color, params.merge(opened: true))
+      end
+
+      def draw_polygon(filled, points, color=nil, params={})
+        return if points.empty?
+        return if params[:line_width] == 0
+
+        snapshot = current_snapshot
+        snapshot.save do
+          rgba = make_color(color).to_gdk_rgba
+          builder = Gsk::PathBuilder.new
+          builder.move_to(*adjust_xy(*points.first))
+          points[1..-1].each do |x, y|
+            builder.line_to(*adjust_xy(x, y))
+          end
+          builder.line_to(*adjust_xy(*points.first)) unless params[:opened]
+          stroke = create_stroke(params)
+          snapshot.append_stroke(builder.to_path, stroke, rgba)
+        end
+      end
+
       def draw_rectangle(filled, x, y, w, h, color=nil, params={})
         x, y = adjust_xy(x, y)
         snapshot = current_snapshot
@@ -493,6 +516,8 @@ module Rabbit
           h = size.logical_height
           scene_widget.put(background, 0, 0, w, h)
           slide.setup_scene(@canvas, scene_widget, 0, 0, w, h)
+          graffiti = SceneGraffitiWidget.new(@canvas, self, size)
+          scene_widget.put(graffiti, 0, 0, 10, 10)
           @stack.add_named(fixed, i.to_s)
         end
         @stack.visible_child_name = visible_child_name if visible_child_name

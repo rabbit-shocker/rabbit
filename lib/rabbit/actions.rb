@@ -1,4 +1,4 @@
-# Copyright (C) 2005-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2005-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,6 +29,14 @@ module Rabbit
     def update
       gaction.state = ensure_variant(update_state.call) if update_state
       gaction.enabled = update_enabled.call if update_enabled
+    end
+
+    def state
+      gaction.state
+    end
+
+    def state=(new_state)
+      gaction.state = ensure_variant(new_state)
     end
 
     def gaction
@@ -279,17 +287,21 @@ module Rabbit
       end
     end
 
+    public def graffiti_mode?
+      self["ToggleGraffitiMode"].state
+    end
+
     def graffiti_available?
-      @canvas.graffiti_mode? or @canvas.have_graffiti?
+      graffiti_mode? or @canvas.have_graffiti?
     end
 
     def build_graffiti_actions
       build_action("ToggleGraffitiMode",
                    initial_state: false,
-                   update_state: lambda {@canvas.graffiti_mode?},
                    label: _("Graffiti mode")) do |action|
-        @canvas.toggle_graffiti_mode
-        action.update
+        @canvas.pre_toggle_graffiti_mode
+        action.state = !action.state
+        @canvas.post_toggle_graffiti_mode
       end
       build_action("ClearGraffiti",
                    update_enabled: lambda {graffiti_available?},
