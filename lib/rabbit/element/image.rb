@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2021  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2004-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -136,7 +136,9 @@ module Rabbit
       def setup_scene_element(canvas, scene_widget, x, y, w, h)
         x, y, w, h = super
         case @loader
-        when ImageManipulable::PDF, ImageManipulable::Mermaid
+        when ImageManipulable::Mermaid,
+             ImageManipulable::PDF,
+             ImageManipulable::SVG
           # Render by ourselves
         else
           if @loader.animation and not @loader.animation.static_image?
@@ -155,7 +157,9 @@ module Rabbit
 
       def scene_snapshot_element(widget, snapshot, canvas, x, y, w, h)
         case @loader
-        when ImageManipulable::PDF, ImageManipulable::Mermaid
+        when ImageManipulable::Mermaid,
+             ImageManipulable::PDF,
+             ImageManipulable::SVG
           image_draw(canvas, x, y, @draw_parameters)
         end
         y += @loader.height
