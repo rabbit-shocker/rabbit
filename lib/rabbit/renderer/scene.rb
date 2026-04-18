@@ -52,7 +52,9 @@ module Rabbit
 
       def put(widget, x, y, w, h)
         case widget
-        when SceneNodeWidget, SceneBackgroundWidget
+        when SceneBackgroundWidget,
+             SceneGraffitiWidget,
+             SceneNodeWidget
           # Our widgets process size by themselves
         else
           x += @size.logical_margin_left
