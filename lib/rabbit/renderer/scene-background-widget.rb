@@ -1,4 +1,4 @@
-# Copyright (C) 2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2025-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,10 +30,10 @@ module Rabbit
 
       def virtual_do_measure(orientation, for_size)
         if orientation == Gtk::Orientation::HORIZONTAL
-          width = @size.base_width
+          width = @size.real_width
           [width, width, -1, -1]
         else
-          height = @size.base_height
+          height = @size.real_height
           [height, height, -1, -1]
         end
       end
