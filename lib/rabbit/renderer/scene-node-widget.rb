@@ -1,4 +1,4 @@
-# Copyright (C) 2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2025-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,27 +35,30 @@ module Rabbit
       end
 
       def virtual_do_measure(orientation, for_size)
-        if orientation == Gtk::Orientation::VERTICAL
-          [@height, @height, -1, -1]
+        if orientation == Gtk::Orientation::HORIZONTAL
+          width = @size.resolve_logical_x(@width)
+          [width, width, -1, -1]
         else
-          [@width, @width, -1, -1]
+          height = @size.resolve_logical_y(@height)
+          [height, height, -1, -1]
         end
       end
 
       def virtual_do_snapshot(snapshot)
         # For backward compatibility. Legacy DrawingArea based
-        # renderer. Legacy DrawingAare based renderer uses uses {x: 0,
-        # y: 0, width: @canvas.width, height: @canvas.height} coordinate
-        # for all elements. Scene based renderer uses {x: element.x, y:
-        # element.y, width: element.width, height: element.height} for
-        # each element.
+        # renderer uses {x: 0, y: 0, width: @canvas.width, height:
+        # @canvas.height} coordinate for all elements. Scene based
+        # renderer uses {x: element.x, y: element.y, width:
+        # element.width, height: element.height} for each element.
         @canvas.renderer.push_snapshot(snapshot, @x, @y) do
           snapshot.scale(*@size.logical_scale)
           snapshot.translate([
                                @size.logical_margin_left,
                                @size.logical_margin_top,
                              ])
-          @element.scene_snapshot(self, snapshot, @canvas, @width, @height)
+          width = @size.resolve_logical_x(@width)
+          height = @size.resolve_logical_y(@height)
+          @element.scene_snapshot(self, snapshot, @canvas, width, height)
         end
       end
     end
