@@ -36,11 +36,9 @@ module Rabbit
 
       def virtual_do_measure(orientation, for_size)
         if orientation == Gtk::Orientation::HORIZONTAL
-          width = @size.resolve_logical_x(@width)
-          [width, width, -1, -1]
+          [@width, @size.resolve_logical_x(@width), -1, -1]
         else
-          height = @size.resolve_logical_y(@height)
-          [height, height, -1, -1]
+          [@height, @size.resolve_logical_y(@height), -1, -1]
         end
       end
 
