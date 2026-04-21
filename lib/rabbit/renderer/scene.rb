@@ -91,6 +91,7 @@ module Rabbit
       def initialize(canvas)
         super
         @filename = nil
+        @graffiti_widgets = []
         @snapshots = []
         @base_xys = []
         init_ui
@@ -211,6 +212,10 @@ module Rabbit
 
       def display?
         true
+      end
+
+      def clear_graffiti
+        @graffiti_widgets.each(&:clear)
       end
 
       def push_snapshot(snapshot, base_x, base_y)
@@ -520,6 +525,7 @@ module Rabbit
 
       def compile_slides
         visible_child_name = @stack.visible_child_name
+        @graffiti_widgets.clear
         @stack.pages.to_a.each do |page|
           @stack.remove(page.child)
         end
@@ -533,6 +539,7 @@ module Rabbit
           scene_widget.put(background, 0, 0, w, h)
           slide.setup_scene(@canvas, scene_widget, 0, 0, w, h)
           graffiti = SceneGraffitiWidget.new(@canvas, self, size)
+          @graffiti_widgets << graffiti
           scene_widget.put(graffiti, 0, 0, 10, 10)
           @stack.add_named(fixed, i.to_s)
         end

@@ -70,6 +70,11 @@ module Rabbit
           end
         end
       end
+
+      def clear
+        @segments.clear
+        queue_draw
+      end
     end
   end
 end
