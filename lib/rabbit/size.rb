@@ -61,7 +61,7 @@ module Rabbit
     end
 
     def resolve_logical_y(y)
-      y * @logical_scale[0]
+      y * @logical_scale[1]
     end
 
     private
