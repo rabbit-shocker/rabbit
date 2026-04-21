@@ -44,7 +44,7 @@ module Rabbit
         color = prop_get("foregound")
         color = color.value if color
         color = canvas.make_color(color)
-        text_compile(canvas, widget.x, widget.y, w, h)
+        text_compile(canvas, widget.x, widget.y, widget.width, widget.height)
         snapshot.append_layout(@layout, color.to_gdk_rgba)
         layout_height = @layout.pixel_size[1]
         y += layout_height

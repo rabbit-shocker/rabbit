@@ -57,9 +57,11 @@ module Rabbit
                                @size.logical_margin_left,
                                @size.logical_margin_top,
                              ])
-          width = @size.resolve_logical_x(@width)
-          height = @size.resolve_logical_y(@height)
-          @element.scene_snapshot(self, snapshot, @canvas, width, height)
+          @element.scene_snapshot(self,
+                                  snapshot,
+                                  @canvas,
+                                  @canvas.width,
+                                  @canvas.height)
         end
       end
     end

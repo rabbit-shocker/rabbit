@@ -470,10 +470,20 @@ module Rabbit
         snapshot = current_snapshot
         snapshot.save do
           # TODO: clip
-          snapshot.translate([x, y])
-          context = snapshot.append_cairo([0, 0, width, height])
+
+          # TODO: Create cairo node manually instead of using
+          # snapshot.append_cairo because snapshot.append_cairo
+          # generates wrong scaled cairo context when we scale slide
+          # by full-screen. It may be a GTK bug but I'm not sure... We
+          # can avoid it by snapshot.push_copy/snapshot.pop before
+          # snapshot.append but it's a tricky workaround. So we create
+          # cairo node manually for now. We should report this to GTK.
+          node = Gsk::CairoNode.new([x, y, width, height])
+          context = node.draw_context
+          context.translate(x, y)
           context.scale(width / w, height / h)
           context.render_rsvg_handle(handle)
+          snapshot.append_node(node)
         end
       end
 
@@ -486,10 +496,14 @@ module Rabbit
         snapshot = current_snapshot
         snapshot.save do
           # TODO: clip
-          snapshot.translate([x, y])
-          context = snapshot.append_cairo([0, 0, width, height])
+
+          # TODO: See also draw_rsvg_handle.
+          node = Gsk::CairoNode.new([x, y, width, height])
+          context = node.draw_context
+          context.translate(x, y)
           context.scale(width / w, height / h)
           context.render_poppler_page(page)
+          snapshot.append_node(node)
         end
       end
 
