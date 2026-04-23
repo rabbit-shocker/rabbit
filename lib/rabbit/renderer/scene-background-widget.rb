@@ -31,12 +31,15 @@ module Rabbit
       def virtual_do_measure(orientation, for_size)
         if orientation == Gtk::Orientation::HORIZONTAL
           minimum = @size.base_width
-          natural = @size.real_width
+          natural = [minimum, @size.real_width].max
         else
           minimum = @size.base_height
-          natural = @size.real_height
+          natural = [minimum, @size.real_height].max
         end
-        [minimum, [minimum, natural].max, -1, -1]
+        # TODO: We want to remove this. See also
+        # SceneGraffitiWidget#virtual_do_measure.
+        minimum = natural
+        [minimum, natural, -1, -1]
       end
 
       def virtual_do_snapshot(snapshot)

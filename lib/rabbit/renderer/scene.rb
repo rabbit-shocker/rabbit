@@ -540,7 +540,7 @@ module Rabbit
           slide.setup_scene(@canvas, scene_widget, 0, 0, w, h)
           graffiti = SceneGraffitiWidget.new(@canvas, self, size)
           @graffiti_widgets << graffiti
-          scene_widget.put(graffiti, 0, 0, 10, 10)
+          scene_widget.put(graffiti, 0, 0, w, h)
           @stack.add_named(fixed, i.to_s)
         end
         @stack.visible_child_name = visible_child_name if visible_child_name

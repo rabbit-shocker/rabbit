@@ -52,12 +52,18 @@ module Rabbit
       def virtual_do_measure(orientation, for_size)
         if orientation == Gtk::Orientation::HORIZONTAL
           minimum = @size.base_width
-          natural = @size.real_width
+          natural = [minimum, @size.real_width].max
         else
           minimum = @size.base_height
-          natural = @size.real_height
+          natural = [minimum, @size.real_height].max
         end
-        [minimum, [minimum, natural].max, -1, -1]
+        # TODO: We want to remove this to accept narrowing a window
+        # after full-screen but GTK doesn't use the natural size on
+        # the case. If GTK uses the minimum size not the natural size,
+        # graffiti might not work because Gtk::GestureStyle detects
+        # actions only in the widget size.
+        minimum = natural
+        [minimum, natural, -1, -1]
       end
 
       def virtual_do_snapshot(snapshot)
@@ -68,6 +74,11 @@ module Rabbit
                                  line_width: @renderer.graffiti_line_width,
                                  opened: true)
           end
+
+          builder = Gsk::PathBuilder.new
+          builder.add_rect([1, 1, width - 2, height - 2])
+          stroke = Gsk::Stroke.new(1)
+          snapshot.append_stroke(builder.to_path, stroke, Gdk::RGBA.parse("red"))
         end
       end
 
