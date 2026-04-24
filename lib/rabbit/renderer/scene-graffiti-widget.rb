@@ -74,11 +74,6 @@ module Rabbit
                                  line_width: @renderer.graffiti_line_width,
                                  opened: true)
           end
-
-          builder = Gsk::PathBuilder.new
-          builder.add_rect([1, 1, width - 2, height - 2])
-          stroke = Gsk::Stroke.new(1)
-          snapshot.append_stroke(builder.to_path, stroke, Gdk::RGBA.parse("red"))
         end
       end
 
