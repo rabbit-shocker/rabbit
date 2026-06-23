@@ -48,6 +48,7 @@ class TestSlideConfiguration < Test::Unit::TestCase
       "width"             => 800,
       "height"            => 600,
       "markup_language"   => "rd",
+      "readme_markup_language" => nil,
     }
     @slide.id = "RubyKaigi2012"
     @slide.merge!(conf)

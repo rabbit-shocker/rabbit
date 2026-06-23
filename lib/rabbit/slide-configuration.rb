@@ -46,6 +46,7 @@ module Rabbit
     attr_accessor :height
     attr_accessor :source_code_uri
     attr_writer :markup_language
+    attr_accessor :readme_markup_language
     def initialize
       clear
     end
@@ -100,6 +101,7 @@ module Rabbit
       @height            = 540
       @source_code_uri   = nil
       @markup_language   = nil
+      @readme_markup_language = nil
     end
 
 
@@ -128,6 +130,7 @@ module Rabbit
       @height            = conf["height"]            || @height
       @source_code_uri   = conf["source_code_uri"]   || @source_code_uri
       @markup_language   = conf["markup_language"]   || @markup_language
+      @readme_markup_language = conf["readme_markup_language"] || @readme_markup_language
     end
 
     def to_hash
@@ -148,6 +151,7 @@ module Rabbit
         "height"            => @height,
         "source_code_uri"   => @source_code_uri,
         "markup_language"   => @markup_language,
+        "readme_markup_language" => @readme_markup_language,
       }
       config["author"] = @author.to_hash if @author
       config
@@ -180,6 +184,10 @@ module Rabbit
 
     def markup_language
       @markup_language || @author.markup_language
+    end
+
+    def pdf_base_path
+      "#{@id}-#{@base_name}.pdf" 
     end
 
     private
