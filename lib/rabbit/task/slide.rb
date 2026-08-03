@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2025  Sutou Kouhei <kou@cozmixng.org>
+# Copyright (C) 2012-2026  Sutou Kouhei <kou@cozmixng.org>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -145,7 +145,7 @@ module Rabbit
 
       def define_pdf_task
         file pdf_path => [options_path, *(spec.files - [pdf_path])] do
-          mkdir_p(@pdf_dir)
+          mkdir_p(File.dirname(pdf_path))
           rabbit("--print",
                  "--output-filename", pdf_path)
         end
