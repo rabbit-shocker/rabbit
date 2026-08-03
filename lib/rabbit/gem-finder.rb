@@ -21,37 +21,40 @@ module Rabbit
     include GetText
 
     def find(name, prefix)
+      candidates = [name]
+      candidates << "#{prefix}#{name}" unless name.start_with?(prefix)
       normalized_name = name.downcase
-      unless normalized_name.start_with?(prefix)
-        normalized_name = "#{prefix}#{normalized_name}"
+      if normalized_name != name
+        candidates << normalized_name
+        unless normalized_name.start_with?(prefix)
+          candidates << "#{prefix}#{normalized_name}"
+        end
       end
 
-      retried = false
-      spec = nil
-      begin
-        spec = Gem::Specification.find_by_name(name)
-      rescue Gem::LoadError
+      candidates.each do |candidate|
         begin
-          spec = Gem::Specification.find_by_name(normalized_name)
+          return Gem::Specification.find_by_name(candidate)
         rescue Gem::LoadError
-          unless retried
-            retried = true
-            require "rubygems/dependency_installer"
-            options = {}
-            if File.writable?(Gem.dir)
-              Rabbit.logger.info(_("Installing gem: %s") % normalized_name)
-            else
-              options[:user_install] = true
-              format = _("Installing gem in user install mode: %s")
-              Rabbit.logger.info(format % normalized_name)
-            end
-            installer = Gem::DependencyInstaller.new(options)
-            installer.install(normalized_name, Gem::Requirement.default)
-            retry
+          require "rubygems/dependency_installer"
+          options = {}
+          if File.writable?(Gem.dir)
+            Rabbit.logger.info(_("Installing gem: %s") % candidate)
+          else
+            options[:user_install] = true
+            format = _("Installing gem in user install mode: %s")
+            Rabbit.logger.info(format % candidate)
+          end
+          installer = Gem::DependencyInstaller.new(options)
+          begin
+            installer.install(candidate, Gem::Requirement.default)
+          rescue Gem::UnsatisfiableDependencyError
+          else
+            return Gem::Specification.find_by_name(candidate)
           end
         end
       end
-      spec
+
+      nil
     end
   end
 end
