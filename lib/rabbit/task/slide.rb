@@ -77,7 +77,7 @@ module Rabbit
           spec.files += Dir.glob("{COPYING,GPL,README*}")
           spec.files += Dir.glob("rabbit/**/*.*")
           spec.files += Dir.glob("**/*.{svg,png,jpg,jpeg,gif,eps,pdf}")
-          spec.files += Dir.glob("*.{rd,rab,hiki,md,pdf}")
+          spec.files += Dir.glob("#{@slide.base_name}.{rd,rab,hiki,md,pdf}")
           spec.files -= Dir.glob("{pkg,pdf}/**/*.*")
           spec.files += [pdf_path]
 
