@@ -32,7 +32,7 @@ module Rabbit
     end
 
     def push
-      credentials_path = File.expand_path("~/.gem/credentials")
+      credentials_path = Gem.configuration.credentials_path
       credentials_path_exist = File.exist?(credentials_path)
       if credentials_path_exist
         credentials = YAMLLoader.load(File.read(credentials_path))
