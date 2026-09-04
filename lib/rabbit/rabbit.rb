@@ -37,6 +37,13 @@ module Rabbit
                              [:non_unique, :handles_command_line])
     end
 
+    def destroy_application
+      return if @@application.nil?
+      @@application.windows.each(&:destroy)
+      @@application.unref
+      @@application = nil
+    end
+
     def logger
       @@logger ||= Logger.default
     end

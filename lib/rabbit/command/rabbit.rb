@@ -63,8 +63,7 @@ module Rabbit
           end
         end
         exit_code = application.run
-        application.windows.each(&:destroy)
-        application.unref
+        ::Rabbit.destroy_application
 
         exit_code.zero?
       end
