@@ -135,8 +135,12 @@ module Rabbit
     def size_value(value, filename, name)
       return nil if value.nil?
       begin
-        Integer(value, 10)
-      rescue ArgumentError
+        if value.is_a?(String)
+          Integer(value, 10)
+        else
+          Integer(value)
+        end
+      rescue ArgumentError, TypeError
         raise InvalidSizeError.new(filename, name, value)
       end
     end
