@@ -54,6 +54,10 @@ module Rabbit
         end
 
         def update_size(width, height)
+          # With GTK 3, Frame calls this on every configure-event, which is
+          # also emitted for moves and restacks. Reloading the theme
+          # re-applies it to all slides, so skip it for an unchanged size.
+          return if @real_width == width and @real_height == height
           super
           @mask = nil
           set_hole
