@@ -87,6 +87,7 @@ module Rabbit
       return unless showing?
       update_source
       update
+      update_menu
     end
 
     def index_mode_on
@@ -172,6 +173,7 @@ module Rabbit
       set_button_event(@window)
       set_scroll_event(@window)
       @window.add(@grid)
+      update_menu
     end
 
     def init_widgets
